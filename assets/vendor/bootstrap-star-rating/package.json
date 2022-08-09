@@ -1,0 +1,68 @@
+{
+  "_from": "bootstrap-star-rating@^4.0.9",
+  "_id": "bootstrap-star-rating@4.0.9",
+  "_inBundle": false,
+  "_integrity": "sha512-8J9KQdk3HkSl2nAhW0BDXnx5iosUqAdxFI8ijUvV2QhhJFLn9/pljnXZr2w1H8tKGPBMZUJT0W7OOh7pCPNIPA==",
+  "_location": "/bootstrap-star-rating",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "bootstrap-star-rating@^4.0.9",
+    "name": "bootstrap-star-rating",
+    "escapedName": "bootstrap-star-rating",
+    "rawSpec": "^4.0.9",
+    "saveSpec": null,
+    "fetchSpec": "^4.0.9"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/bootstrap-star-rating/-/bootstrap-star-rating-4.0.9.tgz",
+  "_shasum": "b0805872b37175b9919b5664115166606de4e1e0",
+  "_spec": "bootstrap-star-rating@^4.0.9",
+  "_where": "E:\\_OKLER\\Templates\\Porto\\HTML",
+  "author": {
+    "name": "Kartik Visweswaran",
+    "email": "kartikv2@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/kartik-v/bootstrap-star-rating/issues"
+  },
+  "bundleDependencies": false,
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/bootstrap-star-rating"
+  },
+  "dependencies": {
+    "opencollective-postinstall": "^2.0.2"
+  },
+  "deprecated": false,
+  "description": "A simple yet powerful JQuery star rating plugin for Bootstrap.",
+  "homepage": "https://github.com/kartik-v/bootstrap-star-rating",
+  "keywords": [
+    "bootstrap",
+    "star",
+    "rating",
+    "font",
+    "awesome",
+    "glyphicon",
+    "svg"
+  ],
+  "license": "BSD-3-Clause",
+  "main": "./js/star-rating.js",
+  "name": "bootstrap-star-rating",
+  "peerDependencies": {
+    "jquery": ">= 1.9.0",
+    "bootstrap": ">= 3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kartik-v/bootstrap-star-rating.git"
+  },
+  "scripts": {
+    "postinstall": "opencollective-postinstall || true"
+  },
+  "style": "./css/star-rating.css",
+  "version": "4.0.9"
+}

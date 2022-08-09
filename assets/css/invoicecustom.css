@@ -1,0 +1,153 @@
+@page {margin: 0px 0px 0px 0px ; padding: 0px 0px 0px 0px ;}
+
+input:focus {
+    border: 1px blue solid;
+}
+
+#company_input input.text {
+    font-size: 12px;
+}
+
+#content{
+    border : 1px solid gray;
+    border-radius: 20px;    
+}
+
+#upload{
+    border : 2px dashed gray;
+    border-radius:  50px;
+    padding: 30px;
+    margin : 20px;
+}
+
+#upload_client{
+    border : 2px dashed gray;
+    border-radius:  30px;
+    margin : 20px;
+}
+
+#upload_client:hover{
+    border : 2px solid black;
+    border-radius: 20px;
+}
+
+#upload:hover{
+    border : 3px dashed gray;
+    border-radius:  20px;
+    padding: 30px;
+    margin : 20px;
+}
+
+.upload_text{
+    margin: 30px;
+}
+
+.upload_previewtext{
+    margin-top: 30px;
+}
+
+#company_info{
+    text-align: right;
+    float: right
+}
+
+#company_input{
+    text-align: right;
+    float: right;
+}
+
+.mt-2{
+    margin-top: 2px;
+}
+
+.mt-20{
+    margin-top: 20px;
+}
+
+.w-50{
+    width: 50%;
+}
+
+.float_right{
+    float: right
+}
+
+.r-0{
+    right: 0px;
+}
+
+.no_broder{
+    border: 0px;
+}
+
+.text_right{
+    text-align: right;
+}
+
+.font_56{
+    font-size: 56px;
+}
+
+.font_24{
+    font-size: 24px;
+}
+
+#content_add_line{
+    padding: 10px;
+    margin-top: 20px;
+    border : 1px solid gray;
+    border-radius: 20px;
+}
+.m_auto{
+    margin: auto;
+}
+
+#btn_add_line{
+    border : 1px dashed gray ;
+    border-radius: 10px;
+    width: 100%;
+    padding: 10px;
+}
+
+#btn_add_line:hover{
+    border : 2px dashed gray ;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+}
+
+.w_75{
+    width: 75%;
+}
+
+.w_15{
+    width: 15%;
+}
+
+.d_inline{
+    display: inline;
+}
+
+p {
+    padding: 5px !important;
+    margin: 0px !important;
+}
+
+.invoicepreview th, td {
+    border: none !important;
+}
+.circle {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 50%;
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+  background: #b3b300;
+  border: 1px solid black;
+}
+.clienttag {
+    border: 1px solid black;
+    border-radius: 5px;
+}

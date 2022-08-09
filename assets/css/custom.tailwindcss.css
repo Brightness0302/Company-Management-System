@@ -1,0 +1,62 @@
+/* Overrides for Tailwind CSS */
+
+/* Form fields */
+.dataTables_wrapper select,
+.dataTables_wrapper .dataTables_filter input
+{
+    color: #4a5568;
+    margin: 0 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: .2rem;
+    padding-bottom: .2rem;
+    line-height: 1.25; 			/*leading-tight*/
+    border-width: 2px; 			/*border-2*/
+    border-radius: .25rem;
+    border-color: #edf2f7; 		/*border-gray-200*/
+    background-color: #edf2f7; 	/*bg-gray-200*/
+}
+
+/* Pagination Buttons*/
+.dataTables_wrapper .dataTables_paginate .paginate_button
+{
+    font-weight: 700;
+    border-radius: .25rem;
+    border: 1px solid transparent;
+    margin: 0 5px;
+}
+
+/* Pagination Buttons - Hover */
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover
+{
+    cursor: pointer;
+}
+
+/* Pagination Buttons - Current */
+.paginate_button.current
+{
+    color: #a0aec0 !important;
+    cursor: default !important;
+}
+
+/* Pagination Buttons - Disabled */
+.paginate_button.previous.disabled
+{
+    color: #a0aec0 !important;
+    cursor: default !important;
+}
+
+/* Pagination Buttons - Next */
+.paginate_button.next.disabled
+{
+    color: #a0aec0 !important;
+    cursor: default !important;
+}
+
+/* Add padding to bottom border */
+table.dataTable.no-footer
+{
+    border-bottom: 1px solid #e2e8f0;	/*border-b-1 border-gray-300*/
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
+}
