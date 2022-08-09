@@ -460,7 +460,7 @@ class Home extends CI_Controller
         }
 
         $id = $_GET['id'];
-        $result = $this->home->saveInvoice($id, $data['company']['id'], $type, $input_street, $input_city, $input_state, $input_zipcode, $input_nation, $input_taxname, $input_taxnumber, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_discount, $short_name, $client_name, $sub_total, $invoice_discount, $tax, $total, $lines);
+        $result = $this->home->saveInvoice($id, $data['company']['id'], $type, $input_street, $input_city, $input_state, $input_zipcode, $input_nation, $input_taxname, $input_taxnumber, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_discount, $short_name, $client_name, $sub_total, $tax, $total, $lines);
         echo $result;
     }
     //UploadImage post(fileinput) param(path)

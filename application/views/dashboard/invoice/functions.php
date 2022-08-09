@@ -266,11 +266,25 @@ function addInvoice() {
         method: "POST",
         data: form_data, 
         success: function(res) {
-            console.log(res);
-            if (res != "success") {
-                alert("error");
+            const id = res;
+            if (id != 1) {
+                swal("Edit " + invoice_id, "Failed", "error");
                 return;
             }
+            swal({
+                title: "Edit " + invoice_id,
+                text: "Invoice Success",
+                type: "success",
+                showCancelButton: false,
+                confirmButtonClass: "btn-success",
+                confirmButtonText: "Letz go",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: true,
+                closeOnCancel: true
+            },
+            function() {
+                window.location.href = "<?=base_url('home/invoicemanager')?>";
+            });
         }
     });
 }
@@ -284,11 +298,25 @@ function editInvoice(invoice_id) {
         method: "POST",
         data: form_data, 
         success: function(res) {
-            console.log(res);
-            if (res != "success") {
-                alert("error");
+            const id = res;
+            if (id != 1) {
+                swal("Edit " + invoice_id, "Failed", "error");
                 return;
             }
+            swal({
+                title: "Edit " + invoice_id,
+                text: "Invoice Success",
+                type: "success",
+                showCancelButton: false,
+                confirmButtonClass: "btn-success",
+                confirmButtonText: "Letz go",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: true,
+                closeOnCancel: true
+            },
+            function() {
+                window.location.href = "<?=base_url('home/invoicemanager')?>";
+            });
         }
     });
 }

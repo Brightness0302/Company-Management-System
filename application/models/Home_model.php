@@ -37,9 +37,9 @@ class Home_model extends CI_Model {
         return $data;
     }
 
-    public function databyname($name, $data) {
+    public function databyname($name, $table) {
         $query =    "SELECT *
-                    FROM `$data`
+                    FROM `$table`
                     WHERE `name`='$name'";
 
         $res = $this->db->query($query)->result_array();
@@ -242,12 +242,18 @@ class Home_model extends CI_Model {
     }
 
     public function saveInvoice($id, $companyid, $type, $input_street, $input_city, $input_state, $input_zipcode, $input_nation, $input_taxname, $input_taxnumber, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_discount, $short_name, $client_name, $sub_total, $tax, $total, $lines) {
-        $client_id = $this->clientbyname($client_name);
-        if ($client_id['status'] == "failed")
+        $client_name = str_replace(" ", "", $client_name);
+        $client_name = str_replace("\n","", $client_name);
+        $client = $this->databyname($client_name, 'client');
+        if ($client['status'] == "failed")
             return -1;
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
         $data = array(
+            'lines'=>$lines,
+            'sub_total'=>$sub_total, 
+            'tax'=>$tax, 
+            'total'=>$total, 
             'input_street'=>$input_street, 
             'input_city'=>$input_city, 
             'input_state'=>$input_state, 
@@ -260,11 +266,7 @@ class Home_model extends CI_Model {
             'input_invoicenumber'=>$input_invoicenumber, 
             'input_inputreference'=>$input_inputreference, 
             'invoice_discount'=>$invoice_discount, 
-            'client_id'=>$client_id["data"]["id"], 
-            'sub_total'=>$sub_total, 
-            'tax'=>$tax, 
-            'total'=>$total, 
-            'lines'=>$lines
+            'client_id'=>$client["data"]["id"]
         );
 
         $this->db->where('id', $id);
@@ -273,8 +275,10 @@ class Home_model extends CI_Model {
     }
 
     public function createInvoice($companyid, $type, $input_street, $input_city, $input_state, $input_zipcode, $input_nation, $input_taxname, $input_taxnumber, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_discount, $short_name, $client_name, $sub_total, $tax, $total, $lines) {
-        $client_id = $this->clientbyname($client_name);
-        if ($client_id['status'] == "failed")
+        $client_name = str_replace(" ","",$client_name);
+        $client_name = str_replace("\n","", $client_name);
+        $client = $this->databyname($client_name, 'client');
+        if ($client['status'] == "failed")
             return -1;
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
@@ -291,11 +295,11 @@ class Home_model extends CI_Model {
             'input_invoicenumber'=>$input_invoicenumber, 
             'input_inputreference'=>$input_inputreference, 
             'invoice_discount'=>$invoice_discount, 
-            'client_id'=>$client_id["data"]["id"], 
+            'client_id'=>$client["data"]["id"], 
             'sub_total'=>$sub_total, 
             'tax'=>$tax, 
             'total'=>$total, 
-            'lines'=>$lines
+            'lines'=>(string)$lines
         );
 
         $this->db->insert('invoice',$data);

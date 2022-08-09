@@ -34,7 +34,7 @@
                     <div class="icon-box w-full">
                         <div class="icon min-w-full" style="display: flex;justify-content: center;align-items: center;">
                             <img class="ri-stack-line"
-                                src="<?=base_url('assets/company/image/'.$company['id']).'.png'?>" width="64"
+                                src="<?=base_url('assets/company/image/'.$company['id']).'.jpg'?>" width="64"
                                 height="64" />
                         </div>
                         <?php if($user['rank'] == 1):?>
