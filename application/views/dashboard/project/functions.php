@@ -267,7 +267,7 @@ function addInvoice() {
         data: form_data, 
         success: function(res) {
             const id = res;
-            if (id >0) {
+            if (id != 1) {
                 swal("Edit Invoice", "Failed", "error");
                 return;
             }
