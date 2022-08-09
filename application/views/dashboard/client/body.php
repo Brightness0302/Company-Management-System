@@ -17,7 +17,7 @@
         <?php foreach ($clients as $index => $client):?>
         <tr>
             <td><?=($index+1)?></td>
-            <td><?=$client['name']?></td>
+            <td><?=str_replace("_"," ",$client['name']);?></td>
             <td><?=$client['number']?></td>
             <td><?=$client['address']?></td>
             <td><?=$client['VAT']?></td>

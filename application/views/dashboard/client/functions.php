@@ -8,11 +8,6 @@ function AddClient() {
     const bankaccount = $("#Clientbankaccount").val();
     const EORI = $("#Clienteori").val();
 
-    if (!name || !number || !address || !VAT || !bankname || !bankaccount || !EORI) {
-        swal("Add Client", "You must fill the input.", "warning");
-        return;
-    }
-
     const form_data = {
         name: name,
         number: number,
@@ -73,11 +68,6 @@ function EditClient(clientid) {
     const bankname = $("#Clientbankname").val();
     const bankaccount = $("#Clientbankaccount").val();
     const EORI = $("#Clienteori").val();
-
-    if (!name || !number || !address || !VAT || !bankname || !bankaccount || !EORI) {
-        swal("Add Client", "You must fill the input.", "warning");
-        return;
-    }
 
     const form_data = {
         name: name,

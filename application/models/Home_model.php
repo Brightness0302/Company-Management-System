@@ -20,13 +20,13 @@ class Home_model extends CI_Model {
         return $this->db->query($query)->result_array();
     }
 
-    public function invoicefromsetting($companyid, $data) {
+    public function invoicefromsetting($companyid, $table) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
         $query = "SELECT `AUTO_INCREMENT`
             FROM information_schema.TABLES 
-            WHERE TABLE_SCHEMA = '" . $companyid . "' AND TABLE_NAME = '$data'";
+            WHERE TABLE_SCHEMA = '" . $companyid . "' AND TABLE_NAME = '$table'";
 
         $queryvalue = $this->db->query($query)->result_array();
 

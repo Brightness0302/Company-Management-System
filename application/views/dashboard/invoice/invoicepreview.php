@@ -53,12 +53,20 @@
             <div class="row" style="position: relative; top: 200px; border-top: 1px black solid;">
                 <div class="text-center" style="width: 300px; position: absolute;">
                     <strong>Billed to : </strong>
-                    <div class="text-center" id="upload_client">
+                    <?php if($invoice['client_name'] != "Add a Client"):?>
+                    <div class="text-center">
                         <h5 class='upload_text p-2'>
                             <div class='circle' style='display: inline-block;'><?=$invoice['short_name']?></div>
-                            <div style='display: inline-block; font-size: 16px;' id='client_name'><?=$invoice['client_name']?></div>
+                            <div style='display: inline-block; font-size: 20px;' id='client_name'><?=$invoice['client_name']?></div>
                         </h5>
                     </div>
+                    <?php else:?>
+                    <div class="text-center">
+                        <h5 class='upload_text p-2'>
+                            <div style='display: inline-block; font-size: 20px;' id='client_name'>None Client</div>
+                        </h5>
+                    </div>
+                    <?php endif;?>
                 </div>
 
                 <div style="width: 120px; position: absolute; left: 300px;">
@@ -112,7 +120,7 @@
                         <th class="text-center">Qty</th>
                         <th class="text-center">Line Total</th>
                     </thead>
-                    <tbody id="table_body">
+                    <tbody id="preview_table_body">
                     <?php foreach ($lines as $index => $line):?>
                         <tr>
                             <td style="text-align: center;"><?=$line['description']?></td>

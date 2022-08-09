@@ -496,7 +496,7 @@ class Home extends CI_Controller
             $config['upload_path'] = $path;
             $config['allowed_types'] = 'jpg|jpeg|png|gif|webp';
             $config['max_size'] = "2048000"; // Can be set to particular file size , here it is 2 MB(2048 Kb)
-            $new_name = $id.".png";
+            $new_name = $id.".jpg";
             $config['file_name'] = $new_name;
 
             $this->load->library('upload',$config);
