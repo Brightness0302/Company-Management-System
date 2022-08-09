@@ -268,11 +268,11 @@ function addInvoice() {
         success: function(res) {
             const id = res;
             if (id != 1) {
-                swal("Edit " + invoice_id, "Failed", "error");
+                swal("Edit Invoice", "Failed", "error");
                 return;
             }
             swal({
-                title: "Edit " + invoice_id,
+                title: "Edit Invoice",
                 text: "Invoice Success",
                 type: "success",
                 showCancelButton: false,
@@ -300,11 +300,11 @@ function editInvoice(invoice_id) {
         success: function(res) {
             const id = res;
             if (id != 1) {
-                swal("Edit " + invoice_id, "Failed", "error");
+                swal("Edit Invoice", "Failed", "error");
                 return;
             }
             swal({
-                title: "Edit " + invoice_id,
+                title: "Edit Invoice",
                 text: "Invoice Success",
                 type: "success",
                 showCancelButton: false,
