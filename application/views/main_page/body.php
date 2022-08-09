@@ -18,7 +18,7 @@
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-9 text-center">
                     <h1>Company MarketCap Management</h1>
-                    <div class="b animate-bounce mx-auto h-16 w-128 flex justify-center items-center mt-3">
+                    <div class="b mx-auto h-16 w-128 flex justify-center items-center mt-3">
                         <div
                             class="bg-gradient-to-br from-blue-400 to-blue-600 items-center rounded-xl shadow-2xl  cursor-pointer absolute overflow-hidden transform hover:scale-x-110 hover:scale-y-105 transition duration-300 ease-out">
                         </div>
