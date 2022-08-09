@@ -413,7 +413,7 @@ class Home_model extends CI_Model {
           ),
           'lines' => array(
             'type' => 'VARCHAR',
-            'constraint' => 100
+            'constraint' => 1000
           ),
           'sub_total' => array(
             'type' => 'VARCHAR',
