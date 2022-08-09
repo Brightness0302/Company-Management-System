@@ -24,7 +24,6 @@ $(document).ready(function() {
             "</tr>"
         );
         $("input").keyup(function() {
-            alert(1);
             const eid = $(this).attr('id');
             if (eid == "line_rate" || eid == "line_qty") {
                 //Update Line_total value;
@@ -39,7 +38,6 @@ $(document).ready(function() {
         });
     });
     $("input").keyup(function() {
-        alert(1);
         const eid = $(this).attr('id');
         if (eid == "line_rate" || eid == "line_qty") {
             //Update Line_total value;
@@ -117,7 +115,7 @@ function add_discount(el) {
         return;
     }
     swal({
-        title: "Add Tax",
+        title: "Add Discount",
         showCancelButton: true,
         html: true,
         text: '<div class="row"><div class="col-sm-6"><p>Rate:</p></div><div class="col-sm-6"><input type="number" id="input1" onchange="if(this.value>99){this.value=99;}else if(this.value<0){this.value=0;}" placeholder="0%" style="border: 1px solid black;" class="w-full m-1" /></div></div>',
