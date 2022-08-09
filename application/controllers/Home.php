@@ -538,7 +538,7 @@ class Home extends CI_Controller
     }
     //convert html to pdf
     public function htmltopdf() {
-        $this->load->library('Pdf');
+        $this->load->library('pdf');
 
         $company_name = $this->session->userdata('company');
         $data['user'] = $this->session->userdata('user');
