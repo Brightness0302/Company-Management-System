@@ -151,6 +151,27 @@ class Home extends CI_Controller
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
+    //View project page of every human's projects and invoices of every project.
+    public function projectmanager() {
+        $company_name = $this->session->userdata('company');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['clients'] = $this->home->alldata('client');
+        $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/project/head');
+        $this->load->view('dashboard/project/body');
+        $this->load->view('dashboard/project/foot');
+        $this->load->view('dashboard/project/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
     //Toggle payment of invoice function
     public function toggleinvoicepayment($invoice_id) {
         $company_name = $this->session->userdata('company');
@@ -481,8 +502,8 @@ class Home extends CI_Controller
             $path="assets/employee/";
         if ($path=="background")
             $path="assets/background/";
-        if(file_exists($path.$id.".png")) {
-            unlink($path.$id.".png");
+        if(file_exists($path.$id.".jpg")) {
+            unlink($path.$id.".jpg");
         }
         if(!empty($_FILES['files']['name'][0])) {
 
@@ -517,7 +538,7 @@ class Home extends CI_Controller
     }
     //convert html to pdf
     public function htmltopdf() {
-        $this->load->library('pdf');
+        $this->load->library('Pdf');
 
         $company_name = $this->session->userdata('company');
         $data['user'] = $this->session->userdata('user');
