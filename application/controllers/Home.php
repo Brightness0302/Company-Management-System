@@ -180,6 +180,7 @@ class Home extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['clients'] = $this->home->alldata('client');
+        $data['projects'] = $this->home->alldata('project');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
 
         $session['menu']="Clients";
@@ -312,6 +313,52 @@ class Home extends CI_Controller
         $this->load->view('dashboard/invoice/addinvoice');
         $this->load->view('dashboard/invoice/foot');
         $this->load->view('dashboard/invoice/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
+    //View projectpage of creating
+    public function addprojectbyinvoices() {
+        $company_name = $this->session->userdata('company');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['clients'] = $this->home->alldata('client');
+        $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/project/head');
+        $this->load->view('dashboard/project/shead');
+        $this->load->view('dashboard/project/addproject', $data);
+        $this->load->view('dashboard/project/foot');
+        $this->load->view('dashboard/project/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
+    //View projectpage of creating
+    public function editprojectbyinvoices($project_name) {
+        $company_name = $this->session->userdata('company');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $project = $this->home->databyname($project_name, 'project');
+        if ($project['status']=='failed')
+            return;
+        $data['project'] = $project['data'];
+        $data['company'] = $company['data'];
+        $data['clients'] = $this->home->alldata('client');
+        $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/project/head');
+        $this->load->view('dashboard/project/shead');
+        $this->load->view('dashboard/project/editproject', $data);
+        $this->load->view('dashboard/project/foot');
+        $this->load->view('dashboard/project/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -506,6 +553,35 @@ class Home extends CI_Controller
 
         $id = $_GET['id'];
         $result = $this->home->saveInvoice($id, $data['company']['id'], $type, $input_street, $input_city, $input_state, $input_zipcode, $input_nation, $input_taxname, $input_taxnumber, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_discount, $short_name, $client_name, $sub_total, $tax, $total, $lines);
+        echo $result;
+    }
+    //Save(Add/Edit) User post(object(name, number, ...)) get(id)
+    public function saveproject() {
+        $name=$this->input->post('name');
+        $invoices=$this->input->post('invoices');
+
+        if (empty($name)) {
+            echo "Input Name";
+            return;
+        }
+
+        $company_name = $this->session->userdata('company');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+
+        if (!isset($_GET['id'])) {
+            $projects_id = $this->home->createProject($name);
+            if ($projects_id != -1)
+                $this->home->updateInvoices($data['company']['id'], $projects_id, $invoices);
+            echo $projects_id;
+            return;
+        }
+
+        $id = $_GET['id'];
+        $result = $this->home->saveProject($id, $name);
+        $this->home->updateInvoices($data['company']['id'], $id, $invoices);
         echo $result;
     }
     //UploadImage post(fileinput) param(path)

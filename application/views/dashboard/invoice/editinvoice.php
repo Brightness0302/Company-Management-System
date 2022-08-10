@@ -6,7 +6,7 @@
         <div class="p-5 mt-10 d-flex flex-row justify-content-between">
             <h1 class="float-left">Edit Invoice</h1>
             <div class="">
-                <button class="btn btn-outline-secondary btn-lg ">Cancel</button>
+                <button class="btn btn-outline-secondary btn-lg" onclick="cancelInvoice()">Cancel</button>
                 <button class="btn btn-success btn-lg" onclick="editInvoice('<?=$invoice['id']?>')">Save</button>
                 <button class="btn btn-success btn-lg" onclick="sendtoClient()">PDF</button>
                 <a id="htmltopdf" href="<?=base_url('home/htmltopdf')?>" target="_blank" hidden>Download PDF</a>

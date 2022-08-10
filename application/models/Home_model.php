@@ -55,6 +55,24 @@ class Home_model extends CI_Model {
         return $data;
     }
 
+    public function databyid($id, $table) {
+        $query =    "SELECT *
+                    FROM `$table`
+                    WHERE `id`='$id'";
+
+        $res = $this->db->query($query)->result_array();
+        $data = [];
+
+        if (count($res)==0) {
+            $data['status']="failed";
+        }
+        else {
+            $data['data']=$res[0];
+            $data['status']="success";
+        }
+        return $data;
+    }
+
     public function databyidfromdatabase($companyid, $data, $id) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
@@ -510,5 +528,73 @@ class Home_model extends CI_Model {
         $this->db->where('username', $username);
         $res=$this->db->update('user', $data);
         return $res;
+    }
+
+    public function createProject($name) {
+        $name = str_replace(" ","_",$name);
+        $data = array(
+            'name'=>$name
+        );
+
+        $query = "SELECT *
+                FROM `project`
+                WHERE `name`='$name'";
+
+        $res = $this->db->query($query)->result_array();
+        $projects_id = -1;
+
+        if (count($res)!=0) {
+            return $projects_id;
+        }
+
+        $this->db->insert('project',$data);
+        $projects_id = $this->db->insert_id();
+        return $projects_id;
+    }
+
+    public function saveProject($id, $name) {
+        $data = array(
+            'name'=>$name,
+        );
+
+        $this->db->where('id', $id);
+        $res=$this->db->update('project', $data);
+        return $res;
+    }
+    //update projectid of invoice from invoices array
+    public function updateInvoices($companyid, $projectid, $invoices) {
+        $this->db->query('use '."database".$companyid);
+        $allinvoices = $this->alldatafromdatabase($companyid, "invoice");
+
+        foreach ($allinvoices as $key => $invoice) {
+            if ($invoice['projectid'] == $projectid) {
+                $data = array(
+                    'projectid'=>0
+                );
+
+                $this->db->where('id', $invoice['id']);
+                $res=$this->db->update('invoice', $data);
+            }
+        }
+
+        if ($invoices=="")
+            return;
+
+        if (count($invoices)==0)
+            return;
+
+        foreach ($invoices as $index => $invoice) {
+            $res = $this->databyidfromdatabase($companyid, "invoice", $invoice);
+            if ($res['status'] != "failed") {
+                if ($res['data']['projectid'] == 0) {
+                    $data = array(
+                        'projectid'=>$projectid
+                    );
+
+                    $this->db->where('id', $res['data']['id']);
+                    $res=$this->db->update('invoice', $data);
+                }
+            }
+        }
     }
 }

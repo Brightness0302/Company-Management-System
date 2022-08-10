@@ -38,8 +38,12 @@ $(function() {
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
-        "column-visibility": false,
         "buttons": ["copy", "csv", "excel", "pdf", "print"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $("#projecttable").DataTable({
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 });
 </script>

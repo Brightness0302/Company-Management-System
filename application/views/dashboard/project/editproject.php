@@ -9,7 +9,7 @@
         <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-9 text-center">
-                    <h1>Add Project</h1>
+                    <h1>Edit Project</h1>
                 </div>
             </div>
 
@@ -19,7 +19,7 @@
                     <div class="row g-3">
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="projectname" placeholder="ProjectName">
+                                <input type="text" class="form-control" id="projectname" placeholder="ProjectName" value="<?=$project['name']?>">
                                 <label for="floatingEmail">Project Name</label>
                             </div>
                         </div>
@@ -58,10 +58,12 @@
                                         <td><?=$invoice['date_of_issue']?></td>
                                         <td><?=$invoice['total']?>/<?=$invoice['ispaid']?"Paid":"Unpaid"?></td>
                                         <td class="form-inline flex justify-around">
-                                            <?php if ($invoice['projectid']):?>
-                                            <button class="btn btn-success" disabled><i class="bi bi-cart-x-fill"></i></button><p id="Assign" hidden>-1</p>
-                                            <?php else:?>
+                                            <?php if ($invoice['projectid']==$project['id']):?>
+                                            <button class='btn btn-danger' onclick='delAssign(this)'><i class='bi bi-cart-dash-fill'></i></button><p id='Assign' hidden>1</p>
+                                            <?php elseif ($invoice['projectid']==0):?>
                                             <button class="btn btn-primary" onclick="addAssign(this)"><i class="bi bi-cart-plus"></i></button><p id="Assign" hidden>0</p>
+                                            <?php else:?>
+                                            <button class="btn btn-success" disabled><i class="bi bi-cart-x-fill"></i></button><p id="Assign" hidden>-1</p>
                                             <?php endif;?>
                                         </td>
                                     </tr>
@@ -71,7 +73,7 @@
                         </div>
 
                         <div class="text-center">
-                            <button type="button" class="btn btn-primary w-24" id="_adduser">Save</button>
+                            <button type="button" class="btn btn-primary w-24" onclick="saveProject('<?=$project['id']?>')">Save</button>
                             <a type="reset" class="btn btn-secondary w-24" href="<?=base_url('home/projectmanager')?>">Cancel</a>
                         </div>
                     </div><!-- End floating Labels Form -->
