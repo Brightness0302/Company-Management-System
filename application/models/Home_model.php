@@ -383,6 +383,10 @@ class Home_model extends CI_Model {
             'unsigned' => TRUE,
             'auto_increment' => TRUE
           ),
+          'projectid' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+          ),
           'input_street' => array(
             'type' => 'VARCHAR',
             'constraint' => 30
