@@ -280,14 +280,13 @@ function addInvoice() {
         method: "POST",
         data: form_data, 
         success: function(res) {
-            console.log(id);
             const id = res;
-            if (id > 0) {
-                swal("Edit Invoice", "Failed", "error");
+            if (id <= 0) {
+                swal("Add Invoice", "Failed", "error");
                 return;
             }
             swal({
-                title: "Edit Invoice",
+                title: "Add Invoice",
                 text: "Invoice Success",
                 type: "success",
                 showCancelButton: false,
