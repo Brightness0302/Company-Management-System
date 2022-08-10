@@ -72,7 +72,6 @@ function refresh() {
         let vtax = 0.0;
         if (etax[0].text != "") {
             vtax = ((etax[0].text.substring(5)).split("%,"))[0];
-            alert(vtax);
             vtax = parseFloat(vtax) / 100.0;
         }
         total += parseFloat(sub_total) + parseFloat(sub_total * vtax);
