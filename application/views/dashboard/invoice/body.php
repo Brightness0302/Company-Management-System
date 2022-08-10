@@ -22,9 +22,9 @@
                             $result = $client;
                         }
                     }
-                    echo $result['name'];
+                    echo str_replace("_"," ", $result['name']);
                 ?></div></td>
-            <td>asdfasdf</td>
+            <td><?=$invoice['input_inputreference']?></td>
             <td><?=$invoice['date_of_issue']?></td>
             <td><?=$invoice['total']?>/<?=$invoice['ispaid']?"Paid":"Unpaid"?></td>
             <td class="form-inline flex justify-around">
