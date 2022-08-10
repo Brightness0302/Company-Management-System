@@ -56,7 +56,17 @@
                     <?php if($invoice['client_name'] != "Add a Client"):?>
                     <div class="text-center">
                         <h5 class='upload_text p-2'>
-                            <div class='circle' style='display: inline-block;'><?=$invoice['short_name']?></div>
+                            <div class='circle' style='display: inline-block;'>
+                                <?php 
+                                $words = preg_split("/[\s,_-]+/", $invoice['client_name']);
+                                $acronym = "";
+
+                                foreach ($words as $w) {
+                                  $acronym .= mb_substr($w, 0, 1);
+                                }
+
+                                echo $acronym;
+                            ?></div>
                             <div style='display: inline-block; font-size: 20px;' id='client_name'><?=$invoice['client_name']?></div>
                         </h5>
                     </div>
