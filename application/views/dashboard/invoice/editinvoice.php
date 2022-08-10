@@ -135,11 +135,11 @@
                     <div class="col">
                         <div class="row-sm-6 px-0 py-4">
                             <strong>Date of Issue</strong>
-                            <input class="form form-control" type="date" value="<?=$invoice['date_of_issue']?>" id="date_of_issue">
+                            <input class="form form-control bg-transparent no_broder" type="date" value="<?=$invoice['date_of_issue']?>" id="date_of_issue">
                         </div>
                         <div class="row-sm-6 px-0 py-4">
                             <strong>Due Date</strong>
-                            <input class="form form-control" type="date" value="<?=$invoice['due_date']?>" id="due_date">
+                            <input class="form form-control bg-transparent no_broder" type="date" value="<?=$invoice['due_date']?>" id="due_date">
                         </div>
                     </div>
                 </div>
@@ -147,11 +147,11 @@
                     <div class="col">
                         <div class="row-sm-6 px-0 py-4">
                             <strong>Invoice Number</strong>
-                            <input class="form form-control" type="text" value="<?=$invoice['input_invoicenumber']?>" id="input_invoicenumber">
+                            <input class="form form-control bg-transparent no_broder" type="text" value="<?=$invoice['input_invoicenumber']?>" id="input_invoicenumber">
                         </div>
                         <div class="row-sm-6 px-0 py-4">
                             <strong>Reference</strong>
-                            <input value="<?=$invoice['input_inputreference']?>" class="form form-control" type="text" id="input_inputreference">
+                            <input value="<?=$invoice['input_inputreference']?>" class="form form-control bg-transparent no_broder" type="text" id="input_inputreference">
                         </div>
                     </div>
                 </div>
@@ -189,10 +189,10 @@
                         <?php foreach ($lines as $index => $line):?>
                         <tr>
                             <td>
-                                <input type='text' value="<?=$line['description']?>" class='form form-control w-full p-2 mt-2 text_right' name='description1' placeholder='Description1' id='line_description'>
+                                <input type='text' value="<?=$line['description']?>" class='form form-control w-full p-2 mt-2 text_right bg-transparent no_broder' name='description1' placeholder='Description1' id='line_description'>
                             </td>
                             <td class='text-center'>
-                                <input type='text' value="<?=$line['rate']?>" class='form form-control m_auto w-full p-2 mt-2 text_right' name='rate' placeholder='Rate' id='line_rate'>
+                                <input type='text' value="<?=$line['rate']?>" class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>
                                 <a class='text-center p-2 mt-2' id='btn_add_tax' onclick='add_tax(this)'>
                                     <?php
                                         $words = preg_split("/[\s,_-]+/", $line['tax']);
@@ -201,10 +201,10 @@
                                     </a><a id='btnaddtax' hidden><?=$line['tax']?></a>
                             </td>
                             <td>
-                                <input type='number' min='1' class='form form-control m_auto w-full p-2 mt-2 text_right' name='qty' placeholder='Quantity' id='line_qty' value="<?=$line['qty']?>">
+                                <input type='number' min='1' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='qty' placeholder='Quantity' id='line_qty' value="<?=$line['qty']?>">
                             </td>
                             <td>
-                                <input type='text' value="<?=$line['total']?>" class='form form-control m_auto w-full p-2 mt-2 text_right' name='total' placeholder='€0.00' id='line_total' readOnly>
+                                <input type='text' value="<?=$line['total']?>" class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>
                             </td>
                             <td class=''>
                                 <div id='btn_remove_row' onclick='remove_tr(this)'>
