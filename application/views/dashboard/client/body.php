@@ -24,10 +24,9 @@
             <td><?=$client['bankname']?></td>
             <td><?=$client['bankaccount']?></td>
             <td><?=$client['EORI']?></td>
-            <td class="form-inline">
-                <a class="btn btn-primary " href="<?=base_url('home/editclient/'.$client['name'])?>">Edit</a>
-                /
-                <button class="btn btn-danger " onclick="delClient('<?=$client['name']?>')">Delete</button>
+            <td class="form-inline flex justify-evenly">
+                <a class="btn btn-primary text-sm" href="<?=base_url('home/editclient/'.$client['name'])?>" title="Edit"><i class="bi bi-terminal-dash"></i></a>
+                <button class="btn btn-danger text-sm" onclick="delClient('<?=$client['name']?>')" title="Delete"><i class="bi bi-trash3-fill"></i></button>
             </td>
         </tr>
         <?php endforeach;?>

@@ -16,9 +16,8 @@
             <td>asdfasdf</td>
             <td><?=$invoice['date_of_issue']?></td>
             <td><?=$invoice['total']?>/<?=$invoice['ispaid']?"Paid":"Unpaid"?></td>
-            <td class="form-inline">
+            <td class="form-inline flex justify-around">
                 <a class="btn btn-primary " href="<?=base_url('home/editinvoice/'.$invoice['id'])?>">Edit</a>
-                /
                 <button class="btn btn-danger " onclick="delInvoice('<?=$invoice['id']?>')">Delete</button>
             </td>
         </tr>

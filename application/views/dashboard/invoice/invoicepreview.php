@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <!-- Company Avatar start-->
-                    <img class="m-10" style="position: absolute;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>">
+                    <img class="m-10" style="position: absolute;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="100">
                     <!-- Company Avatar end-->
                 </div>
                 <div style="position: absolute; left: 400px;">
