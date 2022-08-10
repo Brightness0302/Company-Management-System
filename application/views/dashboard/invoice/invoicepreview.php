@@ -16,13 +16,13 @@
                     <img class="m-10" style="position: absolute;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="100">
                     <!-- Company Avatar end-->
                 </div>
-                <div style="position: absolute; left: 400px;">
+                <div style="position: absolute; left: 300px;">
                         <div id="company_info">
                             <h6><?=str_replace("_"," ", $company['name'])?></h6>
                             <h6><?=$company['number']?></h6>
                         </div>
 
-                        <div style="position: absolute; left: 100px; width: 250px">
+                        <div style="position: absolute; left: 150px; width: 300px">
                             <div>
                                 <p class="text_right"><?=$invoice['input_street']?></p>
                             </div>
