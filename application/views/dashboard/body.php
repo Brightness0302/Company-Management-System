@@ -501,8 +501,18 @@
             <h1>Dashboard</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item"><a href="index.html"><?=$menu['menu']?></a></li>
+                    <li class="breadcrumb-item active">
+                    <?php
+                    if($menu['submenu']=="cm")
+                        echo "Client Management";
+                    else if($menu['submenu']=="im")
+                        echo "Invoice Management";
+                    else if($menu['submenu']=="pm")
+                        echo "Payment Management";
+                    else if($menu['submenu']=="pjm")
+                        echo "Project Management";
+                    ?></li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
