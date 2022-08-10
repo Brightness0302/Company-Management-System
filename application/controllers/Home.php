@@ -62,6 +62,10 @@ class Home extends CI_Controller
         $data['company'] = $company['data'];
         $data['user'] = $this->session->userdata('user');
 
+        $session['menu']="";
+        $session['submenu']="";
+        $this->session->set_flashdata('menu', $session);
+
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
@@ -77,6 +81,10 @@ class Home extends CI_Controller
         $data['company'] = $company['data'];
         $data['user'] = $this->session->userdata('user');
         $data['clients'] = $this->home->alldata('client');
+
+        $session['menu']="Clients";
+        $session['submenu']="cm";
+        $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
         $this->load->view('dashboard/head');
@@ -99,6 +107,10 @@ class Home extends CI_Controller
         $data['clients'] = $this->home->alldata('client');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
 
+        $session['menu']="Clients";
+        $session['submenu']="im";
+        $this->session->set_flashdata('menu', $session);
+
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
@@ -119,6 +131,10 @@ class Home extends CI_Controller
         $data['company'] = $company['data'];
         $data['clients'] = $this->home->alldata('client');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "proformainvoice");
+
+        $session['menu']="Clients";
+        $session['submenu']="pim";
+        $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
         $this->load->view('dashboard/head');
@@ -141,6 +157,10 @@ class Home extends CI_Controller
         $data['clients'] = $this->home->alldata('client');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
 
+        $session['menu']="Clients";
+        $session['submenu']="pm";
+        $this->session->set_flashdata('menu', $session);
+
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
@@ -161,6 +181,10 @@ class Home extends CI_Controller
         $data['company'] = $company['data'];
         $data['clients'] = $this->home->alldata('client');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
+
+        $session['menu']="Clients";
+        $session['submenu']="pjm";
+        $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
         $this->load->view('dashboard/head');

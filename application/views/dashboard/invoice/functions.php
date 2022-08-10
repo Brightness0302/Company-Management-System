@@ -4,17 +4,17 @@ $(document).ready(function() {
         $("#table_body").append(
             "<tr>" +
             "<td>" +
-            "<input type='text' class='form form-control w-full p-2 mt-2 text_right' name='description1' placeholder='Description1' id='line_description'>" +
+            "<input type='text' class='form form-control w-full p-2 mt-2 text_right bg-transparent no_broder' name='description1' placeholder='Description1' id='line_description'>" +
             "</td>" +
             "<td class='text-center'>" +
-            "<input type='text' class='form form-control m_auto w-full p-2 mt-2 text_right' name='rate' placeholder='Rate' id='line_rate'>" +
-            "<a class='text-center p-2 mt-2' id='btn_add_tax' onclick='add_tax(this)'>Add a tax</a>" +
+            "<input type='text' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>" +
+            "<a class='text-center p-2 mt-2' id='btn_add_tax' onclick='add_tax(this)'>Add a tax</a><a id='btnaddtax' hidden></a>" +
             "</td>" +
             "<td>" +
-            "<input type='number' min='1' class='form form-control m_auto w-full p-2 mt-2 text_right' name='qty' placeholder='Quantity' id='line_qty' value='1'>" +
+            "<input type='number' min='1' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='qty' placeholder='Quantity' id='line_qty' value='1'>" +
             "</td>" +
             "<td>" +
-            "<input type='text' class='form form-control m_auto w-full p-2 mt-2 text_right' name='total' placeholder='€0.00' id='line_total' readOnly>" +
+            "<input type='text' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>" +
             "</td>" +
             "<td class=''>" +
             "<div id='btn_remove_row' onclick='remove_tr(this)'>" +
@@ -61,7 +61,7 @@ function refresh() {
         const erate = $(element).find("input[id*='line_rate']");
         const eqty = $(element).find("input[id*='line_qty']");
         const etotal = $(element).find("input[id*='line_total']");
-        const etax = $(element).find("a[id*='btn_add_tax']");
+        const etax = $(element).find("a[id*='btnaddtax']");
         let vqty = eqty[0].value;
         if (vqty<=0) {
             eqty[0].value = 1;
@@ -177,7 +177,8 @@ function add_tax(el) {
             alert("Error Input");
             return;
         }
-        $(el).html("Tax: "+ln1+"%,"+ln2+","+ln3);
+        $(el).html("Tax: "+ln2);
+        $("#btnaddtax").html("Tax: "+ln1+"%,"+ln2+","+ln3);
         refresh();
     });
 }
@@ -207,7 +208,7 @@ function get_formdata() {
         const erate = $(element).find("input[id*='line_rate']");
         const eqty = $(element).find("input[id*='line_qty']");
         const edescription = $(element).find("input[id*='line_description']");
-        const etax = $(element).find("a[id*='btn_add_tax']");
+        const etax = $(element).find("a[id*='btnaddtax']");
         const etotal = $(element).find("input[id*='line_total']");
 
         lines.push({rate: erate[0].value, qty: eqty[0].value, description: edescription[0].value, tax: etax[0].text, total: etotal[0].value});
@@ -337,54 +338,79 @@ function editInvoice(invoice_id) {
 
 function delInvoice(invoice_id) {
     swal({
-            title: "Are you sure?",
-            text: "Delete " + invoice_id + ".",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-warning",
-            cancelButtonText: "No, cancel plx!",
-            confirmButtonText: "Yes, I do",
-            closeOnConfirm: true,
-            closeOnCancel: true
-        },
-        function(isconfirm) {
-            if (!isconfirm) {
-                alert(false);
-                return;
-            }
-            try {
-                $.ajax({
-                    url: "<?=base_url('home/delinvoice/')?>" + invoice_id,
-                    method: "POST",
-                    dataType: 'text',
-                    async: true,
-                    success: function(res) {
-                        if (res != 1) {
-                            swal("Delete " + invoice_id, "Failed", "error");
-                            return;
-                        }
-                        swal({
-                                title: "Delete " + invoice_id,
-                                text: "Client Success",
-                                type: "success",
-                                showCancelButton: false,
-                                confirmButtonClass: "btn-success",
-                                confirmButtonText: "Letz go",
-                                cancelButtonText: "No, cancel plx!",
-                                closeOnConfirm: true,
-                                closeOnCancel: true
-                            },
-                            function() {
-                                window.location.href = "<?=base_url('home/invoicemanager')?>";
-                            });
-                    },
-                    error: function(jqXHR, exception) {
-                        swal("Delete " + clientname, "Server Error", "warning");
+        title: "Are you sure?",
+        text: "Delete " + invoice_id + ".",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-warning",
+        cancelButtonText: "No, cancel plx!",
+        confirmButtonText: "Yes, I do",
+        closeOnConfirm: true,
+        closeOnCancel: true
+    },
+    function(isconfirm) {
+        if (!isconfirm) {
+            alert(false);
+            return;
+        }
+        try {
+            $.ajax({
+                url: "<?=base_url('home/delinvoice/')?>" + invoice_id,
+                method: "POST",
+                dataType: 'text',
+                async: true,
+                success: function(res) {
+                    if (res != 1) {
+                        swal("Delete " + invoice_id, "Failed", "error");
+                        return;
                     }
-                });
-            } catch (error) {
-                swal("Delete " + clientname, "Server Error", "warning");
-            }
-        });
+                    swal({
+                            title: "Delete " + invoice_id,
+                            text: "Client Success",
+                            type: "success",
+                            showCancelButton: false,
+                            confirmButtonClass: "btn-success",
+                            confirmButtonText: "Letz go",
+                            cancelButtonText: "No, cancel plx!",
+                            closeOnConfirm: true,
+                            closeOnCancel: true
+                        },
+                        function() {
+                            window.location.href = "<?=base_url('home/invoicemanager')?>";
+                        });
+                },
+                error: function(jqXHR, exception) {
+                    swal("Delete " + invoice_id, "Server Error", "warning");
+                }
+            });
+        } catch (error) {
+            swal("Delete " + invoice_id, "Server Error", "warning");
+        }
+    });
+}
+
+function cancelInvoice() {
+    swal({
+        title: "Are you sure?",
+        text: "Don't Save",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-warning",
+        cancelButtonText: "No, cancel plx!",
+        confirmButtonText: "Yes, I do",
+        closeOnConfirm: true,
+        closeOnCancel: true
+    },
+    function(isconfirm) {
+        if (!isconfirm) {
+            alert(false);
+            return;
+        }
+        try {
+            window.location.href = "<?=base_url('home/invoicemanager')?>";
+        } catch (error) {
+            swal("Don't Save", "Server Error", "warning");
+        }
+    });
 }
 </script>

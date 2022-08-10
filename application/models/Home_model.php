@@ -185,8 +185,12 @@ class Home_model extends CI_Model {
     }
 
     public function removeItem($name) {
+        $data = array(
+            'isremoved'=>TRUE
+        );
+
         $this->db->where('name', $name);
-        $res=$this->db->delete('company');
+        $res=$this->db->update('company', $data);
         return $res;
     }
 
@@ -236,8 +240,12 @@ class Home_model extends CI_Model {
     }
 
     public function removeClient($name) {
+        $data = array(
+            'isremoved'=>TRUE
+        );
+
         $this->db->where('name', $name);
-        $res=$this->db->delete('client');
+        $res=$this->db->update('client', $data);
         return $res;
     }
 
@@ -311,8 +319,12 @@ class Home_model extends CI_Model {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
+        $data = array(
+            'isremoved'=>TRUE
+        );
+
         $this->db->where('id', $invoice_id);
-        $res=$this->db->delete('client');
+        $res=$this->db->update('invoice', $data);
         return $res;
     }
 
@@ -422,6 +434,10 @@ class Home_model extends CI_Model {
           'ispaid' => array(
             'type' => 'TINYINT',
             'constraint' => 1
+          ),
+          'isremoved' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1
           )
          );
 
@@ -487,8 +503,12 @@ class Home_model extends CI_Model {
     }
 
     public function removeUser($username) {
+        $data = array(
+            'isremoved'=>TRUE
+        );
+
         $this->db->where('username', $username);
-        $res=$this->db->delete('user');
+        $res=$this->db->update('user', $data);
         return $res;
     }
 }

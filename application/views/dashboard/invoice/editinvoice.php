@@ -193,7 +193,12 @@
                             </td>
                             <td class='text-center'>
                                 <input type='text' value="<?=$line['rate']?>" class='form form-control m_auto w-full p-2 mt-2 text_right' name='rate' placeholder='Rate' id='line_rate'>
-                                <a class='text-center p-2 mt-2' id='btn_add_tax' onclick='add_tax(this)'><?=$line['tax']?></a>
+                                <a class='text-center p-2 mt-2' id='btn_add_tax' onclick='add_tax(this)'>
+                                    <?php
+                                        $words = preg_split("/[\s,_-]+/", $line['tax']);
+                                        echo "Tax: ".$words[2];
+                                    ?>
+                                    </a><a id='btnaddtax' hidden><?=$line['tax']?></a>
                             </td>
                             <td>
                                 <input type='number' min='1' class='form form-control m_auto w-full p-2 mt-2 text_right' name='qty' placeholder='Quantity' id='line_qty' value="<?=$line['qty']?>">

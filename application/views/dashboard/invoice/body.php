@@ -3,7 +3,7 @@
     <thead>
         <tr>
             <th>No</th>
-            <th>Client/Invoice Number</th>
+            <th><div class="row"><div class="col-sm-6">Invoice Number</div><div class="col-sm-6">Client Name</div></th>
             <th>Description</th>
             <th>Issued Date</th>
             <th>Amount/status</th>
@@ -14,7 +14,16 @@
         <?php foreach ($invoices as $index => $invoice):?>
         <tr>
             <td><?=($index+1)?></td>
-            <td><?=$clients[$invoice['client_id']]['name']?>/<?=$invoice['id']?></td>
+            <td><div class="row"><div class="col-sm-6"><?=$invoice['id']?></div><div class="col-sm-6">
+                <?php 
+                    $result;
+                    foreach ($clients as $client){
+                        if ($client['id'] == $invoice['client_id']) {
+                            $result = $client;
+                        }
+                    }
+                    echo $result['name'];
+                ?></div></td>
             <td>asdfasdf</td>
             <td><?=$invoice['date_of_issue']?></td>
             <td><?=$invoice['total']?>/<?=$invoice['ispaid']?"Paid":"Unpaid"?></td>

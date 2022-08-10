@@ -1,5 +1,5 @@
 <!-- ======= Hero Section ======= -->
-
+<?php $menu = $this->session->flashdata('menu');?>
 <body>
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
@@ -249,24 +249,24 @@
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link <?=$menu['menu']=="Clients"?"":"collapsed"?>" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-person-bounding-box"></i><span>Clients</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <ul id="components-nav" class="nav-content collapse <?=$menu['menu']=="Clients"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="<?=base_url('home/clientmanager')?>">
-                            <i class="bi bi-circle"></i><span>Client Management</span>
+                            <i class="bi <?=$menu['submenu']=="cm"?"bi-circle-fill":"bi-circle"?>"></i><span>Client Management</span>
                         </a>
                     </li>
                     <!-- <li>
                         <a href="<?=base_url('home/proinvoicemanager')?>">
-                            <i class="bi bi-circle"></i><span>Proforma Invoice Management</span>
+                            <i class="bi <?=$menu['submenu']=="pim"?"bi-circle-fill":"bi-circle"?>"></i><span>Proforma Invoice Management</span>
                         </a>
                     </li> -->
                     <li>
                         <a href="<?=base_url('home/invoicemanager')?>">
-                            <i class="bi bi-circle"></i><span>Invoice Management</span>
+                            <i class="bi <?=$menu['submenu']=="im"?"bi-circle-fill":"bi-circle"?>"></i><span>Invoice Management</span>
                         </a>
                     </li>
                     <!-- <li>
@@ -276,12 +276,12 @@
                     </li> -->
                     <li>
                         <a href="<?=base_url('home/paymentmanager')?>">
-                            <i class="bi bi-circle"></i><span>Payment Management</span>
+                            <i class="bi <?=$menu['submenu']=="pm"?"bi-circle-fill":"bi-circle"?>"></i><span>Payment Management</span>
                         </a>
                     </li>
                     <li>
                         <a href="<?=base_url('home/projectmanager')?>">
-                            <i class="bi bi-circle"></i><span>Project Management</span>
+                            <i class="bi <?=$menu['submenu']=="pjm"?"bi-circle-fill":"bi-circle"?>"></i><span>Project Management</span>
                         </a>
                     </li>                    
 

@@ -4,7 +4,7 @@
         <tr>
             <th>No</th>
             <th>Name</th>
-            <th>Number</th>
+            <th>Reg Number</th>
             <th>Address</th>
             <th>VAT</th>
             <th>BankName</th>
@@ -15,6 +15,7 @@
     </thead>
     <tbody>
         <?php foreach ($clients as $index => $client):?>
+        <?php if(!$client['isremoved']):?>
         <tr>
             <td><?=($index+1)?></td>
             <td><?=str_replace("_"," ",$client['name']);?></td>
@@ -29,6 +30,7 @@
                 <button class="btn btn-danger text-sm" onclick="delClient('<?=$client['name']?>')" title="Delete"><i class="bi bi-trash3-fill"></i></button>
             </td>
         </tr>
+        <?php endif;?>
         <?php endforeach;?>
     </tbody>
 </table>

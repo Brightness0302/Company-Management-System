@@ -6,7 +6,7 @@
         <div class="p-5 mt-10 d-flex flex-row justify-content-between">
             <h1 class="float-left">New Invoice</h1>
             <div class="">
-                <button class="btn btn-outline-secondary btn-lg ">Cancel</button>
+                <button class="btn btn-outline-secondary btn-lg" onclick="cancelInvoice()">Cancel</button>
                 <button class="btn btn-success btn-lg" onclick="addInvoice()">Save</button>
                 <button class="btn btn-success btn-lg" onclick="sendtoClient()">PDF</button>
                 <a id="htmltopdf" href="<?=base_url('home/htmltopdf')?>" target="_blank" hidden>Download PDF</a>
@@ -108,11 +108,11 @@
                     <div class="col">
                         <div class="row-sm-6 px-0 py-4">
                             <strong>Date of Issue</strong>
-                            <input class="form form-control" type="date" value="<?=$invoice['date_of_issue']?>" id="date_of_issue">
+                            <input class="form form-control bg-transparent no_broder" type="date" value="<?=$invoice['date_of_issue']?>" id="date_of_issue">
                         </div>
                         <div class="row-sm-6 px-0 py-4">
                             <strong>Due Date</strong>
-                            <input class="form form-control" type="date" value="<?=$invoice['due_date']?>" id="due_date">
+                            <input class="form form-control bg-transparent no_broder" type="date" value="<?=$invoice['due_date']?>" id="due_date">
                         </div>
                     </div>
                 </div>
@@ -120,11 +120,11 @@
                     <div class="col">
                         <div class="row-sm-6 px-0 py-4">
                             <strong>Invoice Number</strong>
-                            <input class="form form-control" type="text" value="<?=$invoice['input_invoicenumber']?>" id="input_invoicenumber">
+                            <input class="form form-control bg-transparent no_broder" type="text" value="<?=$invoice['input_invoicenumber']?>" id="input_invoicenumber">
                         </div>
                         <div class="row-sm-6 px-0 py-4">
                             <strong>Reference</strong>
-                            <input class="form form-control" type="text" id="input_inputreference">
+                            <input class="form form-control bg-transparent no_broder" type="text" id="input_inputreference" placeholder="eg. France">
                         </div>
                     </div>
                 </div>
