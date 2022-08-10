@@ -70,8 +70,9 @@ function refresh() {
 
         sub_total += parseFloat(etotal[0].value);
         let vtax = 0.0;
-        if (etax[0].text != "Add a tax") {
+        if (etax[0].text != "") {
             vtax = ((etax[0].text.substring(5)).split("%,"))[0];
+            alert(vtax);
             vtax = parseFloat(vtax) / 100.0;
         }
         total += parseFloat(sub_total) + parseFloat(sub_total * vtax);
