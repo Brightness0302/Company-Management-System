@@ -48,7 +48,7 @@
                         <?php if($invoice['client_name'] != "Add a Client"):?>
                         <div class="text-left px-4">
                             <h5>
-                                <p><?=$invoice['client_name']?></p>
+                                <p><?=str_replace("_"," ", $invoice['client_name'])?></p>
                                 <p><?=$invoice['client_address']?></p>
                             </h5>
                         </div>
@@ -96,9 +96,9 @@
 
                 <div style="width: 150px; position: relative; display: inline-block;">
                     <div>
-                        <strong class="font_24">Amount</strong>
+                        <strong style="font-size: 24px;">Amount</strong>
                     </div>
-                    <div class="px-4">
+                    <div>
                         <strong style="font-size: 28px;">€<?=$invoice['total']?></strong>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
                     <?php foreach ($lines as $index => $line):?>
                         <tr>
                             <td style="text-align: center;"><?=$line['description']?></td>
-                            <td style="text-align: center;"><p><?=$line['rate']?></p><p><?=$line['tax']?></p></td>
+                            <td style="text-align: center;"><?=$line['rate']?></td>
                             <td style="text-align: center;"><?=$line['qty']?></td>
                             <td style="text-align: center;"><?=$line['total']?></td>
                         </tr>
