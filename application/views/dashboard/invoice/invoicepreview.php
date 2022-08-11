@@ -10,7 +10,7 @@
         <!-- Content Start-->
         <div class="container p-2">
             <!-- Company Info Section -->
-            <div class="row">
+            <div class="row" style="border-bottom: 1px black solid;">
                 <div class="col-sm-6">
                     <!-- Company Avatar start-->
                     <img class="m-10" style="position: absolute;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="200">
@@ -41,8 +41,8 @@
             <!-- Company Info Section End -->
 
             <!-- Add Client Section Start -->
-            <div class="row" style="border-top: 1px black solid;">
-                <div class="text-left" style="width: 250px; position: relative; display: inline-block; margin-top: 25px;">
+            <div class="row" style="vertical-align: top; margin-top: 50px;">
+                <div class="text-left" style="width: 250px; margin-top: 25px; height: 250px; display: inline-block;">
                     <div class="py-2">
                         <strong style="margin-left: 50px;">Billed to : </strong>
                         <?php if($invoice['client_name'] != "Add a Client"):?>
@@ -68,7 +68,7 @@
                     <?php endif;?>
                 </div>
 
-                <div style="width: 120px; position: relative; display: inline-block; margin-top: 25px;">
+                <div style="width: 120px; margin-top: 25px; height: 250px; display: inline-block;">
                     <div class="col">
                         <div class="row-sm-6 px-0 py-2">
                             <strong>Date of Issue</strong>
@@ -81,7 +81,7 @@
                     </div>
                 </div>
 
-                <div style="width: 200px; position: relative; display: inline-block; margin-top: 25px;">
+                <div style="width: 200px; margin-top: 25px; height: 250px; display: inline-block;">
                     <div class="col">
                         <div class="row-sm-6 px-0 py-2">
                             <strong>Invoice Number</strong>
@@ -94,7 +94,7 @@
                     </div>
                 </div>
 
-                <div style="width: 150px; position: relative; display: inline-block; margin-top: 25px;">
+                <div style="width: 150px; margin-top: 25px; height: 250px; display: inline-block;">
                     <div>
                         <strong style="font-size: 24px;">Amount</strong>
                     </div>
