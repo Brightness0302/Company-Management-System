@@ -305,6 +305,7 @@ function editInvoice(invoice_id) {
         method: "POST",
         data: form_data, 
         success: function(res) {
+            alert(res);
             const id = res;
             if (id != 1) {
                 swal("Edit Invoice", "Failed", "error");
