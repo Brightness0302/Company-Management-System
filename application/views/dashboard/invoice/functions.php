@@ -70,7 +70,7 @@ function refresh() {
     });
     total = parseFloat(sub_total);
     const evat = $("#invoice_vat").html();
-    let vvat = 1.0;
+    let vvat = 0.0;
     if (evat != "Add a VAT") {
         vvat = (evat.substring(5));
         vvat = parseFloat(vvat) / 100.0;
