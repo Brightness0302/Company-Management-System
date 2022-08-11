@@ -81,7 +81,7 @@
                     </div>
                 </div>
 
-                <div style="width: 150px; position: relative; display: inline-block; margin-top: 25px;">
+                <div style="width: 200px; position: relative; display: inline-block; margin-top: 25px;">
                     <div class="col">
                         <div class="row-sm-6 px-0 py-2">
                             <strong>Invoice Number</strong>
@@ -94,7 +94,7 @@
                     </div>
                 </div>
 
-                <div style="width: 190px; position: relative; display: inline-block;">
+                <div style="width: 150px; position: relative; display: inline-block;">
                     <div>
                         <strong class="font_24">Amount</strong>
                     </div>
