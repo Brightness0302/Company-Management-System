@@ -124,7 +124,7 @@
                     <?php foreach ($lines as $index => $line):?>
                         <tr>
                             <td style="text-align: center"><?=$index+1?></td>
-                            <td style="text-align: left;"><?=$line['description']?></td>
+                            <td style="text-align: center;"><?=$line['description']?></td>
                             <td style="text-align: center;"><?=$line['rate']?></td>
                             <td style="text-align: center;"><?=$line['qty']?></td>
                             <td style="text-align: center;"><?=$line['total']?></td>
