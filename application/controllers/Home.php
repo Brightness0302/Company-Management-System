@@ -56,19 +56,25 @@ class Home extends CI_Controller
     //View dashboard
     public function dashboard() {
         $company_name = $this->session->userdata('company');
+        $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
-        $data['user'] = $this->session->userdata('user');
+        $data['clients'] = $this->home->alldata('client');
+        $data['projects'] = $this->home->alldata('project');
+        $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
 
-        $session['menu']="";
+        $session['menu']="Dashboard";
         $session['submenu']="";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/home/head');
+        $this->load->view('dashboard/home/body');
+        $this->load->view('dashboard/home/foot');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -337,7 +343,7 @@ class Home extends CI_Controller
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
-    //View projectpage of creating
+    //View projectpage of editting
     public function editprojectbyinvoices($project_name) {
         $company_name = $this->session->userdata('company');
         $data['user'] = $this->session->userdata('user');
@@ -357,6 +363,34 @@ class Home extends CI_Controller
         $this->load->view('dashboard/project/head');
         $this->load->view('dashboard/project/shead');
         $this->load->view('dashboard/project/editproject', $data);
+        $this->load->view('dashboard/project/foot');
+        $this->load->view('dashboard/project/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
+    //View clientpage of editting replacing by projects
+    public function editclientbyprojects($client_name) {
+        $company_name = $this->session->userdata('company');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $res = $this->home->databyname($client_name, 'client');
+        if ($res['status'] == "failed")
+            return;
+        $data['client'] = $res['data'];
+        $data['projects'] = $this->home->alldata('project');
+        $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
+
+        $session['menu']="Clients";
+        $session['submenu']="pjm";
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/project/head');
+        $this->load->view('dashboard/project/editclient', $data);
         $this->load->view('dashboard/project/foot');
         $this->load->view('dashboard/project/functions.php');
         $this->load->view('dashboard/foot');
@@ -582,6 +616,29 @@ class Home extends CI_Controller
         $id = $_GET['id'];
         $result = $this->home->saveProject($id, $name);
         $this->home->updateInvoices($data['company']['id'], $id, $invoices);
+        echo $result;
+    }
+    //Save(Edit) User post(object(name, number, ...)) params(name)
+    public function saveClientbyprojects($client_name) {
+        $res = $this->home->databyname($client_name, 'client');
+        if ($res['status']=="failed") {
+            echo "Error client";
+            return;
+        }
+        $client = $res['data'];
+        $projects=$this->input->post('projects');
+
+        if ($projects=="") {
+            echo "Input projects";
+            return;
+        }
+
+        if (count($projects)==0) {
+            echo "Input projects";
+            return;
+        }
+
+        $result = $this->home->updateProjects($client['id'], $projects);
         echo $result;
     }
     //UploadImage post(fileinput) param(path)

@@ -601,4 +601,40 @@ class Home_model extends CI_Model {
             }
         }
     }
+    //update clientid of client from projects array
+    public function updateProjects($clientid, $projects) {
+        $allprojects = $this->alldata('project');
+
+        foreach ($allprojects as $key => $project) {
+            if ($project['clientid'] == $clientid) {
+                $data = array(
+                    'projectid'=>0
+                );
+
+                $this->db->where('id', $project['id']);
+                $res=$this->db->update('project', $data);
+            }
+        }
+
+        if ($projects=="")
+            return;
+
+        if (count($projects)==0)
+            return;
+
+        foreach ($projects as $index => $project) {
+            $res = $this->databyname($project, "project");
+            if ($res['status'] != "failed") {
+                if ($res['data']['clientid'] == 0) {
+                    $data = array(
+                        'clientid'=>$clientid
+                    );
+
+                    $this->db->where('id', $res['data']['id']);
+                    $res=$this->db->update('project', $data);
+                }
+            }
+        }
+        return 1;
+    }
 }
