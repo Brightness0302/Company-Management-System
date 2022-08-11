@@ -45,7 +45,7 @@
 <hr class="border-red-600" />
 <div class="container">
     <h1>Assigning Projects to Client</h1>
-    <table id="example1" class="table table-bordered table-striped text-center">
+    <table id="example2" class="table table-bordered table-striped text-center">
         <thead>
             <tr>
                 <th>No</th>
