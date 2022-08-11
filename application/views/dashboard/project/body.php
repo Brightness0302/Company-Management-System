@@ -59,7 +59,7 @@
             <?php foreach ($clients as $index => $client):?>
             <tr>
                 <td><?=($index+1)?></td>
-                <td><?=$client['name']?></td>
+                <td><?=str_replace('_',' ',$client['name'])?></td>
                 <td>
                     <div class="col-sm-10 m-auto">
                         <select class="w-full form-select">
@@ -68,7 +68,7 @@
                                 foreach ($projects as $project){
                                     if ($client['id'] == $project['clientid']) {
                                         $length++;
-                                        echo "<option>".$project['name']."</option>";
+                                        echo "<option>".str_replace('_',' ',$project['name'])."</option>";
                                     }
                                 }
                                 if ($length == 0) {

@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th>No</th>
-            <th><div class="row"><div class="col-sm-6">Invoice Number</div><div class="col-sm-6">Client Name</div></th>
+            <th class="text-left"><div class="row"><div class="col-sm-6">Invoice Number</div><div class="col-sm-6">Client Name</div></th>
             <th>Reference</th>
             <th>Issued Date</th>
             <th><div class="row"><div class="col-sm-6">Amount</div><div class="col-sm-6">Invoice status</div></th>
@@ -13,7 +13,7 @@
         <?php foreach ($invoices as $index => $invoice):?>
         <tr>
             <td><?=($index+1)?></td>
-            <td><div class="row"><div class="col-sm-6"><?=$invoice['id']?></div><div class="col-sm-6">
+            <td class="text-left"><div class="row"><div class="col-sm-6"><?=$invoice['id']?></div><div class="col-sm-6">
                 <?php 
                     $result;
                     foreach ($clients as $client){
@@ -21,9 +21,9 @@
                             $result = $client;
                         }
                     }
-                    echo $result['name'];
+                    echo str_replace('_',' ',$result['name']);
                 ?></div></td>
-            <td><?=$invoice['input_inputreference']?></td>
+            <td class="text-left"><?=$invoice['input_inputreference']?></td>
             <td><?=$invoice['date_of_issue']?></td>
             <td><div class="row"><div class="col-sm-6"><?=$invoice['total']?></div><div class="col-sm-6"><?=$invoice['ispaid']?"<label class='status success'>Paid</label>":"<label class='status danger'>Not Paid</label>"?></div></td>
             <td class="form-inline flex justify-around">

@@ -28,10 +28,10 @@ function getFirstLetters(str) {
 
 	return firstLetters;
 }
-function clickclient(client_name) {
+function clickclient(client_name, client_address) {
 	alert(client_name);
 	short_name = getFirstLetters(client_name);
-	$("#upload_client").html("<h5 class='upload_text p-2'><div class='circle' style='display: inline-block;'>"+short_name+"</div><p style='display: inline-block; font-size: 16px;' id='client_name'>"+client_name+"</p></h5>");
+	$("#upload_client").html("<div class='text-left ml-10'><p class='font-bold text-lg' id='client_name'>"+client_name+"</p><p class='text-base'>"+client_address+"</p></div>");
 }
 $(function() {
     $("#example1").DataTable({

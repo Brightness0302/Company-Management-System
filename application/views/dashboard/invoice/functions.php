@@ -7,16 +7,15 @@ $(document).ready(function() {
             "<input type='text' class='form form-control w-full p-2 mt-2 text_right bg-transparent no_broder' name='description1' placeholder='Description1' id='line_description'>" +
             "</td>" +
             "<td class='text-center'>" +
-            "<input type='text' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>" +
-            "<a class='text-center p-2 mt-2' id='btn_add_tax' onclick='add_tax(this)'>Add a tax</a><a id='btnaddtax' hidden></a>" +
+            "<input type='text' value='0' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>" +
             "</td>" +
             "<td>" +
-            "<input type='number' min='1' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='qty' placeholder='Quantity' id='line_qty' value='1'>" +
+            "<input type='number' min=1 class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='qty' placeholder='Quantity' id='line_qty' value='1'>" +
             "</td>" +
             "<td>" +
-            "<input type='text' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>" +
+            "<input type='text' value='0' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>" +
             "</td>" +
-            "<td class=''>" +
+            "<td class='align-middle'>" +
             "<div id='btn_remove_row' onclick='remove_tr(this)'>" +
             "<i class='bi bi-trash3-fill p-3'></i>" +
             "</div>" +
@@ -61,7 +60,6 @@ function refresh() {
         const erate = $(element).find("input[id*='line_rate']");
         const eqty = $(element).find("input[id*='line_qty']");
         const etotal = $(element).find("input[id*='line_total']");
-        const etax = $(element).find("a[id*='btnaddtax']");
         let vqty = eqty[0].value;
         if (vqty<=0) {
             eqty[0].value = 1;
@@ -69,17 +67,11 @@ function refresh() {
         }
 
         sub_total += parseFloat(etotal[0].value);
-        let vtax = 0.0;
-        if (etax[0].text != "") {
-            vtax = ((etax[0].text.substring(5)).split("%,"))[0];
-            vtax = parseFloat(vtax) / 100.0;
-        }
-        total += parseFloat(sub_total) + parseFloat(sub_total * vtax);
-        tax += parseFloat(etotal[0].value * vtax);
     });
+    total = parseFloat(sub_total);
     const ediscount = $("#invoice_discount").html();
     let vdiscount = 1.0;
-    if (ediscount != "Add a discount") {
+    if (ediscount != "Add a VAT") {
         vdiscount = (ediscount.substring(10));
         vdiscount = parseFloat(vdiscount) / 100.0;
         vdiscount = 1.0 - vdiscount;
@@ -87,7 +79,7 @@ function refresh() {
     $("#sub_total").text(sub_total.toFixed(2));
     $("#total").text((total * vdiscount).toFixed(2));
     $("#amount_total").text("€"+$("#total").text());
-    $("#tax").text(tax.toFixed(2));
+    $("#tax").text((total * (1.0 - vdiscount)).toFixed(2));
 }
 
 function remove_tr(el) {
@@ -96,9 +88,9 @@ function remove_tr(el) {
 }
 
 function add_discount(el) {
-    if ($(el).html() != "Add a discount") {
+    if ($(el).html() != "Add a VAT") {
         swal({
-            title: "Delete tax",
+            title: "Delete VAT",
             text: "Tax warning",
             type: "warning",
             showCancelButton: false,
@@ -109,7 +101,7 @@ function add_discount(el) {
             closeOnCancel: true
         },
         function() {
-            $(el).html("Add a discount");
+            $(el).html("Add a VAT");
             refresh();
         });
         return;
@@ -118,7 +110,7 @@ function add_discount(el) {
         title: "Add Discount",
         showCancelButton: true,
         html: true,
-        text: '<div class="row"><div class="col-sm-6"><p>Rate:</p></div><div class="col-sm-6"><input type="number" id="input1" onchange="if(this.value>99){this.value=99;}else if(this.value<0){this.value=0;}" placeholder="0%" style="border: 1px solid black;" class="w-full m-1" /></div></div>',
+        text: '<div class="row"><div class="col-sm-6"><p>Rate:</p></div><div class="col-sm-6"><input type="number" id="input1" max=99 min=0 value=0 onchange="if(this.value>99){this.value=99;}else if(this.value<0){this.value=0;}" placeholder="0%" style="border: 1px solid black;" class="w-full m-1" /></div></div>',
         confirmButtonClass: "btn-success",
         confirmButtonText: "Letz go",
         cancelButtonText: "No, cancel plx!",
@@ -178,7 +170,7 @@ function add_tax(el) {
             return;
         }
         $(el).html("Tax: "+ln2);
-        $("#btnaddtax").html("Tax: "+ln1+"%,"+ln2+","+ln3);
+        $(el).siblings("a[id*='btnaddtax']").html("Tax: "+ln1+"%,"+ln2+","+ln3);
         refresh();
     });
 }
@@ -196,7 +188,7 @@ function get_formdata() {
     const input_invoicenumber = $("#input_invoicenumber").val();
     const input_inputreference = $("#input_inputreference").val();
     const invoice_discount = $("#invoice_discount").html();
-    const short_name = getFirstLetters($("#client_name").html());
+    const short_name = $("#client_name").html();
     const client_name = $("#client_name").html();
     const sub_total = $("#sub_total").text();
     const tax = $("#tax").text();
@@ -211,7 +203,7 @@ function get_formdata() {
         const etax = $(element).find("a[id*='btnaddtax']");
         const etotal = $(element).find("input[id*='line_total']");
 
-        lines.push({rate: erate[0].value, qty: eqty[0].value, description: edescription[0].value, tax: etax[0].text, total: etotal[0].value});
+        lines.push({rate: erate[0].value, qty: eqty[0].value, description: edescription[0].value, tax: "", total: etotal[0].value});
     });
 
     const str_lines = JSON.stringify(lines);
@@ -312,6 +304,8 @@ function editInvoice(invoice_id) {
         method: "POST",
         data: form_data, 
         success: function(res) {
+            alert(res);
+            return;
             const id = res;
             if (id != 1) {
                 swal("Edit Invoice", "Failed", "error");

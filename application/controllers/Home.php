@@ -311,6 +311,10 @@ class Home extends CI_Controller
         $data['clients'] = $this->home->alldata('client');
         $data['invoice'] = $this->home->invoicefromsetting($data['company']['id'], 'invoice');
 
+        $session['menu']="Clients";
+        $session['submenu']="im";
+        $this->session->set_flashdata('menu', $session);
+
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
@@ -446,6 +450,10 @@ class Home extends CI_Controller
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
+
+        $session['menu']="Clients";
+        $session['submenu']="im";
+        $this->session->set_flashdata('menu', $session);
 
         $result = $this->home->databyidfromdatabase($data['company']['id'], 'invoice', $invoice_id);
         if ($result['status']=="failed")
