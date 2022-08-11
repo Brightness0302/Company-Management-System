@@ -18,7 +18,7 @@
                 </div>
                 <div style="position: relative; left: 300px;">
                     <div class="col-sm-12">
-                        <p class="text-lg font-bold"><?=$company['name']?></p>
+                        <p class="text-lg font-bold"><?=str_replace("_"," ", $company['name'])?></p>
                         <p class="text-base font-bold">Address: <?=$company['address']?></p>
                         <p class="text-base font-bold">Reg Number: <?=$company['number']?></p>
                         <div class="row" style="margin-top: 25px;">
@@ -30,7 +30,7 @@
                             </div>
                             <div style="width: 390px; display: inline-block;">
                                 <p class="font-normal"><?=$company['bankname']?></p>
-                                <p class="font-normal"><?=$company['name']?></p>
+                                <p class="font-normal"><?=str_replace("_"," ", $company['name'])?></p>
                                 <p class="font-normal"><?=$company['EORI']?></p>
                                 <p class="font-normal"><?=$company['bankaccount']?></p>
                             </div>

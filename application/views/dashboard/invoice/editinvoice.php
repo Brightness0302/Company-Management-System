@@ -49,7 +49,7 @@
                         </div>
 
                         <div class="col-sm-12">
-                            <p class="text-lg font-bold"><?=$company['name']?></p>
+                            <p class="text-lg font-bold"><?=str_replace("_"," ", $company['name'])?></p>
                             <p class="text-base font-bold">Address: <?=$company['address']?></p>
                             <p class="text-base font-bold">Reg Number: <?=$company['number']?></p>
                             <div class="row">
@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="col-sm-8">
                                     <p class="font-normal"><?=$company['bankname']?></p>
-                                    <p class="font-normal"><?=$company['name']?></p>
+                                    <p class="font-normal"><?=str_replace("_"," ", $company['name'])?></p>
                                     <p class="font-normal"><?=$company['EORI']?></p>
                                     <p class="font-normal"><?=$company['bankaccount']?></p>
                                 </div>
@@ -88,7 +88,7 @@
                             }
                         ?>
                         <div class='text-left ml-10'>
-                            <p class='font-bold text-lg' id='client_name'><?=$result['name'];?></p>
+                            <p class='font-bold text-lg' id='client_name'><?=str_replace("_"," ", $result['name'])?></p>
                             <p class='text-base' id='client_address'><?=$result['address'];?></p>
                         </div>
                         <?php else:?>
@@ -124,7 +124,7 @@
                                   $acronym .= mb_substr($w, 0, 1);
                                 }
                             ?>
-                            <div class="clienttag" onclick="clickclient('<?=$client['name']?>')" data-dismiss="modal">
+                            <div class="clienttag" onclick="clickclient('<?=$client['name']?>', '<?=$client['address']?>')" data-dismiss="modal">
                                 <div class="circle" style="display: inline-block;"><?=$acronym?></div>
                                 <p style="display: inline-block;"><?=$client['name']?></p>
                             </div>
