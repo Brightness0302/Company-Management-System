@@ -587,6 +587,8 @@ class Home extends CI_Controller
         $total=$this->input->post('total');
         $lines=$this->input->post('lines');
 
+        $client_name = str_replace(" ","_", $client_name);
+
         if (!isset($_GET['id'])) {
             $projects_id = $this->home->createInvoice($data['company']['id'], $type, $input_street, $input_city, $input_state, $input_zipcode, $input_nation, $input_taxname, $input_taxnumber, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines);
             echo $projects_id;
