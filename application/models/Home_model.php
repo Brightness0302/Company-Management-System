@@ -267,7 +267,7 @@ class Home_model extends CI_Model {
         return $res;
     }
 
-    public function saveInvoice($id, $companyid, $type, $input_street, $input_city, $input_state, $input_zipcode, $input_nation, $input_taxname, $input_taxnumber, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_discount, $short_name, $client_name, $sub_total, $tax, $total, $lines) {
+    public function saveInvoice($id, $companyid, $type, $input_street, $input_city, $input_state, $input_zipcode, $input_nation, $input_taxname, $input_taxnumber, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines) {
         $client_name = str_replace(" ", "", $client_name);
         $client_name = str_replace("\n","", $client_name);
         $client = $this->databyname($client_name, 'client');
@@ -291,7 +291,7 @@ class Home_model extends CI_Model {
             'due_date'=>$due_date, 
             'input_invoicenumber'=>$input_invoicenumber, 
             'input_inputreference'=>$input_inputreference, 
-            'invoice_discount'=>$invoice_discount, 
+            'invoice_vat'=>$invoice_vat, 
             'client_id'=>$client["data"]["id"]
         );
 
@@ -300,7 +300,7 @@ class Home_model extends CI_Model {
         return $res;
     }
 
-    public function createInvoice($companyid, $type, $input_street, $input_city, $input_state, $input_zipcode, $input_nation, $input_taxname, $input_taxnumber, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_discount, $short_name, $client_name, $sub_total, $tax, $total, $lines) {
+    public function createInvoice($companyid, $type, $input_street, $input_city, $input_state, $input_zipcode, $input_nation, $input_taxname, $input_taxnumber, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines) {
         $client_name = str_replace(" ","",$client_name);
         $client_name = str_replace("\n","", $client_name);
         $client = $this->databyname($client_name, 'client');
@@ -320,7 +320,7 @@ class Home_model extends CI_Model {
             'due_date'=>$due_date, 
             'input_invoicenumber'=>$input_invoicenumber, 
             'input_inputreference'=>$input_inputreference, 
-            'invoice_discount'=>$invoice_discount, 
+            'invoice_vat'=>$invoice_vat, 
             'client_id'=>$client["data"]["id"], 
             'sub_total'=>$sub_total, 
             'tax'=>$tax, 
@@ -430,6 +430,10 @@ class Home_model extends CI_Model {
             'constraint' => 60
           ),
           'invoice_discount' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 40
+          ),
+          'invoice_vat' => array(
             'type' => 'VARCHAR',
             'constraint' => 40
           ),

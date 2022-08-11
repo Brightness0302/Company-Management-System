@@ -579,7 +579,7 @@ class Home extends CI_Controller
         $due_date=$this->input->post('due_date');
         $input_invoicenumber=$this->input->post('input_invoicenumber');
         $input_inputreference=$this->input->post('input_inputreference');
-        $invoice_discount=$this->input->post('invoice_discount');
+        $invoice_vat=$this->input->post('invoice_vat');
         $short_name=$this->input->post('short_name');
         $client_name=$this->input->post('client_name');
         $sub_total=$this->input->post('sub_total');
@@ -588,13 +588,13 @@ class Home extends CI_Controller
         $lines=$this->input->post('lines');
 
         if (!isset($_GET['id'])) {
-            $projects_id = $this->home->createInvoice($data['company']['id'], $type, $input_street, $input_city, $input_state, $input_zipcode, $input_nation, $input_taxname, $input_taxnumber, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_discount, $short_name, $client_name, $sub_total, $tax, $total, $lines);
+            $projects_id = $this->home->createInvoice($data['company']['id'], $type, $input_street, $input_city, $input_state, $input_zipcode, $input_nation, $input_taxname, $input_taxnumber, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines);
             echo $projects_id;
             return;
         }
 
         $id = $_GET['id'];
-        $result = $this->home->saveInvoice($id, $data['company']['id'], $type, $input_street, $input_city, $input_state, $input_zipcode, $input_nation, $input_taxname, $input_taxnumber, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_discount, $short_name, $client_name, $sub_total, $tax, $total, $lines);
+        $result = $this->home->saveInvoice($id, $data['company']['id'], $type, $input_street, $input_city, $input_state, $input_zipcode, $input_nation, $input_taxname, $input_taxnumber, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines);
         echo $result;
     }
     //Save(Add/Edit) User post(object(name, number, ...)) get(id)
@@ -750,7 +750,7 @@ class Home extends CI_Controller
         $data["due_date"]=$this->input->post('due_date');
         $data["input_invoicenumber"]=$this->input->post('input_invoicenumber');
         $data["input_inputreference"]=$this->input->post('input_inputreference');
-        $data["invoice_discount"]=$this->input->post('invoice_discount');
+        $data["invoice_vat"]=$this->input->post('invoice_vat');
         $data["short_name"]=$this->input->post('short_name');
         $data["client_name"]=$this->input->post('client_name');
         $data["client_address"]=$this->input->post('client_address');

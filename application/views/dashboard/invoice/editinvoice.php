@@ -100,7 +100,7 @@
                     </div>
 
                     <div class="text-left ml-10">
-                        <p class="d_inline w_75 p-2 text-primary text-center" onclick="add_discount(this)" id="invoice_discount"><?=str_replace("Discount","VAT", $invoice['invoice_discount'])?></p>
+                        <p class="d_inline w_75 p-2 text-primary text-center" onclick="add_vat(this)" id="invoice_vat"><?=$invoice['invoice_vat']?></p>
                         <p class="d_inline w_15 p-2"></p>
                     </div>
 
@@ -187,10 +187,10 @@
                 <!-- Description Table -->
                 <table class="table m_auto">
                     <thead>
-                        <th class="text-center">Description</th>
-                        <th class="text-center">Rate</th>
-                        <th class="text-center">Qty</th>
-                        <th class="text-center">Line Total</th>
+                        <th class="text-right">Description</th>
+                        <th class="text-right">Rate</th>
+                        <th class="text-right pr-2">Qty</th>
+                        <th class="text-right">Line Total</th>
                     </thead>
                     <tbody id="table_body">
                         <?php ?>

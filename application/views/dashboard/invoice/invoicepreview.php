@@ -41,8 +41,8 @@
             <!-- Company Info Section End -->
 
             <!-- Add Client Section Start -->
-            <div class="row" style="vertical-align: top; margin-top: 50px;">
-                <div class="text-left" style="width: 250px; margin-top: 25px; height: 250px; display: inline-block;">
+            <div class="row" style="vertical-align: top; min-height: 200px; margin-top: 50px;">
+                <div class="text-left" style="width: 250px; margin-top: 25px; display: inline-block;">
                     <div class="py-2">
                         <strong style="margin-left: 50px;">Billed to : </strong>
                         <?php if($invoice['client_name'] != "Add a Client"):?>
@@ -60,15 +60,15 @@
                         </div>
                         <?php endif;?>
                     </div>
-                    <?php if($invoice['invoice_discount'] != "Add a VAT"):?>
+                    <?php if($invoice['invoice_vat'] != "Add a VAT"):?>
                     <div class="text-left ml-10" style="margin-left: 25px;">
-                        <p class="d_inline w_75 p-2 text-primary text-center" id="invoice_discount"><?=$invoice['invoice_discount']?></p>
+                        <p class="d_inline w_75 p-2 text-primary text-center" id="invoice_vat"><?=$invoice['invoice_vat']?></p>
                         <p class="d_inline w_15 p-2"></p>
                     </div>
                     <?php endif;?>
                 </div>
 
-                <div style="width: 120px; margin-top: 25px; height: 250px; display: inline-block;">
+                <div style="width: 120px; margin-top: 25px; min-height: 200px; display: inline-block;">
                     <div class="col">
                         <div class="row-sm-6 px-0 py-2">
                             <strong>Date of Issue</strong>
@@ -81,7 +81,7 @@
                     </div>
                 </div>
 
-                <div style="width: 200px; margin-top: 25px; height: 250px; display: inline-block;">
+                <div style="width: 200px; margin-top: 25px; min-height: 200px; display: inline-block;">
                     <div class="col">
                         <div class="row-sm-6 px-0 py-2">
                             <strong>Invoice Number</strong>
@@ -94,7 +94,7 @@
                     </div>
                 </div>
 
-                <div style="width: 150px; margin-top: 25px; height: 250px; display: inline-block;">
+                <div style="width: 150px; margin-top: 25px; min-height: 200px; display: inline-block;">
                     <div>
                         <strong style="font-size: 24px;">Amount</strong>
                     </div>
@@ -114,6 +114,7 @@
                 <!-- Description Table -->
                 <table class="table m_auto invoicepreview">
                     <thead>
+                        <th class="text-center">No</th>
                         <th class="text-center">Description</th>
                         <th class="text-center">Rate</th>
                         <th class="text-center">Qty</th>
@@ -122,7 +123,8 @@
                     <tbody id="preview_table_body">
                     <?php foreach ($lines as $index => $line):?>
                         <tr>
-                            <td style="text-align: center;"><?=$line['description']?></td>
+                            <td style="text-align: center"><?=$index+1?></td>
+                            <td style="text-align: left;"><?=$line['description']?></td>
                             <td style="text-align: center;"><?=$line['rate']?></td>
                             <td style="text-align: center;"><?=$line['qty']?></td>
                             <td style="text-align: center;"><?=$line['total']?></td>
@@ -139,7 +141,7 @@
                 </div>
 
                 <div class="text_right">
-                    <p class="d_inline text-primary text-center"><?=$invoice['invoice_discount']?></p>
+                    <p class="d_inline text-primary text-center"><?=$invoice['invoice_vat']?></p>
                     <p class="d_inline "></p>
                 </div>
 

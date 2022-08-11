@@ -69,17 +69,16 @@ function refresh() {
         sub_total += parseFloat(etotal[0].value);
     });
     total = parseFloat(sub_total);
-    const ediscount = $("#invoice_discount").html();
-    let vdiscount = 1.0;
-    if (ediscount != "Add a VAT") {
-        vdiscount = (ediscount.substring(10));
-        vdiscount = parseFloat(vdiscount) / 100.0;
-        vdiscount = 1.0 - vdiscount;
+    const evat = $("#invoice_vat").html();
+    let vvat = 1.0;
+    if (evat != "Add a VAT") {
+        vvat = (evat.substring(5));
+        vvat = parseFloat(vvat) / 100.0;
     }
     $("#sub_total").text(sub_total.toFixed(2));
-    $("#total").text((total * vdiscount).toFixed(2));
+    $("#total").text((total * (1.0 + vvat)).toFixed(2));
     $("#amount_total").text("€"+$("#total").text());
-    $("#tax").text((total * (1.0 - vdiscount)).toFixed(2));
+    $("#tax").text((total * vvat).toFixed(2));
 }
 
 function remove_tr(el) {
@@ -87,7 +86,7 @@ function remove_tr(el) {
     refresh();
 }
 
-function add_discount(el) {
+function add_vat(el) {
     if ($(el).html() != "Add a VAT") {
         swal({
             title: "Delete VAT",
@@ -107,7 +106,7 @@ function add_discount(el) {
         return;
     }
     swal({
-        title: "Add Discount",
+        title: "Add VAT",
         showCancelButton: true,
         html: true,
         text: '<div class="row"><div class="col-sm-6"><p>Rate:</p></div><div class="col-sm-6"><input type="number" id="input1" max=99 min=0 value=0 onchange="if(this.value>99){this.value=99;}else if(this.value<0){this.value=0;}" placeholder="0%" style="border: 1px solid black;" class="w-full m-1" /></div></div>',
@@ -124,7 +123,7 @@ function add_discount(el) {
             alert("Error Input");
             return;
         }
-        $(el).html("Discount: "+ln1+"%");
+        $(el).html("VAT: "+ln1+"%");
         refresh();
     });
 }
@@ -187,7 +186,7 @@ function get_formdata() {
     const due_date = $("#due_date").val();
     const input_invoicenumber = $("#input_invoicenumber").val();
     const input_inputreference = $("#input_inputreference").val();
-    const invoice_discount = $("#invoice_discount").html();
+    const invoice_vat = $("#invoice_vat").html();
     const short_name = $("#client_name").html();
     const client_name = $("#client_name").html();
     const client_address = $("#client_address").html();
@@ -221,7 +220,7 @@ function get_formdata() {
         due_date: due_date,
         input_invoicenumber: input_invoicenumber,
         input_inputreference: input_inputreference,
-        invoice_discount: invoice_discount,
+        invoice_vat: invoice_vat,
         short_name: short_name, 
         client_name: client_name,
         client_address: client_address,
