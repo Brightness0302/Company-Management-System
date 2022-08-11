@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <!-- Company Avatar start-->
-                    <img class="m-10" style="position: absolute;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="100">
+                    <img class="m-10" style="position: absolute;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="200">
                     <!-- Company Avatar end-->
                 </div>
                 <div class="col-sm-8">

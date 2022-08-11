@@ -753,6 +753,7 @@ class Home extends CI_Controller
         $data["invoice_discount"]=$this->input->post('invoice_discount');
         $data["short_name"]=$this->input->post('short_name');
         $data["client_name"]=$this->input->post('client_name');
+        $data["client_address"]=$this->input->post('client_address');
         $data["sub_total"]=$this->input->post('sub_total');
         $data["tax"]=$this->input->post('tax');
         $data["total"]=$this->input->post('total');

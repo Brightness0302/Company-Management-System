@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <!-- Company Avatar start-->
-                    <img class="m-10" style="position: absolute;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="100">
+                    <img class="m-10" style="position: absolute;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="200">
                     <!-- Company Avatar end-->
                 </div>
                 <div class="col-sm-8">
@@ -89,7 +89,7 @@
                         ?>
                         <div class='text-left ml-10'>
                             <p class='font-bold text-lg' id='client_name'><?=$result['name'];?></p>
-                            <p class='text-base'><?=$result['address'];?></p>
+                            <p class='text-base' id='client_address'><?=$result['address'];?></p>
                         </div>
                         <?php else:?>
                         <h5 class="upload_text p-2">
@@ -100,7 +100,7 @@
                     </div>
 
                     <div class="text-left ml-10">
-                        <p class="d_inline w_75 p-2 text-primary text-center" onclick="add_discount(this)" id="invoice_discount">Add a VAT</p>
+                        <p class="d_inline w_75 p-2 text-primary text-center" onclick="add_discount(this)" id="invoice_discount"><?=str_replace("Discount","VAT", $invoice['invoice_discount'])?></p>
                         <p class="d_inline w_15 p-2"></p>
                     </div>
 

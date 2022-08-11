@@ -190,6 +190,7 @@ function get_formdata() {
     const invoice_discount = $("#invoice_discount").html();
     const short_name = $("#client_name").html();
     const client_name = $("#client_name").html();
+    const client_address = $("#client_address").html();
     const sub_total = $("#sub_total").text();
     const tax = $("#tax").text();
     const total = $("#total").text();
@@ -223,6 +224,7 @@ function get_formdata() {
         invoice_discount: invoice_discount,
         short_name: short_name, 
         client_name: client_name,
+        client_address: client_address,
         sub_total: sub_total,
         tax: tax,
         total: total,
@@ -233,7 +235,7 @@ function get_formdata() {
 
 function sendtoClient() {
     const form_data = get_formdata();
-    form_data["type"] = "invoice";
+    form_data["type"] = "Invoice";
 
     $.ajax({
         url: "<?=base_url('home/savesessionbyjson')?>",
@@ -304,8 +306,6 @@ function editInvoice(invoice_id) {
         method: "POST",
         data: form_data, 
         success: function(res) {
-            alert(res);
-            return;
             const id = res;
             if (id != 1) {
                 swal("Edit Invoice", "Failed", "error");
