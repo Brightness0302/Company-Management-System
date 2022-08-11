@@ -42,7 +42,7 @@
 
             <!-- Add Client Section Start -->
             <div class="row" style="border-top: 1px black solid;">
-                <div class="text-left" style="width: 250px; position: relative; display: inline-block;">
+                <div class="text-left" style="width: 250px; position: relative; display: inline-block; margin-top: 25px;">
                     <div class="py-2">
                         <strong style="margin-left: 50px;">Billed to : </strong>
                         <?php if($invoice['client_name'] != "Add a Client"):?>
@@ -94,7 +94,7 @@
                     </div>
                 </div>
 
-                <div style="width: 150px; position: relative; display: inline-block;">
+                <div style="width: 150px; position: relative; display: inline-block; margin-top: 25px;">
                     <div>
                         <strong style="font-size: 24px;">Amount</strong>
                     </div>
