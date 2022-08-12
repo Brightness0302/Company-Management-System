@@ -8,7 +8,6 @@
             <th>Reference</th>
             <th>Issued Date</th>
             <th>Amount</th>
-            <th>Proforma status</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -35,7 +34,6 @@
             <td><?=$invoice['input_inputreference']?></td>
             <td><?=$invoice['date_of_issue']?></td>
             <td><?=$invoice['total']?></td>
-            <td><?=$invoice['ispaid']?"<label class='status success'>Paid</label>":"<label class='status danger'>Not Paid</label>"?></td>
             <td class="form-inline flex justify-around">
                 <a class="btn btn-primary" href="<?=base_url('home/editproforma/'.$invoice['id'])?>"><i class="bi bi-terminal-dash"></i></a>
                 <button class="btn btn-danger " onclick="delInvoice('<?=$invoice['id']?>')" <?=$invoice['isremoved']?"disabled":""?>><i class="bi bi-trash3-fill"></i></button>
