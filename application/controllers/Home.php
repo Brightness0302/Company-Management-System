@@ -139,7 +139,7 @@ class Home extends CI_Controller
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "proformainvoice");
 
         $session['menu']="Clients";
-        $session['submenu']="pim";
+        $session['submenu']="prm";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
