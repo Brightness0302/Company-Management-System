@@ -101,6 +101,7 @@
                           </div>
                           <div class="modal-body">
                             <?php foreach ($clients as $index => $client):?>
+                            <?php if(!$client['isremoved']):?>
                             <?php 
                                 $words = preg_split("/[\s,_-]+/", $client['name']);
                                 $acronym = "";
@@ -113,6 +114,7 @@
                                 <div class="col-sm-6"><div class="circle m-auto"><?=$acronym?></div></div>
                                 <div class="col-sm-6"><p><?=$client['name']?></p></div>
                             </div>
+                            <?php endif;?>
                             <?php endforeach;?>
                           </div>
                           <div class="modal-footer">
