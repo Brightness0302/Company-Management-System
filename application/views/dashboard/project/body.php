@@ -61,7 +61,7 @@
             <?php foreach ($clients as $index => $client):?>
             <?php if(!$client['isremoved']):?>
             <tr>
-                <td><?=($index+1)?></td>
+                <td><?=($index)?></td>
                 <td><?=str_replace('_',' ',$client['name'])?></td>
                 <td>
                     <div class="col-sm-10 m-auto">
