@@ -13,6 +13,7 @@
     </thead>
     <tbody>
         <?php foreach ($invoices as $index => $invoice):?>
+        <?php if(!$invoice['isremoved']):?>
         <tr>
             <td><?=($index+1)?></td>
             <td><?=$invoice['id']?></td>
@@ -25,6 +26,7 @@
                         }
                     }
                     echo str_replace('_',' ',$result['name']);
+                    echo $result['isremoved']?"[<label class='danger'>deleted</label>]":"";
                 ?>
             </td>
             <td><?=$invoice['input_inputreference']?></td>
@@ -37,6 +39,7 @@
                 <button class='btn btn-danger py-0 px-2 m-auto' onclick="togglePayment('<?=$invoice['id']?>', this)"><?=$invoice['ispaid']?"<i class='bi bi-dash'></i>":"<i class='bi bi-check-all'></i>"?></button>
             </td>
         </tr>
+        <?php endif;?>
         <?php endforeach;?>
     </tbody>
 </table>

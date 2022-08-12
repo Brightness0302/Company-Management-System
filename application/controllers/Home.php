@@ -629,6 +629,10 @@ class Home extends CI_Controller
         $this->home->updateInvoices($data['company']['id'], $id, $invoices);
         echo $result;
     }
+    //Del project
+    public function delproject($project_name) {
+        return $this->home->delProject($project_name);
+    }
     //Save(Edit) User post(object(name, number, ...)) params(name)
     public function saveClientbyprojects($client_name) {
         $res = $this->home->databyname($client_name, 'client');

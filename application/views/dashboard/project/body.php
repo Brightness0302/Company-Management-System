@@ -12,6 +12,7 @@
         </thead>
         <tbody>
             <?php foreach ($projects as $index => $project):?>
+            <?php if(!$project['isremoved']):?>
             <tr>
                 <td><?=($index+1)?></td>
                 <td><?=$project['name']?></td>
@@ -21,7 +22,7 @@
                             <?php
                                 $length = 0;
                                 foreach ($invoices as $invoice){
-                                    if ($project['id'] == $invoice['projectid']) {
+                                    if ($project['id'] == $invoice['projectid'] && !$invoice['isremoved']) {
                                         $length++;
                                         echo "<option>".$invoice['id']."</option>";
                                     }
@@ -38,6 +39,7 @@
                     <button class="btn btn-danger " onclick="delproject('<?=$project['name']?>')"><i class="bi bi-trash3-fill"></i></button>
                 </td>
             </tr>
+            <?php endif;?>
             <?php endforeach;?>
         </tbody>
     </table>
@@ -57,6 +59,7 @@
         </thead>
         <tbody>
             <?php foreach ($clients as $index => $client):?>
+            <?php if(!$client['isremoved']):?>
             <tr>
                 <td><?=($index+1)?></td>
                 <td><?=str_replace('_',' ',$client['name'])?></td>
@@ -66,7 +69,7 @@
                             <?php
                                 $length = 0;
                                 foreach ($projects as $project){
-                                    if ($client['id'] == $project['clientid']) {
+                                    if ($client['id'] == $project['clientid'] && !$project['isremoved']) {
                                         $length++;
                                         echo "<option>".str_replace('_',' ',$project['name'])."</option>";
                                     }
@@ -81,9 +84,9 @@
                 <td><?=$client['isremoved']?"<label class='status danger'>In-Active</label>":"<label class='status success'>Active</label>"?></td>
                 <td class="form-inline flex justify-around">
                     <a class="btn btn-primary " href="<?=base_url('home/editclientbyprojects/'.$client['name'])?>"><i class="bi bi-terminal-dash"></i></a>
-                    <button class="btn btn-danger " onclick="delproject('<?=$client['name']?>')"><i class="bi bi-trash3-fill"></i></button>
                 </td>
             </tr>
+            <?php endif;?>
             <?php endforeach;?>
         </tbody>
     </table>

@@ -140,6 +140,55 @@ function saveProject(projectid) {
     });
 }
 
+function delproject(projectname) {
+    swal({
+        title: "Project",
+        text: "Del Project",
+        type: "warning",
+        showCancelButton: true,
+        html: true,
+        confirmButtonClass: "btn-success",
+        confirmButtonText: "Letz go",
+        cancelButtonText: "No, cancel plx!",
+        closeOnConfirm: true,
+        closeOnCancel: true
+    },
+    function() {
+        $.ajax({
+            url: "<?=base_url('home/delproject/')?>"+projectname, 
+            method: "POST", 
+            dataType: 'text', 
+            async: true,
+            success: function(res) {
+                console.log(res);
+                if (res != 1) {
+                    swal("Edit Project", "Failed", "error");
+                    return;
+                }
+                swal({
+                    title: "Project",
+                    text: "Edit Project",
+                    type: "success",
+                    showCancelButton: false,
+                    confirmButtonClass: "btn-success",
+                    confirmButtonText: "Letz go",
+                    cancelButtonText: "No, cancel plx!",
+                    closeOnConfirm: true,
+                    closeOnCancel: true
+                },
+                function() {
+                    window.location.href = "<?=base_url('home/projectmanager')?>";
+                });
+            },
+            error: function(jqXHR, exception) {
+                console.log(jqXHR);
+                console.log(exception);
+                swal("Add Project", "Server Error", "warning");
+            }
+        });
+    });
+}
+
 function saveClientbyprojects(clientname) {
     const etable = $("#tableclient");
     const aproject = [];

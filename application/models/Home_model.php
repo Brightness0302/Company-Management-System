@@ -571,6 +571,16 @@ class Home_model extends CI_Model {
         $res=$this->db->update('project', $data);
         return $res;
     }
+
+    public function delProject($name) {
+        $data = array(
+            'isremoved'=>TRUE
+        );
+
+        $this->db->where('name', $name);
+        $res=$this->db->update('client', $data);
+        return $res;
+    }
     //update projectid of invoice from invoices array
     public function updateInvoices($companyid, $projectid, $invoices) {
         $this->db->query('use '."database".$companyid);

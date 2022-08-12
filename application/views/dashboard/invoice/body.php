@@ -14,6 +14,7 @@
     </thead>
     <tbody>
         <?php foreach ($invoices as $index => $invoice):?>
+        <?php if(!$invoice['isremoved']):?>
         <tr>
             <td><?=($index+1)?></td>
             <td><?=$invoice['id']?><?=$invoice['isremoved']?"[<label class='danger'>deleted</label>]":""?></td>
@@ -38,6 +39,7 @@
                 <button class="btn btn-danger " onclick="delInvoice('<?=$invoice['id']?>')" <?=$invoice['isremoved']?"disabled":""?>><i class="bi bi-trash3-fill"></i></button>
             </td>
         </tr>
+        <?php endif;?>
         <?php endforeach;?>
     </tbody>
 </table>
