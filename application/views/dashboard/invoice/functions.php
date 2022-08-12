@@ -316,6 +316,8 @@ function editInvoice(invoice_id) {
 }
 
 function delInvoice(invoice_id) {
+    let form_data = {};
+    form_data["type"] = "proformainvoice";
     swal({
         title: "Are you sure?",
         text: "Delete " + invoice_id + ".",
@@ -337,6 +339,7 @@ function delInvoice(invoice_id) {
                 url: "<?=base_url('home/delinvoice/')?>" + invoice_id,
                 method: "POST",
                 dataType: 'text',
+                data: form_data, 
                 async: true,
                 success: function(res) {
                     if (res != 1) {

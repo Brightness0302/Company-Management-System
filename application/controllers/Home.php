@@ -544,13 +544,15 @@ class Home extends CI_Controller
     }
     //Delete Company param(company_name)
     public function delinvoice($invoice_id) {
+        $type=$this->input->post('type');
+
         $company_name = $this->session->userdata('company');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
 
-        $result = $this->home->removeInvoice($data['company']['id'], $invoice_id);
+        $result = $this->home->removeInvoice($type, $data['company']['id'], $invoice_id);
         echo $result;
     }
     //Save(Add/Edit) Company post(object(name, number, ...)) get(id)

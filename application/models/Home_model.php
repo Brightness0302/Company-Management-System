@@ -321,7 +321,7 @@ class Home_model extends CI_Model {
         return $projects_id;
     }
 
-    public function removeInvoice($companyid, $invoice_id) {
+    public function removeInvoice($type, $companyid, $invoice_id) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
@@ -330,7 +330,7 @@ class Home_model extends CI_Model {
         );
 
         $this->db->where('id', $invoice_id);
-        $res=$this->db->update('invoice', $data);
+        $res=$this->db->update($type, $data);
         return $res;
     }
 
