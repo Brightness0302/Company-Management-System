@@ -317,7 +317,7 @@ function editInvoice(invoice_id) {
 
 function delInvoice(invoice_id) {
     let form_data = {};
-    form_data["type"] = "proformainvoice";
+    form_data["type"] = "invoice";
     swal({
         title: "Are you sure?",
         text: "Delete " + invoice_id + ".",
