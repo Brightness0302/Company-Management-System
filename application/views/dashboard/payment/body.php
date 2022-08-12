@@ -1,11 +1,13 @@
-<table id="example1" class="table table-bordered table-striped text-center">
+<table id="example1" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>No</th>
-            <th class="text-left"><div class="row"><div class="col-sm-6">Invoice Number</div><div class="col-sm-6">Client Name</div></th>
+            <th>Invoice Number</th>
+            <th>Client Name</th>
             <th>Reference</th>
             <th>Issued Date</th>
-            <th><div class="row"><div class="col-sm-6">Amount</div><div class="col-sm-6">Invoice status</div></th>
+            <th>Amount</th>
+            <th>Invoice status</th>
             <th>Pay</th>
         </tr>
     </thead>
@@ -13,7 +15,8 @@
         <?php foreach ($invoices as $index => $invoice):?>
         <tr>
             <td><?=($index+1)?></td>
-            <td class="text-left"><div class="row"><div class="col-sm-6"><?=$invoice['id']?></div><div class="col-sm-6">
+            <td><?=$invoice['id']?></td>
+            <td>
                 <?php 
                     $result;
                     foreach ($clients as $client){
@@ -22,12 +25,16 @@
                         }
                     }
                     echo str_replace('_',' ',$result['name']);
-                ?></div></td>
-            <td class="text-left"><?=$invoice['input_inputreference']?></td>
+                ?>
+            </td>
+            <td><?=$invoice['input_inputreference']?></td>
             <td><?=$invoice['date_of_issue']?></td>
-            <td><div class="row"><div class="col-sm-6"><?=$invoice['total']?></div><div class="col-sm-6"><?=$invoice['ispaid']?"<label class='status success'>Paid</label>":"<label class='status danger'>Not Paid</label>"?></div></td>
+            <td><?=$invoice['total']?></td>
+            <td>
+                <?=$invoice['ispaid']?"<label class='status success'>Paid</label>":"<label class='status danger'>Not Paid</label>"?>
+            </td>
             <td class="form-inline flex justify-around">
-                <button class='btn btn-danger py-0 px-2 m-auto' onclick="togglePayment('<?=$invoice['id']?>')"><?=$invoice['ispaid']?"<i class='bi bi-dash'></i>":"<i class='bi bi-check-all'></i>"?></button>
+                <button class='btn btn-danger py-0 px-2 m-auto' onclick="togglePayment('<?=$invoice['id']?>', this)"><?=$invoice['ispaid']?"<i class='bi bi-dash'></i>":"<i class='bi bi-check-all'></i>"?></button>
             </td>
         </tr>
         <?php endforeach;?>

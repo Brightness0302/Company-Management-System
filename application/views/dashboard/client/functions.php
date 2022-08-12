@@ -7,6 +7,7 @@ function AddClient() {
     const bankname = $("#Clientbankname").val();
     const bankaccount = $("#Clientbankaccount").val();
     const EORI = $("#Clienteori").val();
+    const Ref = $("#ClientRef").val();
 
     const form_data = {
         name: name,
@@ -15,7 +16,8 @@ function AddClient() {
         VAT: VAT,
         bankname: bankname,
         bankaccount: bankaccount,
-        EORI: EORI
+        EORI: EORI,
+        Ref: Ref
     };
 
     try {
@@ -68,6 +70,7 @@ function EditClient(clientid) {
     const bankname = $("#Clientbankname").val();
     const bankaccount = $("#Clientbankaccount").val();
     const EORI = $("#Clienteori").val();
+    const Ref = $("#ClientRef").val();
 
     const form_data = {
         name: name,
@@ -76,7 +79,8 @@ function EditClient(clientid) {
         VAT: VAT,
         bankname: bankname,
         bankaccount: bankaccount,
-        EORI: EORI
+        EORI: EORI,
+        Ref: Ref
     };
 
     try {

@@ -546,15 +546,16 @@ class Home extends CI_Controller
         $bankname=$this->input->post('bankname');
         $bankaccount=$this->input->post('bankaccount');
         $EORI=$this->input->post('EORI');
+        $Ref=$this->input->post('Ref');
 
         if (!isset($_GET['id'])) {
-            $projects_id = $this->home->createClient($name, $number, $address, $VAT, $bankname, $bankaccount, $EORI);
+            $projects_id = $this->home->createClient($name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Ref);
             echo $projects_id;
             return;
         }
 
         $id = $_GET['id'];
-        $result = $this->home->saveClient($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI);
+        $result = $this->home->saveClient($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Ref);
         echo $result;
     }
     //Save(Add/Edit) Client post(object(name, number, ...)) get(id)

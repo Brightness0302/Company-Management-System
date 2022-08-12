@@ -1,5 +1,5 @@
 <script type="text/javascript">
-function togglePayment(invoice_id) {
+function togglePayment(invoice_id, el) {
     swal({
         title: "Are you sure?",
         text: "Confirm Payment at " + invoice_id + ".",
@@ -41,7 +41,21 @@ function togglePayment(invoice_id) {
                         closeOnCancel: true
                     },
                     function() {
-                        window.location.href = "<?=base_url('home/paymentmanager')?>";
+                        // window.location.href = "<?=base_url('home/paymentmanager')?>";
+                        const echild = $(el).children(":first");
+                        const classname = echild.attr('class');
+                        let eparent = $(el).parent();
+                        eparent = $(eparent).parent();
+                        let echildren = $(eparent).find("label[class*='status']")[0];
+                        eparent = $(echildren).parent();
+                        if (classname=="bi bi-dash") {
+                            $(el).html("<i class='bi bi-check-all'></i>");
+                            $(eparent).html("<label class='status danger'>Not Paid</label>");
+                        }
+                        else if (classname=="bi bi-check-all") {
+                            $(el).html("<i class='bi bi-dash'></i>");
+                            $(eparent).html("<label class='status success'>Paid</label>");
+                        }
                     });
                 },
                 error: function(jqXHR, exception) {

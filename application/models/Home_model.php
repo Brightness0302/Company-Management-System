@@ -212,7 +212,7 @@ class Home_model extends CI_Model {
         return $res;
     }
 
-    public function saveClient($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI) {
+    public function saveClient($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Ref) {
         $name = str_replace(" ","_",$name);
         $data = array(
             'name'=>$name,
@@ -221,7 +221,8 @@ class Home_model extends CI_Model {
             'VAT'=>$VAT,
             'bankname'=>$bankname,
             'bankaccount'=>$bankaccount,
-            'EORI'=>$EORI
+            'EORI'=>$EORI,
+            'Ref'=>$Ref
         );
 
         $this->db->where('id', $id);
@@ -229,7 +230,7 @@ class Home_model extends CI_Model {
         return $res;
     }
 
-    public function createClient($name, $number, $address, $VAT, $bankname, $bankaccount, $EORI) {
+    public function createClient($name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Ref) {
         $name = str_replace(" ","_",$name);
         $data = array(
             'name'=>$name,
@@ -238,7 +239,8 @@ class Home_model extends CI_Model {
             'VAT'=>$VAT,
             'bankname'=>$bankname,
             'bankaccount'=>$bankaccount,
-            'EORI'=>$EORI
+            'EORI'=>$EORI,
+            'Ref'=>$Ref
         );
 
         $query = "SELECT *
