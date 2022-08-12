@@ -115,22 +115,28 @@
                             </button>
                           </div>
                           <div class="modal-body">
-                            <?php foreach ($clients as $index => $client):?>
-                            <?php if(!$client['isremoved']):?>
-                            <?php 
-                                $words = preg_split("/[\s,_-]+/", $client['name']);
-                                $acronym = "";
-
-                                foreach ($words as $w) {
-                                  $acronym .= mb_substr($w, 0, 1);
-                                }
-                            ?>
-                            <div class="clienttag" onclick="clickclient('<?=$client['name']?>', '<?=$client['address']?>')" data-dismiss="modal">
-                                <div class="circle" style="display: inline-block;"><?=$acronym?></div>
-                                <p style="display: inline-block;"><?=$client['name']?></p>
-                            </div>
-                            <?php endif;?>
-                            <?php endforeach;?>
+                            <table id="table_in_modal" class="table table-bordered table-striped">
+                              <thead>
+                                  <tr>
+                                    <th>No</th>
+                                    <th>C.Name</th>
+                                    <th>C.Reference</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                <?php $index = 0;?>
+                                <?php foreach ($clients as $client):?>
+                                <?php if(!$client['isremoved']):?>
+                                <?php $index++;?>
+                                <tr onclick="clickclient('<?=$client['name']?>', '<?=$client['address']?>')" data-dismiss="modal">
+                                    <td><?=$index?></td>
+                                    <td><?=str_replace("_"," ", $client['name'])?></td>
+                                    <td><?=$client['Ref']?></td>
+                                </tr>
+                                <?php endif;?>
+                                <?php endforeach;?>
+                              </tbody>
+                            </table>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
