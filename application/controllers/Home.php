@@ -338,7 +338,7 @@ class Home extends CI_Controller
         $data['invoice'] = $this->home->invoicefromsetting($data['company']['id'], 'proformainvoice');
 
         $session['menu']="Clients";
-        $session['submenu']="im";
+        $session['submenu']="prm";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
@@ -508,7 +508,7 @@ class Home extends CI_Controller
         $data['company'] = $company['data'];
 
         $session['menu']="Clients";
-        $session['submenu']="im";
+        $session['submenu']="prm";
         $this->session->set_flashdata('menu', $session);
 
         $result = $this->home->databyidfromdatabase($data['company']['id'], 'proformainvoice', $invoice_id);

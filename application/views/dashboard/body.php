@@ -266,7 +266,7 @@
                     </li>
                     <li>
                         <a href="<?=base_url('home/proformainvoicemanager')?>">
-                            <i class="bi <?=$menu['submenu']=="pim"?"bi-circle-fill":"bi-circle"?>"></i><span>Proforma Management</span>
+                            <i class="bi <?=$menu['submenu']=="prm"?"bi-circle-fill":"bi-circle"?>"></i><span>Proforma Management</span>
                         </a>
                     </li>
                     <!-- <li>
@@ -512,6 +512,8 @@
                         echo "Payment Management";
                     else if($menu['submenu']=="pjm")
                         echo "Project Management";
+                    else if($menu['submenu']=="prm")
+                        echo "Proforma Management";
                     ?></li>
                 </ol>
             </nav>
