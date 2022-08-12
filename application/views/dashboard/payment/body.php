@@ -12,10 +12,12 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($invoices as $index => $invoice):?>
+        <?php $index=0;?>
+        <?php foreach ($invoices as $invoice):?>
         <?php if(!$invoice['isremoved']):?>
+        <?php $index++;?>
         <tr>
-            <td><?=($index+1)?></td>
+            <td><?=($index)?></td>
             <td><?=$invoice['id']?></td>
             <td>
                 <?php 

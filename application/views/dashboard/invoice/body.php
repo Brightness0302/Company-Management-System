@@ -18,7 +18,7 @@
         <?php if(!$invoice['isremoved']):?>
         <?php $index++;?>
         <tr>
-            <td><?=($index+1)?></td>
+            <td><?=($index)?></td>
             <td><?=$invoice['id']?><?=$invoice['isremoved']?"[<label class='danger'>deleted</label>]":""?></td>
             <td>
                 <?php 

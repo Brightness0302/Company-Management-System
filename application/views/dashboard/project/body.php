@@ -58,8 +58,10 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($clients as $index => $client):?>
+            <?php $index=0;?>
+            <?php foreach ($clients as $client):?>
             <?php if(!$client['isremoved']):?>
+        <?php $index++;?>
             <tr>
                 <td><?=($index)?></td>
                 <td><?=str_replace('_',' ',$client['name'])?></td>
