@@ -29,7 +29,7 @@
                         }
                     }
                     echo str_replace("_"," ", $result['name']);
-                    echo $result['isremoved']?"[<label class='danger'>deleted</label>]":"";
+                    echo $result['isremoved']?"(<span id='boot-icon' class='bi bi-circle-fill' style='font-size: 12px; color: rgb(255, 0, 0);''></span>)":"";
                 ?>
             </td>
             <td><?=$invoice['input_inputreference']?></td>
@@ -37,7 +37,7 @@
             <td><?=$invoice['total']?></td>
             <td><?=$invoice['ispaid']?"<label class='status success'>Paid</label>":"<label class='status danger'>Not Paid</label>"?></td>
             <td class="form-inline flex justify-around">
-                <a class="btn btn-primary <?=$client['isremoved']?"pointer-events-none":""?>" href="<?=base_url('home/editinvoice/'.$invoice['id'])?>"><i class="bi bi-terminal-dash"></i></a>
+                <a class="btn btn-primary" href="<?=base_url('home/editinvoice/'.$invoice['id'])?>"><i class="bi bi-terminal-dash"></i></a>
                 <button class="btn btn-danger " onclick="delInvoice('<?=$invoice['id']?>')" <?=$invoice['isremoved']?"disabled":""?>><i class="bi bi-trash3-fill"></i></button>
             </td>
         </tr>

@@ -175,13 +175,6 @@ function add_tax(el) {
 }
 
 function get_formdata() {
-    const input_street = $("#input_street").val();
-    const input_city = $("#input_city").val();
-    const input_state = $("#input_state").val();
-    const input_zipcode = $("#input_zipcode").val();
-    const input_nation = $("#input_nation").val();
-    const input_taxname = $("#input_taxname").val();
-    const input_taxnumber = $("#input_taxnumber").val();
     const date_of_issue = $("#date_of_issue").val();
     const due_date = $("#due_date").val();
     const input_invoicenumber = $("#input_invoicenumber").val();
@@ -209,13 +202,6 @@ function get_formdata() {
     const str_lines = JSON.stringify(lines);
 
     const form_data = {
-        input_street: input_street,
-        input_city: input_city,
-        input_state: input_state,
-        input_zipcode: input_zipcode,
-        input_nation: input_nation,
-        input_taxname: input_taxname,
-        input_taxnumber: input_taxnumber,
         date_of_issue: date_of_issue,
         due_date: due_date,
         input_invoicenumber: input_invoicenumber,
@@ -234,7 +220,7 @@ function get_formdata() {
 
 function sendtoClient() {
     const form_data = get_formdata();
-    form_data["type"] = "Invoice";
+    form_data["type"] = "invoice";
 
     $.ajax({
         url: "<?=base_url('home/savesessionbyjson')?>",

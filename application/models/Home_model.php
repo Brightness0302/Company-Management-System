@@ -269,7 +269,7 @@ class Home_model extends CI_Model {
         return $res;
     }
 
-    public function saveInvoice($id, $companyid, $type, $input_street, $input_city, $input_state, $input_zipcode, $input_nation, $input_taxname, $input_taxnumber, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines) {
+    public function saveInvoice($id, $companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines) {
         $client_name = str_replace(" ", "", $client_name);
         $client_name = str_replace("\n","", $client_name);
         $client = $this->databyname($client_name, 'client');
@@ -278,46 +278,6 @@ class Home_model extends CI_Model {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
         $data = array(
-            'lines'=>$lines,
-            'sub_total'=>$sub_total, 
-            'tax'=>$tax, 
-            'total'=>$total, 
-            'input_street'=>$input_street, 
-            'input_city'=>$input_city, 
-            'input_state'=>$input_state, 
-            'input_zipcode'=>$input_zipcode, 
-            'input_nation'=>$input_nation, 
-            'input_taxname'=>$input_taxname, 
-            'input_taxnumber'=>$input_taxnumber, 
-            'date_of_issue'=>$date_of_issue, 
-            'due_date'=>$due_date, 
-            'input_invoicenumber'=>$input_invoicenumber, 
-            'input_inputreference'=>$input_inputreference, 
-            'invoice_vat'=>$invoice_vat, 
-            'client_id'=>$client["data"]["id"]
-        );
-
-        $this->db->where('id', $id);
-        $res=$this->db->update('invoice', $data);
-        return $res;
-    }
-
-    public function createInvoice($companyid, $type, $input_street, $input_city, $input_state, $input_zipcode, $input_nation, $input_taxname, $input_taxnumber, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines) {
-        $client_name = str_replace(" ","",$client_name);
-        $client_name = str_replace("\n","", $client_name);
-        $client = $this->databyname($client_name, 'client');
-        if ($client['status'] == "failed")
-            return -1;
-        $companyid = "database".$companyid;
-        $this->db->query('use '.$companyid);
-        $data = array(
-            'input_street'=>$input_street, 
-            'input_city'=>$input_city, 
-            'input_state'=>$input_state, 
-            'input_zipcode'=>$input_zipcode, 
-            'input_nation'=>$input_nation, 
-            'input_taxname'=>$input_taxname, 
-            'input_taxnumber'=>$input_taxnumber, 
             'date_of_issue'=>$date_of_issue, 
             'due_date'=>$due_date, 
             'input_invoicenumber'=>$input_invoicenumber, 
@@ -327,10 +287,36 @@ class Home_model extends CI_Model {
             'sub_total'=>$sub_total, 
             'tax'=>$tax, 
             'total'=>$total, 
-            'lines'=>(string)$lines
+            'lines'=>$lines
         );
 
-        $this->db->insert('invoice',$data);
+        $this->db->where('id', $id);
+        $res=$this->db->update($type, $data);
+        return $res;
+    }
+
+    public function createInvoice($companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines) {
+        $client_name = str_replace(" ","",$client_name);
+        $client_name = str_replace("\n","", $client_name);
+        $client = $this->databyname($client_name, 'client');
+        if ($client['status'] == "failed")
+            return -1;
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+        $data = array(
+            'date_of_issue'=>$date_of_issue, 
+            'due_date'=>$due_date, 
+            'input_invoicenumber'=>$input_invoicenumber, 
+            'input_inputreference'=>$input_inputreference, 
+            'invoice_vat'=>$invoice_vat, 
+            'client_id'=>$client["data"]["id"], 
+            'sub_total'=>$sub_total, 
+            'tax'=>$tax, 
+            'total'=>$total, 
+            'lines'=>$lines
+        );
+
+        $this->db->insert($type, $data);
         $projects_id = $this->db->insert_id();
         return $projects_id;
     }

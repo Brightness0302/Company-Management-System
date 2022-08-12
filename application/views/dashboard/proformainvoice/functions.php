@@ -4,19 +4,18 @@ $(document).ready(function() {
         $("#table_body").append(
             "<tr>" +
             "<td>" +
-            "<input type='text' class='form form-control w-full p-2 mt-2 text_right' name='description1' placeholder='Description1' id='line_description'>" +
+            "<input type='text' class='form form-control w-full p-2 mt-2 text_right bg-transparent no_broder' name='description1' placeholder='Description1' id='line_description'>" +
             "</td>" +
             "<td class='text-center'>" +
-            "<input type='text' class='form form-control m_auto w-full p-2 mt-2 text_right' name='rate' placeholder='Rate' id='line_rate'>" +
-            "<a class='text-center p-2 mt-2' id='btn_add_tax' onclick='add_tax(this)'>Add a tax</a>" +
+            "<input type='text' value='0' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>" +
             "</td>" +
             "<td>" +
-            "<input type='number' min='1' class='form form-control m_auto w-full p-2 mt-2 text_right' name='qty' placeholder='Quantity' id='line_qty' value='1'>" +
+            "<input type='number' min=1 class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='qty' placeholder='Quantity' id='line_qty' value='1'>" +
             "</td>" +
             "<td>" +
-            "<input type='text' class='form form-control m_auto w-full p-2 mt-2 text_right' name='total' placeholder='€0.00' id='line_total' readOnly>" +
+            "<input type='text' value='0' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>" +
             "</td>" +
-            "<td class=''>" +
+            "<td class='align-middle'>" +
             "<div id='btn_remove_row' onclick='remove_tr(this)'>" +
             "<i class='bi bi-trash3-fill p-3'></i>" +
             "</div>" +
@@ -37,6 +36,19 @@ $(document).ready(function() {
             }
         });
     });
+    $("input").keyup(function() {
+        const eid = $(this).attr('id');
+        if (eid == "line_rate" || eid == "line_qty") {
+            //Update Line_total value;
+            const etr = $(this).closest('tr');
+            const erate = etr.find("input[id*='line_rate']");
+            const eqty = etr.find("input[id*='line_qty']");
+            const etotal = etr.find("input[id*='line_total']");
+            etotal[0].value = erate[0].value * eqty[0].value;
+            //Update total, sub_total;
+            refresh();
+        }
+    });
 });
 
 function refresh() {
@@ -48,33 +60,25 @@ function refresh() {
         const erate = $(element).find("input[id*='line_rate']");
         const eqty = $(element).find("input[id*='line_qty']");
         const etotal = $(element).find("input[id*='line_total']");
-        const etax = $(element).find("a[id*='btn_add_tax']");
         let vqty = eqty[0].value;
         if (vqty<=0) {
             eqty[0].value = 1;
             vqty=1;
         }
 
-        sub_total += parseFloat(etotal[0].value*vqty);
-        let vtax = 0.0;
-        if (etax[0].text != "Add a tax") {
-            vtax = ((etax[0].text.substring(5)).split("%,"))[0];
-            vtax = parseFloat(vtax) / 100.0;
-        }
-        total += parseFloat(sub_total) + parseFloat(sub_total * vtax);
-        tax += parseFloat(etotal[0].value * vtax);
+        sub_total += parseFloat(etotal[0].value);
     });
-    const ediscount = $("#invoice_discount").html();
-    let vdiscount = 1.0;
-    if (ediscount != "Add a discount") {
-        vdiscount = (ediscount.substring(10));
-        vdiscount = parseFloat(vdiscount) / 100.0;
-        vdiscount = 1.0 - vdiscount;
+    total = parseFloat(sub_total);
+    const evat = $("#invoice_vat").html();
+    let vvat = 0.0;
+    if (evat != "Add a VAT") {
+        vvat = (evat.substring(5));
+        vvat = parseFloat(vvat) / 100.0;
     }
     $("#sub_total").text(sub_total.toFixed(2));
-    $("#total").text((total * vdiscount).toFixed(2));
+    $("#total").text((total * (1.0 + vvat)).toFixed(2));
     $("#amount_total").text("€"+$("#total").text());
-    $("#tax").text(tax.toFixed(2));
+    $("#tax").text((total * vvat).toFixed(2));
 }
 
 function remove_tr(el) {
@@ -82,10 +86,10 @@ function remove_tr(el) {
     refresh();
 }
 
-function add_discount(el) {
-    if ($(el).html() != "Add a discount") {
+function add_vat(el) {
+    if ($(el).html() != "Add a VAT") {
         swal({
-            title: "Delete tax",
+            title: "Delete VAT",
             text: "Tax warning",
             type: "warning",
             showCancelButton: false,
@@ -96,16 +100,16 @@ function add_discount(el) {
             closeOnCancel: true
         },
         function() {
-            $(el).html("Add a discount");
+            $(el).html("Add a VAT");
             refresh();
         });
         return;
     }
     swal({
-        title: "Add Tax",
+        title: "Add VAT",
         showCancelButton: true,
         html: true,
-        text: '<div class="row"><div class="col-sm-6"><p>Rate:</p></div><div class="col-sm-6"><input type="number" id="input1" onchange="if(this.value>99){this.value=99;}else if(this.value<0){this.value=0;}" placeholder="0%" style="border: 1px solid black;" class="w-full m-1" /></div></div>',
+        text: '<div class="row"><div class="col-sm-6"><p>Rate:</p></div><div class="col-sm-6"><input type="number" id="input1" max=99 min=0 value=0 onchange="if(this.value>99){this.value=99;}else if(this.value<0){this.value=0;}" placeholder="0%" style="border: 1px solid black;" class="w-full m-1" /></div></div>',
         confirmButtonClass: "btn-success",
         confirmButtonText: "Letz go",
         cancelButtonText: "No, cancel plx!",
@@ -119,7 +123,7 @@ function add_discount(el) {
             alert("Error Input");
             return;
         }
-        $(el).html("Discount: "+ln1+"%");
+        $(el).html("VAT: "+ln1+"%");
         refresh();
     });
 }
@@ -164,26 +168,21 @@ function add_tax(el) {
             alert("Error Input");
             return;
         }
-        $(el).html("Tax: "+ln1+"%,"+ln2+","+ln3);
+        $(el).html("Tax: "+ln2);
+        $(el).siblings("a[id*='btnaddtax']").html("Tax: "+ln1+"%,"+ln2+","+ln3);
         refresh();
     });
 }
 
 function get_formdata() {
-    const input_street = $("#input_street").val();
-    const input_city = $("#input_city").val();
-    const input_state = $("#input_state").val();
-    const input_zipcode = $("#input_zipcode").val();
-    const input_nation = $("#input_nation").val();
-    const input_taxname = $("#input_taxname").val();
-    const input_taxnumber = $("#input_taxnumber").val();
     const date_of_issue = $("#date_of_issue").val();
     const due_date = $("#due_date").val();
     const input_invoicenumber = $("#input_invoicenumber").val();
     const input_inputreference = $("#input_inputreference").val();
-    const invoice_discount = $("#invoice_discount").html();
-    const short_name = getFirstLetters($("#client_name").html());
+    const invoice_vat = $("#invoice_vat").html();
+    const short_name = $("#client_name").html();
     const client_name = $("#client_name").html();
+    const client_address = $("#client_address").html();
     const sub_total = $("#sub_total").text();
     const tax = $("#tax").text();
     const total = $("#total").text();
@@ -194,29 +193,23 @@ function get_formdata() {
         const erate = $(element).find("input[id*='line_rate']");
         const eqty = $(element).find("input[id*='line_qty']");
         const edescription = $(element).find("input[id*='line_description']");
-        const etax = $(element).find("a[id*='btn_add_tax']");
+        const etax = $(element).find("a[id*='btnaddtax']");
         const etotal = $(element).find("input[id*='line_total']");
 
-        lines.push({rate: erate[0].value, qty: eqty[0].value, description: edescription[0].value, tax: etax[0].text, total: etotal[0].value});
+        lines.push({rate: erate[0].value, qty: eqty[0].value, description: edescription[0].value, tax: "", total: etotal[0].value});
     });
 
     const str_lines = JSON.stringify(lines);
 
     const form_data = {
-        input_street: input_street,
-        input_city: input_city,
-        input_state: input_state,
-        input_zipcode: input_zipcode,
-        input_nation: input_nation,
-        input_taxname: input_taxname,
-        input_taxnumber: input_taxnumber,
         date_of_issue: date_of_issue,
         due_date: due_date,
         input_invoicenumber: input_invoicenumber,
         input_inputreference: input_inputreference,
-        invoice_discount: invoice_discount,
+        invoice_vat: invoice_vat,
         short_name: short_name, 
         client_name: client_name,
+        client_address: client_address,
         sub_total: sub_total,
         tax: tax,
         total: total,
@@ -227,7 +220,7 @@ function get_formdata() {
 
 function sendtoClient() {
     const form_data = get_formdata();
-    form_data["type"] = "invoice";
+    form_data["type"] = "Proforma";
 
     $.ajax({
         url: "<?=base_url('home/savesessionbyjson')?>",
@@ -259,90 +252,144 @@ function download(filename, text) {
 
 function addInvoice() {
     let form_data = get_formdata();
-    form_data["type"] = "invoice";
+    form_data["type"] = "proformainvoice";
 
     $.ajax({
         url: "<?=base_url('home/saveinvoice')?>",
         method: "POST",
         data: form_data, 
         success: function(res) {
-            console.log(res);
-            if (res != "success") {
-                alert("error");
+            const id = res;
+            if (id <= 0) {
+                swal("Add Proforma", "Failed", "error");
                 return;
             }
+            swal({
+                title: "Add Proforma",
+                text: "Invoice Success",
+                type: "success",
+                showCancelButton: false,
+                confirmButtonClass: "btn-success",
+                confirmButtonText: "Letz go",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: true,
+                closeOnCancel: true
+            },
+            function() {
+                window.location.href = "<?=base_url('home/proformainvoicemanager')?>";
+            });
         }
     });
 }
 
 function editInvoice(invoice_id) {
     let form_data = get_formdata();
-    form_data["type"] = "invoice";
+    form_data["type"] = "proformainvoice";
 
     $.ajax({
         url: "<?=base_url('home/saveinvoice?id=')?>"+invoice_id,
         method: "POST",
         data: form_data, 
         success: function(res) {
-            console.log(res);
-            if (res != "success") {
-                alert("error");
+            alert(res);
+            const id = res;
+            if (id != 1) {
+                swal("Edit Proforma", "Failed", "error");
                 return;
             }
+            swal({
+                title: "Edit Proforma",
+                text: "Invoice Success",
+                type: "success",
+                showCancelButton: false,
+                confirmButtonClass: "btn-success",
+                confirmButtonText: "Letz go",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: true,
+                closeOnCancel: true
+            },
+            function() {
+                window.location.href = "<?=base_url('home/proformainvoicemanager')?>";
+            });
         }
     });
 }
 
 function delInvoice(invoice_id) {
     swal({
-            title: "Are you sure?",
-            text: "Delete " + invoice_id + ".",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-warning",
-            cancelButtonText: "No, cancel plx!",
-            confirmButtonText: "Yes, I do",
-            closeOnConfirm: true,
-            closeOnCancel: true
-        },
-        function(isconfirm) {
-            if (!isconfirm) {
-                alert(false);
-                return;
-            }
-            try {
-                $.ajax({
-                    url: "<?=base_url('home/delinvoice/')?>" + invoice_id,
-                    method: "POST",
-                    dataType: 'text',
-                    async: true,
-                    success: function(res) {
-                        if (res != 1) {
-                            swal("Delete " + invoice_id, "Failed", "error");
-                            return;
-                        }
-                        swal({
-                                title: "Delete " + invoice_id,
-                                text: "Client Success",
-                                type: "success",
-                                showCancelButton: false,
-                                confirmButtonClass: "btn-success",
-                                confirmButtonText: "Letz go",
-                                cancelButtonText: "No, cancel plx!",
-                                closeOnConfirm: true,
-                                closeOnCancel: true
-                            },
-                            function() {
-                                window.location.href = "<?=base_url('home/invoicemanager')?>";
-                            });
-                    },
-                    error: function(jqXHR, exception) {
-                        swal("Delete " + clientname, "Server Error", "warning");
+        title: "Are you sure?",
+        text: "Delete " + invoice_id + ".",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-warning",
+        cancelButtonText: "No, cancel plx!",
+        confirmButtonText: "Yes, I do",
+        closeOnConfirm: true,
+        closeOnCancel: true
+    },
+    function(isconfirm) {
+        if (!isconfirm) {
+            alert(false);
+            return;
+        }
+        try {
+            $.ajax({
+                url: "<?=base_url('home/delinvoice/')?>" + invoice_id,
+                method: "POST",
+                dataType: 'text',
+                async: true,
+                success: function(res) {
+                    if (res != 1) {
+                        swal("Delete " + invoice_id, "Failed", "error");
+                        return;
                     }
-                });
-            } catch (error) {
-                swal("Delete " + clientname, "Server Error", "warning");
-            }
-        });
+                    swal({
+                            title: "Delete " + invoice_id,
+                            text: "Client Success",
+                            type: "success",
+                            showCancelButton: false,
+                            confirmButtonClass: "btn-success",
+                            confirmButtonText: "Letz go",
+                            cancelButtonText: "No, cancel plx!",
+                            closeOnConfirm: true,
+                            closeOnCancel: true
+                        },
+                        function() {
+                            window.location.href = "<?=base_url('home/invoicemanager')?>";
+                        });
+                },
+                error: function(jqXHR, exception) {
+                    swal("Delete " + invoice_id, "Server Error", "warning");
+                }
+            });
+        } catch (error) {
+            swal("Delete " + invoice_id, "Server Error", "warning");
+        }
+    });
+}
+
+function cancelInvoice() {
+    swal({
+        title: "Are you sure?",
+        text: "Don't Save",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-warning",
+        cancelButtonText: "No, cancel plx!",
+        confirmButtonText: "Yes, I do",
+        closeOnConfirm: true,
+        closeOnCancel: true
+    },
+    function(isconfirm) {
+        if (!isconfirm) {
+            alert(false);
+            return;
+        }
+        try {
+            window.location.href = "<?=base_url('home/invoicemanager')?>";
+        } catch (error) {
+            swal("Don't Save", "Server Error", "warning");
+        }
+    });
 }
 </script>

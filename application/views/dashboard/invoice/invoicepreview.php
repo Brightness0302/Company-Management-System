@@ -2,38 +2,37 @@
 <?php $lines=json_decode($invoice['lines'], true)?>
 <body>
     <div style="position: relative; width: 800px;">
-        <!-- Title Section -->
-        <div class="p-5 mt-10 d-flex flex-row justify-content-between">
-            <h1 class="float-left"><?=$invoice['type']?></h1>
-        </div>
-
         <!-- Content Start-->
         <div class="container p-2">
             <!-- Company Info Section -->
             <div class="row" style="border-bottom: 1px black solid;">
-                <div class="col-sm-6">
+                <div>
+                    <!-- Title Section -->
+                    <div class="p-5 mt-10 ">
+                        <h1 class="float-left"><?=$invoice['type']?></h1>
+                    </div>
                     <!-- Company Avatar start-->
-                    <img class="m-10" style="position: absolute;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="200">
+                    <img style="position: absolute; left: 50px;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="200">
                     <!-- Company Avatar end-->
                 </div>
-                <div style="position: relative; left: 300px;">
-                    <div class="col-sm-12">
-                        <p class="text-lg font-bold"><?=str_replace("_"," ", $company['name'])?></p>
-                        <p class="text-base font-bold">Address: <?=$company['address']?></p>
-                        <p class="text-base font-bold">Reg Number: <?=$company['number']?></p>
-                        <div class="row" style="margin-top: 25px;">
-                            <div style="width: 110px; display: inline-block;">
-                                <p class="font-bold">Bank details:</p>
-                                <p class="font-bold">Beneficiary:</p>
-                                <p class="font-bold">BIC:</p>
-                                <p class="font-bold">IBAN:</p>
-                            </div>
-                            <div style="width: 390px; display: inline-block;">
-                                <p class="font-normal"><?=$company['bankname']?></p>
-                                <p class="font-normal"><?=str_replace("_"," ", $company['name'])?></p>
-                                <p class="font-normal"><?=$company['EORI']?></p>
-                                <p class="font-normal"><?=$company['bankaccount']?></p>
-                            </div>
+                <div style="position: relative; left: 300px; top: -50px;">
+                    <div style="margin-bottom: 50px;"><p class="text-lg font-bold"><?=str_replace("_"," ", $company['name'])?></p></div>
+                    <div class="row" style="margin-top: 25px;">
+                        <div style="width: 110px; display: inline-block;">
+                            <p class="font-bold">Address:</p>
+                            <p class="font-bold">Reg Number:</p>
+                            <p class="font-bold">Bank details:</p>
+                            <p class="font-bold">Beneficiary:</p>
+                            <p class="font-bold">BIC:</p>
+                            <p class="font-bold">IBAN:</p>
+                        </div>
+                        <div style="width: 300px; display: inline-block;">
+                            <p class="font-normal" style="text-align: justify !important; overflow-wrap: break-word;"><?=$company['address']?></p>
+                            <p class="font-normal"><?=$company['number']?></p>
+                            <p class="font-normal"><?=$company['bankname']?></p>
+                            <p class="font-normal"><?=str_replace("_"," ", $company['name'])?></p>
+                            <p class="font-normal"><?=$company['EORI']?></p>
+                            <p class="font-normal"><?=$company['bankaccount']?></p>
                         </div>
                     </div>
                 </div>
@@ -41,10 +40,10 @@
             <!-- Company Info Section End -->
 
             <!-- Add Client Section Start -->
-            <div class="row" style="vertical-align: top; min-height: 200px; margin-top: 50px;">
+            <div class="row" style=" margin-top: 50px;">
                 <div class="text-left" style="width: 250px; margin-top: 25px; display: inline-block;">
                     <div class="py-2">
-                        <strong style="margin-left: 50px;">Billed to : </strong>
+                        <strong style="margin-left: 30px;">Billed to : </strong>
                         <?php if($invoice['client_name'] != "Add a Client"):?>
                         <div class="text-left px-4">
                             <h5>
@@ -112,22 +111,22 @@
         <div class="container" style="border-top: 1px solid black;">
             <div style="margin-bottom: 20px;">
                 <!-- Description Table -->
-                <table class="table m_auto invoicepreview">
+                <table class="table invoicepreview">
                     <thead>
-                        <th class="text-center">No</th>
-                        <th class="text-center">Description</th>
-                        <th class="text-center">Rate</th>
-                        <th class="text-center">Qty</th>
-                        <th class="text-center">Line Total</th>
+                        <th>No</th>
+                        <th>Description</th>
+                        <th>Rate</th>
+                        <th>Qty</th>
+                        <th>Line Total</th>
                     </thead>
                     <tbody id="preview_table_body">
                     <?php foreach ($lines as $index => $line):?>
                         <tr>
-                            <td style="text-align: center"><?=$index+1?></td>
-                            <td style="text-align: center;"><?=$line['description']?></td>
-                            <td style="text-align: center;"><?=$line['rate']?></td>
-                            <td style="text-align: center;"><?=$line['qty']?></td>
-                            <td style="text-align: center;"><?=$line['total']?></td>
+                            <td><p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 10px !important;"><?=$index+1?></p></td>
+                            <td><p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 10px !important;"><?=$line['description']?></p></td>
+                            <td><p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 10px !important;"><?=$line['rate']?></p></td>
+                            <td><p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 10px !important;"><?=$line['qty']?></p></td>
+                            <td><p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 10px !important;"><?=$line['total']?></p></td>
                         </tr>
                     <?php endforeach;?>
                     </tbody>
@@ -136,22 +135,22 @@
             <!-- Here the text area-->
             <div style="border-top: 1px solid black;">
                 <div class="text_right">
-                    <p class="d_inline text-center">Sub total</p>
+                    <p class="d_inline text-center">Sub total: </p>
                     <p class="d_inline"><?=$invoice['sub_total']?></p>
                 </div>
 
                 <div class="text_right">
-                    <p class="d_inline text-primary text-center"><?=$invoice['invoice_vat']?></p>
-                    <p class="d_inline "></p>
+                    <p class="d_inline text-primary text-center">VAT</p>
+                    <p class="d_inline "><?=$invoice['invoice_vat']?></p>
                 </div>
 
                 <div class="text_right">
-                    <p class="d_inline text-primary text-center">Tax</p>
+                    <p class="d_inline text-primary text-center">TAX: </p>
                     <p class="d_inline "><?=$invoice['tax']?></p>
                 </div>
 
                 <div class="text_right">
-                    <p class="d_inline text-primary text-center">Total</p>
+                    <p class="d_inline text-primary text-center">Total: </p>
                     <p class="d_inline "><?=$invoice['total']?></p>
                 </div>
             </div>

@@ -28,7 +28,7 @@
                         }
                     }
                     echo str_replace('_',' ',$result['name']);
-                    echo $result['isremoved']?"[<label class='danger'>deleted</label>]":"";
+                    echo $result['isremoved']?"(<span id='boot-icon' class='bi bi-circle-fill' style='font-size: 12px; color: rgb(255, 0, 0);''></span>)":"";
                 ?>
             </td>
             <td><?=$invoice['input_inputreference']?></td>

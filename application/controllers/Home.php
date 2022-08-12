@@ -326,6 +326,32 @@ class Home extends CI_Controller
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
+    //View lastid of automation key in proforma table
+    public function addproforma() {
+        $company_name = $this->session->userdata('company');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['clients'] = $this->home->alldata('client');
+        $data['invoice'] = $this->home->invoicefromsetting($data['company']['id'], 'proformainvoice');
+
+        $session['menu']="Clients";
+        $session['submenu']="im";
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/proformainvoice/head');
+        $this->load->view('dashboard/proformainvoice/shead');
+        $this->load->view('dashboard/proformainvoice/addinvoice');
+        $this->load->view('dashboard/proformainvoice/foot');
+        $this->load->view('dashboard/proformainvoice/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
     //View projectpage of creating
     public function addprojectbyinvoices() {
         $company_name = $this->session->userdata('company');
@@ -471,6 +497,36 @@ class Home extends CI_Controller
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
+    //View proformapage of editting.
+    public function editproforma($invoice_id) {
+        $data['clients'] = $this->home->alldata('client');
+        $company_name = $this->session->userdata('company');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+
+        $session['menu']="Clients";
+        $session['submenu']="im";
+        $this->session->set_flashdata('menu', $session);
+
+        $result = $this->home->databyidfromdatabase($data['company']['id'], 'proformainvoice', $invoice_id);
+        if ($result['status']=="failed")
+            return;
+        $data['invoice']=$result['data'];
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/proformainvoice/head');
+        $this->load->view('dashboard/proformainvoice/shead');
+        $this->load->view('dashboard/proformainvoice/editinvoice');
+        $this->load->view('dashboard/proformainvoice/foot');
+        $this->load->view('dashboard/proformainvoice/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
     //Delete Company param(company_name)
     public function delcompany($company_name) {
         $result = $this->home->removeItem($company_name);
@@ -569,13 +625,6 @@ class Home extends CI_Controller
         $data['company'] = $company['data'];
 
         $type=$this->input->post('type');
-        $input_street=$this->input->post('input_street');
-        $input_city=$this->input->post('input_city');
-        $input_state=$this->input->post('input_state');
-        $input_zipcode=$this->input->post('input_zipcode');
-        $input_nation=$this->input->post('input_nation');
-        $input_taxname=$this->input->post('input_taxname');
-        $input_taxnumber=$this->input->post('input_taxnumber');
         $date_of_issue=$this->input->post('date_of_issue');
         $due_date=$this->input->post('due_date');
         $input_invoicenumber=$this->input->post('input_invoicenumber');
@@ -591,13 +640,13 @@ class Home extends CI_Controller
         $client_name = str_replace(" ","_", $client_name);
 
         if (!isset($_GET['id'])) {
-            $projects_id = $this->home->createInvoice($data['company']['id'], $type, $input_street, $input_city, $input_state, $input_zipcode, $input_nation, $input_taxname, $input_taxnumber, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines);
+            $projects_id = $this->home->createInvoice($data['company']['id'], $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines);
             echo $projects_id;
             return;
         }
 
         $id = $_GET['id'];
-        $result = $this->home->saveInvoice($id, $data['company']['id'], $type, $input_street, $input_city, $input_state, $input_zipcode, $input_nation, $input_taxname, $input_taxnumber, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines);
+        $result = $this->home->saveInvoice($id, $data['company']['id'], $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines);
         echo $result;
     }
     //Save(Add/Edit) User post(object(name, number, ...)) get(id)

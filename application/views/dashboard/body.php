@@ -259,14 +259,14 @@
                             <i class="bi <?=$menu['submenu']=="cm"?"bi-circle-fill":"bi-circle"?>"></i><span>Client Management</span>
                         </a>
                     </li>
-                    <!-- <li>
-                        <a href="<?=base_url('home/proinvoicemanager')?>">
-                            <i class="bi <?=$menu['submenu']=="pim"?"bi-circle-fill":"bi-circle"?>"></i><span>Proforma Invoice Management</span>
-                        </a>
-                    </li> -->
                     <li>
                         <a href="<?=base_url('home/invoicemanager')?>">
                             <i class="bi <?=$menu['submenu']=="im"?"bi-circle-fill":"bi-circle"?>"></i><span>Invoice Management</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?=base_url('home/proformainvoicemanager')?>">
+                            <i class="bi <?=$menu['submenu']=="pim"?"bi-circle-fill":"bi-circle"?>"></i><span>Proforma Management</span>
                         </a>
                     </li>
                     <!-- <li>
