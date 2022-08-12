@@ -140,12 +140,11 @@
                 </div>
 
                 <div class="text_right">
-                    <p class="d_inline text-primary text-center">VAT</p>
                     <p class="d_inline "><?=$invoice['invoice_vat']?></p>
                 </div>
 
                 <div class="text_right">
-                    <p class="d_inline text-primary text-center">TAX: </p>
+                    <p class="d_inline text-primary text-center">VAT value: </p>
                     <p class="d_inline "><?=$invoice['tax']?></p>
                 </div>
 
