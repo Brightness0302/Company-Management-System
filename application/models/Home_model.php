@@ -375,34 +375,6 @@ class Home_model extends CI_Model {
             'type' => 'INT',
             'constraint' => 9,
           ),
-          'input_street' => array(
-            'type' => 'VARCHAR',
-            'constraint' => 30
-          ),
-          'input_city' => array(
-            'type' => 'VARCHAR',
-            'constraint' => 60
-          ),
-          'input_state' => array(
-            'type' => 'VARCHAR',
-            'constraint' => 40
-          ),
-          'input_zipcode' => array(
-            'type' => 'VARCHAR',
-            'constraint' => 30
-          ),
-          'input_nation' => array(
-            'type' => 'VARCHAR',
-            'constraint' => 60
-          ),
-          'input_taxname' => array(
-            'type' => 'VARCHAR',
-            'constraint' => 40
-          ),
-          'input_taxnumber' => array(
-            'type' => 'VARCHAR',
-            'constraint' => 30
-          ),
           'date_of_issue' => array(
             'type' => 'DATE',
           ),
@@ -462,6 +434,78 @@ class Home_model extends CI_Model {
 
         // create table
         $this->dbforge->create_table('invoice');
+
+        // define table fields
+        $fields = array(
+          'id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'unsigned' => TRUE,
+            'auto_increment' => TRUE
+          ),
+          'projectid' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+          ),
+          'date_of_issue' => array(
+            'type' => 'DATE',
+          ),
+          'due_date' => array(
+            'type' => 'DATE',
+          ),
+          'input_invoicenumber' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30
+          ),
+          'input_inputreference' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 60
+          ),
+          'invoice_discount' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 40
+          ),
+          'invoice_vat' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 40
+          ),
+          'client_id' => array(
+            'type' => 'INT',
+            'constraint' => 9
+          ),
+          'tax' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 60
+          ),
+          'total' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 40
+          ),
+          'lines' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 1000
+          ),
+          'sub_total' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 60
+          ),
+          'ispaid' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1
+          ),
+          'isremoved' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1
+          )
+         );
+
+        $this->dbforge->add_field($fields);
+
+        // define primary key
+        $this->dbforge->add_key('id', TRUE);
+
+        // create table
+        $this->dbforge->create_table('proformainvoice');
 
         // define table fields
         $fields = array(
