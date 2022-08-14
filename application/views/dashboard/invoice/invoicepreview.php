@@ -9,7 +9,7 @@
                 <div>
                     <!-- Title Section -->
                     <div class="p-5 mt-10 ">
-                        <h1 class="float-left"><?=$invoice['type']?></h1>
+                        <h1 class="float-left">Invoice</h1>
                     </div>
                     <!-- Company Avatar start-->
                     <img style="position: absolute; left: 50px;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="200">

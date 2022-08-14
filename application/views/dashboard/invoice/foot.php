@@ -41,7 +41,7 @@ $(function() {
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $("#table_in_modal").DataTable({
-      "responsive": true, "lengthChange": false, "bFilter": true, "bPaginate": false, "bInfo": false, "autoWidth": false,
+      "responsive": true, "bFilter": true, "bInfo": false, "pagingType": "simple_numbers", "autoWidth": false,
     }).buttons().container().appendTo('#table_in_modal_wrapper .col-md-6:eq(0)');
 });
 </script>
