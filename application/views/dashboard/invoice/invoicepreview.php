@@ -1,6 +1,12 @@
 <!-- ======= Hero Section ======= -->
 <?php $lines=json_decode($invoice['lines'], true)?>
-<body>
+<style type="text/css">
+    @page {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+</style>
+<body >
     <div style="position: relative; width: 800px;">
         <!-- Content Start-->
         <div class="container p-2">
