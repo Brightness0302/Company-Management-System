@@ -29,6 +29,7 @@
 
             <div class="row icon-boxes">
                 <?php foreach ($companies as $key=>$company):?>
+                <?php if(!$company['isremoved']):?>
                 <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-4" data-aos="zoom-in"
                     data-aos-delay="200">
                     <div class="icon-box w-full">
@@ -72,6 +73,7 @@
                         </h4>
                     </div>
                 </div>
+                <?php endif;?>
                 <?php endforeach;?>
             </div>
             <?php if($user['rank'] == 1):?>
