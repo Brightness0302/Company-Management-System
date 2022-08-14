@@ -142,8 +142,9 @@ function delClient(clientname) {
                 return;
             }
             try {
+                SaveClientNameUsingSession(clientname);
                 $.ajax({
-                    url: "<?=base_url('home/delclient/')?>" + clientname,
+                    url: "<?=base_url('home/delclient')?>",
                     method: "POST",
                     dataType: 'text',
                     async: true,

@@ -131,7 +131,7 @@ function Delcompany(companyname) {
             }
             try {
                 $.ajax({
-                    url: "<?=base_url('home/delcompany/')?>" + companyname,
+                    url: "<?=base_url('home/delcompany?companyname=')?>" + companyname,
                     method: "POST",
                     dataType: 'text',
                     async: true,
@@ -406,7 +406,7 @@ function Deluser(username) {
             }
             try {
                 $.ajax({
-                    url: "<?=base_url('home/deluser/')?>" + username,
+                    url: "<?=base_url('home/deluser?username=')?>" + username,
                     method: "POST",
                     dataType: 'text',
                     async: true,

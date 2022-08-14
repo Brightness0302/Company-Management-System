@@ -206,7 +206,7 @@ function saveClientbyprojects(clientname) {
     };
 
     $.ajax({
-        url: "<?=base_url('home/saveClientbyprojects/')?>"+clientname, 
+        url: "<?=base_url('home/saveClientbyprojects?clientname=')?>"+clientname, 
         method: "POST", 
         data: form_data, 
         dataType: 'text', 

@@ -22,5 +22,66 @@
   <script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
   <script src="<?php echo base_url('assets/js/style.js'); ?>"></script>
   </body>
-
+  <script type="text/javascript">
+    //Save companyname with session
+    function SaveCompanyNameUsingSession(companyname) {
+      const form_data = {
+        companyname: companyname
+      };
+      $.ajax({
+          url: "<?=base_url('home/savecompanynameusingsession')?>",
+          method: "POST",
+          data: form_data,
+          dataType: 'text',
+          success: function(res) {
+              alert(1);
+          }
+      });
+    }
+    //Save username with session
+    function SaveUserNameUsingSession(username) {
+      const form_data = {
+        username: username
+      };
+      $.ajax({
+          url: "<?=base_url('home/saveusernameusingsession')?>",
+          method: "POST",
+          data: form_data,
+          dataType: 'text',
+          success: function(res) {
+              alert(1);
+          }
+      });
+    }
+    //Save clientname with session
+    function SaveClientNameUsingSession(clientname) {
+      const form_data = {
+        clientname: clientname
+      };
+      $.ajax({
+          url: "<?=base_url('home/saveclientnameusingsession')?>",
+          method: "POST",
+          data: form_data,
+          dataType: 'text',
+          success: function(res) {
+              alert(1);
+          }
+      });
+    }
+    //Save projectname with session
+    function SaveProjectNameUsingSession(projectname) {
+      const form_data = {
+        projectname: projectname
+      };
+      $.ajax({
+          url: "<?=base_url('home/saveprojectnameusingsession')?>",
+          method: "POST",
+          data: form_data,
+          dataType: 'text',
+          success: function(res) {
+              alert(1);
+          }
+      });
+    }
+  </script>
   </html>

@@ -30,7 +30,7 @@
             <td><?=$client['bankaccount']?></td>
             <td><?=$client['EORI']?></td>
             <td class="form-inline flex justify-evenly">
-                <a class="btn btn-primary text-sm <?=$client['isremoved']?"pointer-events-none":""?>" href="<?=base_url('home/editclient/'.$client['name'])?>" title="Edit"><i class="bi bi-terminal-dash"></i></a>
+                <a class="btn btn-primary text-sm <?=$client['isremoved']?"pointer-events-none":""?>" href="<?=base_url('home/editclient')?>" onclick="SaveClientNameUsingSession('<?=$client['name']?>');" title="Edit"><i class="bi bi-terminal-dash"></i></a>
                 <button class="btn btn-danger text-sm" onclick="delClient('<?=$client['name']?>')" title="Delete" <?=$client['isremoved']?"disabled":""?>><i class="bi bi-trash3-fill"></i></button>
             </td>
         </tr>

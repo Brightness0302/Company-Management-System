@@ -47,7 +47,7 @@
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                                 <li>
                                     <a class="dropdown-item d-flex align-items-center"
-                                        href="<?=base_url('home/editcompany/'.$company['name'])?>">
+                                        href="<?=base_url('home/editcompany')?>" onclick="SaveCompanyNameUsingSession('<?=$company['name']?>');">
                                         <i class="bi bi-terminal-dash"></i>
                                         <span>Edit</span>
                                     </a>
@@ -69,7 +69,7 @@
                         <?php endif;?>
                         <hr />
                         <h4 class="title text-center"><a
-                                href="<?=base_url('home/gotodashboard/'.$company['name'])?>"><?=str_replace("_"," ",$company['name'])?></a>
+                                href="<?=base_url('home/dashboard')?>" onclick="SaveCompanyNameUsingSession('<?=$company['name']?>');"><?=str_replace("_"," ",$company['name'])?></a>
                         </h4>
                     </div>
                 </div>
@@ -134,7 +134,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <a class="btn btn-primary w-100"
-                                        href="<?=base_url('home/edituser/'.$user['username'])?>"><i
+                                        href="<?=base_url('home/edituser?username='.$user['username'])?>"><i
                                             class="bx bxs-pencil"></i><label id="hide">Edit</label></a>
                                 </div>
                                 <div class="col-md-6">
