@@ -95,7 +95,7 @@ class Home extends CI_Controller
     }
     //View client page of add/edit/delete function
     public function clientmanager() {
-        $company_name = $this->session->userdata('company');
+        $company_name = $this->session->userdata('companyname');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -119,7 +119,7 @@ class Home extends CI_Controller
     }
     //View invoice page of add/edit/delete function
     public function invoicemanager() {
-        $company_name = $this->session->userdata('company');
+        $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
@@ -144,7 +144,7 @@ class Home extends CI_Controller
     }
     //View proformainvoice page of add/edit/delete function
     public function proformainvoicemanager() {
-        $company_name = $this->session->userdata('company');
+        $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
@@ -169,7 +169,7 @@ class Home extends CI_Controller
     }
     //View payment page of paid/unpaid function
     public function paymentmanager() {
-        $company_name = $this->session->userdata('company');
+        $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
@@ -194,7 +194,7 @@ class Home extends CI_Controller
     }
     //View project page of every human's projects and invoices of every project.
     public function projectmanager() {
-        $company_name = $this->session->userdata('company');
+        $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
@@ -220,7 +220,7 @@ class Home extends CI_Controller
     }
     //Toggle payment of invoice function
     public function toggleinvoicepayment($invoice_id) {
-        $company_name = $this->session->userdata('company');
+        $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
@@ -317,7 +317,7 @@ class Home extends CI_Controller
     }
     //View lastid of automation key in invoice table
     public function addinvoice() {
-        $company_name = $this->session->userdata('company');
+        $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
@@ -343,7 +343,7 @@ class Home extends CI_Controller
     }
     //View lastid of automation key in proforma table
     public function addproforma() {
-        $company_name = $this->session->userdata('company');
+        $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
@@ -369,7 +369,7 @@ class Home extends CI_Controller
     }
     //View projectpage of creating
     public function addprojectbyinvoices() {
-        $company_name = $this->session->userdata('company');
+        $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
@@ -391,7 +391,7 @@ class Home extends CI_Controller
     //View projectpage of editting
     public function editprojectbyinvoices() {
         $project_name = $this->session->userdata('project_name');
-        $company_name = $this->session->userdata('company');
+        $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
@@ -417,7 +417,7 @@ class Home extends CI_Controller
     //View clientpage of editting replacing by projects
     public function editclientbyprojects() {
         $client_name = $this->session->userdata('clientname');
-        $company_name = $this->session->userdata('company');
+        $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
@@ -490,7 +490,7 @@ class Home extends CI_Controller
     //View invoicepage of editting.
     public function editinvoice($invoice_id) {
         $data['clients'] = $this->home->alldata('client');
-        $company_name = $this->session->userdata('company');
+        $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
@@ -520,7 +520,7 @@ class Home extends CI_Controller
     //View proformapage of editting.
     public function editproforma($invoice_id) {
         $data['clients'] = $this->home->alldata('client');
-        $company_name = $this->session->userdata('company');
+        $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
@@ -569,7 +569,7 @@ class Home extends CI_Controller
     public function delinvoice($invoice_id) {
         $type=$this->input->post('type');
 
-        $company_name = $this->session->userdata('company');
+        $company_name = $this->session->userdata('companyname');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -643,7 +643,7 @@ class Home extends CI_Controller
     }
     //Save(Add/Edit) Client post(object(name, number, ...)) get(id)
     public function saveinvoice() {
-        $company_name = $this->session->userdata('company');
+        $company_name = $this->session->userdata('companyname');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed') {
             echo $company_name;
@@ -686,7 +686,7 @@ class Home extends CI_Controller
             return;
         }
 
-        $company_name = $this->session->userdata('company');
+        $company_name = $this->session->userdata('companyname');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -790,7 +790,7 @@ class Home extends CI_Controller
     public function htmltopdf() {
         $this->load->library('Pdf');
 
-        $company_name = $this->session->userdata('company');
+        $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
@@ -808,7 +808,7 @@ class Home extends CI_Controller
     }
 
     public function invoicepreview() {
-        $company_name = $this->session->userdata('company');
+        $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
