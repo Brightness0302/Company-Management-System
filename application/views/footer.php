@@ -33,6 +33,7 @@
           method: "POST",
           data: form_data,
           dataType: 'text',
+          async: true,
           success: function(res) {
           }
       });
@@ -47,6 +48,7 @@
           method: "POST",
           data: form_data,
           dataType: 'text',
+          async: true,
           success: function(res) {
           }
       });
@@ -61,6 +63,7 @@
           method: "POST",
           data: form_data,
           dataType: 'text',
+          async: true,
           success: function(res) {
           }
       });
@@ -75,6 +78,7 @@
           method: "POST",
           data: form_data,
           dataType: 'text',
+          async: true,
           success: function(res) {
           }
       });

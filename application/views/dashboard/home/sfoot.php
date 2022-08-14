@@ -27,14 +27,3 @@
 <script src="<?=base_url('assets')?>/vendor/simple-datatables/simple-datatables.js"></script>
 <script src="<?=base_url('assets')?>/vendor/tinymce/tinymce.min.js"></script>
 <script src="<?=base_url('assets')?>/vendor/php-email-form/validate.js"></script>
-
-<script>
-$(function() {
-    $("#example1").DataTable({
-        "responsive": true,
-        "lengthChange": false,
-        "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-});
-</script>

@@ -52,7 +52,7 @@
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Reference</div>
-                        <input id="ClientRef" class="text" type="text" placeholder="" />
+                        <input id="ClientRef" class="text" type="text" placeholder="" value="<?=$client['Ref']?>"/>
                     </div>
                 </div>
             </div>
