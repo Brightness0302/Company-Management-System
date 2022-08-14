@@ -34,7 +34,6 @@
           data: form_data,
           dataType: 'text',
           success: function(res) {
-              alert(1);
           }
       });
     }
@@ -49,7 +48,6 @@
           data: form_data,
           dataType: 'text',
           success: function(res) {
-              alert(1);
           }
       });
     }
@@ -64,7 +62,6 @@
           data: form_data,
           dataType: 'text',
           success: function(res) {
-              alert(1);
           }
       });
     }
@@ -79,7 +76,6 @@
           data: form_data,
           dataType: 'text',
           success: function(res) {
-              alert(1);
           }
       });
     }
