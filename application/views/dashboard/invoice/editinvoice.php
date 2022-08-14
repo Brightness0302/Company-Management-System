@@ -128,7 +128,7 @@
                                 <?php foreach ($clients as $client):?>
                                 <?php if(!$client['isremoved']):?>
                                 <?php $index++;?>
-                                <tr onclick="clickclient('<?=$client['name']?>', '<?=$client['address']?>')" data-dismiss="modal">
+                                <tr onclick="clickclient('<?=$client['name']?>', '<?=$client['address']?>', '<?=$client['Ref']?>')" data-dismiss="modal">
                                     <td><?=$index?></td>
                                     <td><?=str_replace("_"," ", $client['name'])?></td>
                                     <td><?=$client['Ref']?></td>
@@ -140,7 +140,6 @@
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
                           </div>
                         </div>
                       </div>

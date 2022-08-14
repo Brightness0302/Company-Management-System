@@ -7,7 +7,10 @@
             <th>Client Name</th>
             <th>Reference</th>
             <th>Issued Date</th>
-            <th>Amount</th>
+            <th>Due Date</th>
+            <th>Sub Total</th>
+            <th>VAT Amount</th>
+            <th>Total Amount</th>
             <th>Invoice status</th>
             <th>Action</th>
         </tr>
@@ -34,6 +37,9 @@
             </td>
             <td><?=$invoice['input_inputreference']?></td>
             <td><?=$invoice['date_of_issue']?></td>
+            <td><?=$invoice['due_date']?></td>
+            <td><?=$invoice['sub_total']?></td>
+            <td><?=$invoice['tax']?></td>
             <td><?=$invoice['total']?></td>
             <td><?=$invoice['ispaid']?"<label class='status success'>Paid</label>":"<label class='status danger'>Not Paid</label>"?></td>
             <td class="form-inline flex justify-around">
@@ -43,5 +49,29 @@
         </tr>
         <?php endif;?>
         <?php endforeach;?>
+    </tbody>
+</table>
+<table id="total-table" class="table table-bordered table-striped float-right mr-10 mt-10" style="width: 50%;">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Sub Total</th>
+            <th>VAT Amount</th>
+            <th>Total Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $index=0;$subtotal=0;$vat=0;$total=0;?>
+        <?php foreach ($invoices as $invoice):?>
+        <?php if(!$invoice['isremoved']):?>
+        <?php $subtotal+=$invoice['sub_total'];$vat+=$invoice['tax'];$total+=$invoice['total'];?>
+        <?php endif;?>
+        <?php endforeach;?>
+        <tr>
+            <td>Total:</td>
+            <td><?=$subtotal?></td>
+            <td><?=$vat?></td>
+            <td><?=$total?></td>
+        </tr>
     </tbody>
 </table>
