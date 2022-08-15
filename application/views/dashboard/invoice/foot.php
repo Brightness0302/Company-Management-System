@@ -35,29 +35,13 @@ function clickclient(client_name, client_address, client_ref) {
     $("#input_inputreference").val(client_ref);
 }
 
-$(function() {
-    $.fn.dataTable.ext.search.push(
-        function( settings, data, dataIndex ) {
-            // Don't filter on anything other than "myTable"
-            if ( settings.nTable.id !== 'invoicetable' ) {
-                return true;
-            }
-     
-            // Filtering for "myTable".
-            var startdate = new Date($('#startdate').val());
-            var enddate = new Date($('#enddate').val());
-            var date = new Date(data[4] || 0); // use data for the age column
-            console.log(startdate, enddate, date);
-         
-            if (
-                date > startdate && date < enddate
-            ) {
-                return true;
-            }
-            return false;
-        }
-    );
+function onrefreshtotalmark() {
+    $("#subtotal").html("0.0");
+    $("#vat").html("0.0");
+    $("#total").html("0.0");
+}
 
+$(function() {
     $("#example1").DataTable({
         "responsive": true,
         "lengthChange": false,
@@ -76,7 +60,41 @@ $(function() {
 
     let invoicetable = $("#invoicetable").DataTable();
 
+    $("#invoicetable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='2022-07-15' type='date' class='form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Start Date:<input id='enddate' value='2022-10-15' type='date' class='form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
+
+    var subtotal = 0.0, vat = 0.0, total = 0.0;
+
+    $.fn.dataTable.ext.search.push(
+        function( settings, data, dataIndex ) {
+            // Don't filter on anything other than "myTable"
+            if ( settings.nTable.id !== 'invoicetable' ) {
+                return true;
+            }
+     
+            // Filtering for "myTable".
+            var startdate = new Date($('#startdate').val());
+            var enddate = new Date($('#enddate').val());
+            var date = new Date(data[4] || 0); // use data for the age column
+            console.log(startdate, enddate, date);
+         
+            if (
+                date > startdate && date < enddate
+            ) {
+                subtotal += parseFloat(data[6]);
+                vat += parseFloat(data[7]);
+                total += parseFloat(data[8]);
+                $("#subtotal").html((subtotal/2.0).toFixed(2));
+                $("#vat").html((vat/2.0).toFixed(2));
+                $("#total").html((total/2.0).toFixed(2));
+                return true;
+            }
+            return false;
+        }
+    );
+
     $("#searchtag").on('keyup', function (){
+        subtotal = 0.0; vat = 0.0; total = 0.0;
+        onrefreshtotalmark();
         invoicetable
             .columns( 2 )
             .search( this.value )
@@ -84,11 +102,15 @@ $(function() {
     });
     
     $("input[type=date]").on('change', function (){
+        subtotal = 0.0; vat = 0.0; total = 0.0;
+        onrefreshtotalmark();
         invoicetable.draw();
     });
 
     $("#table_in_modal").DataTable({
       "responsive": true, "bFilter": true, "bInfo": false, "pagingType": "simple_numbers", "autoWidth": false,
     }).buttons().container().appendTo('#table_in_modal_wrapper .col-md-6:eq(0)');
+
 });
+
 </script>

@@ -1,20 +1,4 @@
 <a class="btn btn-success mb-2" href="<?=base_url('home/addinvoice')?>">Add New</a>
-<div class="dataTables_filter" id="invoicetable_filter">
-    <div class="row">
-        <label class="col-sm-4">
-            Start Date:
-            <input id="startdate" value="2022-07-15" type="date" class="form-control form-control-sm" placeholder="" aria-controls="invoicetable">
-        </label>
-        <label class="col-sm-4">
-            Start Date:
-            <input id="enddate" value="2022-10-15" type="date" class="form-control form-control-sm" placeholder="" aria-controls="invoicetable">
-        </label>
-        <label class="col-sm-4">
-            Search:
-            <input id="searchtag" type="search" class="form-control form-control-sm" placeholder="" aria-controls="invoicetable">
-        </label>
-    </div>
-</div>
 <table id="invoicetable" class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -85,9 +69,9 @@
         <?php endforeach;?>
         <tr>
             <td>Total:</td>
-            <td><?=$subtotal?></td>
-            <td><?=$vat?></td>
-            <td><?=$total?></td>
+            <td id="subtotal"><?=$subtotal?></td>
+            <td id="vat"><?=$vat?></td>
+            <td id="total"><?=$total?></td>
         </tr>
     </tbody>
 </table>
