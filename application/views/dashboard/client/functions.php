@@ -124,10 +124,10 @@ function EditClient(clientid) {
     }
 }
 
-function delClient(clientname) {
+function delClient(clientid) {
     swal({
             title: "Are you sure?",
-            text: "Delete " + clientname + ".",
+            text: "Delete " + clientid + ".",
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-warning",
@@ -142,19 +142,18 @@ function delClient(clientname) {
                 return;
             }
             try {
-                SaveClientNameUsingSession(clientname);
                 $.ajax({
-                    url: "<?=base_url('home/delclient')?>",
+                    url: "<?=base_url('home/delclient/')?>"+clientid,
                     method: "POST",
                     dataType: 'text',
                     async: true,
                     success: function(res) {
                         if (res != 1) {
-                            swal("Delete " + clientname, "Failed", "error");
+                            swal("Delete " + clientid, "Failed", "error");
                             return;
                         }
                         swal({
-                                title: "Delete " + clientname,
+                                title: "Delete " + clientid,
                                 text: "Client Success",
                                 type: "success",
                                 showCancelButton: false,
@@ -169,11 +168,11 @@ function delClient(clientname) {
                             });
                     },
                     error: function(jqXHR, exception) {
-                        swal("Delete " + clientname, "Server Error", "warning");
+                        swal("Delete " + clientid, "Server Error", "warning");
                     }
                 });
             } catch (error) {
-                swal("Delete " + clientname, "Server Error", "warning");
+                swal("Delete " + clientid, "Server Error", "warning");
             }
         });
 }

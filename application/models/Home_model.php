@@ -204,12 +204,12 @@ class Home_model extends CI_Model {
         return $projects_id;
     }
 
-    public function removeItem($name) {
+    public function removeItem($id) {
         $data = array(
             'isremoved'=>TRUE
         );
 
-        $this->db->where('name', $name);
+        $this->db->where('id', $id);
         $res=$this->db->update('company', $data);
         return $res;
     }
@@ -261,12 +261,12 @@ class Home_model extends CI_Model {
         return $projects_id;
     }
 
-    public function removeClient($name) {
+    public function removeClient($id) {
         $data = array(
             'isremoved'=>TRUE
         );
 
-        $this->db->where('name', $name);
+        $this->db->where('id', $id);
         $res=$this->db->update('client', $data);
         return $res;
     }
@@ -604,13 +604,13 @@ class Home_model extends CI_Model {
         return $res;
     }
 
-    public function delProject($name) {
+    public function delProject($id) {
         $data = array(
             'isremoved'=>TRUE
         );
 
-        $this->db->where('name', $name);
-        $res=$this->db->update('client', $data);
+        $this->db->where('id', $id);
+        $res=$this->db->update('project', $data);
         return $res;
     }
     //update projectid of invoice from invoices array

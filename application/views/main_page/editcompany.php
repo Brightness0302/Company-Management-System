@@ -17,7 +17,7 @@
             <div class="pages">
                 <div class="page">
                     <div class="uploadcontainer">
-                        <img src="<?=base_url('assets/company/image/'.$company['id'].'.png')?>" alt="Avatar"
+                        <img src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" alt="Avatar"
                             id="uploadimage" class="image" style="width:100%;">
                         <div class="middle">
                             <label class="uploadbutton">

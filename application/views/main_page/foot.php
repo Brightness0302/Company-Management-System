@@ -136,7 +136,6 @@ function Delcompany(companyid) {
                     url: "<?=base_url('home/delcompany/')?>"+companyid,
                     method: "POST",
                     dataType: 'text',
-                    data: form_data, 
                     async: true,
                     success: function(res) {
                         if (res != 1) {

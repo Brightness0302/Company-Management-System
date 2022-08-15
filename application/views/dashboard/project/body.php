@@ -35,8 +35,8 @@
                     </div>
                 </td>
                 <td class="form-inline flex justify-around">
-                    <a class="btn btn-primary " href="<?=base_url('home/editprojectbyinvoices')?>" onclick="SaveProjectNameUsingSession('<?=$project['name']?>');"><i class="bi bi-terminal-dash"></i></a>
-                    <button class="btn btn-danger " onclick="delproject('<?=$project['name']?>')"><i class="bi bi-trash3-fill"></i></button>
+                    <a class="btn btn-primary " href="<?=base_url('home/editprojectbyinvoices/'.$project['id'])?>"><i class="bi bi-terminal-dash"></i></a>
+                    <button class="btn btn-danger " onclick="delproject('<?=$project['id']?>')"><i class="bi bi-trash3-fill"></i></button>
                 </td>
             </tr>
             <?php endif;?>
@@ -85,7 +85,7 @@
                 </td>
                 <td><?=$client['isremoved']?"<label class='status danger'>In-Active</label>":"<label class='status success'>Active</label>"?></td>
                 <td class="form-inline flex justify-around">
-                    <a class="btn btn-primary " href="<?=base_url('home/editclientbyprojects?clientname='.$client['name'])?>"><i class="bi bi-terminal-dash"></i></a>
+                    <a class="btn btn-primary " href="<?=base_url('home/editclientbyprojects/'.$client['id'])?>"><i class="bi bi-terminal-dash"></i></a>
                 </td>
             </tr>
             <?php endif;?>

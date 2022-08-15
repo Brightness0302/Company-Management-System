@@ -140,7 +140,7 @@ function saveProject(projectid) {
     });
 }
 
-function delproject(projectname) {
+function delproject(projectid) {
     swal({
         title: "Project",
         text: "Del Project",
@@ -155,19 +155,19 @@ function delproject(projectname) {
     },
     function() {
         $.ajax({
-            url: "<?=base_url('home/delproject/')?>"+projectname, 
+            url: "<?=base_url('home/delproject/')?>"+projectid, 
             method: "POST", 
             dataType: 'text', 
             async: true,
             success: function(res) {
                 console.log(res);
                 if (res != 1) {
-                    swal("Edit Project", "Failed", "error");
+                    swal("Delete Project", "Failed", "error");
                     return;
                 }
                 swal({
                     title: "Project",
-                    text: "Edit Project",
+                    text: "Delete Project",
                     type: "success",
                     showCancelButton: false,
                     confirmButtonClass: "btn-success",

@@ -68,11 +68,17 @@ class Home extends CI_Controller
         $project_name = $this->input->post('projectname');
         $this->session->set_userdata('project_name', $project_name);
     }
+    public function gotodashboard($company_id) {
+        $company = $this->home->databyid($company_id, 'company');
+        $this->session->set_userdata('companyid', $company_id);
+        $this->session->set_userdata('companyname', $company['data']['name']);
+        redirect(base_url('home/dashboard'));
+    }
     //View dashboard
     public function dashboard() {
-        $company_name = $this->session->userdata('companyname');
+        $companyid = $this->session->userdata('companyid');
         $data['user'] = $this->session->userdata('user');
-        $company = $this->home->databyname($company_name, 'company');
+        $company = $this->home->databyid($companyid, 'company');
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
@@ -389,14 +395,13 @@ class Home extends CI_Controller
         $this->load->view('footer');
     }
     //View projectpage of editting
-    public function editprojectbyinvoices() {
-        $project_name = $this->session->userdata('project_name');
+    public function editprojectbyinvoices($project_id) {
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
-        $project = $this->home->databyname($project_name, 'project');
+        $project = $this->home->databyid($project_id, 'project');
         if ($project['status']=='failed')
             return;
         $data['project'] = $project['data'];
@@ -415,15 +420,14 @@ class Home extends CI_Controller
         $this->load->view('footer');
     }
     //View clientpage of editting replacing by projects
-    public function editclientbyprojects() {
-        $client_name = $this->session->userdata('clientname');
+    public function editclientbyprojects($client_id) {
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
-        $res = $this->home->databyname($client_name, 'client');
+        $res = $this->home->databyid($client_id, 'client');
         if ($res['status'] == "failed")
             return;
         $data['client'] = $res['data'];
@@ -457,9 +461,8 @@ class Home extends CI_Controller
         $this->load->view('footer');
     }
     //View clientpage of editting.
-    public function editclient() {
-        $client_name = $this->session->userdata('clientname');
-        $result = $this->home->databyname($client_name, 'client');
+    public function editclient($client_id) {
+        $result = $this->home->databyid($client_id, 'client');
         if ($result['status']=="failed")
             return;
         $data['client']=$result['data'];
@@ -471,9 +474,8 @@ class Home extends CI_Controller
         $this->load->view('footer');
     }
     //View userpage of editting.
-    public function edituser() {
-        $user_name = $this->session->userdata('username');
-        $result = $this->home->databyname($user_name, 'user');
+    public function edituser($user_id) {
+        $result = $this->home->databyid($user_id, 'user');
         $data['companies'] = $this->home->alldata('company');
         $data['modules'] = $this->home->alldata('module');
         if ($result['status']=="failed")
@@ -547,9 +549,8 @@ class Home extends CI_Controller
         $this->load->view('footer');
     }
     //Delete Company param(company_name)
-    public function delcompany() {
-        $company_name = $this->input->post('companyname');
-        $result = $this->home->removeItem($company_name);
+    public function delcompany($company_id) {
+        $result = $this->home->removeItem($company_id);
         echo $result;
     }
     //Delete User param(user_name)
@@ -559,9 +560,8 @@ class Home extends CI_Controller
         echo $result;
     }
     //Delete Client param(client_name)
-    public function delclient() {
-        $client_name = $this->session->userdata('clientname');
-        $result = $this->home->removeClient($client_name);
+    public function delclient($clientid) {
+        $result = $this->home->removeClient($clientid);
         echo $result;
     }
     //Delete Company param(company_name)
@@ -706,9 +706,8 @@ class Home extends CI_Controller
         echo $result;
     }
     //Del project
-    public function delproject() {
-        $project_name = $this->session->userdata('project_name');
-        return $this->home->delProject($project_name);
+    public function delproject($project_id) {
+        echo $this->home->delProject($project_id);
     }
     //Save(Edit) User post(object(name, number, ...)) params(name)
     public function saveClientbyprojects() {
