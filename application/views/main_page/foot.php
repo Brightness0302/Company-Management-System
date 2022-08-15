@@ -138,11 +138,13 @@ function Delcompany(companyid) {
                     dataType: 'text',
                     async: true,
                     success: function(res) {
-                        if (res != 1) {
-                            swal("Delete " + companyid, "Failed", "error");
-                            return;
-                        }
-                        swal({
+                        console.log(companyid, res);
+                        try {
+                            if (res != 1) {
+                                swal("Delete " + companyid, "Failed", "error");
+                                return;
+                            }
+                            swal({
                                 title: "Company",
                                 text: "Company Success",
                                 type: "success",
@@ -154,8 +156,12 @@ function Delcompany(companyid) {
                                 closeOnCancel: true
                             },
                             function() {
+                                console.log(true);
                                 window.location.href = "<?=base_url('home/index')?>";
                             });
+                        } catch(error) {
+                            swal("Delete", "Server Error", "warning");
+                        }
                     },
                     error: function(jqXHR, exception) {
                         swal("Delete " + companyid, "Server Error", "warning");
