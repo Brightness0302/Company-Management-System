@@ -115,6 +115,11 @@ function AddCompany() {
 }
 
 function Delcompany(companyname) {
+
+    const form_data = {
+        companyname: companyname,
+    };
+
     swal({
             title: "Are you sure?",
             text: "Delete " + companyname + ".",
@@ -132,11 +137,11 @@ function Delcompany(companyname) {
                 return;
             }
             try {
-                SaveCompanyNameUsingSession(companyname);
                 $.ajax({
                     url: "<?=base_url('home/delcompany')?>",
                     method: "POST",
                     dataType: 'text',
+                    data: form_data, 
                     async: true,
                     success: function(res) {
                         if (res != 1) {

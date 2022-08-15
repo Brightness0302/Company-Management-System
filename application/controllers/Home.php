@@ -549,7 +549,7 @@ class Home extends CI_Controller
     }
     //Delete Company param(company_name)
     public function delcompany() {
-        $company_name = $this->session->userdata('companyname');
+        $company_name = $this->input->post('companyname');
         $result = $this->home->removeItem($company_name);
         echo $result;
     }
