@@ -157,7 +157,7 @@ class Home_model extends CI_Model {
 
     }
 
-    public function saveItem($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI) {
+    public function saveItem($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Coin) {
     	$name = str_replace(" ","_",$name);
         $data = array(
             'name'=>$name,
@@ -166,7 +166,8 @@ class Home_model extends CI_Model {
             'VAT'=>$VAT,
             'bankname'=>$bankname,
             'bankaccount'=>$bankaccount,
-            'EORI'=>$EORI
+            'EORI'=>$EORI,
+            'Coin'=>$Coin
         );
 
         $this->db->where('id', $id);
@@ -174,7 +175,7 @@ class Home_model extends CI_Model {
         return $res;
     }
 
-    public function createItem($name, $number, $address, $VAT, $bankname, $bankaccount, $EORI) {
+    public function createItem($name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Coin) {
     	$name = str_replace(" ","_",$name);
         $data = array(
             'name'=>$name,
@@ -183,7 +184,8 @@ class Home_model extends CI_Model {
             'VAT'=>$VAT,
             'bankname'=>$bankname,
             'bankaccount'=>$bankaccount,
-            'EORI'=>$EORI
+            'EORI'=>$EORI,
+            'Coin'=>$Coin
         );
 
         $query = "SELECT *

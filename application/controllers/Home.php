@@ -445,7 +445,7 @@ class Home extends CI_Controller
     }
     //View companypage of editting.
     public function editcompany() {
-        $company_name = $this->session->userdata('clientname');
+        $company_name = $this->session->userdata('companyname');
         $result = $this->home->databyname($company_name, 'company');
         if ($result['status']=="failed")
             return;
@@ -549,7 +549,7 @@ class Home extends CI_Controller
     }
     //Delete Company param(company_name)
     public function delcompany() {
-        $company_name = $_GET['companyname'];
+        $company_name = $this->session->userdata('companyname');
         $result = $this->home->removeItem($company_name);
         echo $result;
     }
@@ -587,11 +587,12 @@ class Home extends CI_Controller
         $bankname=$this->input->post('bankname');
         $bankaccount=$this->input->post('bankaccount');
         $EORI=$this->input->post('EORI');
+        $Coin=$this->input->post('Coin');
 
         if ($name)
 
         if (!isset($_GET['id'])) {
-            $projects_id = $this->home->createItem($name, $number, $address, $VAT, $bankname, $bankaccount, $EORI);
+            $projects_id = $this->home->createItem($name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Coin);
             if ($projects_id != -1) {
                 $this->home->createdatabase($projects_id);
             }
@@ -600,7 +601,7 @@ class Home extends CI_Controller
         }
 
         $id = $_GET['id'];
-        $result = $this->home->saveItem($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI);
+        $result = $this->home->saveItem($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Coin);
         echo $result;
     }
     //Save(Add/Edit) User post(object(name, number, ...)) get(id)
