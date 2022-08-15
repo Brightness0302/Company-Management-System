@@ -116,61 +116,47 @@ function AddCompany() {
 
 function Delcompany(companyid) {
     swal({
-            title: "Are you sure?",
-            text: "Delete " + companyid + ".",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-warning",
-            cancelButtonText: "No, cancel plx!",
-            confirmButtonText: "Yes, I do",
-            closeOnConfirm: true,
-            closeOnCancel: true
-        },
-        function(isconfirm) {
-            if (!isconfirm) {
-                alert(false);
-                return;
-            }
-            try {
-                $.ajax({
-                    url: "<?=base_url('home/delcompany/')?>"+companyid,
-                    method: "POST",
-                    dataType: 'text',
-                    async: true,
-                    success: function(res) {
-                        console.log(companyid, res);
-                        try {
-                            if (res != 1) {
-                                swal("Delete " + companyid, "Failed", "error");
-                                return;
-                            }
-                            swal({
-                                title: "Company",
-                                text: "Company Success",
-                                type: "success",
-                                showCancelButton: false,
-                                confirmButtonClass: "btn-success",
-                                confirmButtonText: "Letz go",
-                                cancelButtonText: "No, cancel plx!",
-                                closeOnConfirm: true,
-                                closeOnCancel: true
-                            },
-                            function() {
-                                console.log(true);
-                                window.location.href = "<?=base_url('home/index')?>";
-                            });
-                        } catch(error) {
-                            swal("Delete", "Server Error", "warning");
+        title: "Are you sure?",
+        text: "Delete Company",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-warning",
+        cancelButtonText: "No, cancel plx!",
+        confirmButtonText: "Yes, I do",
+        closeOnConfirm: true,
+        closeOnCancel: true
+    },
+    function(isconfirm) {
+        if (!isconfirm) {
+            alert(false);
+            return;
+        }
+        try {
+            $.ajax({
+                url: "<?=base_url('home/delcompany/')?>"+companyid,
+                method: "POST",
+                dataType: 'text',
+                async: true,
+                success: function(res) {
+                    console.log(companyid, res);
+                    try {
+                        if (res != 1) {
+                            swal("Delete", "Failed", "error");
+                            return;
                         }
-                    },
-                    error: function(jqXHR, exception) {
-                        swal("Delete " + companyid, "Server Error", "warning");
+                        window.location.href = "<?=base_url('home/index')?>";
+                    } catch(error) {
+                        swal("Delete", "Server Error", "warning");
                     }
-                });
-            } catch (error) {
-                swal("Delete " + companyid, "Server Error", "warning");
-            }
-        });
+                },
+                error: function(jqXHR, exception) {
+                    swal("Delete", "Server Error", "warning");
+                }
+            });
+        } catch (error) {
+            swal("Delete", "Server Error", "warning");
+        }
+    });
 }
 
 function EditCompany(companyid) {
