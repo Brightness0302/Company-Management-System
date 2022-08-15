@@ -114,15 +114,10 @@ function AddCompany() {
     }
 }
 
-function Delcompany(companyname) {
-
-    const form_data = {
-        companyname: companyname,
-    };
-
+function Delcompany(companyid) {
     swal({
             title: "Are you sure?",
-            text: "Delete " + companyname + ".",
+            text: "Delete " + companyid + ".",
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-warning",
@@ -138,18 +133,18 @@ function Delcompany(companyname) {
             }
             try {
                 $.ajax({
-                    url: "<?=base_url('home/delcompany')?>",
+                    url: "<?=base_url('home/delcompany/')?>"+companyid,
                     method: "POST",
                     dataType: 'text',
                     data: form_data, 
                     async: true,
                     success: function(res) {
                         if (res != 1) {
-                            swal("Delete " + companyname, "Failed", "error");
+                            swal("Delete " + companyid, "Failed", "error");
                             return;
                         }
                         swal({
-                                title: "Delete " + companyname,
+                                title: "Company",
                                 text: "Company Success",
                                 type: "success",
                                 showCancelButton: false,
@@ -164,11 +159,11 @@ function Delcompany(companyname) {
                             });
                     },
                     error: function(jqXHR, exception) {
-                        swal("Delete " + companyname, "Server Error", "warning");
+                        swal("Delete " + companyid, "Server Error", "warning");
                     }
                 });
             } catch (error) {
-                swal("Delete " + companyname, "Server Error", "warning");
+                swal("Delete " + companyid, "Server Error", "warning");
             }
         });
 }
@@ -281,8 +276,8 @@ function EditCompany(companyid) {
     }
 }
 
-function clickcompany(companyname) {
-    window.location.href = "<?=base_url('home/dashboard/')?>" + companyname;
+function clickcompany(companyid) {
+    window.location.href = "<?=base_url('home/dashboard/')?>" + companyid;
 }
 
 $("#_adduser").click(function() {

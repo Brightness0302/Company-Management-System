@@ -47,7 +47,7 @@
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                                 <li>
                                     <a class="dropdown-item d-flex align-items-center"
-                                        href="<?=base_url('home/editcompany')?>" onclick="SaveCompanyNameUsingSession('<?=$company['name']?>');">
+                                        href="<?=base_url('home/editcompany/'.$company['id'])?>" onclick="SaveCompanyNameUsingSession('<?=$company['name']?>');">
                                         <i class="bi bi-terminal-dash"></i>
                                         <span>Edit</span>
                                     </a>
@@ -58,7 +58,7 @@
 
                                 <li>
                                     <button class="dropdown-item d-flex align-items-center"
-                                        onclick="Delcompany('<?=$company['name']?>')">
+                                        onclick="Delcompany('<?=$company['id']?>')">
                                         <i class="bi bi-trash3-fill"></i>
                                         <span>Delete</span>
                                     </button>

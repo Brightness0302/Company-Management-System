@@ -444,9 +444,8 @@ class Home extends CI_Controller
         $this->load->view('footer');
     }
     //View companypage of editting.
-    public function editcompany() {
-        $company_name = $this->session->userdata('companyname');
-        $result = $this->home->databyname($company_name, 'company');
+    public function editcompany($company_id) {
+        $result = $this->home->databyid($company_id, 'company');
         if ($result['status']=="failed")
             return;
         $data['company']=$result['data'];
