@@ -75,10 +75,13 @@ $(function() {
             var startdate = new Date($('#startdate').val());
             var enddate = new Date($('#enddate').val());
             var date = new Date(data[4] || 0); // use data for the age column
-            console.log(startdate, enddate, date);
+            var client_name = data[2];
+            var reference = data[3];
+            var searchvalue = $("#searchtag").val();
+            // console.log(client_name, reference, searchvalue, startdate, enddate, date);
          
             if (
-                date > startdate && date < enddate
+                (date > startdate && date < enddate) && (client_name.includes(searchvalue) || reference.includes(searchvalue))
             ) {
                 subtotal += parseFloat(data[6]);
                 vat += parseFloat(data[7]);
@@ -95,10 +98,7 @@ $(function() {
     $("#searchtag").on('keyup', function (){
         subtotal = 0.0; vat = 0.0; total = 0.0;
         onrefreshtotalmark();
-        invoicetable
-            .columns( 2 )
-            .search( this.value )
-            .draw();
+        invoicetable.draw();
     });
     
     $("input[type=date]").on('change', function (){
