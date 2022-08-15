@@ -86,9 +86,9 @@ $(function() {
                 subtotal += parseFloat(data[6]);
                 vat += parseFloat(data[7]);
                 total += parseFloat(data[8]);
-                $("#subtotal").html((subtotal/2.0).toFixed(2));
-                $("#vat").html((vat/2.0).toFixed(2));
-                $("#total").html((total/2.0).toFixed(2));
+                $("#subtotal").html((subtotal).toFixed(2));
+                $("#vat").html((vat).toFixed(2));
+                $("#total").html((total).toFixed(2));
                 return true;
             }
             return false;
