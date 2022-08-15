@@ -132,6 +132,7 @@ function Delcompany(companyname) {
                 return;
             }
             try {
+                SaveCompanyNameUsingSession(companyname);
                 $.ajax({
                     url: "<?=base_url('home/delcompany')?>",
                     method: "POST",
