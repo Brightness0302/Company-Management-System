@@ -90,20 +90,26 @@
                     </div>
 
                     <div class="text-left ml-10">
-                        <p class="d_inline w_75 p-2 text-primary text-center" onclick="add_vat(this)" id="invoice_vat">Select Coin: </p>
-                        <select class="form-select" id="companycoin">
-                            <option value="<?=$company['Coin']?>">
-                                <?php 
-                                if($company['Coin']=="EURO")
-                                    echo "€";
-                                if ($company['Coin']=="POUND")
-                                    echo "£";
-                                if ($company['Coin']=="USD")
-                                    echo "$";
-                                ?>
-                            </option>
-                            <option value="LEI">Lei</option>
-                        </select>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="d_inline text-center" >Select Coin: </p>
+                            </div>
+                            <div  class="col-sm-6">
+                                <select class="d_inline form-select" id="companycoin">
+                                    <option value="<?=$company['Coin']?>">
+                                        <?php 
+                                        if($company['Coin']=="EURO")
+                                            echo "€";
+                                        if ($company['Coin']=="POUND")
+                                            echo "£";
+                                        if ($company['Coin']=="USD")
+                                            echo "$";
+                                        ?>
+                                    </option>
+                                    <option value="LEI">Lei</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Modal -->

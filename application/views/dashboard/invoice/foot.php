@@ -81,7 +81,7 @@ $(function() {
             // console.log(client_name, reference, searchvalue, startdate, enddate, date);
          
             if (
-                (date > startdate && date < enddate) && (client_name.includes(searchvalue) || reference.includes(searchvalue))
+                (date > startdate && date < enddate) && (client_name.toLowerCase().includes(searchvalue.toLowerCase()) || reference.toLowerCase().includes(searchvalue.toLowerCase()))
             ) {
                 subtotal += parseFloat(data[6]);
                 vat += parseFloat(data[7]);
