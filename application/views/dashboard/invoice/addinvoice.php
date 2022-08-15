@@ -89,6 +89,23 @@
                         <p class="d_inline w_15 p-2"></p>
                     </div>
 
+                    <div class="text-left ml-10">
+                        <p class="d_inline w_75 p-2 text-primary text-center" onclick="add_vat(this)" id="invoice_vat">Select Coin: </p>
+                        <select class="form-select" id="companycoin">
+                            <option value="<?=$company['Coin']?>">
+                                <?php 
+                                if($company['Coin']=="EURO")
+                                    echo "€";
+                                if ($company['Coin']=="POUND")
+                                    echo "£";
+                                if ($company['Coin']=="USD")
+                                    echo "$";
+                                ?>
+                            </option>
+                            <option value="LEI">Lei</option>
+                        </select>
+                    </div>
+
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered" role="document">

@@ -1,5 +1,21 @@
 <a class="btn btn-success mb-2" href="<?=base_url('home/addinvoice')?>">Add New</a>
-<table id="example1" class="table table-bordered table-striped">
+<div class="dataTables_filter" id="invoicetable_filter">
+    <div class="row">
+        <label class="col-sm-4">
+            Start Date:
+            <input id="startdate" value="2022-07-15" type="date" class="form-control form-control-sm" placeholder="" aria-controls="invoicetable">
+        </label>
+        <label class="col-sm-4">
+            Start Date:
+            <input id="enddate" value="2022-10-15" type="date" class="form-control form-control-sm" placeholder="" aria-controls="invoicetable">
+        </label>
+        <label class="col-sm-4">
+            Search:
+            <input id="searchtag" type="search" class="form-control form-control-sm" placeholder="" aria-controls="invoicetable">
+        </label>
+    </div>
+</div>
+<table id="invoicetable" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>No</th>

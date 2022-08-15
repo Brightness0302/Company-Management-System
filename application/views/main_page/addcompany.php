@@ -27,32 +27,41 @@
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Company name</div>
-                        <input id="companyname" type="text" type="text" placeholder="" data-validation="alphanumeric" data-validation-allowing="_" required/>
+                        <input id="companyname" type="text" placeholder="" data-validation="alphanumeric" data-validation-allowing="_" required/>
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Company registration number</div>
-                        <input id="companynumber" type="text" type="text" placeholder="" />
+                        <input id="companynumber" type="text" placeholder="" />
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Address </div>
-                        <input id="companyaddress" type="text" type="text" placeholder="" />
+                        <input id="companyaddress" type="text" placeholder="" />
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> VAT number</div>
-                        <input id="companyvat" type="text" type="text" placeholder="" />
+                        <input id="companyvat" type="text" placeholder="" />
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Bank name</div>
-                        <input id="companybankname" type="text" type="text" placeholder="" />
+                        <input id="companybankname" type="text" placeholder="" />
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Bank account</div>
-                        <input id="companybankaccount" type="text" type="text" placeholder="" />
+                        <input id="companybankaccount" type="text" placeholder="" />
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> EORI number for import activities
                         </div>
-                        <input id="companyeori" type="text" type="text" placeholder="" />
+                        <input id="companyeori" type="text" placeholder="" />
+                    </div>
+                    <div class="input">
+                        <div class="title"><i class="material-icons">account_box</i> COIN Type
+                        </div>
+                        <select class="form-select" id="companycoin">
+                            <option value="EURO">€</option>
+                            <option value="POUND">£</option>
+                            <option value="USD">$</option>
+                        </select>
                     </div>
                 </div>
             </div>

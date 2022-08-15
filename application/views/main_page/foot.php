@@ -26,6 +26,7 @@ function AddCompany() {
     const bankname = $("#companybankname").val();
     const bankaccount = $("#companybankaccount").val();
     const EORI = $("#companyeori").val();
+    const Coin = $("#companycoin").val();
 
     if (!name || !number || !address || !VAT || !bankname || !bankaccount || !EORI) {
         swal("Add Company", "You must fill the input.", "warning");
@@ -39,7 +40,8 @@ function AddCompany() {
         VAT: VAT,
         bankname: bankname,
         bankaccount: bankaccount,
-        EORI: EORI
+        EORI: EORI,
+        Coin: Coin
     };
 
     try {
@@ -131,7 +133,7 @@ function Delcompany(companyname) {
             }
             try {
                 $.ajax({
-                    url: "<?=base_url('home/delcompany?companyname=')?>" + companyname,
+                    url: "<?=base_url('home/delcompany')?>",
                     method: "POST",
                     dataType: 'text',
                     async: true,
@@ -173,6 +175,7 @@ function EditCompany(companyid) {
     const bankname = $("#companybankname").val();
     const bankaccount = $("#companybankaccount").val();
     const EORI = $("#companyeori").val();
+    const Coin = $("#companycoin").val();
 
     if (!name || !number || !address || !VAT || !bankname || !bankaccount || !EORI) {
         swal("Add Company", "You must fill the input.", "warning");
@@ -186,7 +189,8 @@ function EditCompany(companyid) {
         VAT: VAT,
         bankname: bankname,
         bankaccount: bankaccount,
-        EORI: EORI
+        EORI: EORI,
+        Coin: Coin
     };
 
     try {

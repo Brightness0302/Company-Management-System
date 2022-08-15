@@ -28,37 +28,46 @@
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Company name</div>
-                        <input id="companyname" class="text" type="text" placeholder=""
+                        <input id="companyname" type="text" placeholder=""
                             value="<?=str_replace("_"," ",$company['name'])?>" />
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Company registration number</div>
-                        <input id="companynumber" class="text" type="text" placeholder=""
+                        <input id="companynumber" type="text" placeholder=""
                             value="<?=$company['number']?>" />
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Address </div>
-                        <input id="companyaddress" class="text" type="text" placeholder=""
+                        <input id="companyaddress" type="text" placeholder=""
                             value="<?=$company['address']?>" />
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> VAT number</div>
-                        <input id="companyvat" class="text" type="text" placeholder="" value="<?=$company['VAT']?>" />
+                        <input id="companyvat" type="text" placeholder="" value="<?=$company['VAT']?>" />
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Bank name</div>
-                        <input id="companybankname" class="text" type="text" placeholder=""
+                        <input id="companybankname" type="text" placeholder=""
                             value="<?=$company['bankname']?>" />
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Bank account</div>
-                        <input id="companybankaccount" class="text" type="text" placeholder=""
+                        <input id="companybankaccount" type="text" placeholder=""
                             value="<?=$company['bankaccount']?>" />
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> EORI number for import activities
                         </div>
-                        <input id="companyeori" class="text" type="text" placeholder="" value="<?=$company['EORI']?>" />
+                        <input id="companyeori" type="text" placeholder="" value="<?=$company['EORI']?>" />
+                    </div>
+                    <div class="input">
+                        <div class="title"><i class="material-icons">account_box</i> COIN Type
+                        </div>
+                        <select class="form-select" id="companycoin">
+                            <option value="EURO" <?=$company['Coin']=="EURO"?"selected":""?>>€</option>
+                            <option value="POUND" <?=$company['Coin']=="POUND"?"selected":""?>>£</option>
+                            <option value="USD" <?=$company['Coin']=="USD"?"selected":""?>>$</option>
+                        </select>
                     </div>
                 </div>
             </div>

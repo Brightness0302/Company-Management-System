@@ -11,34 +11,34 @@
         <!-- Content Start-->
         <div class="container p-2">
             <!-- Company Info Section -->
-            <div class="row" style="border-bottom: 1px black solid;">
+            <div class="row" style=" border-bottom: 1px black solid; margin-bottom: -10px;">
                 <div>
                     <!-- Title Section -->
-                    <div class="p-5 mt-10 ">
+                    <div class="p-3">
                         <h1 class="float-left">Invoice</h1>
                     </div>
                     <!-- Company Avatar start-->
-                    <img style="position: absolute; left: 50px;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="200">
+                    <img style="position: absolute; margin-top: 30px; left: 50px;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="150">
                     <!-- Company Avatar end-->
                 </div>
-                <div style="position: relative; left: 300px; top: -50px;">
+                <div style="position: relative; left: 300px; top: -50px; margin-bottom: -50px;">
                     <div style="margin-bottom: 50px;"><p class="text-lg font-bold"><?=str_replace("_"," ", $company['name'])?></p></div>
                     <div class="row" style="margin-top: 25px;">
                         <div style="width: 110px; display: inline-block;">
-                            <p class="font-bold">Address:</p>
-                            <p class="font-bold">Reg Number:</p>
-                            <p class="font-bold">Bank details:</p>
-                            <p class="font-bold">Beneficiary:</p>
-                            <p class="font-bold">BIC:</p>
-                            <p class="font-bold">IBAN:</p>
+                            <p class="font-bold" style="margin: 0px !important; padding: 0px !important;">Address:</p>
+                            <p class="font-bold" style="margin: 0px !important; padding: 0px !important;">Reg Number:</p>
+                            <p class="font-bold" style="margin: 0px !important; padding: 0px !important;">Bank details:</p>
+                            <p class="font-bold" style="margin: 0px !important; padding: 0px !important;">Beneficiary:</p>
+                            <p class="font-bold" style="margin: 0px !important; padding: 0px !important;">BIC:</p>
+                            <p class="font-bold" style="margin: 0px !important; padding: 0px !important;">IBAN:</p>
                         </div>
                         <div style="width: 300px; display: inline-block;">
-                            <p class="font-normal" style="text-align: justify !important; overflow-wrap: break-word;"><?=$company['address']?></p>
-                            <p class="font-normal"><?=$company['number']?></p>
-                            <p class="font-normal"><?=$company['bankname']?></p>
-                            <p class="font-normal"><?=str_replace("_"," ", $company['name'])?></p>
-                            <p class="font-normal"><?=$company['EORI']?></p>
-                            <p class="font-normal"><?=$company['bankaccount']?></p>
+                            <p class="font-normal" style="text-align: justify !important; overflow-wrap: break-word; margin: 0px; padding: 0px;"><?=$company['address']?></p>
+                            <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['number']?></p>
+                            <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankname']?></p>
+                            <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=str_replace("_"," ", $company['name'])?></p>
+                            <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['EORI']?></p>
+                            <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankaccount']?></p>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
             <!-- Company Info Section End -->
 
             <!-- Add Client Section Start -->
-            <div class="row" style=" margin-top: 50px;">
+            <div class="row" style=" margin-bottom: -50px; margin-top: 20px;">
                 <div class="text-left" style="width: 250px; margin-top: 25px; display: inline-block;">
                     <div class="py-2">
                         <strong style="margin-left: 30px;">Billed to : </strong>
@@ -65,12 +65,9 @@
                         </div>
                         <?php endif;?>
                     </div>
-                    <?php if($invoice['invoice_vat'] != "Add a VAT"):?>
                     <div class="text-left ml-10" style="margin-left: 25px;">
-                        <p class="d_inline w_75 p-2 text-primary text-center" id="invoice_vat"><?=$invoice['invoice_vat']?></p>
-                        <p class="d_inline w_15 p-2"></p>
+                        <p class="d_inline w_75 p-2 text-primary text-center" id="invoice_vat"><?=$invoice['invoice_vat']=="Add a VAT"?"VAT: ---":$invoice['invoice_vat']?></p>
                     </div>
-                    <?php endif;?>
                 </div>
 
                 <div style="width: 120px; margin-top: 25px; min-height: 200px; display: inline-block;">

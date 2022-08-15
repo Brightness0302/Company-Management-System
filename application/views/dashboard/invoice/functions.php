@@ -4,7 +4,7 @@ $(document).ready(function() {
         $("#table_body").append(
             "<tr>" +
             "<td>" +
-            "<input type='text' class='form form-control w-full p-2 mt-2 text_right bg-transparent no_broder' name='description1' placeholder='Description1' id='line_description'>" +
+            "<input type='text' class='form form-control w-full p-2 mt-2 text_right bg-transparent no_broder' name='description1' placeholder='Description1' id='line_description' onkeyup='resizeInput(this)'>" +
             "</td>" +
             "<td class='text-center'>" +
             "<input type='text' value='0' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>" +
@@ -50,6 +50,11 @@ $(document).ready(function() {
         }
     });
 });
+
+function resizeInput(el) {
+    const length = el.value.length;
+    el.style.minWidth = length + "ch";
+}
 
 function refresh() {
     const table = $("#table_body");

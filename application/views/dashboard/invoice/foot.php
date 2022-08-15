@@ -34,7 +34,30 @@ function clickclient(client_name, client_address, client_ref) {
 	$("#upload_client").html("<div class='text-left ml-10'><p class='font-bold text-lg' id='client_name'>"+client_name+"</p><p class='text-base' id='client_address'>"+client_address+"</p></div>");
     $("#input_inputreference").val(client_ref);
 }
+
 $(function() {
+    $.fn.dataTable.ext.search.push(
+        function( settings, data, dataIndex ) {
+            // Don't filter on anything other than "myTable"
+            if ( settings.nTable.id !== 'invoicetable' ) {
+                return true;
+            }
+     
+            // Filtering for "myTable".
+            var startdate = new Date($('#startdate').val());
+            var enddate = new Date($('#enddate').val());
+            var date = new Date(data[4] || 0); // use data for the age column
+            console.log(startdate, enddate, date);
+         
+            if (
+                date >= startdate && date =< enddate
+            ) {
+                return true;
+            }
+            return false;
+        }
+    );
+
     $("#example1").DataTable({
         "responsive": true,
         "lengthChange": false,
@@ -42,6 +65,28 @@ $(function() {
         "pageLength": 100,
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+    $("#invoicetable").DataTable({
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        "pageLength": 100,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#invoicetable_wrapper .col-md-6:eq(0)');
+
+    let invoicetable = $("#invoicetable").DataTable();
+
+    $("#searchtag").on('keyup', function (){
+        invoicetable
+            .columns( 2 )
+            .search( this.value )
+            .draw();
+    });
+    
+    $("input[type=date]").on('change', function (){
+        invoicetable.draw();
+    });
+
     $("#table_in_modal").DataTable({
       "responsive": true, "bFilter": true, "bInfo": false, "pagingType": "simple_numbers", "autoWidth": false,
     }).buttons().container().appendTo('#table_in_modal_wrapper .col-md-6:eq(0)');
