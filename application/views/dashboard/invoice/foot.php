@@ -50,7 +50,7 @@ $(function() {
             console.log(startdate, enddate, date);
          
             if (
-                date >= startdate && date =< enddate
+                date > startdate && date < enddate
             ) {
                 return true;
             }
