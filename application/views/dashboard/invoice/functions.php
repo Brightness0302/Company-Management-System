@@ -82,7 +82,7 @@ function refresh() {
     }
     $("#sub_total").text(sub_total.toFixed(2));
     $("#total").text((total * (1.0 + vvat)).toFixed(2));
-    $("#amount_total").text("€"+$("#total").text());
+    $("#amount_total").text($("#total").text());
     $("#tax").text((total * vvat).toFixed(2));
 }
 
@@ -191,6 +191,7 @@ function get_formdata() {
     const sub_total = $("#sub_total").text();
     const tax = $("#tax").text();
     const total = $("#total").text();
+    const companycoin = $("#companycoin").val();
     let lines = [];
 
     const table = $("#table_body");
@@ -218,7 +219,8 @@ function get_formdata() {
         sub_total: sub_total,
         tax: tax,
         total: total,
-        lines: str_lines
+        lines: str_lines,
+        companycoin: companycoin
     };
     return form_data;
 }

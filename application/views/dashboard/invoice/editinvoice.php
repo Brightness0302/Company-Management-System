@@ -105,20 +105,26 @@
                     </div>
 
                     <div class="text-left ml-10">
-                        <p class="d_inline w_75 p-2 text-primary text-center" onclick="add_vat(this)" id="invoice_vat">Select Coin: </p>
-                        <select class="form-select" id="companycoin">
-                            <option value="<?=$company['Coin']?>">
-                                <?php 
-                                if($company['Coin']=="EURO")
-                                    echo "€";
-                                if ($company['Coin']=="POUND")
-                                    echo "£";
-                                if ($company['Coin']=="USD")
-                                    echo "$";
-                                ?>
-                            </option>
-                            <option value="LEI">Lei</option>
-                        </select>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="d_inline text-center text-lg" >Select Coin: </p>
+                            </div>
+                            <div  class="col-sm-6">
+                                <select class="d_inline form-select" id="companycoin">
+                                    <option value="<?php if($company['Coin']=="EURO")echo "€";if ($company['Coin']=="POUND")echo "£";if ($company['Coin']=="USD")echo "$";?>">
+                                        <?php 
+                                        if($company['Coin']=="EURO")
+                                            echo "€";
+                                        if ($company['Coin']=="POUND")
+                                            echo "£";
+                                        if ($company['Coin']=="USD")
+                                            echo "$";
+                                        ?>
+                                    </option>
+                                    <option value="LEI">Lei</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Modal -->
@@ -194,7 +200,7 @@
                             <strong class="font_24">Amount</strong>
                         </div>
                         <div class="row-sm-6 p-1">
-                            <strong class="text-5xl" id="amount_total">€<?=$invoice['total']?></strong>
+                            <strong class="text-5xl" id="amount_total"><?=$invoice['total']?></strong> <label class="text-5xl coinsymbol">€</label>
                         </div>
                     </div>
                 </div>
@@ -212,9 +218,9 @@
                 <table class="table m_auto">
                     <thead>
                         <th class="text-right">Description</th>
-                        <th class="text-right">Rate</th>
+                        <th class="text-right">Rate(<label class="coinsymbol">€</label>)</th>
                         <th class="text-right pr-2">Qty</th>
-                        <th class="text-right">Line Total</th>
+                        <th class="text-right">Line Total(<label class="coinsymbol">€</label>)</th>
                     </thead>
                     <tbody id="table_body">
                         <?php ?>
@@ -251,19 +257,19 @@
             <!-- Here the text area-->
             <div class="text_right m-3">
                 <p class="d_inline w_75 p-2 text-center">Sub total</p>
-                <p class="d_inline w_15 p-2" id="sub_total"><?=$invoice['sub_total']?></p>
+                <p class="d_inline w_15 p-2" id="sub_total"><?=$invoice['sub_total']?></p><label class="coinsymbol">€</label>
             </div>
 
             <div class="text_right m-3">
                 <p class="d_inline w_75 p-2 text-primary text-center">VAT</p>
-                <p class="d_inline w_15 p-2" id="tax"><?=$invoice['tax']?></p>
+                <p class="d_inline w_15 p-2" id="tax"><?=$invoice['tax']?></p><label class="coinsymbol">€</label>
             </div>
 
-            <hr>
+            <hr style="border: 1px black solid;">
 
             <div class="text_right m-3">
                 <p class="d_inline w_75 p-2 text-primary text-center">Total</p>
-                <p class="d_inline w_15 p-2" id="total"><?=$invoice['total']?></p>
+                <p class="d_inline w_15 p-2" id="total"><?=$invoice['total']?></p><label class="coinsymbol">€</label>
             </div>
             <!-- Here the text area -->
         </div>

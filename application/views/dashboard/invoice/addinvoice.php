@@ -92,11 +92,11 @@
                     <div class="text-left ml-10">
                         <div class="row">
                             <div class="col-sm-6">
-                                <p class="d_inline text-center" >Select Coin: </p>
+                                <p class="d_inline text-center text-lg" >Select Coin: </p>
                             </div>
                             <div  class="col-sm-6">
                                 <select class="d_inline form-select" id="companycoin">
-                                    <option value="<?=$company['Coin']?>">
+                                    <option value="<?php if($company['Coin']=="EURO")echo "€";if ($company['Coin']=="POUND")echo "£";if ($company['Coin']=="USD")echo "$";?>">
                                         <?php 
                                         if($company['Coin']=="EURO")
                                             echo "€";
@@ -185,7 +185,7 @@
                             <strong class="font_24">Amount</strong>
                         </div>
                         <div class="row-sm-6 p-1">
-                            <strong class="text-5xl" id="amount_total">€0.00</strong>
+                            <strong class="text-5xl" id="amount_total">0.00</strong> <label class="text-5xl coinsymbol">€</label>
                         </div>
                     </div>
                 </div>
@@ -203,9 +203,9 @@
                 <table class="table m_auto">
                     <thead>
                         <th class="text-right">Description</th>
-                        <th class="text-right">Rate</th>
+                        <th class="text-right">Rate(<label class="coinsymbol">€</label>)</th>
                         <th class="text-right">Qty</th>
-                        <th class="text-right">Line Total</th>
+                        <th class="text-right">Line Total(<label class="coinsymbol">€</label>)</th>
                     </thead>
                     <tbody id="table_body">
                     </tbody>
@@ -220,16 +220,18 @@
             <!-- Here the text area-->
             <div class="text_right m-3">
                 <p class="d_inline w_75 p-2 text-center">Sub total</p>
-                <p class="d_inline w_15 p-2" id="sub_total">0.00</p>
+                <p class="d_inline w_15 p-2" id="sub_total">0.00</p><label class="coinsymbol">€</label>
             </div>
 
             <div class="text_right m-3">
                 <p class="d_inline w_75 p-2 text-primary text-center">VAT</p>
-                <p class="d_inline w_15 p-2" id="tax">0.00</p>
+                <p class="d_inline w_15 p-2" id="tax">0.00</p><label class="coinsymbol">€</label>
             </div>
+
+            <hr style="border: 1px black solid;">
             <div class="text_right m-3">
                 <p class="d_inline w_75 p-2 text-primary text-center">Total</p>
-                <p class="d_inline w_15 p-2" id="total">0.00</p>
+                <p class="d_inline w_15 p-2" id="total">0.00</p><label class="coinsymbol">€</label>
             </div>
             <!-- Here the text area -->
         </div>

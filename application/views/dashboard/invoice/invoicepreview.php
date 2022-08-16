@@ -101,7 +101,7 @@
                         <strong style="font-size: 24px;">Amount</strong>
                     </div>
                     <div>
-                        <strong style="font-size: 28px;">€<?=$invoice['total']?></strong>
+                        <strong style="font-size: 28px;"><?=$invoice['total'].' '.$invoice['companycoin']?></strong>
                     </div>
                 </div>
 
@@ -139,21 +139,17 @@
             <div style="border-top: 1px solid black;">
                 <div class="text_right">
                     <p class="d_inline text-center">Sub total: </p>
-                    <p class="d_inline"><?=$invoice['sub_total']?></p>
-                </div>
-
-                <div class="text_right">
-                    <p class="d_inline "><?=$invoice['invoice_vat']?></p>
+                    <p class="d_inline"><?=$invoice['sub_total'].' '.$invoice['companycoin']?></p>
                 </div>
 
                 <div class="text_right">
                     <p class="d_inline text-primary text-center">VAT value: </p>
-                    <p class="d_inline "><?=$invoice['tax']?></p>
+                    <p class="d_inline "><?=$invoice['tax'].' '.$invoice['companycoin']?></p>
                 </div>
 
                 <div class="text_right">
                     <p class="d_inline text-primary text-center">Total: </p>
-                    <p class="d_inline "><?=$invoice['total']?></p>
+                    <p class="d_inline "><?=$invoice['total'].' '.$invoice['companycoin']?></p>
                 </div>
             </div>
             <!-- Here the text area -->

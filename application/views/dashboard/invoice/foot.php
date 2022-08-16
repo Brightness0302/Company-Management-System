@@ -107,6 +107,14 @@ $(function() {
         invoicetable.draw();
     });
 
+    $("select[id=companycoin]").on('change', function (){
+        const elements = $(".coinsymbol");
+        console.log(elements);
+        for (var i = elements.length - 1; i >= 0; i--) {
+            $(elements[i]).html(this.value);
+        }
+    });
+
     $("#table_in_modal").DataTable({
       "responsive": true, "bFilter": true, "bInfo": false, "pagingType": "simple_numbers", "autoWidth": false,
     }).buttons().container().appendTo('#table_in_modal_wrapper .col-md-6:eq(0)');
