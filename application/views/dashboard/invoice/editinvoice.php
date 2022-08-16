@@ -200,7 +200,7 @@
                             <strong class="font_24">Amount</strong>
                         </div>
                         <div class="row-sm-6 p-1">
-                            <strong class="text-5xl" id="amount_total"><?=$invoice['total']?></strong> <label class="text-5xl coinsymbol">€</label>
+                            <strong class="text-3xl" id="amount_total"><?=$invoice['total']?></strong> <label class="text-3xl coinsymbol">€</label>
                         </div>
                     </div>
                 </div>
