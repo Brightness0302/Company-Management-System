@@ -95,14 +95,16 @@ $(function() {
         }
     );
 
+    invoicetable.on('draw', function (){
+        subtotal = 0.0, vat = 0.0, total = 0.0;
+    })
+
     $("#searchtag").on('keyup', function (){
-        subtotal = 0.0; vat = 0.0; total = 0.0;
         onrefreshtotalmark();
         invoicetable.draw();
     });
     
     $("input[type=date]").on('change', function (){
-        subtotal = 0.0; vat = 0.0; total = 0.0;
         onrefreshtotalmark();
         invoicetable.draw();
     });
