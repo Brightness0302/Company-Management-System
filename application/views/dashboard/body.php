@@ -298,7 +298,7 @@
                         <a href="<?=base_url('home/suppliermanager')?>">
                             <i class="bi <?=$menu['submenu']=="sm"?"bi-circle-fill":"bi-circle"?>"></i><span>Supplier Management</span>
                         </a>
-                    </li>                 
+                    </li>
 
                 </ul>
             </li><!-- End Components Nav -->

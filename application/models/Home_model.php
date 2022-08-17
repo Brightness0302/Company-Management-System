@@ -271,7 +271,7 @@ class Home_model extends CI_Model {
         return $res;
     }
 
-    public function saveSupplier($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Ref) {
+    public function saveSupplier($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $bankname_2, $bankaccount_2, $EORI, $Ref) {
         $name = str_replace(" ","_",$name);
         $data = array(
             'name'=>$name,
@@ -280,6 +280,8 @@ class Home_model extends CI_Model {
             'VAT'=>$VAT,
             'bankname'=>$bankname,
             'bankaccount'=>$bankaccount,
+            'bankname_2'=>$bankname_2,
+            'bankaccount_2'=>$bankaccount_2,
             'EORI'=>$EORI,
             'Ref'=>$Ref
         );
@@ -289,7 +291,7 @@ class Home_model extends CI_Model {
         return $res;
     }
 
-    public function createSupplier($name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Ref) {
+    public function createSupplier($name, $number, $address, $VAT, $bankname, $bankaccount, $bankname_2, $bankaccount_2, $EORI, $Ref) {
         $name = str_replace(" ","_",$name);
         $data = array(
             'name'=>$name,
@@ -298,6 +300,8 @@ class Home_model extends CI_Model {
             'VAT'=>$VAT,
             'bankname'=>$bankname,
             'bankaccount'=>$bankaccount,
+            'bankname_2'=>$bankname_2,
+            'bankaccount_2'=>$bankaccount_2,
             'EORI'=>$EORI,
             'Ref'=>$Ref
         );

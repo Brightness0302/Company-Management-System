@@ -622,6 +622,10 @@ class Home extends CI_Controller
         $result = $this->home->removeInvoice($type, $data['company']['id'], $invoice_id);
         echo $result;
     }
+    //Del project
+    public function delproject($project_id) {
+        echo $this->home->delProject($project_id);
+    }
     //Delete Supplier param(supplier_name)
     public function delsupplier($supplierid) {
         $result = $this->home->removeSupplier($supplierid);
@@ -755,10 +759,6 @@ class Home extends CI_Controller
         $this->home->updateInvoices($data['company']['id'], $id, $invoices);
         echo $result;
     }
-    //Del project
-    public function delproject($project_id) {
-        echo $this->home->delProject($project_id);
-    }
     //Save(Edit) User post(object(name, number, ...)) params(name)
     public function saveClientbyprojects() {
         $client_name = $this->session->userdata('clientname');
@@ -791,17 +791,19 @@ class Home extends CI_Controller
         $VAT=$this->input->post('VAT');
         $bankname=$this->input->post('bankname');
         $bankaccount=$this->input->post('bankaccount');
+        $bankname_2=$this->input->post('bankname_2');
+        $bankaccount_2=$this->input->post('bankaccount_2');
         $EORI=$this->input->post('EORI');
         $Ref=$this->input->post('Ref');
 
         if (!isset($_GET['id'])) {
-            $projects_id = $this->home->createSupplier($name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Ref);
+            $projects_id = $this->home->createSupplier($name, $number, $address, $VAT, $bankname, $bankaccount, $bankname_2, $bankaccount_2, $EORI, $Ref);
             echo $projects_id;
             return;
         }
 
         $id = $_GET['id'];
-        $result = $this->home->saveSupplier($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Ref);
+        $result = $this->home->saveSupplier($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $bankname_2, $bankaccount_2, $EORI, $Ref);
         echo $result;
     }
     //UploadImage post(fileinput) param(path)

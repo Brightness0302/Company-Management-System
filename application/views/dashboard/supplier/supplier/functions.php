@@ -6,6 +6,8 @@ function AddSupplier() {
     const VAT = $("#Suppliervat").val();
     const bankname = $("#Supplierbankname").val();
     const bankaccount = $("#Supplierbankaccount").val();
+    const bankname_2 = $("#Supplierbankname-2").val();
+    const bankaccount_2 = $("#Supplierbankaccount-2").val();
     const EORI = $("#Suppliereori").val();
     const Ref = $("#SupplierRef").val();
 
@@ -16,6 +18,8 @@ function AddSupplier() {
         VAT: VAT,
         bankname: bankname,
         bankaccount: bankaccount,
+        bankname_2: bankname_2,
+        bankaccount_2: bankaccount_2,
         EORI: EORI,
         Ref: Ref
     };
@@ -69,6 +73,8 @@ function EditSupplier(supplierid) {
     const VAT = $("#Suppliervat").val();
     const bankname = $("#Supplierbankname").val();
     const bankaccount = $("#Supplierbankaccount").val();
+    const bankname_2 = $("#Supplierbankname-2").val();
+    const bankaccount_2 = $("#Supplierbankaccount-2").val();
     const EORI = $("#Suppliereori").val();
     const Ref = $("#SupplierRef").val();
 
@@ -79,6 +85,8 @@ function EditSupplier(supplierid) {
         VAT: VAT,
         bankname: bankname,
         bankaccount: bankaccount,
+        bankname_2: bankname_2,
+        bankaccount_2: bankaccount_2,
         EORI: EORI,
         Ref: Ref
     };
