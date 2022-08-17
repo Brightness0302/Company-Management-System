@@ -295,7 +295,7 @@
                 </a>
                 <ul id="supplier-nav" class="nav-content collapse <?=$menu['menu']=="Suppliers"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="<?=base_url('home/clientmanager')?>">
+                        <a href="<?=base_url('home/suppliermanager')?>">
                             <i class="bi <?=$menu['submenu']=="sm"?"bi-circle-fill":"bi-circle"?>"></i><span>Supplier Management</span>
                         </a>
                     </li>                 
