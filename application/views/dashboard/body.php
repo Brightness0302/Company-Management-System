@@ -289,11 +289,11 @@
             </li><!-- End Components Nav -->
 
             <li class="nav-item">
-                <a class="nav-link <?=$menu['menu']=="Suppliers"?"":"collapsed"?>" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link <?=$menu['menu']=="Suppliers"?"":"collapsed"?>" data-bs-target="#supplier-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-person-bounding-box"></i><span>Suppliers</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="components-nav" class="nav-content collapse <?=$menu['menu']=="Suppliers"?"show":""?>" data-bs-parent="#sidebar-nav">
+                <ul id="supplier-nav" class="nav-content collapse <?=$menu['menu']=="Suppliers"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="<?=base_url('home/clientmanager')?>">
                             <i class="bi <?=$menu['submenu']=="sm"?"bi-circle-fill":"bi-circle"?>"></i><span>Supplier Management</span>
@@ -307,7 +307,7 @@
                 <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
                     <i class="bx bxs-cylinder"></i><span>Materials</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <ul id="tables-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="#">
                             <i class="bi bi-circle"></i><span>H.slot</span>
