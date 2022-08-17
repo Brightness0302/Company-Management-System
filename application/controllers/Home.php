@@ -550,8 +550,7 @@ class Home extends CI_Controller
     }
     //Delete Company param(company_name)
     public function delcompany($company_id) {
-        $result = $this->home->removeItem($company_id);
-        echo $result;
+        echo $this->home->removeItem($company_id);
     }
     //Delete User param(user_name)
     public function deluser() {
@@ -842,6 +841,7 @@ class Home extends CI_Controller
         $data["tax"]=$this->input->post('tax');
         $data["total"]=$this->input->post('total');
         $data["lines"]=$this->input->post('lines');
+        $data["companycoin"]=$this->input->post('companycoin');
 
         $this->session->set_userdata("htmltopdf", $data);
         echo "success";
