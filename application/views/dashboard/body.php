@@ -289,22 +289,19 @@
             </li><!-- End Components Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bx bxs-user-plus"></i><span>Suppliers</span><i class="bi bi-chevron-down ms-auto"></i>
+                <a class="nav-link <?=$menu['menu']=="Suppliers"?"":"collapsed"?>" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-person-bounding-box"></i><span>Suppliers</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <ul id="components-nav" class="nav-content collapse <?=$menu['menu']=="Suppliers"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="#">
-                            <i class="bi bi-circle"></i><span>H.slot</span>
+                        <a href="<?=base_url('home/clientmanager')?>">
+                            <i class="bi <?=$menu['submenu']=="sm"?"bi-circle-fill":"bi-circle"?>"></i><span>Supplier Management</span>
                         </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="bi bi-circle"></i><span>Sword</span>
-                        </a>
-                    </li>
+                    </li>                 
+
                 </ul>
-            </li><!-- End Forms Nav -->
+            </li><!-- End Components Nav -->
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">

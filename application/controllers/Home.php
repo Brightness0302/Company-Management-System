@@ -68,6 +68,7 @@ class Home extends CI_Controller
         $project_name = $this->input->post('projectname');
         $this->session->set_userdata('project_name', $project_name);
     }
+    //goto dashboard
     public function gotodashboard($company_id) {
         $company = $this->home->databyid($company_id, 'company');
         $this->session->set_userdata('companyid', $company_id);
@@ -116,10 +117,10 @@ class Home extends CI_Controller
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
-        $this->load->view('dashboard/client/head');
-        $this->load->view('dashboard/client/body');
-        $this->load->view('dashboard/client/foot');
-        $this->load->view('dashboard/client/functions.php');
+        $this->load->view('dashboard/client/client/head');
+        $this->load->view('dashboard/client/client/body');
+        $this->load->view('dashboard/client/client/foot');
+        $this->load->view('dashboard/client/client/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -141,10 +142,10 @@ class Home extends CI_Controller
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
-        $this->load->view('dashboard/invoice/head');
-        $this->load->view('dashboard/invoice/body');
-        $this->load->view('dashboard/invoice/foot');
-        $this->load->view('dashboard/invoice/functions.php');
+        $this->load->view('dashboard/client/invoice/head');
+        $this->load->view('dashboard/client/invoice/body');
+        $this->load->view('dashboard/client/invoice/foot');
+        $this->load->view('dashboard/client/invoice/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -166,10 +167,10 @@ class Home extends CI_Controller
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
-        $this->load->view('dashboard/proformainvoice/head');
-        $this->load->view('dashboard/proformainvoice/body');
-        $this->load->view('dashboard/proformainvoice/foot');
-        $this->load->view('dashboard/proformainvoice/functions.php');
+        $this->load->view('dashboard/client/proformainvoice/head');
+        $this->load->view('dashboard/client/proformainvoice/body');
+        $this->load->view('dashboard/client/proformainvoice/foot');
+        $this->load->view('dashboard/client/proformainvoice/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -191,10 +192,10 @@ class Home extends CI_Controller
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
-        $this->load->view('dashboard/payment/head');
-        $this->load->view('dashboard/payment/body');
-        $this->load->view('dashboard/payment/foot');
-        $this->load->view('dashboard/payment/functions.php');
+        $this->load->view('dashboard/client/payment/head');
+        $this->load->view('dashboard/client/payment/body');
+        $this->load->view('dashboard/client/payment/foot');
+        $this->load->view('dashboard/client/payment/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -217,10 +218,34 @@ class Home extends CI_Controller
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
-        $this->load->view('dashboard/project/head');
-        $this->load->view('dashboard/project/body');
-        $this->load->view('dashboard/project/foot');
-        $this->load->view('dashboard/project/functions.php');
+        $this->load->view('dashboard/client/project/head');
+        $this->load->view('dashboard/client/project/body');
+        $this->load->view('dashboard/client/project/foot');
+        $this->load->view('dashboard/client/project/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
+    //View supplier page of add/edit/delete function
+    public function suppliermanager() {
+        $company_name = $this->session->userdata('companyname');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['user'] = $this->session->userdata('user');
+        $data['suppliers'] = $this->home->alldata('supplier');
+
+        $session['menu']="Suppliers";
+        $session['submenu']="sm";
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/supplier/supplier/head');
+        $this->load->view('dashboard/supplier/supplier/body');
+        $this->load->view('dashboard/supplier/supplier/foot');
+        $this->load->view('dashboard/supplier/supplier/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -306,8 +331,8 @@ class Home extends CI_Controller
     public function addclient() {
         $this->load->view('header');
         $this->load->view('main_page/head');
-        $this->load->view('dashboard/client/addclient');
-        $this->load->view('dashboard/client/functions.php');
+        $this->load->view('dashboard/client/client/addclient');
+        $this->load->view('dashboard/client/client/functions.php');
         $this->load->view('footer');
     }
     //View userpage of creating.
@@ -339,11 +364,11 @@ class Home extends CI_Controller
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
-        $this->load->view('dashboard/invoice/head');
-        $this->load->view('dashboard/invoice/shead');
-        $this->load->view('dashboard/invoice/addinvoice');
-        $this->load->view('dashboard/invoice/foot');
-        $this->load->view('dashboard/invoice/functions.php');
+        $this->load->view('dashboard/client/invoice/head');
+        $this->load->view('dashboard/client/invoice/shead');
+        $this->load->view('dashboard/client/invoice/addinvoice');
+        $this->load->view('dashboard/client/invoice/foot');
+        $this->load->view('dashboard/client/invoice/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -365,11 +390,11 @@ class Home extends CI_Controller
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
-        $this->load->view('dashboard/proformainvoice/head');
-        $this->load->view('dashboard/proformainvoice/shead');
-        $this->load->view('dashboard/proformainvoice/addinvoice');
-        $this->load->view('dashboard/proformainvoice/foot');
-        $this->load->view('dashboard/proformainvoice/functions.php');
+        $this->load->view('dashboard/client/proformainvoice/head');
+        $this->load->view('dashboard/client/proformainvoice/shead');
+        $this->load->view('dashboard/client/proformainvoice/addinvoice');
+        $this->load->view('dashboard/client/proformainvoice/foot');
+        $this->load->view('dashboard/client/proformainvoice/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -386,12 +411,20 @@ class Home extends CI_Controller
 
         $this->load->view('header');
         $this->load->view('dashboard/head');
-        $this->load->view('dashboard/project/head');
-        $this->load->view('dashboard/project/shead');
-        $this->load->view('dashboard/project/addproject', $data);
-        $this->load->view('dashboard/project/foot');
-        $this->load->view('dashboard/project/functions.php');
+        $this->load->view('dashboard/client/project/head');
+        $this->load->view('dashboard/client/project/shead');
+        $this->load->view('dashboard/client/project/addproject', $data);
+        $this->load->view('dashboard/client/project/foot');
+        $this->load->view('dashboard/client/project/functions.php');
         $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
+    //View clientpage of creating.
+    public function addsupplier() {
+        $this->load->view('header');
+        $this->load->view('main_page/head');
+        $this->load->view('dashboard/supplier/supplier/addsupplier');
+        $this->load->view('dashboard/supplier/supplier/functions.php');
         $this->load->view('footer');
     }
     //View projectpage of editting
@@ -411,11 +444,11 @@ class Home extends CI_Controller
 
         $this->load->view('header');
         $this->load->view('dashboard/head');
-        $this->load->view('dashboard/project/head');
-        $this->load->view('dashboard/project/shead');
-        $this->load->view('dashboard/project/editproject', $data);
-        $this->load->view('dashboard/project/foot');
-        $this->load->view('dashboard/project/functions.php');
+        $this->load->view('dashboard/client/project/head');
+        $this->load->view('dashboard/client/project/shead');
+        $this->load->view('dashboard/client/project/editproject', $data);
+        $this->load->view('dashboard/client/project/foot');
+        $this->load->view('dashboard/client/project/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -440,10 +473,10 @@ class Home extends CI_Controller
 
         $this->load->view('header');
         $this->load->view('dashboard/head');
-        $this->load->view('dashboard/project/head');
-        $this->load->view('dashboard/project/editclient', $data);
-        $this->load->view('dashboard/project/foot');
-        $this->load->view('dashboard/project/functions.php');
+        $this->load->view('dashboard/client/project/head');
+        $this->load->view('dashboard/client/project/editclient', $data);
+        $this->load->view('dashboard/client/project/foot');
+        $this->load->view('dashboard/client/project/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -469,8 +502,8 @@ class Home extends CI_Controller
 
         $this->load->view('header');
         $this->load->view('main_page/head');
-        $this->load->view('dashboard/client/editclient', $data);
-        $this->load->view('dashboard/client/functions.php');
+        $this->load->view('dashboard/client/client/editclient', $data);
+        $this->load->view('dashboard/client/client/functions.php');
         $this->load->view('footer');
     }
     //View userpage of editting.
@@ -510,11 +543,11 @@ class Home extends CI_Controller
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
-        $this->load->view('dashboard/invoice/head');
-        $this->load->view('dashboard/invoice/shead');
-        $this->load->view('dashboard/invoice/editinvoice');
-        $this->load->view('dashboard/invoice/foot');
-        $this->load->view('dashboard/invoice/functions.php');
+        $this->load->view('dashboard/client/invoice/head');
+        $this->load->view('dashboard/client/invoice/shead');
+        $this->load->view('dashboard/client/invoice/editinvoice');
+        $this->load->view('dashboard/client/invoice/foot');
+        $this->load->view('dashboard/client/invoice/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -540,12 +573,25 @@ class Home extends CI_Controller
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
-        $this->load->view('dashboard/proformainvoice/head');
-        $this->load->view('dashboard/proformainvoice/shead');
-        $this->load->view('dashboard/proformainvoice/editinvoice');
-        $this->load->view('dashboard/proformainvoice/foot');
-        $this->load->view('dashboard/proformainvoice/functions.php');
+        $this->load->view('dashboard/client/proformainvoice/head');
+        $this->load->view('dashboard/client/proformainvoice/shead');
+        $this->load->view('dashboard/client/proformainvoice/editinvoice');
+        $this->load->view('dashboard/client/proformainvoice/foot');
+        $this->load->view('dashboard/client/proformainvoice/functions.php');
         $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
+    //View supplierpage of editting.
+    public function editsupplier($supplier_id) {
+        $result = $this->home->databyid($supplier_id, 'supplier');
+        if ($result['status']=="failed")
+            return;
+        $data['supplier']=$result['data'];
+
+        $this->load->view('header');
+        $this->load->view('main_page/head');
+        $this->load->view('dashboard/supplier/supplier/editsupplier', $data);
+        $this->load->view('dashboard/supplier/supplier/functions.php');
         $this->load->view('footer');
     }
     //Delete Company param(company_name)
@@ -574,6 +620,11 @@ class Home extends CI_Controller
         $data['company'] = $company['data'];
 
         $result = $this->home->removeInvoice($type, $data['company']['id'], $invoice_id);
+        echo $result;
+    }
+    //Delete Supplier param(supplier_name)
+    public function delsupplier($supplierid) {
+        $result = $this->home->removeSupplier($supplierid);
         echo $result;
     }
     //Save(Add/Edit) Company post(object(name, number, ...)) get(id)
@@ -732,6 +783,27 @@ class Home extends CI_Controller
         $result = $this->home->updateProjects($client['id'], $projects);
         echo $result;
     }
+    //Save(Add/Edit) Supplier post(object(name, number, ...)) get(id)
+    public function savesupplier() {
+        $name=$this->input->post('name');
+        $number=$this->input->post('number');
+        $address=$this->input->post('address');
+        $VAT=$this->input->post('VAT');
+        $bankname=$this->input->post('bankname');
+        $bankaccount=$this->input->post('bankaccount');
+        $EORI=$this->input->post('EORI');
+        $Ref=$this->input->post('Ref');
+
+        if (!isset($_GET['id'])) {
+            $projects_id = $this->home->createSupplier($name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Ref);
+            echo $projects_id;
+            return;
+        }
+
+        $id = $_GET['id'];
+        $result = $this->home->saveSupplier($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Ref);
+        echo $result;
+    }
     //UploadImage post(fileinput) param(path)
     public function uploadImage($path) {
         if (!isset($_GET['id'])) // works with request 
@@ -815,9 +887,9 @@ class Home extends CI_Controller
         $data['clients'] = $this->home->alldata('client');
         $data['invoice'] = $this->session->userdata('htmltopdf');
 
-        $this->load->view('dashboard/invoice/head');
-        $this->load->view('dashboard/invoice/shead');
-        $this->load->view('dashboard/invoice/invoicepreview', $data);
+        $this->load->view('dashboard/client/invoice/head');
+        $this->load->view('dashboard/client/invoice/shead');
+        $this->load->view('dashboard/client/invoice/invoicepreview', $data);
     }
 
     public function savesessionbyjson() {

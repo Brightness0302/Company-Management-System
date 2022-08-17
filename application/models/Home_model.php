@@ -271,6 +271,63 @@ class Home_model extends CI_Model {
         return $res;
     }
 
+    public function saveSupplier($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Ref) {
+        $name = str_replace(" ","_",$name);
+        $data = array(
+            'name'=>$name,
+            'number'=>$number,
+            'address'=>$address,
+            'VAT'=>$VAT,
+            'bankname'=>$bankname,
+            'bankaccount'=>$bankaccount,
+            'EORI'=>$EORI,
+            'Ref'=>$Ref
+        );
+
+        $this->db->where('id', $id);
+        $res=$this->db->update('supplier', $data);
+        return $res;
+    }
+
+    public function createSupplier($name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Ref) {
+        $name = str_replace(" ","_",$name);
+        $data = array(
+            'name'=>$name,
+            'number'=>$number,
+            'address'=>$address,
+            'VAT'=>$VAT,
+            'bankname'=>$bankname,
+            'bankaccount'=>$bankaccount,
+            'EORI'=>$EORI,
+            'Ref'=>$Ref
+        );
+
+        $query = "SELECT *
+                FROM `supplier`
+                WHERE `name`='$name'";
+
+        $res = $this->db->query($query)->result_array();
+        $projects_id = -1;
+
+        if (count($res)!=0) {
+            return $projects_id;
+        }
+
+        $this->db->insert('supplier',$data);
+        $projects_id = $this->db->insert_id();
+        return $projects_id;
+    }
+
+    public function removeSupplier($id) {
+        $data = array(
+            'isremoved'=>TRUE
+        );
+
+        $this->db->where('id', $id);
+        $res=$this->db->update('supplier', $data);
+        return $res;
+    }
+
     public function saveInvoice($id, $companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines) {
         $client_name = str_replace(" ", "", $client_name);
         $client_name = str_replace("\n","", $client_name);
