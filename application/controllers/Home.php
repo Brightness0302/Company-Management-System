@@ -801,7 +801,7 @@ class Home extends CI_Controller
         $html .= $this->load->view('dashboard/invoice/shead', [], true);
         $html .= $this->load->view('dashboard/invoice/invoicepreview', $data, true);
 
-        $this->pdf->createPDF($html, 'invoice.pdf');
+        $this->pdf->createPDF($html, $company_name.'-'.$data['invoice']['type'].$data['invoice']['input_invoicenumber'].'-'.date("Y.m.d").'-'.$data['invoice']['input_inputreference'].'.pdf');
         echo "success";
     }
 
