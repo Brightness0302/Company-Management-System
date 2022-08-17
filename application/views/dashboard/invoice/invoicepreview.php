@@ -118,9 +118,9 @@
                     <thead>
                         <th>No</th>
                         <th>Description</th>
-                        <th>Rate</th>
+                        <th>Rate(<?=$invoice['companycoin']?>)</th>
                         <th>Qty</th>
-                        <th>Line Total</th>
+                        <th>Line Total(<?=$invoice['companycoin']?>)</th>
                     </thead>
                     <tbody id="preview_table_body">
                     <?php foreach ($lines as $index => $line):?>
