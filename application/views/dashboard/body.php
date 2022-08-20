@@ -300,6 +300,18 @@
                         </a>
                     </li>
 
+                    <li>
+                        <a href="<?=base_url('stock/index')?>">
+                            <i class="bi <?=$menu['submenu']=="stm"?"bi-circle-fill":"bi-circle"?>"></i><span>Stock Management</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="<?=base_url('product/index')?>">
+                            <i class="bi <?=$menu['submenu']=="pdm"?"bi-circle-fill":"bi-circle"?>"></i><span>Product Management</span>
+                        </a>
+                    </li>
+
                 </ul>
             </li><!-- End Components Nav -->
 

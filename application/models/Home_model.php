@@ -5,7 +5,8 @@ class Home_model extends CI_Model {
     //get all data from $data table in manager database.
     public function alldata($data) {
         $query =    "SELECT *
-                    FROM `$data`";
+                    FROM `$data`
+                    WHERE `isremoved`=false";
 
         return $this->db->query($query)->result_array();
     }
@@ -15,7 +16,8 @@ class Home_model extends CI_Model {
         $this->db->query('use '.$companyid);
 
         $query =    "SELECT *
-                    FROM `$data`";
+                    FROM `$data`
+                    WHERE `isremoved`=false";
 
         return $this->db->query($query)->result_array();
     }
@@ -40,7 +42,7 @@ class Home_model extends CI_Model {
     public function databyname($name, $table) {
         $query =    "SELECT *
                     FROM `$table`
-                    WHERE `name`='$name'";
+                    WHERE `name`='$name' AND `isremoved`=false";
 
         $res = $this->db->query($query)->result_array();
         $data = [];
@@ -54,11 +56,11 @@ class Home_model extends CI_Model {
         }
         return $data;
     }
-    //get all information which id=$id from $table table in manager database
+    //get all information which id=$id from $table table in manager database //SELECT * FROM supplier WHERE `id`='1' AND `isremoved`=false;
     public function databyid($id, $table) {
         $query =    "SELECT *
                     FROM `$table`
-                    WHERE `id`='$id'";
+                    WHERE `id`='$id' AND `isremoved`=false";
 
         $res = $this->db->query($query)->result_array();
         $data = [];

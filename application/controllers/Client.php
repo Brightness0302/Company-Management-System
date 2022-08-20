@@ -9,6 +9,7 @@ class Client extends CI_Controller
     }
     //View client page of add/edit/delete function
     public function index() {
+        $this->check_usersession();
         $company_name = $this->session->userdata('companyname');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
@@ -644,5 +645,16 @@ class Client extends CI_Controller
 
         $this->session->set_userdata("htmltopdf", $data);
         echo "success";
+    }
+    //If usersession is not exist, goto login page.
+    public function check_usersession() {
+        if($this->session->userdata('user')) {
+            // do something when exist
+            return true;
+        } else{
+            // do something when doesn't exist
+            redirect('home/signview');
+            return false;
+        }
     }
 };
