@@ -18,7 +18,7 @@ $(document).ready(function() {
         };
 
         $.ajax({
-            url: "<?=base_url('home/saveproject')?>", 
+            url: "<?=base_url('client/saveproject')?>", 
             method: "POST", 
             data: form_data, 
             dataType: 'text', 
@@ -40,7 +40,7 @@ $(document).ready(function() {
                     closeOnCancel: true
                 },
                 function() {
-                    window.location.href = "<?=base_url('home/projectmanager')?>";
+                    window.location.href = "<?=base_url('client/projectmanager')?>";
                 });
             },
             error: function(jqXHR, exception) {
@@ -106,7 +106,7 @@ function saveProject(projectid) {
     };
 
     $.ajax({
-        url: "<?=base_url('home/saveproject?id=')?>"+projectid, 
+        url: "<?=base_url('client/saveproject?id=')?>"+projectid, 
         method: "POST", 
         data: form_data, 
         dataType: 'text', 
@@ -129,7 +129,7 @@ function saveProject(projectid) {
                 closeOnCancel: true
             },
             function() {
-                window.location.href = "<?=base_url('home/projectmanager')?>";
+                window.location.href = "<?=base_url('client/projectmanager')?>";
             });
         },
         error: function(jqXHR, exception) {
@@ -155,7 +155,7 @@ function delproject(projectid) {
     },
     function() {
         $.ajax({
-            url: "<?=base_url('home/delproject/')?>"+projectid, 
+            url: "<?=base_url('client/delproject/')?>"+projectid, 
             method: "POST", 
             dataType: 'text', 
             async: true,
@@ -177,7 +177,7 @@ function delproject(projectid) {
                     closeOnCancel: true
                 },
                 function() {
-                    window.location.href = "<?=base_url('home/projectmanager')?>";
+                    window.location.href = "<?=base_url('client/projectmanager')?>";
                 });
             },
             error: function(jqXHR, exception) {
@@ -206,7 +206,7 @@ function saveClientbyprojects(clientname) {
     };
 
     $.ajax({
-        url: "<?=base_url('home/saveClientbyprojects?clientname=')?>"+clientname, 
+        url: "<?=base_url('client/saveClientbyprojects?clientname=')?>"+clientname, 
         method: "POST", 
         data: form_data, 
         dataType: 'text', 
@@ -229,7 +229,7 @@ function saveClientbyprojects(clientname) {
                 closeOnCancel: true
             },
             function() {
-                window.location.href = "<?=base_url('home/projectmanager')?>";
+                window.location.href = "<?=base_url('client/projectmanager')?>";
             });
         },
         error: function(jqXHR, exception) {

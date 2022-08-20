@@ -11,6 +11,8 @@ function AddSupplier() {
     const EORI = $("#Suppliereori").val();
     const Ref = $("#SupplierRef").val();
 
+    alert(bankname_2+bankaccount_2);
+
     const form_data = {
         name: name,
         number: number,
@@ -26,7 +28,7 @@ function AddSupplier() {
 
     try {
         $.ajax({
-            url: "<?=base_url('home/savesupplier')?>",
+            url: "<?=base_url('supplier/savesupplier')?>",
             method: "POST",
             data: form_data,
             success: function(res) {
@@ -53,7 +55,7 @@ function AddSupplier() {
                                 closeOnCancel: true
                             },
                             function() {
-                                window.location.href = "<?=base_url('home/suppliermanager')?>";
+                                window.location.href = "<?=base_url('supplier/index')?>";
                             });
                     }
                 } catch (err) {
@@ -93,7 +95,7 @@ function EditSupplier(supplierid) {
 
     try {
         $.ajax({
-            url: "<?=base_url('home/savesupplier?id=')?>" + supplierid,
+            url: "<?=base_url('supplier/savesupplier?id=')?>" + supplierid,
             method: "POST",
             data: form_data,
             success: function(res) {
@@ -119,7 +121,7 @@ function EditSupplier(supplierid) {
                             closeOnCancel: true
                         },
                         function() {
-                            window.location.href = "<?=base_url('home/suppliermanager')?>";
+                            window.location.href = "<?=base_url('supplier/index')?>";
                         });
                     return;
                 } catch (err) {
@@ -151,7 +153,7 @@ function delSupplier(supplierid) {
             }
             try {
                 $.ajax({
-                    url: "<?=base_url('home/delsupplier/')?>"+supplierid,
+                    url: "<?=base_url('supplier/delsupplier/')?>"+supplierid,
                     method: "POST",
                     dataType: 'text',
                     async: true,
@@ -160,20 +162,21 @@ function delSupplier(supplierid) {
                             swal("Delete " + supplierid, "Failed", "error");
                             return;
                         }
+                        console.log("Delete"+supplierid);
                         swal({
-                                title: "Delete " + supplierid,
-                                text: "Supplier Success",
-                                type: "success",
-                                showCancelButton: false,
-                                confirmButtonClass: "btn-success",
-                                confirmButtonText: "Letz go",
-                                cancelButtonText: "No, cancel plx!",
-                                closeOnConfirm: true,
-                                closeOnCancel: true
-                            },
-                            function() {
-                                window.location.href = "<?=base_url('home/suppliermanager')?>";
-                            });
+                            title: "Delete " + supplierid,
+                            text: "Supplier Success",
+                            type: "success",
+                            showCancelButton: false,
+                            confirmButtonClass: "btn-success",
+                            confirmButtonText: "Letz go",
+                            cancelButtonText: "No, cancel plx!",
+                            closeOnConfirm: true,
+                            closeOnCancel: true
+                        },
+                        function() {
+                            window.location.href = "<?=base_url('supplier/index')?>";
+                        });
                     },
                     error: function(jqXHR, exception) {
                         swal("Delete " + supplierid, "Server Error", "warning");

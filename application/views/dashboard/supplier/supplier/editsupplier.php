@@ -3,7 +3,7 @@
 <body>
     <section id="hero" class="align-items-center">
         <div data-aos="fade-up" data-aos-delay="100">
-            <a href="<?=base_url('home/suppliermanager')?>"><button
+            <a href="<?=base_url('supplier/index')?>"><button
                     class="backbutton w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-2xl"
                     title="Edit New Supplier">&#8249;</button></a>
         </div>
@@ -47,11 +47,11 @@
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Bank name - 2</div>
-                        <input id="Supplierbankname-2" class="text" type="text" placeholder="" />
+                        <input id="Supplierbankname-2" class="text" type="text" placeholder="" value="<?=$supplier['bankname_2']?>" />
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Bank account - 2</div>
-                        <input id="Supplierbankaccount-2" class="text" type="text" placeholder="" />
+                        <input id="Supplierbankaccount-2" class="text" type="text" placeholder="" value="<?=$supplier['bankaccount_2']?>"/>
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> EORI number for import activities
@@ -66,7 +66,7 @@
             </div>
             <div class="text-center">
                 <button class="cbutton bg-red" onclick="EditSupplier('<?=$supplier['id']?>')">Save</button> / <button
-                    class="cbutton bg-white"><a href="<?=base_url('home/suppliermanager')?>">Cancel</a></button>
+                    class="cbutton bg-white"><a href="<?=base_url('supplier/index')?>">Cancel</a></button>
             </div>
         </div>
     </section><!-- End Hero -->

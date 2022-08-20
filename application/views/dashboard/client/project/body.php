@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Assigning Invoices to Project</h1>
-    <a class="btn btn-success mb-2" href="<?=base_url('home/addprojectbyinvoices')?>">Add New</a>
+    <a class="btn btn-success mb-2" href="<?=base_url('client/addprojectbyinvoices')?>">Add New</a>
     <table id="example1" class="table table-bordered table-striped text-center">
         <thead>
             <tr>
@@ -35,7 +35,7 @@
                     </div>
                 </td>
                 <td class="form-inline flex justify-around">
-                    <a class="btn btn-primary " href="<?=base_url('home/editprojectbyinvoices/'.$project['id'])?>"><i class="bi bi-terminal-dash"></i></a>
+                    <a class="btn btn-primary " href="<?=base_url('client/editprojectbyinvoices/'.$project['id'])?>"><i class="bi bi-terminal-dash"></i></a>
                     <button class="btn btn-danger " onclick="delproject('<?=$project['id']?>')"><i class="bi bi-trash3-fill"></i></button>
                 </td>
             </tr>
@@ -85,7 +85,7 @@
                 </td>
                 <td><?=$client['isremoved']?"<label class='status danger'>In-Active</label>":"<label class='status success'>Active</label>"?></td>
                 <td class="form-inline flex justify-around">
-                    <a class="btn btn-primary " href="<?=base_url('home/editclientbyprojects/'.$client['id'])?>"><i class="bi bi-terminal-dash"></i></a>
+                    <a class="btn btn-primary " href="<?=base_url('client/editclientbyprojects/'.$client['id'])?>"><i class="bi bi-terminal-dash"></i></a>
                 </td>
             </tr>
             <?php endif;?>

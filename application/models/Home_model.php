@@ -2,14 +2,14 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home_model extends CI_Model {
-
+    //get all data from $data table in manager database.
     public function alldata($data) {
         $query =    "SELECT *
                     FROM `$data`";
 
         return $this->db->query($query)->result_array();
     }
-
+    //get all data from $data table in $companyid database
     public function alldatafromdatabase($companyid, $data) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
@@ -19,7 +19,7 @@ class Home_model extends CI_Model {
 
         return $this->db->query($query)->result_array();
     }
-
+    //get dateissue, datedue, lastid for invoice
     public function invoicefromsetting($companyid, $table) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
@@ -36,7 +36,7 @@ class Home_model extends CI_Model {
 
         return $data;
     }
-
+    //get all information which name=$name from $table table in manager database
     public function databyname($name, $table) {
         $query =    "SELECT *
                     FROM `$table`
@@ -54,7 +54,7 @@ class Home_model extends CI_Model {
         }
         return $data;
     }
-
+    //get all information which id=$id from $table table in manager database
     public function databyid($id, $table) {
         $query =    "SELECT *
                     FROM `$table`
@@ -72,7 +72,7 @@ class Home_model extends CI_Model {
         }
         return $data;
     }
-
+    //get all information which id=$id from $data table in $companyid database
     public function databyidfromdatabase($companyid, $data, $id) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
@@ -93,7 +93,7 @@ class Home_model extends CI_Model {
         }
         return $data;
     }
-
+    //signin using $email, and $password
     public function signin($email,  $password) {
         $query = "SELECT *
                 FROM `user`
@@ -110,7 +110,7 @@ class Home_model extends CI_Model {
         }
         return $data;
     }
-
+    //
     public function confirmemail($email) {
         $query = "SELECT *
                 FROM `user`
@@ -127,7 +127,7 @@ class Home_model extends CI_Model {
         }
         return $msg;
     }
-
+    //needless
     public function signup($company_name, $fullname, $email, $pass) {
     	$company_name = str_replace(" ","_",$company_name);
         $data;
@@ -148,15 +148,15 @@ class Home_model extends CI_Model {
 
         return ($projects_id>0)?"success":"failed";
     }
-
+    //send password into $email
     public function forgot($email) {
 
     }
-
+    //format password and send password into $email
     public function recover($email) {
 
     }
-
+    //save company information using $id, $name, ...
     public function saveItem($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Coin) {
     	$name = str_replace(" ","_",$name);
         $data = array(
@@ -174,7 +174,7 @@ class Home_model extends CI_Model {
         $res=$this->db->update('company', $data);
         return $res;
     }
-
+    //create company information using $id, $name, ...
     public function createItem($name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Coin) {
     	$name = str_replace(" ","_",$name);
         $data = array(
@@ -203,7 +203,7 @@ class Home_model extends CI_Model {
         $projects_id = $this->db->insert_id();
         return $projects_id;
     }
-
+    //remove company information using $id
     public function removeItem($id) {
         $data = array(
             'isremoved'=>TRUE
@@ -213,7 +213,7 @@ class Home_model extends CI_Model {
         $res=$this->db->update('company', $data);
         return $res;
     }
-
+    //save client information using $id, $name, ...
     public function saveClient($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Ref) {
         $name = str_replace(" ","_",$name);
         $data = array(
@@ -231,7 +231,7 @@ class Home_model extends CI_Model {
         $res=$this->db->update('client', $data);
         return $res;
     }
-
+    //create client information using $id, $name, ...
     public function createClient($name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Ref) {
         $name = str_replace(" ","_",$name);
         $data = array(
@@ -260,7 +260,7 @@ class Home_model extends CI_Model {
         $projects_id = $this->db->insert_id();
         return $projects_id;
     }
-
+    //remove client information using $id
     public function removeClient($id) {
         $data = array(
             'isremoved'=>TRUE
@@ -270,7 +270,7 @@ class Home_model extends CI_Model {
         $res=$this->db->update('client', $data);
         return $res;
     }
-
+    //save supplier information using $id, $name, ...
     public function saveSupplier($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $bankname_2, $bankaccount_2, $EORI, $Ref) {
         $name = str_replace(" ","_",$name);
         $data = array(
@@ -290,7 +290,7 @@ class Home_model extends CI_Model {
         $res=$this->db->update('supplier', $data);
         return $res;
     }
-
+    //create supplier information using $id, $name, ...
     public function createSupplier($name, $number, $address, $VAT, $bankname, $bankaccount, $bankname_2, $bankaccount_2, $EORI, $Ref) {
         $name = str_replace(" ","_",$name);
         $data = array(
@@ -321,7 +321,7 @@ class Home_model extends CI_Model {
         $projects_id = $this->db->insert_id();
         return $projects_id;
     }
-
+    //remove supplier information using $id
     public function removeSupplier($id) {
         $data = array(
             'isremoved'=>TRUE
@@ -331,7 +331,7 @@ class Home_model extends CI_Model {
         $res=$this->db->update('supplier', $data);
         return $res;
     }
-
+    //save invoice information using $id, $companyid, ...
     public function saveInvoice($id, $companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines) {
         $client_name = str_replace(" ", "", $client_name);
         $client_name = str_replace("\n","", $client_name);
@@ -357,7 +357,7 @@ class Home_model extends CI_Model {
         $res=$this->db->update($type, $data);
         return $res;
     }
-
+    //create invoice information using $id, $companyid, ...
     public function createInvoice($companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines) {
         $client_name = str_replace(" ","",$client_name);
         $client_name = str_replace("\n","", $client_name);
@@ -383,7 +383,7 @@ class Home_model extends CI_Model {
         $projects_id = $this->db->insert_id();
         return $projects_id;
     }
-
+    //remove invoice information using $companyid, $invoice_id
     public function removeInvoice($type, $companyid, $invoice_id) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
@@ -396,7 +396,7 @@ class Home_model extends CI_Model {
         $res=$this->db->update($type, $data);
         return $res;
     }
-
+    //set paid or unpaid section using $companyid, $invoice_id
     public function toggleinvoicepayment($companyid, $invoice_id) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
@@ -419,7 +419,7 @@ class Home_model extends CI_Model {
         $res=$this->db->update('invoice', $data);
         return $res;
     }
-
+    //create database using $companyid
     public function createdatabase($companyid) {
         $companyid = "database".$companyid;
         $this->load->dbforge();
@@ -583,7 +583,7 @@ class Home_model extends CI_Model {
         // create table
         $this->dbforge->create_table('setting');
     }
-
+    //create user using $username, $password, $company, $module
     public function createUser($username, $password, $company, $module) {
     	$username = str_replace(" ","_",$username);
         $data = array(
@@ -609,7 +609,7 @@ class Home_model extends CI_Model {
         $projects_id = $this->db->insert_id();
         return $projects_id;
     }
-
+    //save user using $id, $username, $password, ...
     public function saveUser($id, $username, $password, $company, $module) {
         $data = array(
             'username'=>$username,
@@ -622,7 +622,7 @@ class Home_model extends CI_Model {
         $res=$this->db->update('user', $data);
         return $res;
     }
-
+    //remove user using $username
     public function removeUser($username) {
         $data = array(
             'isremoved'=>TRUE
@@ -632,7 +632,7 @@ class Home_model extends CI_Model {
         $res=$this->db->update('user', $data);
         return $res;
     }
-
+    //create project using $name
     public function createProject($name) {
         $name = str_replace(" ","_",$name);
         $data = array(
@@ -654,7 +654,7 @@ class Home_model extends CI_Model {
         $projects_id = $this->db->insert_id();
         return $projects_id;
     }
-
+    //save project using $id, $name
     public function saveProject($id, $name) {
         $data = array(
             'name'=>$name,
@@ -664,7 +664,7 @@ class Home_model extends CI_Model {
         $res=$this->db->update('project', $data);
         return $res;
     }
-
+    //del project using $id
     public function delProject($id) {
         $data = array(
             'isremoved'=>TRUE

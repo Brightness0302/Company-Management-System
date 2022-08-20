@@ -283,7 +283,7 @@ function addInvoice() {
                 closeOnCancel: true
             },
             function() {
-                window.location.href = "<?=base_url('home/invoicemanager')?>";
+                window.location.href = "<?=base_url('client/invoicemanager')?>";
             });
         }
     });
@@ -294,7 +294,7 @@ function editInvoice(invoice_id) {
     form_data["type"] = "invoice";
 
     $.ajax({
-        url: "<?=base_url('home/saveinvoice?id=')?>"+invoice_id,
+        url: "<?=base_url('client/saveinvoice?id=')?>"+invoice_id,
         method: "POST",
         data: form_data, 
         success: function(res) {
@@ -316,7 +316,7 @@ function editInvoice(invoice_id) {
                 closeOnCancel: true
             },
             function() {
-                window.location.href = "<?=base_url('home/invoicemanager')?>";
+                window.location.href = "<?=base_url('client/invoicemanager')?>";
             });
         }
     });
@@ -343,7 +343,7 @@ function delInvoice(invoice_id) {
         }
         try {
             $.ajax({
-                url: "<?=base_url('home/delinvoice/')?>" + invoice_id,
+                url: "<?=base_url('client/delinvoice/')?>" + invoice_id,
                 method: "POST",
                 dataType: 'text',
                 data: form_data, 
@@ -365,7 +365,7 @@ function delInvoice(invoice_id) {
                             closeOnCancel: true
                         },
                         function() {
-                            window.location.href = "<?=base_url('home/invoicemanager')?>";
+                            window.location.href = "<?=base_url('client/invoicemanager')?>";
                         });
                 },
                 error: function(jqXHR, exception) {
@@ -396,7 +396,7 @@ function cancelInvoice() {
             return;
         }
         try {
-            window.location.href = "<?=base_url('home/invoicemanager')?>";
+            window.location.href = "<?=base_url('client/invoicemanager')?>";
         } catch (error) {
             swal("Don't Save", "Server Error", "warning");
         }

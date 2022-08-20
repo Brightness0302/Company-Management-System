@@ -1,4 +1,4 @@
-<a class="btn btn-success mb-2" href="<?=base_url('home/addsupplier')?>">Add New</a>
+<a class="btn btn-success mb-2" href="<?=base_url('supplier/addsupplier')?>">Add New</a>
 <table id="example1" class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -22,7 +22,7 @@
             <td><?=$supplier['address']?></td>
             <td><?=$supplier['VAT']?></td>
             <td class="form-inline flex justify-evenly">
-                <a class="btn btn-primary text-sm <?=$supplier['isremoved']?"pointer-events-none":""?>" href="<?=base_url('home/editsupplier/'.$supplier['id'])?>" title="Edit"><i class="bi bi-terminal-dash"></i></a>
+                <a class="btn btn-primary text-sm <?=$supplier['isremoved']?"pointer-events-none":""?>" href="<?=base_url('supplier/editsupplier/'.$supplier['id'])?>" title="Edit"><i class="bi bi-terminal-dash"></i></a>
                 <button class="btn btn-danger text-sm" onclick="delSupplier('<?=$supplier['id']?>')" title="Delete" <?=$supplier['isremoved']?"disabled":""?>><i class="bi bi-trash3-fill"></i></button>
             </td>
         </tr>

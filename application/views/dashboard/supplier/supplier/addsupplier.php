@@ -3,7 +3,7 @@
 <body>
     <section id="hero" class="align-items-center">
         <div data-aos="fade-up" data-aos-delay="100">
-            <a href="<?=base_url('home/suppliermanager')?>"><button
+            <a href="<?=base_url('supplier/index')?>"><button
                     class="backbutton w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-2xl"
                     title="Add New Supplier">&#8249;</button></a>
         </div>
@@ -61,7 +61,7 @@
             </div>
             <div class="text-center">
                 <button class="cbutton bg-red" onclick="AddSupplier()">Save</button> / <a
-                    href="<?=base_url('home/suppliermanager')?>"><button class="cbutton bg-white">Cancel</button></a>
+                    href="<?=base_url('supplier/index')?>"><button class="cbutton bg-white">Cancel</button></a>
             </div>
         </div>
     </section><!-- End Hero -->

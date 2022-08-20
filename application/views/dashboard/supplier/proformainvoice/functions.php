@@ -223,7 +223,7 @@ function sendtoClient() {
     form_data["type"] = "Proforma";
 
     $.ajax({
-        url: "<?=base_url('home/savesessionbyjson')?>",
+        url: "<?=base_url('client/savesessionbyjson')?>",
         method: "POST",
         data: form_data, 
         success: function(res) {
@@ -255,7 +255,7 @@ function addInvoice() {
     form_data["type"] = "proformainvoice";
 
     $.ajax({
-        url: "<?=base_url('home/saveinvoice')?>",
+        url: "<?=base_url('client/saveinvoice')?>",
         method: "POST",
         data: form_data, 
         success: function(res) {
@@ -276,7 +276,7 @@ function addInvoice() {
                 closeOnCancel: true
             },
             function() {
-                window.location.href = "<?=base_url('home/proformainvoicemanager')?>";
+                window.location.href = "<?=base_url('client/proformainvoicemanager')?>";
             });
         }
     });
@@ -287,7 +287,7 @@ function editInvoice(invoice_id) {
     form_data["type"] = "proformainvoice";
 
     $.ajax({
-        url: "<?=base_url('home/saveinvoice?id=')?>"+invoice_id,
+        url: "<?=base_url('client/saveinvoice?id=')?>"+invoice_id,
         method: "POST",
         data: form_data, 
         success: function(res) {
@@ -309,7 +309,7 @@ function editInvoice(invoice_id) {
                 closeOnCancel: true
             },
             function() {
-                window.location.href = "<?=base_url('home/proformainvoicemanager')?>";
+                window.location.href = "<?=base_url('client/proformainvoicemanager')?>";
             });
         }
     });
@@ -336,7 +336,7 @@ function delInvoice(invoice_id) {
         }
         try {
             $.ajax({
-                url: "<?=base_url('home/delinvoice/')?>" + invoice_id,
+                url: "<?=base_url('client/delinvoice/')?>" + invoice_id,
                 method: "POST",
                 dataType: 'text',
                 data: form_data, 
@@ -358,7 +358,7 @@ function delInvoice(invoice_id) {
                             closeOnCancel: true
                         },
                         function() {
-                            window.location.href = "<?=base_url('home/proformainvoicemanager')?>";
+                            window.location.href = "<?=base_url('client/proformainvoicemanager')?>";
                         });
                 },
                 error: function(jqXHR, exception) {
@@ -389,7 +389,7 @@ function cancelInvoice() {
             return;
         }
         try {
-            window.location.href = "<?=base_url('home/invoicemanager')?>";
+            window.location.href = "<?=base_url('client/invoicemanager')?>";
         } catch (error) {
             swal("Don't Save", "Server Error", "warning");
         }

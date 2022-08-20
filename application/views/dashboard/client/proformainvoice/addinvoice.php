@@ -9,7 +9,7 @@
                 <button class="btn btn-outline-secondary btn-lg" onclick="cancelInvoice()">Cancel</button>
                 <button class="btn btn-success btn-lg" onclick="addInvoice()">Save</button>
                 <button class="btn btn-success btn-lg" onclick="sendtoClient()">PDF</button>
-                <a id="htmltopdf" href="<?=base_url('home/htmltopdf')?>" target="_blank" hidden>Download PDF</a>
+                <a id="htmltopdf" href="<?=base_url('client/htmltopdf')?>" target="_blank" hidden>Download PDF</a>
             </div>
         </div>
 

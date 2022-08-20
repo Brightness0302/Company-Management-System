@@ -22,7 +22,7 @@ function AddClient() {
 
     try {
         $.ajax({
-            url: "<?=base_url('home/saveclient')?>",
+            url: "<?=base_url('client/saveclient')?>",
             method: "POST",
             data: form_data,
             success: function(res) {
@@ -49,7 +49,7 @@ function AddClient() {
                                 closeOnCancel: true
                             },
                             function() {
-                                window.location.href = "<?=base_url('home/clientmanager')?>";
+                                window.location.href = "<?=base_url('client/index')?>";
                             });
                     }
                 } catch (err) {
@@ -85,7 +85,7 @@ function EditClient(clientid) {
 
     try {
         $.ajax({
-            url: "<?=base_url('home/saveclient?id=')?>" + clientid,
+            url: "<?=base_url('client/saveclient?id=')?>" + clientid,
             method: "POST",
             data: form_data,
             success: function(res) {
@@ -111,7 +111,7 @@ function EditClient(clientid) {
                             closeOnCancel: true
                         },
                         function() {
-                            window.location.href = "<?=base_url('home/clientmanager')?>";
+                            window.location.href = "<?=base_url('client/index')?>";
                         });
                     return;
                 } catch (err) {
@@ -143,7 +143,7 @@ function delClient(clientid) {
             }
             try {
                 $.ajax({
-                    url: "<?=base_url('home/delclient/')?>"+clientid,
+                    url: "<?=base_url('client/delclient/')?>"+clientid,
                     method: "POST",
                     dataType: 'text',
                     async: true,
@@ -152,6 +152,7 @@ function delClient(clientid) {
                             swal("Delete " + clientid, "Failed", "error");
                             return;
                         }
+                        console.log("Delete " + clientid);
                         swal({
                                 title: "Delete " + clientid,
                                 text: "Client Success",
@@ -164,7 +165,7 @@ function delClient(clientid) {
                                 closeOnCancel: true
                             },
                             function() {
-                                window.location.href = "<?=base_url('home/clientmanager')?>";
+                                window.location.href = "<?=base_url('client/index')?>";
                             });
                     },
                     error: function(jqXHR, exception) {

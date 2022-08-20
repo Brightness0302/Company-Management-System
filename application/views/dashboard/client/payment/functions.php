@@ -18,7 +18,7 @@ function togglePayment(invoice_id, el) {
         }
         try {
             $.ajax({
-                url: "<?=base_url('home/toggleinvoicepayment/')?>" + invoice_id,
+                url: "<?=base_url('client/toggleinvoicepayment/')?>" + invoice_id,
                 method: "POST",
                 dataType: 'text',
                 async: true,
@@ -41,7 +41,7 @@ function togglePayment(invoice_id, el) {
                         closeOnCancel: true
                     },
                     function() {
-                        // window.location.href = "<?=base_url('home/paymentmanager')?>";
+                        // window.location.href = "<?=base_url('client/paymentmanager')?>";
                         const echild = $(el).children(":first");
                         const classname = echild.attr('class');
                         let eparent = $(el).parent();

@@ -255,32 +255,32 @@
                 </a>
                 <ul id="components-nav" class="nav-content collapse <?=$menu['menu']=="Clients"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="<?=base_url('home/clientmanager')?>">
+                        <a href="<?=base_url('client/index')?>">
                             <i class="bi <?=$menu['submenu']=="cm"?"bi-circle-fill":"bi-circle"?>"></i><span>Client Management</span>
                         </a>
                     </li>
                     <li>
-                        <a href="<?=base_url('home/invoicemanager')?>">
+                        <a href="<?=base_url('client/invoicemanager')?>">
                             <i class="bi <?=$menu['submenu']=="im"?"bi-circle-fill":"bi-circle"?>"></i><span>Invoice Management</span>
                         </a>
                     </li>
                     <li>
-                        <a href="<?=base_url('home/proformainvoicemanager')?>">
+                        <a href="<?=base_url('client/proformainvoicemanager')?>">
                             <i class="bi <?=$menu['submenu']=="prm"?"bi-circle-fill":"bi-circle"?>"></i><span>Proforma Management</span>
                         </a>
                     </li>
                     <!-- <li>
-                        <a href="<?=base_url('home/expensemanager')?>">
+                        <a href="<?=base_url('client/expensemanager')?>">
                             <i class="bi bi-circle"></i><span>Expense Management</span>
                         </a>
                     </li> -->
                     <li>
-                        <a href="<?=base_url('home/paymentmanager')?>">
+                        <a href="<?=base_url('client/paymentmanager')?>">
                             <i class="bi <?=$menu['submenu']=="pm"?"bi-circle-fill":"bi-circle"?>"></i><span>Payment Management</span>
                         </a>
                     </li>
                     <li>
-                        <a href="<?=base_url('home/projectmanager')?>">
+                        <a href="<?=base_url('client/projectmanager')?>">
                             <i class="bi <?=$menu['submenu']=="pjm"?"bi-circle-fill":"bi-circle"?>"></i><span>Project Management</span>
                         </a>
                     </li>                    
@@ -295,7 +295,7 @@
                 </a>
                 <ul id="supplier-nav" class="nav-content collapse <?=$menu['menu']=="Suppliers"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="<?=base_url('home/suppliermanager')?>">
+                        <a href="<?=base_url('supplier/index')?>">
                             <i class="bi <?=$menu['submenu']=="sm"?"bi-circle-fill":"bi-circle"?>"></i><span>Supplier Management</span>
                         </a>
                     </li>
