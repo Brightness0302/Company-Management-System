@@ -9,7 +9,7 @@
         <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-9 text-center">
-                    <h1>Supplier Invoice registration</h1>
+                    <h1>Supplier Invoice modifier</h1>
                 </div>
             </div>
 
@@ -24,7 +24,7 @@
                                         <select class="form-select" id="supplierid">
                                         <?php foreach ($suppliers as $index => $supplier):?>
                                             <option value="<?=$supplier['id']?>" <?=($supplier['id']==$product['supplierid'])?"selected":""?>>
-                                                <?=$supplier['name']?>
+                                                <?=str_replace("_"," ", $supplier['name'])?>
                                             </option>
                                         <?php endforeach;?>
                                         </select>
@@ -90,7 +90,7 @@
                                             <select class="form-select" id="stockid">
                                             <?php foreach ($stocks as $index => $stock):?>
                                                 <option value="<?=$stock['id']?>">
-                                                    <?=$stock['name']?>
+                                                    <?=str_replace("_"," ", $stock['name'])?>
                                                 </option>
                                             <?php endforeach;?>
                                             </select>
