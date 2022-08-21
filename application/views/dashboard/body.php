@@ -507,7 +507,7 @@
         </div>
         <!-- End Extra Large Modal-->
         <div class="pagetitle">
-            <h1>Dashboard</h1>
+            <h1><?=$menu['menu']?></h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html"><?=$menu['menu']?></a></li>
@@ -523,6 +523,12 @@
                         echo "Project Management";
                     else if($menu['submenu']=="prm")
                         echo "Proforma Management";
+                    else if($menu['submenu']=="stm")
+                        echo "Stock Management";
+                    else if($menu['submenu']=="sm")
+                        echo "Supplier Management";
+                    else if($menu['submenu']=="pdm")
+                        echo "Supplier Invoices";
                     ?></li>
                 </ol>
             </nav>
