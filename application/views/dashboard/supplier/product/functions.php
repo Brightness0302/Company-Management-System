@@ -5,7 +5,7 @@ $(document).ready(function() {
         const mark_up_percent = $("#mark_up_percent").val();
         
         if (acquisition_unit_price && vat_percent && mark_up_percent) {
-            $("#selling_unit_price_without_vat").val((acquisition_unit_price*mark_up_percent).toFixed(2));
+            $("#selling_unit_price_without_vat").val((acquisition_unit_price*mark_up_percent/100.0).toFixed(2));
         }
     });
 });
