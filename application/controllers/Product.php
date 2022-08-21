@@ -94,16 +94,19 @@ class Product extends CI_Controller
 
         $supplierid = $this->input->post('supplierid');
         $observation = $this->input->post('observation');
+        $invoice_date = $this->input->post('invoice_date');
+        $invoice_number = $this->input->post('invoice_number');
+        $invoice_coin = $this->input->post('invoice_coin');
         $lines = $this->input->post('lines');
 
         if (!isset($_GET['id'])) {
-            $project_id = $this->supplier->createProduct($companyid, $supplierid, $observation, $lines);
+            $project_id = $this->supplier->createProduct($companyid, $supplierid, $observation, $lines, $invoice_date, $invoice_number, $invoice_coin);
             echo $project_id;
             return;
         }
 
         $id = $_GET['id'];
-        $result = $this->supplier->saveProduct($companyid, $id, $supplierid, $observation, $lines);
+        $result = $this->supplier->saveProduct($companyid, $id, $supplierid, $observation, $lines, $invoice_date, $invoice_number, $invoice_coin);
         echo $result;
     }
     //If usersession is not exist, goto login page.

@@ -48,7 +48,7 @@
             </td>
             <td><?=$product['id']?></td>
             <td><?=$product['date_of_reception']?></td>
-            <td><?=$product['date_of_reception']?></td>
+            <td><?=$product['invoice_date']?></td>
             <td><?=$subtotal?></td>
             <td><?=$vat_amount?></td>
             <td><?=$total_amount?></td>

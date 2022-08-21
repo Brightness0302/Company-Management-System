@@ -61,6 +61,9 @@ function ClearItem() {
 function AddProduct() {
     const supplierid = $("#supplierid").val();
     const observation = $("#observation").val();
+    const invoice_date = $("#invoice_date").val();
+    const invoice_number = $("#invoice_number").val();
+    const invoice_coin = $("#invoice_coin").val();
     let lines = [];
 
     const table = $("#table-body");
@@ -90,6 +93,9 @@ function AddProduct() {
         supplierid: supplierid,
         observation: observation,
         lines: str_lines,
+        invoice_date: invoice_date,
+        invoice_number: invoice_number,
+        invoice_coin: invoice_coin
     };
 
     $.ajax({
@@ -123,6 +129,9 @@ function AddProduct() {
 function EditProduct(product_id) {
     const supplierid = $("#supplierid").val();
     const observation = $("#observation").val();
+    const invoice_date = $("#invoice_date").val();
+    const invoice_number = $("#invoice_number").val();
+    const invoice_coin = $("#invoice_coin").val();
     let lines = [];
 
     const table = $("#table-body");
@@ -152,6 +161,9 @@ function EditProduct(product_id) {
         supplierid: supplierid,
         observation: observation,
         lines: str_lines,
+        invoice_date: invoice_date,
+        invoice_number: invoice_number,
+        invoice_coin: invoice_coin
     };
 
     $.ajax({

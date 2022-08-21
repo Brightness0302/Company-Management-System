@@ -5,7 +5,7 @@
                     class="backbutton w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-2xl"
                     title="Add New Client">&#8249;</button></a>
         </div>
-        <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+        <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-9 text-center">
                     <h1>Supplier Invoice registration</h1>
@@ -55,15 +55,26 @@
                             <table class="table " style="border : 1px solid gray; text-align: left">
                                 <tr>
                                     <td style="border : 1px solid black">Invoice Date:</td>
-                                    <td><?=$product['date_of_reception']?></td>
+                                    <td>
+                                        <input type="date" class="form-control " id="invoice_date" value="" title="Choose your color">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td style="border : 1px solid black">Invoice Number: </td>
-                                    <td><?=$product['product_number']?></td>
+                                    <td>
+                                        <input type="text" class="form-control " id="invoice_number" value="" title="Choose your color">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td style="border : 1px solid black">Coin:</td>
-                                    <td><?=$company['Coin']?></td>
+                                    <td>
+                                        <select class="form-select" id="invoice_coin">
+                                            <option value="EURO">€</option>
+                                            <option value="POUND">£</option>
+                                            <option value="USD">$</option>
+                                            <option value="LEI">LEI</option>
+                                        </select>
+                                    </td>
                                 </tr>
                             </table>
                         </div>

@@ -56,15 +56,26 @@
                             <table class="table " style="border : 1px solid gray; text-align: left">
                                 <tr>
                                     <td style="border : 1px solid black">Invoice Date:</td>
-                                    <td><?=$product['date_of_reception']?></td>
+                                    <td>
+                                        <input type="date" class="form-control " id="invoice_date" value="<?=$product['invoice_date']?>" title="Choose your color">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td style="border : 1px solid black">Invoice Number: </td>
-                                    <td><?=$product['id']?></td>
+                                    <td>
+                                        <input type="text" class="form-control " id="invoice_number" value="<?=$product['invoice_number']?>" title="Choose your color">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td style="border : 1px solid black">Coin:</td>
-                                    <td><?=$company['Coin']?></td>
+                                    <td>
+                                        <select class="form-select" id="invoice_coin">
+                                            <option value="EURO" <?=($product['invoice_coin']=="EURO")?"selected":""?>>€</option>
+                                            <option value="POUND" <?=($product['invoice_coin']=="POUND")?"selected":""?>>£</option>
+                                            <option value="USD" <?=($product['invoice_coin']=="USD")?"selected":""?>>$</option>
+                                            <option value="LEI" <?=($product['invoice_coin']=="LEI")?"selected":""?>>LEI</option>
+                                        </select>
+                                    </td>
                                 </tr>
                             </table>
                         </div>

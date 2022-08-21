@@ -43,13 +43,16 @@ class Supplier_model extends CI_Model {
         return $res;
     }
 
-    public function createProduct($companyid, $supplierid, $observation, $lines) {
+    public function createProduct($companyid, $supplierid, $observation, $lines, $invoice_date, $invoice_number, $invoice_coin) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
         $data = array(
             'supplierid'=>$supplierid, 
             'observation'=>$observation, 
+            'invoice_date'=>$invoice_date, 
+            'invoice_number'=>$invoice_number, 
+            'invoice_coin'=>$invoice_coin, 
             'lines'=>$lines, 
         );
 
@@ -58,13 +61,16 @@ class Supplier_model extends CI_Model {
         return $product_id;
     }
 
-    public function saveProduct($companyid, $id, $supplierid, $observation, $lines) {
+    public function saveProduct($companyid, $id, $supplierid, $observation, $lines, $invoice_date, $invoice_number, $invoice_coin) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
         $data = array(
             'supplierid'=>$supplierid, 
             'observation'=>$observation, 
+            'invoice_date'=>$invoice_date, 
+            'invoice_number'=>$invoice_number, 
+            'invoice_coin'=>$invoice_coin, 
             'lines'=>$lines, 
         );
 
