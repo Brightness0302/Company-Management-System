@@ -23,7 +23,7 @@
                                         <select class="form-select" id="supplierid">
                                         <?php foreach ($suppliers as $index => $supplier):?>
                                             <option value="<?=$supplier['id']?>">
-                                                <?=$supplier['name']?>
+                                                <?=str_replace("_"," ", $supplier['name'])?>
                                             </option>
                                         <?php endforeach;?>
                                         </select>
@@ -89,7 +89,7 @@
                                             <select class="form-select" id="stockid">
                                             <?php foreach ($stocks as $index => $stock):?>
                                                 <option value="<?=$stock['id']?>">
-                                                    <?=$stock['name']?>
+                                                    <?=str_replace("_"," ", $stock['name'])?>
                                                 </option>
                                             <?php endforeach;?>
                                             </select>

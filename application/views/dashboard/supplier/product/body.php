@@ -23,7 +23,6 @@
         <tr>
             <td><?=($index)?></td>
             <td><?=$product['id']?></td>
-            
             <td>
                 <?php 
                     $result;
