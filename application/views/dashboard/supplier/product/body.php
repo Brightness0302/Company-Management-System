@@ -26,9 +26,7 @@
             <td><?=$product['invoice_number']?></td>
             <td>
             <?php 
-                echo $product['lines'];
                 $lines=json_decode($product['lines'], true);
-                echo $lines;
                 $result;
                 foreach ($suppliers as $supplier){
                     if ($supplier['id'] == $product['supplierid']) {
@@ -36,16 +34,14 @@
                     }
                 }
                 $subtotal=0; $vat_amount=0; $total_amount=0;
-                if ($product['lines']!="[]") {
-                    foreach ($lines as $key => $line) {
-                        $subtotal+=$line['amount_without_vat'];
-                        $vat_amount+=$line['amount_vat_value'];
-                        $total_amount+=$line['total_amount'];
-                    }
-                    $total_subtotal+=$subtotal;
-                    $total_vat_amount+=$vat_amount;
-                    $total_total_amount+=$total_amount;
+                foreach ($lines as $key => $line) {
+                    $subtotal+=$line['amount_without_vat'];
+                    $vat_amount+=$line['amount_vat_value'];
+                    $total_amount+=$line['total_amount'];
                 }
+                $total_subtotal+=$subtotal;
+                $total_vat_amount+=$vat_amount;
+                $total_total_amount+=$total_amount;
                 echo str_replace("_"," ", $result['name']);
                 echo $result['isremoved']?"(<span id='boot-icon' class='bi bi-circle-fill' style='font-size: 12px; color: rgb(255, 0, 0);''></span>)":"";
             ?>
