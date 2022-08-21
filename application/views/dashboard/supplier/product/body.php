@@ -23,7 +23,7 @@
         <?php $index++;?>
         <tr>
             <td><?=($index)?></td>
-            <td><?=$product['id']?></td>
+            <td><?=$product['invoice_number']?></td>
             <td>
             <?php 
                 $lines=json_decode($product['lines'], true);
