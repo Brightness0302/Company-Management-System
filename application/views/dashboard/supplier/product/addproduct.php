@@ -5,7 +5,7 @@
                     class="backbutton w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-2xl"
                     title="Add New Client">&#8249;</button></a>
         </div>
-        <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
+        <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-9 text-center">
                     <h1>Supplier Invoice registration</h1>
