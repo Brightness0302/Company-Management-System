@@ -41,6 +41,14 @@ function SaveItem() {
         "<td class='align-middle'>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi bi-trash3-fill p-3'></i>" + "</div>" + "</td>" +
         "</tr>"
     );
+
+
+    const production_description = $("#production_description").val("");
+    const code_ean = $("#code_ean").val("");
+    const unit = $("#unit").val("0");
+    const acquisition_unit_price = $("#acquisition_unit_price").val("0");
+    const quantity_on_document = $("#quantity_on_document").val("0");
+    const quantity_received = $("#quantity_received").val("0");
 }
 
 function remove_tr(el) {
