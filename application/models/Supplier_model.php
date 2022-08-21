@@ -15,22 +15,14 @@ class Supplier_model extends CI_Model {
         return $res;
     }
 
-    public function createProduct($companyid, $supplierid, $observation, $code_ean, $production_description, $stockid, $unit, $acquisition_unit_price, $vat_percent, $quantity_of_document, $quantity_received, $mark_up_percent) {
+    public function createProduct($companyid, $supplierid, $observation, $lines) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
         $data = array(
             'supplierid'=>$supplierid, 
             'observation'=>$observation, 
-            'code_ean'=>$code_ean, 
-            'production_description'=>$production_description, 
-            'stockid'=>$stockid, 
-            'unit'=>$unit, 
-            'acquisition_unit_price'=>$acquisition_unit_price, 
-            'vat_percent'=>$vat_percent, 
-            'quantity_of_document'=>$quantity_of_document, 
-            'quantity_received'=>$quantity_received, 
-            'mark_up_percent'=>$mark_up_percent
+            'lines'=>$lines, 
         );
 
         $this->db->insert('product', $data);
@@ -38,22 +30,14 @@ class Supplier_model extends CI_Model {
         return $product_id;
     }
 
-    public function saveProduct($companyid, $id, $supplierid, $observation, $code_ean, $production_description, $stockid, $unit, $acquisition_unit_price, $vat_percent, $quantity_of_document, $quantity_received, $mark_up_percent) {
+    public function saveProduct($companyid, $id, $supplierid, $observation, $lines) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
         $data = array(
             'supplierid'=>$supplierid, 
             'observation'=>$observation, 
-            'code_ean'=>$code_ean, 
-            'production_description'=>$production_description, 
-            'stockid'=>$stockid, 
-            'unit'=>$unit, 
-            'acquisition_unit_price'=>$acquisition_unit_price, 
-            'vat_percent'=>$vat_percent, 
-            'quantity_of_document'=>$quantity_of_document, 
-            'quantity_received'=>$quantity_received, 
-            'mark_up_percent'=>$mark_up_percent
+            'lines'=>$lines, 
         );
 
         $this->db->where('id', $id);

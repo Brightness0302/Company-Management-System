@@ -12,11 +12,13 @@ class Product extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
-        $data['user'] = $this->session->userdata('user');
+        $data['suppliers'] = $this->home->alldata('supplier');
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
 
         $session['menu']="Suppliers";
@@ -92,24 +94,16 @@ class Product extends CI_Controller
 
         $supplierid = $this->input->post('supplierid');
         $observation = $this->input->post('observation');
-        $code_ean = $this->input->post('code_ean');
-        $production_description = $this->input->post('production_description');
-        $stockid = $this->input->post('stockid');
-        $unit = $this->input->post('unit');
-        $acquisition_unit_price = $this->input->post('acquisition_unit_price');
-        $vat_percent = $this->input->post('vat_percent');
-        $quantity_of_document = $this->input->post('quantity_of_document');
-        $quantity_received = $this->input->post('quantity_received');
-        $mark_up_percent = $this->input->post('mark_up_percent');
+        $lines = $this->input->post('lines');
 
         if (!isset($_GET['id'])) {
-            $project_id = $this->supplier->createProduct($companyid, $supplierid, $observation, $code_ean, $production_description, $stockid, $unit, $acquisition_unit_price, $vat_percent, $quantity_of_document, $quantity_received, $mark_up_percent);
+            $project_id = $this->supplier->createProduct($companyid, $supplierid, $observation, $lines);
             echo $project_id;
             return;
         }
 
         $id = $_GET['id'];
-        $result = $this->supplier->saveProduct($companyid, $id, $supplierid, $observation, $code_ean, $production_description, $stockid, $unit, $acquisition_unit_price, $vat_percent, $quantity_of_document, $quantity_received, $mark_up_percent);
+        $result = $this->supplier->saveProduct($companyid, $id, $supplierid, $observation, $lines);
         echo $result;
     }
     //If usersession is not exist, goto login page.

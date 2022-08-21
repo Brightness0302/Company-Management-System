@@ -2,24 +2,16 @@
 <table id="example1" class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>No.</th>
-            <th>COIN</th>
-            <th>Code EAN</th>
-            <th>Registered Stock</th>
-            <th>Product description</th>
-            <th>Units</th>
-            <th>Quantity on reception document</th>
-            <th>Received quantity</th>
-            <th>Acquisition price per unit without VAT</th>
-            <th>VAT value</th>
-            <th>Acquisition price per unit without VAT</th>
-            <th>Amount without VAT</th>
-            <th>Amount VAT</th>
-            <th>Total amount</th>
-            <th>Selling unit price without VAT</th>
-            <th>VAT value</th>
-            <th>Selling unit price with VAT</th>
-            <!-- <th>Selling amount without VAT</th> -->
+            <th>No</th>
+            <th>Invoice Number</th>
+            <th>Supplier Name</th>
+            <th>NIR No</th>
+            <th>NIR Date</th>
+            <th>Invoice Date</th>
+            <th id="upsubtotal">Sub Total</th>
+            <th id="upvat">VAT Amount</th>
+            <th id="uptotal">Total Amount</th>
+            <th>Invoice status</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -30,23 +22,27 @@
         <?php $index++;?>
         <tr>
             <td><?=($index)?></td>
-            <td><?=$company['Coin']?></td>
-            <td><?=$product['code_EAN']?></td>
-            <td><?=$product['stockid']?></td>
-            <td><?=$product['production_description']?></td>
-            <td><?=$product['unit']?></td>
-            <td><?=$product['quantity_of_document']?></td>
-            <td><?=$product['quantity_received']?></td>
-            <td><?=$product['acquisition_unit_price']?></td>
-            <td><?=$product['acquisition_unit_price']*$product['vat_percent']/100.0?></td>
-            <td><?=$product['acquisition_unit_price']+($product['acquisition_unit_price']*$product['vat_percent']/100.0)?></td>
-            <td><?=$product['acquisition_unit_price']*$product['unit']?></td>
-            <td><?=$product['acquisition_unit_price']*$product['unit']*$product['vat_percent']/100.0?></td>
-            <td><?=($product['acquisition_unit_price']*$product['unit'])+($product['acquisition_unit_price']*$product['unit']*$product['vat_percent']/100.0)?></td>
-            <td><?=$product['acquisition_unit_price']*$product['mark_up_percent']/100.0?></td>
-            <td><?=$product['acquisition_unit_price']*$product['mark_up_percent']*$product['vat_percent']/100.0?></td>
-            <td><?=($product['acquisition_unit_price']*$product['mark_up_percent']/100.0)+($product['acquisition_unit_price']*$product['mark_up_percent']*$product['vat_percent']/100.0)?></td><!-- 
-            <td><?=($product['acquisition_unit_price']*$product['mark_up_percent']/100.0)+($product['acquisition_unit_price']*$product['mark_up_percent']*$product['vat_percent']/100.0)?></td> -->
+            <td><?=$product['id']?></td>
+            
+            <td>
+                <?php 
+                    $result;
+                    foreach ($suppliers as $supplier){
+                        if ($supplier['id'] == $product['supplierid']) {
+                            $result = $supplier;
+                        }
+                    }
+                    echo str_replace("_"," ", $result['name']);
+                    echo $result['isremoved']?"(<span id='boot-icon' class='bi bi-circle-fill' style='font-size: 12px; color: rgb(255, 0, 0);''></span>)":"";
+                ?>
+            </td>
+            <td><?=$product['id']?></td>
+            <td><?=$product['date_of_reception']?></td>
+            <td><?=$product['date_of_reception']?></td>
+            <td>Sub Total</td>
+            <td>VAT Amount</td>
+            <td>Total Amount</td>
+            <td><?=$product['ispaid']?"<label class='status success'>Paid</label>":"<label class='status danger'>Not Paid</label>"?></td>
             <td class="form-inline flex justify-around">
                 <a class="btn btn-primary" href="<?=base_url('product/editproduct/'.$product['id'])?>"><i class="bi bi-terminal-dash"></i></a>
                 <button class="btn btn-danger " onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi bi-trash3-fill"></i></button>

@@ -10,31 +10,86 @@ $(document).ready(function() {
     });
 });
 
-function AddProduct() {
-    const supplierid = $("#supplierid").val();
-    const observation = $("#observation").val();
-    const code_ean = $("#code_ean").val();
+function SaveItem() {
     const production_description = $("#production_description").val();
     const stockid = $("#stockid").val();
+    const code_ean = $("#code_ean").val();
     const unit = $("#unit").val();
     const acquisition_unit_price = $("#acquisition_unit_price").val();
     const vat_percent = $("#vat_percent").val();
-    const quantity_of_document = $("#quantity_of_document").val();
+    const quantity_on_document = $("#quantity_on_document").val();
     const quantity_received = $("#quantity_received").val();
     const mark_up_percent = $("#mark_up_percent").val();
+
+    $("#table-body").append(
+        "<tr>"+
+        "<td>"+code_ean+"</td>"+
+        "<td>"+stockid+"</td>"+
+        "<td>"+production_description+"</td>"+
+        "<td>"+unit+"</td>"+
+        "<td>"+quantity_on_document+"</td>"+
+        "<td>"+quantity_received+"</td>"+
+        "<td>"+acquisition_unit_price+"</td>"+
+        "<td>"+(acquisition_unit_price*vat_percent/100.0)+"</td>"+
+        "<td>"+(acquisition_unit_price*(vat_percent+100.0)/100.0).toFixed(2)+"</td>"+
+        "<td>"+(acquisition_unit_price*unit).toFixed(2)+"</td>"+
+        "<td>"+((acquisition_unit_price*unit)*vat_percent/100.0).toFixed(2)+"</td>"+
+        "<td>"+((acquisition_unit_price*unit)*(vat_percent+100.0)/100.0).toFixed(2)+"</td>"+
+        "<td>"+(acquisition_unit_price*mark_up_percent/100.0).toFixed(2)+"</td>"+
+        "<td>"+(acquisition_unit_price*mark_up_percent*vat_percent/100.0/100.0).toFixed(2)+"</td>"+
+        "<td>"+(acquisition_unit_price*mark_up_percent*(vat_percent+100.0)/100.0/100.0).toFixed(2)+"</td>"+
+        "<td class='align-middle'>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi bi-trash3-fill p-3'></i>" + "</div>" + "</td>" +
+        "</tr>"
+    );
+}
+
+function remove_tr(el) {
+    $(el).closest('tr').remove();
+}
+
+function ClearItem() {
+    const production_description = $("#production_description").val("");
+    const code_ean = $("#code_ean").val("");
+    const unit = $("#unit").val("0");
+    const acquisition_unit_price = $("#acquisition_unit_price").val("0");
+    const vat_percent = $("#vat_percent").val("0");
+    const quantity_on_document = $("#quantity_on_document").val("");
+    const quantity_received = $("#quantity_received").val("");
+    const mark_up_percent = $("#mark_up_percent").val("0");
+}
+
+function AddProduct() {
+    const supplierid = $("#supplierid").val();
+    const observation = $("#observation").val();
+    let lines = [];
+
+    const table = $("#table-body");
+    table.children("tr").each((index, element) => {
+        const etr = $(element).find("td");
+        lines.push({
+            code_ean:$(etr[0]).text(),
+            stockid:$(etr[1]).text(),
+            production_description:$(etr[2]).text(),
+            units:$(etr[3]).text(),
+            quantity_on_document:$(etr[4]).text(),
+            quantity_received:$(etr[5]).text(),
+            acquisition_unit_price:$(etr[6]).text(),
+            acquisition_vat_value:$(etr[7]).text(),
+            acquisition_unit_price_with_vat:$(etr[8]).text(),
+            amount_without_vat:$(etr[9]).text(),
+            amount_vat_value:$(etr[10]).text(),
+            total_amount:$(etr[11]).text(),
+            selling_unit_price_without_vat:$(etr[12]).text(),
+            selling_unit_vat_value:$(etr[13]).text(),
+            selling_unit_price_with_vat:$(etr[14]).text()
+        });
+    });
+    const str_lines = JSON.stringify(lines);
 
     const form_data = {
         supplierid: supplierid,
         observation: observation,
-        code_ean: code_ean,
-        production_description: production_description,
-        stockid: stockid,
-        unit: unit,
-        acquisition_unit_price: acquisition_unit_price,
-        vat_percent: vat_percent,
-        quantity_of_document: quantity_of_document,
-        quantity_received: quantity_received,
-        mark_up_percent: mark_up_percent
+        lines: str_lines,
     };
 
     $.ajax({
@@ -68,28 +123,35 @@ function AddProduct() {
 function EditProduct(product_id) {
     const supplierid = $("#supplierid").val();
     const observation = $("#observation").val();
-    const code_ean = $("#code_ean").val();
-    const production_description = $("#production_description").val();
-    const stockid = $("#stockid").val();
-    const unit = $("#unit").val();
-    const acquisition_unit_price = $("#acquisition_unit_price").val();
-    const vat_percent = $("#vat_percent").val();
-    const quantity_of_document = $("#quantity_of_document").val();
-    const quantity_received = $("#quantity_received").val();
-    const mark_up_percent = $("#mark_up_percent").val();
+    let lines = [];
+
+    const table = $("#table-body");
+    table.children("tr").each((index, element) => {
+        const etr = $(element).find("td");
+        lines.push({
+            code_ean:$(etr[0]).text(),
+            stockid:$(etr[1]).text(),
+            production_description:$(etr[2]).text(),
+            units:$(etr[3]).text(),
+            quantity_on_document:$(etr[4]).text(),
+            quantity_received:$(etr[5]).text(),
+            acquisition_unit_price:$(etr[6]).text(),
+            acquisition_vat_value:$(etr[7]).text(),
+            acquisition_unit_price_with_vat:$(etr[8]).text(),
+            amount_without_vat:$(etr[9]).text(),
+            amount_vat_value:$(etr[10]).text(),
+            total_amount:$(etr[11]).text(),
+            selling_unit_price_without_vat:$(etr[12]).text(),
+            selling_unit_vat_value:$(etr[13]).text(),
+            selling_unit_price_with_vat:$(etr[14]).text()
+        });
+    });
+    const str_lines = JSON.stringify(lines);
 
     const form_data = {
         supplierid: supplierid,
         observation: observation,
-        code_ean: code_ean,
-        production_description: production_description,
-        stockid: stockid,
-        unit: unit,
-        acquisition_unit_price: acquisition_unit_price,
-        vat_percent: vat_percent,
-        quantity_of_document: quantity_of_document,
-        quantity_received: quantity_received,
-        mark_up_percent: mark_up_percent
+        lines: str_lines,
     };
 
     $.ajax({
@@ -173,4 +235,5 @@ function delProduct(product_id) {
         }
     });
 }
+
 </script>
