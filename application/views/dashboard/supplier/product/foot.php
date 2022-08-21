@@ -98,7 +98,7 @@ $(function() {
         subtotal = 0.0, vat = 0.0, total = 0.0;
     })
 
-    $("#searchtag").on('blur', function (){
+    $("#searchtag").on('keyup', function (){
         onrefreshtotalmark();
         invoicetable.draw();
     });
