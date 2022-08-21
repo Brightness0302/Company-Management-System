@@ -31,13 +31,13 @@ function SaveItem() {
         "<td>"+quantity_received+"</td>"+
         "<td>"+acquisition_unit_price+"</td>"+
         "<td>"+(acquisition_unit_price*vat_percent/100.0)+"</td>"+
-        "<td>"+(acquisition_unit_price*(vat_percent+100.0)/100.0).toFixed(2)+"</td>"+
+        "<td>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
         "<td>"+(acquisition_unit_price*unit).toFixed(2)+"</td>"+
         "<td>"+((acquisition_unit_price*unit)*vat_percent/100.0).toFixed(2)+"</td>"+
-        "<td>"+((acquisition_unit_price*unit)*(vat_percent+100.0)/100.0).toFixed(2)+"</td>"+
+        "<td>"+((acquisition_unit_price*unit)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
         "<td>"+(acquisition_unit_price*mark_up_percent/100.0).toFixed(2)+"</td>"+
         "<td>"+(acquisition_unit_price*mark_up_percent*vat_percent/100.0/100.0).toFixed(2)+"</td>"+
-        "<td>"+(acquisition_unit_price*mark_up_percent*(vat_percent+100.0)/100.0/100.0).toFixed(2)+"</td>"+
+        "<td>"+(acquisition_unit_price*mark_up_percent*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</td>"+
         "<td class='align-middle'>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi bi-trash3-fill p-3'></i>" + "</div>" + "</td>" +
         "</tr>"
     );
