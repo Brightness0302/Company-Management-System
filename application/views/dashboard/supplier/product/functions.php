@@ -43,12 +43,13 @@ function SaveItem() {
     );
 
 
-    const production_description = $("#production_description").val("");
-    const code_ean = $("#code_ean").val("");
-    const unit = $("#unit").val("0");
-    const acquisition_unit_price = $("#acquisition_unit_price").val("0");
-    const quantity_on_document = $("#quantity_on_document").val("0");
-    const quantity_received = $("#quantity_received").val("0");
+    $("#production_description").val("");
+    $("#code_ean").val("");
+    $("#unit").val("0");
+    $("#acquisition_unit_price").val("0");
+    $("#quantity_on_document").val("0");
+    $("#quantity_received").val("0");
+    $("#selling_unit_price_without_vat").val("0.00");
 }
 
 function remove_tr(el) {
