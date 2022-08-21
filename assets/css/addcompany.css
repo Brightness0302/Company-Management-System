@@ -1,6 +1,5 @@
 .pages {
   flex: 1;
-  white-space: nowrap;
   position: relative;
   transition: all 0.4s;
   display: flex;
