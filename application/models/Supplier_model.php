@@ -15,6 +15,34 @@ class Supplier_model extends CI_Model {
         return $res;
     }
 
+    public function createStock($companyid, $name, $code) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $data = array(
+            'name'=>$name, 
+            'code'=>$code, 
+        );
+
+        $this->db->insert('stock', $data);
+        $product_id = $this->db->insert_id();
+        return $product_id;
+    }
+
+    public function saveStock($companyid, $id, $name, $code) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $data = array(
+            'name'=>$name, 
+            'code'=>$code, 
+        );
+
+        $this->db->where('id', $id);
+        $res=$this->db->update('stock', $data);
+        return $res;
+    }
+
     public function createProduct($companyid, $supplierid, $observation, $lines) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
