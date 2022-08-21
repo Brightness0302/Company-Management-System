@@ -32,9 +32,9 @@ function SaveItem() {
         "<td>"+acquisition_unit_price+"</td>"+
         "<td>"+(acquisition_unit_price*vat_percent/100.0)+"</td>"+
         "<td>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
-        "<td>"+(acquisition_unit_price*unit).toFixed(2)+"</td>"+
-        "<td>"+((acquisition_unit_price*unit)*vat_percent/100.0).toFixed(2)+"</td>"+
-        "<td>"+((acquisition_unit_price*unit)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
+        "<td>"+(acquisition_unit_price*quantity_on_document).toFixed(2)+"</td>"+
+        "<td>"+((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2)+"</td>"+
+        "<td>"+((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
         "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2)+"</td>"+
         "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</td>"+
         "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</td>"+

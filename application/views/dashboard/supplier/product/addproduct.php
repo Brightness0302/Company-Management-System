@@ -202,17 +202,17 @@
                                     <th>Registered Stock</th>
                                     <th>Product description</th>
                                     <th>Units</th>
-                                    <th>Quantity on reception document</th>
+                                    <th>Quantity on document</th>
                                     <th>Received quantity</th>
-                                    <th>Acquisition price per unit without VAT</th>
-                                    <th>VAT value</th>
-                                    <th>Acquisition price per unit with VAT</th>
+                                    <th>Acquisition price without VAT</th>
+                                    <th>VAT</th>
+                                    <th>Acquisition price with VAT</th>
                                     <th>Amount without VAT</th>
                                     <th>Amount VAT</th>
                                     <th>Total amount</th>
-                                    <th>Selling unit price without VAT</th>
+                                    <th>Selling price without VAT</th>
                                     <th>VAT value</th>
-                                    <th>Selling unit price with VAT</th>
+                                    <th>Selling price with VAT</th>
                                     <!-- <th>Selling amount without VAT</th> -->
                                     <th>Action</th>
                                 </tr>
