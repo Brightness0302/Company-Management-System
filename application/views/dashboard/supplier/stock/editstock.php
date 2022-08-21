@@ -8,7 +8,7 @@
         <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-9 text-center">
-                    <h1>Add Stock</h1>
+                    <h1>Edit Stock</h1>
                 </div>
             </div>
 
