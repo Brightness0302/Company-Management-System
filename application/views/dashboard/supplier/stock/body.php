@@ -13,9 +13,9 @@
         <?php foreach ($stocks as $stock):?>
         <?php if(!$stock['isremoved']):?>
         <?php $index++;?>
-        <tr onclick="showstock('<?=$stock['id']?>')">
+        <tr>
             <td><?=($index)?></td>
-            <td><?=$stock['name']?></td>
+            <td onclick="showstock('<?=$stock['id']?>')"><?=$stock['name']?></td>
             <td><?=$stock['code']?></td>
             <td class="form-inline flex justify-around">
                 <a class="btn btn-primary" href="<?=base_url('stock/editstock/'.$stock['id'])?>"><i class="bi bi-terminal-dash"></i></a>
