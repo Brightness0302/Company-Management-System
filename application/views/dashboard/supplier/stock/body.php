@@ -13,7 +13,7 @@
         <?php foreach ($stocks as $stock):?>
         <?php if(!$stock['isremoved']):?>
         <?php $index++;?>
-        <tr>
+        <tr onclick="showstock('<?=$stock['id']?>')">
             <td><?=($index)?></td>
             <td><?=$stock['name']?></td>
             <td><?=$stock['code']?></td>

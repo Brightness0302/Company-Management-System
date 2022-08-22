@@ -126,4 +126,29 @@ function delStock(stock_id) {
         }
     });
 }
+
+function showstock(stock_id) {
+    swal({
+        title: "Are you sure?",
+        text: "Show Stock Pages",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-warning",
+        cancelButtonText: "No, cancel plx!",
+        confirmButtonText: "Yes, I do",
+        closeOnConfirm: true,
+        closeOnCancel: true
+    },
+    function(isconfirm) {
+        if (!isconfirm) {
+            alert(false);
+            return;
+        }
+        try {
+            window.location.href = "<?=base_url('product/index?stock_id=')?>" + stock_id;
+        } catch (error) {
+            swal("Delete Stock", "Server Error", "warning");
+        }
+    });
+}
 </script>

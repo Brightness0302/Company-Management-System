@@ -122,9 +122,12 @@
                                     <tr>
                                         <td style="border : 1px solid black">Unit: </td>
                                         <td>
-                                            <div class="m-auto">
-                                                <input type="text" class="form-control " id="unit" value="" title="Choose your color">
-                                            </div>
+                                            <select class="form-select" id="unit">
+                                                <option value="Pieces">Pieces</option>
+                                                <option value="Hours">Hours</option>
+                                                <option value="KG">KG</option>
+                                                <option value="Pair">Pair</option>
+                                            </select>
                                         </td>
                                     </tr>
                                     <tr>

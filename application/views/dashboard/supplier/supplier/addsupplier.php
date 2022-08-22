@@ -29,32 +29,32 @@
                         <input id="Supplieraddress" class="text" type="text" placeholder="" />
                     </div>
                     <div class="input">
-                        <div class="title"><i class="material-icons">account_box</i> VAT number</div>
+                        <div class="title"><i class="material-icons">account_box</i> VAT number </div>
                         <input id="Suppliervat" class="text" type="text" placeholder="" />
                     </div>
                     <div class="input">
-                        <div class="title"><i class="material-icons">account_box</i> Bank name</div>
+                        <div class="title"><i class="material-icons">account_box</i> Bank name </div>
                         <input id="Supplierbankname" class="text" type="text" placeholder="" />
                     </div>
                     <div class="input">
-                        <div class="title"><i class="material-icons">account_box</i> Bank account</div>
+                        <div class="title"><i class="material-icons">account_box</i> Bank account </div>
                         <input id="Supplierbankaccount" class="text" type="text" placeholder="" />
                     </div>
                     <div class="input">
-                        <div class="title"><i class="material-icons">account_box</i> Bank name - 2</div>
+                        <div class="title"><i class="material-icons">account_box</i> Bank name - 2 </div>
                         <input id="Supplierbankname-2" class="text" type="text" placeholder="" />
                     </div>
                     <div class="input">
-                        <div class="title"><i class="material-icons">account_box</i> Bank account - 2</div>
+                        <div class="title"><i class="material-icons">account_box</i> Bank account - 2 </div>
                         <input id="Supplierbankaccount-2" class="text" type="text" placeholder="" />
                     </div>
                     <div class="input">
-                        <div class="title"><i class="material-icons">account_box</i> EORI number for import activities
+                        <div class="title"><i class="material-icons">account_box</i> EORI number for import activities 
                         </div>
                         <input id="Suppliereori" class="text" type="text" placeholder="" />
                     </div>
                     <div class="input">
-                        <div class="title"><i class="material-icons">account_box</i> Reference</div>
+                        <div class="title"><i class="material-icons">account_box</i> Reference </div>
                         <input id="SupplierRef" class="text" type="text" placeholder="" />
                     </div>
                 </div>

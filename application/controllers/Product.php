@@ -19,7 +19,15 @@ class Product extends CI_Controller
         $data['company'] = $company['data'];
         $data['suppliers'] = $this->home->alldata('supplier');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
+
+        if (!isset($_GET['stock_id'])) {
+            $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
+        }
+        else {
+            $stock_id = $_GET['stock_id'];
+            $data['products'] = $this->supplier->alldatabystockidfromdatabase($companyid, 'product', $stock_id);
+        }
+        
 
         $session['menu']="Suppliers";
         $session['submenu']="pdm";

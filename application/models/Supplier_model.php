@@ -95,4 +95,17 @@ class Supplier_model extends CI_Model {
 
         return $data;
     }
+
+    public function alldatabystockidfromdatabase($companyid, $table, $stockid) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $stockid = '"stockid":"'.$stockid.'"';
+
+        $query =    "SELECT *
+                    FROM `$table`
+                    WHERE `lines` LIKE '%$stockid%'";
+
+        return $this->db->query($query)->result_array();
+    }
 }
