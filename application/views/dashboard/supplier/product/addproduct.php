@@ -56,7 +56,7 @@
                                 <tr>
                                     <td style="border : 1px solid black">Invoice Date:</td>
                                     <td>
-                                        <input type="date" class="form-control " id="invoice_date" value="" title="Choose your color">
+                                        <input type="date" class="form-control " id="invoice_date" value="<?=date('Y-m-d')?>" title="Choose your color">
                                     </td>
                                 </tr>
                                 <tr>
