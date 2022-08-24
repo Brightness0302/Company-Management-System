@@ -59,7 +59,7 @@
                 <button class="btn btn-danger " onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi bi-trash3-fill"></i></button>
             </td>
             <td>
-                <a class="btn btn-default" href="<?=base_url('assets/'.$company['name'].'/supplier/'.$product['id'].'.pdf')?>" target="_blank">View</a>
+                <a class="btn btn-default" href="<?=$product['attached']?base_url('assets/'.$company['name'].'/supplier/'.$product['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$product['attached']?"":'pointer-events: none'?>">View</a>
             </td>
         </tr>
         <?php endif;?>

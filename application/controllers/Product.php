@@ -11,15 +11,24 @@ class Product extends CI_Controller
     public function index() {
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
-        $company_name = $this->session->userdata('companyname');
+        $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
-        $company = $this->home->databyname($company_name, 'company');
+        $company = $this->home->databyname($companyname, 'company');
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
         $data['suppliers'] = $this->home->alldata('supplier');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
+
+        foreach ($data['products'] as $index => $product) {
+            $data['products'][$index]['attached'] = false;
+            $invoicename = $product['id'].".pdf";
+            $path = "assets/".$companyname."/supplier/";
+            if(file_exists($path.$invoicename)) {
+                $data['products'][$index]['attached'] = true;
+            }
+        }
 
         $session['menu']="Suppliers";
         $session['submenu']="pdm";
