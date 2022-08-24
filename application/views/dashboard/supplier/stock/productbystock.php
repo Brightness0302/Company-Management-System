@@ -51,7 +51,7 @@
                     if ($supplier['id']==$product['supplierid'])
                         $result = $supplier;
                 }
-                echo $result['name'];
+                echo str_replace("_"," ", $result['name']);
             ?>
             </td>
             <td><?=$product['invoice_number']?></td>

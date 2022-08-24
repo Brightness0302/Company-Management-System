@@ -39,6 +39,9 @@ function onrefreshtotalmark() {
     $("#subtotal").html("0.0");
     $("#vat").html("0.0");
     $("#total").html("0.0");
+
+    $("#aquisition").html("0.0");
+    $("#selling").html("0.0");
 }
 
 $(function() {
@@ -119,8 +122,8 @@ $(function() {
                 ) {
                     aquisition += parseFloat(data[6]);
                     selling += parseFloat(data[8]);
-                    $("#aquisition").html((subtotal).toFixed(2));
-                    $("#selling").html((total).toFixed(2));
+                    $("#aquisition").html((aquisition).toFixed(2));
+                    $("#selling").html((selling).toFixed(2));
                     return true;
                 }
                 return false;
@@ -128,8 +131,11 @@ $(function() {
         }
     );
 
-    invoicetable.on('draw', function (){
+    invoicetable.on('draw', function () {
         subtotal = 0.0, vat = 0.0, total = 0.0;
+    })
+
+    productbystock.on('draw', function () {
         aquisition = 0.0, selling = 0.0;
     })
 
