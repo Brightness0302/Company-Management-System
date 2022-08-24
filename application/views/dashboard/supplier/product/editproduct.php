@@ -225,7 +225,16 @@
                             <?php foreach ($lines as $index => $line):?>
                                 <tr>
                                     <td><?=$line['code_ean']?></td>
-                                    <td><?=$line['stockid']?></td>
+                                    <td>
+                                    <?php
+                                        $result;
+                                        foreach ($stocks as $index => $stock) {
+                                            if ($stock['id']==$line['stockid'])
+                                                $result = $stock;
+                                        }
+                                        echo $result['name'];
+                                    ?>
+                                    </td>
                                     <td><?=$line['production_description']?></td>
                                     <td><?=$line['units']?></td>
                                     <td><?=$line['quantity_on_document']?></td>
@@ -239,6 +248,7 @@
                                     <td><?=$line['selling_unit_price_without_vat']?></td>
                                     <td><?=$line['selling_unit_vat_value']?></td>
                                     <td><?=$line['selling_unit_price_with_vat']?></td>
+                                    <td hidden><?=$line['stockid']?></td>
                                     <td class='align-middle'>
                                         <div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-3'></i></div>
                                     </td>

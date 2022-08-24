@@ -222,6 +222,10 @@ function EditProduct(product_id) {
                 swal("Edit Product", "Failed", "error");
                 return;
             }
+            if ($('#file-upload').val() === '') {
+                alert("uploaded nothing");
+                return;
+            }
             const supplierid = $("#supplierid").val();
 
             console.log("<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + product_id);
@@ -242,7 +246,7 @@ function EditProduct(product_id) {
                     alert("uploaded:" + res);
                 },
                 error: function(jqXHR, exception) {
-                    swal("Add Company", "Load PDF", "error");
+                    alert("uploaded nothing");
                 },
             });
             swal({
