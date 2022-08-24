@@ -30,6 +30,4 @@
         dataType: 'json'
     });
     </script>
-
-    <title>Codeigniter - Tailwind CSS</title>
 </head>

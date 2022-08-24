@@ -73,7 +73,9 @@ $(function() {
      
             // Filtering for "myTable".
             var startdate = new Date($('#startdate').val());
+            startdate.setDate(startdate.getDate() - 1);
             var enddate = new Date($('#enddate').val());
+            enddate.setDate(enddate.getDate() + 1);
             var date = new Date(data[4] || 0); // use data for the age column
             var client_name = data[2];
             var reference = data[3];

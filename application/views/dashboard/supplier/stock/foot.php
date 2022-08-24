@@ -66,15 +66,23 @@ $(function() {
         "lengthChange": false,
         "autoWidth": false,
         "pageLength": 100,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        "buttons": [
+            "copy", "csv", "excel",
+            {
+                extend: 'pdfHtml5',
+                orientation: 'landscape',
+                pageSize: 'LEGAL',
+                title: "<?=$company['name'].'-'.$stock['name'].'-'.date("Y/m/d")?>",
+            }, "print", "colvis",
+        ]
     }).buttons().container().appendTo('#productbystock_wrapper .col-md-6:eq(0)');
 
     let invoicetable = $("#invoicetable").DataTable();
     let productbystock = $("#productbystock").DataTable();
 
-    $("#invoicetable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='2022-07-15' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Start Date:<input id='enddate' value='2022-10-15' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
+    $("#invoicetable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-m-d', strtotime(date('Y-m-d'). ' - 1 months'))?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Start Date:<input id='enddate' value='"+"<?=date('Y-m-d', strtotime(date('Y-m-d'). ' + 1 months'))?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
 
-    $("#productbystock_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='2022-07-15' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Start Date:<input id='enddate' value='2022-10-15' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
+    $("#productbystock_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-m-d', strtotime(date('Y-m-d'). ' - 1 months'))?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Start Date:<input id='enddate' value='"+"<?=date('Y-m-d', strtotime(date('Y-m-d'). ' + 1 months'))?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
 
     var subtotal = 0.0, vat = 0.0, total = 0.0;
     var aquisition = 0.0, selling = 0.0;
@@ -85,7 +93,9 @@ $(function() {
             if ( settings.nTable.id === 'invoicetable' ) {
                 // Filtering for "myTable".
                 var startdate = new Date($('#startdate').val());
+                startdate.setDate(startdate.getDate() - 1);
                 var enddate = new Date($('#enddate').val());
+                enddate.setDate(enddate.getDate() + 1);
                 var date = new Date(data[4] || 0); // use data for the age column
                 var client_name = data[2];
                 var reference = data[3];
@@ -109,7 +119,9 @@ $(function() {
             if ( settings.nTable.id === 'productbystock' ) {
                 // Filtering for "myTable".
                 var startdate = new Date($('#startdate').val());
+                startdate.setDate(startdate.getDate() - 1);
                 var enddate = new Date($('#enddate').val());
+                enddate.setDate(enddate.getDate() + 1);
                 var date = new Date(data[11] || 0); // use data for the age column
                 var client_name = data[1];
                 var reference = data[2];
