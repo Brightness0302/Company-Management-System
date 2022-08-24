@@ -130,29 +130,31 @@ function AddProduct() {
                 swal("Add Company", "Please upload logo", "error");
                 return;
             }
-            const supplierid = $("#supplierid").val();
+            else if {
+                const supplierid = $("#supplierid").val();
 
-            console.log("<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + id);
-            var form_data = new FormData();
-            var ins = document.getElementById('file-upload').files.length;
-            form_data.append("files[]", document.getElementById('file-upload').files[0]);
-            alert(form_data);
-            $.ajax({
-                url: "<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + id,
-                method: "POST",
-                data: form_data,
-                contentType: false,
-                cache: false,
-                processData: false,
-                dataType: 'text',
-                async: false,
-                success: function(res) {
-                    alert("uploaded:" + res);
-                },
-                error: function(jqXHR, exception) {
-                    swal("Add Company", "Load PDF", "error");
-                },
-            });
+                console.log("<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + id);
+                var form_data = new FormData();
+                var ins = document.getElementById('file-upload').files.length;
+                form_data.append("files[]", document.getElementById('file-upload').files[0]);
+                alert(form_data);
+                $.ajax({
+                    url: "<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + id,
+                    method: "POST",
+                    data: form_data,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    dataType: 'text',
+                    async: false,
+                    success: function(res) {
+                        alert("uploaded:" + res);
+                    },
+                    error: function(jqXHR, exception) {
+                        swal("Add Company", "Load PDF", "error");
+                    },
+                });
+            }
             swal({
                 title: "Add Product",
                 text: "Product Success",
@@ -226,29 +228,31 @@ function EditProduct(product_id) {
                 alert("uploaded nothing");
                 return;
             }
-            const supplierid = $("#supplierid").val();
+            else if {
+                const supplierid = $("#supplierid").val();
 
-            console.log("<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + product_id);
-            var form_data = new FormData();
-            var ins = document.getElementById('file-upload').files.length;
-            form_data.append("files[]", document.getElementById('file-upload').files[0]);
-            alert(form_data);
-            $.ajax({
-                url: "<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + product_id,
-                method: "POST",
-                data: form_data,
-                contentType: false,
-                cache: false,
-                processData: false,
-                dataType: 'text',
-                async: false,
-                success: function(res) {
-                    alert("uploaded:" + res);
-                },
-                error: function(jqXHR, exception) {
-                    alert("uploaded nothing");
-                },
-            });
+                console.log("<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + product_id);
+                var form_data = new FormData();
+                var ins = document.getElementById('file-upload').files.length;
+                form_data.append("files[]", document.getElementById('file-upload').files[0]);
+                alert(form_data);
+                $.ajax({
+                    url: "<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + product_id,
+                    method: "POST",
+                    data: form_data,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    dataType: 'text',
+                    async: false,
+                    success: function(res) {
+                        alert("uploaded:" + res);
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("uploaded nothing");
+                    },
+                });
+            }
             swal({
                 title: "Edit Product",
                 text: "Product Success",
