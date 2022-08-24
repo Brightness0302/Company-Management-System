@@ -126,8 +126,4 @@ function delStock(stock_id) {
         }
     });
 }
-
-function showstock(stock_id) {
-    window.open("<?=base_url('stock/showproductbystock?stock_id=')?>" + stock_id, "_blank");
-}
 </script>
