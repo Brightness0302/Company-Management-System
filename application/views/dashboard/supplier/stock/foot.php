@@ -74,6 +74,7 @@ $(function() {
     $("#productbystock_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='2022-07-15' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Start Date:<input id='enddate' value='2022-10-15' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
 
     var subtotal = 0.0, vat = 0.0, total = 0.0;
+    var aquisition = 0.0, selling = 0.0;
 
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {
@@ -106,21 +107,20 @@ $(function() {
                 // Filtering for "myTable".
                 var startdate = new Date($('#startdate').val());
                 var enddate = new Date($('#enddate').val());
-                var date = new Date(data[4] || 0); // use data for the age column
-                var client_name = data[2];
-                var reference = data[3];
+                var date = new Date(data[11] || 0); // use data for the age column
+                var client_name = data[1];
+                var reference = data[2];
                 var searchvalue = $("#searchtag").val();
+                console.log(searchvalue, client_name, reference);
                 // console.log(client_name, reference, searchvalue, startdate, enddate, date);
              
                 if (
                     (date > startdate && date < enddate) && (client_name.toLowerCase().includes(searchvalue.toLowerCase()) || reference.toLowerCase().includes(searchvalue.toLowerCase()))
                 ) {
-                    subtotal += parseFloat(data[6]);
-                    vat += parseFloat(data[7]);
-                    total += parseFloat(data[8]);
-                    $("#subtotal").html((subtotal).toFixed(2));
-                    $("#vat").html((vat).toFixed(2));
-                    $("#total").html((total).toFixed(2));
+                    aquisition += parseFloat(data[6]);
+                    selling += parseFloat(data[8]);
+                    $("#aquisition").html((subtotal).toFixed(2));
+                    $("#selling").html((total).toFixed(2));
                     return true;
                 }
                 return false;
@@ -130,16 +130,19 @@ $(function() {
 
     invoicetable.on('draw', function (){
         subtotal = 0.0, vat = 0.0, total = 0.0;
+        aquisition = 0.0, selling = 0.0;
     })
 
     $("#searchtag").on('keyup', function (){
         onrefreshtotalmark();
         invoicetable.draw();
+        productbystock.draw();
     });
     
     $("input[type=date]").on('change', function (){
         onrefreshtotalmark();
         invoicetable.draw();
+        productbystock.draw();
     });
 
     $("select[id=companycoin]").on('change', function (){

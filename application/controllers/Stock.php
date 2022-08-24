@@ -47,6 +47,7 @@ class Stock extends CI_Controller
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
 
         $stock_id = $_GET['stock_id'];
+        $data['stock'] = $this->home->databyidfromdatabase($companyid, 'stock', $stock_id)['data'];
         $data['products'] = $this->supplier->alldatabystockidfromdatabase($companyid, 'product', $stock_id);
 
         $session['menu']="Suppliers";

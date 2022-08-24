@@ -532,6 +532,12 @@
                     else if($menu['submenu']=="pmbs")
                         echo "Stock Management By Stock";
                     ?></li>
+                    <li class="breadcrumb-item active">
+                    <?php
+                    if($menu['submenu']=="pmbs")
+                        echo $stock['name'];
+                    ?>
+                    </li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->

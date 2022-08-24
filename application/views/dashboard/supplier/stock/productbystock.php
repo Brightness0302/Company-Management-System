@@ -20,9 +20,9 @@
         <?php $index=0; $total_aquisition=0; $total_selling=0;?>
         <?php foreach ($products as $product):?>
         <?php if(!$product['isremoved']):?>
-        <?php $index++;?>
         <?php $lines=json_decode($product['lines'], true);?>
         <?php foreach ($lines as $line):?>
+        <?php $index++;?>
         <tr>
             <?php 
                 $result;
@@ -47,7 +47,7 @@
             <td>
             <?php
                 $result;
-                foreach ($suppliers as $index => $supplier) {
+                foreach ($suppliers as $supplier) {
                     if ($supplier['id']==$product['supplierid'])
                         $result = $supplier;
                 }

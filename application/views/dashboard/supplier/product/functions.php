@@ -127,10 +127,9 @@ function AddProduct() {
                 return;
             }
             if ($('#file-upload').val() === '') {
-                swal("Add Company", "Please upload logo", "error");
-                return;
+                alert("upload nothing");
             }
-            else if {
+            else {
                 const supplierid = $("#supplierid").val();
 
                 console.log("<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + id);
@@ -226,9 +225,8 @@ function EditProduct(product_id) {
             }
             if ($('#file-upload').val() === '') {
                 alert("uploaded nothing");
-                return;
             }
-            else if {
+            else {
                 const supplierid = $("#supplierid").val();
 
                 console.log("<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + product_id);
