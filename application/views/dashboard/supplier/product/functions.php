@@ -8,11 +8,18 @@ $(document).ready(function() {
             $("#selling_unit_price_without_vat").val((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2));
         }
     });
+
+    $('#file-upload').change(function() {
+        var i = $(this).prev('label').clone();
+        var file = $('#file-upload')[0].files[0].name;
+        $(this).prev('label').text(file);
+    });
 });
 
 function SaveItem() {
     const production_description = $("#production_description").val();
     const stockid = $("#stockid").val();
+    const stockname = $("#stockid").text().trim();
     const code_ean = $("#code_ean").val();
     const unit = $("#unit").val();
     const acquisition_unit_price = $("#acquisition_unit_price").val();
@@ -24,7 +31,7 @@ function SaveItem() {
     $("#table-body").append(
         "<tr>"+
         "<td>"+code_ean+"</td>"+
-        "<td>"+stockid+"</td>"+
+        "<td>"+stockname+"</td>"+
         "<td>"+production_description+"</td>"+
         "<td>"+unit+"</td>"+
         "<td>"+quantity_on_document+"</td>"+
@@ -38,6 +45,7 @@ function SaveItem() {
         "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2)+"</td>"+
         "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</td>"+
         "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</td>"+
+        "<td hidden>"+stockid+"</td>"+
         "<td class='align-middle'>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi bi-trash3-fill p-3'></i>" + "</div>" + "</td>" +
         "</tr>"
     );
@@ -80,7 +88,7 @@ function AddProduct() {
         const etr = $(element).find("td");
         lines.push({
             code_ean:$(etr[0]).text(),
-            stockid:$(etr[1]).text(),
+            stockid:$(etr[15]).text(),
             production_description:$(etr[2]).text(),
             units:$(etr[3]).text(),
             quantity_on_document:$(etr[4]).text(),
@@ -107,6 +115,7 @@ function AddProduct() {
         invoice_coin: invoice_coin
     };
 
+
     $.ajax({
         url: "<?=base_url('product/saveproduct')?>",
         method: "POST",
@@ -117,6 +126,33 @@ function AddProduct() {
                 swal("Add Product", "Failed", "error");
                 return;
             }
+            if ($('#file-upload').val() === '') {
+                swal("Add Company", "Please upload logo", "error");
+                return;
+            }
+            const supplierid = $("#supplierid").val();
+
+            console.log("<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + id);
+            var form_data = new FormData();
+            var ins = document.getElementById('file-upload').files.length;
+            form_data.append("files[]", document.getElementById('file-upload').files[0]);
+            alert(form_data);
+            $.ajax({
+                url: "<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + id,
+                method: "POST",
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: 'text',
+                async: false,
+                success: function(res) {
+                    alert("uploaded:" + res);
+                },
+                error: function(jqXHR, exception) {
+                    swal("Add Company", "Load PDF", "error");
+                },
+            });
             swal({
                 title: "Add Product",
                 text: "Product Success",
@@ -148,7 +184,7 @@ function EditProduct(product_id) {
         const etr = $(element).find("td");
         lines.push({
             code_ean:$(etr[0]).text(),
-            stockid:$(etr[1]).text(),
+            stockid:$(etr[15]).text(),
             production_description:$(etr[2]).text(),
             units:$(etr[3]).text(),
             quantity_on_document:$(etr[4]).text(),
@@ -186,6 +222,29 @@ function EditProduct(product_id) {
                 swal("Edit Product", "Failed", "error");
                 return;
             }
+            const supplierid = $("#supplierid").val();
+
+            console.log("<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + product_id);
+            var form_data = new FormData();
+            var ins = document.getElementById('file-upload').files.length;
+            form_data.append("files[]", document.getElementById('file-upload').files[0]);
+            alert(form_data);
+            $.ajax({
+                url: "<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + product_id,
+                method: "POST",
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: 'text',
+                async: false,
+                success: function(res) {
+                    alert("uploaded:" + res);
+                },
+                error: function(jqXHR, exception) {
+                    swal("Add Company", "Load PDF", "error");
+                },
+            });
             swal({
                 title: "Edit Product",
                 text: "Product Success",

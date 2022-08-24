@@ -213,4 +213,56 @@ class Home extends CI_Controller
         $result = $this->home->saveItem($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Coin);
         echo $result;
     }
+    //UploadImage post(fileinput) param(path)
+    public function uploadImage($path) {
+        if (!isset($_GET['id'])) // works with request 
+        {
+            echo "nothing";
+            return;
+        }
+
+        // echo "123:".$this->lang->line('proj.proj_sel');
+
+        $id = $_GET['id'];
+        // echo $countfiles;
+        if ($path=="company")
+            $path="assets/company/image/";
+        if ($path=="employee")
+            $path="assets/employee/";
+        if ($path=="background")
+            $path="assets/background/";
+        if(file_exists($path.$id.".jpg")) {
+            unlink($path.$id.".jpg");
+        }
+        if(!empty($_FILES['files']['name'][0])) {
+
+            $_FILES['file']['name'] = $_FILES['files']['name'][0];
+            $_FILES['file']['type'] = $_FILES['files']['type'][0];
+            $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][0];
+            $_FILES['file']['error'] = $_FILES['files']['error'][0];
+            $_FILES['file']['size'] = $_FILES['files']['size'][0];
+
+            $config['image_library'] = 'gd2';
+            $config['upload_path'] = $path;
+            $config['allowed_types'] = 'jpg|jpeg|png|gif|webp';
+            $config['max_size'] = "2048000"; // Can be set to particular file size , here it is 2 MB(2048 Kb)
+            $new_name = $id.".jpg";
+            $config['file_name'] = $new_name;
+
+            $this->load->library('upload',$config);
+            $this->upload->initialize($config);
+            // $arr = array('msg' => 'something went wrong', 'success' => false);
+
+            if($this->upload->do_upload('file')) {
+                $uploadData = $this->upload->data();
+                // $this->resize_image($uploadData['full_path']);
+                // $filename = $uploadData['file_name'];
+                // $arr = array('msg' => 'Image has been uploaded successfully', 'success' => true);
+            }
+            else {
+                echo $this->upload->display_errors();
+            }
+        }
+        // echo json_encode($arr);
+    }
 };

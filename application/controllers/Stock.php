@@ -33,6 +33,36 @@ class Stock extends CI_Controller
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
+
+    public function showproductbystock() {
+        $this->check_usersession();
+        $companyid = $this->session->userdata('companyid');
+        $company_name = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['suppliers'] = $this->home->alldata('supplier');
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+
+        $stock_id = $_GET['stock_id'];
+        $data['products'] = $this->supplier->alldatabystockidfromdatabase($companyid, 'product', $stock_id);
+
+        $session['menu']="Suppliers";
+        $session['submenu']="pmbs";
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/supplier/stock/head');
+        $this->load->view('dashboard/supplier/stock/productbystock');
+        $this->load->view('dashboard/supplier/stock/foot');
+        $this->load->view('dashboard/supplier/stock/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
     //View clientpage of creating.
     public function addstock() {
         $this->load->view('header');

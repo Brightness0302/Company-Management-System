@@ -94,7 +94,6 @@
 
       document.getElementById("total-table").style.left = parseFloat(first_row_1.left - 100)+"px";
 
-      console.log(document.getElementById("total-table").style.left);
       document.getElementById("total-table").style.width = parseFloat(100+first_row_1.width+first_row_2.width+first_row_3.width) + "px";
       document.getElementById("downtotalmark").style.width = 100+"px";
       document.getElementById("subtotal").style.width  = first_row_1.width + "px";

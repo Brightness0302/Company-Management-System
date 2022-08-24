@@ -19,15 +19,7 @@ class Product extends CI_Controller
         $data['company'] = $company['data'];
         $data['suppliers'] = $this->home->alldata('supplier');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-
-        if (!isset($_GET['stock_id'])) {
-            $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
-        }
-        else {
-            $stock_id = $_GET['stock_id'];
-            $data['products'] = $this->supplier->alldatabystockidfromdatabase($companyid, 'product', $stock_id);
-        }
-        
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
 
         $session['menu']="Suppliers";
         $session['submenu']="pdm";
@@ -55,6 +47,8 @@ class Product extends CI_Controller
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['product'] = $this->supplier->productfromsetting($companyid, 'product');
 
+        $data['attached'] = "Invoice Attach";
+
         $session['menu']="Suppliers";
         $session['submenu']="pdm";
         $this->session->set_flashdata('menu', $session);
@@ -68,6 +62,7 @@ class Product extends CI_Controller
     //View supplierpage of editting.
     public function editproduct($product_id) {
         $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyid($companyid, 'company');
         if ($company['status']=='failed')
@@ -76,9 +71,18 @@ class Product extends CI_Controller
         $data['suppliers'] = $this->home->alldata('supplier');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $product = $this->home->databyidfromdatabase($companyid, 'product', $product_id);
+
+        $data['attached'] = "Invoice Attach";
+
         if ($product['status']=="failed")
             return;
         $data['product'] = $product['data'];
+
+        $invoicename = $data['product']['id'].".pdf";
+        $path = "assets/".$companyname."/supplier/";
+        if(file_exists($path.$invoicename)) {
+            $data['attached'] = $invoicename;
+        }
 
         $session['menu']="Suppliers";
         $session['submenu']="pdm";
@@ -127,5 +131,56 @@ class Product extends CI_Controller
             redirect('home/signview');
             return false;
         }
+    }
+    //Upload Invoice attach post(fileinput) param(path)
+    public function uploadinvoiceattach($companyname, $supplierid, $invoiceid) {
+        $path = "assets/".$companyname."/supplier/";
+        $suppliers = $this->home->alldata('supplier');
+        $suppliername = $supplierid;
+
+        foreach ($suppliers as $index => $supplier) {
+            if ($supplier['id'] == $supplierid)
+                $suppliername = $supplier['name'];
+        }
+        $invoicename = $invoiceid.".pdf";
+
+        if(!is_dir($path)){
+            @mkdir($path, 0777, true);
+        }
+
+        if(file_exists($path.$invoicename)) {
+            unlink($path.$invoicename);
+        }
+        if(!empty($_FILES['files']['name'][0])) {
+
+            $_FILES['file']['name'] = $_FILES['files']['name'][0];
+            $_FILES['file']['type'] = $_FILES['files']['type'][0];
+            $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][0];
+            $_FILES['file']['error'] = $_FILES['files']['error'][0];
+            $_FILES['file']['size'] = $_FILES['files']['size'][0];
+
+            $config['upload_path'] = $path;
+            $config['allowed_types'] = 'gif|jpg|jpeg|png|mp3|mpeg|pdf';
+            $config['max_size'] = '1500000000'; // Can be set to particular file size , here it is 2 MB(2048 Kb)
+            $new_name = $invoicename;
+            $config['file_name'] = $new_name;
+
+            $this->load->library('upload',$config);
+            $this->upload->initialize($config);
+            // $arr = array('msg' => 'something went wrong', 'success' => false);
+
+            if($this->upload->do_upload('file')) {
+                echo "success";
+                return;
+                // $uploadData = $this->upload->data();
+                // $this->resize_image($uploadData['full_path']);
+                // $filename = $uploadData['file_name'];
+                // $arr = array('msg' => 'Image has been uploaded successfully', 'success' => true);
+            }
+            else {
+                echo $this->upload->display_errors();
+            }
+        }
+        // echo json_encode($arr);
     }
 };

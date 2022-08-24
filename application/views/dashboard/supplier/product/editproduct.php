@@ -250,6 +250,12 @@
                 </div>
             </div>
             <div class="text-center">
+                <div class="absolute">
+                    <label for="file-upload" class="btn btn-default" style="color: red;">
+                        <i class="fa fa-cloud-upload"></i> <?=$attached?>
+                    </label>
+                    <input id="file-upload" name='upload_cont_img' type="file" style="display:none;">
+                </div>
                 <button class="cbutton bg-red" onclick="EditProduct('<?=$product['id']?>')">Save</button> / <a
                     href="<?=base_url('product/index')?>"><button class="cbutton bg-white">Cancel</button></a>
             </div>
