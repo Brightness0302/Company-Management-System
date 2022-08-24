@@ -17,9 +17,10 @@ $(document).ready(function() {
 });
 
 function SaveItem() {
+    const select = document.getElementById('stockid');
     const production_description = $("#production_description").val();
     const stockid = $("#stockid").val();
-    const stockname = $("#stockid").text().trim();
+    const stockname = select.options[select.selectedIndex].text;
     const code_ean = $("#code_ean").val();
     const unit = $("#unit").val();
     const acquisition_unit_price = $("#acquisition_unit_price").val();
