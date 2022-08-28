@@ -7,6 +7,7 @@
             <th>Category</th>
             <th>Project</th>
             <th>Date</th>
+            <th>Observation</th>
             <th id="upsubtotal">Value Ex VAT</th>
             <th id="upvat">VAT</th>
             <th id="uptotal">Total Receipt</th>
@@ -37,6 +38,7 @@
             </td>
             <td><?=$product['projectid']?></td>
             <td><?=$product['date']?></td>
+            <td><?=$product['observation']?></td>
             <td><?=$product['value_without_vat']?></td>
             <td><?=$product['vat']?></td>
             <td><?=$product['total']?></td>

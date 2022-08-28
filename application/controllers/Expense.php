@@ -181,6 +181,7 @@ class Expense extends CI_Controller
     public function saveproduct() {
         $companyid = $this->session->userdata('companyid');
 
+        $observation = $this->input->post('observation');
         $categoryid = $this->input->post('categoryid');
         $projectid = $this->input->post('projectid');
         $expense_date = $this->input->post('expense_date');
@@ -191,13 +192,13 @@ class Expense extends CI_Controller
         $total_amount = $this->input->post('total_amount');
 
         if (!isset($_GET['id'])) {
-            $project_id = $this->expense->createProduct($companyid, $categoryid, $projectid, $expense_date, $invoice_coin, $vat_percent, $value_without_vat, $vat_amount, $total_amount);
+            $project_id = $this->expense->createProduct($companyid, $categoryid, $projectid, $expense_date, $invoice_coin, $observation, $vat_percent, $value_without_vat, $vat_amount, $total_amount);
             echo $project_id;
             return;
         }
 
         $id = $_GET['id'];
-        $result = $this->expense->saveProduct($companyid, $id, $categoryid, $projectid, $expense_date, $invoice_coin, $vat_percent, $value_without_vat, $vat_amount, $total_amount);
+        $result = $this->expense->saveProduct($companyid, $id, $categoryid, $projectid, $expense_date, $invoice_coin, $observation, $vat_percent, $value_without_vat, $vat_amount, $total_amount);
         echo $result;
     }
     //Upload Invoice attach post(fileinput) param(path)

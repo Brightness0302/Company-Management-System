@@ -18,6 +18,16 @@
                         <div class="col-sm-4 text-center">
                             <table class="table " style="border : 1px solid gray; text-align: left">
                                 <tr>
+                                    <td style="border : 1px solid black">Observations:</td>
+                                    <td>
+                                        <input type="text" class="form-control " id="observation" value="" title="Choose your color">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-sm-4 text-center">
+                            <table class="table " style="border : 1px solid gray; text-align: left">
+                                <tr>
                                     <td style="border : 1px solid black"> Category Name: </td>
                                     <td>
                                         <select class="form-select" id="categoryid">

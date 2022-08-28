@@ -43,7 +43,7 @@ class Expense_model extends CI_Model {
         return $res;
     }
 
-    public function createProduct($companyid, $categoryid, $projectid, $expense_date, $invoice_coin, $vat_percent, $value_without_vat, $vat_amount, $total_amount) {
+    public function createProduct($companyid, $categoryid, $projectid, $expense_date, $invoice_coin, $observation, $vat_percent, $value_without_vat, $vat_amount, $total_amount) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
@@ -56,6 +56,7 @@ class Expense_model extends CI_Model {
             'value_without_vat'=>$value_without_vat, 
             'vat'=>$vat_amount, 
             'total'=>$total_amount, 
+            'observation'=>$observation 
         );
 
         $this->db->insert('expense_product', $data);
@@ -63,7 +64,7 @@ class Expense_model extends CI_Model {
         return $product_id;
     }
 
-    public function saveProduct($companyid, $id, $categoryid, $projectid, $expense_date, $invoice_coin, $vat_percent, $value_without_vat, $vat_amount, $total_amount) {
+    public function saveProduct($companyid, $id, $categoryid, $projectid, $expense_date, $invoice_coin, $observation, $vat_percent, $value_without_vat, $vat_amount, $total_amount) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
@@ -76,6 +77,7 @@ class Expense_model extends CI_Model {
             'value_without_vat'=>$value_without_vat, 
             'vat'=>$vat_amount, 
             'total'=>$total_amount, 
+            'observation'=>$observation 
         );
 
         $this->db->where('id', $id);

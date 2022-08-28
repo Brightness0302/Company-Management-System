@@ -8,13 +8,23 @@
         <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-9 text-center">
-                    <h1>Expense Product modifier</h1>
+                    <h1>Modify the new Expense</h1>
                 </div>
             </div>
 
             <div class="container">
                 <div class="text-sm">
                     <div id="section1" class="row d-flex justify-content-center align-items-center border border-lime-600">
+                        <div class="col-sm-4 text-center">
+                            <table class="table " style="border : 1px solid gray; text-align: left">
+                                <tr>
+                                    <td style="border : 1px solid black">Observations:</td>
+                                    <td>
+                                        <input type="text" class="form-control " id="observation" value="<?=$product['observation']?>" title="Choose your color">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                         <div class="col-sm-4 text-center">
                             <table class="table " style="border : 1px solid gray; text-align: left">
                                 <tr>

@@ -1,77 +1,27 @@
 <script type="text/javascript">
 $(document).ready(function() {
-    $("input").change(function() {
-        if (this.id == "value_without_vat" || this.id == "vat_amount") {
-            const value_without_vat = $("#value_without_vat").val();
-            const vat_amount = $("#vat_amount").val();
-            const vat_percent = vat_amount/value_without_vat*100.0;
-            
-            if (value_without_vat && vat_percent) {
-                $("#vat_percent").val((vat_percent).toFixed(2));
-                $("#total_amount").val((parseFloat(value_without_vat)+parseFloat(vat_amount)).toFixed(2));
-            }
-        }
-    });
-
     $('#file-upload').change(function() {
         var i = $(this).prev('label').clone();
         var file = $('#file-upload')[0].files[0].name;
         $(this).prev('label').text(file);
     });
+    document.getElementById('value_without_vat').addEventListener("input", onchange_input, false);
+    document.getElementById('vat_amount').addEventListener("input", onchange_input, false);
 });
+function onchange_input() {
+    const value_without_vat = $("#value_without_vat").val();
+    const vat_amount = $("#vat_amount").val();
+    const vat_percent = vat_amount/value_without_vat*100.0;
+    
+    if (value_without_vat && vat_percent) {
+        $("#vat_percent").val(parseInt(vat_percent));
+        $("#total_amount").val((parseFloat(value_without_vat)+parseFloat(vat_amount)).toFixed(2));
+    }
+}
 
 function DeleteAttachedFile() {
     document.getElementById("file-upload").value="";
     console.log($('#file-upload'));
-}
-
-function SaveItem() {
-    const select = document.getElementById('stockid');
-    const production_description = $("#production_description").val();
-    const stockid = $("#stockid").val();
-    const stockname = select.options[select.selectedIndex].text;
-    const code_ean = $("#code_ean").val();
-    const unit = $("#unit").val();
-    const acquisition_unit_price = $("#acquisition_unit_price").val();
-    const vat_percent = $("#vat_percent").val();
-    const quantity_on_document = $("#quantity_on_document").val();
-    const quantity_received = $("#quantity_received").val();
-    const mark_up_percent = $("#mark_up_percent").val();
-
-    $("#table-body").append(
-        "<tr>"+
-        "<td>"+code_ean+"</td>"+
-        "<td>"+stockname+"</td>"+
-        "<td>"+production_description+"</td>"+
-        "<td>"+unit+"</td>"+
-        "<td>"+quantity_on_document+"</td>"+
-        "<td>"+quantity_received+"</td>"+
-        "<td>"+acquisition_unit_price+"</td>"+
-        "<td>"+(acquisition_unit_price*vat_percent/100.0)+"</td>"+
-        "<td>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
-        "<td>"+(acquisition_unit_price*quantity_on_document).toFixed(2)+"</td>"+
-        "<td>"+((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2)+"</td>"+
-        "<td>"+((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
-        "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2)+"</td>"+
-        "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</td>"+
-        "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</td>"+
-        "<td hidden>"+stockid+"</td>"+
-        "<td class='align-middle'>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi bi-trash3-fill p-3'></i>" + "</div>" + "</td>" +
-        "</tr>"
-    );
-
-
-    $("#production_description").val("");
-    $("#code_ean").val("");
-    $("#unit").val("0");
-    $("#acquisition_unit_price").val("0");
-    $("#quantity_on_document").val("0");
-    $("#quantity_received").val("0");
-    $("#selling_unit_price_without_vat").val("0.00");
-}
-
-function remove_tr(el) {
-    $(el).closest('tr').remove();
 }
 
 function ClearItem() {
@@ -86,6 +36,7 @@ function ClearItem() {
 }
 
 function AddProduct() {
+    const observation = $("#observation").val();
     const categoryid = $("#categoryid").val();
     const projectid = $("#projectid").val();
     const expense_date = $("#expense_date").val();
@@ -96,6 +47,7 @@ function AddProduct() {
     const total_amount = $("#total_amount").val();
 
     const form_data = {
+        observation: observation,
         categoryid: categoryid,
         projectid: projectid,
         expense_date: expense_date,
@@ -165,6 +117,7 @@ function AddProduct() {
 }
 
 function EditProduct(product_id) {
+    const observation = $("#observation").val();
     const categoryid = $("#categoryid").val();
     const projectid = $("#projectid").val();
     const expense_date = $("#expense_date").val();
@@ -175,6 +128,7 @@ function EditProduct(product_id) {
     const total_amount = $("#total_amount").val();
 
     const form_data = {
+        observation: observation,
         categoryid: categoryid,
         projectid: projectid,
         expense_date: expense_date,
