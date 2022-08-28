@@ -120,7 +120,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row d-flex justify-content-center align-items-center">
+                    <div class="row d-flex justify-content-center align-items-center mt-3">
                         <div class="text-center">
                             <div class="absolute">
                                 <label for="file-upload" class="btn btn-outline-secondary" style="color: red;">
