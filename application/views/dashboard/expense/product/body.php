@@ -24,7 +24,17 @@
         ?>
         <tr>
             <td><?=($index)?></td>
-            <td><?=$product['categoryid']?></td>
+            <td>
+            <?php 
+                $result;
+                foreach ($expenses as $key => $expense) {
+                    if ($expense['id']==$product['categoryid']) {
+                        $result=$expense;
+                    }
+                }
+                echo $result['name'];
+            ?>
+            </td>
             <td><?=$product['projectid']?></td>
             <td><?=$product['date']?></td>
             <td><?=$product['value_without_vat']?></td>
