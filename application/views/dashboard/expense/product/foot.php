@@ -74,17 +74,17 @@ $(function() {
             // Filtering for "myTable".
             var startdate = new Date($('#startdate').val());
             var enddate = new Date($('#enddate').val());
-            var date = new Date(data[4] || 0); // use data for the age column
-            var name = data[2];
+            var date = new Date(data[3] || 0); // use data for the age column
+            var name = data[1];
             var searchvalue = $("#searchtag").val();
             // console.log(name, reference, searchvalue, startdate, enddate, date);
          
             if (
                 (date > startdate && date < enddate) && (name.toLowerCase().includes(searchvalue.toLowerCase()))
             ) {
-                subtotal += parseFloat(data[6]);
-                vat += parseFloat(data[7]);
-                total += parseFloat(data[8]);
+                subtotal += parseFloat(data[4]);
+                vat += parseFloat(data[5]);
+                total += parseFloat(data[6]);
                 $("#subtotal").html((subtotal).toFixed(2));
                 $("#vat").html((vat).toFixed(2));
                 $("#total").html((total).toFixed(2));

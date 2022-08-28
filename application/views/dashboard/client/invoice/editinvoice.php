@@ -227,7 +227,7 @@
                         <?php foreach ($lines as $index => $line):?>
                         <tr>
                             <td>
-                                <input type='text' value="<?=$line['description']?>" class='form form-control w-full p-2 mt-2 text_right bg-transparent no_broder' name='description1' placeholder='Description1' id='line_description'>
+                                <textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text_right bg-transparent no_broder' name='description' cols='200'><?=$line['description']?></textarea>
                             </td>
                             <td class='text-center'>
                                 <input type='text' value="<?=$line['rate']?>" class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>

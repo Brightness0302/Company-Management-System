@@ -4,7 +4,7 @@ $(document).ready(function() {
         $("#table_body").append(
             "<tr>" +
             "<td>" +
-            "<textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text_right bg-transparent no_broder' name='description'></textarea>" +
+            "<textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text_right bg-transparent no_broder' name='description' cols='200'></textarea>" +
             "</td>" +
             "<td class='text-center'>" +
             "<input type='text' value='0' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>" +
@@ -35,6 +35,12 @@ $(document).ready(function() {
                 refresh();
             }
         });
+        const tx = document.getElementsByTagName("textarea");
+        console.log(tx);
+        for (let i = 0; i < tx.length; i++) {
+            tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
+            tx[i].addEventListener("input", OnInput, false);
+        };
     });
     $("input").keyup(function() {
         const eid = $(this).attr('id');
@@ -49,19 +55,12 @@ $(document).ready(function() {
             refresh();
         }
     });
-    const tx = document.getElementsByTagName("textarea");
-    console.log(tx);
-    for (let i = 0; i < tx.length; i++) {
-        tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
-        tx[i].addEventListener("input", OnInput, false);
-    }
-
-    function OnInput() {
-        alert(123);
-        this.style.height = "auto";
-        this.style.height = (this.scrollHeight) + "px";
-    }
 });
+
+function OnInput() {
+    this.style.height = "auto";
+    this.style.height = (this.scrollHeight) + "px";
+}
 
 function refresh() {
     const table = $("#table_body");

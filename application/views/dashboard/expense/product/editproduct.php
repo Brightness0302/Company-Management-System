@@ -81,9 +81,11 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="border : 1px solid black"> VAT %: </td>
+                                        <td style="border : 1px solid black">VAT amount:</td>
                                         <td>
-                                            <input type="text" class="form-control" id="vat_percent" value="<?=$product['vat_percent']?>" title="Choose your color">
+                                            <div class="m-auto">
+                                                <input type="text" class="form-control " id="vat_amount" value="<?=$product['vat']?>" title="Choose your color">
+                                            </div>
                                         </td>
                                     </tr>
                                 </table>
@@ -91,11 +93,9 @@
                             <div class="col-sm-4 text-center d-flex">
                                 <table class="table " style="border : 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border : 1px solid black">VAT amount:</td>
+                                        <td style="border : 1px solid black"> VAT %: </td>
                                         <td>
-                                            <div class="m-auto">
-                                                <input type="text" class="form-control " id="vat_amount" value="<?=$product['vat']?>" title="Choose your color" readOnly>
-                                            </div>
+                                            <input type="text" class="form-control" id="vat_percent" value="<?=$product['vat_percent']?>" title="Choose your color" readOnly>
                                         </td>
                                     </tr>
                                     <tr>

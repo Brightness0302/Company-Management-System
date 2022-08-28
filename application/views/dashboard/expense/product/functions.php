@@ -1,13 +1,14 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $("input").change(function() {
-        if (this.id == "value_without_vat" || this.id == "vat_percent") {
+        if (this.id == "value_without_vat" || this.id == "vat_amount") {
             const value_without_vat = $("#value_without_vat").val();
-            const vat_percent = $("#vat_percent").val();
+            const vat_amount = $("#vat_amount").val();
+            const vat_percent = vat_amount/value_without_vat*100.0;
             
             if (value_without_vat && vat_percent) {
-                $("#vat_amount").val((value_without_vat*parseFloat(vat_percent)/100.0).toFixed(2));
-                $("#total_amount").val((value_without_vat*((parseFloat(vat_percent)+100.0)/100.0)).toFixed(2));
+                $("#vat_percent").val((vat_percent).toFixed(2));
+                $("#total_amount").val((parseFloat(value_without_vat)+parseFloat(vat_amount)).toFixed(2));
             }
         }
     });
