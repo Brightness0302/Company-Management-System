@@ -24,7 +24,7 @@ class Product extends CI_Controller
         foreach ($data['products'] as $index => $product) {
             $data['products'][$index]['attached'] = false;
             $invoicename = $product['id'].".pdf";
-            $path = "assets/".$companyname."/supplier/";
+            $path = "assets/company/attachment/".$companyname."/supplier/";
             if(file_exists($path.$invoicename)) {
                 $data['products'][$index]['attached'] = true;
             }
@@ -88,7 +88,7 @@ class Product extends CI_Controller
         $data['product'] = $product['data'];
 
         $invoicename = $data['product']['id'].".pdf";
-        $path = "assets/".$companyname."/supplier/";
+        $path = "assets/company/attachment/".$companyname."/supplier/";
         if(file_exists($path.$invoicename)) {
             $data['attached'] = $invoicename;
         }
@@ -143,7 +143,7 @@ class Product extends CI_Controller
     }
     //Upload Invoice attach post(fileinput) param(path)
     public function uploadinvoiceattach($companyname, $supplierid, $invoiceid) {
-        $path = "assets/".$companyname."/supplier/";
+        $path = "assets/company/attachment/".$companyname."/supplier/";
         $suppliers = $this->home->alldata('supplier');
         $suppliername = $supplierid;
 

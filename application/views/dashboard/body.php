@@ -302,7 +302,7 @@
 
                     <li>
                         <a href="<?=base_url('stock/index')?>">
-                            <i class="bi <?=($menu['submenu']=="stm"||$menu['submenu']=="pmbs")?"bi-circle-fill":"bi-circle"?>"></i><span>Stock Management</span>
+                            <i class="bi <?=($menu['submenu']=="stm")?"bi-circle-fill":"bi-circle"?>"></i><span>Stock Management</span>
                         </a>
                     </li>
 
@@ -316,18 +316,19 @@
             </li><!-- End Components Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bx bxs-cylinder"></i><span>Materials</span><i class="bi bi-chevron-down ms-auto"></i>
+                <a class="nav-link <?=$menu['menu']=="Expenses"?"":"collapsed"?>" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bx bxs-cylinder"></i><span>Expenses</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="tables-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <ul id="tables-nav" class="nav-content collapse <?=$menu['menu']=="Expenses"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="#">
-                            <i class="bi bi-circle"></i><span>H.slot</span>
+                        <a href="<?=base_url('expense/index')?>">
+                            <i class="bi <?=$menu['submenu']=="em"?"bi-circle-fill":"bi-circle"?>"></i><span>Expense Management</span>
                         </a>
                     </li>
+
                     <li>
-                        <a href="#">
-                            <i class="bi bi-circle"></i><span>Sword</span>
+                        <a href="<?=base_url('expense/product')?>">
+                            <i class="bi <?=($menu['submenu']=="empr")?"bi-circle-fill":"bi-circle"?>"></i><span>Register Expenses</span>
                         </a>
                     </li>
                 </ul>
@@ -527,10 +528,14 @@
                         echo "Stock Management";
                     else if($menu['submenu']=="sm")
                         echo "Supplier Management";
+                    else if($menu['submenu']=="em")
+                        echo "Expense Management";
                     else if($menu['submenu']=="pdm")
                         echo "Supplier Invoices";
                     else if($menu['submenu']=="pmbs")
                         echo "Stock Management By Stock";
+                    else if($menu['submenu']=="empr")
+                        echo "Register expenses";
                     ?></li>
                     <li class="breadcrumb-item active">
                     <?php

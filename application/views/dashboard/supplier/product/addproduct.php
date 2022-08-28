@@ -228,10 +228,11 @@
             </div>
             <div class="text-center">
                 <div class="absolute">
-                    <label for="file-upload" class="btn btn-default" style="color: red;">
+                    <label for="file-upload" class="btn btn-outline-secondary" style="color: red;">
                         <i class="fa fa-cloud-upload"></i> <?=$attached?>
                     </label>
                     <input id="file-upload" name='upload_cont_img' type="file" style="display:none;">
+                    <button class="btn btn-outline-danger" onclick="DeleteAttachedFile()">Delete attached file</button>
                 </div>
                 <button class="cbutton bg-red" onclick="AddProduct()">Save</button> / <a
                     href="<?=base_url('product/index')?>"><button class="cbutton bg-white">Cancel</button></a>

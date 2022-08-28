@@ -1,65 +1,41 @@
 <?php $total_subtotal=0; $total_vat_amount=0; $total_total_amount=0;?>
-<a class="btn btn-success mb-2" href="<?=base_url('product/addproduct')?>">Add New</a>
+<a class="btn btn-success mb-2" href="<?=base_url('expense/addproduct')?>">Add New</a>
 <table id="invoicetable" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>No</th>
-            <th>Invoice Number</th>
-            <th>Supplier Name</th>
-            <th>NIR No</th>
-            <th>NIR Date</th>
-            <th>Invoice Date</th>
-            <th id="upsubtotal">Sub Total</th>
-            <th id="upvat">VAT Amount</th>
-            <th id="uptotal">Total Amount</th>
-            <th>Invoice status</th>
+            <th>Category</th>
+            <th>Project</th>
+            <th>Date</th>
+            <th id="upsubtotal">Value Ex VAT</th>
+            <th id="upvat">VAT</th>
+            <th id="uptotal">Total Receipt</th>
+            <!-- <th>Invoice status</th> -->
             <th>Action</th>
             <th>View</th>
         </tr>
     </thead>
     <tbody>
-        <?php $index=0;?>
+        <?php $index=0;$total_subtotal=0;$total_vat_amount=0;$total_total_amount=0;?>
         <?php foreach ($products as $product):?>
         <?php if(!$product['isremoved']):?>
-        <?php $index++;?>
+        <?php $index++;
+            $total_subtotal+=$product['value_without_vat'];$total_vat_amount+=$product['vat'];$total_total_amount+=$product['total'];
+        ?>
         <tr>
             <td><?=($index)?></td>
-            <td><?=$product['invoice_number']?></td>
-            <td>
-            <?php 
-                $lines=json_decode($product['lines'], true);
-                $result;
-                foreach ($suppliers as $supplier){
-                    if ($supplier['id'] == $product['supplierid']) {
-                        $result = $supplier;
-                    }
-                }
-                $subtotal=0; $vat_amount=0; $total_amount=0;
-                foreach ($lines as $key => $line) {
-                    $subtotal+=$line['amount_without_vat'];
-                    $vat_amount+=$line['amount_vat_value'];
-                    $total_amount+=$line['total_amount'];
-                }
-                $total_subtotal+=$subtotal;
-                $total_vat_amount+=$vat_amount;
-                $total_total_amount+=$total_amount;
-                echo str_replace("_"," ", $result['name']);
-                echo $result['isremoved']?"(<span id='boot-icon' class='bi bi-circle-fill' style='font-size: 12px; color: rgb(255, 0, 0);''></span>)":"";
-            ?>
-            </td>
-            <td><?=$product['id']?></td>
-            <td><?=$product['date_of_reception']?></td>
-            <td><?=$product['invoice_date']?></td>
-            <td><?=$subtotal?></td>
-            <td><?=$vat_amount?></td>
-            <td><?=$total_amount?></td>
-            <td><?=$product['ispaid']?"<label class='status success'>Paid</label>":"<label class='status danger'>Not Paid</label>"?></td>
+            <td><?=$product['categoryid']?></td>
+            <td><?=$product['projectid']?></td>
+            <td><?=$product['date']?></td>
+            <td><?=$product['value_without_vat']?></td>
+            <td><?=$product['vat']?></td>
+            <td><?=$product['total']?></td>
             <td class="form-inline flex justify-around">
-                <a class="btn btn-primary" href="<?=base_url('product/editproduct/'.$product['id'])?>"><i class="bi bi-terminal-dash"></i></a>
+                <a class="btn btn-primary" href="<?=base_url('expense/editproduct/'.$product['id'])?>"><i class="bi bi-terminal-dash"></i></a>
                 <button class="btn btn-danger " onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi bi-trash3-fill"></i></button>
             </td>
             <td>
-                <a class="btn btn-default" href="<?=$product['attached']?base_url('assets/company/image/'.$company['name'].'/supplier/'.$product['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$product['attached']?"":'pointer-events: none'?>">View</a>
+                <a class="btn btn-default" href="<?=$product['attached']?base_url('assets/'.$company['name'].'/expense/'.$product['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$product['attached']?"":'pointer-events: none'?>">View</a>
             </td>
         </tr>
         <?php endif;?>

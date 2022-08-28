@@ -15,7 +15,7 @@
         <?php $index++;?>
         <tr>
             <td><?=($index)?></td>
-            <td><a class="text-black" href="<?=base_url("stock/showproductbystock?stock_id=").$stock['id']?>"><?=$stock['name']?></td>
+            <td><a class="text-black" href="<?=base_url("stock/showproductbystock?stock_id=").$stock['id']?>"><?=$stock['name']?></a></td>
             <td><?=$stock['code']?></td>
             <td class="form-inline flex justify-around">
                 <a class="btn btn-primary" href="<?=base_url('stock/editstock/'.$stock['id'])?>"><i class="bi bi-terminal-dash"></i></a>

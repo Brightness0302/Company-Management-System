@@ -1,11 +1,14 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $("input").change(function() {
-        const acquisition_unit_price = $("#acquisition_unit_price").val();
-        const mark_up_percent = $("#mark_up_percent").val();
-        
-        if (acquisition_unit_price && vat_percent && mark_up_percent) {
-            $("#selling_unit_price_without_vat").val((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2));
+        if (this.id == "value_without_vat" || this.id == "vat_percent") {
+            const value_without_vat = $("#value_without_vat").val();
+            const vat_percent = $("#vat_percent").val();
+            
+            if (value_without_vat && vat_percent) {
+                $("#vat_amount").val((value_without_vat*parseFloat(vat_percent)/100.0).toFixed(2));
+                $("#total_amount").val((value_without_vat*((parseFloat(vat_percent)+100.0)/100.0)).toFixed(2));
+            }
         }
     });
 
@@ -82,69 +85,51 @@ function ClearItem() {
 }
 
 function AddProduct() {
-    const supplierid = $("#supplierid").val();
-    const observation = $("#observation").val();
-    const invoice_date = $("#invoice_date").val();
-    const invoice_number = $("#invoice_number").val();
+    const categoryid = $("#categoryid").val();
+    const projectid = $("#projectid").val();
+    const expense_date = $("#expense_date").val();
     const invoice_coin = $("#invoice_coin").val();
-    let lines = [];
-
-    const table = $("#table-body");
-    table.children("tr").each((index, element) => {
-        const etr = $(element).find("td");
-        lines.push({
-            code_ean:$(etr[0]).text(),
-            stockid:$(etr[15]).text(),
-            production_description:$(etr[2]).text(),
-            units:$(etr[3]).text(),
-            quantity_on_document:$(etr[4]).text(),
-            quantity_received:$(etr[5]).text(),
-            acquisition_unit_price:$(etr[6]).text(),
-            acquisition_vat_value:$(etr[7]).text(),
-            acquisition_unit_price_with_vat:$(etr[8]).text(),
-            amount_without_vat:$(etr[9]).text(),
-            amount_vat_value:$(etr[10]).text(),
-            total_amount:$(etr[11]).text(),
-            selling_unit_price_without_vat:$(etr[12]).text(),
-            selling_unit_vat_value:$(etr[13]).text(),
-            selling_unit_price_with_vat:$(etr[14]).text()
-        });
-    });
-    const str_lines = JSON.stringify(lines);
+    const vat_percent = $("#vat_percent").val();
+    const value_without_vat = $("#value_without_vat").val();
+    const vat_amount = $("#vat_amount").val();
+    const total_amount = $("#total_amount").val();
 
     const form_data = {
-        supplierid: supplierid,
-        observation: observation,
-        lines: str_lines,
-        invoice_date: invoice_date,
-        invoice_number: invoice_number,
-        invoice_coin: invoice_coin
+        categoryid: categoryid,
+        projectid: projectid,
+        expense_date: expense_date,
+        invoice_coin: invoice_coin,
+        vat_percent: vat_percent,
+        value_without_vat: value_without_vat,
+        vat_amount: vat_amount,
+        total_amount: total_amount
     };
-
+    console.log(form_data);
 
     $.ajax({
-        url: "<?=base_url('product/saveproduct')?>",
+        url: "<?=base_url('expense/saveproduct')?>",
         method: "POST",
         data: form_data, 
         success: function(res) {
             const id = res;
+            console.log(id);
             if (id <= 0) {
-                swal("Add Product", "Failed", "error");
+                swal("Add Expense", "Failed", "error");
                 return;
             }
             if ($('#file-upload').val() === '') {
                 alert("upload nothing");
             }
             else {
-                const supplierid = $("#supplierid").val();
+                const categoryid = $("#categoryid").val();
 
-                console.log("<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + id);
+                console.log("<?=base_url("expense/uploadinvoiceattach/".$company['name'].'/')?>" + categoryid + '/' + id);
                 var form_data = new FormData();
                 var ins = document.getElementById('file-upload').files.length;
                 form_data.append("files[]", document.getElementById('file-upload').files[0]);
                 alert(form_data);
                 $.ajax({
-                    url: "<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + id,
+                    url: "<?=base_url("expense/uploadinvoiceattach/".$company['name'].'/')?>" + categoryid + '/' + id,
                     method: "POST",
                     data: form_data,
                     contentType: false,
@@ -156,13 +141,13 @@ function AddProduct() {
                         alert("uploaded:" + res);
                     },
                     error: function(jqXHR, exception) {
-                        swal("Add Company", "Load PDF", "error");
+                        swal("Add Expense", "Load PDF", "error");
                     },
                 });
             }
             swal({
-                title: "Add Product",
-                text: "Product Success",
+                title: "Add Expense",
+                text: "Expense Success",
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
@@ -172,54 +157,36 @@ function AddProduct() {
                 closeOnCancel: true
             },
             function() {
-                window.location.href = "<?=base_url('product/index')?>";
+                window.location.href = "<?=base_url('expense/product')?>";
             });
         }
     });
 }
 
 function EditProduct(product_id) {
-    const supplierid = $("#supplierid").val();
-    const observation = $("#observation").val();
-    const invoice_date = $("#invoice_date").val();
-    const invoice_number = $("#invoice_number").val();
+    const categoryid = $("#categoryid").val();
+    const projectid = $("#projectid").val();
+    const expense_date = $("#expense_date").val();
     const invoice_coin = $("#invoice_coin").val();
-    let lines = [];
-
-    const table = $("#table-body");
-    table.children("tr").each((index, element) => {
-        const etr = $(element).find("td");
-        lines.push({
-            code_ean:$(etr[0]).text(),
-            stockid:$(etr[15]).text(),
-            production_description:$(etr[2]).text(),
-            units:$(etr[3]).text(),
-            quantity_on_document:$(etr[4]).text(),
-            quantity_received:$(etr[5]).text(),
-            acquisition_unit_price:$(etr[6]).text(),
-            acquisition_vat_value:$(etr[7]).text(),
-            acquisition_unit_price_with_vat:$(etr[8]).text(),
-            amount_without_vat:$(etr[9]).text(),
-            amount_vat_value:$(etr[10]).text(),
-            total_amount:$(etr[11]).text(),
-            selling_unit_price_without_vat:$(etr[12]).text(),
-            selling_unit_vat_value:$(etr[13]).text(),
-            selling_unit_price_with_vat:$(etr[14]).text()
-        });
-    });
-    const str_lines = JSON.stringify(lines);
+    const vat_percent = $("#vat_percent").val();
+    const value_without_vat = $("#value_without_vat").val();
+    const vat_amount = $("#vat_amount").val();
+    const total_amount = $("#total_amount").val();
 
     const form_data = {
-        supplierid: supplierid,
-        observation: observation,
-        lines: str_lines,
-        invoice_date: invoice_date,
-        invoice_number: invoice_number,
-        invoice_coin: invoice_coin
+        categoryid: categoryid,
+        projectid: projectid,
+        expense_date: expense_date,
+        invoice_coin: invoice_coin,
+        vat_percent: vat_percent,
+        value_without_vat: value_without_vat,
+        vat_amount: vat_amount,
+        total_amount: total_amount
     };
+    console.log(form_data);
 
     $.ajax({
-        url: "<?=base_url('product/saveproduct?id=')?>"+product_id,
+        url: "<?=base_url('expense/saveproduct?id=')?>"+product_id,
         method: "POST",
         data: form_data, 
         success: function(res) {
@@ -233,15 +200,15 @@ function EditProduct(product_id) {
                 alert("uploaded nothing");
             }
             else {
-                const supplierid = $("#supplierid").val();
+                const categoryid = $("#categoryid").val();
 
-                console.log("<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + product_id);
+                console.log("<?=base_url("expense/uploadinvoiceattach/".$company['name'].'/')?>" + categoryid + '/' + product_id);
                 var form_data = new FormData();
                 var ins = document.getElementById('file-upload').files.length;
                 form_data.append("files[]", document.getElementById('file-upload').files[0]);
                 alert(form_data);
                 $.ajax({
-                    url: "<?=base_url("product/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + product_id,
+                    url: "<?=base_url("expense/uploadinvoiceattach/".$company['name'].'/')?>" + categoryid + '/' + product_id,
                     method: "POST",
                     data: form_data,
                     contentType: false,
@@ -269,7 +236,7 @@ function EditProduct(product_id) {
                 closeOnCancel: true
             },
             function() {
-                window.location.href = "<?=base_url('product/index')?>";
+                window.location.href = "<?=base_url('expense/product')?>";
             });
         }
     });
