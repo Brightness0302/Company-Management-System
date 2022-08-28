@@ -24,7 +24,7 @@ class Expense_model extends CI_Model {
             'code'=>$code, 
         );
 
-        $this->db->insert('expense', $data);
+        $this->db->insert('expense_category', $data);
         $product_id = $this->db->insert_id();
         return $product_id;
     }
@@ -39,7 +39,7 @@ class Expense_model extends CI_Model {
         );
 
         $this->db->where('id', $id);
-        $res=$this->db->update('expense', $data);
+        $res=$this->db->update('expense_category', $data);
         return $res;
     }
 
