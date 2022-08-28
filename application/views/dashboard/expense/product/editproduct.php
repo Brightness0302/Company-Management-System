@@ -130,7 +130,7 @@
                                 <button class="btn btn-outline-danger" onclick="DeleteAttachedFile()">Delete attached file</button>
                             </div>
                             <button class="cbutton bg-red" onclick="EditProduct('<?=$product['id']?>')">Save</button> / <a
-                                href="<?=base_url('product/index')?>"><button class="cbutton bg-white">Cancel</button></a>
+                                href="<?=base_url('expense/product')?>"><button class="cbutton bg-white">Cancel</button></a>
                         </div>
                     </div>
                 </div>
