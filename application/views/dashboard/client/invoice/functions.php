@@ -204,9 +204,10 @@ function get_formdata() {
     table.children("tr").each((index, element) => {
         const erate = $(element).find("input[id*='line_rate']");
         const eqty = $(element).find("input[id*='line_qty']");
-        const edescription = $(element).find("input[id*='line_description']");
+        const edescription = $(element).find("textarea[id*='line_description']");
         const etax = $(element).find("a[id*='btnaddtax']");
         const etotal = $(element).find("input[id*='line_total']");
+        console.log(edescription);
 
         lines.push({rate: erate[0].value, qty: eqty[0].value, description: edescription[0].value, tax: "", total: etotal[0].value});
     });
