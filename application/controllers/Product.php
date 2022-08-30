@@ -19,6 +19,7 @@ class Product extends CI_Controller
         $data['company'] = $company['data'];
         $data['suppliers'] = $this->home->alldata('supplier');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['categories'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
 
         foreach ($data['products'] as $index => $product) {
@@ -54,6 +55,7 @@ class Product extends CI_Controller
         $data['company'] = $company['data'];
         $data['suppliers'] = $this->home->alldata('supplier');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['categories'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['product'] = $this->supplier->productfromsetting($companyid, 'product');
 
         $data['attached'] = "Attached Invoice";
@@ -79,6 +81,7 @@ class Product extends CI_Controller
         $data['company'] = $company['data'];
         $data['suppliers'] = $this->home->alldata('supplier');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['categories'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $product = $this->home->databyidfromdatabase($companyid, 'product', $product_id);
 
         $data['attached'] = "Attached Invoice";

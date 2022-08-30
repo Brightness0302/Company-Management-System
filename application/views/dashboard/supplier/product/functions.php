@@ -50,9 +50,12 @@ function refreshTotalMark() {
 
 function SaveItem() {
     const select = document.getElementById('stockid');
+    const select_expense = document.getElementById('expenseid');
     const production_description = $("#production_description").val();
     const stockid = $("#stockid").val();
+    const expenseid = $("#expenseid").val();
     const stockname = select.options[select.selectedIndex].text;
+    const expensename = select_expense.options[select_expense.selectedIndex].text;
     const code_ean = $("#code_ean").val();
     const unit = $("#unit").val();
     const acquisition_unit_price = $("#acquisition_unit_price").val();
@@ -65,6 +68,7 @@ function SaveItem() {
         "<tr>"+
         "<td>"+code_ean+"</td>"+
         "<td>"+stockname+"</td>"+
+        "<td>"+expensename+"</td>"+
         "<td>"+production_description+"</td>"+
         "<td>"+unit+"</td>"+
         "<td>"+quantity_on_document+"</td>"+
@@ -79,6 +83,7 @@ function SaveItem() {
         "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</td>"+
         "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</td>"+
         "<td hidden>"+stockid+"</td>"+
+        "<td hidden>"+expenseid+"</td>"+
         "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
         "</tr>"
     );
@@ -99,6 +104,7 @@ function edit_tr(el) {
 
     const production_description = $("#production_description");
     const stockid = $("#stockid");
+    const expenseid = $("#expenseid");
     const code_ean = $("#code_ean");
     const unit = $("#unit");
     const acquisition_unit_price = $("#acquisition_unit_price");
@@ -107,17 +113,18 @@ function edit_tr(el) {
     const quantity_received = $("#quantity_received");
     const mark_up_percent = $("#mark_up_percent");
 
-    production_description.val($(etd[2]).text());
-    stockid.val($(etd[15]).text());
+    production_description.val($(etd[3]).text());
+    stockid.val($(etd[16]).text());
+    expenseid.val($(etd[17]).text());
     code_ean.val($(etd[0]).text());
-    unit.val($(etd[3]).text());
-    acquisition_unit_price.val($(etd[6]).text());
-    vat_percent.val(parseFloat($(etd[7]).text())*100.0/parseFloat($(etd[6]).text()));
-    quantity_on_document.val($(etd[4]).text());
-    quantity_received.val($(etd[5]).text());
-    mark_up_percent.val(((parseFloat($(etd[12]).text())*100.0/parseFloat($(etd[6]).text()))-100.0).toFixed(2));
+    unit.val($(etd[4]).text());
+    acquisition_unit_price.val($(etd[7]).text());
+    vat_percent.val(parseFloat($(etd[8]).text())*100.0/parseFloat($(etd[7]).text()));
+    quantity_on_document.val($(etd[5]).text());
+    quantity_received.val($(etd[6]).text());
+    mark_up_percent.val(((parseFloat($(etd[13]).text())*100.0/parseFloat($(etd[7]).text()))-100.0).toFixed(2));
 
-    $(etd[16]).html("<div id='btn_save_row' onclick='save_tr(this)'><i class='bi bi-save-fill p-1' title='Save'></i></div><div id='btn_cancel_row' onclick='cancel_tr(this)'><i class='bi bi-shield-x p-1' title='Cancel'></i></div>");
+    $(etd[18]).html("<div id='btn_save_row' onclick='save_tr(this)'><i class='bi bi-save-fill p-1' title='Save'></i></div><div id='btn_cancel_row' onclick='cancel_tr(this)'><i class='bi bi-shield-x p-1' title='Cancel'></i></div>");
 }
 
 function save_tr(el) {
@@ -125,9 +132,12 @@ function save_tr(el) {
     const etd = $(etr).find("td");
 
     const select = document.getElementById('stockid');
+    const select_expense = document.getElementById('expenseid');
     const production_description = $("#production_description").val();
     const stockid = $("#stockid").val();
+    const expenseid = $("#expenseid").val();
     const stockname = select.options[select.selectedIndex].text;
+    const expensename = select_expense.options[select_expense.selectedIndex].text;
     const code_ean = $("#code_ean").val();
     const unit = $("#unit").val();
     const acquisition_unit_price = $("#acquisition_unit_price").val();
@@ -138,21 +148,23 @@ function save_tr(el) {
 
     $(etd[0]).text(code_ean);
     $(etd[1]).text(stockname);
-    $(etd[2]).text(production_description);
-    $(etd[3]).text(unit);
-    $(etd[4]).text(quantity_on_document);
-    $(etd[5]).text(quantity_received);
-    $(etd[6]).text(acquisition_unit_price);
-    $(etd[7]).text((acquisition_unit_price*vat_percent/100.0));
-    $(etd[8]).text((acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2));
-    $(etd[9]).text((acquisition_unit_price*quantity_on_document).toFixed(2));
-    $(etd[10]).text(((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2));
-    $(etd[11]).text(((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2));
-    $(etd[12]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2));
-    $(etd[13]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2));
-    $(etd[14]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2));
-    $(etd[15]).text(stockid);
-    $(etd[16]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
+    $(etd[2]).text(expensename);
+    $(etd[3]).text(production_description);
+    $(etd[4]).text(unit);
+    $(etd[5]).text(quantity_on_document);
+    $(etd[6]).text(quantity_received);
+    $(etd[7]).text(acquisition_unit_price);
+    $(etd[8]).text((acquisition_unit_price*vat_percent/100.0));
+    $(etd[9]).text((acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2));
+    $(etd[10]).text((acquisition_unit_price*quantity_on_document).toFixed(2));
+    $(etd[11]).text(((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2));
+    $(etd[12]).text(((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2));
+    $(etd[13]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2));
+    $(etd[14]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2));
+    $(etd[15]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2));
+    $(etd[16]).text(stockid);
+    $(etd[17]).text(expenseid);
+    $(etd[18]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
 
     ClearItem();
     refreshTotalMark();
@@ -162,7 +174,7 @@ function cancel_tr(el) {
     const etr = $(el).closest('tr');
     const etd = $(etr).find("td");
 
-    $(etd[16]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
+    $(etd[18]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
     ClearItem();
 }
 
@@ -191,20 +203,21 @@ function AddProduct() {
         const etr = $(element).find("td");
         lines.push({
             code_ean:$(etr[0]).text(),
-            stockid:$(etr[15]).text(),
-            production_description:$(etr[2]).text(),
-            units:$(etr[3]).text(),
-            quantity_on_document:$(etr[4]).text(),
-            quantity_received:$(etr[5]).text(),
-            acquisition_unit_price:$(etr[6]).text(),
-            acquisition_vat_value:$(etr[7]).text(),
-            acquisition_unit_price_with_vat:$(etr[8]).text(),
-            amount_without_vat:$(etr[9]).text(),
-            amount_vat_value:$(etr[10]).text(),
-            total_amount:$(etr[11]).text(),
-            selling_unit_price_without_vat:$(etr[12]).text(),
-            selling_unit_vat_value:$(etr[13]).text(),
-            selling_unit_price_with_vat:$(etr[14]).text()
+            stockid:$(etr[16]).text(),
+            expenseid:$(etr[17]).text(),
+            production_description:$(etr[3]).text(),
+            units:$(etr[4]).text(),
+            quantity_on_document:$(etr[5]).text(),
+            quantity_received:$(etr[6]).text(),
+            acquisition_unit_price:$(etr[7]).text(),
+            acquisition_vat_value:$(etr[8]).text(),
+            acquisition_unit_price_with_vat:$(etr[9]).text(),
+            amount_without_vat:$(etr[10]).text(),
+            amount_vat_value:$(etr[11]).text(),
+            total_amount:$(etr[12]).text(),
+            selling_unit_price_without_vat:$(etr[13]).text(),
+            selling_unit_vat_value:$(etr[14]).text(),
+            selling_unit_price_with_vat:$(etr[15]).text()
         });
     });
     const str_lines = JSON.stringify(lines);
@@ -288,20 +301,21 @@ function EditProduct(product_id) {
         const etr = $(element).find("td");
         lines.push({
             code_ean:$(etr[0]).text(),
-            stockid:$(etr[15]).text(),
-            production_description:$(etr[2]).text(),
-            units:$(etr[3]).text(),
-            quantity_on_document:$(etr[4]).text(),
-            quantity_received:$(etr[5]).text(),
-            acquisition_unit_price:$(etr[6]).text(),
-            acquisition_vat_value:$(etr[7]).text(),
-            acquisition_unit_price_with_vat:$(etr[8]).text(),
-            amount_without_vat:$(etr[9]).text(),
-            amount_vat_value:$(etr[10]).text(),
-            total_amount:$(etr[11]).text(),
-            selling_unit_price_without_vat:$(etr[12]).text(),
-            selling_unit_vat_value:$(etr[13]).text(),
-            selling_unit_price_with_vat:$(etr[14]).text()
+            stockid:$(etr[16]).text(),
+            expenseid:$(etr[17]).text(),
+            production_description:$(etr[3]).text(),
+            units:$(etr[4]).text(),
+            quantity_on_document:$(etr[5]).text(),
+            quantity_received:$(etr[6]).text(),
+            acquisition_unit_price:$(etr[7]).text(),
+            acquisition_vat_value:$(etr[8]).text(),
+            acquisition_unit_price_with_vat:$(etr[9]).text(),
+            amount_without_vat:$(etr[10]).text(),
+            amount_vat_value:$(etr[11]).text(),
+            total_amount:$(etr[12]).text(),
+            selling_unit_price_without_vat:$(etr[13]).text(),
+            selling_unit_vat_value:$(etr[14]).text(),
+            selling_unit_price_with_vat:$(etr[15]).text()
         });
     });
     const str_lines = JSON.stringify(lines);
