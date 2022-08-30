@@ -121,5 +121,4 @@ $(function() {
     }).buttons().container().appendTo('#table_in_modal_wrapper .col-md-6:eq(0)');
 
 });
-
 </script>

@@ -197,7 +197,9 @@
                                 <button class="btn btn-default" onclick="ClearItem()">Clear Item</button>
                             </div>
                         </div>
-
+                        <?php
+                            $total_first=0;$total_second=0;$total_third=0;$total_forth=0;$total_fifth=0;$total_sixth=0;
+                        ?>
                         <table class="table table-bordered table-striped text-center">
                             <thead>
                                 <tr class="text-sm">
@@ -210,12 +212,12 @@
                                     <th>Acquisition price without VAT</th>
                                     <th>VAT</th>
                                     <th>Acquisition price with VAT</th>
-                                    <th>Amount without VAT</th>
-                                    <th>Amount VAT</th>
-                                    <th>Total amount</th>
-                                    <th>Selling price without VAT</th>
-                                    <th>VAT value</th>
-                                    <th>Selling price with VAT</th>
+                                    <th id="first">Amount without VAT</th>
+                                    <th id="second">Amount VAT</th>
+                                    <th id="third">Total amount</th>
+                                    <th id="forth">Selling price without VAT</th>
+                                    <th id="fifth">VAT value</th>
+                                    <th id="sixth">Selling price with VAT</th>
                                     <!-- <th>Selling amount without VAT</th> -->
                                     <th>Action</th>
                                 </tr>
@@ -226,6 +228,32 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <table id="total-table" class="table table-bordered table-striped relative text-center" data-aos="fade-up" data-aos-delay="100">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Sub Total</th>
+                    <th>VAT Amount</th>
+                    <th>Total Amount</th>
+                    <th>Sub Total selling without VAT</th>
+                    <th>Selling</th>
+                    <th>Total selling amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="downtotalmark">Total:</td>
+                    <td id="total_first">0</td>
+                    <td id="total_second">0</td>
+                    <td id="total_third">0</td>
+                    <td id="total_forth">0</td>
+                    <td id="total_fifth">0</td>
+                    <td id="total_sixth">0</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center">
                 <div class="absolute">
                     <label for="file-upload" id="file-text" class="btn btn-outline-secondary" style="color: red;">
@@ -237,6 +265,44 @@
                 <button class="cbutton bg-red" onclick="AddProduct()">Save</button> / <a
                     href="<?=base_url('product/index')?>"><button class="cbutton bg-white">Cancel</button></a>
             </div>
-        </div>
-        
+        </div>        
     </section><!-- End Hero -->
+
+<script type="text/javascript">
+    function getOffset(el) {
+      const rect = el.getBoundingClientRect();
+      return {
+        left: rect.left,
+        top: rect.top,
+        width: rect.width
+      };
+    }
+
+    function refreshbrowser() {
+      const first_row_1 =  getOffset(first);
+      const first_row_2 = getOffset(second);
+      const first_row_3 = getOffset(third);
+      const first_row_4 =  getOffset(forth);
+      const first_row_5 = getOffset(fifth);
+      const first_row_6 = getOffset(sixth);
+
+      console.log(first_row_1.left);
+
+      document.getElementById("total-table").style.left = parseFloat(first_row_1.left - 100)+"px";
+
+      document.getElementById("total-table").style.width = parseFloat(100+first_row_1.width+first_row_2.width+first_row_3.width+first_row_4.width+first_row_5.width+first_row_6.width) + "px";
+      document.getElementById("downtotalmark").style.width = 100+"px";
+      document.getElementById("total_first").style.width  = first_row_1.width + "px";
+      document.getElementById("total_second").style.width  = first_row_2.width + "px";
+      document.getElementById("total_third").style.width  = first_row_3.width + "px";
+      document.getElementById("total_forth").style.width  = first_row_4.width + "px";
+      document.getElementById("total_fifth").style.width  = first_row_5.width + "px";
+      document.getElementById("total_sixth").style.width  = first_row_6.width + "px";
+    }
+
+    refreshbrowser();
+    
+    onresize = (event) => {
+      refreshbrowser();
+    };
+</script>

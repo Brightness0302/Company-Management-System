@@ -118,8 +118,6 @@ function edit_tr(el) {
     mark_up_percent.val(((parseFloat($(etd[12]).text())*100.0/parseFloat($(etd[6]).text()))-100.0).toFixed(2));
 
     $(etd[16]).html("<div id='btn_save_row' onclick='save_tr(this)'><i class='bi bi-save-fill p-1' title='Save'></i></div><div id='btn_cancel_row' onclick='cancel_tr(this)'><i class='bi bi-shield-x p-1' title='Cancel'></i></div>");
-
-    console.log(etd);
 }
 
 function save_tr(el) {
@@ -138,16 +136,6 @@ function save_tr(el) {
     const quantity_received = $("#quantity_received").val();
     const mark_up_percent = $("#mark_up_percent").val();
 
-    production_description.val($(etd[2]).text());
-    stockid.val($(etd[15]).text());
-    code_ean.val($(etd[0]).text());
-    unit.val($(etd[3]).text());
-    acquisition_unit_price.val($(etd[6]).text());
-    vat_percent.val(parseFloat($(etd[7]).text())*100.0/parseFloat($(etd[6]).text()));
-    quantity_on_document.val($(etd[4]).text());
-    quantity_received.val($(etd[5]).text());
-    mark_up_percent.val(((parseFloat($(etd[12]).text())*100.0/parseFloat($(etd[6]).text()))-100.0).toFixed(2));
-
     $(etd[0]).text(code_ean);
     $(etd[1]).text(stockname);
     $(etd[2]).text(production_description);
@@ -164,7 +152,7 @@ function save_tr(el) {
     $(etd[13]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2));
     $(etd[14]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2));
     $(etd[15]).text(stockid);
-    $(etd[16]).text("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
+    $(etd[16]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
 
     ClearItem();
     refreshTotalMark();
@@ -174,7 +162,7 @@ function cancel_tr(el) {
     const etr = $(el).closest('tr');
     const etd = $(etr).find("td");
 
-    $(etd[16]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>>");
+    $(etd[16]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
     ClearItem();
 }
 

@@ -257,8 +257,9 @@
                                     <td><?=$line['selling_unit_vat_value']?></td>
                                     <td><?=$line['selling_unit_price_with_vat']?></td>
                                     <td hidden><?=$line['stockid']?></td>
-                                    <td class='align-middle'>
-                                        <div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-3'></i></div>
+                                    <td class='align-middle flex justify-center'>
+                                        <div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div>
+                                        <div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title="Delete"></i></div>
                                     </td>
                                 </tr>
                             <?php endforeach;?>
