@@ -198,7 +198,7 @@
                             </div>
                         </div>
 
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped text-center">
                             <thead>
                                 <tr class="text-sm">
                                     <th>Code EAN</th>
@@ -228,7 +228,7 @@
             </div>
             <div class="text-center">
                 <div class="absolute">
-                    <label for="file-upload" class="btn btn-outline-secondary" style="color: red;">
+                    <label for="file-upload" id="file-text" class="btn btn-outline-secondary" style="color: red;">
                         <i class="fa fa-cloud-upload"></i> <?=$attached?>
                     </label>
                     <input id="file-upload" name='upload_cont_img' type="file" style="display:none;">

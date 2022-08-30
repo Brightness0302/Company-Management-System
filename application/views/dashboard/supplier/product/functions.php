@@ -17,8 +17,35 @@ $(document).ready(function() {
 });
 
 function DeleteAttachedFile() {
-    document.getElementById("file-upload").value="";
-    console.log($('#file-upload'));
+    document.getElementById("#file-upload").value="";
+    console.log(document.getElementById("#file-upload").value);
+}
+
+function refreshTotalMark() {
+    const total_first = $("#total_first");
+    const total_second = $("#total_second");
+    const total_third = $("#total_third");
+    const total_forth = $("#total_forth");
+    const total_fifth = $("#total_fifth");
+    const total_sixth = $("#total_sixth");
+    total_first.text("0");
+    total_second.text("0");
+    total_third.text("0");
+    total_forth.text("0");
+    total_fifth.text("0");
+    total_sixth.text("0");
+
+    const table = $("#table-body");
+    table.children("tr").each((index, element) => {
+        const etr = $(element).find("td");
+
+        total_first.text((parseFloat(total_first.text()) + parseFloat($(etr[9]).text())).toFixed(2));
+        total_second.text((parseFloat(total_second.text()) + parseFloat($(etr[10]).text())).toFixed(2));
+        total_third.text((parseFloat(total_third.text()) + parseFloat($(etr[11]).text())).toFixed(2));
+        total_forth.text((parseFloat(total_forth.text()) + parseFloat($(etr[12]).text())).toFixed(2));
+        total_fifth.text((parseFloat(total_fifth.text()) + parseFloat($(etr[13]).text())).toFixed(2));
+        total_sixth.text((parseFloat(total_sixth.text()) + parseFloat($(etr[14]).text())).toFixed(2));
+    });
 }
 
 function SaveItem() {
@@ -52,33 +79,115 @@ function SaveItem() {
         "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</td>"+
         "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</td>"+
         "<td hidden>"+stockid+"</td>"+
-        "<td class='align-middle'>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi bi-trash3-fill p-3'></i>" + "</div>" + "</td>" +
+        "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
         "</tr>"
     );
 
-
-    $("#production_description").val("");
-    $("#code_ean").val("");
-    $("#unit").val("0");
-    $("#acquisition_unit_price").val("0");
-    $("#quantity_on_document").val("0");
-    $("#quantity_received").val("0");
-    $("#selling_unit_price_without_vat").val("0.00");
+    ClearItem();
+    refreshTotalMark();
 }
 
 function remove_tr(el) {
     $(el).closest('tr').remove();
+    refreshTotalMark();
+}
+
+function edit_tr(el) {
+    const etr = $(el).closest('tr');
+    const etd = $(etr).find("td");
+
+
+    const production_description = $("#production_description");
+    const stockid = $("#stockid");
+    const code_ean = $("#code_ean");
+    const unit = $("#unit");
+    const acquisition_unit_price = $("#acquisition_unit_price");
+    const vat_percent = $("#vat_percent");
+    const quantity_on_document = $("#quantity_on_document");
+    const quantity_received = $("#quantity_received");
+    const mark_up_percent = $("#mark_up_percent");
+
+    production_description.val($(etd[2]).text());
+    stockid.val($(etd[15]).text());
+    code_ean.val($(etd[0]).text());
+    unit.val($(etd[3]).text());
+    acquisition_unit_price.val($(etd[6]).text());
+    vat_percent.val(parseFloat($(etd[7]).text())*100.0/parseFloat($(etd[6]).text()));
+    quantity_on_document.val($(etd[4]).text());
+    quantity_received.val($(etd[5]).text());
+    mark_up_percent.val(((parseFloat($(etd[12]).text())*100.0/parseFloat($(etd[6]).text()))-100.0).toFixed(2));
+
+    $(etd[16]).html("<div id='btn_save_row' onclick='save_tr(this)'><i class='bi bi-save-fill p-1' title='Save'></i></div><div id='btn_cancel_row' onclick='cancel_tr(this)'><i class='bi bi-shield-x p-1' title='Cancel'></i></div>");
+
+    console.log(etd);
+}
+
+function save_tr(el) {
+    const etr = $(el).closest('tr');
+    const etd = $(etr).find("td");
+
+    const select = document.getElementById('stockid');
+    const production_description = $("#production_description").val();
+    const stockid = $("#stockid").val();
+    const stockname = select.options[select.selectedIndex].text;
+    const code_ean = $("#code_ean").val();
+    const unit = $("#unit").val();
+    const acquisition_unit_price = $("#acquisition_unit_price").val();
+    const vat_percent = $("#vat_percent").val();
+    const quantity_on_document = $("#quantity_on_document").val();
+    const quantity_received = $("#quantity_received").val();
+    const mark_up_percent = $("#mark_up_percent").val();
+
+    production_description.val($(etd[2]).text());
+    stockid.val($(etd[15]).text());
+    code_ean.val($(etd[0]).text());
+    unit.val($(etd[3]).text());
+    acquisition_unit_price.val($(etd[6]).text());
+    vat_percent.val(parseFloat($(etd[7]).text())*100.0/parseFloat($(etd[6]).text()));
+    quantity_on_document.val($(etd[4]).text());
+    quantity_received.val($(etd[5]).text());
+    mark_up_percent.val(((parseFloat($(etd[12]).text())*100.0/parseFloat($(etd[6]).text()))-100.0).toFixed(2));
+
+    $(etd[0]).text(code_ean);
+    $(etd[1]).text(stockname);
+    $(etd[2]).text(production_description);
+    $(etd[3]).text(unit);
+    $(etd[4]).text(quantity_on_document);
+    $(etd[5]).text(quantity_received);
+    $(etd[6]).text(acquisition_unit_price);
+    $(etd[7]).text((acquisition_unit_price*vat_percent/100.0));
+    $(etd[8]).text((acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2));
+    $(etd[9]).text((acquisition_unit_price*quantity_on_document).toFixed(2));
+    $(etd[10]).text(((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2));
+    $(etd[11]).text(((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2));
+    $(etd[12]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2));
+    $(etd[13]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2));
+    $(etd[14]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2));
+    $(etd[15]).text(stockid);
+    $(etd[16]).text("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
+
+    ClearItem();
+    refreshTotalMark();
+}
+
+function cancel_tr(el) {
+    const etr = $(el).closest('tr');
+    const etd = $(etr).find("td");
+
+    $(etd[16]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>>");
+    ClearItem();
 }
 
 function ClearItem() {
-    const production_description = $("#production_description").val("");
-    const code_ean = $("#code_ean").val("");
-    const unit = $("#unit").val("0");
-    const acquisition_unit_price = $("#acquisition_unit_price").val("0");
-    const vat_percent = $("#vat_percent").val("0");
-    const quantity_on_document = $("#quantity_on_document").val("");
-    const quantity_received = $("#quantity_received").val("");
-    const mark_up_percent = $("#mark_up_percent").val("0");
+    $("#production_description").val("");
+    $("#code_ean").val("");
+    $("#unit").val("0");
+    $("#acquisition_unit_price").val("0");
+    $("#vat_percent").val("0");
+    $("#quantity_on_document").val("");
+    $("#quantity_received").val("");
+    $("#mark_up_percent").val("0");
+    $("#selling_unit_price_without_vat").val("0.00");
 }
 
 function AddProduct() {

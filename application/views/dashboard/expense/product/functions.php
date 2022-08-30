@@ -3,6 +3,8 @@ $(document).ready(function() {
     $('#file-upload').change(function() {
         var i = $(this).prev('label').clone();
         var file = $('#file-upload')[0].files[0].name;
+        if(file.length > 20)
+            file = file.substring(0,5) + "... ." + file.split(".").pop() + " File";;
         $(this).prev('label').text(file);
     });
     document.getElementById('value_without_vat').addEventListener("input", onchange_input, false);
@@ -21,7 +23,8 @@ function onchange_input() {
 
 function DeleteAttachedFile() {
     document.getElementById("file-upload").value="";
-    console.log($('#file-upload'));
+    document.getElementById("file-text").innerHTML="<i class='fa fa-cloud-upload'></i> Attached Invoice";
+    console.log(document.getElementById("file-upload").value);
 }
 
 function ClearItem() {

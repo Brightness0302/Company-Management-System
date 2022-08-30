@@ -56,7 +56,7 @@ class Product extends CI_Controller
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['product'] = $this->supplier->productfromsetting($companyid, 'product');
 
-        $data['attached'] = "Invoice Attach";
+        $data['attached'] = "Attached Invoice";
 
         $session['menu']="Suppliers";
         $session['submenu']="pdm";
@@ -81,7 +81,7 @@ class Product extends CI_Controller
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $product = $this->home->databyidfromdatabase($companyid, 'product', $product_id);
 
-        $data['attached'] = "Invoice Attach";
+        $data['attached'] = "Attached Invoice";
 
         if ($product['status']=="failed")
             return;

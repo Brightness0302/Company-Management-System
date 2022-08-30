@@ -72,7 +72,7 @@ $(function() {
                 extend: 'pdfHtml5',
                 orientation: 'landscape',
                 pageSize: 'LEGAL',
-                title: "<?=$company['name'].'-'.$stock['name'].'-'.date("Y/m/d")?>",
+                title: "<?=$company['name'].'-'.$expense['name'].'-'.date("Y/m/d")?>",
             }, "print", "colvis",
         ]
     }).buttons().container().appendTo('#productbystock_wrapper .col-md-6:eq(0)');

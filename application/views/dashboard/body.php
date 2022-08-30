@@ -322,7 +322,7 @@
                 <ul id="tables-nav" class="nav-content collapse <?=$menu['menu']=="Expenses"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="<?=base_url('expense/index')?>">
-                            <i class="bi <?=$menu['submenu']=="em"?"bi-circle-fill":"bi-circle"?>"></i><span>Expense Management</span>
+                            <i class="bi <?=($menu['submenu']=="em"||$menu['submenu']=="pmbyid")?"bi-circle-fill":"bi-circle"?>"></i><span>Expense Management</span>
                         </a>
                     </li>
 
@@ -536,11 +536,15 @@
                         echo "Stock Management By Stock";
                     else if($menu['submenu']=="empr")
                         echo "Register expenses";
+                    else if($menu['submenu']=="pmbyid")
+                        echo "Expense Management By Expense";
                     ?></li>
                     <li class="breadcrumb-item active">
                     <?php
                     if($menu['submenu']=="pmbs")
                         echo $stock['name'];
+                    else if($menu['submenu']=="pmbyid")
+                        echo $expense['name'];
                     ?>
                     </li>
                 </ol>

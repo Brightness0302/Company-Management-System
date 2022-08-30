@@ -2,10 +2,11 @@
 <a class="btn btn-success mb-2" href="<?=base_url('product/addproduct')?>">Add New</a>
 <table id="invoicetable" class="table table-bordered table-striped">
     <thead>
-        <tr>
+        <tr class="text-sm">
             <th>No</th>
             <th>Invoice Number</th>
             <th>Supplier Name</th>
+            <th>Observations</th>
             <th>NIR No</th>
             <th>NIR Date</th>
             <th>Invoice Date</th>
@@ -47,6 +48,7 @@
                 echo $result['isremoved']?"(<span id='boot-icon' class='bi bi-circle-fill' style='font-size: 12px; color: rgb(255, 0, 0);''></span>)":"";
             ?>
             </td>
+            <td><?=$product['observation']?></td>
             <td><?=$product['id']?></td>
             <td><?=$product['date_of_reception']?></td>
             <td><?=$product['invoice_date']?></td>

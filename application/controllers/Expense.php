@@ -125,7 +125,7 @@ class Expense extends CI_Controller
         $data['company'] = $company['data'];
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
-        $data['attached'] = "Invoice Attach";
+        $data['attached'] = "Attached Invoice";
 
         $session['menu']="Expenses";
         $session['submenu']="eppr";
@@ -149,7 +149,7 @@ class Expense extends CI_Controller
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $product = $this->home->databyidfromdatabase($companyid, 'expense_product', $product_id);
 
-        $data['attached'] = "Invoice Attach";
+        $data['attached'] = "Attached Invoice";
 
         if ($product['status']=="failed")
             return;
@@ -252,6 +252,45 @@ class Expense extends CI_Controller
             }
         }
         // echo json_encode($arr);
+    }
+
+    public function showproductbyexpenseid() {
+        $this->check_usersession();
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($companyname, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+
+        $expense_id = $_GET['expense_id'];
+        $data['expense'] = $this->home->databyidfromdatabase($companyid, 'expense_category', $expense_id)['data'];
+        $data['products'] = $this->expense->alldatabyexpenseidfromdatabase($companyid, 'expense_product', $expense_id);
+
+        foreach ($data['products'] as $index => $product) {
+            $data['products'][$index]['attached'] = false;
+            $invoicename = $product['id'].".pdf";
+            $path = "assets/company/attachment/".$companyname."/expense/";
+            if(file_exists($path.$invoicename)) {
+                $data['products'][$index]['attached'] = true;
+            }
+        }
+
+        $session['menu']="Expenses";
+        $session['submenu']="pmbyid";
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/expense/expense/head');
+        $this->load->view('dashboard/expense/expense/productbyexpense');
+        $this->load->view('dashboard/expense/expense/foot');
+        $this->load->view('dashboard/expense/expense/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
     }
 
     //If usersession is not exist, goto login page.

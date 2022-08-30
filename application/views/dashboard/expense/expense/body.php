@@ -15,7 +15,7 @@
         <?php $index++;?>
         <tr>
             <td><?=($index)?></td>
-            <td><?=$expense['name']?></td>
+            <td><a class="text-black" href="<?=base_url('expense/showproductbyexpenseid?expense_id='.$expense['id'])?>"><?=$expense['name']?></a></td>
             <td><?=$expense['code']?></td>
             <td class="form-inline flex justify-around">
                 <a class="btn btn-primary" href="<?=base_url('expense/editexpense/'.$expense['id'])?>"><i class="bi bi-terminal-dash"></i></a>

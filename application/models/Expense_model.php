@@ -89,11 +89,9 @@ class Expense_model extends CI_Model {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
-        $expenseid = '"expenseid":"'.$expenseid.'"';
-
         $query =    "SELECT *
                     FROM `$table`
-                    WHERE `lines` LIKE '%$expenseid%'";
+                    WHERE `categoryid`='$expenseid' AND `isremoved`=false";
 
         return $this->db->query($query)->result_array();
     }
