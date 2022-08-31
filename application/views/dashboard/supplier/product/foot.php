@@ -73,8 +73,10 @@ $(function() {
      
             // Filtering for "myTable".
             var startdate = new Date($('#startdate').val());
+            startdate.setDate(startdate.getDate() - 1);
             var enddate = new Date($('#enddate').val());
-            var date = new Date(data[4] || 0); // use data for the age column
+            enddate.setDate(enddate.getDate() + 1);
+            var date = new Date(data[5] || 0); // use data for the age column
             var name = data[2];
             var searchvalue = $("#searchtag").val();
             // console.log(name, reference, searchvalue, startdate, enddate, date);

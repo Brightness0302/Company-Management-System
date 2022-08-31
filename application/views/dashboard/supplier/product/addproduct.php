@@ -111,7 +111,7 @@
                                         <td>
                                             <select class="form-select" id="expenseid">
                                                 <option value="0">
-                                                    Not for a Expense
+                                                    No Expenses Category
                                                 </option>
                                             <?php foreach ($categories as $index => $category):?>
                                                 <option value="<?=$category['id']?>">
@@ -222,7 +222,7 @@
                             </div>
                         </div>
                         <div id="section3" class="row row d-flex justify-content-center align-items-center m-2">
-                            <div class="flex justify-end">
+                            <div class="flex justify-end gap-3">
                                 <button class="btn btn-primary" onclick="SaveItem()">Save Item</button>
                                 <button class="btn btn-default" onclick="ClearItem()">Clear Item</button>
                             </div>
