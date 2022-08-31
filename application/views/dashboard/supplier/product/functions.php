@@ -1,20 +1,31 @@
 <script type="text/javascript">
 $(document).ready(function() {
+    $("select").select2({ width: '100%' });
+
     $("input").change(function() {
-        const acquisition_unit_price = $("#acquisition_unit_price").val();
-        const mark_up_percent = $("#mark_up_percent").val();
-        
-        if (acquisition_unit_price && vat_percent && mark_up_percent) {
-            $("#selling_unit_price_without_vat").val((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2));
+        const id = this.id;
+        if (id == "acquisition_unit_price" || id == "mark_up_percent") {
+            refreshSellingMarkforline();
         }
     });
 
     $('#file-upload').change(function() {
         var i = $(this).prev('label').clone();
         var file = $('#file-upload')[0].files[0].name;
+        if(file.length > 20)
+            file = file.substring(0,5) + "... ." + file.split(".").pop() + " File";;
         $(this).prev('label').text(file);
     });
 });
+
+function refreshSellingMarkforline() {
+    const acquisition_unit_price = $("#acquisition_unit_price").val();
+    const mark_up_percent = $("#mark_up_percent").val();
+    
+    if (acquisition_unit_price && vat_percent && mark_up_percent) {
+        $("#selling_unit_price_without_vat").val((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2));
+    }
+}
 
 function DeleteAttachedFile() {
     document.getElementById("#file-upload").value="";
@@ -39,12 +50,12 @@ function refreshTotalMark() {
     table.children("tr").each((index, element) => {
         const etr = $(element).find("td");
 
-        total_first.text((parseFloat(total_first.text()) + parseFloat($(etr[9]).text())).toFixed(2));
-        total_second.text((parseFloat(total_second.text()) + parseFloat($(etr[10]).text())).toFixed(2));
-        total_third.text((parseFloat(total_third.text()) + parseFloat($(etr[11]).text())).toFixed(2));
-        total_forth.text((parseFloat(total_forth.text()) + parseFloat($(etr[12]).text())).toFixed(2));
-        total_fifth.text((parseFloat(total_fifth.text()) + parseFloat($(etr[13]).text())).toFixed(2));
-        total_sixth.text((parseFloat(total_sixth.text()) + parseFloat($(etr[14]).text())).toFixed(2));
+        total_first.text((parseFloat(total_first.text()) + parseFloat($(etr[10]).text())).toFixed(2));
+        total_second.text((parseFloat(total_second.text()) + parseFloat($(etr[11]).text())).toFixed(2));
+        total_third.text((parseFloat(total_third.text()) + parseFloat($(etr[12]).text())).toFixed(2));
+        total_forth.text((parseFloat(total_forth.text()) + parseFloat($(etr[13]).text())).toFixed(2));
+        total_fifth.text((parseFloat(total_fifth.text()) + parseFloat($(etr[14]).text())).toFixed(2));
+        total_sixth.text((parseFloat(total_sixth.text()) + parseFloat($(etr[15]).text())).toFixed(2));
     });
 }
 
@@ -125,6 +136,8 @@ function edit_tr(el) {
     mark_up_percent.val(((parseFloat($(etd[13]).text())*100.0/parseFloat($(etd[7]).text()))-100.0).toFixed(2));
 
     $(etd[18]).html("<div id='btn_save_row' onclick='save_tr(this)'><i class='bi bi-save-fill p-1' title='Save'></i></div><div id='btn_cancel_row' onclick='cancel_tr(this)'><i class='bi bi-shield-x p-1' title='Cancel'></i></div>");
+
+    refreshSellingMarkforline();
 }
 
 function save_tr(el) {
@@ -181,11 +194,10 @@ function cancel_tr(el) {
 function ClearItem() {
     $("#production_description").val("");
     $("#code_ean").val("");
-    $("#unit").val("0");
     $("#acquisition_unit_price").val("0");
     $("#vat_percent").val("0");
-    $("#quantity_on_document").val("");
-    $("#quantity_received").val("");
+    $("#quantity_on_document").val("0");
+    $("#quantity_received").val("0");
     $("#mark_up_percent").val("0");
     $("#selling_unit_price_without_vat").val("0.00");
 }

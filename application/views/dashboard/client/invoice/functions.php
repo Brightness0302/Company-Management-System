@@ -4,7 +4,7 @@ $(document).ready(function() {
         $("#table_body").append(
             "<tr>" +
             "<td>" +
-            "<textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text_right bg-transparent no_broder' name='description' cols='200'></textarea>" +
+            "<textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text-left bg-transparent no_broder' name='description' cols='200'></textarea>" +
             "</td>" +
             "<td class='text-center'>" +
             "<input type='text' value='0' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>" +

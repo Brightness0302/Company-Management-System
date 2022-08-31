@@ -37,6 +37,10 @@
 
     <!-- Template Main CSS File -->
     <link href="<?php echo base_url('assets/css/addcompany.css'); ?>" rel="stylesheet">
+    
+    <!-- Select2 including search function on select tag -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
     <!-- =======================================================
   * Template Name: OnePage - v4.8.0

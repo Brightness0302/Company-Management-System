@@ -108,11 +108,15 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="border : 1px solid black">Code EAN:</td>
+                                        <td style="border : 1px solid black">Select Expense to save:</td>
                                         <td>
-                                            <div class="m-auto">
-                                                <input type="text" class="form-control " id="code_ean" value="" title="Choose your color">
-                                            </div>
+                                            <select class="form-select" id="expenseid">
+                                            <?php foreach ($categories as $index => $category):?>
+                                                <option value="<?=$category['id']?>">
+                                                    <?=str_replace("_"," ", $category['name'])?>
+                                                </option>
+                                            <?php endforeach;?>
+                                            </select>
                                         </td>
                                     </tr>
                                 </table>
@@ -121,14 +125,11 @@
                             <div class="col-sm-3 text-center">
                                 <table class="table " style="border : 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border : 1px solid black">Unit: </td>
+                                        <td style="border : 1px solid black">Code EAN:</td>
                                         <td>
-                                            <select class="form-select" id="unit">
-                                                <option value="Pieces">Pieces</option>
-                                                <option value="Hours">Hours</option>
-                                                <option value="KG">KG</option>
-                                                <option value="Pair">Pair</option>
-                                            </select>
+                                            <div class="m-auto">
+                                                <input type="text" class="form-control " id="code_ean" value="" title="Choose your color">
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -152,6 +153,17 @@
 
                             <div class="col-sm-3 text-center">
                                 <table class="table " style="border : 1px solid gray; text-align: left">
+                                    <tr>
+                                        <td style="border : 1px solid black">Unit: </td>
+                                        <td>
+                                            <select class="form-select" id="unit">
+                                                <option value="Pieces">Pieces</option>
+                                                <option value="Hours">Hours</option>
+                                                <option value="KG">KG</option>
+                                                <option value="Pair">Pair</option>
+                                            </select>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td style="border : 1px solid black">Quantity on document: </td>
                                         <td>
@@ -206,6 +218,7 @@
                                 <tr class="text-sm">
                                     <th>Code EAN</th>
                                     <th>Registered Stock</th>
+                                    <th>Registered Expense</th>
                                     <th>Product description</th>
                                     <th>Units</th>
                                     <th>Quantity on document</th>
@@ -243,6 +256,16 @@
                                         echo $result['name'];
                                     ?>
                                     </td>
+                                    <td>
+                                    <?php
+                                        $result;
+                                        foreach ($categories as $index => $category) {
+                                            if ($category['id']==$line['expenseid'])
+                                                $result = $category;
+                                        }
+                                        echo $result['name'];
+                                    ?>
+                                    </td>
                                     <td><?=$line['production_description']?></td>
                                     <td><?=$line['units']?></td>
                                     <td><?=$line['quantity_on_document']?></td>
@@ -257,6 +280,7 @@
                                     <td><?=$line['selling_unit_vat_value']?></td>
                                     <td><?=$line['selling_unit_price_with_vat']?></td>
                                     <td hidden><?=$line['stockid']?></td>
+                                    <td hidden><?=$line['expenseid']?></td>
                                     <td class='align-middle flex justify-center'>
                                         <div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div>
                                         <div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title="Delete"></i></div>

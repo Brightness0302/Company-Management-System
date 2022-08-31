@@ -102,17 +102,15 @@ input:focus {
     margin: auto;
 }
 
-#btn_add_line{
+.btn_add_line{
     border : 1px dashed gray ;
     border-radius: 10px;
-    width: 100%;
     padding: 10px;
 }
 
-#btn_add_line:hover{
+.btn_add_line:hover{
     border : 2px dashed gray ;
     border-radius: 5px;
-    width: 100%;
     padding: 10px;
 }
 
