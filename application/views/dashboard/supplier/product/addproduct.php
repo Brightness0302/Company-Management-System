@@ -110,11 +110,29 @@
                                         <td style="border : 1px solid black">Select Expense Category:</td>
                                         <td>
                                             <select class="form-select" id="expenseid">
+                                                <option value="0">
+                                                    Not for a Expense
+                                                </option>
                                             <?php foreach ($categories as $index => $category):?>
                                                 <option value="<?=$category['id']?>">
                                                     <?=str_replace("_"," ", $category['name'])?>
                                                 </option>
                                             <?php endforeach;?>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border : 1px solid black">Assign to Project:</td>
+                                        <td>
+                                            <select class="form-select" id="projectid">
+                                                <option value="0">
+                                                    Not for a project
+                                                </option>
+                                            <!-- <?php foreach ($categories as $index => $category):?>
+                                                <option value="<?=$category['id']?>">
+                                                    <?=str_replace("_"," ", $category['name'])?>
+                                                </option>
+                                            <?php endforeach;?> -->
                                             </select>
                                         </td>
                                     </tr>
@@ -218,6 +236,7 @@
                                     <th>Code EAN</th>
                                     <th>Registered Stock</th>
                                     <th>Registered Expense</th>
+                                    <th>Registered Project</th>
                                     <th>Product description</th>
                                     <th>Units</th>
                                     <th>Quantity on document</th>
