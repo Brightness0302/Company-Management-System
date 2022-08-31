@@ -2,7 +2,7 @@
 $(document).ready(function() {
     $("#btn_add_line").click(function() {
         appendTable("", 0, 1);
-        $("input").keyup(function() {
+        $("input").change(function() {
             const eid = $(this).attr('id');
             if (eid == "line_rate" || eid == "line_qty") {
                 //Update Line_total value;
@@ -20,19 +20,6 @@ $(document).ready(function() {
             tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
             tx[i].addEventListener("input", OnInput, false);
         };
-    });
-    $("input").keyup(function() {
-        const eid = $(this).attr('id');
-        if (eid == "line_rate" || eid == "line_qty") {
-            //Update Line_total value;
-            const etr = $(this).closest('tr');
-            const erate = etr.find("input[id*='line_rate']");
-            const eqty = etr.find("input[id*='line_qty']");
-            const etotal = etr.find("input[id*='line_total']");
-            etotal[0].value = erate[0].value * eqty[0].value;
-            //Update total, sub_total;
-            refresh();
-        }
     });
     $("#stockid").change(function() {
         const stockid = this.value;
@@ -56,19 +43,46 @@ $(document).ready(function() {
 
         console.log(stockid, code_ean, productname, amount);
 
-        const product_description = productname + "[" + code_ean + "] from " + stockname;
+        const product_description = "[" + code_ean + "] - " + productname;
 
         $.ajax({
-            url: "<?=base_url('stock/getpricefromproductbystockid?stock_id=')?>" + stockid + "&code_ean=" + product_code_ean,
+            url: "<?=base_url('stock/getpricefromproductbystockid?stock_id=')?>" + stockid + "&code_ean=" + code_ean,
             method: "POST",
             dataType: 'text',
             success: function(res) {
                 let price = res;
                 appendTable(product_description, parseFloat(price), amount);
+                $("input").change(function() {
+                    const eid = $(this).attr('id');
+                    if (eid == "line_rate" || eid == "line_qty") {
+                        //Update Line_total value;
+                        const etr = $(this).closest('tr');
+                        const erate = etr.find("input[id*='line_rate']");
+                        const eqty = etr.find("input[id*='line_qty']");
+                        const etotal = etr.find("input[id*='line_total']");
+                        etotal[0].value = erate[0].value * eqty[0].value;
+                        //Update total, sub_total;
+                        refresh();
+                    }
+                });
             }
         });
     });
     refreshproductbystockid($("#stockid").val());
+});
+
+$("input").change(function() {
+    const eid = $(this).attr('id');
+    if (eid == "line_rate" || eid == "line_qty") {
+        //Update Line_total value;
+        const etr = $(this).closest('tr');
+        const erate = etr.find("input[id*='line_rate']");
+        const eqty = etr.find("input[id*='line_qty']");
+        const etotal = etr.find("input[id*='line_total']");
+        etotal[0].value = erate[0].value * eqty[0].value;
+        //Update total, sub_total;
+        refresh();
+    }
 });
 
 function appendTable(product_description, product_rate, product_amount) {
@@ -84,7 +98,7 @@ function appendTable(product_description, product_rate, product_amount) {
         "<input type='number' min=1 class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='qty' placeholder='Quantity' id='line_qty' value='" + product_amount +"'>" +
         "</td>" +
         "<td>" +
-        "<input type='text' value='0' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>" +
+        "<input type='text' value='" + parseFloat(product_rate*product_amount) + "' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>" +
         "</td>" +
         "<td class='align-middle'>" +
         "<div id='btn_remove_row' onclick='remove_tr(this)'>" +

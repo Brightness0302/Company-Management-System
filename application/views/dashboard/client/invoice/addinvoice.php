@@ -201,7 +201,7 @@
                 <!-- Description Table -->
                 <table class="table m_auto">
                     <thead>
-                        <th class="text-right">Description</th>
+                        <th class="text-left">Description</th>
                         <th class="text-right">Rate(<label class="coinsymbol">€</label>)</th>
                         <th class="text-right">Qty</th>
                         <th class="text-right">Line Total(<label class="coinsymbol">€</label>)</th>
