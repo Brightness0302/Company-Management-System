@@ -166,6 +166,7 @@ class Client extends CI_Controller
     }
     //View lastid of automation key in invoice table
     public function addinvoice() {
+        $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
@@ -174,6 +175,9 @@ class Client extends CI_Controller
         $data['company'] = $company['data'];
         $data['clients'] = $this->home->alldata('client');
         $data['invoice'] = $this->home->invoicefromsetting($data['company']['id'], 'invoice');
+
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
 
         $session['menu']="Clients";
         $session['submenu']="im";

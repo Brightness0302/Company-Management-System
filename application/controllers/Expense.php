@@ -292,7 +292,6 @@ class Expense extends CI_Controller
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
-
     //If usersession is not exist, goto login page.
     public function check_usersession() {
         if($this->session->userdata('user')) {

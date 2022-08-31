@@ -1,27 +1,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $("#btn_add_line").click(function() {
-        $("#table_body").append(
-            "<tr>" +
-            "<td>" +
-            "<textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text-left bg-transparent no_broder' name='description' cols='200'></textarea>" +
-            "</td>" +
-            "<td class='text-center'>" +
-            "<input type='text' value='0' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>" +
-            "</td>" +
-            "<td>" +
-            "<input type='number' min=1 class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='qty' placeholder='Quantity' id='line_qty' value='1'>" +
-            "</td>" +
-            "<td>" +
-            "<input type='text' value='0' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>" +
-            "</td>" +
-            "<td class='align-middle'>" +
-            "<div id='btn_remove_row' onclick='remove_tr(this)'>" +
-            "<i class='bi bi-trash3-fill p-3'></i>" +
-            "</div>" +
-            "</td>" +
-            "</tr>"
-        );
+        appendTable("", 0, 1);
         $("input").keyup(function() {
             const eid = $(this).attr('id');
             if (eid == "line_rate" || eid == "line_qty") {
@@ -54,7 +34,105 @@ $(document).ready(function() {
             refresh();
         }
     });
+    $("#stockid").change(function() {
+        const stockid = this.value;
+        $("#product_amount").val("0");
+        refreshproductbystockid(stockid);        
+    });
+    $("#product_code_ean").change(function() {
+        const code_ean = this.value;
+        $("#product_amount").val("0");
+        refreshproductamountbystockidandproductcodeean(code_ean);
+    });
+    $("#save_product").click(function() {
+        const stockid = $("#stockid").val();
+        const code_ean = $("#product_code_ean").val();
+        const amount = $("#product_amount").val();
+
+        const product_code_ean = document.getElementById('product_code_ean');
+        const stock = document.getElementById('stockid');
+        const productname = product_code_ean.options[product_code_ean.selectedIndex].text;
+        const stockname = stock.options[stock.selectedIndex].text;
+
+        console.log(stockid, code_ean, productname, amount);
+
+        const product_description = productname + "[" + code_ean + "] from " + stockname;
+
+        $.ajax({
+            url: "<?=base_url('stock/getpricefromproductbystockid?stock_id=')?>" + stockid + "&code_ean=" + product_code_ean,
+            method: "POST",
+            dataType: 'text',
+            success: function(res) {
+                let price = res;
+                appendTable(product_description, parseFloat(price), amount);
+            }
+        });
+    });
+    refreshproductbystockid($("#stockid").val());
 });
+
+function appendTable(product_description, product_rate, product_amount) {
+    $("#table_body").append(
+        "<tr>" +
+        "<td>" +
+        "<textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text-left bg-transparent no_broder' name='description' cols='200'>" + product_description + "</textarea>" +
+        "</td>" +
+        "<td class='text-center'>" +
+        "<input type='text' value='" + product_rate + "' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>" +
+        "</td>" +
+        "<td>" +
+        "<input type='number' min=1 class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='qty' placeholder='Quantity' id='line_qty' value='" + product_amount +"'>" +
+        "</td>" +
+        "<td>" +
+        "<input type='text' value='0' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>" +
+        "</td>" +
+        "<td class='align-middle'>" +
+        "<div id='btn_remove_row' onclick='remove_tr(this)'>" +
+        "<i class='bi bi-trash3-fill p-3'></i>" +
+        "</div>" +
+        "</td>" +
+        "</tr>"
+    );
+}
+
+function refreshproductbystockid(stockid) {
+    $.ajax({
+        url: "<?=base_url('stock/getallproductsbystockid?stock_id=')?>" + stockid,
+        method: "POST",
+        dataType: 'json',
+        success: function(res) {
+            console.log(res);
+            var string = "";
+            var isfirst = true;
+            res.forEach((product) => {
+                const lines = JSON.parse(product["lines"]);
+                lines.forEach((line) => {
+                    if (line['stockid']==stockid) {
+                        string += "<option value="+line['code_ean']+">"+line['production_description']+"</option>";
+                        if (isfirst == true) {
+                            $("#product_amount").attr({"max": parseInt(line['quantity_on_document'])});
+                        }
+                        isfirst = false;
+                    }
+                });
+            });
+            $("#product_code_ean").html(string);
+        }
+    });
+}
+
+function refreshproductamountbystockidandproductcodeean(product_code_ean) {
+    const stockid = $("#stockid").val();
+    $.ajax({
+        url: "<?=base_url('stock/getmaxamountfromproductbystockid?stock_id=')?>" + stockid + "&code_ean=" + product_code_ean,
+        method: "POST",
+        dataType: 'text',
+        success: function(res) {
+            let max = res;
+            $("#product_amount").attr({"max": parseInt(max)});
+        }
+    });
+}
 
 function OnInput() {
     this.style.height = "auto";

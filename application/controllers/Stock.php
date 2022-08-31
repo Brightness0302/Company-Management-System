@@ -64,6 +64,36 @@ class Stock extends CI_Controller
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
+
+    public function getallproductsbystockid() {
+        $stock_id = $_GET['stock_id'];
+        $companyid = $this->session->userdata('companyid');
+        $products = $this->supplier->alldatabystockidfromdatabase($companyid, 'product', $stock_id);
+        
+        //add the header here
+        header('Content-Type: application/json');
+        echo json_encode($products);
+    }
+
+    public function getmaxamountfromproductbystockid() {
+        $stock_id = $_GET['stock_id'];
+        $code_ean = $_GET['code_ean'];
+        $companyid = $this->session->userdata('companyid');
+
+        $value = $this->supplier->databystockidandcodefromdatabase($companyid, 'product', $stock_id, $code_ean, 'quantity_on_document');
+
+        echo $value;
+    }
+
+    public function getpricefromproductbystockid() {
+        $stock_id = $_GET['stock_id'];
+        $code_ean = $_GET['code_ean'];
+        $companyid = $this->session->userdata('companyid');
+
+        $value = $this->supplier->databystockidandcodefromdatabase($companyid, 'product', $stock_id, $code_ean, 'selling_unit_price_with_vat');
+
+        echo $value;
+    }
     //View clientpage of creating.
     public function addstock() {
         $this->load->view('header');

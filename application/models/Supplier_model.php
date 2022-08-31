@@ -104,8 +104,32 @@ class Supplier_model extends CI_Model {
 
         $query =    "SELECT *
                     FROM `$table`
-                    WHERE `lines` LIKE '%$stockid%'";
+                    WHERE `lines` LIKE '%$stockid%' AND `isremoved` = false";
 
         return $this->db->query($query)->result_array();
+    }
+
+    public function databystockidandcodefromdatabase($companyid, $table, $stockid, $code_ean, $item) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $stockid = '"stockid":"'.$stockid.'"';
+        $str_code_ean = '"code_ean":"'.$code_ean.'"';
+
+        $query =    "SELECT *
+                    FROM `$table`
+                    WHERE `lines` LIKE '%$stockid%' AND `lines` LIKE '%$str_code_ean%' AND `isremoved` = false";
+
+        $data = $this->db->query($query)->result_array();
+        if (count($data)==0)
+            return 0;
+        $data = $data[0];
+        $lines=json_decode($data['lines'], true);
+        foreach ($lines as $index => $line) {
+            if ($line['code_ean'] == $code_ean) {
+                return $line[$item];
+            }
+        }
+        return 0;
     }
 }

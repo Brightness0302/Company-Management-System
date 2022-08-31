@@ -238,25 +238,26 @@
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="m-3">
-                                        <select class="form-select w-full">
-                                            <option>asdf</option>
-                                            <option>asdf</option>
+                                        <select class="form-select w-full" id="stockid">
+                                        <?php foreach ($stocks as $index => $stock):?>
+                                            <option value="<?=$stock['id']?>">
+                                                <?=$stock['name']?>
+                                            </option>
+                                        <?php endforeach;?>
                                         </select>
                                     </div>
                                     <div class="m-3">
-                                        <select class="form-select w-full">
-                                            <option>asdf</option>
-                                            <option>asdf</option>
+                                        <select class="form-select w-full" id="product_code_ean">
                                         </select>
                                     </div>
                                     <div class="m-3">
-                                        <input class="form-control w-full" type="number" name="amount" value="0">
+                                        <input class="form-control w-full" type="number" name="amount" id="product_amount" value="0" max="99">
                                     </div>
                                 </div>
                             </div>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-primary" id="save_product" data-dismiss="modal">Save changes</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                           </div>
                         </div>
