@@ -108,14 +108,32 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="border : 1px solid black">Select Expense to save:</td>
+                                        <td style="border : 1px solid black">Select Expense Category:</td>
                                         <td>
                                             <select class="form-select" id="expenseid">
+                                                <option value="0">
+                                                    Not for a Expense
+                                                </option>
                                             <?php foreach ($categories as $index => $category):?>
                                                 <option value="<?=$category['id']?>">
                                                     <?=str_replace("_"," ", $category['name'])?>
                                                 </option>
                                             <?php endforeach;?>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border : 1px solid black">Assign to Project:</td>
+                                        <td>
+                                            <select class="form-select" id="projectid">
+                                                <option value="0">
+                                                    Not for a project
+                                                </option>
+                                            <!-- <?php foreach ($categories as $index => $category):?>
+                                                <option value="<?=$category['id']?>">
+                                                    <?=str_replace("_"," ", $category['name'])?>
+                                                </option>
+                                            <?php endforeach;?> -->
                                             </select>
                                         </td>
                                     </tr>
@@ -219,6 +237,7 @@
                                     <th>Code EAN</th>
                                     <th>Registered Stock</th>
                                     <th>Registered Expense</th>
+                                    <th>Registered Project</th>
                                     <th>Product description</th>
                                     <th>Units</th>
                                     <th>Quantity on document</th>
@@ -266,6 +285,11 @@
                                         echo $result['name'];
                                     ?>
                                     </td>
+                                    <td>
+                                    <?php
+                                        echo $line['projectid'];
+                                    ?>
+                                    </td>
                                     <td><?=$line['production_description']?></td>
                                     <td><?=$line['units']?></td>
                                     <td><?=$line['quantity_on_document']?></td>
@@ -281,6 +305,7 @@
                                     <td><?=$line['selling_unit_price_with_vat']?></td>
                                     <td hidden><?=$line['stockid']?></td>
                                     <td hidden><?=$line['expenseid']?></td>
+                                    <td hidden><?=$line['projectid']?></td>
                                     <td class='align-middle flex justify-center'>
                                         <div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div>
                                         <div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title="Delete"></i></div>
