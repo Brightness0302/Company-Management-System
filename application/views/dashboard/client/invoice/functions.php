@@ -107,6 +107,7 @@ function appendTable(product_description, product_rate, product_amount) {
         "</td>" +
         "</tr>"
     );
+    refresh();
 }
 
 function refreshproductbystockid(stockid) {
