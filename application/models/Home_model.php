@@ -420,9 +420,9 @@ class Home_model extends CI_Model {
 
         $pattern = "/([-\s:,\{\}\[\]]+)/";
         $list_lines=json_decode($lines, true);
+        return count($list_lines);
         foreach ($list_lines as $index => $line) {
             if (str_contains($line['description'], '] - ')) {
-                return $line['description'];
                 $list = preg_split($pattern, $line['description'], -1, PREG_SPLIT_NO_EMPTY);
                 $code_ean = $list[0];
                 $productname = $list[1];
