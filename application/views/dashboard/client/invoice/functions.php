@@ -1,5 +1,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
+    $("select").select2({ width: '100%' });
+
     $("#btn_add_line").click(function() {
         appendTable("", 0, 1);
         $("input").change(function() {
