@@ -420,6 +420,7 @@ class Home_model extends CI_Model {
 
         $pattern = "/([-\s:,\{\}\[\]]+)/";
         $list_lines=json_decode($lines, true);
+        return $lines;
         foreach ($list_lines as $index => $line) {
             if (str_contains($line['description'], '] - ')) {
                 $list = preg_split($pattern, $line['description'], -1, PREG_SPLIT_NO_EMPTY);
@@ -442,7 +443,6 @@ class Home_model extends CI_Model {
             }
         }
         $lines=json_encode($list_lines);
-        return $lines;
 
         $data_sql = array(
             'date_of_issue'=>$date_of_issue, 
