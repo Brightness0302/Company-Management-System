@@ -359,34 +359,32 @@ class Home_model extends CI_Model {
         $this->db->query('use '.$companyid);
         $lines=json_decode($lines, true);
         foreach ($lines as $index => $line) {
-            if (strpos($line['description'], $token)) {
-                $id = -1;
-                if (substr($line['description'], 0, strlen($token)) == $token) {
-                    $id = substr($line['description'], strlen($token));
+            $id = -1;
+            if (substr($line['description'], 0, strlen($token)) == $token) {
+                $id = substr($line['description'], strlen($token));
 
-                    $qty = $line['qty'];
+                $qty = $line['qty'];
 
-                    $query =    "SELECT *
-                                FROM `product_lines`
-                                WHERE `id` = '$id'";
+                $query =    "SELECT *
+                            FROM `product_lines`
+                            WHERE `id` = '$id'";
 
-                    $data = $this->db->query($query)->result_array();
+                $data = $this->db->query($query)->result_array();
 
-                    if (count($data)==0)
-                        return -1;
+                if (count($data)==0)
+                    return -1;
 
-                    $data = $data[0];
+                $data = $data[0];
 
-                    $data['quantity_received'] += intval($line['qty']);
+                $data['quantity_received'] += intval($line['qty']);
 
-                    $data_sql = array(
-                        'quantity_received'=>$data['quantity_received']
-                    );
+                $data_sql = array(
+                    'quantity_received'=>$data['quantity_received']
+                );
 
-                    $this->db->where('id', $id);
-                    $this->db->update('product_lines', $data_sql);
-                } 
-            }
+                $this->db->where('id', $id);
+                $this->db->update('product_lines', $data_sql);
+            } 
         }
     }
 
@@ -397,34 +395,32 @@ class Home_model extends CI_Model {
         $this->db->query('use '.$companyid);
         $lines=json_decode($lines, true);
         foreach ($lines as $index => $line) {
-            if (strpos($line['description'], $token)) {
-                $id = -1;
-                if (substr($line['description'], 0, strlen($token)) == $token) {
-                    $id = substr($line['description'], strlen($token));
+            $id = -1;
+            if (substr($line['description'], 0, strlen($token)) == $token) {
+                $id = substr($line['description'], strlen($token));
 
-                    $qty = $line['qty'];
+                $qty = $line['qty'];
 
-                    $query =    "SELECT *
-                                FROM `product_lines`
-                                WHERE `id` = '$id'";
+                $query =    "SELECT *
+                            FROM `product_lines`
+                            WHERE `id` = '$id'";
 
-                    $data = $this->db->query($query)->result_array();
+                $data = $this->db->query($query)->result_array();
 
-                    if (count($data)==0)
-                        return -1;
+                if (count($data)==0)
+                    return -1;
 
-                    $data = $data[0];
+                $data = $data[0];
 
-                    $data['quantity_received'] -= intval($line['qty']);
+                $data['quantity_received'] -= intval($line['qty']);
 
-                    $data_sql = array(
-                        'quantity_received'=>$data['quantity_received']
-                    );
+                $data_sql = array(
+                    'quantity_received'=>$data['quantity_received']
+                );
 
-                    $this->db->where('id', $id);
-                    $this->db->update('product_lines', $data_sql);
-                } 
-            }
+                $this->db->where('id', $id);
+                $this->db->update('product_lines', $data_sql);
+            } 
         }
     }
     //create invoice information using $id, $companyid, ...
