@@ -106,7 +106,7 @@ function appendTable(product_description, product_rate, product_amount) {
         "<input type='number' min=1 class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='qty' placeholder='Quantity' id='line_qty' value='" + product_amount +"'>" +
         "</td>" +
         "<td>" +
-        "<input type='text' value='" + parseFloat(product_rate*product_amount) + "' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>" +
+        "<input type='text' value='" + parseFloat(product_rate*product_amount).toFixed(2) + "' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>" +
         "</td>" +
         "<td class='align-middle'>" +
         "<div id='btn_remove_row' onclick='remove_tr(this)'>" +
