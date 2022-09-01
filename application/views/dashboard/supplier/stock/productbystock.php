@@ -21,7 +21,7 @@
         <?php foreach ($products as $product):?>
         <?php if(!$product['isremoved']):?>
         <?php foreach ($product['lines'] as $line):?>
-        <?php if($stock['id']==$line['id']):?>
+        <?php if($stock['id']==$line['stockid']):?>
         <?php $index++;?>
         <tr>
             <?php 
