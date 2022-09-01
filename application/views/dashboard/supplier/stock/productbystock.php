@@ -21,16 +21,11 @@
         <?php foreach ($products as $product):?>
         <?php if(!$product['isremoved']):?>
         <?php foreach ($product['lines'] as $line):?>
-        <?php if($stock['id']==$line['stockid']):?>
         <?php $index++;?>
+        <?=$stock['id'].$line['stockid']?>
+        <?php if($stock['id']==$line['stockid']):?>
         <tr>
             <?php 
-                $result;
-                foreach ($stocks as $stock){
-                    if ($stock['id'] == $line['stockid']) {
-                        $result = $stock;
-                    }
-                }
                 $total_aquisition += floatval($line['amount_without_vat']);
                 $total_selling += floatval($line['selling_unit_price_with_vat'])*floatval($line['quantity_on_document']);
             ?>
