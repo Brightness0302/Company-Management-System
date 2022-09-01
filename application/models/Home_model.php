@@ -333,31 +333,81 @@ class Home_model extends CI_Model {
         $res=$this->db->update('supplier', $data);
         return $res;
     }
-    //save invoice information using $id, $companyid, ...
-    public function saveInvoice($id, $companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines) {
-        $client_name = str_replace(" ", "", $client_name);
-        $client_name = str_replace("\n","", $client_name);
-        $client = $this->databyname($client_name, 'client');
-        if ($client['status'] == "failed")
-            return -1;
+
+    public function gobacklines($companyid, $lines) {
+        $token = "This is from stock by productid";
+        $pattern = "/([-\s:,\{\}\[\]]+)/"; //   /[\{\}]/
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
-        $data = array(
-            'date_of_issue'=>$date_of_issue, 
-            'due_date'=>$due_date, 
-            'input_invoicenumber'=>$input_invoicenumber, 
-            'input_inputreference'=>$input_inputreference, 
-            'invoice_vat'=>$invoice_vat, 
-            'client_id'=>$client["data"]["id"], 
-            'sub_total'=>$sub_total, 
-            'tax'=>$tax, 
-            'total'=>$total, 
-            'lines'=>$lines
-        );
+        $lines=json_decode($lines, true);
+        foreach ($lines as $index => $line) {
+            if (str_contains($line['description'], $token)) {
+                $id = -1;
+                if (substr($line['description'], 0, strlen($token)) == $token) {
+                    $id = substr($line['description'], strlen($token));
 
-        $this->db->where('id', $id);
-        $res=$this->db->update($type, $data);
-        return $res;
+                    $qty = $line['qty'];
+
+                    $query =    "SELECT *
+                                FROM `product_lines`
+                                WHERE `id` = '$id'";
+
+                    $data = $this->db->query($query)->result_array();
+
+                    if (count($data)==0)
+                        return -1;
+
+                    $data = $data[0];
+
+                    $data['quantity_on_document'] += intval($line['qty']);
+
+                    $data_sql = array(
+                        'quantity_on_document'=>$data['quantity_on_document']
+                    );
+
+                    $this->db->where('id', $id);
+                    $this->db->update('product_lines', $data_sql);
+                } 
+            }
+        }
+    }
+
+    public function deductionlines($companyid, $lines) {
+        $token = "This is from stock by productid";
+        $pattern = "/([-\s:,\{\}\[\]]+)/"; //   /[\{\}]/
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+        $lines=json_decode($lines, true);
+        foreach ($lines as $index => $line) {
+            if (str_contains($line['description'], $token)) {
+                $id = -1;
+                if (substr($line['description'], 0, strlen($token)) == $token) {
+                    $id = substr($line['description'], strlen($token));
+
+                    $qty = $line['qty'];
+
+                    $query =    "SELECT *
+                                FROM `product_lines`
+                                WHERE `id` = '$id'";
+
+                    $data = $this->db->query($query)->result_array();
+
+                    if (count($data)==0)
+                        return -1;
+
+                    $data = $data[0];
+
+                    $data['quantity_on_document'] -= intval($line['qty']);
+
+                    $data_sql = array(
+                        'quantity_on_document'=>$data['quantity_on_document']
+                    );
+
+                    $this->db->where('id', $id);
+                    $this->db->update('product_lines', $data_sql);
+                } 
+            }
+        }
     }
     //create invoice information using $id, $companyid, ...
     public function createInvoice($companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines) {
@@ -366,9 +416,34 @@ class Home_model extends CI_Model {
         $client = $this->databyname($client_name, 'client');
         if ($client['status'] == "failed")
             return -1;
-        $companyid = "database".$companyid;
-        $this->db->query('use '.$companyid);
-        $data = array(
+        $this->db->query('use database'.$companyid);
+
+        $pattern = "/([-\s:,\{\}\[\]]+)/";
+        $list_lines=json_decode($lines, true);
+        foreach ($list_lines as $index => $line) {
+            if (str_contains($line['description'], '] - ')) {
+                $list = preg_split($pattern, $line['description'], -1, PREG_SPLIT_NO_EMPTY);
+                $code_ean = $list[0];
+                $productname = $list[1];
+                $qty = $line['qty'];
+
+                $query =    "SELECT *
+                            FROM `product_lines`
+                            WHERE `code_ean` = '$code_ean' AND `production_description` = '$productname' AND `quantity_on_document` >= '$qty'";
+
+                $data = $this->db->query($query)->result_array();
+
+                if (count($data)==0)
+                    return -1;
+
+                $data = $data[0];
+                $token = "This is from stock by productid";
+                $list_lines[$index]['description'] = $token.$data['id'];
+            }
+        }
+        $lines=json_encode($list_lines);
+
+        $data_sql = array(
             'date_of_issue'=>$date_of_issue, 
             'due_date'=>$due_date, 
             'input_invoicenumber'=>$input_invoicenumber, 
@@ -381,21 +456,105 @@ class Home_model extends CI_Model {
             'lines'=>$lines
         );
 
-        $this->db->insert($type, $data);
+        $result = $this->deductionlines($companyid, $lines);
+        if ($result == -1)
+            return 0;
+
+        $this->db->insert($type, $data_sql);
         $projects_id = $this->db->insert_id();
         return $projects_id;
     }
+    //save invoice information using $id, $companyid, ...
+    public function saveInvoice($id, $companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines) {
+        $client_name = str_replace(" ", "", $client_name);
+        $client_name = str_replace("\n","", $client_name);
+        $client = $this->databyname($client_name, 'client');
+        if ($client['status'] == "failed")
+            return -1;
+        $this->db->query('use database'.$companyid);
+        
+        $query =    "SELECT *
+                    FROM `invoice`
+                    WHERE `id` = '$id' AND `isremoved` = false";
+
+        $data = $this->db->query($query)->result_array();
+
+        if (count($data) == 0)
+            return -1;
+        $data=$data[0];
+        $result = $this->gobacklines($companyid, $data['lines']);
+        if ($result == -1)
+            return 0;
+
+        $pattern = "/([-\s:,\{\}\[\]]+)/";
+        $list_lines=json_decode($lines, true);
+        foreach ($list_lines as $index => $line) {
+            if (str_contains($line['description'], '] - ')) {
+                $list = preg_split($pattern, $line['description'], -1, PREG_SPLIT_NO_EMPTY);
+                $code_ean = $list[0];
+                $productname = $list[1];
+                $qty = $line['qty'];
+
+                $query =    "SELECT *
+                            FROM `product_lines`
+                            WHERE `code_ean` = '$code_ean' AND `production_description` = '$productname' AND `quantity_on_document` >= '$qty'";
+
+                $data = $this->db->query($query)->result_array();
+
+                if (count($data)==0)
+                    return -1;
+
+                $data = $data[0];
+                $token = "This is from stock by productid";
+                $list_lines[$index]['description'] = $token.$data['id'];
+            }
+        }
+        $lines=json_encode($list_lines);
+
+        $data_sql = array(
+            'date_of_issue'=>$date_of_issue, 
+            'due_date'=>$due_date, 
+            'input_invoicenumber'=>$input_invoicenumber, 
+            'input_inputreference'=>$input_inputreference, 
+            'invoice_vat'=>$invoice_vat, 
+            'client_id'=>$client["data"]["id"], 
+            'sub_total'=>$sub_total, 
+            'tax'=>$tax, 
+            'total'=>$total, 
+            'lines'=>$lines
+        );
+
+        $result = $this->deductionlines($companyid, $lines);
+        if ($result == -1)
+            return 0;
+
+        $this->db->where('id', $id);
+        $res=$this->db->update($type, $data_sql);
+        return $res;
+    }
     //remove invoice information using $companyid, $invoice_id
     public function removeInvoice($type, $companyid, $invoice_id) {
-        $companyid = "database".$companyid;
-        $this->db->query('use '.$companyid);
+        $this->db->query('use database'.$companyid);
 
-        $data = array(
+        $data_sql = array(
             'isremoved'=>TRUE
         );
 
+        $query =    "SELECT *
+                    FROM `invoice`
+                    WHERE `id` = '$invoice_id' AND `isremoved` = false";
+
+        $data = $this->db->query($query)->result_array();
+
+        if (count($data) == 0)
+            return -1;
+        $data=$data[0];
+        $result = $this->gobacklines($companyid, $data['lines']);
+        if ($result == -1)
+            return 0;
+
         $this->db->where('id', $invoice_id);
-        $res=$this->db->update($type, $data);
+        $res=$this->db->update($type, $data_sql);
         return $res;
     }
     //set paid or unpaid section using $companyid, $invoice_id

@@ -325,12 +325,16 @@ class Client extends CI_Controller
     //View invoicepage of editting.
     public function editinvoice($invoice_id) {
         $data['clients'] = $this->home->alldata('client');
+        $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
+
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
 
         $session['menu']="Clients";
         $session['submenu']="im";
@@ -340,6 +344,22 @@ class Client extends CI_Controller
         if ($result['status']=="failed")
             return;
         $data['invoice']=$result['data'];
+        $token = "This is from stock by productid";
+        $lines = $data['invoice']['lines'];
+        $lines=json_decode($lines, true);
+        foreach ($lines as $index => $line) {
+            if (substr($line['description'], 0, strlen($token)) == $token) {
+                $id = substr($line['description'], strlen($token));
+
+                $result = $this->home->databyidfromdatabase($data['company']['id'], 'product_lines', $id);
+                if ($result['status']!="failed") {
+                    $res = $result['data'];
+                    $lines[$index]['description'] = '['.$res['code_ean'].'] - '.$res['production_description'];
+                }
+            } 
+        }
+        $lines=json_encode($lines);
+        $data['invoice']['lines'] = $lines;
 
         $this->load->view('header');
         $this->load->view('dashboard/head');

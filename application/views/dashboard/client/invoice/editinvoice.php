@@ -249,10 +249,62 @@
                 </table>
 
                 <!-- Add Line Button -->
-                <button class="btn m_auto" id="btn_add_line">
-                    <i class="bi bi-plus-circle"></i>
-                    Add Line
-                </button>
+                <div class="flex justify-evenly">
+                    <button class="btn w-full btn_add_line m-3" id="btn_add_line">
+                        <i class="bi bi-plus-circle"></i>
+                        Add Line
+                    </button>
+                    <button class="btn w-full btn_add_line m-3" id="btn_add_line_from_stock" data-toggle="modal" data-target="#productfromstock">
+                        <i class="bi bi-plus-circle"></i>
+                        Add Product from Stock
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="productfromstock" tabindex="-1" role="dialog" aria-labelledby="productfromstock" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Product from stock</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="row m-1">
+                                <div class="col-sm-3">
+                                    <div class="w-full m-3 form-control">Stock:</div>
+                                    <div class="w-full m-3 form-control">Product:</div>
+                                    <div class="w-full m-3 form-control">Amount:</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="m-3">
+                                        <select class="form-select w-full" id="stockid">
+                                        <?php foreach ($stocks as $index => $stock):?>
+                                            <option value="<?=$stock['id']?>">
+                                                <?=$stock['name']?>
+                                            </option>
+                                        <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="m-3">
+                                        <select class="form-select w-full" id="product_code_ean">
+                                        </select>
+                                    </div>
+                                    <div class="m-3">
+                                        <input class="form-control w-full" type="number" name="amount" id="product_amount" value="0" max="99">
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="save_product" data-dismiss="modal">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <!-- Add Line Button -->
             </div>
             <!-- Here the text area-->
             <div class="text_right m-3">

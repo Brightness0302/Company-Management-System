@@ -20,8 +20,7 @@
         <?php $index=0; $total_aquisition=0; $total_selling=0;?>
         <?php foreach ($products as $product):?>
         <?php if(!$product['isremoved']):?>
-        <?php $lines=json_decode($product['lines'], true);?>
-        <?php foreach ($lines as $line):?>
+        <?php foreach ($product['lines'] as $line):?>
         <?php $index++;?>
         <tr>
             <?php 

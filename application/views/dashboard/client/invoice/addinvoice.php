@@ -209,6 +209,7 @@
                     <tbody id="table_body">
                     </tbody>
                 </table>
+                <!-- Add Line Button -->
                 <div class="flex justify-evenly">
                     <button class="btn w-full btn_add_line m-3" id="btn_add_line">
                         <i class="bi bi-plus-circle"></i>

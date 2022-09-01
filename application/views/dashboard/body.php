@@ -302,7 +302,7 @@
 
                     <li>
                         <a href="<?=base_url('stock/index')?>">
-                            <i class="bi <?=($menu['submenu']=="stm")?"bi-circle-fill":"bi-circle"?>"></i><span>Stock Management</span>
+                            <i class="bi <?=($menu['submenu']=="stm"||$menu['submenu']=="pmbs")?"bi-circle-fill":"bi-circle"?>"></i><span>Stock Management</span>
                         </a>
                     </li>
 

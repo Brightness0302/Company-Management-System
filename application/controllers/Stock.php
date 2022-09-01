@@ -37,9 +37,9 @@ class Stock extends CI_Controller
     public function showproductbystock() {
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
-        $company_name = $this->session->userdata('companyname');
+        $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
-        $company = $this->home->databyname($company_name, 'company');
+        $company = $this->home->databyname($companyname, 'company');
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
@@ -49,6 +49,17 @@ class Stock extends CI_Controller
         $stock_id = $_GET['stock_id'];
         $data['stock'] = $this->home->databyidfromdatabase($companyid, 'stock', $stock_id)['data'];
         $data['products'] = $this->supplier->alldatabystockidfromdatabase($companyid, 'product', $stock_id);
+
+        foreach ($data['products'] as $index => $product) {
+            $data['products'][$index]['lines'] = $this->supplier->alllinesbyproductidfromdatabase($companyid, 'product_lines', $product['id']);
+            $data['products'][$index]['attached'] = false;
+
+            $invoicename = $product['id'].".pdf";
+            $path = "assets/company/attachment/".$companyname."/supplier/";
+            if(file_exists($path.$invoicename)) {
+                $data['products'][$index]['attached'] = true;
+            }
+        }
 
         $session['menu']="Suppliers";
         $session['submenu']="pmbs";
@@ -68,32 +79,33 @@ class Stock extends CI_Controller
     public function getallproductsbystockid() {
         $stock_id = $_GET['stock_id'];
         $companyid = $this->session->userdata('companyid');
-        $products = $this->supplier->alldatabystockidfromdatabase($companyid, 'product', $stock_id);
+        $products = $this->supplier->alldatabystockidfromdatabase($companyid, 'product_lines', $stock_id);
         
         //add the header here
         header('Content-Type: application/json');
         echo json_encode($products);
     }
 
-    public function getmaxamountfromproductbystockid() {
-        $stock_id = $_GET['stock_id'];
-        $code_ean = $_GET['code_ean'];
+    public function getmaxamountfromproductbyid() {
+        $lineid = $_GET['lineid'];
         $companyid = $this->session->userdata('companyid');
 
-        $value = $this->supplier->databystockidandcodefromdatabase($companyid, 'product', $stock_id, $code_ean, 'quantity_on_document');
+        $value = $this->supplier->databylineidfromdatabase($companyid, 'product_lines', $lineid, 'quantity_on_document');
 
         echo $value;
     }
 
-    public function getpricefromproductbystockid() {
-        $stock_id = $_GET['stock_id'];
-        $code_ean = $_GET['code_ean'];
+    public function getpriceandcode_eanfromproductbylineid() {
+        $lineid = $_GET['lineid'];
         $companyid = $this->session->userdata('companyid');
 
-        $value = $this->supplier->databystockidandcodefromdatabase($companyid, 'product', $stock_id, $code_ean, 'selling_unit_price_with_vat');
+        $data['price'] = $this->supplier->databylineidfromdatabase($companyid, 'product_lines', $lineid, 'selling_unit_price_with_vat');
+        $data['code_ean'] = $this->supplier->databylineidfromdatabase($companyid, 'product_lines', $lineid, 'code_ean');
 
-        echo $value;
+        header('Content-Type: application/json');
+        echo json_encode($data);
     }
+
     //View clientpage of creating.
     public function addstock() {
         $this->load->view('header');

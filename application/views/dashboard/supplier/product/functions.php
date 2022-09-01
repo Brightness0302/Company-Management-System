@@ -239,14 +239,8 @@ function AddProduct() {
             quantity_on_document:$(etr[6]).text(),
             quantity_received:$(etr[7]).text(),
             acquisition_unit_price:$(etr[8]).text(),
-            acquisition_vat_value:$(etr[9]).text(),
-            acquisition_unit_price_with_vat:$(etr[10]).text(),
-            amount_without_vat:$(etr[11]).text(),
-            amount_vat_value:$(etr[12]).text(),
-            total_amount:$(etr[13]).text(),
-            selling_unit_price_without_vat:$(etr[14]).text(),
-            selling_unit_vat_value:$(etr[15]).text(),
-            selling_unit_price_with_vat:$(etr[16]).text()
+            vat: parseFloat($(etr[9]).text())*100.0/parseFloat($(etr[8]).text()), 
+            makeup: ((parseFloat($(etr[14]).text())*100.0/parseFloat($(etr[8]).text()))-100.0)
         });
     });
     const str_lines = JSON.stringify(lines);
@@ -328,6 +322,7 @@ function EditProduct(product_id) {
     table.children("tr").each((index, element) => {
         const etr = $(element).find("td");
         lines.push({
+            id:$(etr[21]).text(),
             code_ean:$(etr[0]).text(),
             stockid:$(etr[17]).text(),
             expenseid:$(etr[18]).text(),
@@ -337,17 +332,12 @@ function EditProduct(product_id) {
             quantity_on_document:$(etr[6]).text(),
             quantity_received:$(etr[7]).text(),
             acquisition_unit_price:$(etr[8]).text(),
-            acquisition_vat_value:$(etr[9]).text(),
-            acquisition_unit_price_with_vat:$(etr[10]).text(),
-            amount_without_vat:$(etr[11]).text(),
-            amount_vat_value:$(etr[12]).text(),
-            total_amount:$(etr[13]).text(),
-            selling_unit_price_without_vat:$(etr[14]).text(),
-            selling_unit_vat_value:$(etr[15]).text(),
-            selling_unit_price_with_vat:$(etr[16]).text()
+            vat: parseFloat($(etr[9]).text())*100.0/parseFloat($(etr[8]).text()), 
+            makeup: ((parseFloat($(etr[14]).text())*100.0/parseFloat($(etr[8]).text()))-100.0)
         });
     });
     const str_lines = JSON.stringify(lines);
+    console.log(str_lines);
 
     const form_data = {
         supplierid: supplierid,

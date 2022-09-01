@@ -23,7 +23,12 @@ class Product extends CI_Controller
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
 
         foreach ($data['products'] as $index => $product) {
+            $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'product_lines', $product['id']);
             $data['products'][$index]['attached'] = false;
+
+            $data['products'][$index]['subtotal'] = $result['subtotal'];
+            $data['products'][$index]['vat_amount'] = $result['vat_amount'];
+            $data['products'][$index]['total_amount'] = $result['total_amount'];
             $invoicename = $product['id'].".pdf";
             $path = "assets/company/attachment/".$companyname."/supplier/";
             if(file_exists($path.$invoicename)) {
@@ -84,6 +89,8 @@ class Product extends CI_Controller
         $data['categories'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $product = $this->home->databyidfromdatabase($companyid, 'product', $product_id);
 
+        $data['lines'] = $this->supplier->alllinesbyproductidfromdatabase($companyid, 'product_lines', $product_id);
+
         $data['attached'] = "Attached Invoice";
 
         if ($product['status']=="failed")
@@ -124,8 +131,8 @@ class Product extends CI_Controller
         $lines = $this->input->post('lines');
 
         if (!isset($_GET['id'])) {
-            $project_id = $this->supplier->createProduct($companyid, $supplierid, $observation, $lines, $invoice_date, $invoice_number, $invoice_coin);
-            echo $project_id;
+            $productid = $this->supplier->createProduct($companyid, $supplierid, $observation, $lines, $invoice_date, $invoice_number, $invoice_coin);
+            echo $productid;
             return;
         }
 

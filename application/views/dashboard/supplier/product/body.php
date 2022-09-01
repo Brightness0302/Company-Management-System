@@ -28,19 +28,14 @@
             <td><?=$product['invoice_number']?></td>
             <td>
             <?php 
-                $lines=json_decode($product['lines'], true);
                 $result;
                 foreach ($suppliers as $supplier){
                     if ($supplier['id'] == $product['supplierid']) {
                         $result = $supplier;
                     }
                 }
-                $subtotal=0; $vat_amount=0; $total_amount=0;
-                foreach ($lines as $key => $line) {
-                    $subtotal+=$line['amount_without_vat'];
-                    $vat_amount+=$line['amount_vat_value'];
-                    $total_amount+=$line['total_amount'];
-                }
+                $subtotal=$product['subtotal']; $vat_amount=$product['vat_amount']; $total_amount=$product['total_amount'];
+
                 $total_subtotal+=$subtotal;
                 $total_vat_amount+=$vat_amount;
                 $total_total_amount+=$total_amount;

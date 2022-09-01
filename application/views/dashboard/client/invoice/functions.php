@@ -24,16 +24,15 @@ $(document).ready(function() {
     $("#stockid").change(function() {
         const stockid = this.value;
         $("#product_amount").val("0");
-        refreshproductbystockid(stockid);        
+        refreshproductbystockid(stockid);
     });
     $("#product_code_ean").change(function() {
-        const code_ean = this.value;
+        const lineid = this.value;
         $("#product_amount").val("0");
-        refreshproductamountbystockidandproductcodeean(code_ean);
+        refreshproductamountbylineid(lineid);
     });
     $("#save_product").click(function() {
-        const stockid = $("#stockid").val();
-        const code_ean = $("#product_code_ean").val();
+        const lineid = $("#product_code_ean").val();
         const amount = $("#product_amount").val();
 
         const product_code_ean = document.getElementById('product_code_ean');
@@ -41,16 +40,20 @@ $(document).ready(function() {
         const productname = product_code_ean.options[product_code_ean.selectedIndex].text;
         const stockname = stock.options[stock.selectedIndex].text;
 
-        console.log(stockid, code_ean, productname, amount);
-
-        const product_description = "[" + code_ean + "] - " + productname;
+        console.log("saveLine");
 
         $.ajax({
-            url: "<?=base_url('stock/getpricefromproductbystockid?stock_id=')?>" + stockid + "&code_ean=" + code_ean,
+            url: "<?=base_url('stock/getpriceandcode_eanfromproductbylineid?lineid=')?>" + lineid,
             method: "POST",
-            dataType: 'text',
+            dataType: 'json',
             success: function(res) {
-                let price = res;
+                console.log(res);
+                let price = res['price'];
+                let code_ean = res['code_ean'];
+
+                console.log(lineid, code_ean, productname, amount);
+                const product_description = "[" + code_ean + "] - " + productname;
+
                 appendTable(product_description, parseFloat(price), amount);
                 $("input").change(function() {
                     const eid = $(this).attr('id');
@@ -65,6 +68,9 @@ $(document).ready(function() {
                         refresh();
                     }
                 });
+            }, 
+            error: function (a, b) {
+                console.log(a, b);
             }
         });
     });
@@ -119,27 +125,24 @@ function refreshproductbystockid(stockid) {
             console.log(res);
             var string = "";
             var isfirst = true;
-            res.forEach((product) => {
-                const lines = JSON.parse(product["lines"]);
-                lines.forEach((line) => {
-                    if (line['stockid']==stockid) {
-                        string += "<option value="+line['code_ean']+">"+line['production_description']+"</option>";
-                        if (isfirst == true) {
-                            $("#product_amount").attr({"max": parseInt(line['quantity_on_document'])});
-                        }
-                        isfirst = false;
+            res.forEach((line) => {
+                if (line['stockid']==stockid) {
+                    string += "<option value="+line['id']+">"+line['production_description']+"</option>";
+                    if (isfirst == true) {
+                        $("#product_amount").attr({"max": parseInt(line['quantity_on_document'])});
                     }
-                });
+                    isfirst = false;
+                }
             });
             $("#product_code_ean").html(string);
         }
     });
 }
 
-function refreshproductamountbystockidandproductcodeean(product_code_ean) {
+function refreshproductamountbylineid(product_code_ean) {
     const stockid = $("#stockid").val();
     $.ajax({
-        url: "<?=base_url('stock/getmaxamountfromproductbystockid?stock_id=')?>" + stockid + "&code_ean=" + product_code_ean,
+        url: "<?=base_url('stock/getmaxamountfromproductbyid?lineid=')?>" + product_code_ean,
         method: "POST",
         dataType: 'text',
         success: function(res) {
@@ -299,9 +302,8 @@ function get_formdata() {
         const edescription = $(element).find("textarea[id*='line_description']");
         const etax = $(element).find("a[id*='btnaddtax']");
         const etotal = $(element).find("input[id*='line_total']");
-        console.log(edescription);
 
-        lines.push({rate: erate[0].value, qty: eqty[0].value, description: edescription[0].value, tax: "", total: etotal[0].value});
+        lines.push({rate: erate[0].value, qty: eqty[0].value, description: edescription[0].value, total: etotal[0].value});
     });
 
     const str_lines = JSON.stringify(lines);
@@ -364,6 +366,7 @@ function addInvoice() {
         url: "<?=base_url('client/saveinvoice')?>",
         method: "POST",
         data: form_data, 
+        dataType: "text", 
         success: function(res) {
             const id = res;
             if (id <= 0) {
