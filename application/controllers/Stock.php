@@ -48,7 +48,7 @@ class Stock extends CI_Controller
 
         $stock_id = $_GET['stock_id'];
         $data['stock'] = $this->home->databyidfromdatabase($companyid, 'stock', $stock_id)['data'];
-        $data['products'] = $this->supplier->alldatabystockidfromdatabase($companyid, 'product', $stock_id);
+        $data['products'] = $this->supplier->allproductsbystockidfromdatabase($companyid, 'product', $stock_id);
 
         foreach ($data['products'] as $index => $product) {
             $data['products'][$index]['lines'] = $this->supplier->alllinesbyproductidfromdatabase($companyid, 'product_lines', $product['id']);
