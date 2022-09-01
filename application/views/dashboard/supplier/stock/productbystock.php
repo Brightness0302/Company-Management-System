@@ -21,6 +21,7 @@
         <?php foreach ($products as $product):?>
         <?php if(!$product['isremoved']):?>
         <?php foreach ($product['lines'] as $line):?>
+        <?php if($stock['id']==$line['id']):?>
         <?php $index++;?>
         <tr>
             <?php 
@@ -56,6 +57,7 @@
             <td><?=$product['invoice_number']?></td>
             <td><?=$product['invoice_date']?></td>
         </tr>
+        <?php endif;?>
         <?php endforeach;?>
         <?php endif;?>
         <?php endforeach;?>
