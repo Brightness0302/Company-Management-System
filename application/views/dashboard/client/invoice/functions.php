@@ -65,7 +65,7 @@ $(document).ready(function() {
                         const erate = etr.find("input[id*='line_rate']");
                         const eqty = etr.find("input[id*='line_qty']");
                         const etotal = etr.find("input[id*='line_total']");
-                        etotal[0].value = erate[0].value * eqty[0].value;
+                        etotal[0].value = (erate[0].value * eqty[0].value).toFixed(2);
                         //Update total, sub_total;
                         refresh();
                     }

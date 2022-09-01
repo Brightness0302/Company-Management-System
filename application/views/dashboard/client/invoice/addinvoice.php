@@ -252,7 +252,7 @@
                                         </select>
                                     </div>
                                     <div class="m-3">
-                                        <input class="form-control w-full" type="number" name="amount" id="product_amount" value="0" max="99">
+                                        <input class="form-control w-full" type="number" name="amount" id="product_amount" value="0" max="99" min="0">
                                     </div>
                                 </div>
                             </div>
