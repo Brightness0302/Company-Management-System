@@ -26,6 +26,24 @@ class Home_model extends CI_Model {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
+        if ($table == 'invoice') {
+            $query =    "SELECT *
+                        FROM `setting`
+                        WHERE `id` = '1'";
+
+            $res = $this->db->query($query)->result_array();
+            $res = $res[0];
+
+            $data['date_of_issue'] = date("Y-m-d");
+            $data['due_date'] = date('Y-m-d', strtotime($data['date_of_issue']. ' + 1 months'));
+            $data['input_invoicenumber'] = intval($res['invoiceid'])+1;
+
+            if ($res['invoiceyear'] != date("Y")) {
+                $data['input_invoicenumber'] = 1;
+            }
+            return $data;
+        }
+
         $query = "SELECT `AUTO_INCREMENT`
             FROM information_schema.TABLES 
             WHERE TABLE_SCHEMA = '" . $companyid . "' AND TABLE_NAME = '$table'";
@@ -429,7 +447,7 @@ class Home_model extends CI_Model {
 
                 $query =    "SELECT *
                             FROM `product_lines`
-                            WHERE `code_ean` = '$code_ean' AND `production_description` = '$productname' AND `quantity_received` >= '$qty'";
+                            WHERE `code_ean` = '$code_ean' AND `production_description` = '$productname'";
 
                 $data = $this->db->query($query)->result_array();
 
@@ -442,6 +460,24 @@ class Home_model extends CI_Model {
             }
         }
         $lines=json_encode($list_lines);
+
+        $query =    "SELECT *
+                    FROM `setting`
+                    WHERE `id` = '1'";
+
+        $data = $this->db->query($query)->result_array();
+        $data = $data[0];
+        $input_invoicenumber = intval($data['invoiceid'])+1;
+        $thisyear = date("Y");
+        if ($thisyear != $data['invoiceyear']) {
+            $data_sql = array(
+                'invoiceid'=>0, 
+                'invoiceyear'=>date("Y")
+            );
+
+            $this->db->where('id', 1);
+            $this->db->update('setting', $data_sql);
+        }
 
         $data_sql = array(
             'date_of_issue'=>$date_of_issue, 
@@ -462,6 +498,14 @@ class Home_model extends CI_Model {
 
         $this->db->insert($type, $data_sql);
         $projects_id = $this->db->insert_id();
+
+        $data_sql = array(
+            'invoiceid'=>$input_invoicenumber, 
+            'invoiceyear'=>date("Y")
+        );
+
+        $this->db->where('id', 1);
+        $this->db->update('setting', $data_sql);
         return $projects_id;
     }
     //save invoice information using $id, $companyid, ...
@@ -497,7 +541,7 @@ class Home_model extends CI_Model {
 
                 $query =    "SELECT *
                             FROM `product_lines`
-                            WHERE `code_ean` = '$code_ean' AND `production_description` = '$productname' AND `quantity_received` >= '$qty'";
+                            WHERE `code_ean` = '$code_ean' AND `production_description` = '$productname'";
 
                 $data = $this->db->query($query)->result_array();
 
