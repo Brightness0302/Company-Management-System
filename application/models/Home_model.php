@@ -442,6 +442,7 @@ class Home_model extends CI_Model {
             }
         }
         $lines=json_encode($list_lines);
+        return $lines;
 
         $data_sql = array(
             'date_of_issue'=>$date_of_issue, 
@@ -472,7 +473,7 @@ class Home_model extends CI_Model {
         if ($client['status'] == "failed")
             return -1;
         $this->db->query('use database'.$companyid);
-        
+
         $query =    "SELECT *
                     FROM `invoice`
                     WHERE `id` = '$id' AND `isremoved` = false";
