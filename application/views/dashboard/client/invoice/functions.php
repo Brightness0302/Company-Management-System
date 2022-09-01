@@ -372,6 +372,7 @@ function addInvoice() {
         success: function(res) {
             const id = res;
             console.log(id);
+            return;
             if (id <= 0) {
                 swal("Add Invoice", "Failed", "error");
                 return;

@@ -420,7 +420,6 @@ class Home_model extends CI_Model {
 
         $pattern = "/([-\s:,\{\}\[\]]+)/";
         $list_lines=json_decode($lines, true);
-        return $lines;
         foreach ($list_lines as $index => $line) {
             if (str_contains($line['description'], '] - ')) {
                 $list = preg_split($pattern, $line['description'], -1, PREG_SPLIT_NO_EMPTY);
@@ -431,6 +430,8 @@ class Home_model extends CI_Model {
                 $query =    "SELECT *
                             FROM `product_lines`
                             WHERE `code_ean` = '$code_ean' AND `production_description` = '$productname' AND `quantity_on_document` >= '$qty'";
+
+                return $query;
 
                 $data = $this->db->query($query)->result_array();
 
