@@ -22,7 +22,6 @@
         <?php if(!$product['isremoved']):?>
         <?php foreach ($product['lines'] as $line):?>
         <?php $index++;?>
-        <?=$stock['id'].$line['stockid']?>
         <?php if($stock['id']==$line['stockid']):?>
         <tr>
             <?php 
