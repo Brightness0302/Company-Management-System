@@ -253,8 +253,12 @@
                                     </div>
                                     <div class="m-3">
                                         <div class="row">
-                                            <input class="form-control col-sm-6" type="number" name="amount" id="product_amount" value="0" max="99" min="0">
-                                            <label class="col-sm-6">asdf</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" type="number" name="amount" id="product_amount" value="0" max="99" min="0">
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <p class="text-center text-red" id="amount_hint">0 products on stock</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
