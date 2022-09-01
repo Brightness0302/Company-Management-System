@@ -336,6 +336,7 @@ function sendtoClient() {
         url: "<?=base_url('client/savesessionbyjson')?>",
         method: "POST",
         data: form_data, 
+        dataType: 'text', 
         success: function(res) {
             console.log(res);
             if (res != "success") {
