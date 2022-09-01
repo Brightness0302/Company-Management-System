@@ -170,7 +170,7 @@
                     <div class="col">
                         <div class="row-sm-6 px-0 py-4">
                             <strong>Invoice Number</strong>
-                            <input class="form form-control bg-transparent no_broder" type="text" value="<?=$invoice['input_invoicenumber']?>" id="input_invoicenumber">
+                            <input class="form form-control bg-transparent no_broder" type="text" value="<?=$invoice['input_invoicenumber']?>" id="input_invoicenumber" readOnly>
                         </div>
                         <div class="row-sm-6 px-0 py-4">
                             <strong>Reference</strong>
