@@ -252,7 +252,10 @@
                                         </select>
                                     </div>
                                     <div class="m-3">
-                                        <input class="form-control w-full" type="number" name="amount" id="product_amount" value="0" max="99" min="0">
+                                        <div class="row">
+                                            <input class="form-control col-sm-6" type="number" name="amount" id="product_amount" value="0" max="99" min="0">
+                                            <label class="col-sm-6">asdf</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

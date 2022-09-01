@@ -31,6 +31,7 @@ $(document).ready(function() {
     $("#product_code_ean").change(function() {
         const lineid = this.value;
         $("#product_amount").val("0");
+        refreshproductamountbylineid(lineid);
     });
     $("#save_product").click(function() {
         const lineid = $("#product_code_ean").val();
@@ -123,9 +124,16 @@ function refreshproductbystockid(stockid) {
         dataType: 'json',
         success: function(res) {
             var string = "";
+            var isfirst = true;
             res.forEach((line) => {
                 if (line['stockid']==stockid) {
-                    string += "<option value="+line['id']+">"+line['production_description']+" - "+line['code_ean']+"</option>";
+                    string += "<option value="+line['id']+">"+line['code_ean']+" - "+line['production_description']+"</option>";
+                    if (isfirst == true) {
+                        const max = line['quantity_received'];
+                        const amount_str = max + " products on stock";
+                        $("#amount_hint").text(amount_str);
+                        isfirst != isfirst;
+                    }
                 }
             });
             $("#product_code_ean").html(string);
@@ -134,13 +142,15 @@ function refreshproductbystockid(stockid) {
 }
 
 function refreshproductamountbylineid(lineid) {
+    console.log(123);
     $.ajax({
         url: "<?=base_url('stock/getmaxamountfromproductbyid?lineid=')?>" + lineid,
         method: "POST",
         dataType: 'text',
         success: function(res) {
-            let max = res;
-            $("#product_amount").attr({"max": parseInt(max)});
+            const max = res;
+            const string = max + " products on stock";
+            $("#amount_hint").text(string);
         }
     });
 }
