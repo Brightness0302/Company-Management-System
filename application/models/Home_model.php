@@ -359,10 +359,10 @@ class Home_model extends CI_Model {
 
                     $data = $data[0];
 
-                    $data['quantity_on_document'] += intval($line['qty']);
+                    $data['quantity_received'] += intval($line['qty']);
 
                     $data_sql = array(
-                        'quantity_on_document'=>$data['quantity_on_document']
+                        'quantity_received'=>$data['quantity_received']
                     );
 
                     $this->db->where('id', $id);
@@ -397,10 +397,10 @@ class Home_model extends CI_Model {
 
                     $data = $data[0];
 
-                    $data['quantity_on_document'] -= intval($line['qty']);
+                    $data['quantity_received'] -= intval($line['qty']);
 
                     $data_sql = array(
-                        'quantity_on_document'=>$data['quantity_on_document']
+                        'quantity_received'=>$data['quantity_received']
                     );
 
                     $this->db->where('id', $id);
@@ -429,7 +429,7 @@ class Home_model extends CI_Model {
 
                 $query =    "SELECT *
                             FROM `product_lines`
-                            WHERE `code_ean` = '$code_ean' AND `production_description` = '$productname' AND `quantity_on_document` >= '$qty'";
+                            WHERE `code_ean` = '$code_ean' AND `production_description` = '$productname' AND `quantity_received` >= '$qty'";
 
                 $data = $this->db->query($query)->result_array();
 
@@ -497,7 +497,7 @@ class Home_model extends CI_Model {
 
                 $query =    "SELECT *
                             FROM `product_lines`
-                            WHERE `code_ean` = '$code_ean' AND `production_description` = '$productname' AND `quantity_on_document` >= '$qty'";
+                            WHERE `code_ean` = '$code_ean' AND `production_description` = '$productname' AND `quantity_received` >= '$qty'";
 
                 $data = $this->db->query($query)->result_array();
 

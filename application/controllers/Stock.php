@@ -90,17 +90,18 @@ class Stock extends CI_Controller
         $lineid = $_GET['lineid'];
         $companyid = $this->session->userdata('companyid');
 
-        $value = $this->supplier->databylineidfromdatabase($companyid, 'product_lines', $lineid, 'quantity_on_document');
+        $value = $this->supplier->databylineidfromdatabase($companyid, 'product_lines', $lineid, 'quantity_received');
 
         echo $value;
     }
 
-    public function getpriceandcode_eanfromproductbylineid() {
+    public function getdatafromproductbylineid() {
         $lineid = $_GET['lineid'];
         $companyid = $this->session->userdata('companyid');
 
         $data['price'] = $this->supplier->databylineidfromdatabase($companyid, 'product_lines', $lineid, 'selling_unit_price_with_vat');
         $data['code_ean'] = $this->supplier->databylineidfromdatabase($companyid, 'product_lines', $lineid, 'code_ean');
+        $data['production_description'] = $this->supplier->databylineidfromdatabase($companyid, 'product_lines', $lineid, 'production_description');
 
         header('Content-Type: application/json');
         echo json_encode($data);
