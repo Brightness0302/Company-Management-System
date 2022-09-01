@@ -76,6 +76,13 @@ $(document).ready(function() {
             }
         });
     });
+
+    $("#product_amount").keyup(function() {
+        const max = $(this).attr('max');
+        if (parseInt(this.value)>max) {
+            $("#product_amount").val(max);
+        }
+    });
     refreshproductbystockid($("#stockid").val());
 });
 
