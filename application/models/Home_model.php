@@ -341,7 +341,7 @@ class Home_model extends CI_Model {
         $this->db->query('use '.$companyid);
         $lines=json_decode($lines, true);
         foreach ($lines as $index => $line) {
-            if (str_contains($line['description'], $token)) {
+            if (strpos($line['description'], $token)) {
                 $id = -1;
                 if (substr($line['description'], 0, strlen($token)) == $token) {
                     $id = substr($line['description'], strlen($token));
@@ -379,7 +379,7 @@ class Home_model extends CI_Model {
         $this->db->query('use '.$companyid);
         $lines=json_decode($lines, true);
         foreach ($lines as $index => $line) {
-            if (str_contains($line['description'], $token)) {
+            if (strpos($line['description'], $token)) {
                 $id = -1;
                 if (substr($line['description'], 0, strlen($token)) == $token) {
                     $id = substr($line['description'], strlen($token));
@@ -421,8 +421,7 @@ class Home_model extends CI_Model {
         $pattern = "/([-\s:,\{\}\[\]]+)/";
         $list_lines=json_decode($lines, true);
         foreach ($list_lines as $index => $line) {
-            return str_contains($line['description'], " ");
-            if (str_contains($line['description'], "] - ")) {
+            if (strpos($line['description'], "] - ")) {
                 $list = preg_split($pattern, $line['description'], -1, PREG_SPLIT_NO_EMPTY);
                 $code_ean = $list[0];
                 $productname = $list[1];
@@ -490,7 +489,7 @@ class Home_model extends CI_Model {
         $pattern = "/([-\s:,\{\}\[\]]+)/";
         $list_lines=json_decode($lines, true);
         foreach ($list_lines as $index => $line) {
-            if (str_contains($line['description'], '] - ')) {
+            if (strpos($line['description'], '] - ')) {
                 $list = preg_split($pattern, $line['description'], -1, PREG_SPLIT_NO_EMPTY);
                 $code_ean = $list[0];
                 $productname = $list[1];
