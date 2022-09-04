@@ -1,6 +1,6 @@
 <?php $total_subtotal=0; $total_vat_amount=0; $total_total_amount=0;?>
 <a class="btn btn-success mb-2" href="<?=base_url('product/addproduct')?>">Add New</a>
-<table id="invoicetable" class="table table-bordered table-striped">
+<table id="invoicetable" class="table table-bordered table-striped text-sm">
     <thead>
         <tr class="text-sm">
             <th>No</th>

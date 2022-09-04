@@ -535,6 +535,8 @@
                         echo "Expense Management";
                     else if($menu['submenu']=="pdm")
                         echo "Supplier Invoices";
+                    else if($menu['submenu']=="ppm")
+                        echo "Payment management";
                     else if($menu['submenu']=="pmbs")
                         echo "Stock Management By Stock";
                     else if($menu['submenu']=="empr")
