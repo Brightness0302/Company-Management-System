@@ -7,6 +7,9 @@
             <th>Reference</th>
             <th>Issued Date</th>
             <th>Amount</th>
+            <th>Payment date</th>
+            <th>Payment method</th>
+            <th>Observations</th>
             <th>Invoice status</th>
             <th>Pay</th>
         </tr>
@@ -35,10 +38,20 @@
             <td><?=$invoice['date_of_issue']?></td>
             <td><?=$invoice['total']?></td>
             <td>
+                <?=$invoice['ispaid']?$invoice['paid_date']:"-"?>
+            </td>
+            <td>
+                <?=$invoice['ispaid']?$invoice['paid_method']:"-"?>
+            </td>
+            <td>
+                <?=$invoice['ispaid']?$invoice['paid_observation']:"-"?>
+            </td>
+            <td>
                 <?=$invoice['ispaid']?"<label class='status success'>Paid</label>":"<label class='status danger'>Not Paid</label>"?>
             </td>
             <td class="form-inline flex justify-around">
-                <button class='btn btn-danger py-0 px-2 m-auto' onclick="togglePayment('<?=$invoice['id']?>', this)"><?=$invoice['ispaid']?"<i class='bi bi-dash'></i>":"<i class='bi bi-check-all'></i>"?></button>
+                <button class='btn btn-danger py-0 px-2 m-auto' onclick="
+                SetPayment('<?=$invoice['id']?>', this)"><?=$invoice['ispaid']?"<i class='bi bi-dash'></i>":"<i class='bi bi-check-all'></i>"?></button>
             </td>
         </tr>
         <?php endif;?>

@@ -122,15 +122,17 @@ $(function() {
                 startdate.setDate(startdate.getDate() - 1);
                 var enddate = new Date($('#enddate').val());
                 enddate.setDate(enddate.getDate() + 1);
-                var date = new Date(data[11] || 0); // use data for the age column
-                var client_name = data[1];
-                var reference = data[2];
                 var searchvalue = $("#searchtag").val();
+                var date = new Date(data[11] || 0); // use data for the age column
+                var condition1 = (data[1].toLowerCase().includes(searchvalue.toLowerCase()));
+                var condition2 = (data[2].toLowerCase().includes(searchvalue.toLowerCase()));
+                var condition3 = (data[9].toLowerCase().includes(searchvalue.toLowerCase()));
+                var condition4 = (data[10].toLowerCase().includes(searchvalue.toLowerCase()));
                 console.log(searchvalue, client_name, reference);
                 // console.log(client_name, reference, searchvalue, startdate, enddate, date);
              
                 if (
-                    (date > startdate && date < enddate) && (client_name.toLowerCase().includes(searchvalue.toLowerCase()) || reference.toLowerCase().includes(searchvalue.toLowerCase()))
+                    (date > startdate && date < enddate) && (condition1 || condition2 || condition3 || condition4)
                 ) {
                     aquisition += parseFloat(data[6]);
                     selling += parseFloat(data[8]);

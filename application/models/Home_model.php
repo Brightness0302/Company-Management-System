@@ -620,6 +620,19 @@ class Home_model extends CI_Model {
         $res=$this->db->update('invoice', $data);
         return $res;
     }
+    //set paid or unpaid section using $companyid, $invoice_id
+    public function setinvoicepayment($companyid, $invoice_id, $ispaid) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $data = array(
+            'ispaid'=>$ispaid
+        );
+
+        $this->db->where('id', $invoice_id);
+        $res=$this->db->update('invoice', $data);
+        return $res;
+    }
     //create database using $companyid
     public function createdatabase($companyid) {
         $companyid = "database".$companyid;
@@ -946,5 +959,34 @@ class Home_model extends CI_Model {
             }
         }
         return 1;
+    }
+
+    public function savepayment($companyid, $invoice_id, $paid_date, $paid_method, $observation) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+        $data = array(
+            'paid_date'=>$paid_date, 
+            'paid_method'=>$paid_method, 
+            'paid_observation'=>$observation
+        );
+
+        $this->db->where('id', $invoice_id);
+        $res=$this->db->update('invoice', $data);
+        return $res;
+    }
+
+    public function getpaymentdata($companyid, $invoice_id) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $query =    "SELECT *
+                    FROM `invoice`
+                    WHERE `id`='$invoice_id' AND `isremoved`=false";
+
+        $res = $this->db->query($query)->result_array();
+        if (count($res) == 0) {
+            return -1;
+        }
+        return $res[0];
     }
 }

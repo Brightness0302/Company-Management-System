@@ -28,8 +28,9 @@ function refreshSellingMarkforline() {
 }
 
 function DeleteAttachedFile() {
-    document.getElementById("#file-upload").value="";
-    console.log(document.getElementById("#file-upload").value);
+    document.getElementById("file-upload").value="";
+    document.getElementById("file-text").innerHTML="<i class='fa fa-cloud-upload'></i> Attached Invoice";
+    console.log(document.getElementById("file-upload").value);
 }
 
 function refreshTotalMark() {

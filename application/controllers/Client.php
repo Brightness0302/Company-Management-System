@@ -101,6 +101,7 @@ class Client extends CI_Controller
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
         $this->load->view('dashboard/client/payment/head');
+        $this->load->view('dashboard/client/payment/shead');
         $this->load->view('dashboard/client/payment/body');
         $this->load->view('dashboard/client/payment/foot');
         $this->load->view('dashboard/client/payment/functions.php');
@@ -143,6 +144,18 @@ class Client extends CI_Controller
         $data['company'] = $company['data'];
 
         $res = $this->home->toggleinvoicepayment($data['company']['id'], $invoice_id);
+        echo $res;
+    }
+    //Toggle payment of invoice function
+    public function setinvoicepayment($invoice_id, $ispaid) {
+        $company_name = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+
+        $res = $this->home->setinvoicepayment($data['company']['id'], $invoice_id, $ispaid);
         echo $res;
     }
     //View clientpage of creating.
@@ -617,6 +630,23 @@ class Client extends CI_Controller
 
         $this->session->set_userdata("htmltopdf", $data);
         echo "success";
+    }
+
+    public function savepayment($invoice_id) {
+        $companyid = $this->session->userdata('companyid');
+        $paid_date = $this->input->post('paid_date');
+        $paid_method = $this->input->post('paid_method');
+        $observation = $this->input->post('observation');
+
+        echo $this->home->savepayment($companyid, $invoice_id, $paid_date, $paid_method, $observation);
+    }
+
+    public function getpaymentdata($invoice_id) {
+        $companyid = $this->session->userdata('companyid');
+        $data = $this->home->getpaymentdata($companyid, $invoice_id);
+
+        header('Content-Type: application/json');
+        echo json_encode($data);
     }
     //If usersession is not exist, goto login page.
     public function check_usersession() {
