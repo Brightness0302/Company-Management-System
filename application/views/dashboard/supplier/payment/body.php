@@ -61,9 +61,9 @@
             <td>
                 <?=$product['ispaid']?$product['paid_observation']:"-"?>
             </td>
-            <td><?=$product['ispaid']?"<label class='status success'>Paid</label>":"<label class='status danger'>Not Paid</label>"?></td>
+            <td class="text-center"><?=$product['ispaid']?"<label class='status success'>Paid</label>":"<label class='status danger'>Not Paid</label>"?></td>
             <td class="form-inline flex justify-around">
-                <button class='btn btn-danger py-0 px-2 m-auto' onclick="
+                <button class='btn btn-danger m-auto' onclick="
                 SetPayment('<?=$product['id']?>', this)"><?=$product['ispaid']?"<i class='bi bi-dash'></i>":"<i class='bi bi-check-all'></i>"?></button>
             </td>
         </tr>

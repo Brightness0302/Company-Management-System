@@ -46,11 +46,11 @@
             <td>
                 <?=$invoice['ispaid']?$invoice['paid_observation']:"-"?>
             </td>
-            <td>
+            <td class="text-center">
                 <?=$invoice['ispaid']?"<label class='status success'>Paid</label>":"<label class='status danger'>Not Paid</label>"?>
             </td>
-            <td class="form-inline flex justify-around">
-                <button class='btn btn-danger py-0 px-2 m-auto' onclick="
+            <td class="text-center">
+                <button class='btn btn-danger m-auto' onclick="
                 SetPayment('<?=$invoice['id']?>', this)"><?=$invoice['ispaid']?"<i class='bi bi-dash'></i>":"<i class='bi bi-check-all'></i>"?></button>
             </td>
         </tr>
