@@ -2,7 +2,7 @@
 <a class="btn btn-success mb-2" href="<?=base_url('product/addproduct')?>">Add New</a>
 <table id="invoicetable" class="table table-bordered table-striped">
     <thead>
-        <tr class="text-sm">
+        <tr>
             <th>No</th>
             <th>Invoice Number</th>
             <th>Supplier Name</th>

@@ -232,7 +232,7 @@
                         ?>
                         <table class="table table-bordered table-striped text-center">
                             <thead>
-                                <tr class="text-sm">
+                                <tr>
                                     <th>Code EAN</th>
                                     <th>Registered Stock</th>
                                     <th>Registered Expense</th>

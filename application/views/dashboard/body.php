@@ -1,6 +1,6 @@
 <!-- ======= Hero Section ======= -->
 <?php $menu = $this->session->flashdata('menu');?>
-<body class="text-sm">
+<body class="text-xs">
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
 
