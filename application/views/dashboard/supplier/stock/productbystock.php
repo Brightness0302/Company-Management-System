@@ -5,12 +5,12 @@
             <th>No</th>
             <th>Code EAN</th>
             <th>Description</th>
-            <th>Quantity received</th>
-            <th>Quantity on document</th>
-            <th>Aquisition price without VAT</th>
-            <th id="upaquisition">Aquisition amount without VAT</th>
-            <th id='upeight'>Selling price without VAT</th>
-            <th id="upselling">Selling amount without VAT</th>
+            <th>Qty received</th>
+            <th>Qty on document</th>
+            <th>Aquisition price Ex VAT</th>
+            <th id="upaquisition">Aquisition amount Ex VAT</th>
+            <th id='upeight'>Selling price Ex VAT</th>
+            <th id="upselling">Selling amount Ex VAT</th>
             <th>Supplier Name</th>
             <th>Invoice Number</th>
             <th>Invoice Date</th>
@@ -61,9 +61,9 @@
     <thead>
         <tr>
             <th></th>
-            <th>Aquisition amount without VAT</th>
+            <th>Aquisition amount Ex VAT</th>
             <th></th>
-            <th>Selling amount without VAT</th>
+            <th>Selling amount Ex VAT</th>
         </tr>
     </thead>
     <tbody>
