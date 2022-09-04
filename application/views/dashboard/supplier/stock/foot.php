@@ -128,7 +128,6 @@ $(function() {
                 var condition2 = (data[2].toLowerCase().includes(searchvalue.toLowerCase()));
                 var condition3 = (data[9].toLowerCase().includes(searchvalue.toLowerCase()));
                 var condition4 = (data[10].toLowerCase().includes(searchvalue.toLowerCase()));
-                console.log((date > startdate && date < enddate), condition1, condition2, condition3, condition4);
                 // console.log(client_name, reference, searchvalue, startdate, enddate, date);
              
                 if (
@@ -144,6 +143,11 @@ $(function() {
             }
         }
     );
+    $('input[type=search]').on('search', function () {
+        onrefreshtotalmark();
+        invoicetable.draw();
+        productbystock.draw();
+    });
 
     invoicetable.on('draw', function () {
         subtotal = 0.0, vat = 0.0, total = 0.0;
@@ -153,7 +157,7 @@ $(function() {
         aquisition = 0.0, selling = 0.0;
     })
 
-    $("#searchtag").on('keyup', function (){
+    $("#searchtag").on('keyup', function () {
         onrefreshtotalmark();
         invoicetable.draw();
         productbystock.draw();

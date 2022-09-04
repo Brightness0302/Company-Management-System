@@ -142,6 +142,11 @@ $(function() {
             }
         }
     );
+    $('input[type=search]').on('search', function () {
+        onrefreshtotalmark();
+        invoicetable.draw();
+        productbystock.draw();
+    });
 
     invoicetable.on('draw', function () {
         subtotal = 0.0, vat = 0.0, total = 0.0;
