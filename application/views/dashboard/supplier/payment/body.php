@@ -1,44 +1,70 @@
-<table id="example1" class="table table-bordered table-striped">
+<?php $total_subtotal=0; $total_vat_amount=0; $total_total_amount=0;?>
+<a class="btn btn-success mb-2" href="<?=base_url('product/addproduct')?>">Add New</a>
+<table id="invoicetable" class="table table-bordered table-striped">
     <thead>
-        <tr>
+        <tr class="text-sm">
             <th>No</th>
             <th>Invoice Number</th>
-            <th>Client Name</th>
-            <th>Reference</th>
-            <th>Issued Date</th>
-            <th>Amount</th>
+            <th>Supplier Name</th>
+            <th>Observations</th>
+            <th>NIR No</th>
+            <th>NIR Date</th>
+            <th>Invoice Date</th>
+            <th>Sub Total</th>
+            <th>VAT Amount</th>
+            <th>Total Amount</th>
+            <th>Payment date</th>
+            <th>Payment method</th>
+            <th>Observations</th>
             <th>Invoice status</th>
             <th>Pay</th>
         </tr>
     </thead>
     <tbody>
         <?php $index=0;?>
-        <?php foreach ($invoices as $invoice):?>
-        <?php if(!$invoice['isremoved']):?>
+        <?php foreach ($products as $product):?>
+        <?php if(!$product['isremoved']):?>
         <?php $index++;?>
         <tr>
             <td><?=($index)?></td>
-            <td><?=$invoice['id']?></td>
+            <td><?=$product['invoice_number']?></td>
             <td>
-                <?php 
-                    $result;
-                    foreach ($clients as $client){
-                        if ($client['id'] == $invoice['client_id']) {
-                            $result = $client;
-                        }
+            <?php 
+                $result;
+                foreach ($suppliers as $supplier){
+                    if ($supplier['id'] == $product['supplierid']) {
+                        $result = $supplier;
                     }
-                    echo str_replace('_',' ',$result['name']);
-                    echo $result['isremoved']?"(<span id='boot-icon' class='bi bi-circle-fill' style='font-size: 12px; color: rgb(255, 0, 0);''></span>)":"";
-                ?>
+                }
+                $subtotal=$product['subtotal']; $vat_amount=$product['vat_amount']; $total_amount=$product['total_amount'];
+
+                $total_subtotal+=$subtotal;
+                $total_vat_amount+=$vat_amount;
+                $total_total_amount+=$total_amount;
+                echo str_replace("_"," ", $result['name']);
+                echo $result['isremoved']?"(<span id='boot-icon' class='bi bi-circle-fill' style='font-size: 12px; color: rgb(255, 0, 0);''></span>)":"";
+            ?>
             </td>
-            <td><?=$invoice['input_inputreference']?></td>
-            <td><?=$invoice['date_of_issue']?></td>
-            <td><?=$invoice['total']?></td>
+            <td><?=$product['observation']?></td>
+            <td><?=$product['id']?></td>
+            <td><?=$product['date_of_reception']?></td>
+            <td><?=$product['invoice_date']?></td>
+            <td><?=$subtotal?></td>
+            <td><?=$vat_amount?></td>
+            <td><?=$total_amount?></td>
             <td>
-                <?=$invoice['ispaid']?"<label class='status success'>Paid</label>":"<label class='status danger'>Not Paid</label>"?>
+                <?=$product['ispaid']?$product['paid_date']:"-"?>
             </td>
+            <td>
+                <?=$product['ispaid']?$product['paid_method']:"-"?>
+            </td>
+            <td>
+                <?=$product['ispaid']?$product['paid_observation']:"-"?>
+            </td>
+            <td><?=$product['ispaid']?"<label class='status success'>Paid</label>":"<label class='status danger'>Not Paid</label>"?></td>
             <td class="form-inline flex justify-around">
-                <button class='btn btn-danger py-0 px-2 m-auto' onclick="togglePayment('<?=$invoice['id']?>', this)"><?=$invoice['ispaid']?"<i class='bi bi-dash'></i>":"<i class='bi bi-check-all'></i>"?></button>
+                <button class='btn btn-danger py-0 px-2 m-auto' onclick="
+                SetPayment('<?=$product['id']?>', this)"><?=$product['ispaid']?"<i class='bi bi-dash'></i>":"<i class='bi bi-check-all'></i>"?></button>
             </td>
         </tr>
         <?php endif;?>

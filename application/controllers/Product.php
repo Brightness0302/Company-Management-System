@@ -205,4 +205,78 @@ class Product extends CI_Controller
         }
         // echo json_encode($arr);
     }
+    //View payment page of paid/unpaid function
+    public function paymentmanager() {
+        $this->check_usersession();
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($companyname, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['suppliers'] = $this->home->alldata('supplier');
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['categories'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
+
+        foreach ($data['products'] as $index => $product) {
+            $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'product_lines', $product['id']);
+            $data['products'][$index]['attached'] = false;
+
+            $data['products'][$index]['subtotal'] = $result['subtotal'];
+            $data['products'][$index]['vat_amount'] = $result['vat_amount'];
+            $data['products'][$index]['total_amount'] = $result['total_amount'];
+            $invoicename = $product['id'].".pdf";
+            $path = "assets/company/attachment/".$companyname."/supplier/";
+            if(file_exists($path.$invoicename)) {
+                $data['products'][$index]['attached'] = true;
+            }
+        }
+
+        $session['menu']="Suppliers";
+        $session['submenu']="ppm";
+        $session['second-submenu']="";
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/supplier/payment/head');
+        $this->load->view('dashboard/supplier/payment/shead');
+        $this->load->view('dashboard/supplier/payment/body');
+        $this->load->view('dashboard/supplier/payment/foot');
+        $this->load->view('dashboard/supplier/payment/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
+    //Toggle payment of invoice function
+    public function toggleinvoicepayment($invoice_id) {
+        $company_name = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+
+        $res = $this->supplier->toggleinvoicepayment($data['company']['id'], $invoice_id);
+        echo $res;
+    }
+
+    public function savepayment($product_id) {
+        $companyid = $this->session->userdata('companyid');
+        $paid_date = $this->input->post('paid_date');
+        $paid_method = $this->input->post('paid_method');
+        $observation = $this->input->post('observation');
+
+        echo $this->supplier->savepayment($companyid, $product_id, $paid_date, $paid_method, $observation);
+    }
+
+    public function getpaymentdata($product_id) {
+        $companyid = $this->session->userdata('companyid');
+        $data = $this->supplier->getpaymentdata($companyid, $product_id);
+
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
 };

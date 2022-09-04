@@ -306,6 +306,11 @@
                         </a>
                     </li>
 
+                    <li>
+                        <a href="<?=base_url('product/paymentmanager')?>">
+                            <i class="bi <?=$menu['submenu']=="ppm"?"bi-circle-fill":"bi-circle"?>"></i><span>Payment Management</span>
+                        </a>
+                    </li>
                 </ul>
             </li><!-- End Components Nav -->
 
@@ -334,13 +339,13 @@
                 </a>
                 <ul id="charts-nav" class="nav-content collapse <?=$menu['menu']=="Stocks"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a data-bs-target="#stocks-nav" data-bs-toggle="collapse" href="<?=base_url('stock/index')?>">
+                        <a href="<?=base_url('stock/index')?>">
                             <i class="bi <?=($menu['submenu']=="stm"||$menu['submenu']=="pmbs")?"bi-caret-right-square-fill":"bi-caret-right-square"?>"></i><span>Stock Management</span>
                         </a>
-                        <ul id="stocks-nav" class="nav-content collapse <?=$menu['menu']=="Stocks"?"show":""?>" data-bs-parent="#charts-nav">
+                        <ul id="stocks-nav" class="nav-content collapse show" data-bs-parent="#charts-nav">
                             <li>
                                 <?php foreach($stocks as $stock):?>
-                                <a href="<?=base_url("stock/showproductbystock?stock_id=").$stock['id']?>">
+                                <a href="<?=base_url("stock/showproductbystock?stock_id=").$stock['id']?>" style="padding-left: 56px;">
                                     <i class="bi <?=($menu['second-submenu']==$stock['id'])?"bi-circle-fill":"bi-circle"?>"></i><span><?=$stock['name']?></span>
                                 </a>
                                 <?php endforeach;?>

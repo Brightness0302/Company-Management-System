@@ -247,4 +247,56 @@ class Supplier_model extends CI_Model {
         
         return $data[$item];
     }
+    //set paid or unpaid section using $companyid, $invoice_id
+    public function toggleinvoicepayment($companyid, $product_id) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $query =    "SELECT *
+                    FROM `product`
+                    WHERE `id`='$product_id'";
+
+        $res = $this->db->query($query)->result_array();
+
+        if (count($res)==0) {
+            return "failed";
+        }
+        $ispaid = !$res[0]['ispaid'];
+        $data = array(
+            'ispaid'=>$ispaid
+        );
+
+        $this->db->where('id', $product_id);
+        $res=$this->db->update('product', $data);
+        return $res;
+    }
+
+    public function savepayment($companyid, $product_id, $paid_date, $paid_method, $observation) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+        $data = array(
+            'paid_date'=>$paid_date, 
+            'paid_method'=>$paid_method, 
+            'paid_observation'=>$observation
+        );
+
+        $this->db->where('id', $product_id);
+        $res=$this->db->update('product', $data);
+        return $res;
+    }
+
+    public function getpaymentdata($companyid, $product_id) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $query =    "SELECT *
+                    FROM `product`
+                    WHERE `id`='$product_id' AND `isremoved`=false";
+
+        $res = $this->db->query($query)->result_array();
+        if (count($res) == 0) {
+            return -1;
+        }
+        return $res[0];
+    }
 }
