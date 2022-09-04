@@ -128,7 +128,6 @@ $(function() {
                 var condition2 = (data[2].toLowerCase().includes(searchvalue.toLowerCase()));
                 var condition3 = (data[9].toLowerCase().includes(searchvalue.toLowerCase()));
                 var condition4 = (data[10].toLowerCase().includes(searchvalue.toLowerCase()));
-                console.log(searchvalue, client_name, reference);
                 // console.log(client_name, reference, searchvalue, startdate, enddate, date);
              
                 if (
