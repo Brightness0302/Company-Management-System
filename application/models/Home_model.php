@@ -443,7 +443,7 @@ class Home_model extends CI_Model {
 
                 $query =    "SELECT *
                             FROM `product_lines`
-                            WHERE `code_ean` = '$code_ean' AND `production_description` = '$productname'";
+                            WHERE `code_ean` = '$code_ean'";
 
                 $data = $this->db->query($query)->result_array();
 
@@ -537,7 +537,7 @@ class Home_model extends CI_Model {
 
                 $query =    "SELECT *
                             FROM `product_lines`
-                            WHERE `code_ean` = '$code_ean' AND `production_description` = '$productname'";
+                            WHERE `code_ean` = '$code_ean'";
 
                 $data = $this->db->query($query)->result_array();
 
