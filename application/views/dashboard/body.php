@@ -301,12 +301,6 @@
                     </li>
 
                     <li>
-                        <a href="<?=base_url('stock/index')?>">
-                            <i class="bi <?=($menu['submenu']=="stm"||$menu['submenu']=="pmbs")?"bi-circle-fill":"bi-circle"?>"></i><span>Stock Management</span>
-                        </a>
-                    </li>
-
-                    <li>
                         <a href="<?=base_url('product/index')?>">
                             <i class="bi <?=$menu['submenu']=="pdm"?"bi-circle-fill":"bi-circle"?>"></i><span>Supplier Invoices</span>
                         </a>
@@ -335,19 +329,23 @@
             </li><!-- End Tables Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link <?=$menu['menu']=="Stocks"?"":"collapsed"?>" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
                     <i class="bx bxs-diamond"></i><span>Stocks</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <ul id="charts-nav" class="nav-content collapse <?=$menu['menu']=="Stocks"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="#">
-                            <i class="bi bi-circle"></i><span>H.slot</span>
+                        <a data-bs-target="#stocks-nav" data-bs-toggle="collapse" href="<?=base_url('stock/index')?>">
+                            <i class="bi <?=($menu['submenu']=="stm"||$menu['submenu']=="pmbs")?"bi-caret-right-square-fill":"bi-caret-right-square"?>"></i><span>Stock Management</span>
                         </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="bi bi-circle"></i><span>Sword</span>
-                        </a>
+                        <ul id="stocks-nav" class="nav-content collapse <?=$menu['menu']=="Stocks"?"show":""?>" data-bs-parent="#charts-nav">
+                            <li>
+                                <?php foreach($stocks as $stock):?>
+                                <a href="<?=base_url("stock/showproductbystock?stock_id=").$stock['id']?>">
+                                    <i class="bi <?=($menu['second-submenu']==$stock['id'])?"bi-circle-fill":"bi-circle"?>"></i><span><?=$stock['name']?></span>
+                                </a>
+                                <?php endforeach;?>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li><!-- End Charts Nav -->

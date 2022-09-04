@@ -19,8 +19,9 @@ class Stock extends CI_Controller
         $data['user'] = $this->session->userdata('user');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
 
-        $session['menu']="Suppliers";
+        $session['menu']="Stocks";
         $session['submenu']="stm";
+        $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
@@ -61,8 +62,9 @@ class Stock extends CI_Controller
             }
         }
 
-        $session['menu']="Suppliers";
+        $session['menu']="Stocks";
         $session['submenu']="pmbs";
+        $session['second-submenu']=$stock_id;
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');

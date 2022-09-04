@@ -69,6 +69,7 @@ class Home extends CI_Controller
 
         $session['menu']="Dashboard";
         $session['submenu']="";
+        $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
@@ -77,30 +78,6 @@ class Home extends CI_Controller
         $this->load->view('dashboard/home/head');
         $this->load->view('dashboard/home/body');
         $this->load->view('dashboard/home/foot');
-        $this->load->view('dashboard/foot');
-        $this->load->view('footer');
-    }
-    //View client page of add/edit/delete function
-    public function clientmanager() {
-        $company_name = $this->session->userdata('companyname');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['user'] = $this->session->userdata('user');
-        $data['clients'] = $this->home->alldata('client');
-
-        $session['menu']="Clients";
-        $session['submenu']="cm";
-        $this->session->set_flashdata('menu', $session);
-
-        $this->load->view('header');
-        $this->load->view('dashboard/head');
-        $this->load->view('dashboard/body', $data);
-        $this->load->view('dashboard/client/client/head');
-        $this->load->view('dashboard/client/client/body');
-        $this->load->view('dashboard/client/client/foot');
-        $this->load->view('dashboard/client/client/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }

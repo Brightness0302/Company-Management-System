@@ -10,6 +10,7 @@ class Supplier extends CI_Controller
     //View supplier page of add/edit/delete function
     public function index() {
         $this->check_usersession();
+        $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
@@ -17,9 +18,11 @@ class Supplier extends CI_Controller
         $data['company'] = $company['data'];
         $data['user'] = $this->session->userdata('user');
         $data['suppliers'] = $this->home->alldata('supplier');
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
 
         $session['menu']="Suppliers";
         $session['submenu']="sm";
+        $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');

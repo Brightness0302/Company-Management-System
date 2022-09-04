@@ -38,6 +38,7 @@ class Product extends CI_Controller
 
         $session['menu']="Suppliers";
         $session['submenu']="pdm";
+        $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
@@ -67,6 +68,7 @@ class Product extends CI_Controller
 
         $session['menu']="Suppliers";
         $session['submenu']="pdm";
+        $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
@@ -105,6 +107,7 @@ class Product extends CI_Controller
 
         $session['menu']="Suppliers";
         $session['submenu']="pdm";
+        $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');

@@ -17,10 +17,12 @@ class Expense extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['user'] = $this->session->userdata('user');
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Expenses";
         $session['submenu']="em";
+        $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
@@ -89,6 +91,7 @@ class Expense extends CI_Controller
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'expense_product');
 
@@ -103,6 +106,7 @@ class Expense extends CI_Controller
 
         $session['menu']="Expenses";
         $session['submenu']="empr";
+        $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
@@ -129,6 +133,7 @@ class Expense extends CI_Controller
 
         $session['menu']="Expenses";
         $session['submenu']="eppr";
+        $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
@@ -163,6 +168,7 @@ class Expense extends CI_Controller
 
         $session['menu']="Suppliers";
         $session['submenu']="pdm";
+        $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
@@ -280,6 +286,7 @@ class Expense extends CI_Controller
 
         $session['menu']="Expenses";
         $session['submenu']="pmbyid";
+        $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
