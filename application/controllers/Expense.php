@@ -269,6 +269,7 @@ class Expense extends CI_Controller
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $expense_id = $_GET['expense_id'];
