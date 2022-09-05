@@ -207,17 +207,44 @@ class Supplier_model extends CI_Model {
                     FROM `$table`
                     WHERE `stockid`='$stock_id' AND `isremoved`=false";
 
-        $lines = $this->db->query($query)->result_array();
+        $tlines = $this->db->query($query)->result_array();
+        $lines = [];
+        $count = 0;
 
-        foreach ($lines as $index => $line) {
-            $lines[$index]['acquisition_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * $line['vat'] / 100.0, 2);
-            $lines[$index]['acquisition_unit_price_with_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['vat'] + 100.0) / 100.0, 2);
-            $lines[$index]['amount_without_vat'] = $this->toFixed($line['acquisition_unit_price'] * $line['qty'], 2);
-            $lines[$index]['amount_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * $line['qty'] * $line['vat'] / 100.0, 2);
-            $lines[$index]['total_amount'] = $this->toFixed($line['acquisition_unit_price'] * $line['qty'] * ($line['vat'] + 100.0) / 100.0, 2);
-            $lines[$index]['selling_unit_price_without_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup']+100.0) / 100.0, 2);
-            $lines[$index]['selling_unit_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * $line['vat'] / 100.0 / 100.0, 2);
-            $lines[$index]['selling_unit_price_with_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * ($line['vat'] + 100.0) / 100.0 / 100.0, 2);
+        foreach ($tlines as $index => $line) {
+            $lineid = $line['id'];
+            $query =    "SELECT *
+                        FROM `product_lines`
+                        WHERE `line_id`='$lineid' AND `isremoved`=false";
+
+            $qlines = $this->db->query($query)->result_array();
+
+            foreach ($qlines as $key => $qline) {
+                $productid = $qline['productid'];
+                $query =    "SELECT *
+                            FROM `product`
+                            WHERE `id`='$productid' AND `isremoved`=false";
+
+                $product = $this->db->query($query)->result_array();
+                $product = $product[0];
+
+                $qline['code_ean'] = $line['code_ean'];
+                $qline['production_description'] = $line['production_description'];
+                $qline['qty'] = $line['qty'];
+                $qline['supplierid'] = $product['supplierid'];
+                $qline['invoice_date'] = $product['invoice_date'];
+                $qline['invoice_number'] = $product['invoice_number'];
+                $qline['acquisition_unit_price'] = $line['acquisition_unit_price'];
+                $qline['acquisition_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * $line['vat'] / 100.0, 2);
+                $qline['acquisition_unit_price_with_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['vat'] + 100.0) / 100.0, 2);
+                $qline['amount_without_vat'] = $this->toFixed($line['acquisition_unit_price'] * $qline['quantity_received'], 2);
+                $qline['amount_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * $qline['quantity_received'] * $line['vat'] / 100.0, 2);
+                $qline['total_amount'] = $this->toFixed($line['acquisition_unit_price'] * $qline['quantity_received'] * ($line['vat'] + 100.0) / 100.0, 2);
+                $qline['selling_unit_price_without_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup']+100.0) / 100.0, 2);
+                $qline['selling_unit_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * $line['vat'] / 100.0 / 100.0, 2);
+                $qline['selling_unit_price_with_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * ($line['vat'] + 100.0) / 100.0 / 100.0, 2);
+                array_push($lines, $qline);
+            }
         }
         return $lines;
     }

@@ -5,11 +5,16 @@
             <th>No</th>
             <th>Code EAN</th>
             <th>Description</th>
-            <th>Qty on stock</th>
+            <th>Qty</th>
+            <th>Qty received</th>
+            <th>Qty on document</th>
             <th>Aquisition price Ex VAT</th>
             <th id="upaquisition">Aquisition amount Ex VAT</th>
             <th id='upeight'>Selling price Ex VAT</th>
             <th id="upselling">Selling amount Ex VAT</th>
+            <th>Supplier Name</th>
+            <th>Invoice Number</th>
+            <th>Invoice Date</th>
         </tr>
     </thead>
     <tbody>
@@ -20,17 +25,31 @@
         <tr>
             <?php 
                 $total_aquisition += floatval($line['amount_without_vat']);
-                $total_selling += floatval($line['selling_unit_price_with_vat'])*floatval($line['qty']);
+                $total_selling += floatval($line['selling_unit_price_with_vat'])*floatval($line['quantity_on_document']);
             ?>
             <td><?=($index)?></td>
             <!-- <td><?=$result['name']?></td> -->
             <td><?=$line['code_ean']?></td>
             <td><?=$line['production_description']?></td>
             <td><?=$line['qty']?></td>
+            <td><?=$line['quantity_received']?></td>
+            <td><?=$line['quantity_on_document']?></td>
             <td><?=$line['acquisition_unit_price']?></td>
             <td><?=$line['amount_without_vat']?></td>
             <td><?=$line['selling_unit_price_without_vat']?></td>
-            <td><?=floatval($line['selling_unit_price_with_vat'])*floatval($line['qty'])?></td>
+            <td><?=floatval($line['selling_unit_price_with_vat'])*floatval($line['quantity_on_document'])?></td>
+            <td>
+            <?php
+                $result;
+                foreach ($suppliers as $supplier) {
+                    if ($supplier['id']==$line['supplierid'])
+                        $result = $supplier;
+                }
+                echo str_replace("_"," ", $result['name']);
+            ?>
+            </td>
+            <td><?=$line['invoice_number']?></td>
+            <td><?=$line['invoice_date']?></td>
         </tr>
         <?php endif;?>
         <?php endforeach;?>
