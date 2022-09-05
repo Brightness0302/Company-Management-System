@@ -72,7 +72,7 @@ class Stock extends CI_Controller
     public function getallproductsbystockid() {
         $stock_id = $_GET['stock_id'];
         $companyid = $this->session->userdata('companyid');
-        $products = $this->supplier->alldatabystockidfromdatabase($companyid, 'product_lines', $stock_id);
+        $products = $this->supplier->alldatabystockidfromdatabase($companyid, 'product_totalline', $stock_id);
         
         //add the header here
         header('Content-Type: application/json');
@@ -83,7 +83,7 @@ class Stock extends CI_Controller
         $lineid = $_GET['lineid'];
         $companyid = $this->session->userdata('companyid');
 
-        $value = $this->supplier->databylineidfromdatabase($companyid, 'product_lines', $lineid, 'quantity_received');
+        $value = $this->supplier->databylineidfromdatabase($companyid, 'product_totalline', $lineid, 'qty');
 
         echo $value;
     }
@@ -92,9 +92,9 @@ class Stock extends CI_Controller
         $lineid = $_GET['lineid'];
         $companyid = $this->session->userdata('companyid');
 
-        $data['price'] = $this->supplier->databylineidfromdatabase($companyid, 'product_lines', $lineid, 'selling_unit_price_with_vat');
-        $data['code_ean'] = $this->supplier->databylineidfromdatabase($companyid, 'product_lines', $lineid, 'code_ean');
-        $data['production_description'] = $this->supplier->databylineidfromdatabase($companyid, 'product_lines', $lineid, 'production_description');
+        $data['price'] = $this->supplier->databylineidfromdatabase($companyid, 'product_totalline', $lineid, 'selling_unit_price_with_vat');
+        $data['code_ean'] = $this->supplier->databylineidfromdatabase($companyid, 'product_totalline', $lineid, 'code_ean');
+        $data['production_description'] = $this->supplier->databylineidfromdatabase($companyid, 'product_totalline', $lineid, 'production_description');
 
         header('Content-Type: application/json');
         echo json_encode($data);

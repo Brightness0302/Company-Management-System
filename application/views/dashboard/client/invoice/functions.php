@@ -129,10 +129,11 @@ function refreshproductbystockid(stockid) {
                 if (line['stockid']==stockid) {
                     string += "<option value="+line['id']+">"+line['code_ean']+" - "+line['production_description']+"</option>";
                     if (isfirst == true) {
-                        const max = line['quantity_received'];
+                        console.log(line);
+                        const max = line['qty'];
                         const amount_str = max + " products on stock";
                         $("#amount_hint").text(amount_str);
-                        isfirst != isfirst;
+                        isfirst = false;
                     }
                 }
             });

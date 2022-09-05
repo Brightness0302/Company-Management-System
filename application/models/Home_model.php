@@ -366,7 +366,7 @@ class Home_model extends CI_Model {
                 $qty = $line['qty'];
 
                 $query =    "SELECT *
-                            FROM `product_lines`
+                            FROM `product_totalline`
                             WHERE `id` = '$id'";
 
                 $data = $this->db->query($query)->result_array();
@@ -376,14 +376,14 @@ class Home_model extends CI_Model {
 
                 $data = $data[0];
 
-                $data['quantity_received'] += intval($line['qty']);
+                $data['qty'] += intval($line['qty']);
 
                 $data_sql = array(
-                    'quantity_received'=>$data['quantity_received']
+                    'qty'=>$data['qty']
                 );
 
                 $this->db->where('id', $id);
-                $this->db->update('product_lines', $data_sql);
+                $this->db->update('product_totalline', $data_sql);
             } 
         }
     }
@@ -402,7 +402,7 @@ class Home_model extends CI_Model {
                 $qty = $line['qty'];
 
                 $query =    "SELECT *
-                            FROM `product_lines`
+                            FROM `product_totalline`
                             WHERE `id` = '$id'";
 
                 $data = $this->db->query($query)->result_array();
@@ -412,14 +412,14 @@ class Home_model extends CI_Model {
 
                 $data = $data[0];
 
-                $data['quantity_received'] -= intval($line['qty']);
+                $data['qty'] -= intval($line['qty']);
 
                 $data_sql = array(
-                    'quantity_received'=>$data['quantity_received']
+                    'qty'=>$data['qty']
                 );
 
                 $this->db->where('id', $id);
-                $this->db->update('product_lines', $data_sql);
+                $this->db->update('product_totalline', $data_sql);
             } 
         }
     }
@@ -442,7 +442,7 @@ class Home_model extends CI_Model {
                 $qty = $line['qty'];
 
                 $query =    "SELECT *
-                            FROM `product_lines`
+                            FROM `product_totalline`
                             WHERE `code_ean` = '$code_ean'";
 
                 $data = $this->db->query($query)->result_array();
@@ -536,7 +536,7 @@ class Home_model extends CI_Model {
                 $qty = $line['qty'];
 
                 $query =    "SELECT *
-                            FROM `product_lines`
+                            FROM `product_totalline`
                             WHERE `code_ean` = '$code_ean'";
 
                 $data = $this->db->query($query)->result_array();

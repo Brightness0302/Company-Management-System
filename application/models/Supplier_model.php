@@ -413,9 +413,9 @@ class Supplier_model extends CI_Model {
 
         $data['acquisition_vat_value'] = $this->toFixed($data['acquisition_unit_price'] * $data['vat'] / 100.0, 2);
         $data['acquisition_unit_price_with_vat'] = $this->toFixed($data['acquisition_unit_price'] * ($data['vat'] + 100.0) / 100.0, 2);
-        $data['amount_without_vat'] = $this->toFixed($data['acquisition_unit_price'] * $data['quantity_on_document'], 2);
-        $data['amount_vat_value'] = $this->toFixed($data['acquisition_unit_price'] * $data['quantity_on_document'] * $data['vat'] / 100.0, 2);
-        $data['total_amount'] = $this->toFixed($data['acquisition_unit_price'] * $data['quantity_on_document'] * ($data['vat'] + 100.0) / 100.0, 2);
+        $data['amount_without_vat'] = $this->toFixed($data['acquisition_unit_price'] * $data['qty'], 2);
+        $data['amount_vat_value'] = $this->toFixed($data['acquisition_unit_price'] * $data['qty'] * $data['vat'] / 100.0, 2);
+        $data['total_amount'] = $this->toFixed($data['acquisition_unit_price'] * $data['qty'] * ($data['vat'] + 100.0) / 100.0, 2);
         $data['selling_unit_price_without_vat'] = $this->toFixed($data['acquisition_unit_price'] * ($data['makeup']+100.0) / 100.0, 2);
         $data['selling_unit_vat_value'] = $this->toFixed($data['acquisition_unit_price'] * ($data['makeup'] + 100.0) * $data['vat'] / 100.0 / 100.0, 2);
         $data['selling_unit_price_with_vat'] = $this->toFixed($data['acquisition_unit_price'] * ($data['makeup'] + 100.0) * ($data['vat'] + 100.0) / 100.0 / 100.0, 2);
