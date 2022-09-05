@@ -287,7 +287,7 @@ class Expense extends CI_Controller
 
         $session['menu']="Expenses";
         $session['submenu']="pmbyid";
-        $session['second-submenu']=$expense_id;
+        $session['second-submenu']="expense".$expense_id;
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');

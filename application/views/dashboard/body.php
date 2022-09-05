@@ -327,7 +327,7 @@
                             <li>
                                 <?php foreach($expenses as $expense):?>
                                 <a href="<?=base_url("expense/showproductbyexpenseid?expense_id=").$expense['id']?>" style="padding-left: 56px;">
-                                    <i class="bi <?=($menu['second-submenu']==$expense['id'])?"bi-circle-fill":"bi-circle"?>"></i><span><?=$expense['name']?></span>
+                                    <i class="bi <?=($menu['second-submenu']=='expense'.$expense['id'])?"bi-circle-fill":"bi-circle"?>"></i><span><?=$expense['name']?></span>
                                 </a>
                                 <?php endforeach;?>
                             </li>
@@ -355,7 +355,7 @@
                             <li>
                                 <?php foreach($stocks as $stock):?>
                                 <a href="<?=base_url("stock/showproductbystock?stock_id=").$stock['id']?>" style="padding-left: 56px;">
-                                    <i class="bi <?=($menu['second-submenu']==$stock['id'])?"bi-circle-fill":"bi-circle"?>"></i><span><?=$stock['name']?></span>
+                                    <i class="bi <?=($menu['second-submenu']=='stock'.$stock['id'])?"bi-circle-fill":"bi-circle"?>"></i><span><?=$stock['name']?></span>
                                 </a>
                                 <?php endforeach;?>
                             </li>

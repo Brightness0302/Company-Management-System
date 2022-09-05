@@ -66,7 +66,7 @@ class Stock extends CI_Controller
 
         $session['menu']="Stocks";
         $session['submenu']="pmbs";
-        $session['second-submenu']=$stock_id;
+        $session['second-submenu']="stock".$stock_id;
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
