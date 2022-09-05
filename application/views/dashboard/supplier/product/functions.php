@@ -340,9 +340,6 @@ function AddProduct() {
         method: "POST",
         data: form_data, 
         success: function(res) {
-            console.log(res);
-            return;
-
             const id = res;
             if (id <= 0) {
                 swal("Add Product", "Failed", "error");

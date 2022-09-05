@@ -285,7 +285,7 @@ class Supplier_model extends CI_Model {
 
         $this->db->insert('product', $data);
         $product_id = $this->db->insert_id();
-        return $this->createlines($companyid, $product_id, $lines);
+        $this->createlines($companyid, $product_id, $lines);
         return $product_id;
     }
 
@@ -303,7 +303,7 @@ class Supplier_model extends CI_Model {
 
         $this->db->where('id', $id);
         $res=$this->db->update('product', $data);
-        return $this->savelines($companyid, $id, $lines);
+        $this->savelines($companyid, $id, $lines);
         return $res;
     }
     //get date_of_reception, product_number, received_with_document for invoice
