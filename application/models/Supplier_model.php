@@ -199,6 +199,29 @@ class Supplier_model extends CI_Model {
         }
     }
 
+    public function alllinesbystockidfromdatabase($companyid, $table, $stock_id) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $query =    "SELECT *
+                    FROM `$table`
+                    WHERE `stockid`='$stock_id' AND `isremoved`=false";
+
+        $lines = $this->db->query($query)->result_array();
+
+        foreach ($lines as $index => $line) {
+            $lines[$index]['acquisition_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * $line['vat'] / 100.0, 2);
+            $lines[$index]['acquisition_unit_price_with_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['vat'] + 100.0) / 100.0, 2);
+            $lines[$index]['amount_without_vat'] = $this->toFixed($line['acquisition_unit_price'] * $line['qty'], 2);
+            $lines[$index]['amount_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * $line['qty'] * $line['vat'] / 100.0, 2);
+            $lines[$index]['total_amount'] = $this->toFixed($line['acquisition_unit_price'] * $line['qty'] * ($line['vat'] + 100.0) / 100.0, 2);
+            $lines[$index]['selling_unit_price_without_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup']+100.0) / 100.0, 2);
+            $lines[$index]['selling_unit_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * $line['vat'] / 100.0 / 100.0, 2);
+            $lines[$index]['selling_unit_price_with_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * ($line['vat'] + 100.0) / 100.0 / 100.0, 2);
+        }
+        return $lines;
+    }
+
     public function alllinesbyproductidfromdatabase($companyid, $table, $product_id) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);

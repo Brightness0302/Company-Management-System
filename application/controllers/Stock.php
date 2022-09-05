@@ -50,19 +50,8 @@ class Stock extends CI_Controller
 
         $stock_id = $_GET['stock_id'];
         $data['stock'] = $this->home->databyidfromdatabase($companyid, 'stock', $stock_id)['data'];
-        $data['products'] = $this->supplier->allproductsbystockidfromdatabase($companyid, 'product', $stock_id);
+        $data['products'] = $this->supplier->alllinesbystockidfromdatabase($companyid, 'product_totalline', $stock_id);
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
-
-        foreach ($data['products'] as $index => $product) {
-            $data['products'][$index]['lines'] = $this->supplier->alllinesbyproductidfromdatabase($companyid, 'product_lines', $product['id']);
-            $data['products'][$index]['attached'] = false;
-
-            $invoicename = $product['id'].".pdf";
-            $path = "assets/company/attachment/".$companyname."/supplier/";
-            if(file_exists($path.$invoicename)) {
-                $data['products'][$index]['attached'] = true;
-            }
-        }
 
         $session['menu']="Stocks";
         $session['submenu']="pmbs";
