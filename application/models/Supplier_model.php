@@ -226,24 +226,26 @@ class Supplier_model extends CI_Model {
                             WHERE `id`='$productid' AND `isremoved`=false";
 
                 $product = $this->db->query($query)->result_array();
-                $product = $product[0];
+                if (count($product)!=0) {
+                    $product = $product[0];
 
-                $qline['code_ean'] = $line['code_ean'];
-                $qline['production_description'] = $line['production_description'];
-                $qline['qty'] = $line['qty'];
-                $qline['supplierid'] = $product['supplierid'];
-                $qline['invoice_date'] = $product['invoice_date'];
-                $qline['invoice_number'] = $product['invoice_number'];
-                $qline['acquisition_unit_price'] = $line['acquisition_unit_price'];
-                $qline['acquisition_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * $line['vat'] / 100.0, 2);
-                $qline['acquisition_unit_price_with_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['vat'] + 100.0) / 100.0, 2);
-                $qline['amount_without_vat'] = $this->toFixed($line['acquisition_unit_price'] * $qline['quantity_received'], 2);
-                $qline['amount_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * $qline['quantity_received'] * $line['vat'] / 100.0, 2);
-                $qline['total_amount'] = $this->toFixed($line['acquisition_unit_price'] * $qline['quantity_received'] * ($line['vat'] + 100.0) / 100.0, 2);
-                $qline['selling_unit_price_without_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup']+100.0) / 100.0, 2);
-                $qline['selling_unit_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * $line['vat'] / 100.0 / 100.0, 2);
-                $qline['selling_unit_price_with_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * ($line['vat'] + 100.0) / 100.0 / 100.0, 2);
-                array_push($lines, $qline);
+                    $qline['code_ean'] = $line['code_ean'];
+                    $qline['production_description'] = $line['production_description'];
+                    $qline['qty'] = $line['qty'];
+                    $qline['supplierid'] = $product['supplierid'];
+                    $qline['invoice_date'] = $product['invoice_date'];
+                    $qline['invoice_number'] = $product['invoice_number'];
+                    $qline['acquisition_unit_price'] = $line['acquisition_unit_price'];
+                    $qline['acquisition_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * $line['vat'] / 100.0, 2);
+                    $qline['acquisition_unit_price_with_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['vat'] + 100.0) / 100.0, 2);
+                    $qline['amount_without_vat'] = $this->toFixed($line['acquisition_unit_price'] * $qline['quantity_received'], 2);
+                    $qline['amount_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * $qline['quantity_received'] * $line['vat'] / 100.0, 2);
+                    $qline['total_amount'] = $this->toFixed($line['acquisition_unit_price'] * $qline['quantity_received'] * ($line['vat'] + 100.0) / 100.0, 2);
+                    $qline['selling_unit_price_without_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup']+100.0) / 100.0, 2);
+                    $qline['selling_unit_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * $line['vat'] / 100.0 / 100.0, 2);
+                    $qline['selling_unit_price_with_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * ($line['vat'] + 100.0) / 100.0 / 100.0, 2);
+                    array_push($lines, $qline);
+                }
             }
         }
         return $lines;
