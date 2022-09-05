@@ -283,4 +283,12 @@ class Product extends CI_Controller
         header('Content-Type: application/json');
         echo json_encode($data);
     }
+
+    public function linebycodeean($codeean) {
+        $companyid = $this->session->userdata('companyid');
+        $data = $this->supplier->linebycodeean($companyid, $codeean);
+
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
 };

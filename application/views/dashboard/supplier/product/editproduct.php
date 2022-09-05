@@ -310,6 +310,7 @@
                                         <div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title="Delete"></i></div>
                                     </td>
                                     <td hidden><?=$line['id']?></td>
+                                    <td hidden><?=$line['lineid']?></td>
                                 </tr>
                             <?php endforeach;?>
                             </tbody>

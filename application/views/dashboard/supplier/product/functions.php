@@ -16,6 +16,50 @@ $(document).ready(function() {
             file = file.substring(0,5) + "... ." + file.split(".").pop() + " File";;
         $(this).prev('label').text(file);
     });
+
+    $('#code_ean').change(function() {
+        const code_ean = this.value;
+        $.ajax({
+            url: "<?=base_url("product/linebycodeean/")?>" + code_ean,
+            method: "POST",
+            dataType: 'json',
+            success: function(res) {
+                const line=res;
+                console.log(res);
+                if (res == -1) {
+                    return;
+                }
+
+                const production_description = $("#production_description");
+                const stockid = $("#stockid");
+                const expenseid = $("#expenseid");
+                const projectid = $("#projectid");
+                const code_ean = $("#code_ean");
+                const unit = $("#unit");
+                const acquisition_unit_price = $("#acquisition_unit_price");
+                const vat_percent = $("#vat_percent");
+                const quantity_on_document = $("#quantity_on_document");
+                const quantity_received = $("#quantity_received");
+                const mark_up_percent = $("#mark_up_percent");
+
+                production_description.val(line['production_description']);
+                stockid.val(line['stockid']);
+                stockid.trigger('change');
+                expenseid.val(line['expenseid']);
+                expenseid.trigger('change');
+                projectid.val(line['projectid']);
+                projectid.trigger('change');
+                unit.val(line['units']);
+                unit.trigger('change');
+                acquisition_unit_price.val(line['acquisition_unit_price']);
+                vat_percent.val(line['vat']);
+                mark_up_percent.val(line['makeup']);
+            },
+            error: function(jqXHR, exception) {
+                console.log(jqXHR, exception);
+            },
+        });
+    });
 });
 
 function refreshSellingMarkforline() {
@@ -79,34 +123,52 @@ function SaveItem() {
     const quantity_received = $("#quantity_received").val();
     const mark_up_percent = $("#mark_up_percent").val();
 
-    $("#table-body").append(
-        "<tr>"+
-        "<td>"+code_ean+"</td>"+
-        "<td>"+stockname+"</td>"+
-        "<td>"+expensename+"</td>"+
-        "<td>"+projectname+"</td>"+
-        "<td>"+production_description+"</td>"+
-        "<td>"+unit+"</td>"+
-        "<td>"+quantity_on_document+"</td>"+
-        "<td>"+quantity_received+"</td>"+
-        "<td>"+acquisition_unit_price+"</td>"+
-        "<td>"+(acquisition_unit_price*vat_percent/100.0)+"</td>"+
-        "<td>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
-        "<td>"+(acquisition_unit_price*quantity_on_document).toFixed(2)+"</td>"+
-        "<td>"+((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2)+"</td>"+
-        "<td>"+((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
-        "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2)+"</td>"+
-        "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</td>"+
-        "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</td>"+
-        "<td hidden>"+stockid+"</td>"+
-        "<td hidden>"+expenseid+"</td>"+
-        "<td hidden>"+projectid+"</td>"+
-        "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
-        "</tr>"
-    );
+    $.ajax({
+        url: "<?=base_url("product/linebycodeean/")?>" + code_ean,
+        method: "POST",
+        dataType: 'json',
+        success: function(res) {
+            console.log(res);
+            let lineid = 0;
+            if (res != -1) {
+                lineid=res['id'];
+            }
 
-    ClearItem();
-    refreshTotalMark();
+            $("#table-body").append(
+                "<tr>"+
+                "<td>"+code_ean+"</td>"+
+                "<td>"+stockname+"</td>"+
+                "<td>"+expensename+"</td>"+
+                "<td>"+projectname+"</td>"+
+                "<td>"+production_description+"</td>"+
+                "<td>"+unit+"</td>"+
+                "<td>"+quantity_on_document+"</td>"+
+                "<td>"+quantity_received+"</td>"+
+                "<td>"+acquisition_unit_price+"</td>"+
+                "<td>"+(acquisition_unit_price*vat_percent/100.0)+"</td>"+
+                "<td>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
+                "<td>"+(acquisition_unit_price*quantity_on_document).toFixed(2)+"</td>"+
+                "<td>"+((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2)+"</td>"+
+                "<td>"+((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
+                "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2)+"</td>"+
+                "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</td>"+
+                "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</td>"+
+                "<td hidden>"+stockid+"</td>"+
+                "<td hidden>"+expenseid+"</td>"+
+                "<td hidden>"+projectid+"</td>"+
+                "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
+                "<td hidden>0</td>"+
+                "<td hidden>"+lineid+"</td>"+
+                "</tr>"
+            );
+
+            ClearItem();
+            refreshTotalMark();
+        },
+        error: function(jqXHR, exception) {
+            console.log(jqXHR, exception);
+        },
+    });
 }
 
 function remove_tr(el) {
@@ -117,7 +179,6 @@ function remove_tr(el) {
 function edit_tr(el) {
     const etr = $(el).closest('tr');
     const etd = $(etr).find("td");
-
 
     const production_description = $("#production_description");
     const stockid = $("#stockid");
@@ -173,6 +234,24 @@ function save_tr(el) {
     const quantity_on_document = $("#quantity_on_document").val();
     const quantity_received = $("#quantity_received").val();
     const mark_up_percent = $("#mark_up_percent").val();
+
+    $.ajax({
+        url: "<?=base_url("product/linebycodeean/")?>" + code_ean,
+        method: "POST",
+        dataType: 'json',
+        success: function(res) {
+            console.log(res);
+            let lineid = 0;
+            if (res != -1) {
+                lineid=res['id'];
+            }
+
+            $(etd[22]).text(lineid);
+        },
+        error: function(jqXHR, exception) {
+            console.log(jqXHR, exception);
+        },
+    });
 
     $(etd[0]).text(code_ean);
     $(etd[1]).text(stockname);
@@ -241,7 +320,8 @@ function AddProduct() {
             quantity_received:$(etr[7]).text(),
             acquisition_unit_price:$(etr[8]).text(),
             vat: parseFloat($(etr[9]).text())*100.0/parseFloat($(etr[8]).text()), 
-            makeup: ((parseFloat($(etr[14]).text())*100.0/parseFloat($(etr[8]).text()))-100.0)
+            makeup: ((parseFloat($(etr[14]).text())*100.0/parseFloat($(etr[8]).text()))-100.0),
+            lineid:$(etr[22]).text()
         });
     });
     const str_lines = JSON.stringify(lines);
@@ -260,6 +340,9 @@ function AddProduct() {
         method: "POST",
         data: form_data, 
         success: function(res) {
+            console.log(res);
+            return;
+
             const id = res;
             if (id <= 0) {
                 swal("Add Product", "Failed", "error");
@@ -334,7 +417,8 @@ function EditProduct(product_id) {
             quantity_received:$(etr[7]).text(),
             acquisition_unit_price:$(etr[8]).text(),
             vat: parseFloat($(etr[9]).text())*100.0/parseFloat($(etr[8]).text()), 
-            makeup: ((parseFloat($(etr[14]).text())*100.0/parseFloat($(etr[8]).text()))-100.0)
+            makeup: ((parseFloat($(etr[14]).text())*100.0/parseFloat($(etr[8]).text()))-100.0),
+            lineid:$(etr[22]).text()
         });
     });
     const str_lines = JSON.stringify(lines);
