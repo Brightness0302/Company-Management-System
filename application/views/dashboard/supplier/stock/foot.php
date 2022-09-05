@@ -123,12 +123,12 @@ $(function() {
                 var enddate = new Date($('#enddate').val());
                 enddate.setDate(enddate.getDate() + 1);
                 var searchvalue = $("#searchtag").val();
-                var date = new Date(data[11] || 0); // use data for the age column
+                var date = new Date(data[12] || 0); // use data for the age column
                 var condition1 = (data[1].toLowerCase().includes(searchvalue.toLowerCase()));
                 var condition2 = (data[2].toLowerCase().includes(searchvalue.toLowerCase()));
                 var condition3 = (data[9].toLowerCase().includes(searchvalue.toLowerCase()));
                 var condition4 = (data[10].toLowerCase().includes(searchvalue.toLowerCase()));
-                // console.log(client_name, reference, searchvalue, startdate, enddate, date);
+                console.log(condition1, condition2, condition3, condition4);
              
                 if (
                     (date > startdate && date < enddate) && (condition1 || condition2 || condition3 || condition4)
