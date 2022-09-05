@@ -145,7 +145,7 @@ function SaveItem() {
                 "<td>"+quantity_on_document+"</td>"+
                 "<td>"+quantity_received+"</td>"+
                 "<td>"+acquisition_unit_price+"</td>"+
-                "<td>"+(acquisition_unit_price*vat_percent/100.0)+"</td>"+
+                "<td>"+(acquisition_unit_price*vat_percent/100.0).toFixed(2)+"</td>"+
                 "<td>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
                 "<td>"+(acquisition_unit_price*quantity_on_document).toFixed(2)+"</td>"+
                 "<td>"+((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2)+"</td>"+
