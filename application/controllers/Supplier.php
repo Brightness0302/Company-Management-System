@@ -19,6 +19,7 @@ class Supplier extends CI_Controller
         $data['user'] = $this->session->userdata('user');
         $data['suppliers'] = $this->home->alldata('supplier');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Suppliers";
         $session['submenu']="sm";

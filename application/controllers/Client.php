@@ -19,6 +19,7 @@ class Client extends CI_Controller
         $data['user'] = $this->session->userdata('user');
         $data['clients'] = $this->home->alldata('client');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Clients";
         $session['submenu']="cm";
@@ -47,6 +48,7 @@ class Client extends CI_Controller
         $data['clients'] = $this->home->alldata('client');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Clients";
         $session['submenu']="im";
@@ -75,6 +77,7 @@ class Client extends CI_Controller
         $data['clients'] = $this->home->alldata('client');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "proformainvoice");
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Clients";
         $session['submenu']="prm";
@@ -103,6 +106,7 @@ class Client extends CI_Controller
         $data['clients'] = $this->home->alldata('client');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Clients";
         $session['submenu']="pm";
@@ -133,6 +137,7 @@ class Client extends CI_Controller
         $data['projects'] = $this->home->alldata('project');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Clients";
         $session['submenu']="pjm";
@@ -203,6 +208,7 @@ class Client extends CI_Controller
         $data['company'] = $company['data'];
         $data['clients'] = $this->home->alldata('client');
         $data['invoice'] = $this->home->invoicefromsetting($data['company']['id'], 'invoice');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
@@ -235,6 +241,7 @@ class Client extends CI_Controller
         $data['clients'] = $this->home->alldata('client');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['invoice'] = $this->home->invoicefromsetting($data['company']['id'], 'proformainvoice');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Clients";
         $session['submenu']="prm";
@@ -312,6 +319,7 @@ class Client extends CI_Controller
         $data['client'] = $res['data'];
         $data['projects'] = $this->home->alldata('project');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Clients";
         $session['submenu']="pjm";
@@ -368,6 +376,7 @@ class Client extends CI_Controller
 
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Clients";
         $session['submenu']="im";
@@ -415,6 +424,7 @@ class Client extends CI_Controller
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Clients";
         $session['submenu']="prm";

@@ -67,6 +67,7 @@ class Home extends CI_Controller
         $data['projects'] = $this->home->alldata('project');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Dashboard";
         $session['submenu']="";

@@ -323,6 +323,15 @@
                         <a href="<?=base_url('expense/index')?>">
                             <i class="bi <?=($menu['submenu']=="em"||$menu['submenu']=="pmbyid")?"bi-circle-fill":"bi-circle"?>"></i><span>Expense Management</span>
                         </a>
+                        <ul id="stocks-nav" class="nav-content collapse show" data-bs-parent="#charts-nav">
+                            <li>
+                                <?php foreach($expenses as $expense):?>
+                                <a href="<?=base_url("expense/showproductbyexpenseid?expense_id=").$expense['id']?>" style="padding-left: 56px;">
+                                    <i class="bi <?=($menu['second-submenu']==$expense['id'])?"bi-circle-fill":"bi-circle"?>"></i><span><?=$expense['name']?></span>
+                                </a>
+                                <?php endforeach;?>
+                            </li>
+                        </ul>
                     </li>
 
                     <li>
