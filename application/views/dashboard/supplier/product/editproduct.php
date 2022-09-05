@@ -145,7 +145,12 @@
                                         <td style="border : 1px solid black">Code EAN:</td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="text" class="form-control " id="code_ean" value="" title="Choose your color">
+                                                <input type="text" class="form-control" id="code_ean" list="stock_lines" name="browser" title="Choose your color">
+                                                <datalist id="stock_lines">
+                                                    <?php foreach($totallines as $line):?>
+                                                    <option value="<?=$line['code_ean']?>">
+                                                    <?php endforeach;?>
+                                                </datalist>
                                             </div>
                                         </td>
                                     </tr>

@@ -65,6 +65,7 @@ class Product extends CI_Controller
         $data['categories'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['product'] = $this->supplier->productfromsetting($companyid, 'product');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data['totallines'] = $this->home->alldatafromdatabase($companyid, 'product_totalline');
 
         $data['attached'] = "Attached Invoice";
 
@@ -92,6 +93,7 @@ class Product extends CI_Controller
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['categories'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data['totallines'] = $this->home->alldatafromdatabase($companyid, 'product_totalline');
         $product = $this->home->databyidfromdatabase($companyid, 'product', $product_id);
 
         $data['lines'] = $this->supplier->alllinesbyproductidfromdatabase($companyid, 'product_lines', $product_id);
