@@ -394,7 +394,7 @@ class Client extends CI_Controller
             if (substr($line['description'], 0, strlen($token)) == $token) {
                 $id = substr($line['description'], strlen($token));
 
-                $result = $this->home->databyidfromdatabase($data['company']['id'], 'product_lines', $id);
+                $result = $this->home->databyidfromdatabase($data['company']['id'], 'product_totalline', $id);
                 if ($result['status']!="failed") {
                     $res = $result['data'];
                     $lines[$index]['description'] = '['.$res['code_ean'].'] - '.$res['production_description'];
