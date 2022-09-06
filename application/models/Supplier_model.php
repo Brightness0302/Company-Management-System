@@ -45,7 +45,7 @@ class Supplier_model extends CI_Model {
                 'isremoved'=>TRUE
             );
 
-            $this->db->where('id', $lineid);
+            $this->db->where('id', $line['id']);
             $res=$this->db->update('product_lines', $data_sql);
         }
         return $res;
