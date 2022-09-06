@@ -354,7 +354,7 @@ class Home_model extends CI_Model {
 
     public function gobacklines($companyid, $lines) {
         $token = "This is from stock by productid";
-        $pattern = "/([-\s:,\{\}\[\]]+)/"; //   /[\{\}]/
+        $pattern = "/([\{\}\[\]]+)/";
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
         $lines=json_decode($lines, true);
@@ -390,7 +390,7 @@ class Home_model extends CI_Model {
 
     public function deductionlines($companyid, $lines) {
         $token = "This is from stock by productid";
-        $pattern = "/([-\s:,\{\}\[\]]+)/"; //   /[\{\}]/
+        $pattern = "/([\{\}\[\]]+)/";
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
         $lines=json_decode($lines, true);
@@ -432,7 +432,7 @@ class Home_model extends CI_Model {
             return -1;
         $this->db->query('use database'.$companyid);
 
-        $pattern = "/([-\s:,\{\}\[\]]+)/";
+        $pattern = "/([\{\}\[\]]+)/";
         $list_lines=json_decode($lines, true);
         foreach ($list_lines as $index => $line) {
             if (strpos($line['description'], "] - ")) {
@@ -526,7 +526,7 @@ class Home_model extends CI_Model {
         if ($result == -1)
             return 0;
 
-        $pattern = "/([-\s:,\{\}\[\]]+)/";
+        $pattern = "/([\{\}\[\]]+)/";
         $list_lines=json_decode($lines, true);
         foreach ($list_lines as $index => $line) {
             if (strpos($line['description'], '] - ')) {
