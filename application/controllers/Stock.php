@@ -92,7 +92,7 @@ class Stock extends CI_Controller
         $lineid = $_GET['lineid'];
         $companyid = $this->session->userdata('companyid');
 
-        $data['price'] = $this->supplier->databylineidfromdatabase($companyid, 'product_totalline', $lineid, 'selling_unit_price_with_vat');
+        $data['price'] = $this->supplier->databylineidfromdatabase($companyid, 'product_totalline', $lineid, 'selling_unit_price_without_vat');
         $data['code_ean'] = $this->supplier->databylineidfromdatabase($companyid, 'product_totalline', $lineid, 'code_ean');
         $data['production_description'] = $this->supplier->databylineidfromdatabase($companyid, 'product_totalline', $lineid, 'production_description');
 
