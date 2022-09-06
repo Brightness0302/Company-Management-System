@@ -16,6 +16,38 @@ class Supplier_model extends CI_Model {
 
         $this->db->where('id', $id);
         $res=$this->db->update($table, $data);
+
+        $query =    "SELECT *
+                    FROM `product_lines`
+                    WHERE `productid` = '$id' AND `isremoved` = FALSE";
+
+        $plines = $this->db->query($query)->result_array();
+
+        foreach ($plines as $index => $line) {
+            $lineid = $line['line_id'];
+            $query =    "SELECT *
+                        FROM `product_totalline`
+                        WHERE `id` = '$lineid'";
+
+            $data = $this->db->query($query)->result_array();
+
+            if (count($data)!=0) {
+                $data = $data[0];
+                $data_sql = array(
+                    'qty'=>($data['qty']-$line['quantity_received'])
+                );
+
+                $this->db->where('id', $lineid);
+                $res = $this->db->update('product_totalline', $data_sql);
+            }
+
+            $data_sql = array(
+                'isremoved'=>TRUE
+            );
+
+            $this->db->where('id', $lineid);
+            $res=$this->db->update('product_lines', $data_sql);
+        }
         return $res;
     }
 
@@ -71,7 +103,8 @@ class Supplier_model extends CI_Model {
 
             if ($tline_id!=0) {
                 $data_sql = array(
-                    'qty'=>$qty
+                    'qty'=>$qty, 
+                    'isremoved'=>false
                 );
                 $this->db->where('id', $tline_id);
                 $this->db->update('product_totalline', $data_sql);
@@ -159,7 +192,8 @@ class Supplier_model extends CI_Model {
 
             if ($tline_id!=0) {
                 $data_sql = array(
-                    'qty'=>$qty
+                    'qty'=>$qty, 
+                    'isremoved'=>false
                 );
                 $this->db->where('id', $tline_id);
                 $this->db->update('product_totalline', $data_sql);
