@@ -31,10 +31,10 @@
             <td><?=$line['code_ean']?></td>
             <td><?=$line['production_description']?></td>
             <td><?=$line['qty']?></td>
-            <td><?=$line['acquisition_unit_price']?></td>
-            <td><?=$line['acquisition_unit_price']*floatval($line['qty'])?></td>
-            <td><?=$line['selling_unit_price_without_vat']?></td>
-            <td><?=floatval($line['selling_unit_price_with_vat']*$line['qty'])?></td>
+            <td><?=number_format($line['acquisition_unit_price'], 2, '.', "")?></td>
+            <td><?=number_format(($line['acquisition_unit_price']*floatval($line['qty'])), 2, '.', "")?></td>
+            <td><?=number_format($line['selling_unit_price_without_vat'], 2, '.', "")?></td>
+            <td><?=number_format((floatval($line['selling_unit_price_with_vat']*$line['qty'])), 2, '.', "")?></td>
             <td class="text-center"><button class="btn btn-default" onclick="viewsoldandreceive('<?=$line['id']?>', this)">View</button></td>
         </tr>
         <?php endif;?>
