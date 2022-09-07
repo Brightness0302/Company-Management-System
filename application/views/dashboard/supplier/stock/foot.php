@@ -19,6 +19,8 @@
 <script src="<?=base_url('assets')?>/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="<?=base_url('assets')?>/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="<?=base_url('assets')?>/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script>
 function getFirstLetters(str) {
 	const firstLetters = str
@@ -82,7 +84,7 @@ $(function() {
 
     $("#invoicetable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
 
-    $("#productbystock_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
+    $("#productbystock_filter").html("Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
 
     var subtotal = 0.0, vat = 0.0, total = 0.0;
     var aquisition = 0.0, selling = 0.0;
@@ -118,20 +120,13 @@ $(function() {
             // Don't filter on anything other than "myTable"
             if ( settings.nTable.id === 'productbystock' ) {
                 // Filtering for "myTable".
-                var startdate = new Date($('#startdate').val());
-                startdate.setDate(startdate.getDate() - 1);
-                var enddate = new Date($('#enddate').val());
-                enddate.setDate(enddate.getDate() + 1);
                 var searchvalue = $("#searchtag").val();
-                var date = new Date(data[12] || 0); // use data for the age column
                 var condition1 = (data[1].toLowerCase().includes(searchvalue.toLowerCase()));
                 var condition2 = (data[2].toLowerCase().includes(searchvalue.toLowerCase()));
-                var condition3 = (data[9].toLowerCase().includes(searchvalue.toLowerCase()));
-                var condition4 = (data[10].toLowerCase().includes(searchvalue.toLowerCase()));
-                console.log(condition1, condition2, condition3, condition4);
+                console.log(condition1, condition2);
              
                 if (
-                    (date > startdate && date < enddate) && (condition1 || condition2 || condition3 || condition4)
+                    (condition1 || condition2)
                 ) {
                     aquisition += parseFloat(data[6]);
                     selling += parseFloat(data[8]);

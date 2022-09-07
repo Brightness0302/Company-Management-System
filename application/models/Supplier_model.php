@@ -242,47 +242,47 @@ class Supplier_model extends CI_Model {
                     WHERE `stockid`='$stock_id' AND `isremoved`=false";
 
         $tlines = $this->db->query($query)->result_array();
-        $lines = [];
-        $count = 0;
+        // $lines = [];
+        // $count = 0;
 
-        foreach ($tlines as $index => $line) {
-            $lineid = $line['id'];
-            $query =    "SELECT *
-                        FROM `product_lines`
-                        WHERE `line_id`='$lineid' AND `isremoved`=false";
+        // foreach ($tlines as $index => $line) {
+        //     $lineid = $line['id'];
+        //     $query =    "SELECT *
+        //                 FROM `product_lines`
+        //                 WHERE `line_id`='$lineid' AND `isremoved`=false";
 
-            $qlines = $this->db->query($query)->result_array();
+        //     $qlines = $this->db->query($query)->result_array();
 
-            foreach ($qlines as $key => $qline) {
-                $productid = $qline['productid'];
-                $query =    "SELECT *
-                            FROM `product`
-                            WHERE `id`='$productid' AND `isremoved`=false";
+        //     foreach ($qlines as $key => $qline) {
+        //         $productid = $qline['productid'];
+        //         $query =    "SELECT *
+        //                     FROM `product`
+        //                     WHERE `id`='$productid' AND `isremoved`=false";
 
-                $product = $this->db->query($query)->result_array();
-                if (count($product)!=0) {
-                    $product = $product[0];
+        //         $product = $this->db->query($query)->result_array();
+        //         if (count($product)!=0) {
+        //             $product = $product[0];
 
-                    $qline['code_ean'] = $line['code_ean'];
-                    $qline['production_description'] = $line['production_description'];
-                    $qline['qty'] = $line['qty'];
-                    $qline['supplierid'] = $product['supplierid'];
-                    $qline['invoice_date'] = $product['invoice_date'];
-                    $qline['invoice_number'] = $product['invoice_number'];
-                    $qline['acquisition_unit_price'] = $line['acquisition_unit_price'];
-                    $qline['acquisition_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * $line['vat'] / 100.0, 2);
-                    $qline['acquisition_unit_price_with_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['vat'] + 100.0) / 100.0, 2);
-                    $qline['amount_without_vat'] = $this->toFixed($line['acquisition_unit_price'] * $qline['quantity_received'], 2);
-                    $qline['amount_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * $qline['quantity_received'] * $line['vat'] / 100.0, 2);
-                    $qline['total_amount'] = $this->toFixed($line['acquisition_unit_price'] * $qline['quantity_received'] * ($line['vat'] + 100.0) / 100.0, 2);
-                    $qline['selling_unit_price_without_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup']+100.0) / 100.0, 2);
-                    $qline['selling_unit_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * $line['vat'] / 100.0 / 100.0, 2);
-                    $qline['selling_unit_price_with_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * ($line['vat'] + 100.0) / 100.0 / 100.0, 2);
-                    array_push($lines, $qline);
-                }
-            }
-        }
-        return $lines;
+        //             $qline['code_ean'] = $line['code_ean'];
+        //             $qline['production_description'] = $line['production_description'];
+        //             $qline['qty'] = $line['qty'];
+        //             $qline['supplierid'] = $product['supplierid'];
+        //             $qline['invoice_date'] = $product['invoice_date'];
+        //             $qline['invoice_number'] = $product['invoice_number'];
+        //             $qline['acquisition_unit_price'] = $line['acquisition_unit_price'];
+        //             $qline['acquisition_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * $line['vat'] / 100.0, 2);
+        //             $qline['acquisition_unit_price_with_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['vat'] + 100.0) / 100.0, 2);
+        //             $qline['amount_without_vat'] = $this->toFixed($line['acquisition_unit_price'] * $qline['quantity_received'], 2);
+        //             $qline['amount_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * $qline['quantity_received'] * $line['vat'] / 100.0, 2);
+        //             $qline['total_amount'] = $this->toFixed($line['acquisition_unit_price'] * $qline['quantity_received'] * ($line['vat'] + 100.0) / 100.0, 2);
+        //             $qline['selling_unit_price_without_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup']+100.0) / 100.0, 2);
+        //             $qline['selling_unit_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * $line['vat'] / 100.0 / 100.0, 2);
+        //             $qline['selling_unit_price_with_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * ($line['vat'] + 100.0) / 100.0 / 100.0, 2);
+        //             array_push($lines, $qline);
+        //         }
+        //     }
+        // }
+        return $tlines;
     }
 
     public function alllinesbyproductidfromdatabase($companyid, $table, $product_id) {
@@ -421,17 +421,21 @@ class Supplier_model extends CI_Model {
         return $this->db->query($query)->result_array();
     }
 
-    public function allproductsbystockidfromdatabase($companyid, $table, $stockid) {
-        $companyid = "database".$companyid;
-        $this->db->query('use '.$companyid);
-
-        $stockid = '"stockid":"'.$stockid.'"';
+    public function getdatafromstockid($companyid, $stockid, $item) {
+        $table = "product_totalline";
+        $this->db->query('use database'.$companyid);
 
         $query =    "SELECT *
                     FROM `$table`
-                    WHERE `lines` LIKE '%$stockid%' AND `isremoved` = false";
+                    WHERE `stockid` = '$stockid'";
 
-        return $this->db->query($query)->result_array();
+        $data = $this->db->query($query)->result_array();
+        $value = 0;
+
+        foreach ($data as $index => $line) {
+            $value += $this->databylineidfromdatabase($companyid, $table, $line['id'], $item);
+        }
+        return $value;
     }
 
     public function databylineidfromdatabase($companyid, $table, $lineid, $item) {
@@ -453,6 +457,7 @@ class Supplier_model extends CI_Model {
         $data['amount_vat_value'] = $this->toFixed($data['acquisition_unit_price'] * $data['qty'] * $data['vat'] / 100.0, 2);
         $data['total_amount'] = $this->toFixed($data['acquisition_unit_price'] * $data['qty'] * ($data['vat'] + 100.0) / 100.0, 2);
         $data['selling_unit_price_without_vat'] = $this->toFixed($data['acquisition_unit_price'] * ($data['makeup']+100.0) / 100.0, 2);
+        $data['selling_amount_without_vat'] = $this->toFixed(($data['acquisition_unit_price'] * ($data['makeup']+100.0) / 100.0) * $data['qty'], 2);
         $data['selling_unit_vat_value'] = $this->toFixed($data['acquisition_unit_price'] * ($data['makeup'] + 100.0) * $data['vat'] / 100.0 / 100.0, 2);
         $data['selling_unit_price_with_vat'] = $this->toFixed($data['acquisition_unit_price'] * ($data['makeup'] + 100.0) * ($data['vat'] + 100.0) / 100.0 / 100.0, 2);
         
@@ -524,5 +529,68 @@ class Supplier_model extends CI_Model {
             return -1;
         }
         return $res[0];
+    }
+
+    public function supplierinvoicebystockid($companyid, $tline_id) {
+        $this->db->query('use database'.$companyid);
+
+        $query =    "SELECT *
+                    FROM `product_lines`
+                    WHERE `line_id`='$tline_id' AND `isremoved` = false";
+
+        $res_lines = $this->db->query($query)->result_array();
+
+        foreach ($res_lines as $index => $line) {
+            $this->db->query('use database'.$companyid);
+            $productid = $line['productid'];
+            $query =    "SELECT *
+                    FROM `product`
+                    WHERE `id`='$productid'";
+
+            $res_products = $this->db->query($query)->result_array();
+            if (count($res_products)>0) {
+                $res_product = $res_products[0];
+                $res_lines[$index]['product'] = $res_product;
+
+                $default_db = $this->db->database;
+                $this->db->query('use '.$default_db);
+                $res = $this->home->databyid($res_product['supplierid'], "supplier");
+                if ($res['status']=="success") {
+                    $res_lines[$index]['supplier'] = $res['data'];
+                }
+            }
+        }
+        return $res_lines;
+    }
+
+    public function clientinvoicebystockid($companyid, $tline_id) {
+        $this->db->query('use database'.$companyid);
+
+        $token = "This is from stock by productid";
+        $total_line = $token.$tline_id;
+        
+        $query =    "SELECT *
+                    FROM `invoice`
+                    WHERE `lines` LIKE '%$total_line%' AND `isremoved` = false";
+
+        $res_invoices = $this->db->query($query)->result_array();
+        foreach ($res_invoices as $index => $invoice) {
+            $lines = $invoice['lines'];
+            $lines = json_decode($lines, true);
+            foreach ($lines as $key => $line) {
+                if ($line['description']==$total_line) {
+                    $res_invoices[$index]['line'] = $line;
+                }
+            }
+
+            $default_db = $this->db->database;
+            $this->db->query('use '.$default_db);
+            $res = $this->home->databyid($invoice['client_id'], "client");
+
+            if ($res['status']=="success") {
+                $res_invoices[$index]['client'] = $res['data'];
+            }
+        }
+        return $res_invoices;
     }
 }

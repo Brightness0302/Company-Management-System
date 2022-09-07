@@ -126,4 +126,73 @@ function delStock(stock_id) {
         }
     });
 }
+
+function viewsoldandreceive(tline_id, el) {
+    const lastaddedindex = $("#viewsoldandreceive").index();
+    $("#viewsoldandreceive").remove();
+    const etr = $(el).closest('tr');
+    const etd = $(etr).find("td");
+    const etable = $("#product_body");
+    const currentindex = $(etr).index();
+    if (currentindex+1 == lastaddedindex)
+        return;
+
+    $.ajax({
+        url: "<?=base_url('stock/invoicebystockid/')?>" + tline_id,
+        method: "POST",
+        dataType: 'json',
+        async: true,
+        success: function(res) {
+            // console.log(res);
+            let supplierinvoice="";
+            let clientinvoice="";
+            res['supplier'].forEach((invoice, index) => {
+                supplierinvoice+="<tr>"+
+                "<td>"+(index+1)+"</td>"+
+                "<td>"+$(etd[1]).text()+"</td>"+
+                "<td>"+$(etd[2]).text()+"</td>"+
+                "<td>"+invoice['quantity_received']+"</td>"+
+                "<td>"+invoice['quantity_on_document']+"</td>"+
+                "<td>"+invoice['supplier']['name']+"</td>"+
+                "<td>"+invoice['product']['invoice_number']+"</td>"+
+                "<td>"+invoice['product']['invoice_date']+"</td>"+
+                "</tr>";
+            });
+            res['client'].forEach((invoice, index) => {
+                clientinvoice+="<tr>"+
+                "<td>"+(index+1)+"</td>"+
+                "<td>"+$(etd[1]).text()+"</td>"+
+                "<td>"+$(etd[2]).text()+"</td>"+
+                "<td>"+invoice['line']['qty']+"</td>"+
+                "<td>"+invoice['line']['qty']+"</td>"+
+                "<td>"+invoice['client']['name']+"</td>"+
+                "<td>"+invoice['id']+"</td>"+
+                "<td>"+invoice['date_of_issue']+"</td>"+
+                "</tr>";
+            });
+            etr.after("<tr id='viewsoldandreceive' style='background: cornsilk;'>"+
+                "<td></td>"+
+                "<td colSpan='100'>"+
+                "<p class='text-center text-lg'>Products received</p>"+
+                "<table class='table table-bordered table-striped'>"+
+                "<thead>"+
+                "<tr><th>No</th><th>Code EAN</th><th>Description</th><th>Qty received</th><th>Qty on document</th><th>Supplier Name</th><th>Invoice Number</th><th>Invoice Date</th></tr>"+
+                "</thead>"+
+                "<tbody>"+supplierinvoice+"</tbody>"+
+                "</table>"+
+                "<p class='text-center text-lg'>Products sold</p>"+
+                "<table class='table table-bordered table-striped'>"+
+                "<thead>"+
+                "<tr><th>No</th><th>Code EAN</th><th>Description</th><th>Qty invoiced</th><th>Qty shipped</th><th>Client Name</th><th>Invoice Number</th><th>Invoice Date</th></tr>"+
+                "</thead>"+
+                "<tbody>"+clientinvoice+"</tbody>"+
+                "</table>"+
+                "</td>"+
+                "</tr>");
+        },
+        error: function(jqXHR, exception) {
+            console.log(jqXHR, exception);
+        }
+    });
+}
 </script>

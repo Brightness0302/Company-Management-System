@@ -6,50 +6,36 @@
             <th>Code EAN</th>
             <th>Description</th>
             <th>Qty</th>
-            <th>Qty received</th>
-            <th>Qty on document</th>
-            <th>Aquisition price Ex VAT</th>
-            <th id="upaquisition">Aquisition amount Ex VAT</th>
+            <th>ACQ price Ex VAT</th>
+            <th id="upaquisition">ACQ amount Ex VAT</th>
             <th id='upeight'>Selling price Ex VAT</th>
             <th id="upselling">Selling amount Ex VAT</th>
-            <th>Supplier Name</th>
-            <th>Invoice Number</th>
-            <th>Invoice Date</th>
+            <th>Action</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="product_body">
         <?php $index=0; $total_aquisition=0; $total_selling=0;?>
         <?php foreach ($products as $line):?>
         <?php if(!$line['isremoved']):?>
         <?php $index++;?>
         <tr>
             <?php 
-                $total_aquisition += floatval($line['amount_without_vat']);
-                $total_selling += floatval($line['selling_unit_price_with_vat'])*floatval($line['quantity_on_document']);
+                $line['selling_unit_price_without_vat'] = floatval($line['acquisition_unit_price']*($line['makeup']+100.0)/100.0);
+                $line['selling_unit_price_with_vat'] = floatval($line['selling_unit_price_without_vat']*($line['vat']+100.0)/100.0);
+                $total_aquisition += floatval($line['acquisition_unit_price']*$line['qty']);
+                $total_selling += floatval($line['selling_unit_price_with_vat'])*floatval($line['qty']);
+                
             ?>
             <td><?=($index)?></td>
             <!-- <td><?=$result['name']?></td> -->
             <td><?=$line['code_ean']?></td>
             <td><?=$line['production_description']?></td>
             <td><?=$line['qty']?></td>
-            <td><?=$line['quantity_received']?></td>
-            <td><?=$line['quantity_on_document']?></td>
             <td><?=$line['acquisition_unit_price']?></td>
-            <td><?=$line['amount_without_vat']?></td>
+            <td><?=$line['acquisition_unit_price']*floatval($line['qty'])?></td>
             <td><?=$line['selling_unit_price_without_vat']?></td>
-            <td><?=floatval($line['selling_unit_price_with_vat'])*floatval($line['quantity_on_document'])?></td>
-            <td>
-            <?php
-                $result;
-                foreach ($suppliers as $supplier) {
-                    if ($supplier['id']==$line['supplierid'])
-                        $result = $supplier;
-                }
-                echo str_replace("_"," ", $result['name']);
-            ?>
-            </td>
-            <td><?=$line['invoice_number']?></td>
-            <td><?=$line['invoice_date']?></td>
+            <td><?=floatval($line['selling_unit_price_with_vat']*$line['qty'])?></td>
+            <td class="text-center"><button class="btn btn-default" onclick="viewsoldandreceive('<?=$line['id']?>', this)">View</button></td>
         </tr>
         <?php endif;?>
         <?php endforeach;?>
@@ -59,7 +45,7 @@
     <thead>
         <tr>
             <th></th>
-            <th>Aquisition amount Ex VAT</th>
+            <th>ACQ amount Ex VAT</th>
             <th></th>
             <th>Selling amount Ex VAT</th>
         </tr>

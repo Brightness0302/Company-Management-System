@@ -20,6 +20,11 @@ class Stock extends CI_Controller
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
+        foreach ($data['stocks'] as $index => $stock) {
+            $data['stocks'][$index]['amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'amount_without_vat');
+            $data['stocks'][$index]['selling_amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'selling_amount_without_vat');
+        }
+
         $session['menu']="Stocks";
         $session['submenu']="stm";
         $session['second-submenu']="";
@@ -144,6 +149,17 @@ class Stock extends CI_Controller
         $id = $_GET['id'];
         $result = $this->supplier->saveStock($companyid, $id, $name, $code);
         echo $result;
+    }
+
+    public function invoicebystockid($tline_id) {
+        $companyid = $this->session->userdata('companyid');
+        $data;
+        $supplierinvoice = $this->supplier->supplierinvoicebystockid($companyid, $tline_id);
+        $clientinvoice = $this->supplier->clientinvoicebystockid($companyid, $tline_id);
+        $data['supplier'] = $supplierinvoice;
+        $data['client'] = $clientinvoice;
+        header('Content-Type: application/json');
+        echo json_encode($data);
     }
     //If usersession is not exist, goto login page.
     public function check_usersession() {
