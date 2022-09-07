@@ -159,6 +159,8 @@ function viewsoldandreceive(tline_id, el) {
                 "</tr>";
             });
             res['client'].forEach((invoice, index) => {
+                const date = new Date(invoice['date_of_issue']);
+                console.log(date);
                 clientinvoice+="<tr>"+
                 "<td>"+(index+1)+"</td>"+
                 "<td>"+$(etd[1]).text()+"</td>"+
@@ -166,7 +168,7 @@ function viewsoldandreceive(tline_id, el) {
                 "<td>"+invoice['line']['qty']+"</td>"+
                 "<td>"+invoice['line']['qty']+"</td>"+
                 "<td>"+invoice['client']['name']+"</td>"+
-                "<td>"+invoice['id']+"</td>"+
+                "<td>"+date.getFullYear()+"-"+invoice['id']+"</td>"+
                 "<td>"+invoice['date_of_issue']+"</td>"+
                 "</tr>";
             });
