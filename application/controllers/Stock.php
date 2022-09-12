@@ -55,7 +55,7 @@ class Stock extends CI_Controller
 
         $stock_id = $_GET['stock_id'];
         $data['stock'] = $this->home->databyidfromdatabase($companyid, 'stock', $stock_id)['data'];
-        $data['products'] = $this->supplier->alllinesbystockidfromdatabase($companyid, 'product_totalline', $stock_id);
+        $data['products'] = $this->supplier->alllinesbystockidfromdatabase($companyid, 'material_totalline', $stock_id);
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Stocks";
@@ -77,7 +77,7 @@ class Stock extends CI_Controller
     public function getallproductsbystockid() {
         $stock_id = $_GET['stock_id'];
         $companyid = $this->session->userdata('companyid');
-        $products = $this->supplier->alldatabystockidfromdatabase($companyid, 'product_totalline', $stock_id);
+        $products = $this->supplier->alldatabystockidfromdatabase($companyid, 'material_totalline', $stock_id);
         
         //add the header here
         header('Content-Type: application/json');
@@ -88,7 +88,7 @@ class Stock extends CI_Controller
         $lineid = $_GET['lineid'];
         $companyid = $this->session->userdata('companyid');
 
-        $value = $this->supplier->databylineidfromdatabase($companyid, 'product_totalline', $lineid, 'qty');
+        $value = $this->supplier->databylineidfromdatabase($companyid, 'material_totalline', $lineid, 'qty');
 
         echo $value;
     }
@@ -97,9 +97,9 @@ class Stock extends CI_Controller
         $lineid = $_GET['lineid'];
         $companyid = $this->session->userdata('companyid');
 
-        $data['price'] = $this->supplier->databylineidfromdatabase($companyid, 'product_totalline', $lineid, 'selling_unit_price_without_vat');
-        $data['code_ean'] = $this->supplier->databylineidfromdatabase($companyid, 'product_totalline', $lineid, 'code_ean');
-        $data['production_description'] = $this->supplier->databylineidfromdatabase($companyid, 'product_totalline', $lineid, 'production_description');
+        $data['price'] = $this->supplier->databylineidfromdatabase($companyid, 'material_totalline', $lineid, 'selling_unit_price_without_vat');
+        $data['code_ean'] = $this->supplier->databylineidfromdatabase($companyid, 'material_totalline', $lineid, 'code_ean');
+        $data['production_description'] = $this->supplier->databylineidfromdatabase($companyid, 'material_totalline', $lineid, 'production_description');
 
         header('Content-Type: application/json');
         echo json_encode($data);

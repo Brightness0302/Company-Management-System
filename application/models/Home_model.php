@@ -366,7 +366,7 @@ class Home_model extends CI_Model {
                 $qty = $line['qty'];
 
                 $query =    "SELECT *
-                            FROM `product_totalline`
+                            FROM `material_totalline`
                             WHERE `id` = '$id'";
 
                 $data = $this->db->query($query)->result_array();
@@ -383,7 +383,7 @@ class Home_model extends CI_Model {
                 );
 
                 $this->db->where('id', $id);
-                $this->db->update('product_totalline', $data_sql);
+                $this->db->update('material_totalline', $data_sql);
             } 
         }
     }
@@ -402,7 +402,7 @@ class Home_model extends CI_Model {
                 $qty = $line['qty'];
 
                 $query =    "SELECT *
-                            FROM `product_totalline`
+                            FROM `material_totalline`
                             WHERE `id` = '$id'";
 
                 $data = $this->db->query($query)->result_array();
@@ -419,7 +419,7 @@ class Home_model extends CI_Model {
                 );
 
                 $this->db->where('id', $id);
-                $this->db->update('product_totalline', $data_sql);
+                $this->db->update('material_totalline', $data_sql);
             } 
         }
     }
@@ -442,7 +442,7 @@ class Home_model extends CI_Model {
                 $qty = $line['qty'];
 
                 $query =    "SELECT *
-                            FROM `product_totalline`
+                            FROM `material_totalline`
                             WHERE `code_ean` = '$code_ean'";
 
                 $data = $this->db->query($query)->result_array();
@@ -536,7 +536,7 @@ class Home_model extends CI_Model {
                 $qty = $line['qty'];
 
                 $query =    "SELECT *
-                            FROM `product_totalline`
+                            FROM `material_totalline`
                             WHERE `code_ean` = '$code_ean'";
 
                 $data = $this->db->query($query)->result_array();

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Product extends CI_Controller
+class Material extends CI_Controller
 {
     public function __construct()
     {
@@ -45,10 +45,10 @@ class Product extends CI_Controller
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
-        $this->load->view('dashboard/product/product/head');
-        $this->load->view('dashboard/product/product/body');
-        $this->load->view('dashboard/product/product/foot');
-        $this->load->view('dashboard/product/product/functions.php');
+        $this->load->view('dashboard/supplier/product/head');
+        $this->load->view('dashboard/supplier/product/body');
+        $this->load->view('dashboard/supplier/product/foot');
+        $this->load->view('dashboard/supplier/product/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -76,8 +76,8 @@ class Product extends CI_Controller
 
         $this->load->view('header');
         $this->load->view('main_page/head', $data);
-        $this->load->view('dashboard/product/product/addproduct');
-        $this->load->view('dashboard/product/product/functions.php');
+        $this->load->view('dashboard/supplier/product/addproduct');
+        $this->load->view('dashboard/supplier/product/functions.php');
         $this->load->view('footer');
     }
     //View supplierpage of editting.
@@ -117,8 +117,8 @@ class Product extends CI_Controller
 
         $this->load->view('header');
         $this->load->view('main_page/head');
-        $this->load->view('dashboard/product/product/editproduct', $data);
-        $this->load->view('dashboard/product/product/functions.php');
+        $this->load->view('dashboard/supplier/product/editproduct', $data);
+        $this->load->view('dashboard/supplier/product/functions.php');
         $this->load->view('footer');
     }
     //Delete Supplier param(supplier_name)

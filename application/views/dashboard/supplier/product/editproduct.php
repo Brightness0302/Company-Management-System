@@ -1,7 +1,7 @@
 <body>
     <section id="hero" class="align-items-center">
         <div data-aos="fade-up" data-aos-delay="100">
-            <a href="<?=base_url('product/index')?>"><button
+            <a href="<?=base_url('material/index')?>"><button
                     class="backbutton w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-2xl"
                     title="Add New Client">&#8249;</button></a>
         </div>
@@ -358,7 +358,7 @@
                     <button class="btn btn-outline-danger" onclick="DeleteAttachedFile()">Delete attached file</button>
                 </div>
                 <button class="cbutton bg-red" onclick="EditProduct('<?=$product['id']?>')">Save</button> / <a
-                    href="<?=base_url('product/index')?>"><button class="cbutton bg-white">Cancel</button></a>
+                    href="<?=base_url('material/index')?>"><button class="cbutton bg-white">Cancel</button></a>
             </div>
         </div>
     </section><!-- End Hero -->

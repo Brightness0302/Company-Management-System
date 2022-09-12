@@ -301,13 +301,13 @@
                     </li>
 
                     <li>
-                        <a href="<?=base_url('product/index')?>">
+                        <a href="<?=base_url('material/index')?>">
                             <i class="bi <?=$menu['submenu']=="pdm"?"bi-circle-fill":"bi-circle"?>"></i><span>Supplier Invoices</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="<?=base_url('product/paymentmanager')?>">
+                        <a href="<?=base_url('material/paymentmanager')?>">
                             <i class="bi <?=$menu['submenu']=="ppm"?"bi-circle-fill":"bi-circle"?>"></i><span>Payment Management</span>
                         </a>
                     </li>
@@ -360,6 +360,32 @@
                                 <?php endforeach;?>
                             </li>
                         </ul>
+                    </li>
+                </ul>
+            </li><!-- End Charts Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link <?=$menu['menu']=="Products"?"":"collapsed"?>" data-bs-target="#product-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-person-bounding-box"></i><span>Products</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="product-nav" class="nav-content collapse <?=$menu['menu']=="Products"?"show":""?>" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="<?=base_url('product/index')?>">
+                            <i class="bi <?=$menu['submenu']=="sm"?"bi-circle-fill":"bi-circle"?>"></i><span>Product Management</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="<?=base_url('product/index')?>">
+                            <i class="bi <?=$menu['submenu']=="pdm"?"bi-circle-fill":"bi-circle"?>"></i><span>Supplier Invoices</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="<?=base_url('product/paymentmanager')?>">
+                            <i class="bi <?=$menu['submenu']=="ppm"?"bi-circle-fill":"bi-circle"?>"></i><span>Payment Management</span>
+                        </a>
                     </li>
                 </ul>
             </li><!-- End Charts Nav -->

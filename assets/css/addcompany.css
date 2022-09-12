@@ -2,7 +2,6 @@
   flex: 1;
   position: relative;
   transition: all 0.4s;
-  display: flex;
   margin-top: 1.5rem;
 }
 .pages .page {

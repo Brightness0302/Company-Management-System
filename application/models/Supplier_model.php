@@ -18,7 +18,7 @@ class Supplier_model extends CI_Model {
         $res=$this->db->update($table, $data);
 
         $query =    "SELECT *
-                    FROM `product_lines`
+                    FROM `material_lines`
                     WHERE `productid` = '$id' AND `isremoved` = FALSE";
 
         $plines = $this->db->query($query)->result_array();
@@ -26,7 +26,7 @@ class Supplier_model extends CI_Model {
         foreach ($plines as $index => $line) {
             $lineid = $line['line_id'];
             $query =    "SELECT *
-                        FROM `product_totalline`
+                        FROM `material_totalline`
                         WHERE `id` = '$lineid'";
 
             $data = $this->db->query($query)->result_array();
@@ -38,7 +38,7 @@ class Supplier_model extends CI_Model {
                 );
 
                 $this->db->where('id', $lineid);
-                $res = $this->db->update('product_totalline', $data_sql);
+                $res = $this->db->update('material_totalline', $data_sql);
             }
 
             $data_sql = array(
@@ -46,7 +46,7 @@ class Supplier_model extends CI_Model {
             );
 
             $this->db->where('id', $line['id']);
-            $res=$this->db->update('product_lines', $data_sql);
+            $res=$this->db->update('material_lines', $data_sql);
         }
         return $res;
     }
@@ -89,7 +89,7 @@ class Supplier_model extends CI_Model {
             if ($line['lineid']) {
                 $lineid = $line['lineid'];
                 $query =    "SELECT *
-                            FROM `product_totalline`
+                            FROM `material_totalline`
                             WHERE `id` = '$lineid'";
 
                 $data = $this->db->query($query)->result_array();
@@ -107,7 +107,7 @@ class Supplier_model extends CI_Model {
                     'isremoved'=>false
                 );
                 $this->db->where('id', $tline_id);
-                $this->db->update('product_totalline', $data_sql);
+                $this->db->update('material_totalline', $data_sql);
             }
             else {
                 $data_sql = array(
@@ -122,7 +122,7 @@ class Supplier_model extends CI_Model {
                     'makeup'=>$line['makeup'],
                     'qty'=>$qty
                 );
-                $this->db->insert('product_totalline', $data_sql);
+                $this->db->insert('material_totalline', $data_sql);
                 $tline_id = $this->db->insert_id();
             }
 
@@ -132,7 +132,7 @@ class Supplier_model extends CI_Model {
                 'quantity_on_document'=>$line['quantity_on_document'], 
                 'quantity_received'=>$line['quantity_received']
             );
-            $line_id = $this->db->insert('product_lines', $data_sql);
+            $line_id = $this->db->insert('material_lines', $data_sql);
         }
     }
 
@@ -141,7 +141,7 @@ class Supplier_model extends CI_Model {
         $lines=json_decode($lines, true);
 
         $query =    "SELECT *
-                    FROM `product_lines`
+                    FROM `material_lines`
                     WHERE `productid` = '$product_id' AND `isremoved` = FALSE";
 
         $plines = $this->db->query($query)->result_array();
@@ -149,7 +149,7 @@ class Supplier_model extends CI_Model {
         foreach ($plines as $index => $line) {
             $lineid = $line['line_id'];
             $query =    "SELECT *
-                        FROM `product_totalline`
+                        FROM `material_totalline`
                         WHERE `id` = '$lineid'";
 
             $data = $this->db->query($query)->result_array();
@@ -161,7 +161,7 @@ class Supplier_model extends CI_Model {
                 );
 
                 $this->db->where('id', $lineid);
-                $res = $this->db->update('product_totalline', $data_sql);
+                $res = $this->db->update('material_totalline', $data_sql);
             }
         }
 
@@ -170,7 +170,7 @@ class Supplier_model extends CI_Model {
         );
 
         $this->db->where('productid', $product_id);
-        $res = $this->db->update('product_lines', $data_sql);
+        $res = $this->db->update('material_lines', $data_sql);
 
         foreach ($lines as $index => $line) {
             $qty = $line['quantity_received'];
@@ -178,7 +178,7 @@ class Supplier_model extends CI_Model {
             if ($line['lineid']) {
                 $lineid = $line['lineid'];
                 $query =    "SELECT *
-                            FROM `product_totalline`
+                            FROM `material_totalline`
                             WHERE `id` = '$lineid'";
 
                 $data = $this->db->query($query)->result_array();
@@ -196,7 +196,7 @@ class Supplier_model extends CI_Model {
                     'isremoved'=>false
                 );
                 $this->db->where('id', $tline_id);
-                $this->db->update('product_totalline', $data_sql);
+                $this->db->update('material_totalline', $data_sql);
             }
             else {
                 $data_sql = array(
@@ -211,7 +211,7 @@ class Supplier_model extends CI_Model {
                     'makeup'=>$line['makeup'],
                     'qty'=>$qty
                 );
-                $this->db->insert('product_totalline', $data_sql);
+                $this->db->insert('material_totalline', $data_sql);
                 $tline_id = $this->db->insert_id();
             }
 
@@ -225,10 +225,10 @@ class Supplier_model extends CI_Model {
 
             if ($line['id']) {
                 $this->db->where('id', $line['id']);
-                $res = $this->db->update('product_lines', $data_sql);
+                $res = $this->db->update('material_lines', $data_sql);
             }
             else {
-                $this->db->insert('product_lines', $data_sql);
+                $this->db->insert('material_lines', $data_sql);
             }
         }
     }
@@ -248,7 +248,7 @@ class Supplier_model extends CI_Model {
         // foreach ($tlines as $index => $line) {
         //     $lineid = $line['id'];
         //     $query =    "SELECT *
-        //                 FROM `product_lines`
+        //                 FROM `material_lines`
         //                 WHERE `line_id`='$lineid' AND `isremoved`=false";
 
         //     $qlines = $this->db->query($query)->result_array();
@@ -298,7 +298,7 @@ class Supplier_model extends CI_Model {
         foreach ($lines as $index => $line) {
             $lineid = $line['line_id'];
             $query =    "SELECT *
-                    FROM `product_totalline`
+                    FROM `material_totalline`
                     WHERE `id`='$lineid'";
 
             $tline = $this->db->query($query)->result_array();
@@ -344,7 +344,7 @@ class Supplier_model extends CI_Model {
         foreach ($lines as $index => $line) {
             $lineid = $line['line_id'];
             $query =    "SELECT *
-                    FROM `product_totalline`
+                    FROM `material_totalline`
                     WHERE `id`='$lineid'";
 
             $tline = $this->db->query($query)->result_array();
@@ -369,7 +369,7 @@ class Supplier_model extends CI_Model {
             'lines'=>$lines, 
         );
 
-        $this->db->insert('product', $data);
+        $this->db->insert('material', $data);
         $product_id = $this->db->insert_id();
         $this->createlines($companyid, $product_id, $lines);
         return $product_id;
@@ -388,7 +388,7 @@ class Supplier_model extends CI_Model {
         );
 
         $this->db->where('id', $id);
-        $res=$this->db->update('product', $data);
+        $res=$this->db->update('material', $data);
         $this->savelines($companyid, $id, $lines);
         return $res;
     }
@@ -422,7 +422,7 @@ class Supplier_model extends CI_Model {
     }
 
     public function getdatafromstockid($companyid, $stockid, $item) {
-        $table = "product_totalline";
+        $table = "material_totalline";
         $this->db->query('use database'.$companyid);
 
         $query =    "SELECT *
@@ -469,7 +469,7 @@ class Supplier_model extends CI_Model {
         $this->db->query('use '.$companyid);
 
         $query =    "SELECT *
-                    FROM `product`
+                    FROM `material`
                     WHERE `id`='$product_id'";
 
         $res = $this->db->query($query)->result_array();
@@ -483,7 +483,7 @@ class Supplier_model extends CI_Model {
         );
 
         $this->db->where('id', $product_id);
-        $res=$this->db->update('product', $data);
+        $res=$this->db->update('material', $data);
         return $res;
     }
 
@@ -497,7 +497,7 @@ class Supplier_model extends CI_Model {
         );
 
         $this->db->where('id', $product_id);
-        $res=$this->db->update('product', $data);
+        $res=$this->db->update('material', $data);
         return $res;
     }
 
@@ -506,7 +506,7 @@ class Supplier_model extends CI_Model {
         $this->db->query('use '.$companyid);
 
         $query =    "SELECT *
-                    FROM `product`
+                    FROM `material`
                     WHERE `id`='$product_id' AND `isremoved`=false";
 
         $res = $this->db->query($query)->result_array();
@@ -521,7 +521,7 @@ class Supplier_model extends CI_Model {
         $this->db->query('use '.$companyid);
 
         $query =    "SELECT *
-                    FROM `product_totalline`
+                    FROM `material_totalline`
                     WHERE `code_ean`='$code_ean'";
 
         $res = $this->db->query($query)->result_array();
@@ -535,7 +535,7 @@ class Supplier_model extends CI_Model {
         $this->db->query('use database'.$companyid);
 
         $query =    "SELECT *
-                    FROM `product_lines`
+                    FROM `material_lines`
                     WHERE `line_id`='$tline_id' AND `isremoved` = false";
 
         $res_lines = $this->db->query($query)->result_array();
@@ -544,7 +544,7 @@ class Supplier_model extends CI_Model {
             $this->db->query('use database'.$companyid);
             $productid = $line['productid'];
             $query =    "SELECT *
-                    FROM `product`
+                    FROM `material`
                     WHERE `id`='$productid'";
 
             $res_products = $this->db->query($query)->result_array();

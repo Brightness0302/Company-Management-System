@@ -1,14 +1,14 @@
 <body>
     <section id="hero" class="align-items-center">
         <div data-aos="fade-up" data-aos-delay="100">
-            <a href="<?=base_url('material/index')?>"><button
+            <a href="<?=base_url('product/index')?>"><button
                     class="backbutton w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-2xl"
                     title="Add New Client">&#8249;</button></a>
         </div>
         <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-9 text-center">
-                    <h1>Supplier Invoice registration</h1>
+                    <h1>Supplier Invoice modifier</h1>
                 </div>
             </div>
 
@@ -22,7 +22,7 @@
                                     <td>
                                         <select class="form-select" id="supplierid">
                                         <?php foreach ($suppliers as $index => $supplier):?>
-                                            <option value="<?=$supplier['id']?>">
+                                            <option value="<?=$supplier['id']?>" <?=($supplier['id']==$product['supplierid'])?"selected":""?>>
                                                 <?=str_replace("_"," ", $supplier['name'])?>
                                             </option>
                                         <?php endforeach;?>
@@ -33,7 +33,7 @@
                                     <td style="border : 1px solid black">Observations:</td>
                                     <td>
                                         <div class="m-auto">
-                                            <input type="text" class="form-control " id="observation" value="" title="Choose your color">
+                                            <input type="text" class="form-control " id="observation" value="<?=$product['observation']?>" title="Choose your color">
                                         </div>
                                     </td>
                                 </tr>
@@ -43,7 +43,7 @@
                           <table class="table " style="border : 1px solid gray; text-align: left">
                               <tr>
                                   <td style="border : 1px solid black">NIR Document No: </td>
-                                  <td><?=$product['product_number']?></td>
+                                  <td><?=$product['id']?></td>
                               </tr>
                               <tr>
                                   <td style="border : 1px solid black">Date:</td>
@@ -56,23 +56,23 @@
                                 <tr>
                                     <td style="border : 1px solid black">Invoice Date:</td>
                                     <td>
-                                        <input type="date" class="form-control " id="invoice_date" value="<?=date('Y-m-d')?>" title="Choose your color">
+                                        <input type="date" class="form-control " id="invoice_date" value="<?=$product['invoice_date']?>" title="Choose your color">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="border : 1px solid black">Invoice Number: </td>
                                     <td>
-                                        <input type="text" class="form-control " id="invoice_number" value="" title="Choose your color">
+                                        <input type="text" class="form-control " id="invoice_number" value="<?=$product['invoice_number']?>" title="Choose your color">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="border : 1px solid black">Coin:</td>
                                     <td>
                                         <select class="form-select" id="invoice_coin">
-                                            <option value="EURO">€</option>
-                                            <option value="POUND">£</option>
-                                            <option value="USD">$</option>
-                                            <option value="LEI">LEI</option>
+                                            <option value="EURO" <?=($product['invoice_coin']=="EURO")?"selected":""?>>€</option>
+                                            <option value="POUND" <?=($product['invoice_coin']=="POUND")?"selected":""?>>£</option>
+                                            <option value="USD" <?=($product['invoice_coin']=="USD")?"selected":""?>>$</option>
+                                            <option value="LEI" <?=($product['invoice_coin']=="LEI")?"selected":""?>>LEI</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -90,7 +90,7 @@
                                         <td style="border : 1px solid black">Production Description: </td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="text" class="form-control " id="production_description" value="" title="Choose your color">
+                                                <input type="text" class="form-control" id="production_description" value="" title="Choose your color">
                                             </div>
                                         </td>
                                     </tr>
@@ -190,7 +190,7 @@
                                         <td style="border : 1px solid black">Quantity on document: </td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="text" class="form-control " id="quantity_on_document" value="" title="Choose your color">
+                                                <input type="number" class="form-control " id="quantity_on_document" value="0" title="Choose your color">
                                             </div>
                                         </td>
                                     </tr>
@@ -198,7 +198,7 @@
                                         <td style="border : 1px solid black">Quantity received:</td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="text" class="form-control " id="quantity_received" value="" title="Choose your color">
+                                                <input type="number" class="form-control " id="quantity_received" value="0" title="Choose your color">
                                             </div>
                                         </td>
                                     </tr>
@@ -235,7 +235,7 @@
                         <?php
                             $total_first=0;$total_second=0;$total_third=0;$total_forth=0;$total_fifth=0;$total_sixth=0;
                         ?>
-                        <table class="table table-bordered table-striped text-center">
+                        <table id="lines" class="table table-bordered table-striped text-center">
                             <thead>
                                 <tr>
                                     <th>Code EAN</th>
@@ -260,6 +260,64 @@
                                 </tr>
                             </thead>
                             <tbody id="table-body">
+                            <?php foreach ($lines as $index => $line):?>
+                                <tr>
+                                    <td><?=$line['code_ean']?></td>
+                                    <td>
+                                    <?php
+                                        $result;
+                                        foreach ($stocks as $index => $stock) {
+                                            if ($stock['id']==$line['stockid'])
+                                                $result = $stock;
+                                        }
+                                        $total_first+=$line['amount_without_vat'];
+                                        $total_second+=$line['amount_vat_value'];
+                                        $total_third+=$line['total_amount'];
+                                        $total_forth+=$line['selling_unit_price_without_vat'];
+                                        $total_fifth+=$line['selling_unit_vat_value'];
+                                        $total_sixth+=$line['selling_unit_price_with_vat'];
+                                        echo $result['name'];
+                                    ?>
+                                    </td>
+                                    <td>
+                                    <?php
+                                        $result;
+                                        foreach ($categories as $index => $category) {
+                                            if ($category['id']==$line['expenseid'])
+                                                $result = $category;
+                                        }
+                                        echo $result['name'];
+                                    ?>
+                                    </td>
+                                    <td>
+                                    <?php
+                                        echo $line['projectid'];
+                                    ?>
+                                    </td>
+                                    <td><?=$line['production_description']?></td>
+                                    <td><?=$line['units']?></td>
+                                    <td><?=$line['quantity_on_document']?></td>
+                                    <td><?=$line['quantity_received']?></td>
+                                    <td><?=$line['acquisition_unit_price']?></td>
+                                    <td><?=$line['acquisition_vat_value']?></td>
+                                    <td><?=$line['acquisition_unit_price_with_vat']?></td>
+                                    <td><?=$line['amount_without_vat']?></td>
+                                    <td><?=$line['amount_vat_value']?></td>
+                                    <td><?=$line['total_amount']?></td>
+                                    <td><?=$line['selling_unit_price_without_vat']?></td>
+                                    <td><?=$line['selling_unit_vat_value']?></td>
+                                    <td><?=$line['selling_unit_price_with_vat']?></td>
+                                    <td hidden><?=$line['stockid']?></td>
+                                    <td hidden><?=$line['expenseid']?></td>
+                                    <td hidden><?=$line['projectid']?></td>
+                                    <td class='align-middle flex justify-center'>
+                                        <div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div>
+                                        <div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title="Delete"></i></div>
+                                    </td>
+                                    <td hidden><?=$line['id']?></td>
+                                    <td hidden><?=$line['lineid']?></td>
+                                </tr>
+                            <?php endforeach;?>
                             </tbody>
                         </table>
                     </div>
@@ -281,12 +339,12 @@
             <tbody>
                 <tr>
                     <td id="downtotalmark">Total:</td>
-                    <td id="total_first">0</td>
-                    <td id="total_second">0</td>
-                    <td id="total_third">0</td>
-                    <td id="total_forth">0</td>
-                    <td id="total_fifth">0</td>
-                    <td id="total_sixth">0</td>
+                    <td id="total_first"><?=$total_first?></td>
+                    <td id="total_second"><?=$total_second?></td>
+                    <td id="total_third"><?=$total_third?></td>
+                    <td id="total_forth"><?=$total_forth?></td>
+                    <td id="total_fifth"><?=$total_fifth?></td>
+                    <td id="total_sixth"><?=$total_sixth?></td>
                 </tr>
             </tbody>
         </table>
@@ -299,12 +357,11 @@
                     <input id="file-upload" name='upload_cont_img' type="file" style="display:none;">
                     <button class="btn btn-outline-danger" onclick="DeleteAttachedFile()">Delete attached file</button>
                 </div>
-                <button class="cbutton bg-red" onclick="AddProduct()">Save</button> / <a
-                    href="<?=base_url('material/index')?>"><button class="cbutton bg-white">Cancel</button></a>
+                <button class="cbutton bg-red" onclick="EditProduct('<?=$product['id']?>')">Save</button> / <a
+                    href="<?=base_url('product/index')?>"><button class="cbutton bg-white">Cancel</button></a>
             </div>
-        </div>        
+        </div>
     </section><!-- End Hero -->
-
 <script type="text/javascript">
     function getOffset(el) {
       const rect = el.getBoundingClientRect();

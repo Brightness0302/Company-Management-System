@@ -1,5 +1,5 @@
 <?php $total_subtotal=0; $total_vat_amount=0; $total_total_amount=0;?>
-<a class="btn btn-success mb-2" href="<?=base_url('product/addproduct')?>">Add New</a>
+<a class="btn btn-success mb-2" href="<?=base_url('material/addproduct')?>">Add New</a>
 <table id="invoicetable" class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -52,7 +52,7 @@
             <td><?=$total_amount?></td>
             <td class="text-center"><?=$product['ispaid']?"<label class='status success'>Paid</label>":"<label class='status danger'>Not Paid</label>"?></td>
             <td class="form-inline flex justify-around">
-                <a class="btn btn-primary" href="<?=base_url('product/editproduct/'.$product['id'])?>"><i class="bi bi-terminal-dash"></i></a>
+                <a class="btn btn-primary" href="<?=base_url('material/editproduct/'.$product['id'])?>"><i class="bi bi-terminal-dash"></i></a>
                 <button class="btn btn-danger " onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi bi-trash3-fill"></i></button>
             </td>
             <td class="text-center">

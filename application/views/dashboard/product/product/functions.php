@@ -54,6 +54,7 @@ $(document).ready(function() {
                 acquisition_unit_price.val(line['acquisition_unit_price']);
                 vat_percent.val(line['vat']);
                 mark_up_percent.val(line['makeup']);
+                refreshSellingMarkforline();
             },
             error: function(jqXHR, exception) {
                 console.log(jqXHR, exception);
@@ -66,7 +67,7 @@ function refreshSellingMarkforline() {
     const acquisition_unit_price = $("#acquisition_unit_price").val();
     const mark_up_percent = $("#mark_up_percent").val();
     
-    if (acquisition_unit_price && vat_percent && mark_up_percent) {
+    if (acquisition_unit_price && mark_up_percent) {
         $("#selling_unit_price_without_vat").val((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2));
     }
 }
@@ -79,49 +80,29 @@ function DeleteAttachedFile() {
 
 function refreshTotalMark() {
     const total_first = $("#total_first");
-    const total_second = $("#total_second");
-    const total_third = $("#total_third");
-    const total_forth = $("#total_forth");
-    const total_fifth = $("#total_fifth");
-    const total_sixth = $("#total_sixth");
     total_first.text("0");
-    total_second.text("0");
-    total_third.text("0");
-    total_forth.text("0");
-    total_fifth.text("0");
-    total_sixth.text("0");
 
     const table = $("#table-body");
     table.children("tr").each((index, element) => {
         const etr = $(element).find("td");
 
-        total_first.text((parseFloat(total_first.text()) + parseFloat($(etr[11]).text())).toFixed(2));
-        total_second.text((parseFloat(total_second.text()) + parseFloat($(etr[12]).text())).toFixed(2));
-        total_third.text((parseFloat(total_third.text()) + parseFloat($(etr[13]).text())).toFixed(2));
-        total_forth.text((parseFloat(total_forth.text()) + parseFloat($(etr[14]).text())).toFixed(2));
-        total_fifth.text((parseFloat(total_fifth.text()) + parseFloat($(etr[15]).text())).toFixed(2));
-        total_sixth.text((parseFloat(total_sixth.text()) + parseFloat($(etr[16]).text())).toFixed(2));
+        total_first.text((parseFloat(total_first.text()) + parseFloat($(etr[7]).text())).toFixed(2));
     });
 }
 
 function SaveItem() {
-    const select = document.getElementById('stockid');
-    const select_expense = document.getElementById('expenseid');
-    const select_project = document.getElementById('projectid');
     const production_description = $("#production_description").val();
-    const stockid = $("#stockid").val();
-    const expenseid = $("#expenseid").val();
-    const projectid = $("#projectid").val();
-    const stockname = select.options[select.selectedIndex].text;
-    const expensename = select_expense.options[select_expense.selectedIndex].text;
-    const projectname = select_project.options[select_project.selectedIndex].text;
     const code_ean = $("#code_ean").val();
     const unit = $("#unit").val();
     const acquisition_unit_price = $("#acquisition_unit_price").val();
     const vat_percent = $("#vat_percent").val();
-    const quantity_on_document = $("#quantity_on_document").val();
-    const quantity_received = $("#quantity_received").val();
     const mark_up_percent = $("#mark_up_percent").val();
+    const selling_price_without_vat = (acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0);
+
+    const labour_time = $("#labour_time").val();
+    const labour_hourly = $("#labour_hourly").val();
+    const labour_amount = $("#labour_amount").val();
+    const auxiliary_expense = $("#auxiliary_expense").val();
 
     $.ajax({
         url: "<?=base_url("material/linebycodeean/")?>" + code_ean,
@@ -137,25 +118,13 @@ function SaveItem() {
             $("#table-body").append(
                 "<tr>"+
                 "<td>"+code_ean+"</td>"+
-                "<td>"+stockname+"</td>"+
-                "<td>"+expensename+"</td>"+
-                "<td>"+projectname+"</td>"+
                 "<td>"+production_description+"</td>"+
-                "<td>"+unit+"</td>"+
-                "<td>"+quantity_on_document+"</td>"+
-                "<td>"+quantity_received+"</td>"+
-                "<td>"+acquisition_unit_price+"</td>"+
-                "<td>"+(acquisition_unit_price*vat_percent/100.0).toFixed(2)+"</td>"+
-                "<td>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
-                "<td>"+(acquisition_unit_price*quantity_on_document).toFixed(2)+"</td>"+
-                "<td>"+((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2)+"</td>"+
-                "<td>"+((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
-                "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2)+"</td>"+
-                "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</td>"+
-                "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</td>"+
-                "<td hidden>"+stockid+"</td>"+
-                "<td hidden>"+expenseid+"</td>"+
-                "<td hidden>"+projectid+"</td>"+
+                "<td>"+selling_price_without_vat+"</td>"+
+                "<td>"+labour_time+"</td>"+
+                "<td>"+labour_hourly+"</td>"+
+                "<td>"+labour_amount+"</td>"+
+                "<td>"+auxiliary_expense+"</td>"+
+                "<td>"+(labour_time*labour_hourly*labour_amount*1.0+auxiliary_expense*1.0)+"</td>"+
                 "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
                 "<td hidden>0</td>"+
                 "<td hidden>"+lineid+"</td>"+
@@ -292,10 +261,13 @@ function ClearItem() {
     $("#code_ean").val("");
     $("#acquisition_unit_price").val("0");
     $("#vat_percent").val("0");
-    $("#quantity_on_document").val("0");
-    $("#quantity_received").val("0");
     $("#mark_up_percent").val("0");
     $("#selling_unit_price_without_vat").val("0.00");
+
+    $("#labour_time").val("0.00");
+    $("#labour_hourly").val("0.00");
+    $("#labour_amount").val("0.00");
+    $("#auxiliary_expense").val("0.00");
 }
 
 function AddProduct() {
