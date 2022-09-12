@@ -79,15 +79,32 @@ function DeleteAttachedFile() {
 }
 
 function refreshTotalMark() {
-    const total_first = $("#total_first");
-    total_first.text("0");
+    const first_total = $("#first_total");
+    const second_total = $("#second_total");
+    const third_total = $("#third_total");
+    const fourth_total = $("#fourth_total");
+    first_total.text("0");
+    second_total.text("0");
+    third_total.text("0");
+    fourth_total.text("0");
 
     const table = $("#table-body");
+    const table1 = $("#table-body1");
+    const table2 = $("#table-body2");
     table.children("tr").each((index, element) => {
         const etr = $(element).find("td");
-
-        total_first.text((parseFloat(total_first.text()) + parseFloat($(etr[7]).text())).toFixed(2));
+        first_total.text((parseFloat(first_total.text()) + parseFloat($(etr[3]).text())).toFixed(2));
     });
+    table1.children("tr").each((index, element) => {
+        const etr = $(element).find("td");
+        second_total.text((parseFloat(second_total.text()) + parseFloat($(etr[4]).text())).toFixed(2));
+    });
+    table2.children("tr").each((index, element) => {
+        const etr = $(element).find("td");
+        third_total.text((parseFloat(third_total.text()) + parseFloat($(etr[1]).text())).toFixed(2));
+    });
+
+    fourth_total.text(parseFloat(first_total.text()) + parseFloat(second_total.text()) + parseFloat(third_total.text()));
 }
 
 function SaveItem() {
@@ -98,11 +115,6 @@ function SaveItem() {
     const vat_percent = $("#vat_percent").val();
     const mark_up_percent = $("#mark_up_percent").val();
     const selling_price_without_vat = (acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0);
-
-    const labour_time = $("#labour_time").val();
-    const labour_hourly = $("#labour_hourly").val();
-    const labour_amount = $("#labour_amount").val();
-    const auxiliary_expense = $("#auxiliary_expense").val();
 
     $.ajax({
         url: "<?=base_url("material/linebycodeean/")?>" + code_ean,
@@ -120,24 +132,58 @@ function SaveItem() {
                 "<td>"+code_ean+"</td>"+
                 "<td>"+production_description+"</td>"+
                 "<td>"+selling_price_without_vat+"</td>"+
-                "<td>"+labour_time+"</td>"+
-                "<td>"+labour_hourly+"</td>"+
-                "<td>"+labour_amount+"</td>"+
-                "<td>"+auxiliary_expense+"</td>"+
-                "<td>"+(labour_time*labour_hourly*labour_amount*1.0+auxiliary_expense*1.0)+"</td>"+
+                "<td>"+(selling_price_without_vat)+"</td>"+
                 "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
                 "<td hidden>0</td>"+
                 "<td hidden>"+lineid+"</td>"+
                 "</tr>"
             );
 
-            ClearItem();
+            ClearItem1();
             refreshTotalMark();
         },
         error: function(jqXHR, exception) {
             console.log(jqXHR, exception);
         },
     });
+}
+
+function SaveItem1() {
+    const labour_name = $("#labour_name").val();
+    const labour_time = $("#labour_time").val();
+    const labour_hourly = $("#labour_hourly").val();
+    const labour_amount = $("#labour_amount").val();
+    $("#table-body1").append(
+        "<tr>"+
+        "<td>"+labour_name+"</td>"+
+        "<td>"+labour_time+"</td>"+
+        "<td>"+labour_hourly+"</td>"+
+        "<td>"+labour_amount+"</td>"+
+        "<td>"+(labour_time*labour_hourly*labour_amount)+"</td>"+
+        "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr1(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr1(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
+        "<td hidden>0</td>"+
+        "</tr>"
+    );
+
+    ClearItem2();
+    refreshTotalMark();
+}
+
+function SaveItem2() {
+    const auxiliary_title = $("#auxiliary_title").val();
+    const auxiliary_expense = $("#auxiliary_expense").val();
+
+    $("#table-body2").append(
+        "<tr>"+
+        "<td>"+auxiliary_title+"</td>"+
+        "<td>"+auxiliary_expense+"</td>"+
+        "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr2(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr2(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
+        "<td hidden>0</td>"+
+        "</tr>"
+    );
+
+    ClearItem3();
+    refreshTotalMark();
 }
 
 function remove_tr(el) {
@@ -244,7 +290,7 @@ function save_tr(el) {
     $(etd[19]).text(projectid);
     $(etd[20]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
 
-    ClearItem();
+    ClearItem1();
     refreshTotalMark();
 }
 
@@ -253,20 +299,26 @@ function cancel_tr(el) {
     const etd = $(etr).find("td");
 
     $(etd[20]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
-    ClearItem();
+    ClearItem1();
 }
 
-function ClearItem() {
+function ClearItem1() {
     $("#production_description").val("");
     $("#code_ean").val("");
     $("#acquisition_unit_price").val("0");
     $("#vat_percent").val("0");
     $("#mark_up_percent").val("0");
     $("#selling_unit_price_without_vat").val("0.00");
+}
 
+function ClearItem2() {
     $("#labour_time").val("0.00");
     $("#labour_hourly").val("0.00");
     $("#labour_amount").val("0.00");
+}
+
+function ClearItem3() {
+    $("#auxiliary_title").val("0.00");
     $("#auxiliary_expense").val("0.00");
 }
 
