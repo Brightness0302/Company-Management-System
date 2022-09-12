@@ -37,8 +37,8 @@ class Product extends CI_Controller
             }
         }
 
-        $session['menu']="Suppliers";
-        $session['submenu']="pdm";
+        $session['menu']="Products";
+        $session['submenu']="p_pm";
         $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 

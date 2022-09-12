@@ -372,7 +372,7 @@
                 <ul id="product-nav" class="nav-content collapse <?=$menu['menu']=="Products"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="<?=base_url('product/index')?>">
-                            <i class="bi <?=$menu['submenu']=="sm"?"bi-circle-fill":"bi-circle"?>"></i><span>Product Management</span>
+                            <i class="bi <?=$menu['submenu']=="p_pm"?"bi-circle-fill":"bi-circle"?>"></i><span>Product Management</span>
                         </a>
                     </li>
 
