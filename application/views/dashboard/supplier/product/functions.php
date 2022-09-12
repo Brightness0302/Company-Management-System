@@ -54,6 +54,8 @@ $(document).ready(function() {
                 acquisition_unit_price.val(line['acquisition_unit_price']);
                 vat_percent.val(line['vat']);
                 mark_up_percent.val(line['makeup']);
+
+                refreshSellingMarkforline();
             },
             error: function(jqXHR, exception) {
                 console.log(jqXHR, exception);
@@ -66,7 +68,7 @@ function refreshSellingMarkforline() {
     const acquisition_unit_price = $("#acquisition_unit_price").val();
     const mark_up_percent = $("#mark_up_percent").val();
     
-    if (acquisition_unit_price && vat_percent && mark_up_percent) {
+    if (acquisition_unit_price && mark_up_percent) {
         $("#selling_unit_price_without_vat").val((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2));
     }
 }
@@ -81,15 +83,15 @@ function refreshTotalMark() {
     const total_first = $("#total_first");
     const total_second = $("#total_second");
     const total_third = $("#total_third");
-    const total_forth = $("#total_forth");
-    const total_fifth = $("#total_fifth");
-    const total_sixth = $("#total_sixth");
+    const total_seventh = $("#total_seventh");
+    const total_eighth = $("#total_eighth");
+    const total_ninth = $("#total_ninth");
     total_first.text("0");
     total_second.text("0");
     total_third.text("0");
-    total_forth.text("0");
-    total_fifth.text("0");
-    total_sixth.text("0");
+    total_seventh.text("0");
+    total_eighth.text("0");
+    total_ninth.text("0");
 
     const table = $("#table-body");
     table.children("tr").each((index, element) => {
@@ -98,9 +100,9 @@ function refreshTotalMark() {
         total_first.text((parseFloat(total_first.text()) + parseFloat($(etr[11]).text())).toFixed(2));
         total_second.text((parseFloat(total_second.text()) + parseFloat($(etr[12]).text())).toFixed(2));
         total_third.text((parseFloat(total_third.text()) + parseFloat($(etr[13]).text())).toFixed(2));
-        total_forth.text((parseFloat(total_forth.text()) + parseFloat($(etr[14]).text())).toFixed(2));
-        total_fifth.text((parseFloat(total_fifth.text()) + parseFloat($(etr[15]).text())).toFixed(2));
-        total_sixth.text((parseFloat(total_sixth.text()) + parseFloat($(etr[16]).text())).toFixed(2));
+        total_seventh.text(((parseFloat(total_seventh.text()) + parseFloat($(etr[17]).text()))).toFixed(2));
+        total_eighth.text(((parseFloat(total_eighth.text()) + parseFloat($(etr[18]).text()))).toFixed(2));
+        total_ninth.text(((parseFloat(total_ninth.text()) + parseFloat($(etr[19]).text()))).toFixed(2));
     });
 }
 
@@ -153,6 +155,9 @@ function SaveItem() {
                 "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2)+"</td>"+
                 "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</td>"+
                 "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</td>"+
+                "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document/100.0).toFixed(2)+"</td>"+
+                "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*vat_percent/100.0/100.0).toFixed(2)+"</td>"+
+                "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</td>"+
                 "<td hidden>"+stockid+"</td>"+
                 "<td hidden>"+expenseid+"</td>"+
                 "<td hidden>"+projectid+"</td>"+
@@ -193,11 +198,11 @@ function edit_tr(el) {
     const mark_up_percent = $("#mark_up_percent");
 
     production_description.val($(etd[4]).text());
-    stockid.val($(etd[17]).text());
+    stockid.val($(etd[20]).text());
     stockid.trigger('change');
-    expenseid.val($(etd[18]).text());
+    expenseid.val($(etd[21]).text());
     expenseid.trigger('change');
-    projectid.val($(etd[19]).text());
+    projectid.val($(etd[22]).text());
     projectid.trigger('change');
     code_ean.val($(etd[0]).text());
     unit.val($(etd[5]).text());
@@ -208,7 +213,7 @@ function edit_tr(el) {
     quantity_received.val($(etd[7]).text());
     mark_up_percent.val(((parseFloat($(etd[14]).text())*100.0/parseFloat($(etd[8]).text()))-100.0).toFixed(2));
 
-    $(etd[20]).html("<div id='btn_save_row' onclick='save_tr(this)'><i class='bi bi-save-fill p-1' title='Save'></i></div><div id='btn_cancel_row' onclick='cancel_tr(this)'><i class='bi bi-shield-x p-1' title='Cancel'></i></div>");
+    $(etd[23]).html("<div id='btn_save_row' onclick='save_tr(this)'><i class='bi bi-save-fill p-1' title='Save'></i></div><div id='btn_cancel_row' onclick='cancel_tr(this)'><i class='bi bi-shield-x p-1' title='Cancel'></i></div>");
 
     refreshSellingMarkforline();
 }
@@ -246,7 +251,7 @@ function save_tr(el) {
                 lineid=res['id'];
             }
 
-            $(etd[22]).text(lineid);
+            $(etd[25]).text(lineid);
         },
         error: function(jqXHR, exception) {
             console.log(jqXHR, exception);
@@ -270,10 +275,13 @@ function save_tr(el) {
     $(etd[14]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2));
     $(etd[15]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2));
     $(etd[16]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2));
-    $(etd[17]).text(stockid);
-    $(etd[18]).text(expenseid);
-    $(etd[19]).text(projectid);
-    $(etd[20]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
+    $(etd[17]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document/100.0).toFixed(2));
+    $(etd[18]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*vat_percent/100.0/100.0).toFixed(2));
+    $(etd[19]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2));
+    $(etd[20]).text(stockid);
+    $(etd[21]).text(expenseid);
+    $(etd[22]).text(projectid);
+    $(etd[23]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
 
     ClearItem();
     refreshTotalMark();
@@ -283,7 +291,7 @@ function cancel_tr(el) {
     const etr = $(el).closest('tr');
     const etd = $(etr).find("td");
 
-    $(etd[20]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
+    $(etd[23]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
     ClearItem();
 }
 
@@ -311,9 +319,9 @@ function AddProduct() {
         const etr = $(element).find("td");
         lines.push({
             code_ean:$(etr[0]).text(),
-            stockid:$(etr[17]).text(),
-            expenseid:$(etr[18]).text(),
-            projectid:$(etr[19]).text(),
+            stockid:$(etr[20]).text(),
+            expenseid:$(etr[21]).text(),
+            projectid:$(etr[22]).text(),
             production_description:$(etr[4]).text(),
             units:$(etr[5]).text(),
             quantity_on_document:$(etr[6]).text(),
@@ -321,7 +329,7 @@ function AddProduct() {
             acquisition_unit_price:$(etr[8]).text(),
             vat: parseFloat($(etr[9]).text())*100.0/parseFloat($(etr[8]).text()), 
             makeup: ((parseFloat($(etr[14]).text())*100.0/parseFloat($(etr[8]).text()))-100.0),
-            lineid:$(etr[22]).text()
+            lineid:$(etr[25]).text()
         });
     });
     const str_lines = JSON.stringify(lines);
@@ -403,11 +411,11 @@ function EditProduct(product_id) {
     table.children("tr").each((index, element) => {
         const etr = $(element).find("td");
         lines.push({
-            id:$(etr[21]).text(),
+            id:$(etr[24]).text(),
             code_ean:$(etr[0]).text(),
-            stockid:$(etr[17]).text(),
-            expenseid:$(etr[18]).text(),
-            projectid:$(etr[19]).text(),
+            stockid:$(etr[20]).text(),
+            expenseid:$(etr[21]).text(),
+            projectid:$(etr[22]).text(),
             production_description:$(etr[4]).text(),
             units:$(etr[5]).text(),
             quantity_on_document:$(etr[6]).text(),
@@ -415,7 +423,7 @@ function EditProduct(product_id) {
             acquisition_unit_price:$(etr[8]).text(),
             vat: parseFloat($(etr[9]).text())*100.0/parseFloat($(etr[8]).text()), 
             makeup: ((parseFloat($(etr[14]).text())*100.0/parseFloat($(etr[8]).text()))-100.0),
-            lineid:$(etr[22]).text()
+            lineid:$(etr[25]).text()
         });
     });
     const str_lines = JSON.stringify(lines);

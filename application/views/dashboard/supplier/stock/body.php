@@ -18,6 +18,9 @@ var chart = new CanvasJS.Chart("chartContainer", {
         labelAngle: 0
     },
     axisY: {
+        labelFormatter: function (e) {
+                return CanvasJS.formatNumber(e.value, "#,##0") + " €";
+            },
         titleFontColor: "#4F81BC",
         lineColor: "#4F81BC",
         labelFontColor: "#4F81BC",
@@ -25,7 +28,10 @@ var chart = new CanvasJS.Chart("chartContainer", {
         includeZero: true
     },
     axisY2: {
-        title: "Clutch - Units",
+        labelFormatter: function (e) {
+                return "$ " + CanvasJS.formatNumber(e.value, "#,##0");
+            },
+        title: "Clutch - €",
         titleFontColor: "#C0504E",
         lineColor: "#C0504E",
         labelFontColor: "#C0504E",
@@ -43,7 +49,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
         type: "column",
         name: "ACQ amount EX VAT",
         showInLegend: true,      
-        yValueFormatString: "#,##0.# Units",
+        yValueFormatString: "#,##0.#",
         dataPoints: [
             <?php foreach ($stocks as $stock):?>
             <?php if(!$stock['isremoved']):?>
@@ -56,7 +62,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
         type: "column",
         name: "Selling amount EX VAT",
         showInLegend: true,
-        yValueFormatString: "#,##0.# Units",
+        yValueFormatString: "#,##0.#",
         dataPoints: [
             <?php foreach ($stocks as $stock):?>
             <?php if(!$stock['isremoved']):?>
@@ -79,7 +85,7 @@ function toggleDataSeries(e) {
 
 }
 </script>
-<table id="example1" class="table table-bordered table-striped">
+<table id="example1" class="table table-bordered table-striped mt-10">
     <thead>
         <tr>
             <th>No</th>

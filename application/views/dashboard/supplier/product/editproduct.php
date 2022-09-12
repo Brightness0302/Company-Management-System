@@ -155,7 +155,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="border : 1px solid black">Acquisition unit price:</td>
+                                        <td style="border : 1px solid black">Acq unit price:</td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="number" class="form-control " id="acquisition_unit_price" value="0" title="Choose your color">
@@ -187,7 +187,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="border : 1px solid black">Quantity on document: </td>
+                                        <td style="border : 1px solid black">Qty on doc: </td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="number" class="form-control " id="quantity_on_document" value="0" title="Choose your color">
@@ -195,7 +195,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="border : 1px solid black">Quantity received:</td>
+                                        <td style="border : 1px solid black">Qty received:</td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="number" class="form-control " id="quantity_received" value="0" title="Choose your color">
@@ -216,7 +216,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="border: 1px solid black">Selling Unit Price without VAT:</td>
+                                        <td style="border: 1px solid black">Selling Unit Price Ex VAT:</td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="number" min="0" max="100" class="form-control " id="selling_unit_price_without_vat" value="0.00" title="Choose your color" readonly>
@@ -233,9 +233,9 @@
                             </div>
                         </div>
                         <?php
-                            $total_first=0;$total_second=0;$total_third=0;$total_forth=0;$total_fifth=0;$total_sixth=0;
+                            $total_first=0;$total_second=0;$total_third=0;$total_seventh=0;$total_eighth=0;$total_ninth=0;
                         ?>
-                        <table id="lines" class="table table-bordered table-striped text-center">
+                        <table id="lines" class="table table-bordered table-striped text-center text-xs">
                             <thead>
                                 <tr>
                                     <th>Code EAN</th>
@@ -244,18 +244,20 @@
                                     <th>Registered Project</th>
                                     <th>Product description</th>
                                     <th>Units</th>
-                                    <th>Quantity on document</th>
-                                    <th>Received quantity</th>
-                                    <th>Acquisition price without VAT</th>
-                                    <th>VAT</th>
-                                    <th>Acquisition price with VAT</th>
-                                    <th id="first">Amount without VAT</th>
-                                    <th id="second">Amount VAT</th>
-                                    <th id="third">Total amount</th>
-                                    <th id="forth">Selling price without VAT</th>
-                                    <th id="fifth">VAT value</th>
-                                    <th id="sixth">Selling price with VAT</th>
-                                    <!-- <th>Selling amount without VAT</th> -->
+                                    <th>Qty on doc</th>
+                                    <th>Qty received</th>
+                                    <th>Acq unit price Ex VAT</th>
+                                    <th>VAT: Acq/unit</th>
+                                    <th>Acq unit price with VAT</th>
+                                    <th id="first">Acq amount Ex VAT</th>
+                                    <th id="second">Acq amount VAT</th>
+                                    <th id="third">Acq total amount</th>
+                                    <th id="forth">Selling unit price Ex VAT</th>
+                                    <th id="fifth">VAT Sell/unit</th>
+                                    <th id="sixth">Selling unit price with VAT</th>
+                                    <th id="seventh">Selling amount Ex VAT</th>
+                                    <th id="eighth">VAT: Selling amount</th>
+                                    <th id="ninth">Selling amount with VAT</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -273,9 +275,9 @@
                                         $total_first+=$line['amount_without_vat'];
                                         $total_second+=$line['amount_vat_value'];
                                         $total_third+=$line['total_amount'];
-                                        $total_forth+=$line['selling_unit_price_without_vat'];
-                                        $total_fifth+=$line['selling_unit_vat_value'];
-                                        $total_sixth+=$line['selling_unit_price_with_vat'];
+                                        $total_seventh+=$line['selling_unit_price_without_vat']*$line['quantity_on_document'];
+                                        $total_eighth+=$line['selling_unit_vat_value']*$line['quantity_on_document'];
+                                        $total_ninth+=$line['selling_unit_price_with_vat']*$line['quantity_on_document'];
                                         echo $result['name'];
                                     ?>
                                     </td>
@@ -307,6 +309,9 @@
                                     <td><?=$line['selling_unit_price_without_vat']?></td>
                                     <td><?=$line['selling_unit_vat_value']?></td>
                                     <td><?=$line['selling_unit_price_with_vat']?></td>
+                                    <td><?=$line['selling_unit_price_without_vat']*$line['quantity_on_document']?></td>
+                                    <td><?=$line['selling_unit_vat_value']*$line['quantity_on_document']?></td>
+                                    <td><?=$line['selling_unit_price_with_vat']*$line['quantity_on_document']?></td>
                                     <td hidden><?=$line['stockid']?></td>
                                     <td hidden><?=$line['expenseid']?></td>
                                     <td hidden><?=$line['projectid']?></td>
@@ -324,16 +329,19 @@
                 </div>
             </div>
         </div>
-        <table id="total-table" class="table table-bordered table-striped relative text-center" data-aos="fade-up" data-aos-delay="100">
+        <table id="total-table" class="table table-bordered table-striped relative text-center text-xs" data-aos="fade-up" data-aos-delay="100">
             <thead>
                 <tr>
                     <th></th>
-                    <th>Sub Total</th>
-                    <th>VAT Amount</th>
-                    <th>Total Amount</th>
-                    <th>Sub Total selling without VAT</th>
-                    <th>Selling</th>
-                    <th>Total selling amount</th>
+                    <th>Total: Acq Ex VAT</th>
+                    <th>Total: Acq VAT</th>
+                    <th>Total: ACQ with VAT</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Total: Selling Ex VAT</th>
+                    <th>Total: Selling VAT</th>
+                    <th>Total: Selling with VAT</th>
                 </tr>
             </thead>
             <tbody>
@@ -342,9 +350,12 @@
                     <td id="total_first"><?=$total_first?></td>
                     <td id="total_second"><?=$total_second?></td>
                     <td id="total_third"><?=$total_third?></td>
-                    <td id="total_forth"><?=$total_forth?></td>
-                    <td id="total_fifth"><?=$total_fifth?></td>
-                    <td id="total_sixth"><?=$total_sixth?></td>
+                    <td id="total_forth"></td>
+                    <td id="total_fifth"></td>
+                    <td id="total_sixth"></td>
+                    <td id="total_seventh"><?=$total_seventh?></td>
+                    <td id="total_eighth"><?=$total_eighth?></td>
+                    <td id="total_ninth"><?=$total_ninth?></td>
                 </tr>
             </tbody>
         </table>
@@ -362,6 +373,7 @@
             </div>
         </div>
     </section><!-- End Hero -->
+
 <script type="text/javascript">
     function getOffset(el) {
       const rect = el.getBoundingClientRect();
@@ -379,12 +391,15 @@
       const first_row_4 =  getOffset(forth);
       const first_row_5 = getOffset(fifth);
       const first_row_6 = getOffset(sixth);
+      const first_row_7 =  getOffset(seventh);
+      const first_row_8 = getOffset(eighth);
+      const first_row_9 = getOffset(ninth);
 
       console.log(first_row_1.left);
 
       document.getElementById("total-table").style.left = parseFloat(first_row_1.left - 100)+"px";
 
-      document.getElementById("total-table").style.width = parseFloat(100+first_row_1.width+first_row_2.width+first_row_3.width+first_row_4.width+first_row_5.width+first_row_6.width) + "px";
+      document.getElementById("total-table").style.width = parseFloat(100+first_row_1.width+first_row_2.width+first_row_3.width+first_row_4.width+first_row_5.width+first_row_6.width+first_row_7.width+first_row_8.width+first_row_9.width) + "px";
       document.getElementById("downtotalmark").style.width = 100+"px";
       document.getElementById("total_first").style.width  = first_row_1.width + "px";
       document.getElementById("total_second").style.width  = first_row_2.width + "px";
@@ -392,6 +407,9 @@
       document.getElementById("total_forth").style.width  = first_row_4.width + "px";
       document.getElementById("total_fifth").style.width  = first_row_5.width + "px";
       document.getElementById("total_sixth").style.width  = first_row_6.width + "px";
+      document.getElementById("total_seventh").style.width  = first_row_7.width + "px";
+      document.getElementById("total_eighth").style.width  = first_row_8.width + "px";
+      document.getElementById("total_ninth").style.width  = first_row_9.width + "px";
     }
 
     refreshbrowser();

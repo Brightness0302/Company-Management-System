@@ -27,9 +27,12 @@ class Material extends CI_Controller
             $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $product['id']);
             $data['products'][$index]['attached'] = false;
 
-            $data['products'][$index]['subtotal'] = $result['subtotal'];
-            $data['products'][$index]['vat_amount'] = $result['vat_amount'];
-            $data['products'][$index]['total_amount'] = $result['total_amount'];
+            $data['products'][$index]['acq_subtotal_without_vat'] = $result['acq_subtotal_without_vat'];
+            $data['products'][$index]['acq_subtotal_vat'] = $result['acq_subtotal_vat'];
+            $data['products'][$index]['acq_subtotal_with_vat'] = $result['acq_subtotal_with_vat'];
+            $data['products'][$index]['selling_subtotal_without_vat'] = $result['selling_subtotal_without_vat'];
+            $data['products'][$index]['selling_subtotal_vat'] = $result['selling_subtotal_vat'];
+            $data['products'][$index]['selling_subtotal_with_vat'] = $result['selling_subtotal_with_vat'];
             $invoicename = $product['id'].".pdf";
             $path = "assets/company/attachment/".$companyname."/supplier/";
             if(file_exists($path.$invoicename)) {

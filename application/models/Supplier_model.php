@@ -335,9 +335,12 @@ class Supplier_model extends CI_Model {
                     WHERE `productid`='$product_id'";
 
         $lines = $this->db->query($query)->result_array();
-        $res['subtotal'] = 0.0;
-        $res['vat_amount'] = 0.0;
-        $res['total_amount'] = 0.0;
+        $res['acq_subtotal_without_vat'] = 0.0;
+        $res['acq_subtotal_vat'] = 0.0;
+        $res['acq_subtotal_with_vat'] = 0.0;
+        $res['selling_subtotal_without_vat'] = 0.0;
+        $res['selling_subtotal_vat'] = 0.0;
+        $res['selling_subtotal_with_vat'] = 0.0;
         if(count($lines) == 0) {
             return $res;
         }
@@ -350,9 +353,12 @@ class Supplier_model extends CI_Model {
             $tline = $this->db->query($query)->result_array();
             $tline = $tline[0];
 
-            $res['subtotal'] += $tline['acquisition_unit_price'] * $line['quantity_on_document'];
-            $res['vat_amount'] += $tline['acquisition_unit_price'] * $line['quantity_on_document'] * $tline['vat'] / 100.0;
-            $res['total_amount'] += $tline['acquisition_unit_price'] * $line['quantity_on_document'] * ($tline['vat'] + 100.0) / 100.0;
+            $res['acq_subtotal_without_vat'] += $tline['acquisition_unit_price'] * $line['quantity_on_document'];
+            $res['acq_subtotal_vat'] += $tline['acquisition_unit_price'] * $line['quantity_on_document'] * $tline['vat'] / 100.0;
+            $res['acq_subtotal_with_vat'] += $tline['acquisition_unit_price'] * $line['quantity_on_document'] * ($tline['vat'] + 100.0) / 100.0;
+            $res['selling_subtotal_without_vat'] += ($tline['acquisition_unit_price']*($tline['makeup']+100.0)/100.0) * $line['quantity_on_document'];
+            $res['selling_subtotal_vat'] += ($tline['acquisition_unit_price']*($tline['makeup']+100.0)/100.0) * $line['quantity_on_document'] * $tline['vat'] / 100.0;
+            $res['selling_subtotal_with_vat'] += ($tline['acquisition_unit_price']*($tline['makeup']+100.0)/100.0) * $line['quantity_on_document'] * ($tline['vat'] + 100.0) / 100.0;
         }
         return $res;
     }
