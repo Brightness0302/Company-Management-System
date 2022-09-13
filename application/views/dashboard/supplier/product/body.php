@@ -37,7 +37,7 @@
                         $result = $supplier;
                     }
                 }
-                $first=$product['acq_subtotal_without_vat']; $second=$product['acq_subtotal_vat']; $third=$product['acq_subtotal_with_vat']; $fourth=$product['selling_subtotal_without_vat']; $fifth=$product['selling_subtotal_vat']; $sixth=$product['selling_subtotal_with_vat'];
+                $first=number_format($product['acq_subtotal_without_vat'], 2, '.', ""); $second=number_format($product['acq_subtotal_vat'], 2, '.', ""); $third=number_format($product['acq_subtotal_with_vat'], 2, '.', ""); $fourth=number_format($product['selling_subtotal_without_vat'], 2, '.', ""); $fifth=number_format($product['selling_subtotal_vat'], 2, '.', ""); $sixth=number_format($product['selling_subtotal_with_vat'], 2, '.', "");
 
                 $acq_subtotal_without_vat+=$first;
                 $acq_subtotal_vat+=$second;
@@ -61,11 +61,11 @@
             <td><?=$sixth?></td>
             <td class="text-center"><?=$product['ispaid']?"<label class='status success'>Paid</label>":"<label class='status danger'>Not Paid</label>"?></td>
             <td class="form-inline flex justify-around">
-                <a class="btn btn-primary" href="<?=base_url('material/editproduct/'.$product['id'])?>"><i class="bi bi-terminal-dash"></i></a>
-                <button class="btn btn-danger " onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi bi-trash3-fill"></i></button>
+                <a class="btn-primary p-1 rounded-lg text-xs" href="<?=base_url('material/editproduct/'.$product['id'])?>"><i class="bi bi-terminal-dash"></i></a>
+                <button class="btn-danger p-1 rounded-lg text-xs" onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi bi-trash3-fill"></i></button>
             </td>
             <td class="text-center">
-                <a class="btn btn-default" href="<?=$product['attached']?base_url('assets/company/attachment/'.$company['name'].'/supplier/'.$product['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$product['attached']?"":'pointer-events: none'?>">View</a>
+                <a class="btn btn-default" href="<?=$product['attached']?base_url('assets/company/attachment/'.$company['name'].'/supplier/'.$product['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$product['attached']?"":'pointer-events: none'?>"><i class="bi bi-view-list"></i></a>
             </td>
         </tr>
         <?php endif;?>

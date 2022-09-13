@@ -107,7 +107,7 @@ function refreshTotalMark() {
     fourth_total.text(parseFloat(first_total.text()) + parseFloat(second_total.text()) + parseFloat(third_total.text()));
 }
 
-function SaveItem() {
+function SaveItem1() {
     const production_description = $("#production_description").val();
     const code_ean = $("#code_ean").val();
     const unit = $("#unit").val();
@@ -148,7 +148,7 @@ function SaveItem() {
     });
 }
 
-function SaveItem1() {
+function SaveItem2() {
     const labour_name = $("#labour_name").val();
     const labour_time = $("#labour_time").val();
     const labour_hourly = $("#labour_hourly").val();
@@ -169,7 +169,7 @@ function SaveItem1() {
     refreshTotalMark();
 }
 
-function SaveItem2() {
+function SaveItem3() {
     const auxiliary_title = $("#auxiliary_title").val();
     const auxiliary_expense = $("#auxiliary_expense").val();
 

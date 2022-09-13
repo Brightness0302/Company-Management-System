@@ -16,17 +16,17 @@
                 <div class="text-sm">
                     <div id="section1" class="row d-flex justify-content-center align-items-center border border-lime-600">
                         <div class="col-sm-4 text-center">
-                            <table class="table " style="border : 1px solid gray; text-align: left">
+                            <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                               <tr>
-                                  <td style="border : 1px solid black">Product No: </td>
-                                  <td><?=$product['product_number']?></td>
+                                  <td style="border : 1px solid black"><label class="my-2">Product No:</label></td>
+                                  <td><input type="text" class="form-control" value="<?=$product['product_number']?>" disabled></td>
                               </tr>
                             </table>
                         </div>
                         <div class="col-sm-4 text-center">
-                          <table class="table " style="border : 1px solid gray; text-align: left">
+                          <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                 <tr>
-                                    <td style="border : 1px solid black">Product Name:</td>
+                                    <td style="border : 1px solid black"><label class="my-2">Product Name:</label></td>
                                     <td>
                                         <div class="m-auto">
                                             <input type="text" class="form-control " id="observation" value="" title="Choose your color">
@@ -40,64 +40,9 @@
                     <div class="row d-flex justify-content-center align-items-center border border-lime-600">
                         <div id="section2" class="row row d-flex justify-content-center align-items-center">
                             <div class="col-sm-4 text-center d-flex">
-                                <table class="table " style="border : 1px solid gray; text-align: left">
+                                <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border : 1px solid black">Production Description: </td>
-                                        <td>
-                                            <div class="m-auto">
-                                                <input type="text" class="form-control " id="production_description" value="" title="Choose your color">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border : 1px solid black">Select Stock to save:</td>
-                                        <td>
-                                            <select class="form-select" id="stockid">
-                                            <?php foreach ($stocks as $index => $stock):?>
-                                                <option value="<?=$stock['id']?>">
-                                                    <?=str_replace("_"," ", $stock['name'])?>
-                                                </option>
-                                            <?php endforeach;?>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border : 1px solid black">Select Expense Category:</td>
-                                        <td>
-                                            <select class="form-select" id="expenseid">
-                                                <option value="0">
-                                                    No Expenses Category
-                                                </option>
-                                            <?php foreach ($categories as $index => $category):?>
-                                                <option value="<?=$category['id']?>">
-                                                    <?=str_replace("_"," ", $category['name'])?>
-                                                </option>
-                                            <?php endforeach;?>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border : 1px solid black">Assign to Project:</td>
-                                        <td>
-                                            <select class="form-select" id="projectid">
-                                                <option value="0">
-                                                    Not for a project
-                                                </option>
-                                            <!-- <?php foreach ($categories as $index => $category):?>
-                                                <option value="<?=$category['id']?>">
-                                                    <?=str_replace("_"," ", $category['name'])?>
-                                                </option>
-                                            <?php endforeach;?> -->
-                                            </select>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-
-                            <div class="col-sm-4 text-center">
-                                <table class="table " style="border : 1px solid gray; text-align: left">
-                                    <tr>
-                                        <td style="border : 1px solid black">Code EAN:</td>
+                                        <td style="border : 1px solid black"><label class="my-2">Code EAN:</label></td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="text" class="form-control" id="code_ean" list="stock_lines" name="browser" title="Choose your color">
@@ -109,112 +54,29 @@
                                             </div>
                                         </td>
                                     </tr>
+                                </table>
+                            </div>
+
+                            <div class="col-sm-4 text-center">
+                                <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border : 1px solid black">Acquisition unit price:</td>
+                                        <td style="border : 1px solid black"><label class="my-2">Production Description:</label></td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="number" class="form-control " id="acquisition_unit_price" value="0" title="Choose your color">
+                                                <input type="text" class="form-control " id="production_description" value="" title="Choose your color">
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border : 1px solid black">VAT %:</td>
-                                        <td>
-                                            <div class="m-auto">
-                                                <input type="number" min="0" max="100" class="form-control " id="vat_percent" value="0" title="Choose your color">
-                                            </div>  
                                         </td>
                                     </tr>
                                 </table>
                             </div>
 
                             <div class="col-sm-4 text-center">
-                                <table class="table" style="border: 1px solid gray; text-align: left">
+                                <table class="table mb-0" style="border: 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border : 1px solid black">Unit: </td>
-                                        <td>
-                                            <select class="form-select" id="unit">
-                                                <option value="Pieces">Pieces</option>
-                                                <option value="Hours">Hours</option>
-                                                <option value="KG">KG</option>
-                                                <option value="Pair">Pair</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border: 1px solid black">Mark Up%: </td>
+                                        <td style="border: 1px solid black"><label class="my-2">Amount:</label></td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="number" min="0" max="100" class="form-control " id="mark_up_percent" value="0" title="Choose your color">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border: 1px solid black">Selling Unit Price without VAT:</td>
-                                        <td>
-                                            <div class="m-auto">
-                                                <input type="number" min="0" max="100" class="form-control " id="selling_unit_price_without_vat" value="0.00" title="Choose your color" readonly>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row d-flex justify-content-center align-items-center border border-lime-600">
-                        <div id="section3" class="row row d-flex justify-content-center align-items-center m-2">
-                            <div class="flex justify-end gap-3">
-                                <button class="btn btn-primary" onclick="SaveItem()">Save Item</button>
-                                <button class="btn btn-default" onclick="ClearItem()">Clear Item</button>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row d-flex justify-content-center align-items-center border border-lime-600">
-                        <div id="section2" class="row row d-flex justify-content-center align-items-center">
-                            <div class="col-sm-3 text-center d-flex">
-                                <table class="table " style="border : 1px solid gray; text-align: left">
-                                    <tr>
-                                        <td style="border : 1px solid black">Name: </td>
-                                        <td>
-                                            <div class="m-auto">
-                                                <input type="text" class="form-control " id="labour_name" value="" title="Choose your color">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="col-sm-3 text-center d-flex">
-                                <table class="table " style="border : 1px solid gray; text-align: left">
-                                    <tr>
-                                        <td style="border : 1px solid black">Time: </td>
-                                        <td>
-                                            <div class="m-auto">
-                                                <input type="text" class="form-control " id="labour_time" value="" title="Choose your color">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="col-sm-3 text-center d-flex">
-                                <table class="table " style="border : 1px solid gray; text-align: left">
-                                    <tr>
-                                        <td style="border : 1px solid black">Hourly cost: </td>
-                                        <td>
-                                            <div class="m-auto">
-                                                <input type="text" class="form-control " id="labour_hourly" value="" title="Choose your color">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="col-sm-3 text-center d-flex">
-                                <table class="table " style="border : 1px solid gray; text-align: left">
-                                    <tr>
-                                        <td style="border : 1px solid black">amount: </td>
-                                        <td>
-                                            <div class="m-auto">
-                                                <input type="text" class="form-control " id="labour_amount" value="" title="Choose your color">
                                             </div>
                                         </td>
                                     </tr>
@@ -232,11 +94,88 @@
                     </div>
                     <hr>
                     <div class="row d-flex justify-content-center align-items-center border border-lime-600">
+                        <div id="section2" class="row row d-flex justify-content-center align-items-center">
+                            <div class="col-sm-4 text-center d-flex">
+                                <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                                    <tr>
+                                        <td style="border : 1px solid black"><label class="my-2">Name:</label></td>
+                                        <td>
+                                            <div class="m-auto">
+                                                <input type="text" class="form-control " id="labour_name" value="" title="Choose your color">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border : 1px solid black"><label class="my-2">Observation:</label></td>
+                                        <td>
+                                            <div class="m-auto">
+                                                <input type="text" class="form-control " id="labour_observation" value="" title="Choose your color">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-sm-4 text-center d-flex">
+                                <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                                    <tr>
+                                        <td style="border : 1px solid black"><label class="my-2">Time:</label></td>
+                                        <td>
+                                            <div class="m-auto">
+                                                <input type="text" class="form-control " id="labour_time" value="" title="Choose your color">
+                                            </div>
+                                        </td>
+                                        <td class="text-center"><label class="my-2">hrs</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border : 1px solid black"><label class="my-2">Hourly cost:</label></td>
+                                        <td>
+                                            <div class="m-auto">
+                                                <input type="text" class="form-control " id="labour_hourly" value="" title="Choose your color">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <select class="form-control">
+                                                <option>Euro</option>
+                                                <option>LEI</option>
+                                            </select>
+                                            <style>
+                                                .select2 {
+                                                    margin-top: 0.5rem;
+                                                }
+                                            </style>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-sm-4 text-center d-flex">
+                                <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                                    <tr>
+                                        <td style="border : 1px solid black"><label class="my-2">Amount:</label></td>
+                                        <td>
+                                            <div class="m-auto">
+                                                <input type="text" class="form-control " id="labour_amount" value="" title="Choose your color">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center align-items-center border border-lime-600">
+                        <div id="section3" class="row row d-flex justify-content-center align-items-center m-2">
+                            <div class="flex justify-end gap-3">
+                                <button class="btn btn-primary" onclick="SaveItem2()">Save Item</button>
+                                <button class="btn btn-default" onclick="ClearItem2()">Clear Item</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row d-flex justify-content-center align-items-center border border-lime-600">
                         <div id="section3" class="row row d-flex justify-content-center align-items-center">
                             <div class="col-sm-4 text-center d-flex">
-                                <table class="table " style="border : 1px solid gray; text-align: left">
+                                <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border : 1px solid black">Auxiliary title: </td>
+                                        <td style="border : 1px solid black"><label class="my-2">Expense description:</label></td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="text" class="form-control " id="auxiliary_title" value="" title="Choose your color">
@@ -246,9 +185,21 @@
                                 </table>
                             </div>
                             <div class="col-sm-4 text-center d-flex">
-                                <table class="table " style="border : 1px solid gray; text-align: left">
+                                <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border : 1px solid black">Auxiliary expenses: </td>
+                                        <td style="border : 1px solid black"><label class="my-2">Observation:</label></td>
+                                        <td>
+                                            <div class="m-auto">
+                                                <input type="text" class="form-control " id="auxiliary_observation" value="" title="Choose your color">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-sm-4 text-center d-flex">
+                                <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                                    <tr>
+                                        <td style="border : 1px solid black"><label class="my-2">Value:</label></td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="text" class="form-control " id="auxiliary_expense" value="" title="Choose your color">
@@ -262,8 +213,8 @@
                     <div class="row d-flex justify-content-center align-items-center border border-lime-600">
                         <div id="section3" class="row row d-flex justify-content-center align-items-center m-2">
                             <div class="flex justify-end gap-3">
-                                <button class="btn btn-primary" onclick="SaveItem2()">Save Item</button>
-                                <button class="btn btn-default" onclick="ClearItem2()">Clear Item</button>
+                                <button class="btn btn-primary" onclick="SaveItem3()">Save Item</button>
+                                <button class="btn btn-default" onclick="ClearItem3()">Clear Item</button>
                             </div>
                         </div>
                     </div>

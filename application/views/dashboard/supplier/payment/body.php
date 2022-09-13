@@ -36,11 +36,11 @@
                         $result = $supplier;
                     }
                 }
-                $subtotal=$product['subtotal']; $vat_amount=$product['vat_amount']; $total_amount=$product['total_amount'];
+                $acq_subtotal_without_vat=$product['acq_subtotal_without_vat']; $acq_subtotal_vat=$product['acq_subtotal_vat']; $acq_subtotal_with_vat=$product['acq_subtotal_with_vat'];
 
-                $total_subtotal+=$subtotal;
-                $total_vat_amount+=$vat_amount;
-                $total_total_amount+=$total_amount;
+                $total_subtotal+=$acq_subtotal_without_vat;
+                $total_vat_amount+=$acq_subtotal_vat;
+                $total_total_amount+=$acq_subtotal_with_vat;
                 echo str_replace("_"," ", $result['name']);
                 echo $result['isremoved']?"(<span id='boot-icon' class='bi bi-circle-fill' style='font-size: 12px; color: rgb(255, 0, 0);''></span>)":"";
             ?>
@@ -49,9 +49,9 @@
             <td><?=$product['id']?></td>
             <td><?=$product['date_of_reception']?></td>
             <td><?=$product['invoice_date']?></td>
-            <td><?=$subtotal?></td>
-            <td><?=$vat_amount?></td>
-            <td><?=$total_amount?></td>
+            <td><?=$acq_subtotal_without_vat?></td>
+            <td><?=$acq_subtotal_vat?></td>
+            <td><?=$acq_subtotal_with_vat?></td>
             <td>
                 <?=$product['ispaid']?$product['paid_date']:"-"?>
             </td>

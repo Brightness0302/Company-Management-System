@@ -46,8 +46,8 @@
                 <a class="btn btn-primary" href="<?=base_url('expense/editproduct/'.$product['id'])?>"><i class="bi bi-terminal-dash"></i></a>
                 <button class="btn btn-danger " onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi bi-trash3-fill"></i></button>
             </td>
-            <td>
-                <a class="btn btn-default" href="<?=$product['attached']?base_url('assets/company/attachment/'.$company['name'].'/expense/'.$product['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$product['attached']?"":'pointer-events: none'?>">View</a>
+            <td class="text-center">
+                <a class="btn btn-default" href="<?=$product['attached']?base_url('assets/company/attachment/'.$company['name'].'/expense/'.$product['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$product['attached']?"":'pointer-events: none'?>"><i class="bi bi-view-list"></i></a>
             </td>
         </tr>
         <?php endif;?>

@@ -1,3 +1,34 @@
+  <style type="text/css">
+      table.dataTable>thead .sorting::before,
+       table.dataTable>thead .sorting_asc::before,
+       table.dataTable>thead .sorting_desc::before,
+       table.dataTable>thead .sorting_asc_disabled::before,
+       table.dataTable>thead .sorting_desc_disabled::before {
+          right: 0;
+          content: "";
+      }
+       
+       table.dataTable>thead .sorting::after,
+       table.dataTable>thead .sorting_asc::after,
+       table.dataTable>thead .sorting_desc::after,
+       table.dataTable>thead .sorting_asc_disabled::after,
+       table.dataTable>thead .sorting_desc_disabled::after {
+          right: 0;
+          content: "";
+      }
+       
+       table.dataTable>thead>tr>th:not(.sorting_disabled),
+       table.dataTable>thead>tr>td:not(.sorting_disabled) {
+          padding-right: 4px;
+          padding-left: 4px;
+      }
+       
+       table.dataTable>thead>tr>th,
+       table.dataTable>thead>tr>td {
+          padding-right: 4px;
+          padding-left: 4px;
+      }
+  </style>
   <!-- Vendor JS Files -->
   <script src="<?php echo base_url('assets/vendor/purecounter/purecounter_vanilla.js'); ?>"></script>
   <script src="<?php echo base_url('assets/vendor/aos/aos.js'); ?>"></script>
