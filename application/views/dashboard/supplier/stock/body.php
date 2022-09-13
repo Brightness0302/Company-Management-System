@@ -1,5 +1,5 @@
 <a class="btn btn-success mb-2" href="<?=base_url('stock/addstock')?>">Add New</a>
-<div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
+<div id="chartContainer" style="height: 370px; max-width: 1120px; margin: 0px auto;"></div>
 <script>
 window.onload = function () {
 
