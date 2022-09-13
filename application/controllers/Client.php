@@ -211,7 +211,7 @@ class Client extends CI_Controller
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'material');
 
         $session['menu']="Clients";
         $session['submenu']="im";
@@ -375,7 +375,7 @@ class Client extends CI_Controller
         $data['company'] = $company['data'];
 
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'material');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Clients";
