@@ -23,6 +23,23 @@ class Product extends CI_Controller
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'material');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
+        foreach ($data['products'] as $index => $product) {
+            $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $product['id']);
+            $data['products'][$index]['attached'] = false;
+
+            $data['products'][$index]['acq_subtotal_without_vat'] = $result['acq_subtotal_without_vat'];
+            $data['products'][$index]['acq_subtotal_vat'] = $result['acq_subtotal_vat'];
+            $data['products'][$index]['acq_subtotal_with_vat'] = $result['acq_subtotal_with_vat'];
+            $data['products'][$index]['selling_subtotal_without_vat'] = $result['selling_subtotal_without_vat'];
+            $data['products'][$index]['selling_subtotal_vat'] = $result['selling_subtotal_vat'];
+            $data['products'][$index]['selling_subtotal_with_vat'] = $result['selling_subtotal_with_vat'];
+            $invoicename = $product['id'].".pdf";
+            $path = "assets/company/attachment/".$companyname."/supplier/";
+            if(file_exists($path.$invoicename)) {
+                $data['products'][$index]['attached'] = true;
+            }
+        }
+
         $session['menu']="Products";
         $session['submenu']="p_pm";
         $session['second-submenu']="";
@@ -30,7 +47,7 @@ class Product extends CI_Controller
 
         $this->load->view('header');
         $this->load->view('dashboard/head');
-        $this->load->view('dashboard/body');
+        $this->load->view('dashboard/body', $data);
         $this->load->view('dashboard/product/product/head');
         $this->load->view('dashboard/product/product/body');
         $this->load->view('dashboard/product/product/foot');
