@@ -17,27 +17,18 @@ class Product extends CI_Controller
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
-        $data['suppliers'] = $this->home->alldata('supplier');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['categories'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
-        $data['products'] = $this->home->alldatafromdatabase($companyid, 'material');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
 
         foreach ($data['products'] as $index => $product) {
-            $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $product['id']);
-            $data['products'][$index]['attached'] = false;
-
-            $data['products'][$index]['acq_subtotal_without_vat'] = $result['acq_subtotal_without_vat'];
-            $data['products'][$index]['acq_subtotal_vat'] = $result['acq_subtotal_vat'];
-            $data['products'][$index]['acq_subtotal_with_vat'] = $result['acq_subtotal_with_vat'];
-            $data['products'][$index]['selling_subtotal_without_vat'] = $result['selling_subtotal_without_vat'];
-            $data['products'][$index]['selling_subtotal_vat'] = $result['selling_subtotal_vat'];
-            $data['products'][$index]['selling_subtotal_with_vat'] = $result['selling_subtotal_with_vat'];
-            $invoicename = $product['id'].".pdf";
-            $path = "assets/company/attachment/".$companyname."/supplier/";
-            if(file_exists($path.$invoicename)) {
-                $data['products'][$index]['attached'] = true;
+            $materials = json_decode($product['materials'], true);
+            foreach ($materials as $key => $material) {
+                $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
+            
+                $materials[$key]['code_ean'] = $result['code_ean'];
+                $materials[$key]['production_description'] = $result['production_description'];
+                $materials[$key]['selling_unit_price_without_vat'] = $result['selling_unit_price_without_vat'];
             }
+            $data['products'][$index]['materials'] = json_encode($materials);
         }
 
         $session['menu']="Products";
@@ -63,24 +54,24 @@ class Product extends CI_Controller
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
-        $data['suppliers'] = $this->home->alldata('supplier');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['categories'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
-        $data['product'] = $this->supplier->productfromsetting($companyid, 'material');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
-        $data['totallines'] = $this->home->alldatafromdatabase($companyid, 'material_totalline');
+        $data['product'] = $this->product->productfromsetting($companyid, 'product');
 
         $data['attached'] = "Attached Invoice";
 
-        $session['menu']="Suppliers";
+        $session['menu']="Products";
         $session['submenu']="pdm";
         $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
         $this->load->view('main_page/head', $data);
+        $this->load->view('dashboard/product/product/head');
+        $this->load->view('dashboard/product/product/shead');
         $this->load->view('dashboard/product/product/addproduct');
+        $this->load->view('dashboard/product/product/foot');
         $this->load->view('dashboard/product/product/functions.php');
+        $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
     //View supplierpage of editting.
@@ -92,35 +83,34 @@ class Product extends CI_Controller
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
-        $data['suppliers'] = $this->home->alldata('supplier');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['categories'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
-        $data['totallines'] = $this->home->alldatafromdatabase($companyid, 'material_totalline');
-        $product = $this->home->databyidfromdatabase($companyid, 'material', $product_id);
-
-        $data['lines'] = $this->supplier->alllinesbyproductidfromdatabase($companyid, 'material_lines', $product_id);
-
-        $data['attached'] = "Attached Invoice";
+        $product = $this->home->databyidfromdatabase($companyid, 'product', $product_id);
 
         if ($product['status']=="failed")
             return;
         $data['product'] = $product['data'];
 
-        $invoicename = $data['product']['id'].".pdf";
-        $path = "assets/company/attachment/".$companyname."/supplier/";
-        if(file_exists($path.$invoicename)) {
-            $data['attached'] = $invoicename;
+        $materials = json_decode($data['product']['materials'], true);
+        foreach ($materials as $index => $material) {
+            $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
+        
+            $materials[$index]['code_ean'] = $result['code_ean'];
+            $materials[$index]['production_description'] = $result['production_description'];
+            $materials[$index]['selling_unit_price_without_vat'] = $result['selling_unit_price_without_vat'];
         }
+        $data['product']['materials'] = json_encode($materials);
 
-        $session['menu']="Suppliers";
+        $session['menu']="Products";
         $session['submenu']="pdm";
         $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
         $this->load->view('main_page/head');
+        $this->load->view('dashboard/product/product/head');
+        $this->load->view('dashboard/product/product/shead');
         $this->load->view('dashboard/product/product/editproduct', $data);
+        $this->load->view('dashboard/product/product/foot');
         $this->load->view('dashboard/product/product/functions.php');
         $this->load->view('footer');
     }
@@ -134,21 +124,19 @@ class Product extends CI_Controller
     public function saveproduct() {
         $companyid = $this->session->userdata('companyid');
 
-        $supplierid = $this->input->post('supplierid');
-        $observation = $this->input->post('observation');
-        $invoice_date = $this->input->post('invoice_date');
-        $invoice_number = $this->input->post('invoice_number');
-        $invoice_coin = $this->input->post('invoice_coin');
-        $lines = $this->input->post('lines');
+        $name = $this->input->post('name');
+        $materials = $this->input->post('materials');
+        $labours = $this->input->post('labours');
+        $auxiliaries = $this->input->post('auxiliaries');
 
         if (!isset($_GET['id'])) {
-            $productid = $this->supplier->createProduct($companyid, $supplierid, $observation, $lines, $invoice_date, $invoice_number, $invoice_coin);
+            $productid = $this->product->createProduct($companyid, $name, $materials, $labours, $auxiliaries);
             echo $productid;
             return;
         }
 
         $id = $_GET['id'];
-        $result = $this->supplier->saveProduct($companyid, $id, $supplierid, $observation, $lines, $invoice_date, $invoice_number, $invoice_coin);
+        $result = $this->product->saveProduct($companyid, $id, $name, $materials, $labours, $auxiliaries);
         echo $result;
     }
     //If usersession is not exist, goto login page.

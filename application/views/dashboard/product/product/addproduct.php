@@ -29,7 +29,7 @@
                                     <td style="border : 1px solid black"><label class="my-2">Product Name:</label></td>
                                     <td>
                                         <div class="m-auto">
-                                            <input type="text" class="form-control " id="observation" value="" title="Choose your color">
+                                            <input type="text" class="form-control " id="product_name" value="" title="Choose your color">
                                         </div>
                                     </td>
                                 </tr>
@@ -39,44 +39,52 @@
                     <hr>
                     <div class="row d-flex justify-content-center align-items-center border border-lime-600">
                         <div id="section2" class="row row d-flex justify-content-center align-items-center">
-                            <div class="col-sm-4 text-center d-flex">
+                            <div class="col-sm-3 text-center d-flex">
                                 <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                     <tr>
                                         <td style="border : 1px solid black"><label class="my-2">Code EAN:</label></td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="text" class="form-control" id="code_ean" list="stock_lines" name="browser" title="Choose your color">
-                                                <datalist id="stock_lines">
-                                                    <?php foreach($totallines as $line):?>
-                                                    <option value="<?=$line['code_ean']?>">
-                                                    <?php endforeach;?>
-                                                </datalist>
+                                                <input type="text" class="form-control" id="code_ean" value="" title="Choose your color" data-toggle="modal" data-target="#productfromstock">
                                             </div>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
 
-                            <div class="col-sm-4 text-center">
+                            <div class="col-sm-3 text-center">
                                 <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border : 1px solid black"><label class="my-2">Production Description:</label></td>
+                                        <td style="border : 1px solid black"><label class="my-2">Description:</label></td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="text" class="form-control " id="production_description" value="" title="Choose your color">
+                                                <input type="text" class="form-control" id="production_description" value="" title="Choose your color">
                                             </div>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
 
-                            <div class="col-sm-4 text-center">
+                            <div class="col-sm-3 text-center">
                                 <table class="table mb-0" style="border: 1px solid gray; text-align: left">
                                     <tr>
                                         <td style="border: 1px solid black"><label class="my-2">Amount:</label></td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="number" min="0" max="100" class="form-control " id="mark_up_percent" value="0" title="Choose your color">
+                                                <input type="number" min="0" max="100" class="form-control" id="production_count" value="0" title="Choose your color">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="col-sm-3 text-center">
+                                <table class="table mb-0" style="border: 1px solid gray; text-align: left">
+                                    <tr>
+                                        <td style="border: 1px solid black"><label class="my-2">Total:</label></td>
+                                        <td>
+                                            <div class="m-auto">
+                                                <input type="text" class="form-control" id="total_amount" value="0" title="Choose your color" disabled>
                                             </div>
                                         </td>
                                     </tr>
@@ -135,8 +143,8 @@
                                         </td>
                                         <td>
                                             <select class="form-control">
-                                                <option>Euro</option>
-                                                <option>LEI</option>
+                                                <option value="EURO">EURO</option>
+                                                <option value="LEI">LEI</option>
                                             </select>
                                             <style>
                                                 .select2 {
@@ -153,7 +161,7 @@
                                         <td style="border : 1px solid black"><label class="my-2">Amount:</label></td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="text" class="form-control " id="labour_amount" value="" title="Choose your color">
+                                                <input type="text" class="form-control " id="labour_total" value="" title="Choose your color">
                                             </div>
                                         </td>
                                     </tr>
@@ -227,36 +235,38 @@
                                 <tr>
                                     <th>Code EAN</th>
                                     <th>Product description</th>
-                                    <th>Selling price without VAT($)</th>
+                                    <th>Amount</th>
+                                    <th>Price($)</th>
                                     <th id="first">Sub Total Amount($)</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="table-body">
+                            <tbody id="table-body1">
                             </tbody>
                         </table>
                         <table class="table table-bordered table-striped text-center">
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Labour Time(hr)</th>
-                                    <th>Labour Hourly cost($)</th>
-                                    <th>Material amount(Count)</th>
+                                    <th>Observation</th>
+                                    <th>Time(hr)</th>
+                                    <th>Hourly cost($)</th>
                                     <th id="first">Sub Total Amount($)</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="table-body1"></tbody>
+                            <tbody id="table-body2"></tbody>
                         </table>
                         <table class="table table-bordered table-striped text-center">
                             <thead>
                                 <tr>
-                                    <th>Auxiliary Title</th>
-                                    <th>Auxiliary Cost</th>
+                                    <th>Expense description</th>
+                                    <th>Observation</th>
+                                    <th>Value</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="table-body2"></tbody>
+                            <tbody id="table-body3"></tbody>
                         </table>
                     </div>
                     <div class="row d-flex justify-content-center align-items-center">
@@ -295,7 +305,59 @@
         </div>
         <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center">
-                <button class="cbutton bg-red" onclick="">Save</button> / <a href="<?=base_url('product/index')?>"><button class="cbutton bg-white">Cancel</button></a>
+                <button class="cbutton bg-red" onclick="AddProduct()">Save</button> / <a href="<?=base_url('product/index')?>"><button class="cbutton bg-white">Cancel</button></a>
             </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="productfromstock" tabindex="-1" role="dialog" aria-labelledby="productfromstock" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Product from stock</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="row m-1">
+                    <div class="col-sm-3">
+                        <div class="w-full m-3 form-control">Stock:</div>
+                        <div class="w-full m-3 form-control">Product:</div>
+                        <div class="w-full m-3 form-control">Amount:</div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="ml-3 m-2">
+                            <select class="form-select w-full" id="stockid">
+                            <?php foreach ($stocks as $index => $stock):?>
+                                <option value="<?=$stock['id']?>">
+                                    <?=$stock['name']?>
+                                </option>
+                            <?php endforeach;?>
+                            </select>
+                        </div>
+                        <div class="ml-3 m-2">
+                            <select class="form-select w-full" id="material_code_ean">
+                            </select>
+                        </div>
+                        <div class="m-3">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <input class="form-control" type="number" name="amount" id="material_amount" value="0" max="99" min="0">
+                                </div>
+                                <div class="col-sm-8">
+                                    <p class="text-center text-red text-base" id="amount_hint">0 products on stock</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="save_product" data-dismiss="modal">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
         </div>
     </section><!-- End Hero -->

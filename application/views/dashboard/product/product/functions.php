@@ -4,72 +4,98 @@ $(document).ready(function() {
 
     $("input").change(function() {
         const id = this.id;
-        if (id == "acquisition_unit_price" || id == "mark_up_percent") {
-            refreshSellingMarkforline();
+        if (id == "labour_time" || id == "labour_hourly") {
+            refreshLaborTotal();
         }
     });
-
-    $('#file-upload').change(function() {
-        var i = $(this).prev('label').clone();
-        var file = $('#file-upload')[0].files[0].name;
-        if(file.length > 20)
-            file = file.substring(0,5) + "... ." + file.split(".").pop() + " File";;
-        $(this).prev('label').text(file);
+    $("#stockid").change(function() {
+        const stockid = this.value;
+        $("#product_amount").val("0");
+        refreshproductbystockid(stockid);
     });
+    $("#material_code_ean").change(function() {
+        const lineid = this.value;
+        $("#material_amount").val("0");
+        refreshproductamountbylineid(lineid);
+    });
+    $("#save_product").click(function() {
+        const lineid = $("#material_code_ean").val();
+        const amount = $("#material_amount").val();
 
-    $('#code_ean').change(function() {
-        const code_ean = this.value;
+        const product_code_ean = document.getElementById('product_code_ean');
+        const stock = document.getElementById('stockid');
+        const stockname = stock.options[stock.selectedIndex].text;
+
+        console.log("saveLine");
+
         $.ajax({
-            url: "<?=base_url("material/linebycodeean/")?>" + code_ean,
+            url: "<?=base_url('stock/getdatafromproductbylineid?lineid=')?>" + lineid,
             method: "POST",
             dataType: 'json',
             success: function(res) {
-                const line=res;
-                console.log(res);
-                if (res == -1) {
-                    return;
-                }
+                let price = res['price'];
+                let code_ean = res['code_ean'];
+                let productname = res['production_description'];
 
-                const production_description = $("#production_description");
-                const stockid = $("#stockid");
-                const expenseid = $("#expenseid");
-                const projectid = $("#projectid");
-                const code_ean = $("#code_ean");
-                const unit = $("#unit");
-                const acquisition_unit_price = $("#acquisition_unit_price");
-                const vat_percent = $("#vat_percent");
-                const quantity_on_document = $("#quantity_on_document");
-                const quantity_received = $("#quantity_received");
-                const mark_up_percent = $("#mark_up_percent");
-
-                production_description.val(line['production_description']);
-                stockid.val(line['stockid']);
-                stockid.trigger('change');
-                expenseid.val(line['expenseid']);
-                expenseid.trigger('change');
-                projectid.val(line['projectid']);
-                projectid.trigger('change');
-                unit.val(line['units']);
-                unit.trigger('change');
-                acquisition_unit_price.val(line['acquisition_unit_price']);
-                vat_percent.val(line['vat']);
-                mark_up_percent.val(line['makeup']);
-                refreshSellingMarkforline();
-            },
-            error: function(jqXHR, exception) {
-                console.log(jqXHR, exception);
-            },
+                console.log(lineid, code_ean, productname, amount);
+                $("#code_ean").val(code_ean);
+                $("#production_description").val(productname);
+                $("#production_count").val(amount);
+                $("#total_amount").val((price*amount).toFixed(2));
+            }, 
+            error: function (a, b) {
+                console.log(a, b);
+            }
         });
     });
+    refreshproductbystockid($("#stockid").val());
 });
 
-function refreshSellingMarkforline() {
-    const acquisition_unit_price = $("#acquisition_unit_price").val();
-    const mark_up_percent = $("#mark_up_percent").val();
+function refreshLaborTotal() {
+    const labour_time = $("#labour_time").val();
+    const labour_hourly = $("#labour_hourly").val();
     
-    if (acquisition_unit_price && mark_up_percent) {
-        $("#selling_unit_price_without_vat").val((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2));
+    if (labour_time && labour_hourly) {
+        $("#labour_total").val((labour_time*labour_hourly).toFixed(2));
     }
+}
+
+function refreshproductamountbylineid(lineid) {
+    $.ajax({
+        url: "<?=base_url('stock/getmaxamountfromproductbyid?lineid=')?>" + lineid,
+        method: "POST",
+        dataType: 'text',
+        success: function(res) {
+            const max = res;
+            const string = max + " products on stock";
+            $("#amount_hint").text(string);
+        }
+    });
+}
+
+function refreshproductbystockid(stockid) {
+    $.ajax({
+        url: "<?=base_url('stock/getallproductsbystockid?stock_id=')?>" + stockid,
+        method: "POST",
+        dataType: 'json',
+        success: function(res) {
+            var string = "";
+            var isfirst = true;
+            res.forEach((line) => {
+                if (line['stockid']==stockid) {
+                    string += "<option value="+line['id']+">"+line['code_ean']+" - "+line['production_description']+"</option>";
+                    if (isfirst == true) {
+                        console.log(line);
+                        const max = line['qty'];
+                        const amount_str = max + " products on stock";
+                        $("#amount_hint").text(amount_str);
+                        isfirst = false;
+                    }
+                }
+            });
+            $("#material_code_ean").html(string);
+        }
+    });
 }
 
 function DeleteAttachedFile() {
@@ -88,20 +114,20 @@ function refreshTotalMark() {
     third_total.text("0");
     fourth_total.text("0");
 
-    const table = $("#table-body");
     const table1 = $("#table-body1");
     const table2 = $("#table-body2");
-    table.children("tr").each((index, element) => {
-        const etr = $(element).find("td");
-        first_total.text((parseFloat(first_total.text()) + parseFloat($(etr[3]).text())).toFixed(2));
-    });
+    const table3 = $("#table-body3");
     table1.children("tr").each((index, element) => {
         const etr = $(element).find("td");
-        second_total.text((parseFloat(second_total.text()) + parseFloat($(etr[4]).text())).toFixed(2));
+        first_total.text((parseFloat(first_total.text()) + parseFloat($(etr[4]).text())).toFixed(2));
     });
     table2.children("tr").each((index, element) => {
         const etr = $(element).find("td");
-        third_total.text((parseFloat(third_total.text()) + parseFloat($(etr[1]).text())).toFixed(2));
+        second_total.text((parseFloat(second_total.text()) + parseFloat($(etr[4]).text())).toFixed(2));
+    });
+    table3.children("tr").each((index, element) => {
+        const etr = $(element).find("td");
+        third_total.text((parseFloat(third_total.text()) + parseFloat($(etr[2]).text())).toFixed(2));
     });
 
     fourth_total.text(parseFloat(first_total.text()) + parseFloat(second_total.text()) + parseFloat(third_total.text()));
@@ -110,11 +136,8 @@ function refreshTotalMark() {
 function SaveItem1() {
     const production_description = $("#production_description").val();
     const code_ean = $("#code_ean").val();
-    const unit = $("#unit").val();
-    const acquisition_unit_price = $("#acquisition_unit_price").val();
-    const vat_percent = $("#vat_percent").val();
-    const mark_up_percent = $("#mark_up_percent").val();
-    const selling_price_without_vat = (acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0);
+    const amount = $("#production_count").val();
+    const total_amount = $("#total_amount").val();
 
     $.ajax({
         url: "<?=base_url("material/linebycodeean/")?>" + code_ean,
@@ -122,20 +145,19 @@ function SaveItem1() {
         dataType: 'json',
         success: function(res) {
             console.log(res);
-            let lineid = 0;
-            if (res != -1) {
-                lineid=res['id'];
+            if (res == -1) {
+                return;
             }
 
-            $("#table-body").append(
+            $("#table-body1").append(
                 "<tr>"+
-                "<td>"+code_ean+"</td>"+
-                "<td>"+production_description+"</td>"+
-                "<td>"+selling_price_without_vat+"</td>"+
-                "<td>"+(selling_price_without_vat)+"</td>"+
-                "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
-                "<td hidden>0</td>"+
-                "<td hidden>"+lineid+"</td>"+
+                "<td>"+res['code_ean']+"</td>"+
+                "<td>"+res['production_description']+"</td>"+
+                "<td>"+amount+"</td>"+
+                "<td>"+res['selling_unit_price_without_vat']+"</td>"+
+                "<td>"+total_amount+"</td>"+
+                "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr1(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr1(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
+                "<td hidden>"+res['id']+"</td>"+
                 "</tr>"
             );
 
@@ -150,17 +172,18 @@ function SaveItem1() {
 
 function SaveItem2() {
     const labour_name = $("#labour_name").val();
+    const labour_observation = $("#labour_observation").val();
     const labour_time = $("#labour_time").val();
     const labour_hourly = $("#labour_hourly").val();
-    const labour_amount = $("#labour_amount").val();
-    $("#table-body1").append(
+    const labour_total = $("#labour_total").val();
+    $("#table-body2").append(
         "<tr>"+
         "<td>"+labour_name+"</td>"+
+        "<td>"+labour_observation+"</td>"+
         "<td>"+labour_time+"</td>"+
         "<td>"+labour_hourly+"</td>"+
-        "<td>"+labour_amount+"</td>"+
-        "<td>"+(labour_time*labour_hourly*labour_amount)+"</td>"+
-        "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr1(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr1(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
+        "<td>"+labour_total+"</td>"+
+        "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr2(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr2(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
         "<td hidden>0</td>"+
         "</tr>"
     );
@@ -171,13 +194,15 @@ function SaveItem2() {
 
 function SaveItem3() {
     const auxiliary_title = $("#auxiliary_title").val();
+    const auxiliary_observation = $("#auxiliary_observation").val();
     const auxiliary_expense = $("#auxiliary_expense").val();
 
-    $("#table-body2").append(
+    $("#table-body3").append(
         "<tr>"+
         "<td>"+auxiliary_title+"</td>"+
+        "<td>"+auxiliary_observation+"</td>"+
         "<td>"+auxiliary_expense+"</td>"+
-        "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr2(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr2(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
+        "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr3(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr3(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
         "<td hidden>0</td>"+
         "</tr>"
     );
@@ -186,69 +211,36 @@ function SaveItem3() {
     refreshTotalMark();
 }
 
-function remove_tr(el) {
+function remove_tr1(el) {
     $(el).closest('tr').remove();
     refreshTotalMark();
 }
 
-function edit_tr(el) {
+function edit_tr1(el) {
     const etr = $(el).closest('tr');
     const etd = $(etr).find("td");
 
-    const production_description = $("#production_description");
-    const stockid = $("#stockid");
-    const expenseid = $("#expenseid");
-    const projectid = $("#projectid");
     const code_ean = $("#code_ean");
-    const unit = $("#unit");
-    const acquisition_unit_price = $("#acquisition_unit_price");
-    const vat_percent = $("#vat_percent");
-    const quantity_on_document = $("#quantity_on_document");
-    const quantity_received = $("#quantity_received");
-    const mark_up_percent = $("#mark_up_percent");
+    const production_description = $("#production_description");
+    const amount = $("#production_count");
+    const total_amount = $("#total_amount");
 
-    production_description.val($(etd[4]).text());
-    stockid.val($(etd[17]).text());
-    stockid.trigger('change');
-    expenseid.val($(etd[18]).text());
-    expenseid.trigger('change');
-    projectid.val($(etd[19]).text());
-    projectid.trigger('change');
     code_ean.val($(etd[0]).text());
-    unit.val($(etd[5]).text());
-    unit.trigger('change');
-    acquisition_unit_price.val($(etd[8]).text());
-    vat_percent.val(parseFloat($(etd[9]).text())*100.0/parseFloat($(etd[8]).text()));
-    quantity_on_document.val($(etd[6]).text());
-    quantity_received.val($(etd[7]).text());
-    mark_up_percent.val(((parseFloat($(etd[14]).text())*100.0/parseFloat($(etd[8]).text()))-100.0).toFixed(2));
+    production_description.val($(etd[1]).text());
+    amount.val($(etd[2]).text());
+    total_amount.val($(etd[4]).text());
 
-    $(etd[20]).html("<div id='btn_save_row' onclick='save_tr(this)'><i class='bi bi-save-fill p-1' title='Save'></i></div><div id='btn_cancel_row' onclick='cancel_tr(this)'><i class='bi bi-shield-x p-1' title='Cancel'></i></div>");
-
-    refreshSellingMarkforline();
+    $(etd[5]).html("<div id='btn_save_row' onclick='save_tr1(this)'><i class='bi bi-save-fill p-1' title='Save'></i></div><div id='btn_cancel_row' onclick='cancel_tr1(this)'><i class='bi bi-shield-x p-1' title='Cancel'></i></div>");
 }
 
-function save_tr(el) {
+function save_tr1(el) {
     const etr = $(el).closest('tr');
     const etd = $(etr).find("td");
 
-    const select = document.getElementById('stockid');
-    const select_expense = document.getElementById('expenseid');
-    const select_project = document.getElementById('projectid');
-    const production_description = $("#production_description").val();
-    const stockid = $("#stockid").val();
-    const expenseid = $("#expenseid").val();
-    const projectid = $("#projectid").val();
-    const stockname = select.options[select.selectedIndex].text;
-    const expensename = select_expense.options[select_expense.selectedIndex].text;
-    const projectname = select_project.options[select_project.selectedIndex].text;
     const code_ean = $("#code_ean").val();
-    const unit = $("#unit").val();
-    const acquisition_unit_price = $("#acquisition_unit_price").val();
-    const vat_percent = $("#vat_percent").val();
-    const quantity_on_document = $("#quantity_on_document").val();
-    const quantity_received = $("#quantity_received").val();
-    const mark_up_percent = $("#mark_up_percent").val();
+    const production_description = $("#production_description").val();
+    const amount = $("#production_count").val();
+    const total_amount = $("#total_amount").val();
 
     $.ajax({
         url: "<?=base_url("material/linebycodeean/")?>" + code_ean,
@@ -256,111 +248,188 @@ function save_tr(el) {
         dataType: 'json',
         success: function(res) {
             console.log(res);
-            let lineid = 0;
-            if (res != -1) {
-                lineid=res['id'];
+            if (res == -1) {
+                return;
             }
 
-            $(etd[22]).text(lineid);
+            $(etd[0]).text(code_ean);
+            $(etd[1]).text(production_description);
+            $(etd[2]).text(amount);
+            $(etd[3]).text(res['selling_unit_price_without_vat']);
+            $(etd[4]).text(total_amount);
+            $(etd[5]).html("<div id='btn_edit_row' onclick='edit_tr1(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr1(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
+            $(etd[6]).text(res['id']);
+
+            ClearItem1();
+            refreshTotalMark();
         },
         error: function(jqXHR, exception) {
             console.log(jqXHR, exception);
         },
     });
-
-    $(etd[0]).text(code_ean);
-    $(etd[1]).text(stockname);
-    $(etd[2]).text(expensename);
-    $(etd[3]).text(projectname);
-    $(etd[4]).text(production_description);
-    $(etd[5]).text(unit);
-    $(etd[6]).text(quantity_on_document);
-    $(etd[7]).text(quantity_received);
-    $(etd[8]).text(acquisition_unit_price);
-    $(etd[9]).text((acquisition_unit_price*vat_percent/100.0));
-    $(etd[10]).text((acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2));
-    $(etd[11]).text((acquisition_unit_price*quantity_on_document).toFixed(2));
-    $(etd[12]).text(((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2));
-    $(etd[13]).text(((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2));
-    $(etd[14]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2));
-    $(etd[15]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2));
-    $(etd[16]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2));
-    $(etd[17]).text(stockid);
-    $(etd[18]).text(expenseid);
-    $(etd[19]).text(projectid);
-    $(etd[20]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
-
-    ClearItem1();
-    refreshTotalMark();
 }
 
-function cancel_tr(el) {
+function cancel_tr1(el) {
     const etr = $(el).closest('tr');
     const etd = $(etr).find("td");
 
-    $(etd[20]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
+    $(etd[5]).html("<div id='btn_edit_row' onclick='edit_tr1(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr1(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
     ClearItem1();
+}
+
+function remove_tr2(el) {
+    $(el).closest('tr').remove();
+    refreshTotalMark();
+}
+
+function edit_tr2(el) {
+    const etr = $(el).closest('tr');
+    const etd = $(etr).find("td");
+
+    const labour_name = $("#labour_name");
+    const labour_observation = $("#labour_observation");
+    const labour_time = $("#labour_time");
+    const labour_hourly = $("#labour_hourly");
+    const labour_total = $("#labour_total");
+
+    labour_name.val($(etd[0]).text());
+    labour_observation.val($(etd[1]).text());
+    labour_time.val($(etd[2]).text());
+    labour_hourly.val($(etd[3]).text());
+    labour_total.val($(etd[4]).text());
+
+    $(etd[5]).html("<div id='btn_save_row' onclick='save_tr2(this)'><i class='bi bi-save-fill p-1' title='Save'></i></div><div id='btn_cancel_row' onclick='cancel_tr2(this)'><i class='bi bi-shield-x p-1' title='Cancel'></i></div>");
+}
+
+function save_tr2(el) {
+    const etr = $(el).closest('tr');
+    const etd = $(etr).find("td");
+
+    const labour_name = $("#labour_name").val();
+    const labour_observation = $("#labour_observation").val();
+    const labour_time = $("#labour_time").val();
+    const labour_hourly = $("#labour_hourly").val();
+    const labour_total = $("#labour_total").val();
+    
+    $(etd[0]).text(labour_name);
+    $(etd[1]).text(labour_observation);
+    $(etd[2]).text(labour_time);
+    $(etd[3]).text(labour_hourly);
+    $(etd[4]).text(labour_total);
+    $(etd[5]).html("<div id='btn_edit_row' onclick='edit_tr2(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr2(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
+
+    ClearItem2();
+    refreshTotalMark();
+}
+
+function cancel_tr2(el) {
+    const etr = $(el).closest('tr');
+    const etd = $(etr).find("td");
+
+    $(etd[5]).html("<div id='btn_edit_row' onclick='edit_tr2(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr2(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
+    ClearItem2();
+}
+
+function remove_tr3(el) {
+    $(el).closest('tr').remove();
+    refreshTotalMark();
+}
+
+function edit_tr3(el) {
+    const etr = $(el).closest('tr');
+    const etd = $(etr).find("td");
+
+    const auxiliary_title = $("#auxiliary_title");
+    const auxiliary_observation = $("#auxiliary_observation");
+    const auxiliary_expense = $("#auxiliary_expense");
+
+    auxiliary_title.val($(etd[0]).text());
+    auxiliary_observation.val($(etd[1]).text());
+    auxiliary_expense.val($(etd[2]).text());
+
+    $(etd[3]).html("<div id='btn_save_row' onclick='save_tr3(this)'><i class='bi bi-save-fill p-1' title='Save'></i></div><div id='btn_cancel_row' onclick='cancel_tr3(this)'><i class='bi bi-shield-x p-1' title='Cancel'></i></div>");
+}
+
+function save_tr3(el) {
+    const etr = $(el).closest('tr');
+    const etd = $(etr).find("td");
+
+    const auxiliary_title = $("#auxiliary_title").val();
+    const auxiliary_observation = $("#auxiliary_observation").val();
+    const auxiliary_expense = $("#auxiliary_expense").val();
+    
+    $(etd[0]).text(auxiliary_title);
+    $(etd[1]).text(auxiliary_observation);
+    $(etd[2]).text(auxiliary_expense);
+    $(etd[3]).html("<div id='btn_edit_row' onclick='edit_tr3(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr3(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
+
+    ClearItem3();
+    refreshTotalMark();
+}
+
+function cancel_tr3(el) {
+    const etr = $(el).closest('tr');
+    const etd = $(etr).find("td");
+
+    $(etd[3]).html("<div id='btn_edit_row' onclick='edit_tr3(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr3(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
+    ClearItem2();
 }
 
 function ClearItem1() {
     $("#production_description").val("");
     $("#code_ean").val("");
-    $("#acquisition_unit_price").val("0");
-    $("#vat_percent").val("0");
-    $("#mark_up_percent").val("0");
-    $("#selling_unit_price_without_vat").val("0.00");
+    $("#production_count").val("0");
+    $("#total_amount").val("0");
 }
 
 function ClearItem2() {
+    $("#labour_name").val("");
+    $("#labour_observation").val("");
     $("#labour_time").val("0.00");
     $("#labour_hourly").val("0.00");
-    $("#labour_amount").val("0.00");
+    refreshLaborTotal();
 }
 
 function ClearItem3() {
-    $("#auxiliary_title").val("0.00");
+    $("#auxiliary_title").val("");
+    $("#auxiliary_observation").val("");
     $("#auxiliary_expense").val("0.00");
 }
 
-function AddProduct() {
-    const supplierid = $("#supplierid").val();
-    const observation = $("#observation").val();
-    const invoice_date = $("#invoice_date").val();
-    const invoice_number = $("#invoice_number").val();
-    const invoice_coin = $("#invoice_coin").val();
-    let lines = [];
-
-    const table = $("#table-body");
-    table.children("tr").each((index, element) => {
-        const etr = $(element).find("td");
-        lines.push({
-            code_ean:$(etr[0]).text(),
-            stockid:$(etr[17]).text(),
-            expenseid:$(etr[18]).text(),
-            projectid:$(etr[19]).text(),
-            production_description:$(etr[4]).text(),
-            units:$(etr[5]).text(),
-            quantity_on_document:$(etr[6]).text(),
-            quantity_received:$(etr[7]).text(),
-            acquisition_unit_price:$(etr[8]).text(),
-            vat: parseFloat($(etr[9]).text())*100.0/parseFloat($(etr[8]).text()), 
-            makeup: ((parseFloat($(etr[14]).text())*100.0/parseFloat($(etr[8]).text()))-100.0),
-            lineid:$(etr[22]).text()
-        });
+function get_formdata() {
+    let materials = [], labours = [], auxiliaries = [];
+    const product_name = $("#product_name").val();
+    const table1 = $("#table-body1");
+    const table2 = $("#table-body2");
+    const table3 = $("#table-body3");
+    table1.children("tr").each((index, element) => {
+        const etd = $(element).find("td");
+        materials.push({id: $(etd[6]).text(), amount: $(etd[2]).text()});
     });
-    const str_lines = JSON.stringify(lines);
+    table2.children("tr").each((index, element) => {
+        const etd = $(element).find("td");
+        labours.push({name: $(etd[0]).text(), observation: $(etd[1]).text(), time: $(etd[2]).text(), hourly: $(etd[3]).text()});
+    });
+    table3.children("tr").each((index, element) => {
+        const etd = $(element).find("td");
+        auxiliaries.push({descrition: $(etd[0]).text(), observation: $(etd[1]).text(), value: $(etd[2]).text()});
+    });
 
     const form_data = {
-        supplierid: supplierid,
-        observation: observation,
-        lines: str_lines,
-        invoice_date: invoice_date,
-        invoice_number: invoice_number,
-        invoice_coin: invoice_coin
+        name: product_name, 
+        materials: JSON.stringify(materials),
+        labours: JSON.stringify(labours),
+        auxiliaries: JSON.stringify(auxiliaries)
     };
+    return form_data;
+}
+
+function AddProduct() {
+    const form_data = get_formdata();
+    console.log(form_data);
 
     $.ajax({
-        url: "<?=base_url('material/saveproduct')?>",
+        url: "<?=base_url('product/saveproduct')?>",
         method: "POST",
         data: form_data, 
         success: function(res) {
@@ -368,34 +437,6 @@ function AddProduct() {
             if (id <= 0) {
                 swal("Add Product", "Failed", "error");
                 return;
-            }
-            if ($('#file-upload').val() === '') {
-                alert("upload nothing");
-            }
-            else {
-                const supplierid = $("#supplierid").val();
-
-                console.log("<?=base_url("material/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + id);
-                var form_data = new FormData();
-                var ins = document.getElementById('file-upload').files.length;
-                form_data.append("files[]", document.getElementById('file-upload').files[0]);
-                alert(form_data);
-                $.ajax({
-                    url: "<?=base_url("material/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + id,
-                    method: "POST",
-                    data: form_data,
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    dataType: 'text',
-                    async: false,
-                    success: function(res) {
-                        alert("uploaded:" + res);
-                    },
-                    error: function(jqXHR, exception) {
-                        swal("Add Company", "Load PDF", "error");
-                    },
-                });
             }
             swal({
                 title: "Add Product",
@@ -409,89 +450,26 @@ function AddProduct() {
                 closeOnCancel: true
             },
             function() {
-                window.location.href = "<?=base_url('material/index')?>";
+                window.location.href = "<?=base_url('product/index')?>";
             });
         }
     });
 }
 
 function EditProduct(product_id) {
-    const supplierid = $("#supplierid").val();
-    const observation = $("#observation").val();
-    const invoice_date = $("#invoice_date").val();
-    const invoice_number = $("#invoice_number").val();
-    const invoice_coin = $("#invoice_coin").val();
-    let lines = [];
-
-    const table = $("#table-body");
-    table.children("tr").each((index, element) => {
-        const etr = $(element).find("td");
-        lines.push({
-            id:$(etr[21]).text(),
-            code_ean:$(etr[0]).text(),
-            stockid:$(etr[17]).text(),
-            expenseid:$(etr[18]).text(),
-            projectid:$(etr[19]).text(),
-            production_description:$(etr[4]).text(),
-            units:$(etr[5]).text(),
-            quantity_on_document:$(etr[6]).text(),
-            quantity_received:$(etr[7]).text(),
-            acquisition_unit_price:$(etr[8]).text(),
-            vat: parseFloat($(etr[9]).text())*100.0/parseFloat($(etr[8]).text()), 
-            makeup: ((parseFloat($(etr[14]).text())*100.0/parseFloat($(etr[8]).text()))-100.0),
-            lineid:$(etr[22]).text()
-        });
-    });
-    const str_lines = JSON.stringify(lines);
-    console.log(str_lines);
-
-    const form_data = {
-        supplierid: supplierid,
-        observation: observation,
-        lines: str_lines,
-        invoice_date: invoice_date,
-        invoice_number: invoice_number,
-        invoice_coin: invoice_coin
-    };
+    const form_data = get_formdata();
+    console.log(form_data);
 
     $.ajax({
-        url: "<?=base_url('material/saveproduct?id=')?>"+product_id,
+        url: "<?=base_url('product/saveproduct?id=')?>"+product_id,
         method: "POST",
         data: form_data, 
         success: function(res) {
-            alert(res);
             const id = res;
-            if (id != 1) {
+            console.log(res);
+            if (id == -1) {
                 swal("Edit Product", "Failed", "error");
                 return;
-            }
-            if ($('#file-upload').val() === '') {
-                alert("uploaded nothing");
-            }
-            else {
-                const supplierid = $("#supplierid").val();
-
-                console.log("<?=base_url("material/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + product_id);
-                var form_data = new FormData();
-                var ins = document.getElementById('file-upload').files.length;
-                form_data.append("files[]", document.getElementById('file-upload').files[0]);
-                alert(form_data);
-                $.ajax({
-                    url: "<?=base_url("material/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + product_id,
-                    method: "POST",
-                    data: form_data,
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    dataType: 'text',
-                    async: false,
-                    success: function(res) {
-                        alert("uploaded:" + res);
-                    },
-                    error: function(jqXHR, exception) {
-                        alert("uploaded nothing");
-                    },
-                });
             }
             swal({
                 title: "Edit Product",
@@ -505,7 +483,7 @@ function EditProduct(product_id) {
                 closeOnCancel: true
             },
             function() {
-                window.location.href = "<?=base_url('material/index')?>";
+                window.location.href = "<?=base_url('product/index')?>";
             });
         }
     });
@@ -530,7 +508,7 @@ function delProduct(product_id) {
         }
         try {
             $.ajax({
-                url: "<?=base_url('material/delproduct/')?>" + product_id,
+                url: "<?=base_url('product/delproduct/')?>" + product_id,
                 method: "POST",
                 dataType: 'text',
                 async: true,
@@ -551,7 +529,7 @@ function delProduct(product_id) {
                             closeOnCancel: true
                         },
                         function() {
-                            window.location.href = "<?=base_url('material/index')?>";
+                            window.location.href = "<?=base_url('product/index')?>";
                         });
                 },
                 error: function(jqXHR, exception) {
