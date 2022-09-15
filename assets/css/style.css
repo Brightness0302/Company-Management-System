@@ -441,8 +441,12 @@ h6 {
 }
 
 #hero h2 {
-  margin: 10px 0 0 0;
-  font-size: 22px;
+  margin: 0;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 72px;
+  color: #124265;
+  font-family: "Poppins", sans-serif;
 }
 
 #hero .btn-get-started {

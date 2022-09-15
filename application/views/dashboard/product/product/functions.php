@@ -8,6 +8,12 @@ $(document).ready(function() {
             refreshLaborTotal();
         }
     });
+    $("#product_coin").change(function() {
+        const els = $(".coin");
+        els.each((index, element) => {
+            $(element).text(this.value);
+        });
+    });
     $("#stockid").change(function() {
         const stockid = this.value;
         $("#product_amount").val("0");

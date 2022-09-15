@@ -100,7 +100,7 @@
                     <?php endforeach;?>
                 </tbody>
             </table>
-            <p>Labours:</p>
+            <p>Labour:</p>
             <table id="table2">
                 <thead>
                     <th>Name</th>
@@ -122,7 +122,7 @@
                     <?php endforeach;?>
                 </tbody>
             </table>
-            <p>Auxiliaries:</p>
+            <p>Auxiliary Expenses:</p>
             <table id="table3">
                 <thead>
                     <th>Expense description</th>

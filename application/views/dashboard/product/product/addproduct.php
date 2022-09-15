@@ -8,7 +8,7 @@
         <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-9 text-center">
-                    <h1>Product registration</h1>
+                    <h2>Product registration</h2>
                 </div>
             </div>
 
@@ -30,6 +30,21 @@
                                     <td>
                                         <div class="m-auto">
                                             <input type="text" class="form-control " id="product_name" value="" title="Choose your color">
+                                        </div>
+                                    </td>
+                                </tr>
+                          </table>
+                        </div>
+                        <div class="col-sm-4 text-center">
+                          <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                                <tr>
+                                    <td style="border : 1px solid black"><label class="my-2">Select Coin:</label></td>
+                                    <td>
+                                        <div class="m-auto">
+                                            <select class="form-select w-full" id="product_coin">
+                                                <option value="EURO">EURO</option>
+                                                <option value="LEI">LEI</option>
+                                            </select>
                                         </div>
                                     </td>
                                 </tr>
@@ -68,7 +83,7 @@
                             <div class="col-sm-3 text-center">
                                 <table class="table mb-0" style="border: 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border: 1px solid black"><label class="my-2">Amount:</label></td>
+                                        <td style="border: 1px solid black"><label class="my-2">QTY:</label></td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="number" min="0" max="100" class="form-control" id="production_count" value="0" title="Choose your color">
@@ -81,11 +96,14 @@
                             <div class="col-sm-3 text-center">
                                 <table class="table mb-0" style="border: 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border: 1px solid black"><label class="my-2">Total:</label></td>
+                                        <td style="border: 1px solid black"><label class="my-2">Value:</label></td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="text" class="form-control" id="total_amount" value="0" title="Choose your color" disabled>
                                             </div>
+                                        </td>
+                                        <td>
+                                            <p class="coin">EURO</p>
                                         </td>
                                     </tr>
                                 </table>
@@ -113,14 +131,6 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td style="border : 1px solid black"><label class="my-2">Observation:</label></td>
-                                        <td>
-                                            <div class="m-auto">
-                                                <input type="text" class="form-control " id="labour_observation" value="" title="Choose your color">
-                                            </div>
-                                        </td>
-                                    </tr>
                                 </table>
                             </div>
                             <div class="col-sm-4 text-center d-flex">
@@ -142,15 +152,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <select class="form-control">
-                                                <option value="EURO">EURO</option>
-                                                <option value="LEI">LEI</option>
-                                            </select>
-                                            <style>
-                                                .select2 {
-                                                    margin-top: 0.5rem;
-                                                }
-                                            </style>
+                                            <p class="coin">EURO</p>
                                         </td>
                                     </tr>
                                 </table>
@@ -162,6 +164,14 @@
                                         <td>
                                             <div class="m-auto">
                                                 <input type="text" class="form-control " id="labour_total" value="" title="Choose your color">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border : 1px solid black"><label class="my-2">Observation:</label></td>
+                                        <td>
+                                            <div class="m-auto">
+                                                <input type="text" class="form-control " id="labour_observation" value="" title="Choose your color">
                                             </div>
                                         </td>
                                     </tr>
@@ -195,10 +205,10 @@
                             <div class="col-sm-4 text-center d-flex">
                                 <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border : 1px solid black"><label class="my-2">Observation:</label></td>
+                                        <td style="border : 1px solid black"><label class="my-2">Value:</label></td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="text" class="form-control " id="auxiliary_observation" value="" title="Choose your color">
+                                                <input type="text" class="form-control " id="auxiliary_expense" value="" title="Choose your color">
                                             </div>
                                         </td>
                                     </tr>
@@ -207,10 +217,10 @@
                             <div class="col-sm-4 text-center d-flex">
                                 <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border : 1px solid black"><label class="my-2">Value:</label></td>
+                                        <td style="border : 1px solid black"><label class="my-2">Observation:</label></td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="text" class="form-control " id="auxiliary_expense" value="" title="Choose your color">
+                                                <input type="text" class="form-control " id="auxiliary_observation" value="" title="Choose your color">
                                             </div>
                                         </td>
                                     </tr>

@@ -8,7 +8,7 @@
         <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-9 text-center">
-                    <h1>Internal order production registration</h1>
+                    <h2>Internal order production modify</h2>
                 </div>
             </div>
 
