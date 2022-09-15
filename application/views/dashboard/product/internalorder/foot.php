@@ -1,4 +1,3 @@
-<script src="<?=base_url('assets')?>/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="<?=base_url('assets')?>/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
@@ -50,7 +49,7 @@ $(function() {
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
-    $("#invoicetable").DataTable({
+    $("#producttable").DataTable({
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
@@ -58,30 +57,31 @@ $(function() {
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#invoicetable_wrapper .col-md-6:eq(0)');
 
-    let invoicetable = $("#invoicetable").DataTable();
+    let producttable = $("#producttable").DataTable();
 
-    $("#invoicetable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='2022-07-15' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Start Date:<input id='enddate' value='2022-10-15' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
+    $("#invoicetable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='producttable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='producttable'></label></div>");
 
     var subtotal = 0.0, vat = 0.0, total = 0.0;
 
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {
             // Don't filter on anything other than "myTable"
-            if ( settings.nTable.id !== 'invoicetable' ) {
+            if ( settings.nTable.id !== 'producttable' ) {
                 return true;
             }
      
             // Filtering for "myTable".
             var startdate = new Date($('#startdate').val());
+            startdate.setDate(startdate.getDate() - 1);
             var enddate = new Date($('#enddate').val());
-            var date = new Date(data[4] || 0); // use data for the age column
-            var client_name = data[2];
-            var reference = data[3];
+            enddate.setDate(enddate.getDate() + 1);
+            var date = new Date(data[5] || 0); // use data for the age column
+            var name = data[2];
             var searchvalue = $("#searchtag").val();
-            // console.log(client_name, reference, searchvalue, startdate, enddate, date);
+            // console.log(name, reference, searchvalue, startdate, enddate, date);
          
             if (
-                (date > startdate && date < enddate) && (client_name.toLowerCase().includes(searchvalue.toLowerCase()) || reference.toLowerCase().includes(searchvalue.toLowerCase()))
+                (date > startdate && date < enddate) && (name.toLowerCase().includes(searchvalue.toLowerCase()))
             ) {
                 subtotal += parseFloat(data[6]);
                 vat += parseFloat(data[7]);
@@ -94,19 +94,23 @@ $(function() {
             return false;
         }
     );
+    $('input[type=search]').on('search', function () {
+        onrefreshtotalmark();
+        producttable.draw();
+    });
 
-    invoicetable.on('draw', function (){
+    producttable.on('draw', function (){
         subtotal = 0.0, vat = 0.0, total = 0.0;
     })
 
     $("#searchtag").on('keyup', function (){
         onrefreshtotalmark();
-        invoicetable.draw();
+        producttable.draw();
     });
     
     $("input[type=date]").on('change', function (){
         onrefreshtotalmark();
-        invoicetable.draw();
+        producttable.draw();
     });
 
     $("select[id=companycoin]").on('change', function (){
@@ -122,5 +126,4 @@ $(function() {
     }).buttons().container().appendTo('#table_in_modal_wrapper .col-md-6:eq(0)');
 
 });
-
 </script>

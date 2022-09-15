@@ -35,6 +35,36 @@ class Product_model extends CI_Model {
         $res=$this->db->update('product', $data);
         return $res;
     }
+
+    public function createOrder($companyid, $order_date, $order_observation, $product_description, $product_qty) {
+        $this->db->query('use database'.$companyid);
+
+        $data = array(
+            'order_date'=>$order_date, 
+            'order_observation'=>$order_observation, 
+            'product_description'=>$product_description, 
+            'product_qty'=>$product_qty, 
+        );
+
+        $this->db->insert('internalorder', $data);
+        $product_id = $this->db->insert_id();
+        return $product_id;
+    }
+
+    public function saveOrder($companyid, $id, $order_date, $order_observation, $product_description, $product_qty) {
+        $this->db->query('use database'.$companyid);
+
+        $data = array(
+            'order_date'=>$order_date, 
+            'order_observation'=>$order_observation, 
+            'product_description'=>$product_description, 
+            'product_qty'=>$product_qty, 
+        );
+
+        $this->db->where('id', $id);
+        $res=$this->db->update('internalorder', $data);
+        return $res;
+    }
     //get date_of_reception, product_number, received_with_document for invoice
     public function productfromsetting($companyid, $table) {
         $companyid = "database".$companyid;
@@ -47,6 +77,21 @@ class Product_model extends CI_Model {
         $queryvalue = $this->db->query($query)->result_array();
 
         $data['product_number'] = $queryvalue[0]['AUTO_INCREMENT'];
+
+        return $data;
+    }
+    //get date_of_reception, product_number, received_with_document for invoice
+    public function internalorderfromsetting($companyid, $table) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $query = "SELECT `AUTO_INCREMENT`
+            FROM information_schema.TABLES 
+            WHERE TABLE_SCHEMA = '" . $companyid . "' AND TABLE_NAME = '$table'";
+
+        $queryvalue = $this->db->query($query)->result_array();
+
+        $data['order_number'] = $queryvalue[0]['AUTO_INCREMENT'];
 
         return $data;
     }

@@ -46,6 +46,64 @@ class Product extends CI_Controller
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
+    //View supplier page of add/edit/delete function
+    public function internalorder() {
+        $this->check_usersession();
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($companyname, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['orders'] = $this->home->alldatafromdatabase($companyid, 'internalorder');
+
+        foreach ($data['orders'] as $key => $order) {
+            $res_product = $this->home->databyidfromdatabase($companyid, 'product', $order['product_description']);
+            if ($res_product['status'] == false) {
+                echo -1;
+                return;
+            }
+            $product = $res_product['data'];
+            $price = 0;
+            $materials = json_decode($product['materials'], true);
+            foreach ($materials as $index => $material) {
+                $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
+            
+                $materials[$index]['code_ean'] = $result['code_ean'];
+                $materials[$index]['production_description'] = $result['production_description'];
+                $materials[$index]['selling_unit_price_without_vat'] = $result['selling_unit_price_without_vat'];
+                $price += $material['amount']*$materials[$index]['selling_unit_price_without_vat'];
+            }
+            $product['materials'] = json_encode($materials);
+
+            $labours = json_decode($product['labours'], true);
+            foreach ($labours as $index => $labour) {
+                $price += $labour['time']*$labour['hourly'];
+            }
+
+            $auxiliaries = json_decode($product['auxiliaries'], true);
+            foreach ($auxiliaries as $index => $auxiliary) {
+                $price += $auxiliary['value'];
+            }
+            $data['orders'][$key]['price'] = $price;
+        }
+
+        $session['menu']="Products";
+        $session['submenu']="p_iop";
+        $session['second-submenu']="";
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/product/internalorder/head');
+        $this->load->view('dashboard/product/internalorder/body');
+        $this->load->view('dashboard/product/internalorder/foot');
+        $this->load->view('dashboard/product/internalorder/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
     //View clientpage of creating.
     public function addproduct() {
         $companyid = $this->session->userdata('companyid');
@@ -54,10 +112,7 @@ class Product extends CI_Controller
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['product'] = $this->product->productfromsetting($companyid, 'product');
-
-        $data['attached'] = "Attached Invoice";
 
         $session['menu']="Products";
         $session['submenu']="pdm";
@@ -71,6 +126,32 @@ class Product extends CI_Controller
         $this->load->view('dashboard/product/product/addproduct');
         $this->load->view('dashboard/product/product/foot');
         $this->load->view('dashboard/product/product/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
+    //View clientpage of creating.
+    public function addorder() {
+        $companyid = $this->session->userdata('companyid');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyid($companyid, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['order'] = $this->product->internalorderfromsetting($companyid, 'internalorder');
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
+
+        $session['menu']="Products";
+        $session['submenu']="p_iop";
+        $session['second-submenu']="";
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('main_page/head', $data);
+        $this->load->view('dashboard/product/internalorder/head');
+        $this->load->view('dashboard/product/internalorder/shead');
+        $this->load->view('dashboard/product/internalorder/addorder');
+        $this->load->view('dashboard/product/internalorder/foot');
+        $this->load->view('dashboard/product/internalorder/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -114,10 +195,42 @@ class Product extends CI_Controller
         $this->load->view('dashboard/product/product/functions.php');
         $this->load->view('footer');
     }
+    //View clientpage of creating.
+    public function editorder($order_id) {
+        $companyid = $this->session->userdata('companyid');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyid($companyid, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['order'] = $this->home->databyidfromdatabase($companyid, 'internalorder', $order_id)['data'];
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
+
+        $session['menu']="Products";
+        $session['submenu']="p_iop";
+        $session['second-submenu']="";
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('main_page/head', $data);
+        $this->load->view('dashboard/product/internalorder/head');
+        $this->load->view('dashboard/product/internalorder/shead');
+        $this->load->view('dashboard/product/internalorder/editorder');
+        $this->load->view('dashboard/product/internalorder/foot');
+        $this->load->view('dashboard/product/internalorder/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
     //Delete Supplier param(supplier_name)
     public function delproduct($product_id) {
         $companyid = $this->session->userdata('companyid');
         $result = $this->supplier->removedatabyidfromdatabase($companyid, $product_id, 'product');
+        echo $result;
+    }
+    //Delete Supplier param(supplier_name)
+    public function delorder($order_id) {
+        $companyid = $this->session->userdata('companyid');
+        $result = $this->supplier->removedatabyidfromdatabase($companyid, $order_id, 'internalorder');
         echo $result;
     }
     //Save(Add/Edit) Supplier post(object(name, number, ...)) get(id)
@@ -137,6 +250,25 @@ class Product extends CI_Controller
 
         $id = $_GET['id'];
         $result = $this->product->saveProduct($companyid, $id, $name, $materials, $labours, $auxiliaries);
+        echo $result;
+    }
+    //Save(Add/Edit) Supplier post(object(name, number, ...)) get(id)
+    public function saveorder() {
+        $companyid = $this->session->userdata('companyid');
+
+        $order_date = $this->input->post('order_date');
+        $order_observation = $this->input->post('order_observation');
+        $product_description = $this->input->post('product_description');
+        $product_qty = $this->input->post('product_qty');
+
+        if (!isset($_GET['id'])) {
+            $productid = $this->product->createOrder($companyid, $order_date, $order_observation, $product_description, $product_qty);
+            echo $productid;
+            return;
+        }
+
+        $id = $_GET['id'];
+        $result = $this->product->saveOrder($companyid, $id, $order_date, $order_observation, $product_description, $product_qty);
         echo $result;
     }
 
@@ -207,6 +339,43 @@ class Product extends CI_Controller
         $data['product']['materials'] = json_encode($materials);
 
         $this->load->view('dashboard/product/product/invoicepreview', $data);
+    }
+
+    public function productfromrecipe() {
+        $id = $_GET['id'];
+        $companyid = $this->session->userdata('companyid');
+
+        $res_product = $this->home->databyidfromdatabase($companyid, 'product', $id);
+        if ($res_product['status'] == false) {
+            echo -1;
+            return;
+        }
+        $product = $res_product['data'];
+        $price = 0;
+        $materials = json_decode($product['materials'], true);
+        foreach ($materials as $index => $material) {
+            $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
+        
+            $materials[$index]['code_ean'] = $result['code_ean'];
+            $materials[$index]['production_description'] = $result['production_description'];
+            $materials[$index]['selling_unit_price_without_vat'] = $result['selling_unit_price_without_vat'];
+            $price += $material['amount']*$materials[$index]['selling_unit_price_without_vat'];
+        }
+        $product['materials'] = json_encode($materials);
+
+        $labours = json_decode($product['labours'], true);
+        foreach ($labours as $index => $labour) {
+            $price += $labour['time']*$labour['hourly'];
+        }
+
+        $auxiliaries = json_decode($product['auxiliaries'], true);
+        foreach ($auxiliaries as $index => $auxiliary) {
+            $price += $auxiliary['value'];
+        }
+        $product['price'] = $price;
+
+        header('Content-Type: application/json');
+        echo json_encode($product);
     }
     //If usersession is not exist, goto login page.
     public function check_usersession() {

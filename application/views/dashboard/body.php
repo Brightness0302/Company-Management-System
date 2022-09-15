@@ -377,8 +377,8 @@
                     </li>
 
                     <li>
-                        <a href="<?=base_url('product/index')?>">
-                            <i class="bi <?=$menu['submenu']=="pdm"?"bi-circle-fill":"bi-circle"?>"></i><span>Supplier Invoices</span>
+                        <a href="<?=base_url('product/internalorder')?>">
+                            <i class="bi <?=$menu['submenu']=="p_iop"?"bi-circle-fill":"bi-circle"?>"></i><span>Internal order production</span>
                         </a>
                     </li>
 
