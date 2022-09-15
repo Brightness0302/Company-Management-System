@@ -130,7 +130,7 @@ function refreshTotalMark() {
         third_total.text((parseFloat(third_total.text()) + parseFloat($(etr[2]).text())).toFixed(2));
     });
 
-    fourth_total.text(parseFloat(first_total.text()) + parseFloat(second_total.text()) + parseFloat(third_total.text()));
+    fourth_total.text((parseFloat(first_total.text()) + parseFloat(second_total.text()) + parseFloat(third_total.text())).toFixed(2));
 }
 
 function SaveItem1() {
@@ -538,6 +538,25 @@ function delProduct(product_id) {
             });
         } catch (error) {
             swal("Delete Product", "Server Error", "warning");
+        }
+    });
+}
+
+function SaveAsPDF() {
+    const form_data = get_formdata();
+
+    $.ajax({
+        url: "<?=base_url('product/savesessionbyjson')?>",
+        method: "POST",
+        data: form_data, 
+        dataType: 'text', 
+        success: function(res) {
+            console.log(res);
+            if (res != "success") {
+                alert("error");
+                return;
+            }
+            $("#htmltopdf")[0].click();
         }
     });
 }

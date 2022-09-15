@@ -328,19 +328,19 @@
                                 <tbody>
                                     <tr>
                                         <td>Material Total:</td>
-                                        <td id="first_total"><?=$total_first?></td>
+                                        <td id="first_total"><?=number_format($total_first, 2, '.', '')?></td>
                                     </tr>
                                     <tr>
                                         <td>Labour Total:</td>
-                                        <td id="second_total"><?=$total_second?></td>
+                                        <td id="second_total"><?=number_format($total_second, 2, '.', '')?></td>
                                     </tr>
                                     <tr>
                                         <td>Auxiliary Total:</td>
-                                        <td id="third_total"><?=$total_third?></td>
+                                        <td id="third_total"><?=number_format($total_third, 2, '.', '')?></td>
                                     </tr>
                                     <tr>
                                         <td>Total:</td>
-                                        <td id="fourth_total"><?=$total_first+$total_second+$total_third?></td>
+                                        <td id="fourth_total"><?=number_format($total_first+$total_second+$total_third, 2, '.', '')?></td>
                                     </tr>
                                 </tbody>
                             </table>

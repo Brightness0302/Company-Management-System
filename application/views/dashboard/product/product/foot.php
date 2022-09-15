@@ -49,7 +49,7 @@ $(function() {
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
-    $("#invoicetable").DataTable({
+    $("#producttable").DataTable({
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
@@ -57,16 +57,16 @@ $(function() {
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#invoicetable_wrapper .col-md-6:eq(0)');
 
-    let invoicetable = $("#invoicetable").DataTable();
+    let producttable = $("#producttable").DataTable();
 
-    $("#invoicetable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
+    $("#invoicetable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='producttable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='producttable'></label></div>");
 
     var subtotal = 0.0, vat = 0.0, total = 0.0;
 
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {
             // Don't filter on anything other than "myTable"
-            if ( settings.nTable.id !== 'invoicetable' ) {
+            if ( settings.nTable.id !== 'producttable' ) {
                 return true;
             }
      
@@ -96,21 +96,21 @@ $(function() {
     );
     $('input[type=search]').on('search', function () {
         onrefreshtotalmark();
-        invoicetable.draw();
+        producttable.draw();
     });
 
-    invoicetable.on('draw', function (){
+    producttable.on('draw', function (){
         subtotal = 0.0, vat = 0.0, total = 0.0;
     })
 
     $("#searchtag").on('keyup', function (){
         onrefreshtotalmark();
-        invoicetable.draw();
+        producttable.draw();
     });
     
     $("input[type=date]").on('change', function (){
         onrefreshtotalmark();
-        invoicetable.draw();
+        producttable.draw();
     });
 
     $("select[id=companycoin]").on('change', function (){
