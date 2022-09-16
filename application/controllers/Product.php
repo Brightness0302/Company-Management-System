@@ -113,6 +113,7 @@ class Product extends CI_Controller
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['product'] = $this->product->productfromsetting($companyid, 'product');
 
         $session['menu']="Products";
