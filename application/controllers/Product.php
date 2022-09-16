@@ -87,6 +87,7 @@ class Product extends CI_Controller
                 $price += $auxiliary['value'];
             }
             $data['orders'][$key]['price'] = $price;
+            $data['orders'][$key]['product_name'] = $product['name'];
         }
 
         $session['menu']="Products";
@@ -289,6 +290,19 @@ class Product extends CI_Controller
         $this->session->set_userdata("htmltopdf", $data);
         echo "success";
     }
+
+    public function savesessionbyjsonofinternalorder() {
+        $data['id'] = $this->input->post('id');
+        $data['order_date'] = $this->input->post('order_date');
+        $data['order_observation'] = $this->input->post('order_observation');
+        $data['product_description'] = $this->input->post('product_description');
+        $data['product_qty'] = $this->input->post('product_qty');
+        $data['product_price'] = $this->input->post('product_price');
+        $data['total_amount'] = $this->input->post('total_amount');
+
+        $this->session->set_userdata("htmltopdffrominternalorder", $data);
+        echo "success";
+    }
     //convert html to pdf
     public function htmltopdf() {
         $this->load->library('Pdf');
@@ -317,6 +331,24 @@ class Product extends CI_Controller
         $this->pdf->createPDF($html, "InvoicePreview.pdf");
         echo "success";
     }
+    //convert html to pdf
+    public function htmltopdfofinternalorder() {
+        $this->load->library('Pdf');
+
+        $companyid = $this->session->userdata('companyid');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyid($companyid, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['order'] = $this->session->userdata('htmltopdffrominternalorder');
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
+
+        $html = $this->load->view('dashboard/product/internalorder/invoicepreview', $data, true);
+
+        $this->pdf->createPDF($html, "InvoicePreview.pdf");
+        echo "success";
+    }
     //showing html page for deploying pdf
     public function invoicepreview() {
         $companyid = $this->session->userdata('companyid');
@@ -339,6 +371,20 @@ class Product extends CI_Controller
         $data['product']['materials'] = json_encode($materials);
 
         $this->load->view('dashboard/product/product/invoicepreview', $data);
+    }
+
+    //showing html page for deploying pdf
+    public function invoicepreviewofinternalorder() {
+        $companyid = $this->session->userdata('companyid');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyid($companyid, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['order'] = $this->session->userdata('htmltopdffrominternalorder');
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
+
+        $this->load->view('dashboard/product/internalorder/invoicepreview', $data);
     }
 
     public function productfromrecipe() {

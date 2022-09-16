@@ -567,4 +567,39 @@ function SaveAsPDF() {
     });
 }
 
+function savebydata(id) {
+    $.ajax({
+        url: "<?=base_url('home/getdatabyid?table=product&id=')?>"+id,
+        method: "POST",
+        dataType: 'json', 
+        success: function(res) {
+            if (res==-1) {
+                alert("Error");
+                return;
+            }
+            const form_data = {
+                name: res['name'], 
+                materials: res['materials'],
+                labours: res['labours'],
+                auxiliaries: res['auxiliaries']
+            };
+
+            $.ajax({
+                url: "<?=base_url('product/savesessionbyjson')?>",
+                method: "POST",
+                data: form_data, 
+                dataType: 'text', 
+                success: function(res) {
+                    console.log(res);
+                    if (res != "success") {
+                        alert("error");
+                        return;
+                    }
+                    $("#htmltopdf")[0].click();
+                }
+            });
+        }
+    });
+}
+
 </script>

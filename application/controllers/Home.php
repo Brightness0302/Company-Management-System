@@ -192,6 +192,20 @@ class Home extends CI_Controller
         $result = $this->home->saveItem($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Coin);
         echo $result;
     }
+
+    public function getdatabyid() {
+        $id = $_GET['id'];
+        $table = $_GET['table'];
+        $companyid = $this->session->userdata('companyid');
+        $result = $this->home->databyidfromdatabase($companyid, $table, $id);
+        if ($result['status']=="failed") {
+            echo -1;
+            return;
+        }
+        $data = $result['data'];
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
     //UploadImage post(fileinput) param(path)
     public function uploadImage($path) {
         if (!isset($_GET['id'])) // works with request 

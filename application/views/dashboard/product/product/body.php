@@ -1,6 +1,6 @@
 <?php $first=0; $second=0; $third=0; $fourth=0;?>
 <a class="btn btn-success mb-2" href="<?=base_url('product/addproduct')?>">Add New</a>
-<table id="producttable" class="table table-bordered table-striped">
+<table id="producttable" class="table table-bordered table-striped text-center">
     <thead>
         <tr>
             <th>No</th>
@@ -10,6 +10,7 @@
             <th id="third">Auxiliary Amount</th>
             <th id="fourth">Total Amount</th>
             <th>Action</th>
+            <th>Export</th>
         </tr>
     </thead>
     <tbody>
@@ -58,6 +59,9 @@
         <td class="form-inline flex justify-around">
             <a class="btn btn-primary" href="<?=base_url('product/editproduct/'.$product['id'])?>"><i class="bi bi-terminal-dash"></i></a>
             <button class="btn btn-danger " onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi bi-trash3-fill"></i></button>
+        </td>
+        <td class="text-center">
+            <button class="btn btn-default" onclick="savebydata('<?=$product['id']?>')"><i class="bi bi-view-list"></i></button><a id="htmltopdf" href="<?=base_url('product/htmltopdf')?>" target="_blank" hidden>Download PDF</a>
         </td>
       </tr>
       <?php endforeach;?>

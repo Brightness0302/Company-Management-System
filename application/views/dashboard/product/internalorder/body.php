@@ -1,17 +1,18 @@
 <?php $first=0;?>
 <a class="btn btn-success mb-2" href="<?=base_url('product/addorder')?>">Add New</a>
-<table id="producttable" class="table table-bordered table-striped">
+<table id="producttable" class="table table-bordered table-striped text-center">
     <thead>
         <tr>
             <th>No</th>
             <th>ID</th>
-            <th>order</th>
-            <th>observation</th>
+            <th>Date</th>
             <th>Product Description</th>
             <th>Product QTY</th>
             <th>Product Price</th>
-            <th id="first">Total</th>
+            <th id="first">Total Amount</th>
+            <th>Observations</th>
             <th>Action</th>
+            <th>Export</th>
         </tr>
     </thead>
     <tbody>
@@ -22,14 +23,17 @@
         <td><?=$index?></td>
         <td><?=$order['id']?></td>
         <td><?=$order['order_date']?></td>
-        <td><?=$order['order_observation']?></td>
-        <td><?=$order['product_description']?></td>
+        <td><?=$order['product_name']?></td>
         <td><?=$order['product_qty']?></td>
         <td><?=$order['price']?></td>
         <td><?=number_format($order['price']*$order['product_qty'], 2, '.', '')?></td>
+        <td><?=$order['order_observation']?></td>
         <td class="form-inline flex justify-around">
             <a class="btn btn-primary" href="<?=base_url('product/editorder/'.$order['id'])?>"><i class="bi bi-terminal-dash"></i></a>
             <button class="btn btn-danger " onclick="delProduct('<?=$order['id']?>')" <?=$order['isremoved']?"disabled":""?>><i class="bi bi-trash3-fill"></i></button>
+        </td>
+        <td class="text-center">
+            <button class="btn btn-default" onclick="savebydata(this)"><i class="bi bi-view-list"></i></button><a id="htmltopdf" href="<?=base_url('product/htmltopdfofinternalorder')?>" target="_blank" hidden>Download PDF</a>
         </td>
       </tr>
       <?php $first+=$order['price']*$order['product_qty']; endforeach;?>

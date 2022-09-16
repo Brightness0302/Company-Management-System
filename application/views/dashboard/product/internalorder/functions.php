@@ -74,6 +74,7 @@ function refreshOrderTotal() {
 }
 
 function get_formdata() {
+    const order_id = $("#order_id").val();
     const order_date = $("#order_date").val();
     const order_observation = $("#order_observation").val();
     const product_description = $("#product_description").val();
@@ -82,10 +83,13 @@ function get_formdata() {
     const total_amount = $("#total_amount").val();
 
     const form_data = {
+        id: order_id, 
         order_date: order_date, 
         order_observation: order_observation, 
         product_description: product_description, 
         product_qty: product_qty, 
+        product_price: product_price, 
+        total_amount: total_amount
     };
     return form_data;
 }
@@ -210,9 +214,40 @@ function delProduct(order_id) {
 
 function SaveAsPDF() {
     const form_data = get_formdata();
+    console.log(form_data);
 
     $.ajax({
-        url: "<?=base_url('product/savesessionbyjsonfrominternalorder')?>",
+        url: "<?=base_url('product/savesessionbyjsonofinternalorder')?>",
+        method: "POST",
+        data: form_data, 
+        dataType: 'text', 
+        success: function(res) {
+            console.log(res);
+            if (res != "success") {
+                alert("error");
+                return;
+            }
+            $("#htmltopdf")[0].click();
+        }
+    });
+}
+
+function savebydata(el) {
+    const etr = $(el).closest('tr');
+    const etd = $(etr).find("td");
+
+    const form_data = {
+        id: $(etd[1]).text(), 
+        order_date: $(etd[2]).text(), 
+        product_description: $(etd[3]).text(), 
+        product_qty: $(etd[4]).text(), 
+        product_price: $(etd[5]).text(), 
+        total_amount: $(etd[6]).text(), 
+        order_observation: $(etd[7]).text()
+    };
+
+    $.ajax({
+        url: "<?=base_url('product/savesessionbyjsonofinternalorder')?>",
         method: "POST",
         data: form_data, 
         dataType: 'text', 
