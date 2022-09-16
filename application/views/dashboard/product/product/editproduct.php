@@ -383,7 +383,7 @@
                         <div class="w-full m-3 form-control">Amount:</div>
                     </div>
                     <div class="col-sm-9">
-                        <div class="ml-3 m-2">
+                        <div class="ml-3 m-3">
                             <select class="form-select w-full" id="stockid">
                             <?php foreach ($stocks as $index => $stock):?>
                                 <option value="<?=$stock['id']?>">
@@ -392,7 +392,7 @@
                             <?php endforeach;?>
                             </select>
                         </div>
-                        <div class="ml-3 m-2">
+                        <div class="ml-3 m-3">
                             <select class="form-select w-full" id="material_code_ean">
                             </select>
                         </div>
