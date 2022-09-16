@@ -129,11 +129,11 @@ function refreshTotalMark() {
     });
     table2.children("tr").each((index, element) => {
         const etr = $(element).find("td");
-        second_total.text((parseFloat(second_total.text()) + parseFloat($(etr[4]).text())).toFixed(2));
+        second_total.text((parseFloat(second_total.text()) + parseFloat($(etr[3]).text())).toFixed(2));
     });
     table3.children("tr").each((index, element) => {
         const etr = $(element).find("td");
-        third_total.text((parseFloat(third_total.text()) + parseFloat($(etr[2]).text())).toFixed(2));
+        third_total.text((parseFloat(third_total.text()) + parseFloat($(etr[1]).text())).toFixed(2));
     });
 
     fourth_total.text((parseFloat(first_total.text()) + parseFloat(second_total.text()) + parseFloat(third_total.text())).toFixed(2));
@@ -185,10 +185,10 @@ function SaveItem2() {
     $("#table-body2").append(
         "<tr>"+
         "<td>"+labour_name+"</td>"+
-        "<td>"+labour_observation+"</td>"+
         "<td>"+labour_time+"</td>"+
         "<td>"+labour_hourly+"</td>"+
         "<td>"+labour_total+"</td>"+
+        "<td>"+labour_observation+"</td>"+
         "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr2(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr2(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
         "<td hidden>0</td>"+
         "</tr>"
@@ -206,8 +206,8 @@ function SaveItem3() {
     $("#table-body3").append(
         "<tr>"+
         "<td>"+auxiliary_title+"</td>"+
-        "<td>"+auxiliary_observation+"</td>"+
         "<td>"+auxiliary_expense+"</td>"+
+        "<td>"+auxiliary_observation+"</td>"+
         "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr3(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr3(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
         "<td hidden>0</td>"+
         "</tr>"
@@ -299,10 +299,10 @@ function edit_tr2(el) {
     const labour_total = $("#labour_total");
 
     labour_name.val($(etd[0]).text());
-    labour_observation.val($(etd[1]).text());
-    labour_time.val($(etd[2]).text());
-    labour_hourly.val($(etd[3]).text());
-    labour_total.val($(etd[4]).text());
+    labour_time.val($(etd[1]).text());
+    labour_hourly.val($(etd[2]).text());
+    labour_total.val($(etd[3]).text());
+    labour_observation.val($(etd[4]).text());
 
     $(etd[5]).html("<div id='btn_save_row' onclick='save_tr2(this)'><i class='bi bi-save-fill p-1' title='Save'></i></div><div id='btn_cancel_row' onclick='cancel_tr2(this)'><i class='bi bi-shield-x p-1' title='Cancel'></i></div>");
 }
@@ -318,10 +318,10 @@ function save_tr2(el) {
     const labour_total = $("#labour_total").val();
     
     $(etd[0]).text(labour_name);
-    $(etd[1]).text(labour_observation);
-    $(etd[2]).text(labour_time);
-    $(etd[3]).text(labour_hourly);
-    $(etd[4]).text(labour_total);
+    $(etd[1]).text(labour_time);
+    $(etd[2]).text(labour_hourly);
+    $(etd[3]).text(labour_total);
+    $(etd[4]).text(labour_observation);
     $(etd[5]).html("<div id='btn_edit_row' onclick='edit_tr2(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr2(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
 
     ClearItem2();
@@ -350,8 +350,8 @@ function edit_tr3(el) {
     const auxiliary_expense = $("#auxiliary_expense");
 
     auxiliary_title.val($(etd[0]).text());
-    auxiliary_observation.val($(etd[1]).text());
-    auxiliary_expense.val($(etd[2]).text());
+    auxiliary_expense.val($(etd[1]).text());
+    auxiliary_observation.val($(etd[2]).text());
 
     $(etd[3]).html("<div id='btn_save_row' onclick='save_tr3(this)'><i class='bi bi-save-fill p-1' title='Save'></i></div><div id='btn_cancel_row' onclick='cancel_tr3(this)'><i class='bi bi-shield-x p-1' title='Cancel'></i></div>");
 }
@@ -365,8 +365,8 @@ function save_tr3(el) {
     const auxiliary_expense = $("#auxiliary_expense").val();
     
     $(etd[0]).text(auxiliary_title);
-    $(etd[1]).text(auxiliary_observation);
-    $(etd[2]).text(auxiliary_expense);
+    $(etd[1]).text(auxiliary_expense);
+    $(etd[2]).text(auxiliary_observation);
     $(etd[3]).html("<div id='btn_edit_row' onclick='edit_tr3(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr3(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
 
     ClearItem3();
@@ -414,11 +414,11 @@ function get_formdata() {
     });
     table2.children("tr").each((index, element) => {
         const etd = $(element).find("td");
-        labours.push({name: $(etd[0]).text(), observation: $(etd[1]).text(), time: $(etd[2]).text(), hourly: $(etd[3]).text()});
+        labours.push({name: $(etd[0]).text(), time: $(etd[1]).text(), hourly: $(etd[2]).text(), observation: $(etd[4]).text()});
     });
     table3.children("tr").each((index, element) => {
         const etd = $(element).find("td");
-        auxiliaries.push({descrition: $(etd[0]).text(), observation: $(etd[1]).text(), value: $(etd[2]).text()});
+        auxiliaries.push({descrition: $(etd[0]).text(), value: $(etd[1]).text(), observation: $(etd[2]).text()});
     });
 
     const form_data = {

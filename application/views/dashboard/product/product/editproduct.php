@@ -42,7 +42,7 @@
                                     <td>
                                         <div class="m-auto">
                                             <select class="form-select w-full" id="product_coin">
-                                                <option value="EURO">EURO</option>
+                                                <option value="€">EURO</option>
                                                 <option value="LEI">LEI</option>
                                             </select>
                                         </div>
@@ -103,7 +103,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="coin">EURO</p>
+                                            <label class="my-2 coin">€</label>
                                         </td>
                                     </tr>
                                 </table>
@@ -152,7 +152,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="coin">EURO</p>
+                                            <label class="my-2 coin">€</label>
                                         </td>
                                     </tr>
                                 </table>
@@ -248,9 +248,9 @@
                                 <tr>
                                     <th>Code EAN</th>
                                     <th>Product description</th>
-                                    <th>Amount</th>
-                                    <th>Price($)</th>
-                                    <th id="first">Sub Total Amount($)</th>
+                                    <th>QTY</th>
+                                    <th>Price(<label class="coin">€</label>)</th>
+                                    <th id="first">Sub Total Amount(<label class="coin">€</label>)</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -276,10 +276,10 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Observation</th>
                                     <th>Time(hr)</th>
-                                    <th>Hourly cost($)</th>
-                                    <th id="first">Sub Total Amount($)</th>
+                                    <th>Hourly cost(<label class="coin">€</label>)</th>
+                                    <th id="first">Sub Total Amount(<label class="coin">€</label>)</th>
+                                    <th>Observation</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -287,10 +287,10 @@
                                 <?php foreach($labours as $index=>$labour):?>
                                 <tr>
                                     <td><?=$labour['name']?></td>
-                                    <td><?=$labour['observation']?></td>
                                     <td><?=$labour['time']?></td>
                                     <td><?=$labour['hourly']?></td>
                                     <td><?=number_format($labour['time']*$labour['hourly'], 2, '.', "")?></td>
+                                    <td><?=$labour['observation']?></td>
                                     <td class='align-middle flex justify-center'>
                                         <div id='btn_edit_row' onclick='edit_tr2(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div>
                                         <div id='btn_remove_row' onclick='remove_tr2(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>
@@ -304,8 +304,8 @@
                             <thead>
                                 <tr>
                                     <th>Expense description</th>
-                                    <th>Observation</th>
                                     <th>Value</th>
+                                    <th>Observation</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -313,8 +313,8 @@
                                 <?php foreach($auxiliaries as $index=>$auxiliary):?>
                                 <tr>
                                     <td><?=$auxiliary['descrition']?></td>
-                                    <td><?=$auxiliary['observation']?></td>
                                     <td><?=$auxiliary['value']?></td>
+                                    <td><?=$auxiliary['observation']?></td>
                                     <td class='align-middle flex justify-center'>
                                         <div id='btn_edit_row' onclick='edit_tr3(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div>
                                         <div id='btn_remove_row' onclick='remove_tr3(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>

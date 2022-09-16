@@ -42,7 +42,7 @@
                                     <td>
                                         <div class="m-auto">
                                             <select class="form-select w-full" id="product_coin">
-                                                <option value="EURO">EURO</option>
+                                                <option value="€">EURO</option>
                                                 <option value="LEI">LEI</option>
                                             </select>
                                         </div>
@@ -102,8 +102,8 @@
                                                 <input type="text" class="form-control" id="total_amount" value="0" title="Choose your color" disabled>
                                             </div>
                                         </td>
-                                        <td>
-                                            <p class="coin">EURO</p>
+                                        <td class="text-center">
+                                            <label class="my-2 coin">€</label>
                                         </td>
                                     </tr>
                                 </table>
@@ -151,8 +151,8 @@
                                                 <input type="text" class="form-control " id="labour_hourly" value="" title="Choose your color">
                                             </div>
                                         </td>
-                                        <td>
-                                            <p class="coin">EURO</p>
+                                        <td class="text-center">
+                                            <label class="my-2 coin">€</label>
                                         </td>
                                     </tr>
                                 </table>
@@ -245,9 +245,9 @@
                                 <tr>
                                     <th>Code EAN</th>
                                     <th>Product description</th>
-                                    <th>Amount</th>
-                                    <th>Price($)</th>
-                                    <th id="first">Sub Total Amount($)</th>
+                                    <th>QTY</th>
+                                    <th>Price(<label class="coin">€</label>)</th>
+                                    <th id="first">Sub Total Amount(<label class="coin">€</label>)</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -258,10 +258,10 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Observation</th>
                                     <th>Time(hr)</th>
-                                    <th>Hourly cost($)</th>
-                                    <th id="first">Sub Total Amount($)</th>
+                                    <th>Hourly cost(<label class="coin">€</label>)</th>
+                                    <th id="first">Sub Total Amount(<label class="coin">€</label>)</th>
+                                    <th>Observation</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -271,8 +271,8 @@
                             <thead>
                                 <tr>
                                     <th>Expense description</th>
-                                    <th>Observation</th>
                                     <th>Value</th>
+                                    <th>Observation</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
