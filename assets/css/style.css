@@ -2087,3 +2087,43 @@ section {
   padding: 6px 12px;
   cursor: pointer;
 }
+
+.custom-edit-icon {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("../image/tools/Edit.png");
+}
+
+.custom-remove-icon {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("../image/tools/Delete.png");
+}
+
+.custom-view-icon {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("../image/tools/View.png");
+}
+
+.custom-paid-image {
+}
+
+.custom-paid-icon {
+  margin: auto;
+  max-height: 20px;
+}
+
+.custom-notpaid-icon {
+  margin: auto;
+  max-height: 20px;
+}
