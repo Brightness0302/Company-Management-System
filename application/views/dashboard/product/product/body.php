@@ -57,11 +57,11 @@
         </td>
         <td><?=$total?></td>
         <td class="form-inline flex justify-around">
-            <a class="btn btn-primary" href="<?=base_url('product/editproduct/'.$product['id'])?>"><i class="bi bi-terminal-dash"></i></a>
-            <button class="btn btn-danger " onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi bi-trash3-fill"></i></button>
+            <a class="btn btn-link" href="<?=base_url('product/editproduct/'.$product['id'])?>"><i class="bi custom-edit-icon"></i></a>
+            <button class="btn btn-link" onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
         </td>
         <td class="text-center">
-            <button class="btn btn-default" onclick="savebydata('<?=$product['id']?>')"><i class="bi bi-view-list"></i></button><a id="htmltopdf" href="<?=base_url('product/htmltopdf')?>" target="_blank" hidden>Download PDF</a>
+            <button class="btn btn-link" onclick="savebydata('<?=$product['id']?>')"><i class="bi custom-view-icon"></i></button><a id="htmltopdf" href="<?=base_url('product/htmltopdf')?>" target="_blank" hidden>Download PDF</a>
         </td>
       </tr>
       <?php endforeach;?>

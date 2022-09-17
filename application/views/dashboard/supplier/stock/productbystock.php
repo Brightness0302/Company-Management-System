@@ -35,7 +35,7 @@
             <td><?=number_format(($line['acquisition_unit_price']*floatval($line['qty'])), 2, '.', "")?></td>
             <td><?=number_format($line['selling_unit_price_without_vat'], 2, '.', "")?></td>
             <td><?=number_format((floatval($line['selling_unit_price_with_vat']*$line['qty'])), 2, '.', "")?></td>
-            <td class="text-center"><button class="btn btn-default" onclick="viewsoldandreceive('<?=$line['id']?>', this)">View</button></td>
+            <td class="text-center"><button class="btn btn-link" onclick="viewsoldandreceive('<?=$line['id']?>', this)"><i class="bi custom-view-icon"></i></button></td>
         </tr>
         <?php endif;?>
         <?php endforeach;?>

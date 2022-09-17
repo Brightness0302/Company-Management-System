@@ -109,7 +109,7 @@ function appendTable(product_description, product_rate, product_amount) {
         "</td>" +
         "<td class='align-middle'>" +
         "<div id='btn_remove_row' onclick='remove_tr(this)'>" +
-        "<i class='bi bi-trash3-fill p-3'></i>" +
+        "<i class='bi custom-remove-icon p-3'></i>" +
         "</div>" +
         "</td>" +
         "</tr>"

@@ -162,7 +162,7 @@ function SaveItem1() {
                 "<td>"+amount+"</td>"+
                 "<td>"+res['selling_unit_price_without_vat']+"</td>"+
                 "<td>"+total_amount+"</td>"+
-                "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr1(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr1(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
+                "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr1(this)'>" + "<i class='bi custom-edit-icon p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr1(this)'>" + "<i class='bi custom-remove-icon p-1' title='Delete'></i>" + "</div>" + "</td>" +
                 "<td hidden>"+res['id']+"</td>"+
                 "</tr>"
             );
@@ -189,7 +189,7 @@ function SaveItem2() {
         "<td>"+labour_hourly+"</td>"+
         "<td>"+labour_total+"</td>"+
         "<td>"+labour_observation+"</td>"+
-        "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr2(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr2(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
+        "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr2(this)'>" + "<i class='bi custom-edit-icon p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr2(this)'>" + "<i class='bi custom-remove-icon p-1' title='Delete'></i>" + "</div>" + "</td>" +
         "<td hidden>0</td>"+
         "</tr>"
     );
@@ -208,7 +208,7 @@ function SaveItem3() {
         "<td>"+auxiliary_title+"</td>"+
         "<td>"+auxiliary_expense+"</td>"+
         "<td>"+auxiliary_observation+"</td>"+
-        "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr3(this)'>" + "<i class='bi bi-terminal-dash p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr3(this)'>" + "<i class='bi bi-trash3-fill p-1' title='Delete'></i>" + "</div>" + "</td>" +
+        "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr3(this)'>" + "<i class='bi custom-edit-icon p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr3(this)'>" + "<i class='bi custom-remove-icon p-1' title='Delete'></i>" + "</div>" + "</td>" +
         "<td hidden>0</td>"+
         "</tr>"
     );
@@ -263,7 +263,7 @@ function save_tr1(el) {
             $(etd[2]).text(amount);
             $(etd[3]).text(res['selling_unit_price_without_vat']);
             $(etd[4]).text(total_amount);
-            $(etd[5]).html("<div id='btn_edit_row' onclick='edit_tr1(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr1(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
+            $(etd[5]).html("<div id='btn_edit_row' onclick='edit_tr1(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr1(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div>");
             $(etd[6]).text(res['id']);
 
             ClearItem1();
@@ -279,7 +279,7 @@ function cancel_tr1(el) {
     const etr = $(el).closest('tr');
     const etd = $(etr).find("td");
 
-    $(etd[5]).html("<div id='btn_edit_row' onclick='edit_tr1(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr1(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
+    $(etd[5]).html("<div id='btn_edit_row' onclick='edit_tr1(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr1(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div>");
     ClearItem1();
 }
 
@@ -322,7 +322,7 @@ function save_tr2(el) {
     $(etd[2]).text(labour_hourly);
     $(etd[3]).text(labour_total);
     $(etd[4]).text(labour_observation);
-    $(etd[5]).html("<div id='btn_edit_row' onclick='edit_tr2(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr2(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
+    $(etd[5]).html("<div id='btn_edit_row' onclick='edit_tr2(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr2(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div>");
 
     ClearItem2();
     refreshTotalMark();
@@ -332,7 +332,7 @@ function cancel_tr2(el) {
     const etr = $(el).closest('tr');
     const etd = $(etr).find("td");
 
-    $(etd[5]).html("<div id='btn_edit_row' onclick='edit_tr2(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr2(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
+    $(etd[5]).html("<div id='btn_edit_row' onclick='edit_tr2(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr2(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div>");
     ClearItem2();
 }
 
@@ -367,7 +367,7 @@ function save_tr3(el) {
     $(etd[0]).text(auxiliary_title);
     $(etd[1]).text(auxiliary_expense);
     $(etd[2]).text(auxiliary_observation);
-    $(etd[3]).html("<div id='btn_edit_row' onclick='edit_tr3(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr3(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
+    $(etd[3]).html("<div id='btn_edit_row' onclick='edit_tr3(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr3(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div>");
 
     ClearItem3();
     refreshTotalMark();
@@ -377,7 +377,7 @@ function cancel_tr3(el) {
     const etr = $(el).closest('tr');
     const etd = $(etr).find("td");
 
-    $(etd[3]).html("<div id='btn_edit_row' onclick='edit_tr3(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr3(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>");
+    $(etd[3]).html("<div id='btn_edit_row' onclick='edit_tr3(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr3(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div>");
     ClearItem2();
 }
 

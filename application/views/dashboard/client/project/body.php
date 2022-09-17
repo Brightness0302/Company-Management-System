@@ -35,8 +35,8 @@
                     </div>
                 </td>
                 <td class="form-inline flex justify-around">
-                    <a class="btn btn-primary " href="<?=base_url('client/editprojectbyinvoices/'.$project['id'])?>"><i class="bi bi-terminal-dash"></i></a>
-                    <button class="btn btn-danger " onclick="delproject('<?=$project['id']?>')"><i class="bi bi-trash3-fill"></i></button>
+                    <a class="btn btn-link" href="<?=base_url('client/editprojectbyinvoices/'.$project['id'])?>"><i class="bi custom-edit-icon"></i></a>
+                    <button class="btn btn-link" onclick="delproject('<?=$project['id']?>')"><i class="bi custom-remove-icon"></i></button>
                 </td>
             </tr>
             <?php endif;?>
@@ -85,7 +85,7 @@
                 </td>
                 <td><?=$client['isremoved']?"<label class='status danger'>In-Active</label>":"<label class='status success'>Active</label>"?></td>
                 <td class="form-inline flex justify-around">
-                    <a class="btn btn-primary " href="<?=base_url('client/editclientbyprojects/'.$client['id'])?>"><i class="bi bi-terminal-dash"></i></a>
+                    <a class="btn btn-link" href="<?=base_url('client/editclientbyprojects/'.$client['id'])?>"><i class="bi custom-edit-icon"></i></a>
                 </td>
             </tr>
             <?php endif;?>

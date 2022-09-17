@@ -41,10 +41,10 @@
             <td><?=$invoice['sub_total']?></td>
             <td><?=$invoice['tax']?></td>
             <td><?=$invoice['total']?></td>
-            <td class="text-center"><?=$invoice['ispaid']?"<label class='status success'>Paid</label>":"<label class='status danger'>Not Paid</label>"?></td>
+            <td class="text-center"><?=$invoice['ispaid']?"<div class='status'><img class='custom-paid-icon' src='".base_url("assets/image/tools/Paid.png")."'/></div>":"<div class='status custom-paid-image'><img class='custom-notpaid-icon' src='".base_url("assets/image/tools/Not Paid.png")."'/></div>"?></td>
             <td class="form-inline flex justify-around">
-                <a class="btn btn-primary" href="<?=base_url('client/editinvoice/'.$invoice['id'])?>"><i class="bi bi-terminal-dash"></i></a>
-                <button class="btn btn-danger " onclick="delInvoice('<?=$invoice['id']?>')" <?=$invoice['isremoved']?"disabled":""?>><i class="bi bi-trash3-fill"></i></button>
+                <a class="btn btn-link" href="<?=base_url('client/editinvoice/'.$invoice['id'])?>"><i class="bi custom-edit-icon"></i></a>
+                <button class="btn btn-link" onclick="delInvoice('<?=$invoice['id']?>')" <?=$invoice['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>
         </tr>
         <?php endif;?>

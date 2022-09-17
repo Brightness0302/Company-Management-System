@@ -48,7 +48,7 @@
                                 <li>
                                     <a class="dropdown-item d-flex align-items-center"
                                         href="<?=base_url('home/editcompany/'.$company['id'])?>">
-                                        <i class="bi bi-terminal-dash"></i>
+                                        <i class="bi custom-edit-icon"></i>
                                         <span>Edit</span>
                                     </a>
                                 </li>
@@ -59,7 +59,7 @@
                                 <li>
                                     <button class="dropdown-item d-flex align-items-center"
                                         onclick="Delcompany('<?=$company['id']?>')">
-                                        <i class="bi bi-trash3-fill"></i>
+                                        <i class="bi custom-remove-icon"></i>
                                         <span>Delete</span>
                                     </button>
                                 </li>

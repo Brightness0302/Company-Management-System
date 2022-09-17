@@ -263,8 +263,8 @@
                                     <td><?=$material['selling_unit_price_without_vat']?></td>
                                     <td><?=number_format($material['amount']*$material['selling_unit_price_without_vat'], 2, '.', "")?></td>
                                     <td class='align-middle flex justify-center'>
-                                        <div id='btn_edit_row' onclick='edit_tr1(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div>
-                                        <div id='btn_remove_row' onclick='remove_tr1(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>
+                                        <div id='btn_edit_row' onclick='edit_tr1(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div>
+                                        <div id='btn_remove_row' onclick='remove_tr1(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div>
                                     </td>
                                     <td hidden><?=$material['id']?></td>
                                     <?php $total_first+=$material['amount']*$material['selling_unit_price_without_vat'];?>
@@ -292,8 +292,8 @@
                                     <td><?=number_format($labour['time']*$labour['hourly'], 2, '.', "")?></td>
                                     <td><?=$labour['observation']?></td>
                                     <td class='align-middle flex justify-center'>
-                                        <div id='btn_edit_row' onclick='edit_tr2(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div>
-                                        <div id='btn_remove_row' onclick='remove_tr2(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>
+                                        <div id='btn_edit_row' onclick='edit_tr2(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div>
+                                        <div id='btn_remove_row' onclick='remove_tr2(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div>
                                     </td>
                                     <?php $total_second+=$labour['time']*$labour['hourly'];?>
                                 </tr>
@@ -316,8 +316,8 @@
                                     <td><?=$auxiliary['value']?></td>
                                     <td><?=$auxiliary['observation']?></td>
                                     <td class='align-middle flex justify-center'>
-                                        <div id='btn_edit_row' onclick='edit_tr3(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div>
-                                        <div id='btn_remove_row' onclick='remove_tr3(this)'><i class='bi bi-trash3-fill p-1' title='Delete'></i></div>
+                                        <div id='btn_edit_row' onclick='edit_tr3(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div>
+                                        <div id='btn_remove_row' onclick='remove_tr3(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div>
                                     </td>
                                     <?php $total_third+=$auxiliary['value'];?>
                                 </tr>

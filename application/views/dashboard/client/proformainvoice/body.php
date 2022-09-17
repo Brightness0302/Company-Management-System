@@ -35,8 +35,8 @@
             <td><?=$invoice['date_of_issue']?></td>
             <td><?=$invoice['total']?></td>
             <td class="form-inline flex justify-around">
-                <a class="btn btn-primary" href="<?=base_url('client/editproforma/'.$invoice['id'])?>"><i class="bi bi-terminal-dash"></i></a>
-                <button class="btn btn-danger " onclick="delInvoice('<?=$invoice['id']?>')" <?=$invoice['isremoved']?"disabled":""?>><i class="bi bi-trash3-fill"></i></button>
+                <a class="btn btn-primary" href="<?=base_url('client/editproforma/'.$invoice['id'])?>"><i class="bi custom-edit-icon"></i></a>
+                <button class="btn btn-danger " onclick="delInvoice('<?=$invoice['id']?>')" <?=$invoice['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>
         </tr>
         <?php endif;?>

@@ -316,8 +316,8 @@
                                     <td hidden><?=$line['expenseid']?></td>
                                     <td hidden><?=$line['projectid']?></td>
                                     <td class='align-middle flex justify-center'>
-                                        <div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi bi-terminal-dash p-1' title='Edit'></i></div>
-                                        <div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi bi-trash3-fill p-1' title="Delete"></i></div>
+                                        <div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div>
+                                        <div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi custom-remove-icon p-1' title="Delete"></i></div>
                                     </td>
                                     <td hidden><?=$line['id']?></td>
                                     <td hidden><?=$line['lineid']?></td>

@@ -59,13 +59,13 @@
             <td><?=$fourth?></td>
             <td><?=$fifth?></td>
             <td><?=$sixth?></td>
-            <td class="text-center"><?=$product['ispaid']?"<label class='status success'>Paid</label>":"<label class='status danger'>Not Paid</label>"?></td>
+            <td class="text-center"><?=$product['ispaid']?"<div class='status'><img class='custom-paid-icon' src='".base_url("assets/image/tools/Paid.png")."'/></div>":"<div class='status custom-paid-image'><img class='custom-notpaid-icon' src='".base_url("assets/image/tools/Not Paid.png")."'/></div>"?></td>
             <td class="form-inline flex justify-around">
-                <a class="btn-primary p-1 rounded-lg text-xs" href="<?=base_url('material/editproduct/'.$product['id'])?>"><i class="bi bi-terminal-dash"></i></a>
-                <button class="btn-danger p-1 rounded-lg text-xs" onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi bi-trash3-fill"></i></button>
+                <a class="btn-link p-1 rounded-lg" href="<?=base_url('material/editproduct/'.$product['id'])?>"><i class="bi custom-edit-icon"></i></a>
+                <button class="btn-link p-1 rounded-lg" onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>
             <td class="text-center">
-                <a class="btn btn-default" href="<?=$product['attached']?base_url('assets/company/attachment/'.$company['name'].'/supplier/'.$product['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$product['attached']?"":'pointer-events: none'?>"><i class="bi bi-view-list"></i></a>
+                <a class="btn btn-link" href="<?=$product['attached']?base_url('assets/company/attachment/'.$company['name'].'/supplier/'.$product['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$product['attached']?"":'pointer-events: none'?>"><i class="bi custom-view-icon"></i></a>
             </td>
         </tr>
         <?php endif;?>
