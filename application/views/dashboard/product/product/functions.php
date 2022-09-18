@@ -378,7 +378,7 @@ function cancel_tr3(el) {
     const etd = $(etr).find("td");
 
     $(etd[3]).html("<div id='btn_edit_row' onclick='edit_tr3(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr3(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div>");
-    ClearItem2();
+    ClearItem3();
 }
 
 function ClearItem1() {
