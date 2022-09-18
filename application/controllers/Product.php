@@ -239,7 +239,7 @@ class Product extends CI_Controller
         $data['company'] = $company['data'];
         $data['user'] = $this->session->userdata('user');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['product'] = $this->product->productfromsetting($companyid, 'product_recipe');
+        $data['product'] = $this->product->productfromsetting($companyid, 'product');
 
         $session['menu']="Products";
         $session['submenu']="p_pm";

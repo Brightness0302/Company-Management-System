@@ -376,7 +376,7 @@
 
                     <li>
                         <a href="<?=base_url('product/internalorder')?>">
-                            <i class="bi <?=$menu['submenu']=="p_ioi"?"bi-circle-fill":"bi-circle"?>"></i><span>Internal order production</span>
+                            <i class="bi <?=$menu['submenu']=="p_ioi"?"bi-circle-fill":"bi-circle"?>"></i><span>Internal Production Order</span>
                         </a>
                     </li>
 
@@ -388,13 +388,13 @@
 
                     <li>
                         <a href="<?=base_url('product/productmanagement')?>">
-                            <i class="bi <?=$menu['submenu']=="p_pm"?"bi-circle-fill":"bi-circle"?>"></i><span>Product Management</span>
+                            <i class="bi <?=$menu['submenu']=="p_pm"?"bi-circle-fill":"bi-circle"?>"></i><span>Product Registration</span>
                         </a>
                     </li>
 
                     <li>
                         <a href="<?=base_url('product/paymentmanager')?>">
-                            <i class="bi <?=$menu['submenu']=="ppm"?"bi-circle-fill":"bi-circle"?>"></i><span>Payment Management</span>
+                            <i class="bi <?=$menu['submenu']=="ppm"?"bi-circle-fill":"bi-circle"?>"></i><span>Production Reports</span>
                         </a>
                     </li>
                 </ul>
@@ -583,7 +583,7 @@
                     else if($menu['submenu']=="ppm")
                         echo "Payment management";
                     else if($menu['submenu']=="p_pm")
-                        echo "Product management";
+                        echo "Product registration";
                     else if($menu['submenu']=="p_prm")
                         echo "Product recipe management";
                     else if($menu['submenu']=="pmbs")
@@ -593,7 +593,7 @@
                     else if($menu['submenu']=="pmbyid")
                         echo "Expense Management By Expense";
                     else if($menu['submenu']=="p_ioi")
-                        echo "Internal order invoice";
+                        echo "Internal production order";
                     else if($menu['submenu']=="p_iop")
                         echo "Internal order production";
                     ?></li>
