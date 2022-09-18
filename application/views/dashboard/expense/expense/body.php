@@ -18,7 +18,7 @@
             <td><a class="text-black" href="<?=base_url('expense/showproductbyexpenseid?expense_id='.$expense['id'])?>"><?=$expense['name']?></a></td>
             <td><?=$expense['code']?></td>
             <td class="form-inline flex justify-around">
-                <button href="<?=base_url('expense/editexpense/'.$expense['id'])?>"><i class="bi custom-edit-icon"></i></button>
+                <a href="<?=base_url('expense/editexpense/'.$expense['id'])?>"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delExpense('<?=$expense['id']?>')" <?=$expense['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>
         </tr>

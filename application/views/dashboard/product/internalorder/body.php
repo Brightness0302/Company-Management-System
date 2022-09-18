@@ -29,7 +29,7 @@
         <td><?=number_format($order['price']*$order['product_qty'], 2, '.', '')?></td>
         <td><?=$order['order_observation']?></td>
         <td class="form-inline flex justify-around">
-            <button href="<?=base_url('product/editorder/'.$order['id'])?>"><i class="bi custom-edit-icon"></i></button>
+            <a href="<?=base_url('product/editorder/'.$order['id'])?>"><i class="bi custom-edit-icon"></i></a>
             <button onclick="delProduct('<?=$order['id']?>')" <?=$order['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
         </td>
         <td class="text-center">

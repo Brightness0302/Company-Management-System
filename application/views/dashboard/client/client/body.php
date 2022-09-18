@@ -22,7 +22,7 @@
             <td><?=$client['address']?></td>
             <td><?=$client['VAT']?></td>
             <td class="form-inline flex justify-evenly">
-                <button class="<?=$client['isremoved']?"pointer-events-none":""?>" href="<?=base_url('client/editclient/'.$client['id'])?>" title="Edit"><i class="bi custom-edit-icon"></i></button>
+                <a class="<?=$client['isremoved']?"pointer-events-none":""?>" href="<?=base_url('client/editclient/'.$client['id'])?>" title="Edit"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delClient('<?=$client['id']?>')" title="Delete" <?=$client['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>
         </tr>

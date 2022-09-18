@@ -57,7 +57,7 @@
         </td>
         <td><?=$total?></td>
         <td class="form-inline flex justify-around">
-            <button href="<?=base_url('product/editproduct/'.$product['id'])?>"><i class="bi custom-edit-icon"></i></button>
+            <a href="<?=base_url('product/editproduct/'.$product['id'])?>"><i class="bi custom-edit-icon"></i></a>
             <button onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
         </td>
         <td class="text-center">
