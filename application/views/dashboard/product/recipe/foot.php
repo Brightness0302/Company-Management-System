@@ -35,11 +35,21 @@ function clickclient(client_name, client_address, client_ref) {
 }
 
 function onrefreshtotalmark() {
-    $("#subtotal").html("0.0");
+    $("#total_first").html("0.0");
+    $("#total_second").html("0.0");
+    $("#total_third").html("0.0");
+    $("#total_fourth").html("0.0");
 }
 
 $(function() {
-    console.log(123);
+    $("#example1").DataTable({
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        "pageLength": 100,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
     $("#producttable").DataTable({
         "responsive": true,
         "lengthChange": false,
@@ -50,9 +60,9 @@ $(function() {
 
     let producttable = $("#producttable").DataTable();
 
-    $("#producttable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='producttable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='producttable'></label></div>");
+    $("#producttable_filter").html("Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='producttable'></label>");
 
-    var subtotal = 0.0, vat = 0.0, total = 0.0;
+    var total_first = 0.0, total_second = 0.0, total_third = 0.0, total_fourth = 0.0;
 
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {
@@ -60,22 +70,22 @@ $(function() {
             if ( settings.nTable.id !== 'producttable' ) {
                 return true;
             }
-     
-            // Filtering for "myTable".
-            var startdate = new Date($('#startdate').val());
-            startdate.setDate(startdate.getDate() - 1);
-            var enddate = new Date($('#enddate').val());
-            enddate.setDate(enddate.getDate() + 1);
-            var date = new Date(data[2] || 0); // use data for the age column
-            var name = data[3];
+
+            var name = data[1];
             var searchvalue = $("#searchtag").val();
             // console.log(name, reference, searchvalue, startdate, enddate, date);
          
             if (
-                (date > startdate && date < enddate) && (name.toLowerCase().includes(searchvalue.toLowerCase()))
+                (name.toLowerCase().includes(searchvalue.toLowerCase()))
             ) {
-                subtotal += parseFloat(data[6]);
-                $("#subtotal").html((subtotal).toFixed(2));
+                total_first += parseFloat(data[2]);
+                total_second += parseFloat(data[3]);
+                total_third += parseFloat(data[4]);
+                total_fourth += parseFloat(data[5]);
+                $("#total_first").html((total_first).toFixed(2));
+                $("#total_second").html((total_second).toFixed(2));
+                $("#total_third").html((total_third).toFixed(2));
+                $("#total_fourth").html((total_fourth).toFixed(2));
                 return true;
             }
             return false;
@@ -87,7 +97,7 @@ $(function() {
     });
 
     producttable.on('draw', function (){
-        subtotal = 0.0, vat = 0.0, total = 0.0;
+        total_first = 0.0, total_second = 0.0, total_third = 0.0, total_fourth = 0.0;
     })
 
     $("#searchtag").on('keyup', function (){
