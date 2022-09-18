@@ -4,7 +4,7 @@
     <thead>
         <tr class="text-sm">
             <th>No</th>
-            <th>Invoice Number</th>
+            <th>Number</th>
             <th>Supplier Name</th>
             <th>Observations</th>
             <th>NIR No</th>
@@ -13,10 +13,10 @@
             <th>Sub Total</th>
             <th>VAT Amount</th>
             <th>Total Amount</th>
-            <th>Payment date</th>
-            <th>Payment method</th>
+            <th>Pay date</th>
+            <th>Pay method</th>
             <th>Observations</th>
-            <th>Invoice status</th>
+            <th>status</th>
             <th>Pay</th>
         </tr>
     </thead>
