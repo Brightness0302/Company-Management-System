@@ -134,11 +134,11 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <a class="btn btn-primary w-100"
-                                        href="<?=base_url('home/edituser?username='.$user['username'])?>"><i
+                                        href="<?=base_url('home/edituser/'.$user['id'])?>"><i
                                             class="bx bxs-pencil"></i><label id="hide">Edit</label></a>
                                 </div>
                                 <div class="col-md-6">
-                                    <button class="btn btn-danger w-100" onclick="Deluser('<?=$user['username']?>')"><i
+                                    <button class="btn btn-danger w-100" onclick="Deluser('<?=$user['id']?>')"><i
                                             class="bx bxs-eraser"></i><label id="hide">Delete</label></button>
                                 </div>
                             </div>
