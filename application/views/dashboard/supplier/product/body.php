@@ -4,19 +4,19 @@
     <thead>
         <tr>
             <th>No</th>
-            <th>Invoice Number</th>
+            <th>Number</th>
             <th>Supplier Name</th>
             <th>Observations</th>
             <th>NIR No</th>
             <th>NIR Date</th>
-            <th>Invoice Date</th>
+            <th>Date</th>
             <th id="first">Acq sub-total Ex VAT</th>
             <th id="second">Acq VAT sub-total</th>
             <th id="third">Acq sub-total with VAT</th>
             <th id="fourth">Acq sub-total Ex VAT</th>
             <th id="fifth">Acq VAT sub-total</th>
             <th id="sixth">Acq sub-total with VAT</th>
-            <th>Invoice status</th>
+            <th>status</th>
             <th>Action</th>
             <th>View</th>
         </tr>

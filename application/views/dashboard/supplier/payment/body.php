@@ -17,7 +17,7 @@
             <th>Pay method</th>
             <th>Observations</th>
             <th>status</th>
-            <th>Pay</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
