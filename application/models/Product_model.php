@@ -121,4 +121,63 @@ class Product_model extends CI_Model {
         $data['selling_unit_price_with_vat'] = $this->toFixed($data['acquisition_unit_price'] * ($data['makeup'] + 100.0) * ($data['vat'] + 100.0) / 100.0 / 100.0, 2);
         return $data;
     }
+
+    public function setproduct($companyid, $id, $setproducted) {
+        $this->db->query('use database'.$companyid);
+
+        $query =    "SELECT *
+                    FROM `internalorder`
+                    WHERE `id`='$id'";
+
+        $data = $this->db->query($query)->result_array();
+        if (count($data)==0)
+            return -1;
+        $data = $data[0];
+        $product_description = $data['product_description'];
+        $product_qty = $data['product_qty'];
+
+        $query =    "SELECT *
+                    FROM `product`
+                    WHERE `id`='$product_description'";
+
+        $data = $this->db->query($query)->result_array();
+        if (count($data)==0)
+            return -1;
+        $data = $data[0];
+        $materials = json_decode($data['materials'], TRUE);
+        foreach ($materials as $index => $material) {
+            $materialid = $material['id'];
+            $product_qty = $material['amount']*$product_qty;
+            $query =    "SELECT *
+                    FROM `material_totalline`
+                    WHERE `id`='$materialid'";
+
+            $data = $this->db->query($query)->result_array();
+            if (count($data) != 0) {
+                $data = $data[0];
+                if ($setproducted == 1) {
+                    $qty = $data['qty'] - $product_qty;
+                }
+                else {
+                    $qty = $data['qty'] + $product_qty;
+                }
+
+                $data = array(
+                    'qty'=>$qty, 
+                );
+
+                $this->db->where('id', $materialid);
+                $res = $this->db->update('material_totalline', $data);
+            }
+        }
+
+        $data = array(
+            'isproducted'=>$setproducted, 
+            'production_date'=>date("Y-m-d"), 
+        );
+
+        $this->db->where('id', $id);
+        $res = $this->db->update('internalorder', $data);
+        return $res;
+    }
 }

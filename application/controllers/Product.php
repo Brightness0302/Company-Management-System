@@ -91,6 +91,65 @@ class Product extends CI_Controller
         }
 
         $session['menu']="Products";
+        $session['submenu']="p_ioi";
+        $session['second-submenu']="";
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/product/internalorderinvoice/head');
+        $this->load->view('dashboard/product/internalorderinvoice/body');
+        $this->load->view('dashboard/product/internalorderinvoice/foot');
+        $this->load->view('dashboard/product/internalorderinvoice/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
+    //View supplier page of add/edit/delete function
+    public function internalorderproduction() {
+        $this->check_usersession();
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($companyname, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['orders'] = $this->home->alldatafromdatabase($companyid, 'internalorder');
+
+        foreach ($data['orders'] as $key => $order) {
+            $res_product = $this->home->databyidfromdatabase($companyid, 'product', $order['product_description']);
+            if ($res_product['status'] == false) {
+                echo -1;
+                return;
+            }
+            $product = $res_product['data'];
+            $price = 0;
+            $materials = json_decode($product['materials'], true);
+            foreach ($materials as $index => $material) {
+                $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
+            
+                $materials[$index]['code_ean'] = $result['code_ean'];
+                $materials[$index]['production_description'] = $result['production_description'];
+                $materials[$index]['selling_unit_price_without_vat'] = $result['selling_unit_price_without_vat'];
+                $price += $material['amount']*$materials[$index]['selling_unit_price_without_vat'];
+            }
+            $product['materials'] = json_encode($materials);
+
+            $labours = json_decode($product['labours'], true);
+            foreach ($labours as $index => $labour) {
+                $price += $labour['time']*$labour['hourly'];
+            }
+
+            $auxiliaries = json_decode($product['auxiliaries'], true);
+            foreach ($auxiliaries as $index => $auxiliary) {
+                $price += $auxiliary['value'];
+            }
+            $data['orders'][$key]['price'] = $price;
+            $data['orders'][$key]['product_name'] = $product['name'];
+        }
+
+        $session['menu']="Products";
         $session['submenu']="p_iop";
         $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
@@ -98,10 +157,10 @@ class Product extends CI_Controller
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
-        $this->load->view('dashboard/product/internalorder/head');
-        $this->load->view('dashboard/product/internalorder/body');
-        $this->load->view('dashboard/product/internalorder/foot');
-        $this->load->view('dashboard/product/internalorder/functions.php');
+        $this->load->view('dashboard/product/internalorderproduction/head');
+        $this->load->view('dashboard/product/internalorderproduction/body');
+        $this->load->view('dashboard/product/internalorderproduction/foot');
+        $this->load->view('dashboard/product/internalorderproduction/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -149,11 +208,11 @@ class Product extends CI_Controller
 
         $this->load->view('header');
         $this->load->view('main_page/head', $data);
-        $this->load->view('dashboard/product/internalorder/head');
-        $this->load->view('dashboard/product/internalorder/shead');
-        $this->load->view('dashboard/product/internalorder/addorder');
-        $this->load->view('dashboard/product/internalorder/foot');
-        $this->load->view('dashboard/product/internalorder/functions.php');
+        $this->load->view('dashboard/product/internalorderinvoice/head');
+        $this->load->view('dashboard/product/internalorderinvoice/shead');
+        $this->load->view('dashboard/product/internalorderinvoice/addorder');
+        $this->load->view('dashboard/product/internalorderinvoice/foot');
+        $this->load->view('dashboard/product/internalorderinvoice/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -215,11 +274,11 @@ class Product extends CI_Controller
 
         $this->load->view('header');
         $this->load->view('main_page/head', $data);
-        $this->load->view('dashboard/product/internalorder/head');
-        $this->load->view('dashboard/product/internalorder/shead');
-        $this->load->view('dashboard/product/internalorder/editorder');
-        $this->load->view('dashboard/product/internalorder/foot');
-        $this->load->view('dashboard/product/internalorder/functions.php');
+        $this->load->view('dashboard/product/internalorderinvoice/head');
+        $this->load->view('dashboard/product/internalorderinvoice/shead');
+        $this->load->view('dashboard/product/internalorderinvoice/editorder');
+        $this->load->view('dashboard/product/internalorderinvoice/foot');
+        $this->load->view('dashboard/product/internalorderinvoice/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -423,6 +482,27 @@ class Product extends CI_Controller
 
         header('Content-Type: application/json');
         echo json_encode($product);
+    }
+
+    public function getproductiondata() {
+        $id = $_GET['id'];
+        $companyid = $this->session->userdata('companyid');
+        $res = $this->home->databyidfromdatabase($companyid, 'internalorder', $id);
+        if ($res['status']=="failed") {
+            echo -1;
+            return;
+        }
+        echo $res['data']['isproducted'];
+    }
+
+    public function setproduction() {
+        $id = $_GET['id'];
+        $companyid = $this->session->userdata('companyid');
+        $setproducted = $this->input->post('isproducted');
+
+        $res = $this->product->setproduct($companyid, $id, $setproducted);
+
+        echo $res;
     }
     //If usersession is not exist, goto login page.
     public function check_usersession() {

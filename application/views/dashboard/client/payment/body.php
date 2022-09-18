@@ -47,7 +47,7 @@
                 <?=$invoice['ispaid']?$invoice['paid_observation']:"-"?>
             </td>
             <td class="text-center">
-                <?=$invoice['ispaid']?"<div class='status'><img class='custom-paid-icon' src='".base_url("assets/image/tools/Paid.png")."'/></div>":"<div class='status custom-paid-image'><img class='custom-notpaid-icon' src='".base_url("assets/image/tools/Not Paid.png")."'/></div>"?>
+                <?=$invoice['ispaid']?"<div class='status custom-paid-image'><img class='custom-paid-icon' src='".base_url("assets/image/tools/Paid.png")."'/></div>":"<div class='status custom-paid-image'><img class='custom-notpaid-icon' src='".base_url("assets/image/tools/Not Paid.png")."'/></div>"?>
             </td>
             <td class="text-center">
                 <button class='btn btn-default m-auto' onclick="

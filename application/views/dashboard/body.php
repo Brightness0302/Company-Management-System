@@ -378,6 +378,12 @@
 
                     <li>
                         <a href="<?=base_url('product/internalorder')?>">
+                            <i class="bi <?=$menu['submenu']=="p_ioi"?"bi-circle-fill":"bi-circle"?>"></i><span>Internal order invoice</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="<?=base_url('product/internalorderproduction')?>">
                             <i class="bi <?=$menu['submenu']=="p_iop"?"bi-circle-fill":"bi-circle"?>"></i><span>Internal order production</span>
                         </a>
                     </li>
@@ -578,6 +584,10 @@
                         echo "Register expenses";
                     else if($menu['submenu']=="pmbyid")
                         echo "Expense Management By Expense";
+                    else if($menu['submenu']=="p_ioi")
+                        echo "Internal order invoice";
+                    else if($menu['submenu']=="p_iop")
+                        echo "Internal order production";
                     ?></li>
                     <li class="breadcrumb-item active">
                     <?php
