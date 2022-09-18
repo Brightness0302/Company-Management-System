@@ -29,11 +29,11 @@
         <td><?=number_format($order['price']*$order['product_qty'], 2, '.', '')?></td>
         <td><?=$order['order_observation']?></td>
         <td class="form-inline flex justify-around">
-            <a class="btn btn-link" href="<?=base_url('product/editorder/'.$order['id'])?>"><i class="bi custom-edit-icon"></i></a>
-            <button class="btn btn-link" onclick="delProduct('<?=$order['id']?>')" <?=$order['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
+            <button href="<?=base_url('product/editorder/'.$order['id'])?>"><i class="bi custom-edit-icon"></i></button>
+            <button onclick="delProduct('<?=$order['id']?>')" <?=$order['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
         </td>
         <td class="text-center">
-            <button class="btn btn-link" onclick="savebydata(this)"><i class="bi custom-view-icon"></i></button><a id="htmltopdf" href="<?=base_url('product/htmltopdfofinternalorder')?>" target="_blank" hidden>Download PDF</a>
+            <button onclick="savebydata(this)"><i class="bi custom-view-icon"></i></button><a id="htmltopdf" href="<?=base_url('product/htmltopdfofinternalorder')?>" target="_blank" hidden>Download PDF</a>
         </td>
       </tr>
       <?php $first+=$order['price']*$order['product_qty']; endforeach;?>

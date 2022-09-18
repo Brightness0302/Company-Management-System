@@ -108,8 +108,8 @@ function toggleDataSeries(e) {
             <td><?=$stock['amount_without_vat']?></td>
             <td><?=$stock['selling_amount_without_vat']?></td>
             <td class="form-inline flex justify-around">
-                <a class="btn btn-link" href="<?=base_url('stock/editstock/'.$stock['id'])?>"><i class="bi custom-edit-icon"></i></a>
-                <button class="btn btn-link" onclick="delStock('<?=$stock['id']?>')" <?=$stock['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
+                <button href="<?=base_url('stock/editstock/'.$stock['id'])?>"><i class="bi custom-edit-icon"></i></button>
+                <button onclick="delStock('<?=$stock['id']?>')" <?=$stock['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>
         </tr>
         <?php endif;?>

@@ -57,11 +57,11 @@
         </td>
         <td><?=$total?></td>
         <td class="form-inline flex justify-around">
-            <a class="btn btn-link" href="<?=base_url('product/editproduct/'.$product['id'])?>"><i class="bi custom-edit-icon"></i></a>
-            <button class="btn btn-link" onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
+            <button href="<?=base_url('product/editproduct/'.$product['id'])?>"><i class="bi custom-edit-icon"></i></button>
+            <button onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
         </td>
         <td class="text-center">
-            <button class="btn btn-link" onclick="savebydata('<?=$product['id']?>')"><i class="bi custom-view-icon"></i></button><a id="htmltopdf" href="<?=base_url('product/htmltopdf')?>" target="_blank" hidden>Download PDF</a>
+            <button onclick="savebydata('<?=$product['id']?>')"><i class="bi custom-view-icon"></i></button><a id="htmltopdf" href="<?=base_url('product/htmltopdf')?>" target="_blank" hidden>Download PDF</a>
         </td>
       </tr>
       <?php endforeach;?>

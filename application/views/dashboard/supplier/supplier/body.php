@@ -22,8 +22,8 @@
             <td><?=$supplier['address']?></td>
             <td><?=$supplier['VAT']?></td>
             <td class="form-inline flex justify-evenly">
-                <a class="btn btn-link <?=$supplier['isremoved']?"pointer-events-none":""?>" href="<?=base_url('supplier/editsupplier/'.$supplier['id'])?>" title="Edit"><i class="bi custom-edit-icon"></i></a>
-                <button class="btn btn-link" onclick="delSupplier('<?=$supplier['id']?>')" title="Delete" <?=$supplier['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
+                <button class="<?=$supplier['isremoved']?"pointer-events-none":""?>" href="<?=base_url('supplier/editsupplier/'.$supplier['id'])?>" title="Edit"><i class="bi custom-edit-icon"></i></button>
+                <button onclick="delSupplier('<?=$supplier['id']?>')" title="Delete" <?=$supplier['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>
         </tr>
         <?php endif;?>
