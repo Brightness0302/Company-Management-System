@@ -1,5 +1,4 @@
 <?php $first=0;?>
-<a class="btn btn-success mb-2" href="<?=base_url('product/addorder')?>">Add New</a>
 <table id="producttable" class="table table-bordered table-striped text-center">
     <thead>
         <tr>
