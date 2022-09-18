@@ -17,7 +17,9 @@ class Product extends CI_Controller
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
-        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         foreach ($data['products'] as $index => $product) {
             $materials = json_decode($product['materials'], true);
@@ -32,17 +34,17 @@ class Product extends CI_Controller
         }
 
         $session['menu']="Products";
-        $session['submenu']="p_pm";
+        $session['submenu']="p_prm";
         $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
-        $this->load->view('dashboard/product/product/head');
-        $this->load->view('dashboard/product/product/body');
-        $this->load->view('dashboard/product/product/foot');
-        $this->load->view('dashboard/product/product/functions.php');
+        $this->load->view('dashboard/product/recipe/head');
+        $this->load->view('dashboard/product/recipe/body');
+        $this->load->view('dashboard/product/recipe/foot');
+        $this->load->view('dashboard/product/recipe/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -57,9 +59,11 @@ class Product extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['orders'] = $this->home->alldatafromdatabase($companyid, 'internalorder');
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         foreach ($data['orders'] as $key => $order) {
-            $res_product = $this->home->databyidfromdatabase($companyid, 'product', $order['product_description']);
+            $res_product = $this->home->databyidfromdatabase($companyid, 'product_recipe', $order['product_description']);
             if ($res_product['status'] == false) {
                 echo -1;
                 return;
@@ -116,9 +120,11 @@ class Product extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['orders'] = $this->home->alldatafromdatabase($companyid, 'internalorder');
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         foreach ($data['orders'] as $key => $order) {
-            $res_product = $this->home->databyidfromdatabase($companyid, 'product', $order['product_description']);
+            $res_product = $this->home->databyidfromdatabase($companyid, 'product_recipe', $order['product_description']);
             if ($res_product['status'] == false) {
                 echo -1;
                 return;
@@ -164,6 +170,65 @@ class Product extends CI_Controller
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
+    //View supplier page of add/edit/delete function
+    public function productmanagement() {
+        $this->check_usersession();
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($companyname, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
+        foreach ($data['products'] as $key => $product) {
+            $res = $this->home->databyid($product['user'], 'user');
+            $data['products'][$key]['userdata'] = $res['data'];
+        }
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+
+        $session['menu']="Products";
+        $session['submenu']="p_pm";
+        $session['second-submenu']="";
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/product/product/head');
+        $this->load->view('dashboard/product/product/body');
+        $this->load->view('dashboard/product/product/foot');
+        $this->load->view('dashboard/product/product/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
+    //View clientpage of creating.
+    public function addrecipe() {
+        $companyid = $this->session->userdata('companyid');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyid($companyid, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['product'] = $this->product->productfromsetting($companyid, 'product_recipe');
+
+        $session['menu']="Products";
+        $session['submenu']="pdm";
+        $session['second-submenu']="";
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('main_page/head', $data);
+        $this->load->view('dashboard/product/recipe/head');
+        $this->load->view('dashboard/product/recipe/shead');
+        $this->load->view('dashboard/product/recipe/addproduct');
+        $this->load->view('dashboard/product/recipe/foot');
+        $this->load->view('dashboard/product/recipe/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
     //View clientpage of creating.
     public function addproduct() {
         $companyid = $this->session->userdata('companyid');
@@ -172,11 +237,12 @@ class Product extends CI_Controller
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
+        $data['user'] = $this->session->userdata('user');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['product'] = $this->product->productfromsetting($companyid, 'product');
+        $data['product'] = $this->product->productfromsetting($companyid, 'product_recipe');
 
         $session['menu']="Products";
-        $session['submenu']="pdm";
+        $session['submenu']="p_pm";
         $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 
@@ -199,7 +265,7 @@ class Product extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['order'] = $this->product->internalorderfromsetting($companyid, 'internalorder');
-        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
 
         $session['menu']="Products";
         $session['submenu']="p_iop";
@@ -217,7 +283,7 @@ class Product extends CI_Controller
         $this->load->view('footer');
     }
     //View supplierpage of editting.
-    public function editproduct($product_id) {
+    public function editrecipe($product_id) {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
@@ -226,7 +292,7 @@ class Product extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $product = $this->home->databyidfromdatabase($companyid, 'product', $product_id);
+        $product = $this->home->databyidfromdatabase($companyid, 'product_recipe', $product_id);
 
         if ($product['status']=="failed")
             return;
@@ -249,11 +315,43 @@ class Product extends CI_Controller
 
         $this->load->view('header');
         $this->load->view('main_page/head');
+        $this->load->view('dashboard/product/recipe/head');
+        $this->load->view('dashboard/product/recipe/shead');
+        $this->load->view('dashboard/product/recipe/editproduct', $data);
+        $this->load->view('dashboard/product/recipe/foot');
+        $this->load->view('dashboard/product/recipe/functions.php');
+        $this->load->view('footer');
+    }
+    //View clientpage of creating.
+    public function editproduct($product_id) {
+        $companyid = $this->session->userdata('companyid');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyid($companyid, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['user'] = $this->session->userdata('user');
+        $product = $this->home->databyidfromdatabase($companyid, 'product', $product_id);
+
+        if ($product['status']=="failed")
+            return;
+        $data['product'] = $product['data'];
+        $res = $this->home->databyid($data['product']['user'], 'user');
+        $data['product']['userdata'] = $res['data'];
+
+        $session['menu']="Products";
+        $session['submenu']="p_pm";
+        $session['second-submenu']="";
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('main_page/head', $data);
         $this->load->view('dashboard/product/product/head');
         $this->load->view('dashboard/product/product/shead');
-        $this->load->view('dashboard/product/product/editproduct', $data);
+        $this->load->view('dashboard/product/product/editproduct');
         $this->load->view('dashboard/product/product/foot');
         $this->load->view('dashboard/product/product/functions.php');
+        $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
     //View clientpage of creating.
@@ -265,7 +363,7 @@ class Product extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['order'] = $this->home->databyidfromdatabase($companyid, 'internalorder', $order_id)['data'];
-        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
 
         $session['menu']="Products";
         $session['submenu']="p_iop";
@@ -283,6 +381,12 @@ class Product extends CI_Controller
         $this->load->view('footer');
     }
     //Delete Supplier param(supplier_name)
+    public function delrecipet($product_id) {
+        $companyid = $this->session->userdata('companyid');
+        $result = $this->supplier->removedatabyidfromdatabase($companyid, $product_id, 'product_recipe');
+        echo $result;
+    }
+    //Delete Supplier param(supplier_name)
     public function delproduct($product_id) {
         $companyid = $this->session->userdata('companyid');
         $result = $this->supplier->removedatabyidfromdatabase($companyid, $product_id, 'product');
@@ -295,7 +399,7 @@ class Product extends CI_Controller
         echo $result;
     }
     //Save(Add/Edit) Supplier post(object(name, number, ...)) get(id)
-    public function saveproduct() {
+    public function saverecipe() {
         $companyid = $this->session->userdata('companyid');
 
         $name = $this->input->post('name');
@@ -304,13 +408,37 @@ class Product extends CI_Controller
         $auxiliaries = $this->input->post('auxiliaries');
 
         if (!isset($_GET['id'])) {
-            $productid = $this->product->createProduct($companyid, $name, $materials, $labours, $auxiliaries);
+            $productid = $this->product->createRecipe($companyid, $name, $materials, $labours, $auxiliaries);
             echo $productid;
             return;
         }
 
         $id = $_GET['id'];
-        $result = $this->product->saveProduct($companyid, $id, $name, $materials, $labours, $auxiliaries);
+        $result = $this->product->saveRecipe($companyid, $id, $name, $materials, $labours, $auxiliaries);
+        echo $result;
+    }
+    //Save(Add/Edit) Supplier post(object(name, number, ...)) get(id)
+    public function saveproduct() {
+        $companyid = $this->session->userdata('companyid');
+
+        $user = $this->session->userdata('user');
+        $production_description = $this->input->post('production_description');
+        $serial_number = $this->input->post('serial_number');
+        $product_user = $user['id'];
+        $product_date = $this->input->post('product_date');
+        $lan_mac = $this->input->post('lan_mac');
+        $wifi_mac = $this->input->post('wifi_mac');
+        $plug_standard = $this->input->post('plug_standard');
+        $observation = $this->input->post('observation');
+
+        if (!isset($_GET['id'])) {
+            $productid = $this->product->createProduct($companyid, $production_description, $serial_number, $product_user, $product_date, $lan_mac, $wifi_mac, $plug_standard, $observation);
+            echo $productid;
+            return;
+        }
+
+        $id = $_GET['id'];
+        $result = $this->product->saveProduct($companyid, $id, $production_description, $serial_number, $product_user, $product_date, $lan_mac, $wifi_mac, $plug_standard, $observation);
         echo $result;
     }
     //Save(Add/Edit) Supplier post(object(name, number, ...)) get(id)
@@ -402,7 +530,7 @@ class Product extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['order'] = $this->session->userdata('htmltopdffrominternalorder');
-        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
 
         $html = $this->load->view('dashboard/product/internalorder/invoicepreview', $data, true);
 
@@ -451,7 +579,7 @@ class Product extends CI_Controller
         $id = $_GET['id'];
         $companyid = $this->session->userdata('companyid');
 
-        $res_product = $this->home->databyidfromdatabase($companyid, 'product', $id);
+        $res_product = $this->home->databyidfromdatabase($companyid, 'product_recipe', $id);
         if ($res_product['status'] == false) {
             echo -1;
             return;

@@ -186,17 +186,6 @@ class Client extends CI_Controller
         $this->load->view('dashboard/client/client/functions.php');
         $this->load->view('footer');
     }
-    //View userpage of creating.
-    public function adduser() {
-        $data['companies'] = $this->home->alldata('company');
-        $data['modules'] = $this->home->alldata('module');
-
-        $this->load->view('header');
-        $this->load->view('main_page/head');
-        $this->load->view('main_page/adduser', $data);
-        $this->load->view('main_page/foot');
-        $this->load->view('footer');
-    }
     //View lastid of automation key in invoice table
     public function addinvoice() {
         $companyid = $this->session->userdata('companyid');
@@ -348,21 +337,6 @@ class Client extends CI_Controller
         $this->load->view('dashboard/client/client/functions.php');
         $this->load->view('footer');
     }
-    //View userpage of editting.
-    public function edituser($user_id) {
-        $result = $this->home->databyid($user_id, 'user');
-        $data['companies'] = $this->home->alldata('company');
-        $data['modules'] = $this->home->alldata('module');
-        if ($result['status']=="failed")
-            return;
-        $data['user']=$result['data'];
-
-        $this->load->view('header');
-        $this->load->view('main_page/head');
-        $this->load->view('main_page/edituser', $data);
-        $this->load->view('main_page/foot');
-        $this->load->view('footer');
-    }
     //View invoicepage of editting.
     public function editinvoice($invoice_id) {
         $data['clients'] = $this->home->alldata('client');
@@ -447,12 +421,6 @@ class Client extends CI_Controller
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
-    //Delete User param(user_name)
-    public function deluser() {
-        $user_name = $this->session->userdata('username');
-        $result = $this->home->removeUser($user_name);
-        echo $result;
-    }
     //Delete Client param(client_name)
     public function delclient($clientid) {
         $result = $this->home->removeClient($clientid);
@@ -474,23 +442,6 @@ class Client extends CI_Controller
     //Del project
     public function delproject($project_id) {
         echo $this->home->delProject($project_id);
-    }
-    //Save(Add/Edit) User post(object(name, number, ...)) get(id)
-    public function saveuser() {
-        $username=$this->input->post('username');
-        $password=$this->input->post('password');
-        $company=serialize($this->input->post('company'));
-        $module=serialize($this->input->post('module'));
-
-        if (!isset($_GET['id'])) {
-            $projects_id = $this->home->createUser($username, $password, $company, $module);
-            echo $projects_id;
-            return;
-        }
-
-        $id = $_GET['id'];
-        $result = $this->home->saveUser($id, $username, $password, $company, $module);
-        echo $result;
     }
     //Save(Add/Edit) Client post(object(name, number, ...)) get(id)
     public function saveclient() {

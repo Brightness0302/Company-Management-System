@@ -149,6 +149,17 @@ class Home extends CI_Controller
         $this->load->view('main_page/foot');
         $this->load->view('footer');
     }
+    //View userpage of creating.
+    public function adduser() {
+        $data['companies'] = $this->home->alldata('company');
+        $data['modules'] = $this->home->alldata('module');
+
+        $this->load->view('header');
+        $this->load->view('main_page/head');
+        $this->load->view('main_page/adduser', $data);
+        $this->load->view('main_page/foot');
+        $this->load->view('footer');
+    }
     //View companypage of editting.
     public function editcompany($company_id) {
         $result = $this->home->databyid($company_id, 'company');
@@ -162,9 +173,30 @@ class Home extends CI_Controller
         $this->load->view('main_page/foot');
         $this->load->view('footer');
     }
+    //View userpage of editting.
+    public function edituser($user_id) {
+        $result = $this->home->databyid($user_id, 'user');
+        $data['companies'] = $this->home->alldata('company');
+        $data['modules'] = $this->home->alldata('module');
+        if ($result['status']=="failed")
+            return;
+        $data['user']=$result['data'];
+
+        $this->load->view('header');
+        $this->load->view('main_page/head');
+        $this->load->view('main_page/edituser', $data);
+        $this->load->view('main_page/foot');
+        $this->load->view('footer');
+    }
     //Delete Company param(company_name)
     public function delcompany($company_id) {
         echo $this->home->removeItem($company_id);
+    }
+    //Delete User param(user_name)
+    public function deluser() {
+        $user_name = $this->session->userdata('username');
+        $result = $this->home->removeUser($user_name);
+        echo $result;
     }
     //Save(Add/Edit) Company post(object(name, number, ...)) get(id)
     public function savecompany() {
@@ -192,7 +224,23 @@ class Home extends CI_Controller
         $result = $this->home->saveItem($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Coin);
         echo $result;
     }
+    //Save(Add/Edit) User post(object(name, number, ...)) get(id)
+    public function saveuser() {
+        $username=$this->input->post('username');
+        $password=$this->input->post('password');
+        $company=serialize($this->input->post('company'));
+        $module=serialize($this->input->post('module'));
 
+        if (!isset($_GET['id'])) {
+            $projects_id = $this->home->createUser($username, $password, $company, $module);
+            echo $projects_id;
+            return;
+        }
+
+        $id = $_GET['id'];
+        $result = $this->home->saveUser($id, $username, $password, $company, $module);
+        echo $result;
+    }
     public function getdatabyid() {
         $id = $_GET['id'];
         $table = $_GET['table'];

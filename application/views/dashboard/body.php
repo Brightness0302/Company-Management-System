@@ -12,8 +12,6 @@
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
 
-
-
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
 
@@ -372,19 +370,25 @@
                 <ul id="product-nav" class="nav-content collapse <?=$menu['menu']=="Products"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="<?=base_url('product/index')?>">
-                            <i class="bi <?=$menu['submenu']=="p_pm"?"bi-circle-fill":"bi-circle"?>"></i><span>Product Management</span>
+                            <i class="bi <?=$menu['submenu']=="p_prm"?"bi-circle-fill":"bi-circle"?>"></i><span>Product Recipe Management</span>
                         </a>
                     </li>
 
                     <li>
                         <a href="<?=base_url('product/internalorder')?>">
-                            <i class="bi <?=$menu['submenu']=="p_ioi"?"bi-circle-fill":"bi-circle"?>"></i><span>Internal order invoice</span>
+                            <i class="bi <?=$menu['submenu']=="p_ioi"?"bi-circle-fill":"bi-circle"?>"></i><span>Internal order production</span>
                         </a>
                     </li>
 
-                    <li>
+                    <!-- <li>
                         <a href="<?=base_url('product/internalorderproduction')?>">
                             <i class="bi <?=$menu['submenu']=="p_iop"?"bi-circle-fill":"bi-circle"?>"></i><span>Internal order production</span>
+                        </a>
+                    </li> -->
+
+                    <li>
+                        <a href="<?=base_url('product/productmanagement')?>">
+                            <i class="bi <?=$menu['submenu']=="p_pm"?"bi-circle-fill":"bi-circle"?>"></i><span>Product Management</span>
                         </a>
                     </li>
 
@@ -578,6 +582,10 @@
                         echo "Supplier Invoices";
                     else if($menu['submenu']=="ppm")
                         echo "Payment management";
+                    else if($menu['submenu']=="p_pm")
+                        echo "Product management";
+                    else if($menu['submenu']=="p_prm")
+                        echo "Product recipe management";
                     else if($menu['submenu']=="pmbs")
                         echo "Stock Management By Stock";
                     else if($menu['submenu']=="empr")

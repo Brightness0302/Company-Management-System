@@ -76,6 +76,9 @@ class Home_model extends CI_Model {
     }
     //get all information which id=$id from $table table in manager database //SELECT * FROM supplier WHERE `id`='1' AND `isremoved`=false;
     public function databyid($id, $table) {
+        $default_db = $this->db->database;
+        $this->db->query('use '.$default_db);
+        
         $query =    "SELECT *
                     FROM `$table`
                     WHERE `id`='$id' AND `isremoved`=false";

@@ -6,7 +6,7 @@ class Product_model extends CI_Model {
         return number_format($number, $decimals, '.', "");
     }
 
-    public function createProduct($companyid, $name, $materials, $labours, $auxiliaries) {
+    public function createRecipe($companyid, $name, $materials, $labours, $auxiliaries) {
         $this->db->query('use database'.$companyid);
 
         $data = array(
@@ -16,12 +16,12 @@ class Product_model extends CI_Model {
             'auxiliaries'=>$auxiliaries, 
         );
 
-        $this->db->insert('product', $data);
+        $this->db->insert('product_recipe', $data);
         $product_id = $this->db->insert_id();
         return $product_id;
     }
 
-    public function saveProduct($companyid, $id, $name, $materials, $labours, $auxiliaries) {
+    public function saveRecipe($companyid, $id, $name, $materials, $labours, $auxiliaries) {
         $this->db->query('use database'.$companyid);
 
         $data = array(
@@ -29,6 +29,44 @@ class Product_model extends CI_Model {
             'materials'=>$materials, 
             'labours'=>$labours, 
             'auxiliaries'=>$auxiliaries, 
+        );
+
+        $this->db->where('id', $id);
+        $res=$this->db->update('product_recipe', $data);
+        return $res;
+    }
+
+    public function createProduct($companyid, $production_description, $serial_number, $product_user, $product_date, $lan_mac, $wifi_mac, $plug_standard, $observation) {
+        $this->db->query('use database'.$companyid);
+
+        $data = array(
+            'serialnumber'=>$serial_number, 
+            'date'=>$product_date, 
+            'user'=>$product_user, 
+            'product_description'=>$production_description, 
+            'lan-mac_address'=>$lan_mac, 
+            'wifi-mac_address'=>$wifi_mac, 
+            'plug_standard'=>$plug_standard, 
+            'observation'=>$observation, 
+        );
+
+        $this->db->insert('product', $data);
+        $product_id = $this->db->insert_id();
+        return $product_id;
+    }
+
+    public function saveProduct($companyid, $id, $production_description, $serial_number, $product_user, $product_date, $lan_mac, $wifi_mac, $plug_standard, $observation) {
+        $this->db->query('use database'.$companyid);
+
+        $data = array(
+            'serialnumber'=>$serial_number, 
+            'date'=>$product_date, 
+            'user'=>$product_user, 
+            'product_description'=>$production_description, 
+            'lan-mac_address'=>$lan_mac, 
+            'wifi-mac_address'=>$wifi_mac, 
+            'plug_standard'=>$plug_standard, 
+            'observation'=>$observation, 
         );
 
         $this->db->where('id', $id);
@@ -137,7 +175,7 @@ class Product_model extends CI_Model {
         $product_qty = $data['product_qty'];
 
         $query =    "SELECT *
-                    FROM `product`
+                    FROM `product_recipe`
                     WHERE `id`='$product_description'";
 
         $data = $this->db->query($query)->result_array();
