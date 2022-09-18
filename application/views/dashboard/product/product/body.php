@@ -7,8 +7,8 @@
             <th>Description</th>
             <th>Serial Number</th>
             <th>Date</th>
-            <th>Lan-Mac</th>
-            <th>WiFi-Mac</th>
+            <th>LAN MAC</th>
+            <th>Wi-Fi MAC</th>
             <th>Plug Standard</th>
             <th>Observation</th>
             <th>Action</th>

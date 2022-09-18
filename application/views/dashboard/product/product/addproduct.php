@@ -85,7 +85,7 @@
                             <div class="col-sm-3 text-center">
                                 <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border : 1px solid black"><label class="my-2">Lan-Mac Address:</label></td>
+                                        <td style="border : 1px solid black"><label class="my-2">LAN MAC Address:</label></td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="text" class="form-control" id="lan_mac" value="" title="Choose your color">
@@ -98,7 +98,7 @@
                             <div class="col-sm-3 text-center">
                                 <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border : 1px solid black"><label class="my-2">Wifi-Mac Address:</label></td>
+                                        <td style="border : 1px solid black"><label class="my-2">Wi-Fi MAC Address:</label></td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="text" class="form-control" id="wifi_mac" value="" title="Choose your color">
