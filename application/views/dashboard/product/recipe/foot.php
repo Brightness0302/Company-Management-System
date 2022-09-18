@@ -36,19 +36,10 @@ function clickclient(client_name, client_address, client_ref) {
 
 function onrefreshtotalmark() {
     $("#subtotal").html("0.0");
-    $("#vat").html("0.0");
-    $("#total").html("0.0");
 }
 
 $(function() {
-    $("#example1").DataTable({
-        "responsive": true,
-        "lengthChange": false,
-        "autoWidth": false,
-        "pageLength": 100,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
+    console.log(123);
     $("#producttable").DataTable({
         "responsive": true,
         "lengthChange": false,
@@ -59,7 +50,7 @@ $(function() {
 
     let producttable = $("#producttable").DataTable();
 
-    $("#invoicetable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='producttable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='producttable'></label></div>");
+    $("#producttable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='producttable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='producttable'></label></div>");
 
     var subtotal = 0.0, vat = 0.0, total = 0.0;
 
@@ -75,8 +66,8 @@ $(function() {
             startdate.setDate(startdate.getDate() - 1);
             var enddate = new Date($('#enddate').val());
             enddate.setDate(enddate.getDate() + 1);
-            var date = new Date(data[5] || 0); // use data for the age column
-            var name = data[2];
+            var date = new Date(data[2] || 0); // use data for the age column
+            var name = data[3];
             var searchvalue = $("#searchtag").val();
             // console.log(name, reference, searchvalue, startdate, enddate, date);
          
@@ -84,11 +75,7 @@ $(function() {
                 (date > startdate && date < enddate) && (name.toLowerCase().includes(searchvalue.toLowerCase()))
             ) {
                 subtotal += parseFloat(data[6]);
-                vat += parseFloat(data[7]);
-                total += parseFloat(data[8]);
                 $("#subtotal").html((subtotal).toFixed(2));
-                $("#vat").html((vat).toFixed(2));
-                $("#total").html((total).toFixed(2));
                 return true;
             }
             return false;

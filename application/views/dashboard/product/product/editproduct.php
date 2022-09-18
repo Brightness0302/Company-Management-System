@@ -76,6 +76,19 @@
                                     </tr>
                                 </table>
                             </div>
+
+                            <div class="col-sm-3 text-center d-flex">
+                                <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                                    <tr>
+                                        <td style="border : 1px solid black"><label class="my-2">Order Number:</label></td>
+                                        <td>
+                                            <div class="m-auto">
+                                                <input type="text" class="form-control" id="order_number" value="<?=$product['order_number']?>" title="Choose your color">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <hr/>

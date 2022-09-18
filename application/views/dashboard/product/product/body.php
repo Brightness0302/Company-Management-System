@@ -7,6 +7,7 @@
             <th>Description</th>
             <th>Serial Number</th>
             <th>Date</th>
+            <th>Order Number</th>
             <th>LAN MAC</th>
             <th>Wi-Fi MAC</th>
             <th>Plug Standard</th>
@@ -22,6 +23,7 @@
         <td><?=$product['product_description']?></td>
         <td><?=$product['serialnumber']?></td>
         <td><?=$product['date']?></td>
+        <td><?=$product['order_number']?></td>
         <td><?=$product['lan-mac_address']?></td>
         <td><?=$product['wifi-mac_address']?></td>
         <td><?=$product['plug_standard']?></td>

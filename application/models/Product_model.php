@@ -36,12 +36,13 @@ class Product_model extends CI_Model {
         return $res;
     }
 
-    public function createProduct($companyid, $production_description, $serial_number, $product_user, $product_date, $lan_mac, $wifi_mac, $plug_standard, $observation) {
+    public function createProduct($companyid, $production_description, $serial_number, $product_user, $product_date, $order_number, $lan_mac, $wifi_mac, $plug_standard, $observation) {
         $this->db->query('use database'.$companyid);
 
         $data = array(
             'serialnumber'=>$serial_number, 
             'date'=>$product_date, 
+            'order_number'=>$order_number, 
             'user'=>$product_user, 
             'product_description'=>$production_description, 
             'lan-mac_address'=>$lan_mac, 
@@ -55,12 +56,13 @@ class Product_model extends CI_Model {
         return $product_id;
     }
 
-    public function saveProduct($companyid, $id, $production_description, $serial_number, $product_user, $product_date, $lan_mac, $wifi_mac, $plug_standard, $observation) {
+    public function saveProduct($companyid, $id, $production_description, $serial_number, $product_user, $product_date, $order_number, $lan_mac, $wifi_mac, $plug_standard, $observation) {
         $this->db->query('use database'.$companyid);
 
         $data = array(
             'serialnumber'=>$serial_number, 
             'date'=>$product_date, 
+            'order_number'=>$order_number, 
             'user'=>$product_user, 
             'product_description'=>$production_description, 
             'lan-mac_address'=>$lan_mac, 

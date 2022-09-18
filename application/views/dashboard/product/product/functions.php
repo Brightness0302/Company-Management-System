@@ -8,6 +8,7 @@ function get_formdata() {
     const production_description = $("#production_description").val();
     const serial_number = $("#serial_number").val();
     const product_date = $("#product_date").val();
+    const order_number = $("#order_number").val();
     const lan_mac = $("#lan_mac").val();
     const wifi_mac = $("#wifi_mac").val();
     const plug_standard = $("#plug_standard").val();
@@ -17,6 +18,7 @@ function get_formdata() {
         production_description: production_description, 
         serial_number: serial_number, 
         product_date: product_date, 
+        order_number: order_number, 
         lan_mac: lan_mac, 
         wifi_mac: wifi_mac, 
         plug_standard: plug_standard, 
