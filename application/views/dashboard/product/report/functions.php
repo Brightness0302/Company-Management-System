@@ -25,8 +25,9 @@ window.onload = function() {
         data: barChartData,
         options: {
             title:{
-                display:true,
-                text:"Production"
+                display: true,
+                fontSize: 24, 
+                text: "Production"
             },
             tooltips: {
                 mode: 'index',
