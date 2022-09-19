@@ -241,7 +241,7 @@ class Product extends CI_Controller
         }
         $data['chart'] = json_encode($chart);
         $session['menu']="Products";
-        $session['submenu']="prm";
+        $session['submenu']="p_rm";
         $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 

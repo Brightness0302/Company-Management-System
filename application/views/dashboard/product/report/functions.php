@@ -26,7 +26,7 @@ window.onload = function() {
         options: {
             title:{
                 display:true,
-                text:"Stock situation"
+                text:"Production"
             },
             tooltips: {
                 mode: 'index',
