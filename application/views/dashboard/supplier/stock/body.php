@@ -1,89 +1,99 @@
 <a class="btn btn-success mb-2" href="<?=base_url('stock/addstock')?>">Add New</a>
-<div id="chartContainer" style="height: 370px; max-width: 1120px; margin: 0px auto;"></div>
+<div style="width: 1120px; height: 560px; margin: auto;">
+    <canvas id="canvas" style="display: block; box-sizing: border-box; height: 560px; width: 1120px;" width="1120" height="560"></canvas>
+</div>
+<button id="randomizeData">Randomize Data</button>
 <script>
-window.onload = function () {
-
-var chart = new CanvasJS.Chart("chartContainer", {
-    exportEnabled: true,
-    animationEnabled: true,
-    zoomEnabled: true, 
-    title:{
-        text: "Stock situation"
-    },
-    subtitles: [{
-        text: "Click Legend to Hide or Unhide Data Series"
-    }], 
-    axisX: {
-        title: "States", 
-        labelAngle: 0
-    },
-    axisY: {
-        labelFormatter: function (e) {
-                return CanvasJS.formatNumber(e.value, "#,##0") + " €";
-            },
-        titleFontColor: "#4F81BC",
-        lineColor: "#4F81BC",
-        labelFontColor: "#4F81BC",
-        tickColor: "#4F81BC",
-        includeZero: true
-    },
-    axisY2: {
-        labelFormatter: function (e) {
-                return "$ " + CanvasJS.formatNumber(e.value, "#,##0");
-            },
-        title: "Clutch - €",
-        titleFontColor: "#C0504E",
-        lineColor: "#C0504E",
-        labelFontColor: "#C0504E",
-        tickColor: "#C0504E",
-        includeZero: true
-    },
-    toolTip: {
-        shared: true
-    },
-    legend: {
-        cursor: "pointer",
-        itemclick: toggleDataSeries
-    },
-    data: [{
-        type: "column",
-        name: "ACQ amount EX VAT",
-        showInLegend: true,      
-        yValueFormatString: "#,##0.#",
-        dataPoints: [
+var barChartData = {
+    labels: [
+        <?php foreach ($stocks as $stock):?>
+        <?php if(!$stock['isremoved']):?>
+            "<?=$stock['name']?>", 
+        <?php endif;?>
+        <?php endforeach;?>
+    ],
+    datasets: [{
+        label: 'ACQ amount EX VAT',
+        backgroundColor: window.chartColors.lightred,
+        data: [
             <?php foreach ($stocks as $stock):?>
             <?php if(!$stock['isremoved']):?>
-                { label: "<?=$stock['name']?>",  y: <?=$stock['amount_without_vat']?> },
+                "<?=$stock['amount_without_vat']?>", 
             <?php endif;?>
             <?php endforeach;?>
-        ]
-    },
-    {
-        type: "column",
-        name: "Selling amount EX VAT",
-        showInLegend: true,
-        yValueFormatString: "#,##0.#",
-        dataPoints: [
+        ],
+        stack: 'combined',
+        type: 'bar'
+    }, {
+        label: 'Selling amount EX VAT',
+        backgroundColor: window.chartColors.lightblue,
+        data: [
             <?php foreach ($stocks as $stock):?>
             <?php if(!$stock['isremoved']):?>
-                { label: "<?=$stock['name']?>",  y: <?=$stock['selling_amount_without_vat']?> },
+                "<?=$stock['selling_amount_without_vat']?>", 
             <?php endif;?>
             <?php endforeach;?>
-        ]
+        ],
+        type: 'bar'
     }]
+
+};
+window.onload = function() {
+    var ctx = document.getElementById("canvas").getContext("2d");
+    window.myBar = new Chart(ctx, {
+        type: 'bar',
+        data: barChartData,
+        options: {
+            title:{
+                display:true,
+                text:"Stock situation"
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(t, d) {
+                       if (t.datasetIndex === 0) {
+                          var xLabel = d.datasets[t.datasetIndex].label;
+                          var yLabel = t.yLabel + ' €';
+                          return xLabel + ': ' + yLabel;
+                       } else if (t.datasetIndex === 1) {
+                          var xLabel = d.datasets[t.datasetIndex].label;
+                          var yLabel = t.yLabel >= 1000 ? t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " €" : t.yLabel + " €";
+                          return xLabel + ': ' + yLabel;
+                       }
+                    }
+                }
+            },
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    stacked: true,
+                }],
+                yAxes: [{
+                    stacked: true,
+                    ticks: {
+                        beginAtZero: true,
+                        callback: function(value, index, values) {
+                            if (parseInt(value) >= 1000) {
+                                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " €";
+                            } else {
+                                return value + " €";
+                            }
+                        }
+                    }
+                }]
+            }
+        }
+    });
+};
+
+document.getElementById('randomizeData').addEventListener('click', function() {
+    barChartData.datasets.forEach(function(dataset, i) {
+        dataset.data = dataset.data.map(function() {
+            return randomScalingFactor();
+        });
+    });
+    window.myBar.update();
 });
-chart.render();
-
-function toggleDataSeries(e) {
-    if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-        e.dataSeries.visible = false;
-    } else {
-        e.dataSeries.visible = true;
-    }
-    e.chart.render();
-}
-
-}
 </script>
 <table id="example1" class="table table-bordered table-striped mt-10">
     <thead>

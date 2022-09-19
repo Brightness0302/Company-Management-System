@@ -33,7 +33,12 @@
                         $result=$expense;
                     }
                 }
-                echo $result['name'];
+                if ( $result) {
+                    echo $result['name'];
+                }
+                else {
+                    echo "-";
+                }
             ?>
             </td>
             <td><?=$product['projectid']?></td>

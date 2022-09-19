@@ -20,7 +20,7 @@
 <script src="<?=base_url('assets')?>/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="<?=base_url('assets')?>/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<!-- <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> -->
 <script>
 function getFirstLetters(str) {
 	const firstLetters = str
