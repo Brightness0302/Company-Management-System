@@ -127,7 +127,7 @@ class Material extends CI_Controller
     //Delete Supplier param(supplier_name)
     public function delproduct($product_id) {
         $companyid = $this->session->userdata('companyid');
-        $result = $this->supplier->removedatabyidfromdatabase($companyid, $product_id, 'product');
+        $result = $this->supplier->removedatabyidfromdatabase($companyid, $product_id, 'material');
         echo $result;
     }
     //Save(Add/Edit) Supplier post(object(name, number, ...)) get(id)
