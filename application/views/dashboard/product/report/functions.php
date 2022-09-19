@@ -12,7 +12,6 @@ var barChartData = {
                 borderColor: window.borderColors[(<?=$key?>)%window.borderColors.length],
                 backgroundColor: window.chartColors.transparency,
                 data: chartdata[2022]["<?=$recipe['name']?>"],
-                stack: 'combined',
                 type: 'line'
             },
         <?php endforeach;?>
@@ -39,7 +38,7 @@ window.onload = function() {
                     stacked: true,
                 }],
                 yAxes: [{
-                    stacked: true
+                    stacked: false
                 }]
             }
         }
@@ -63,7 +62,6 @@ $(function() {
                 borderColor: window.borderColors[(<?=$key?>)%window.borderColors.length],
                 backgroundColor: window.chartColors.transparency,
                 data: chartdata[year]["<?=$recipe['name']?>"],
-                stack: 'combined',
                 type: 'line'
             },
         <?php endforeach;?>
