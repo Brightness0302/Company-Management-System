@@ -1,4 +1,77 @@
 <script type="text/javascript">
+// var chartdata = new Array;
+let chartdata = '<?=$chart?>';
+chartdata = JSON.parse(chartdata);
+
+var barChartData = {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    datasets: [
+        <?php foreach ($recipes as $key => $recipe):?>
+            {
+                label: '<?=$recipe['name']?>',
+                borderColor: window.borderColors[(<?=$key?>)%window.borderColors.length],
+                backgroundColor: window.chartColors.transparency,
+                data: chartdata[2022]["<?=$recipe['name']?>"],
+                stack: 'combined',
+                type: 'line'
+            },
+        <?php endforeach;?>
+    ]
+};
+
+window.onload = function() {
+    var ctx = document.getElementById("canvas").getContext("2d");
+    window.myBar = new Chart(ctx, {
+        type: 'bar',
+        data: barChartData,
+        options: {
+            title:{
+                display:true,
+                text:"Stock situation"
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false
+            },
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    stacked: true,
+                }],
+                yAxes: [{
+                    stacked: true
+                }]
+            }
+        }
+    });
+};
+
+$(function() {
+    var startYear = 1800;
+    for (i = (new Date().getFullYear()); i > startYear; i--)
+    {
+        $('#yearpicker').append($('<option />').val(i).html(i));
+    }
+    $("#yearpicker").change(function() {
+        const year = (this.value);
+        console.log(chartdata[year]);
+
+        barChartData.datasets = [
+        <?php foreach ($recipes as $key => $recipe):?>
+            {
+                label: '<?=$recipe['name']?>',
+                borderColor: window.borderColors[(<?=$key?>)%window.borderColors.length],
+                backgroundColor: window.chartColors.transparency,
+                data: chartdata[year]["<?=$recipe['name']?>"],
+                stack: 'combined',
+                type: 'line'
+            },
+        <?php endforeach;?>
+        ];
+        window.myBar.update();
+    });
+});
+
 function AddStock() {
     const Stockname = $("#Stockname").val();
     const Stockcode = $("#Stockcode").val();

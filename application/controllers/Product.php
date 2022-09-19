@@ -207,8 +207,7 @@ class Product extends CI_Controller
         $this->load->view('footer');
     }
 
-    public function paymentmanager() {
-        $chart = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    public function reportmanager() {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
@@ -217,8 +216,17 @@ class Product extends CI_Controller
             return;
         $data['company'] = $company['data'];
 
+        $chart = [];
+        $recipes = $this->home->alldatafromdatabase($companyid, 'product_recipe');
+        for($i=2000;$i<3000;$i++) {
+            foreach ($recipes as $key => $recipe) {
+                $chart[$i][$recipe['name']]=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            }
+        }
+
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data['recipes'] = $recipes;
 
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
         foreach ($data['products'] as $key => $product) {
@@ -227,12 +235,13 @@ class Product extends CI_Controller
             $res = $this->home->databyidfromdatabase($companyid, 'product_recipe', $product['product_description']);
             $data['products'][$key]['recipe'] = $res['data'];
 
+            $year = intval(date("Y",strtotime($product['date'])));
             $month = (date("n", strtotime($product['date'])));
-            $chart[$month-1]++;
+            $chart[$year][$data['products'][$key]['recipe']['name']][$month-1]++;
         }
-        $data['chart'] = $chart;
+        $data['chart'] = json_encode($chart);
         $session['menu']="Products";
-        $session['submenu']="ppm";
+        $session['submenu']="prm";
         $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 

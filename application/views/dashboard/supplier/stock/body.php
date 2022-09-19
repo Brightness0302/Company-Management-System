@@ -2,7 +2,6 @@
 <div style="width: 1120px; height: 560px; margin: auto;">
     <canvas id="canvas" style="display: block; box-sizing: border-box; height: 560px; width: 1120px;" width="1120" height="560"></canvas>
 </div>
-<button id="randomizeData">Randomize Data</button>
 <script>
 var barChartData = {
     labels: [

@@ -393,8 +393,8 @@
                     </li>
 
                     <li>
-                        <a href="<?=base_url('product/paymentmanager')?>">
-                            <i class="bi <?=$menu['submenu']=="ppm"?"bi-circle-fill":"bi-circle"?>"></i><span>Production Reports</span>
+                        <a href="<?=base_url('product/reportmanager')?>">
+                            <i class="bi <?=$menu['submenu']=="prm"?"bi-circle-fill":"bi-circle"?>"></i><span>Production Reports</span>
                         </a>
                     </li>
                 </ul>
@@ -580,7 +580,7 @@
                         echo "Expense Management";
                     else if($menu['submenu']=="pdm")
                         echo "Supplier Invoices";
-                    else if($menu['submenu']=="ppm")
+                    else if($menu['submenu']=="prm")
                         echo "Payment management";
                     else if($menu['submenu']=="p_pm")
                         echo "Product registration";

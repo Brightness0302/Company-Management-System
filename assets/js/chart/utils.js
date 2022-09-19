@@ -10,9 +10,20 @@ window.chartColors = {
 	blue: 'rgb(54, 162, 235)',
 	purple: 'rgb(153, 102, 255)',
 	grey: 'rgb(201, 203, 207)',
+	transparency: 'rgba(255, 255, 255, 0)', 
 	lightred: 'rgb(255, 177, 193)',
-	lightblue: 'rgb(154, 208, 245)'
+	lightblue: 'rgb(154, 208, 245)',
 };
+
+window.borderColors = ['rgb(240, 0, 0)', 'rgb(0, 240, 0)', 'rgb(0, 0, 240)', 'rgb(240, 240, 0)', 'rgb(0, 240, 240)', 'rgb(240, 0, 240)', 'rgb(240, 120, 0)', 'rgb(0, 120, 240)', 'rgb(240, 120, 240)'];
+while (window.borderColors.length<100) {
+	const r = Math.floor(Math.random() * 255 / 30) * 30;
+	const g = Math.floor(Math.random() * 255 / 30) * 30;
+	const b = Math.floor(Math.random() * 255 / 30) * 30;
+	const color = 'rgb('+(r)+', '+(g)+', '+(b)+')';
+	if (window.borderColors.indexOf(color) == -1)
+		window.borderColors.push(color);
+}
 
 window.randomScalingFactor = function() {
 	return Math.round(Math.random() * 100);
