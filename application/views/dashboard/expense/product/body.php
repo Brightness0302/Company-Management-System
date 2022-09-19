@@ -27,7 +27,7 @@
             <td><?=($index)?></td>
             <td>
             <?php 
-                $result;
+                $result="";
                 foreach ($expenses as $key => $expense) {
                     if ($expense['id']==$product['categoryid']) {
                         $result=$expense;
@@ -37,7 +37,7 @@
                     echo $result['name'];
                 }
                 else {
-                    echo "-";
+                    echo "[Deleted]";
                 }
             ?>
             </td>
