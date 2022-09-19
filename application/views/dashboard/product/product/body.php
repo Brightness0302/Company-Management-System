@@ -20,7 +20,7 @@
       <?php foreach($products as $index=>$product):?>
       <tr>
         <td><?=$product['id']?></td>
-        <td><?=$product['product_description']?></td>
+        <td><?=$product['recipe']['name']?></td>
         <td><?=$product['serialnumber']?></td>
         <td><?=$product['date']?></td>
         <td><?=$product['order_number']?></td>

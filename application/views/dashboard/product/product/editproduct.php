@@ -29,7 +29,11 @@
                                     <td style="border : 1px solid black"><label class="my-2">Product description:</label></td>
                                     <td>
                                         <div class="m-auto">
-                                            <input type="text" class="form-control " id="production_description" value="<?=$product['product_description']?>" title="Choose your color">
+                                            <select class="form-select w-full" id="production_description">
+                                                <?php foreach($recipes as $key=>$recipe):?>
+                                                <option value="<?=$recipe['id']?>" <?=($recipe['id']==$product['product_description'])?"selected":""?>><?=$recipe['name']?></option>
+                                                <?php endforeach;?>
+                                            </select>
                                         </div>
                                     </td>
                                 </tr>

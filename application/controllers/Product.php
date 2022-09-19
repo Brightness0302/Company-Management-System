@@ -181,9 +181,12 @@ class Product extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
+        $data['recipes'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
         foreach ($data['products'] as $key => $product) {
             $res = $this->home->databyid($product['user'], 'user');
             $data['products'][$key]['userdata'] = $res['data'];
+            $res = $this->home->databyidfromdatabase($companyid, 'product_recipe', $product['product_description']);
+            $data['products'][$key]['recipe'] = $res['data'];
         }
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
@@ -200,6 +203,46 @@ class Product extends CI_Controller
         $this->load->view('dashboard/product/product/body');
         $this->load->view('dashboard/product/product/foot');
         $this->load->view('dashboard/product/product/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
+
+    public function paymentmanager() {
+        $chart = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($companyname, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
+        foreach ($data['products'] as $key => $product) {
+            $res = $this->home->databyid($product['user'], 'user');
+            $data['products'][$key]['userdata'] = $res['data'];
+            $res = $this->home->databyidfromdatabase($companyid, 'product_recipe', $product['product_description']);
+            $data['products'][$key]['recipe'] = $res['data'];
+
+            $month = (date("n", strtotime($product['date'])));
+            $chart[$month-1]++;
+        }
+        $data['chart'] = $chart;
+        $session['menu']="Products";
+        $session['submenu']="ppm";
+        $session['second-submenu']="";
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/product/report/head');
+        $this->load->view('dashboard/product/report/body');
+        $this->load->view('dashboard/product/report/foot');
+        $this->load->view('dashboard/product/report/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -240,6 +283,7 @@ class Product extends CI_Controller
         $data['user'] = $this->session->userdata('user');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['product'] = $this->product->productfromsetting($companyid, 'product');
+        $data['recipes'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
 
         $session['menu']="Products";
         $session['submenu']="p_pm";
@@ -338,6 +382,7 @@ class Product extends CI_Controller
         $data['product'] = $product['data'];
         $res = $this->home->databyid($data['product']['user'], 'user');
         $data['product']['userdata'] = $res['data'];
+        $data['recipes'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
 
         $session['menu']="Products";
         $session['submenu']="p_pm";
