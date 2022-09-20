@@ -1,17 +1,17 @@
-<table id="example1" class="table table-bordered table-striped">
+<table id="invoicetable" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>No</th>
             <th>Invoice Number</th>
             <th>Client Name</th>
             <th>Reference</th>
-            <th>Issued Date</th>
-            <th>Amount</th>
-            <th>Payment date</th>
-            <th>Payment method</th>
-            <th>Observations</th>
-            <th>Invoice status</th>
-            <th>Pay</th>
+            <th class="text-center">Issued Date</th>
+            <th class="text-center">Amount</th>
+            <th class="text-center">Payment date</th>
+            <th class="text-center">Payment method</th>
+            <th class="text-center">Observations</th>
+            <th class="text-center">Invoice status</th>
+            <th class="text-center">Pay</th>
         </tr>
     </thead>
     <tbody>
@@ -35,15 +35,15 @@
                 ?>
             </td>
             <td><?=$invoice['input_inputreference']?></td>
-            <td><?=$invoice['date_of_issue']?></td>
-            <td><?=$invoice['total']?></td>
-            <td>
+            <td class="text-center"><?=$invoice['date_of_issue']?></td>
+            <td class="text-center"><?=$invoice['total']?></td>
+            <td class="text-center">
                 <?=$invoice['ispaid']?$invoice['paid_date']:"-"?>
             </td>
-            <td>
+            <td class="text-center">
                 <?=$invoice['ispaid']?$invoice['paid_method']:"-"?>
             </td>
-            <td>
+            <td class="text-center">
                 <?=$invoice['ispaid']?$invoice['paid_observation']:"-"?>
             </td>
             <td class="text-center">
