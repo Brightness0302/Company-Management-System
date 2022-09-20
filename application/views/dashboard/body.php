@@ -6,7 +6,7 @@
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
-                <img src="<?=base_url('assets/image/logo.png')?>" alt="">
+                <img src="<?=base_url('assets/company/image/'.$company['id']).'.jpg'?>" alt="">
                 <span class="d-none d-lg-block"><?=str_replace("_"," ", $company['name'])?></span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>

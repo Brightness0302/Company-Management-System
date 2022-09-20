@@ -449,6 +449,14 @@ h6 {
   font-family: "Poppins", sans-serif;
 }
 
+#hero h2 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 72px;
+  color: blue;
+  font-family: "Poppins", sans-serif;
+}
+
 #hero .btn-get-started {
   font-family: "Poppins", sans-serif;
   font-weight: 500;
@@ -2093,7 +2101,7 @@ section {
   width: 20px;
   background-repeat: no-repeat;
   background-size: contain;
-  background-image: url("../image/tools/Edit.png");
+  background-image: url("../image/tools/Edit-2.png");
 }
 
 .custom-remove-icon {
@@ -2102,7 +2110,7 @@ section {
   width: 20px;
   background-repeat: no-repeat;
   background-size: contain;
-  background-image: url("../image/tools/Delete.png");
+  background-image: url("../image/tools/Delete-2.png");
 }
 
 .custom-view-icon {
@@ -2111,7 +2119,7 @@ section {
   width: 20px;
   background-repeat: no-repeat;
   background-size: contain;
-  background-image: url("../image/tools/View.png");
+  background-image: url("../image/tools/View-2.png");
 }
 
 .custom-paid-image {
