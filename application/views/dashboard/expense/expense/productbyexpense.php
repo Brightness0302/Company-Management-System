@@ -1,5 +1,4 @@
 <?php $total_subtotal=0; $total_vat_amount=0; $total_total_amount=0;?>
-<a class="btn btn-success mb-2" href="<?=base_url('expense/addproduct')?>">Add New</a>
 <table id="invoicetable" class="table table-bordered table-striped">
     <thead>
         <tr>

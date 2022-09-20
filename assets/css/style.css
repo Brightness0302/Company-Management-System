@@ -449,7 +449,7 @@ h6 {
   font-family: "Poppins", sans-serif;
 }
 
-#hero h2 {
+#hero h3 {
   font-size: 24px;
   font-weight: 700;
   line-height: 72px;
@@ -2122,15 +2122,23 @@ section {
   background-image: url("../image/tools/View-2.png");
 }
 
-.custom-paid-image {
-}
-
 .custom-paid-icon {
-  margin: auto;
-  max-height: 20px;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("../image/tools/green ball.png");
 }
 
 .custom-notpaid-icon {
-  margin: auto;
-  max-height: 20px;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("../image/tools/red ball.png");
+}
+
+.custom-paid-image {
 }

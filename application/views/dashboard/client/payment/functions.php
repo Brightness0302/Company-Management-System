@@ -32,14 +32,7 @@ function SuccessPayment(invoice_id, paid_date, paid_method, paid_observation, el
                 eparent = $(eparent).parent();
                 let echildren = $(eparent).find("label[class*='status']")[0];
                 eparent = $(echildren).parent();
-                if (classname=="bi bi-dash") {
-                    $(el).html("<i class='bi bi-check-all'></i>");
-                    $(eparent).html("<label class='status danger'>Not Paid</label>");
-                }
-                else if (classname=="bi bi-check-all") {
-                    $(el).html("<i class='bi bi-dash'></i>");
-                    $(eparent).html("<label class='status success'>Paid</label>");
-                }
+                $(el).html("<i class='bi bi-dash'></i>");
 
                 const etr = $(el).closest('tr');
                 const etd = $(etr).find("td");
@@ -47,6 +40,7 @@ function SuccessPayment(invoice_id, paid_date, paid_method, paid_observation, el
                 $(etd[6]).text(paid_date);
                 $(etd[7]).text(paid_method);
                 $(etd[8]).text(paid_observation);
+                $(etd[9]).html("<i class='bi custom-paid-icon'></i>");
             });
         },
         error: function(jqXHR, exception) {
@@ -105,14 +99,7 @@ function DeletePayment(invoice_id, el) {
                         eparent = $(eparent).parent();
                         let echildren = $(eparent).find("label[class*='status']")[0];
                         eparent = $(echildren).parent();
-                        if (classname=="bi bi-dash") {
-                            $(el).html("<i class='bi bi-check-all'></i>");
-                            $(eparent).html("<label class='status danger'>Not Paid</label>");
-                        }
-                        else if (classname=="bi bi-check-all") {
-                            $(el).html("<i class='bi bi-dash'></i>");
-                            $(eparent).html("<label class='status success'>Paid</label>");
-                        }
+                        $(el).html("<i class='bi bi-check-all'></i>");
 
                         const etr = $(el).closest('tr');
                         const etd = $(etr).find("td");
@@ -120,6 +107,7 @@ function DeletePayment(invoice_id, el) {
                         $(etd[6]).text("-");
                         $(etd[7]).text("-");
                         $(etd[8]).text("-");
+                        $(etd[9]).html("<i class='bi custom-notpaid-icon'></i>");
                     });
                 },
                 error: function(jqXHR, exception) {

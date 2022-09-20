@@ -562,6 +562,8 @@
                         echo "Project Management";
                     else if($menu['submenu']=="prm")
                         echo "Proforma Management";
+                    else if($menu['submenu']=="ppm")
+                        echo "Payment Management";
                     else if($menu['submenu']=="stm")
                         echo "Stock Management";
                     else if($menu['submenu']=="sm")

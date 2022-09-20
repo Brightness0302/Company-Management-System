@@ -75,7 +75,7 @@ class Supplier extends CI_Controller
 
         $session['menu']="Suppliers";
         $session['submenu']="sm";
-        $session['second-submenu']="Add New Supplier";
+        $session['second-submenu']="Edit Supplier";
         $this->session->set_flashdata('menu', $session);
 
         $result = $this->home->databyid($supplier_id, 'supplier');

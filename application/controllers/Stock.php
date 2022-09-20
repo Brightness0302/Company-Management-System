@@ -107,24 +107,57 @@ class Stock extends CI_Controller
 
     //View clientpage of creating.
     public function addstock() {
+        $companyid = $this->session->userdata('companyid');
+        $company_name = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+
+        $session['menu']="Stocks";
+        $session['submenu']="stm";
+        $session['second-submenu']="Add New Stock";
+        $this->session->set_flashdata('menu', $session);
+
         $this->load->view('header');
-        $this->load->view('main_page/head');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
         $this->load->view('dashboard/supplier/stock/addstock');
         $this->load->view('dashboard/supplier/stock/functions.php');
+        $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
     //View supplierpage of editting.
     public function editstock($stock_id) {
         $companyid = $this->session->userdata('companyid');
+        $company_name = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+
         $result = $this->home->databyidfromdatabase($companyid, 'stock', $stock_id);
         if ($result['status']=="failed")
             return;
         $data['stock']=$result['data'];
 
+        $session['menu']="Stocks";
+        $session['submenu']="stm";
+        $session['second-submenu']="Edit Stock";
+        $this->session->set_flashdata('menu', $session);
+
         $this->load->view('header');
-        $this->load->view('main_page/head');
-        $this->load->view('dashboard/supplier/stock/editstock', $data);
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/supplier/stock/editstock');
         $this->load->view('dashboard/supplier/stock/functions.php');
+        $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
     //Delete Supplier param(supplier_name)

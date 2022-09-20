@@ -37,24 +37,57 @@ class Expense extends CI_Controller
     }
     //View clientpage of creating.
     public function addexpense() {
+        $companyid = $this->session->userdata('companyid');
+        $company_name = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+
+        $session['menu']="Expenses";
+        $session['submenu']="em";
+        $session['second-submenu']="Add New Expense";
+        $this->session->set_flashdata('menu', $session);
+
         $this->load->view('header');
-        $this->load->view('main_page/head');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
         $this->load->view('dashboard/expense/expense/addexpense');
         $this->load->view('dashboard/expense/expense/functions.php');
+        $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
     //View expensepage of editting.
     public function editexpense($expense_id) {
         $companyid = $this->session->userdata('companyid');
+        $company_name = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+
         $result = $this->home->databyidfromdatabase($companyid, 'expense_category', $expense_id);
         if ($result['status']=="failed")
             return;
         $data['expense']=$result['data'];
 
+        $session['menu']="Expenses";
+        $session['submenu']="em";
+        $session['second-submenu']="Add New Expense";
+        $this->session->set_flashdata('menu', $session);
+
         $this->load->view('header');
-        $this->load->view('main_page/head');
-        $this->load->view('dashboard/expense/expense/editexpense', $data);
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/expense/expense/editexpense');
         $this->load->view('dashboard/expense/expense/functions.php');
+        $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
     //Delete expense param(expense_name)
@@ -127,19 +160,22 @@ class Expense extends CI_Controller
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $data['attached'] = "Attached Invoice";
 
         $session['menu']="Expenses";
-        $session['submenu']="eppr";
-        $session['second-submenu']="";
+        $session['submenu']="empr";
+        $session['second-submenu']="Add New Expense";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
-        $this->load->view('main_page/head', $data);
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
         $this->load->view('dashboard/expense/product/addproduct');
         $this->load->view('dashboard/expense/product/functions.php');
+        $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
     //View expensepage of editting.
@@ -151,6 +187,7 @@ class Expense extends CI_Controller
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $product = $this->home->databyidfromdatabase($companyid, 'expense_product', $product_id);
 
@@ -166,15 +203,17 @@ class Expense extends CI_Controller
             $data['attached'] = $invoicename;
         }
 
-        $session['menu']="Suppliers";
-        $session['submenu']="pdm";
-        $session['second-submenu']="";
+        $session['menu']="Expenses";
+        $session['submenu']="empr";
+        $session['second-submenu']="Edit Expense";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
-        $this->load->view('main_page/head');
-        $this->load->view('dashboard/expense/product/editproduct', $data);
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/expense/product/editproduct');
         $this->load->view('dashboard/expense/product/functions.php');
+        $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
     //Delete Supplier param(expense_name)

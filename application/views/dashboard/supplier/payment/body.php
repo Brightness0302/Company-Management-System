@@ -1,5 +1,4 @@
 <?php $total_subtotal=0; $total_vat_amount=0; $total_total_amount=0;?>
-<a class="btn btn-success mb-2" href="<?=base_url('product/addproduct')?>">Add New</a>
 <table id="invoicetable" class="table table-bordered table-striped">
     <thead>
         <tr class="text-sm">
@@ -61,7 +60,7 @@
             <td>
                 <?=$product['ispaid']?$product['paid_observation']:"-"?>
             </td>
-            <td class="text-center"><?=$product['ispaid']?"<div class='status'><img class='custom-paid-icon' src='".base_url("assets/image/tools/Paid.png")."'/></div>":"<div class='status custom-paid-image'><img class='custom-notpaid-icon' src='".base_url("assets/image/tools/Not Paid.png")."'/></div>"?></td>
+            <td class="text-center"><?=$product['ispaid']?"<i class='bi custom-paid-icon'></i>":"<i class='bi custom-notpaid-icon'></i>"?></td>
             <td class="form-inline flex justify-around">
                 <button onclick="
                 SetPayment('<?=$product['id']?>', this)"><?=$product['ispaid']?"<i class='bi bi-dash'></i>":"<i class='bi bi-check-all'></i>"?></button>

@@ -264,15 +264,17 @@ class Product extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['product'] = $this->product->productfromsetting($companyid, 'product_recipe');
 
         $session['menu']="Products";
-        $session['submenu']="pdm";
-        $session['second-submenu']="";
+        $session['submenu']="p_prm";
+        $session['second-submenu']="Add New Product Recipe";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
-        $this->load->view('main_page/head', $data);
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
         $this->load->view('dashboard/product/recipe/head');
         $this->load->view('dashboard/product/recipe/shead');
         $this->load->view('dashboard/product/recipe/addproduct');
@@ -291,6 +293,7 @@ class Product extends CI_Controller
         $data['company'] = $company['data'];
         $data['user'] = $this->session->userdata('user');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['product'] = $this->product->productfromsetting($companyid, 'product');
         $data['recipes'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
 
@@ -300,7 +303,8 @@ class Product extends CI_Controller
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
-        $this->load->view('main_page/head', $data);
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
         $this->load->view('dashboard/product/product/head');
         $this->load->view('dashboard/product/product/shead');
         $this->load->view('dashboard/product/product/addproduct');
@@ -319,14 +323,17 @@ class Product extends CI_Controller
         $data['company'] = $company['data'];
         $data['order'] = $this->product->internalorderfromsetting($companyid, 'internalorder');
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Products";
-        $session['submenu']="p_iop";
+        $session['submenu']="p_ioi";
         $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
-        $this->load->view('main_page/head', $data);
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
         $this->load->view('dashboard/product/internalorderinvoice/head');
         $this->load->view('dashboard/product/internalorderinvoice/shead');
         $this->load->view('dashboard/product/internalorderinvoice/addorder');
@@ -345,6 +352,8 @@ class Product extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data['product'] = $this->product->productfromsetting($companyid, 'product_recipe');
         $product = $this->home->databyidfromdatabase($companyid, 'product_recipe', $product_id);
 
         if ($product['status']=="failed")
@@ -362,15 +371,16 @@ class Product extends CI_Controller
         $data['product']['materials'] = json_encode($materials);
 
         $session['menu']="Products";
-        $session['submenu']="pdm";
-        $session['second-submenu']="";
+        $session['submenu']="p_prm";
+        $session['second-submenu']="Edit Product Recipe";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
-        $this->load->view('main_page/head');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
         $this->load->view('dashboard/product/recipe/head');
         $this->load->view('dashboard/product/recipe/shead');
-        $this->load->view('dashboard/product/recipe/editproduct', $data);
+        $this->load->view('dashboard/product/recipe/editproduct');
         $this->load->view('dashboard/product/recipe/foot');
         $this->load->view('dashboard/product/recipe/functions.php');
         $this->load->view('footer');
@@ -392,6 +402,8 @@ class Product extends CI_Controller
         $res = $this->home->databyid($data['product']['user'], 'user');
         $data['product']['userdata'] = $res['data'];
         $data['recipes'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Products";
         $session['submenu']="p_pm";
@@ -399,7 +411,8 @@ class Product extends CI_Controller
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
-        $this->load->view('main_page/head', $data);
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
         $this->load->view('dashboard/product/product/head');
         $this->load->view('dashboard/product/product/shead');
         $this->load->view('dashboard/product/product/editproduct');
@@ -418,14 +431,17 @@ class Product extends CI_Controller
         $data['company'] = $company['data'];
         $data['order'] = $this->home->databyidfromdatabase($companyid, 'internalorder', $order_id)['data'];
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Products";
-        $session['submenu']="p_iop";
+        $session['submenu']="p_ioi";
         $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
-        $this->load->view('main_page/head', $data);
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
         $this->load->view('dashboard/product/internalorderinvoice/head');
         $this->load->view('dashboard/product/internalorderinvoice/shead');
         $this->load->view('dashboard/product/internalorderinvoice/editorder');

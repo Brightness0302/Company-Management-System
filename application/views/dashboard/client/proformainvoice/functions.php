@@ -389,7 +389,7 @@ function cancelInvoice() {
             return;
         }
         try {
-            window.location.href = "<?=base_url('client/invoicemanager')?>";
+            window.location.href = "<?=base_url('client/proformainvoicemanager')?>";
         } catch (error) {
             swal("Don't Save", "Server Error", "warning");
         }

@@ -74,13 +74,15 @@ class Material extends CI_Controller
 
         $session['menu']="Suppliers";
         $session['submenu']="pdm";
-        $session['second-submenu']="";
+        $session['second-submenu']="Add New Material";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
-        $this->load->view('main_page/head', $data);
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
         $this->load->view('dashboard/supplier/product/addproduct');
         $this->load->view('dashboard/supplier/product/functions.php');
+        $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
     //View supplierpage of editting.
@@ -115,13 +117,15 @@ class Material extends CI_Controller
 
         $session['menu']="Suppliers";
         $session['submenu']="pdm";
-        $session['second-submenu']="";
+        $session['second-submenu']="Edit Material";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
-        $this->load->view('main_page/head');
-        $this->load->view('dashboard/supplier/product/editproduct', $data);
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/supplier/product/editproduct');
         $this->load->view('dashboard/supplier/product/functions.php');
+        $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
     //Delete Supplier param(supplier_name)

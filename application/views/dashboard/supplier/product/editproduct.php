@@ -378,9 +378,9 @@
     function getOffset(el) {
       const rect = el.getBoundingClientRect();
       return {
-        left: rect.left,
-        top: rect.top,
-        width: rect.width
+        left: el.offsetLeft,
+        top: el.offsetTop,
+        width: el.offsetWidth
       };
     }
 
@@ -412,7 +412,7 @@
       document.getElementById("total_ninth").style.width  = first_row_9.width + "px";
     }
 
-    refreshbrowser();
+    new ResizeObserver(refreshbrowser).observe(hero);
     
     onresize = (event) => {
       refreshbrowser();

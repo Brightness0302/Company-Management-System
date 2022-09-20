@@ -2,7 +2,7 @@
 function SuccessPayment(product_id, paid_date, paid_method, paid_observation, el) {
     console.log("SuccessPayment");
     $.ajax({
-        url: "<?=base_url('product/toggleinvoicepayment/')?>" + product_id,
+        url: "<?=base_url('material/toggleinvoicepayment/')?>" + product_id,
         method: "POST",
         dataType: 'text',
         async: true,
@@ -25,21 +25,14 @@ function SuccessPayment(product_id, paid_date, paid_method, paid_observation, el
                 closeOnCancel: true
             },
             function() {
-                // window.location.href = "<?=base_url('product/paymentmanager')?>";
+                // window.location.href = "<?=base_url('material/paymentmanager')?>";
                 const echild = $(el).children(":first");
                 const classname = echild.attr('class');
                 let eparent = $(el).parent();
                 eparent = $(eparent).parent();
                 let echildren = $(eparent).find("label[class*='status']")[0];
                 eparent = $(echildren).parent();
-                if (classname=="bi bi-dash") {
-                    $(el).html("<i class='bi bi-check-all'></i>");
-                    $(eparent).html("<label class='status danger'>Not Paid</label>");
-                }
-                else if (classname=="bi bi-check-all") {
-                    $(el).html("<i class='bi bi-dash'></i>");
-                    $(eparent).html("<label class='status success'>Paid</label>");
-                }
+                $(el).html("<i class='bi bi-dash'></i>");
 
                 const etr = $(el).closest('tr');
                 const etd = $(etr).find("td");
@@ -47,6 +40,7 @@ function SuccessPayment(product_id, paid_date, paid_method, paid_observation, el
                 $(etd[10]).text(paid_date);
                 $(etd[11]).text(paid_method);
                 $(etd[12]).text(paid_observation);
+                $(etd[13]).html("<i class='bi custom-paid-icon'></i>");
             });
         },
         error: function(jqXHR, exception) {
@@ -75,7 +69,7 @@ function DeletePayment(product_id, el) {
         }
         try {
             $.ajax({
-                url: "<?=base_url('product/toggleinvoicepayment/')?>" + product_id,
+                url: "<?=base_url('material/toggleinvoicepayment/')?>" + product_id,
                 method: "POST",
                 dataType: 'text',
                 async: true,
@@ -98,21 +92,14 @@ function DeletePayment(product_id, el) {
                         closeOnCancel: true
                     },
                     function() {
-                        // window.location.href = "<?=base_url('product/paymentmanager')?>";
+                        // window.location.href = "<?=base_url('material/paymentmanager')?>";
                         const echild = $(el).children(":first");
                         const classname = echild.attr('class');
                         let eparent = $(el).parent();
                         eparent = $(eparent).parent();
                         let echildren = $(eparent).find("label[class*='status']")[0];
                         eparent = $(echildren).parent();
-                        if (classname=="bi bi-dash") {
-                            $(el).html("<i class='bi bi-check-all'></i>");
-                            $(eparent).html("<label class='status danger'>Not Paid</label>");
-                        }
-                        else if (classname=="bi bi-check-all") {
-                            $(el).html("<i class='bi bi-dash'></i>");
-                            $(eparent).html("<label class='status success'>Paid</label>");
-                        }
+                        $(el).html("<i class='bi bi-check-all'></i>");
 
                         const etr = $(el).closest('tr');
                         const etd = $(etr).find("td");
@@ -120,6 +107,7 @@ function DeletePayment(product_id, el) {
                         $(etd[10]).text("-");
                         $(etd[11]).text("-");
                         $(etd[12]).text("-");
+                        $(etd[13]).html("<i class='bi custom-notpaid-icon'></i>");
                     });
                 },
                 error: function(jqXHR, exception) {
@@ -134,7 +122,7 @@ function DeletePayment(product_id, el) {
 
 function SetPayment(product_id, el) {
     $.ajax({
-        url: "<?=base_url('product/getpaymentdata/')?>" + product_id,
+        url: "<?=base_url('material/getpaymentdata/')?>" + product_id,
         method: "POST",
         dataType: 'json',
         async: true,
@@ -178,7 +166,7 @@ function SetPayment(product_id, el) {
                     }
 
                     $.ajax({
-                        url: "<?=base_url('product/savepayment/')?>" + product_id,
+                        url: "<?=base_url('material/savepayment/')?>" + product_id,
                         method: "POST",
                         data: form_data, 
                         dataType: 'text',
