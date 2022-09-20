@@ -100,16 +100,16 @@
                     </div>
 
                     <div class="text-left ml-10">
-                        <p class="d_inline w_75 p-2 text-primary text-center" onclick="add_vat(this)" id="invoice_vat"><?=$invoice['invoice_vat']?></p>
+                        <p class="d_inline w_75 p-2 text-primary text-center text-lg" onclick="add_vat(this)" id="invoice_vat"><?=$invoice['invoice_vat']?></p>
                         <p class="d_inline w_15 p-2"></p>
                     </div>
 
                     <div class="text-left ml-10">
-                        <div class="row">
-                            <div class="col-sm-6">
+                        <div class="flex jusify-content-start">
+                            <div>
                                 <p class="d_inline text-center text-lg" >Select Coin: </p>
                             </div>
-                            <div  class="col-sm-6">
+                            <div>
                                 <select class="d_inline form-select" id="companycoin">
                                     <option value="<?php if($company['Coin']=="EURO")echo "€";if ($company['Coin']=="POUND")echo "£";if ($company['Coin']=="USD")echo "$";?>">
                                         <?php 

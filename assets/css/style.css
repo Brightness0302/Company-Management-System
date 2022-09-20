@@ -2124,8 +2124,8 @@ section {
 
 .custom-paid-icon {
   display: inline-block;
-  height: 20px;
-  width: 20px;
+  height: 16px;
+  width: 16px;
   background-repeat: no-repeat;
   background-size: contain;
   background-image: url("../image/tools/green ball.png");
@@ -2133,8 +2133,8 @@ section {
 
 .custom-notpaid-icon {
   display: inline-block;
-  height: 20px;
-  width: 20px;
+  height: 16px;
+  width: 16px;
   background-repeat: no-repeat;
   background-size: contain;
   background-image: url("../image/tools/red ball.png");
