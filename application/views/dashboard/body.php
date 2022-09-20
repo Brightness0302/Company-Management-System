@@ -277,11 +277,6 @@
                             <i class="bi <?=$menu['submenu']=="pm"?"bi-circle-fill":"bi-circle"?>"></i><span>Payment Management</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="<?=base_url('client/projectmanager')?>">
-                            <i class="bi <?=$menu['submenu']=="pjm"?"bi-circle-fill":"bi-circle"?>"></i><span>Project Management</span>
-                        </a>
-                    </li>                    
 
                 </ul>
             </li><!-- End Components Nav -->
@@ -401,18 +396,13 @@
             </li><!-- End Charts Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link <?=$menu['menu']=="Projects"?"":"collapsed"?>" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
                     <i class="bx bx-task"></i><span>Projects</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <ul id="icons-nav" class="nav-content collapse <?=$menu['menu']=="Projects"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="#">
-                            <i class="bi bi-circle"></i><span>H.slot</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="bi bi-circle"></i><span>Sword</span>
+                        <a href="<?=base_url('client/projectmanager')?>">
+                            <i class="bi <?=$menu['submenu']=="pj_pm"?"bi-circle-fill":"bi-circle"?>"></i><span>Project Management</span>
                         </a>
                     </li>
                 </ul>
@@ -568,7 +558,7 @@
                         echo "Invoice Management";
                     else if($menu['submenu']=="pm")
                         echo "Payment Management";
-                    else if($menu['submenu']=="pjm")
+                    else if($menu['submenu']=="pj_pm")
                         echo "Project Management";
                     else if($menu['submenu']=="prm")
                         echo "Proforma Management";
@@ -603,6 +593,7 @@
                         echo $stock['name'];
                     else if($menu['submenu']=="pmbyid")
                         echo $expense['name'];
+                    else echo $menu['second-submenu'];
                     ?>
                     </li>
                 </ol>

@@ -38,23 +38,57 @@ class Supplier extends CI_Controller
     }
     //View clientpage of creating.
     public function addsupplier() {
+        $companyid = $this->session->userdata('companyid');
+        $company_name = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+
+        $session['menu']="Suppliers";
+        $session['submenu']="sm";
+        $session['second-submenu']="Add New Supplier";
+        $this->session->set_flashdata('menu', $session);
+
         $this->load->view('header');
-        $this->load->view('main_page/head');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
         $this->load->view('dashboard/supplier/supplier/addsupplier');
         $this->load->view('dashboard/supplier/supplier/functions.php');
+        $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
     //View supplierpage of editting.
     public function editsupplier($supplier_id) {
+        $companyid = $this->session->userdata('companyid');
+        $company_name = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+
+        $session['menu']="Suppliers";
+        $session['submenu']="sm";
+        $session['second-submenu']="Add New Supplier";
+        $this->session->set_flashdata('menu', $session);
+
         $result = $this->home->databyid($supplier_id, 'supplier');
         if ($result['status']=="failed")
             return;
         $data['supplier']=$result['data'];
 
         $this->load->view('header');
-        $this->load->view('main_page/head');
-        $this->load->view('dashboard/supplier/supplier/editsupplier', $data);
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/supplier/supplier/editsupplier');
         $this->load->view('dashboard/supplier/supplier/functions.php');
+        $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
     //Delete Supplier param(supplier_name)

@@ -139,8 +139,8 @@ class Client extends CI_Controller
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
-        $session['menu']="Clients";
-        $session['submenu']="pjm";
+        $session['menu']="Projects";
+        $session['submenu']="pj_pm";
         $session['second-submenu']="";
         $this->session->set_flashdata('menu', $session);
 
@@ -180,10 +180,27 @@ class Client extends CI_Controller
     }
     //View clientpage of creating.
     public function addclient() {
+        $companyid = $this->session->userdata('companyid');
+        $company_name = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+
+        $session['menu']="Clients";
+        $session['submenu']="cm";
+        $session['second-submenu']="Add New Client";
+        $this->session->set_flashdata('menu', $session);
+
         $this->load->view('header');
-        $this->load->view('main_page/head');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
         $this->load->view('dashboard/client/client/addclient');
         $this->load->view('dashboard/client/client/functions.php');
+        $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
     //View lastid of automation key in invoice table
@@ -204,7 +221,7 @@ class Client extends CI_Controller
 
         $session['menu']="Clients";
         $session['submenu']="im";
-        $session['second-submenu']="";
+        $session['second-submenu']="Add New Invoice";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
@@ -234,7 +251,7 @@ class Client extends CI_Controller
 
         $session['menu']="Clients";
         $session['submenu']="prm";
-        $session['second-submenu']="";
+        $session['second-submenu']="Add New Proforma Invoice";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
@@ -326,15 +343,32 @@ class Client extends CI_Controller
     }
     //View clientpage of editting.
     public function editclient($client_id) {
+        $companyid = $this->session->userdata('companyid');
+        $company_name = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+
+        $session['menu']="Clients";
+        $session['submenu']="cm";
+        $session['second-submenu']="Edit Client";
+        $this->session->set_flashdata('menu', $session);
+
         $result = $this->home->databyid($client_id, 'client');
         if ($result['status']=="failed")
             return;
         $data['client']=$result['data'];
 
         $this->load->view('header');
-        $this->load->view('main_page/head');
-        $this->load->view('dashboard/client/client/editclient', $data);
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/client/client/editclient');
         $this->load->view('dashboard/client/client/functions.php');
+        $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
     //View invoicepage of editting.
@@ -354,7 +388,7 @@ class Client extends CI_Controller
 
         $session['menu']="Clients";
         $session['submenu']="im";
-        $session['second-submenu']="";
+        $session['second-submenu']="Edit invoice";
         $this->session->set_flashdata('menu', $session);
 
         $result = $this->home->databyidfromdatabase($data['company']['id'], 'invoice', $invoice_id);
@@ -402,7 +436,7 @@ class Client extends CI_Controller
 
         $session['menu']="Clients";
         $session['submenu']="prm";
-        $session['second-submenu']="";
+        $session['second-submenu']="Edit Proforma Invoice";
         $this->session->set_flashdata('menu', $session);
 
         $result = $this->home->databyidfromdatabase($data['company']['id'], 'proformainvoice', $invoice_id);

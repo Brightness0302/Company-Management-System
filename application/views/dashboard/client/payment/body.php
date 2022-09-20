@@ -47,10 +47,10 @@
                 <?=$invoice['ispaid']?$invoice['paid_observation']:"-"?>
             </td>
             <td class="text-center">
-                <?=$invoice['ispaid']?"<div class='status custom-paid-image'><img class='custom-paid-icon' src='".base_url("assets/image/tools/Paid.png")."'/></div>":"<div class='status custom-paid-image'><img class='custom-notpaid-icon' src='".base_url("assets/image/tools/Not Paid.png")."'/></div>"?>
+                <?=$invoice['ispaid']?"<i class='bi custom-paid-icon'></i>":"<i class='bi custom-notpaid-icon'></i>"?>
             </td>
             <td class="text-center">
-                <button class='btn btn-default m-auto' onclick="
+                <button class='m-auto' onclick="
                 SetPayment('<?=$invoice['id']?>', this)"><?=$invoice['ispaid']?"<i class='bi bi-dash'></i>":"<i class='bi bi-check-all'></i>"?></button>
             </td>
         </tr>

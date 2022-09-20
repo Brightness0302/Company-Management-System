@@ -1,5 +1,5 @@
 <a class="btn btn-success mb-2" href="<?=base_url('client/addproforma')?>">Add New</a>
-<table id="example1" class="table table-bordered table-striped">
+<table id="invoicetable" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>No</th>
@@ -35,8 +35,8 @@
             <td><?=$invoice['date_of_issue']?></td>
             <td><?=$invoice['total']?></td>
             <td class="form-inline flex justify-around">
-                <a class="btn btn-primary" href="<?=base_url('client/editproforma/'.$invoice['id'])?>"><i class="bi custom-edit-icon"></i></a>
-                <button class="btn btn-danger " onclick="delInvoice('<?=$invoice['id']?>')" <?=$invoice['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
+                <a href="<?=base_url('client/editproforma/'.$invoice['id'])?>"><i class="bi custom-edit-icon"></i></a>
+                <button onclick="delInvoice('<?=$invoice['id']?>')" <?=$invoice['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>
         </tr>
         <?php endif;?>

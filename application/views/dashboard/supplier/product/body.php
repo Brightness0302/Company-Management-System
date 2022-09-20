@@ -59,7 +59,7 @@
             <td><?=$fourth?></td>
             <td><?=$fifth?></td>
             <td><?=$sixth?></td>
-            <td class="text-center"><?=$product['ispaid']?"<div class='status'><img class='custom-paid-icon' src='".base_url("assets/image/tools/Paid.png")."'/></div>":"<div class='status custom-paid-image'><img class='custom-notpaid-icon' src='".base_url("assets/image/tools/Not Paid.png")."'/></div>"?></td>
+            <td class="text-center"><?=$product['ispaid']?"<i class='bi custom-paid-icon'></i>":"<i class='bi custom-notpaid-icon'></i>"?></td>
             <td class="grid grid-cols-2 gap-1">
                 <a href="<?=base_url('material/editproduct/'.$product['id'])?>"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
