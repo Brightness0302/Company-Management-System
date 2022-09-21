@@ -1,4 +1,13 @@
 <a class="btn btn-success mb-2" href="<?=base_url('expense/addexpense')?>">Add New</a>
+<div class="flex justify-end">
+    <div class="w-56">
+        <select id="yearpicker" class="form-select">
+        </select>
+    </div>
+</div>
+<div class="m-auto" style="width:80%;">
+    <canvas id="canvas" style="display: block; box-sizing: border-box; height: 560px; width: 1120px;" width="1120" height="560"></canvas>
+</div>
 <table id="example1" class="table table-bordered table-striped">
     <thead>
         <tr>

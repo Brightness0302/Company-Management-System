@@ -4,6 +4,6 @@
         </select>
     </div>
 </div>
-<div>
+<div class="m-auto" style="width:80%;">
     <canvas id="canvas" style="display: block; box-sizing: border-box; height: 560px; width: 1120px;" width="1120" height="560"></canvas>
 </div>

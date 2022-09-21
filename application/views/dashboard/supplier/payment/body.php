@@ -46,13 +46,13 @@
             </td>
             <td><?=$product['observation']?></td>
             <td><?=$product['id']?></td>
-            <td><?=$product['date_of_reception']?></td>
-            <td><?=$product['invoice_date']?></td>
+            <td><?=date("Y/m/d", strtotime($product['date_of_reception']))?></td>
+            <td><?=date("Y/m/d", strtotime($product['invoice_date']))?></td>
             <td><?=$acq_subtotal_without_vat?></td>
             <td><?=$acq_subtotal_vat?></td>
             <td><?=$acq_subtotal_with_vat?></td>
             <td>
-                <?=$product['ispaid']?$product['paid_date']:"-"?>
+                <?=$product['ispaid']?date("Y/m/d", strtotime($product['paid_date'])):"-"?>
             </td>
             <td>
                 <?=$product['ispaid']?$product['paid_method']:"-"?>

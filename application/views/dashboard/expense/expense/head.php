@@ -5,3 +5,7 @@
 <link rel="stylesheet" href="<?=base_url('assets')?>/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="<?=base_url('assets')?>/dist/css/adminlte.min.css">
+
+<script src="<?=base_url('assets/js/chart/analytics.js')?>"></script>
+<script src="<?=base_url('assets/js/chart/Chart.bundle.js')?>"></script>
+<script src="<?=base_url('assets/js/chart/utils.js')?>"></script>

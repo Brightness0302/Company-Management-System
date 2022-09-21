@@ -20,6 +20,27 @@ class Expense extends CI_Controller
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
+        $chart = [];
+        for($i=2000;$i<3000;$i++) {
+            foreach ($data['expenses'] as $key => $category) {
+                $chart[$i][$category['name']]=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+            }
+        }
+        
+        foreach ($data['expenses'] as $key => $category) {
+            $data['expenses'][$key]['total'] = 0;
+            $products = $this->expense->alldatabyexpenseidfromdatabase($companyid, 'expense_product', $category['id']);
+
+            foreach ($products as $index => $product) {
+                $product['total'] += $product['value_without_vat']*(100.0+$product['vat'])/100.0;
+
+                $year = intval(date("Y",strtotime($product['date'])));
+                $month = (date("n", strtotime($product['date'])));
+                $chart[$year][$category['name']][$month-1] += $product['total'];
+            }
+        }
+        $data['chart'] = json_encode($chart);
+        
         $session['menu']="Expenses";
         $session['submenu']="em";
         $session['second-submenu']="";
