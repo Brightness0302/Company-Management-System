@@ -21,7 +21,7 @@
             <th>View</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="text-center">
         <?php $index=0;?>
         <?php foreach ($products as $product):?>
         <?php if(!$product['isremoved']):?>
