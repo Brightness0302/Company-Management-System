@@ -1,6 +1,6 @@
 </main><!-- End #main -->
 <style type="text/css">
-	td {
+	td, th {
 		vertical-align: middle !important;
 	}
 </style>
