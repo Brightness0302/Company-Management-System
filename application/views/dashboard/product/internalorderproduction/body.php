@@ -1,6 +1,6 @@
 <?php $first=0;?>
 <table id="producttable" class="table table-bordered table-striped text-center">
-    <thead>
+    <thead class="text-center">
         <tr>
             <th>No</th>
             <th>ID</th>
@@ -14,7 +14,7 @@
             <th>Option</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="text-center">
       <?php $index=0;?>
       <?php foreach($orders as $index=>$order):?>
       <?php $index++;?>

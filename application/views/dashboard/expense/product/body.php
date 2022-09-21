@@ -1,7 +1,7 @@
 <?php $total_subtotal=0; $total_vat_amount=0; $total_total_amount=0;?>
 <a class="btn btn-success mb-2" href="<?=base_url('expense/addproduct')?>">Add New</a>
 <table id="invoicetable" class="table table-bordered table-striped">
-    <thead>
+    <thead class="text-center">
         <tr>
             <th>No</th>
             <th>Category</th>
@@ -16,7 +16,7 @@
             <th>View</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="text-center">
         <?php $index=0;$total_subtotal=0;$total_vat_amount=0;$total_total_amount=0;?>
         <?php foreach ($products as $product):?>
         <?php if(!$product['isremoved']):?>

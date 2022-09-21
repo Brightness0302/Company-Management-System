@@ -1,6 +1,6 @@
 <a class="btn btn-info mb-2" href="javascript:window.history.go(-1);"><i class="bi bi-backspace"></i></a>
 <table id="productbystock" class="table table-bordered table-striped">
-    <thead>
+    <thead class="text-center">
         <tr>
             <th>No</th>
             <th>Code EAN</th>
@@ -13,7 +13,7 @@
             <th>Action</th>
         </tr>
     </thead>
-    <tbody id="product_body">
+    <tbody class="text-center" id="product_body">
         <?php $index=0; $total_aquisition=0; $total_selling=0;?>
         <?php foreach ($products as $line):?>
         <?php if(!$line['isremoved']):?>

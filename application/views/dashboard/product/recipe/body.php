@@ -1,7 +1,7 @@
 <?php $first=0; $second=0; $third=0; $fourth=0;?>
 <a class="btn btn-success mb-2" href="<?=base_url('product/addrecipe')?>">Add New</a>
 <table id="producttable" class="table table-bordered table-striped text-center">
-    <thead>
+    <thead class="text-center">
         <tr>
             <th>No</th>
             <th>Product Name</th>
@@ -13,7 +13,7 @@
             <th>Export</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="text-center">
       <?php foreach($products as $index=>$product):?>
       <tr>
         <td><?=$product['id']?></td>

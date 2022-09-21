@@ -95,7 +95,7 @@ document.getElementById('randomizeData').addEventListener('click', function() {
 });
 </script>
 <table id="example1" class="table table-bordered table-striped mt-10">
-    <thead>
+    <thead class="text-center">
         <tr>
             <th>No</th>
             <th>Code</th>
@@ -105,7 +105,7 @@ document.getElementById('randomizeData').addEventListener('click', function() {
             <th>Action</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="text-center">
         <?php $index=0;?>
         <?php foreach ($stocks as $stock):?>
         <?php if(!$stock['isremoved']):?>

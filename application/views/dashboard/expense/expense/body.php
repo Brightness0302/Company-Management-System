@@ -9,7 +9,7 @@
     <canvas id="canvas" style="display: block; box-sizing: border-box; height: 560px; width: 1120px;" width="1120" height="560"></canvas>
 </div>
 <table id="example1" class="table table-bordered table-striped">
-    <thead>
+    <thead class="text-center">
         <tr>
             <th>No</th>
             <th>Name</th>
@@ -17,7 +17,7 @@
             <th>Action</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="text-center">
         <?php $index=0;?>
         <?php foreach ($expenses as $expense):?>
         <?php if(!$expense['isremoved']):?>

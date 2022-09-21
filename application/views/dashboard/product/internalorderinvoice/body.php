@@ -1,7 +1,7 @@
 <?php $first=0;?>
 <a class="btn btn-success mb-2" href="<?=base_url('product/addorder')?>">Add New</a>
 <table id="producttable" class="table table-bordered table-striped text-center">
-    <thead>
+    <thead class="text-center">
         <tr>
             <th>No</th>
             <th>ID</th>
@@ -15,7 +15,7 @@
             <th>Export</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="text-center">
       <?php $index=0;?>
       <?php foreach($orders as $index=>$order):?>
       <?php $index++;?>
