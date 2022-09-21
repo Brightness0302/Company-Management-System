@@ -320,12 +320,6 @@
         </div>        
     </section><!-- End Hero -->
 
-<style type="text/css">
-    td th{
-        border: 1px solid black !important;
-    }
-</style>
-
 <script type="text/javascript">
     function getOffset(el) {
       const rect = el.getBoundingClientRect();

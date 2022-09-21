@@ -35,10 +35,10 @@
                 ?>
             </td>
             <td><?=$invoice['input_inputreference']?></td>
-            <td class="text-center"><?=$invoice['date_of_issue']?></td>
+            <td class="text-center"><?=date("Y/m/d", strtotime($invoice['date_of_issue']))?></td>
             <td class="text-center"><?=$invoice['total']?></td>
             <td class="text-center">
-                <?=$invoice['ispaid']?$invoice['paid_date']:"-"?>
+                <?=$invoice['ispaid']?date("Y/m/d", strtotime($invoice['paid_date'])):"-"?>
             </td>
             <td class="text-center">
                 <?=$invoice['ispaid']?$invoice['paid_method']:"-"?>

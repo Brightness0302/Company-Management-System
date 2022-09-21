@@ -10,13 +10,13 @@
             <th>NIR No</th>
             <th>NIR Date</th>
             <th>Date</th>
-            <th id="first">Acq sub-total Ex VAT</th>
-            <th id="second">Acq VAT sub-total</th>
-            <th id="third">Acq sub-total with VAT</th>
-            <th id="fourth">Acq sub-total Ex VAT</th>
-            <th id="fifth">Acq VAT sub-total</th>
-            <th id="sixth">Acq sub-total with VAT</th>
-            <th>status</th>
+            <th class="text-center" id="first">Acq sub-total Ex VAT</th>
+            <th class="text-center" id="second">Acq VAT sub-total</th>
+            <th class="text-center" id="third">Acq sub-total with VAT</th>
+            <th class="text-center" id="fourth">Selling sub-total Ex VAT</th>
+            <th class="text-center" id="fifth">Selling VAT sub-total</th>
+            <th class="text-center" id="sixth">Selling sub-total with VAT</th>
+            <th>Status</th>
             <th>Action</th>
             <th>View</th>
         </tr>
@@ -51,8 +51,8 @@
             </td>
             <td><?=$product['observation']?></td>
             <td><?=$product['id']?></td>
-            <td><?=$product['date_of_reception']?></td>
-            <td><?=$product['invoice_date']?></td>
+            <td><?=date("Y/m/d", strtotime($product['date_of_reception']))?></td>
+            <td><?=date("Y/m/d", strtotime($product['invoice_date']))?></td>
             <td><?=$first?></td>
             <td><?=$second?></td>
             <td><?=$third?></td>
@@ -76,12 +76,12 @@
     <thead>
         <tr>
             <th></th>
-            <th>Acq total Ex VAT</th>
-            <th>Acq total VAT</th>
-            <th>Acq total with VAT</th>
-            <th>Selling total Ex VAT</th>
-            <th>Selling total VAT</th>
-            <th>Selling total with VAT</th>
+            <th class="text-center">Acq total Ex VAT</th>
+            <th class="text-center">Acq total VAT</th>
+            <th class="text-center">Acq total with VAT</th>
+            <th class="text-center">Selling total Ex VAT</th>
+            <th class="text-center">Selling total VAT</th>
+            <th class="text-center">Selling total with VAT</th>
         </tr>
     </thead>
     <tbody>

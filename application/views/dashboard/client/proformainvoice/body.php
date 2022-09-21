@@ -32,7 +32,7 @@
                 ?>
             </td>
             <td><?=$invoice['input_inputreference']?></td>
-            <td><?=$invoice['date_of_issue']?></td>
+            <td><?=date("Y/m/d", strtotime($invoice['date_of_issue']))?></td>
             <td><?=$invoice['total']?></td>
             <td class="form-inline flex justify-around">
                 <a href="<?=base_url('client/editproforma/'.$invoice['id'])?>"><i class="bi custom-edit-icon"></i></a>

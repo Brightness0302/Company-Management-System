@@ -36,8 +36,8 @@
                 ?>
             </td>
             <td><?=$invoice['input_inputreference']?></td>
-            <td><?=$invoice['date_of_issue']?></td>
-            <td><?=$invoice['due_date']?></td>
+            <td><?=date("Y/m/d", strtotime($invoice['date_of_issue']))?></td>
+            <td><?=date("Y/m/d", strtotime($invoice['due_date']))?></td>
             <td><?=$invoice['sub_total']?></td>
             <td><?=$invoice['tax']?></td>
             <td><?=$invoice['total']?></td>
