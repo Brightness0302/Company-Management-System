@@ -1,7 +1,7 @@
 <?php $acq_subtotal_without_vat=0; $acq_subtotal_vat=0; $acq_subtotal_with_vat=0;$selling_subtotal_without_vat=0; $selling_subtotal_vat=0; $selling_subtotal_with_vat=0;?>
 <a class="btn btn-success mb-2" href="<?=base_url('material/addproduct')?>">Add New</a>
 <table id="invoicetable" class="table table-bordered table-striped text-xs">
-    <thead>
+    <thead class="text-center">
         <tr>
             <th>No</th>
             <th>Number</th>
@@ -10,12 +10,12 @@
             <th>NIR No</th>
             <th>NIR Date</th>
             <th>Date</th>
-            <th class="text-center" id="first">Acq sub-total<br/> Ex VAT</th>
-            <th class="text-center" id="second">Acq VAT<br/> sub-total</th>
-            <th class="text-center" id="third">Acq sub-total<br/> with VAT</th>
-            <th class="text-center" id="fourth">Selling sub-total<br/> Ex VAT</th>
-            <th class="text-center" id="fifth">Selling VAT<br/> sub-total</th>
-            <th class="text-center" id="sixth">Selling sub-total<br/> with VAT</th>
+            <th id="first">Acq sub-total<br/> Ex VAT</th>
+            <th id="second">Acq VAT<br/> sub-total</th>
+            <th id="third">Acq sub-total<br/> with VAT</th>
+            <th id="fourth">Selling sub-total<br/> Ex VAT</th>
+            <th id="fifth">Selling VAT<br/> sub-total</th>
+            <th id="sixth">Selling sub-total<br/> with VAT</th>
             <th>Status</th>
             <th>Action</th>
             <th>View</th>
@@ -59,12 +59,12 @@
             <td><?=$fourth?></td>
             <td><?=$fifth?></td>
             <td><?=$sixth?></td>
-            <td class="text-center"><?=$product['ispaid']?"<i class='bi custom-paid-icon'></i>":"<i class='bi custom-notpaid-icon'></i>"?></td>
+            <td><?=$product['ispaid']?"<i class='bi custom-paid-icon'></i>":"<i class='bi custom-notpaid-icon'></i>"?></td>
             <td class="grid grid-cols-2 gap-1">
                 <a href="<?=base_url('material/editproduct/'.$product['id'])?>"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>
-            <td class="text-center">
+            <td>
                 <a href="<?=$product['attached']?base_url('assets/company/attachment/'.$company['name'].'/supplier/'.$product['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$product['attached']?"":'pointer-events: none'?>"><i class="bi custom-view-icon"></i></a>
             </td>
         </tr>
@@ -73,18 +73,18 @@
     </tbody>
 </table>
 <table id="total-table" class="table table-bordered table-striped absolute text-xs" style="width: 50%;">
-    <thead>
+    <thead class="text-center">
         <tr>
             <th></th>
-            <th class="text-center">Acq total<br/> Ex VAT</th>
-            <th class="text-center">Acq total<br/> VAT</th>
-            <th class="text-center">Acq total<br/> with VAT</th>
-            <th class="text-center">Selling total<br/> Ex VAT</th>
-            <th class="text-center">Selling total<br/> VAT</th>
-            <th class="text-center">Selling total<br/> with VAT</th>
+            <th>Acq total<br/> Ex VAT</th>
+            <th>Acq total<br/> VAT</th>
+            <th>Acq total<br/> with VAT</th>
+            <th>Selling total<br/> Ex VAT</th>
+            <th>Selling total<br/> VAT</th>
+            <th>Selling total<br/> with VAT</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="text-center">
         <tr>
             <td id="downtotalmark">Total:</td>
             <td id="total_first"><?=$acq_subtotal_without_vat?></td>
