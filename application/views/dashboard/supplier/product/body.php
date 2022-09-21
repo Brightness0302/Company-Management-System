@@ -10,12 +10,12 @@
             <th>NIR No</th>
             <th>NIR Date</th>
             <th>Date</th>
-            <th class="text-center" id="first">Acq sub-total Ex VAT</th>
-            <th class="text-center" id="second">Acq VAT sub-total</th>
-            <th class="text-center" id="third">Acq sub-total with VAT</th>
-            <th class="text-center" id="fourth">Selling sub-total Ex VAT</th>
-            <th class="text-center" id="fifth">Selling VAT sub-total</th>
-            <th class="text-center" id="sixth">Selling sub-total with VAT</th>
+            <th class="text-center" id="first">Acq sub-total<br/> Ex VAT</th>
+            <th class="text-center" id="second">Acq VAT<br/> sub-total</th>
+            <th class="text-center" id="third">Acq sub-total<br/> with VAT</th>
+            <th class="text-center" id="fourth">Selling sub-total<br/> Ex VAT</th>
+            <th class="text-center" id="fifth">Selling VAT<br/> sub-total</th>
+            <th class="text-center" id="sixth">Selling sub-total<br/> with VAT</th>
             <th>Status</th>
             <th>Action</th>
             <th>View</th>
@@ -76,12 +76,12 @@
     <thead>
         <tr>
             <th></th>
-            <th class="text-center">Acq total Ex VAT</th>
-            <th class="text-center">Acq total VAT</th>
-            <th class="text-center">Acq total with VAT</th>
-            <th class="text-center">Selling total Ex VAT</th>
-            <th class="text-center">Selling total VAT</th>
-            <th class="text-center">Selling total with VAT</th>
+            <th class="text-center">Acq total<br/> Ex VAT</th>
+            <th class="text-center">Acq total<br/> VAT</th>
+            <th class="text-center">Acq total<br/> with VAT</th>
+            <th class="text-center">Selling total<br/> Ex VAT</th>
+            <th class="text-center">Selling total<br/> VAT</th>
+            <th class="text-center">Selling total<br/> with VAT</th>
         </tr>
     </thead>
     <tbody>
