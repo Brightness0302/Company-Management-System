@@ -80,7 +80,10 @@ class Material extends CI_Controller
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/product/product/head');
+        $this->load->view('dashboard/product/product/shead');
         $this->load->view('dashboard/supplier/product/addproduct');
+        $this->load->view('dashboard/product/product/foot');
         $this->load->view('dashboard/supplier/product/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
@@ -123,7 +126,10 @@ class Material extends CI_Controller
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/product/product/head');
+        $this->load->view('dashboard/product/product/shead');
         $this->load->view('dashboard/supplier/product/editproduct');
+        $this->load->view('dashboard/product/product/foot');
         $this->load->view('dashboard/supplier/product/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');

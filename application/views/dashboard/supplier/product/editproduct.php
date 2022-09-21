@@ -16,7 +16,7 @@
                 <div class="text-sm">
                     <div id="section1" class="row d-flex justify-content-center align-items-center border border-lime-600">
                         <div class="col-sm-4 text-center">
-                            <table class="table " style="border : 1px solid gray; text-align: left">
+                            <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                 <tr>
                                     <td style="border : 1px solid black"> Supplier Name: </td>
                                     <td>
@@ -40,7 +40,7 @@
                             </table>
                         </div>
                         <div class="col-sm-4 text-center">
-                          <table class="table " style="border : 1px solid gray; text-align: left">
+                          <table class="table my-2" style="border : 1px solid gray; text-align: left">
                               <tr>
                                   <td style="border : 1px solid black">NIR Document No: </td>
                                   <td><?=$product['id']?></td>
@@ -52,7 +52,7 @@
                           </table>
                         </div>
                         <div class="col-sm-4 text-center">
-                            <table class="table " style="border : 1px solid gray; text-align: left">
+                            <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                 <tr>
                                     <td style="border : 1px solid black">Invoice Date:</td>
                                     <td>
@@ -85,9 +85,9 @@
                     <div class="row d-flex justify-content-center align-items-center border border-lime-600">
                         <div id="section2" class="row row d-flex justify-content-center align-items-center">
                             <div class="col-sm-3 text-center d-flex">
-                                <table class="table " style="border : 1px solid gray; text-align: left">
+                                <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border : 1px solid black">Production Description: </td>
+                                        <td style="border : 1px solid black"><label class="my-2"> Description: </label></td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="text" class="form-control" id="production_description" value="" title="Choose your color">
@@ -95,7 +95,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="border : 1px solid black">Select Stock to save:</td>
+                                        <td style="border : 1px solid black"><label class="my-2">Stock:</label></td>
                                         <td>
                                             <select class="form-select" id="stockid">
                                             <?php foreach ($stocks as $index => $stock):?>
@@ -107,7 +107,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="border : 1px solid black">Select Expense Category:</td>
+                                        <td style="border : 1px solid black"><label class="my-2">Category:</label></td>
                                         <td>
                                             <select class="form-select" id="expenseid">
                                                 <option value="0">
@@ -122,7 +122,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="border : 1px solid black">Assign to Project:</td>
+                                        <td style="border : 1px solid black"><label class="my-2">Project:</label></td>
                                         <td>
                                             <select class="form-select" id="projectid">
                                                 <option value="0">
@@ -140,9 +140,9 @@
                             </div>
 
                             <div class="col-sm-3 text-center">
-                                <table class="table " style="border : 1px solid gray; text-align: left">
+                                <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border : 1px solid black">Code EAN:</td>
+                                        <td style="border : 1px solid black"><label class="my-2">Code EAN:</label></td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="text" class="form-control" id="code_ean" list="stock_lines" name="browser" title="Choose your color">
@@ -155,7 +155,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="border : 1px solid black">Acq unit price:</td>
+                                        <td style="border : 1px solid black"><label class="my-2 text-xs">Acq unit price:</label></td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="number" class="form-control " id="acquisition_unit_price" value="0" title="Choose your color">
@@ -163,7 +163,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="border : 1px solid black">VAT %:</td>
+                                        <td style="border : 1px solid black"><label class="my-2">VAT %:</label></td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="number" min="0" max="100" class="form-control " id="vat_percent" value="0" title="Choose your color">
@@ -174,9 +174,9 @@
                             </div>
 
                             <div class="col-sm-3 text-center">
-                                <table class="table " style="border : 1px solid gray; text-align: left">
+                                <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border : 1px solid black">Unit: </td>
+                                        <td style="border : 1px solid black"><label class="my-2">Unit: </label></td>
                                         <td>
                                             <select class="form-select" id="unit">
                                                 <option value="Pieces">Pieces</option>
@@ -187,7 +187,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="border : 1px solid black">Qty on doc: </td>
+                                        <td style="border : 1px solid black"><label class="my-2">Qty on doc: </label></td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="number" class="form-control " id="quantity_on_document" value="0" title="Choose your color">
@@ -195,7 +195,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="border : 1px solid black">Qty received:</td>
+                                        <td style="border : 1px solid black"><label class="my-2">Qty received:</label></td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="number" class="form-control " id="quantity_received" value="0" title="Choose your color">
@@ -206,9 +206,9 @@
                             </div>
 
                             <div class="col-sm-3 text-center">
-                                <table class="table" style="border: 1px solid gray; text-align: left">
+                                <table class="table my-2" style="border: 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border: 1px solid black">Mark Up%: </td>
+                                        <td style="border: 1px solid black"><label class="my-2">Mark Up%: </label></td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="number" min="0" max="100" class="form-control " id="mark_up_percent" value="0" title="Choose your color">
@@ -216,7 +216,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="border: 1px solid black">Selling Unit Price Ex VAT:</td>
+                                        <td style="border: 1px solid black"><label class="my-2 text-xs">Selling Unit Price Ex VAT:</label></td>
                                         <td>
                                             <div class="m-auto">
                                                 <input type="number" min="0" max="100" class="form-control " id="selling_unit_price_without_vat" value="0.00" title="Choose your color" readonly>
@@ -232,6 +232,11 @@
                                 <button class="btn btn-default" onclick="ClearItem()">Clear Item</button>
                             </div>
                         </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row d-flex justify-content-center align-items-center border border-lime-600">
                         <?php
                             $total_first=0;$total_second=0;$total_third=0;$total_seventh=0;$total_eighth=0;$total_ninth=0;
                         ?>
@@ -362,7 +367,7 @@
         <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center">
                 <div class="absolute">
-                    <label for="file-upload" id="file-text" class="btn btn-outline-secondary" style="color: red;">
+                    <label for="file-upload mb-0" id="file-text" class="btn btn-outline-secondary" style="color: red; margin: auto;">
                         <i class="fa fa-cloud-upload"></i> <?=$attached?>
                     </label>
                     <input id="file-upload" name='upload_cont_img' type="file" style="display:none;">
