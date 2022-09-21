@@ -36,7 +36,7 @@ class Expense extends CI_Controller
 
                 $year = intval(date("Y",strtotime($product['date'])));
                 $month = (date("n", strtotime($product['date'])));
-                $chart[$year][$category['name']][$month-1] += $product['total'];
+                $chart[$year][$category['name']][$month-1] += number_format($product['total'], 2, '.', "");
             }
         }
         $data['chart'] = json_encode($chart);

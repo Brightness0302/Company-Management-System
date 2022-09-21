@@ -27,7 +27,7 @@ window.onload = function() {
             title:{
                 display: true,
                 fontSize: 24, 
-                text: "Expense Category"
+                text: "Expense Categories"
             },
             tooltips: {
                 mode: 'index',
