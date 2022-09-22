@@ -158,7 +158,7 @@ class Project extends CI_Controller
         foreach ($data['expense_products'] as $index => $product) {
             $data['expense_products'][$index]['attached'] = false;
             $invoicename = $product['id'].".pdf";
-            $path = "assets/company/attachment/".$companyname."/expense/";
+            $path = "assets/company/attachment/".$company_name."/expense/";
             if(file_exists($path.$invoicename)) {
                 $data['expense_products'][$index]['attached'] = true;
             }

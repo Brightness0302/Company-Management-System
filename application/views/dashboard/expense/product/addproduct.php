@@ -43,6 +43,7 @@
                                     <td style="border : 1px solid black"> Assign to Project: </td>
                                     <td>
                                         <select class="form-select" id="projectid">
+                                            <option value="0">No Project</option>
                                         <?php foreach ($projects as $index => $project):?>
                                             <option value="<?=$project['id']?>">
                                                 <?=str_replace("_"," ", $project['name'])?>
