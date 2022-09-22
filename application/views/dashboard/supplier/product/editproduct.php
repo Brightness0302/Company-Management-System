@@ -288,6 +288,8 @@
                                         $total_ninth+=$line['selling_unit_price_with_vat']*$line['quantity_on_document'];
                                         if ($result)
                                             echo $result['name'];
+                                        else 
+                                            echo "No Stock";
                                     ?>
                                     </td>
                                     <td>
@@ -299,6 +301,8 @@
                                         }
                                         if ($result)
                                             echo $result['name'];
+                                        else 
+                                            echo "No Expense Category";
                                     ?>
                                     </td>
                                     <td>

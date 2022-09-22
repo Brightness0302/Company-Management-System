@@ -115,6 +115,7 @@ class Material extends CI_Controller
         $lines = json_decode($lines, true);
         foreach ($lines as $key => $line) {
             if ($line['stockid'] == 0) {
+                $line['id'] = 0;
                 $line['code_ean'] = $line['code_ean'];
                 $line['production_description'] = $line['production_description'];
                 $line['expenseid'] = $line['expenseid'];
