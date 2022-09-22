@@ -6,7 +6,7 @@ class Project_model extends CI_Model {
         return number_format($number, $decimals, '.', "");
     }
 
-    public function createProject($companyid, $name, $client, $value, $vat) {
+    public function createProject($companyid, $name, $client, $coin, $value, $vat) {
         $this->db->query('use database'.$companyid);
 
         $data = array(
@@ -14,6 +14,7 @@ class Project_model extends CI_Model {
             'client'=>$client, 
             'value'=>$value, 
             'vat'=>$vat, 
+            'coin'=>$coin, 
         );
 
         $this->db->insert('project', $data);
@@ -21,7 +22,7 @@ class Project_model extends CI_Model {
         return $product_id;
     }
 
-    public function saveProject($companyid, $id, $name, $client, $value, $vat) {
+    public function saveProject($companyid, $id, $name, $client, $coin, $value, $vat) {
         $this->db->query('use database'.$companyid);
 
         $data = array(
@@ -29,6 +30,7 @@ class Project_model extends CI_Model {
             'client'=>$client, 
             'value'=>$value, 
             'vat'=>$vat, 
+            'coin'=>$coin, 
         );
 
         $this->db->where('id', $id);

@@ -39,6 +39,21 @@
                               </tr>
                             </table>
                         </div>
+                        <div class="col-sm-3 text-center">
+                          <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                                <tr>
+                                    <td style="border : 1px solid black"><label class="my-2">Select Coin:</label></td>
+                                    <td>
+                                        <div class="m-auto">
+                                            <select class="form-select w-full" id="product_coin">
+                                                <option value="€" <?=($project['coin']=='€')?"selected":""?>>EURO</option>
+                                                <option value="LEI" <?=($project['coin']=='LEI')?"selected":""?>>LEI</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                          </table>
+                        </div>
                     </div>
                     <hr>
                     <div class="row d-flex justify-content-center align-items-center border border-lime-600">
@@ -50,6 +65,9 @@
                                         <div class="m-auto">
                                             <input type="text" class="form-control " id="value" value="<?=$project['value']?>" title="Choose your color">
                                         </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="my-2 coin"><?=$project['coin']?></label>
                                     </td>
                                 </tr>
                           </table>
@@ -63,6 +81,9 @@
                                             <input type="text" class="form-control " id="vat" value="<?=$project['vat']?>" title="Choose your color">
                                         </div>
                                     </td>
+                                    <td class="text-center">
+                                        <label class="my-2">%</label>
+                                    </td>
                                 </tr>
                           </table>
                         </div>
@@ -74,6 +95,9 @@
                                         <div class="m-auto">
                                             <input type="text" class="form-control " id="amount" value="<?=$project['value']*(100.0+$project['vat'])/100.0?>" title="Choose your color">
                                         </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="my-2 coin"><?=$project['coin']?></label>
                                     </td>
                                 </tr>
                           </table>

@@ -28,10 +28,12 @@ function get_formdata() {
     const client_id = $("#client_id").text();
     const value = $("#value").val();
     const vat = $("#vat").val();
+    const coin = $("#product_coin").val();
 
     const form_data = {
         project_name: project_name, 
         client_id: client_id,
+        coin: coin, 
         value: value,
         vat: vat
     };
