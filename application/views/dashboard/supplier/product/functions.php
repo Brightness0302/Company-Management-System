@@ -31,9 +31,7 @@ $(document).ready(function() {
                 }
 
                 const production_description = $("#production_description");
-                const stockid = $("#stockid");
                 const expenseid = $("#expenseid");
-                const projectid = $("#projectid");
                 const code_ean = $("#code_ean");
                 const unit = $("#unit");
                 const acquisition_unit_price = $("#acquisition_unit_price");
@@ -43,12 +41,8 @@ $(document).ready(function() {
                 const mark_up_percent = $("#mark_up_percent");
 
                 production_description.val(line['production_description']);
-                stockid.val(line['stockid']);
-                stockid.trigger('change');
                 expenseid.val(line['expenseid']);
                 expenseid.trigger('change');
-                projectid.val(line['projectid']);
-                projectid.trigger('change');
                 unit.val(line['units']);
                 unit.trigger('change');
                 acquisition_unit_price.val(line['acquisition_unit_price']);
@@ -125,55 +119,92 @@ function SaveItem() {
     const quantity_received = $("#quantity_received").val();
     const mark_up_percent = $("#mark_up_percent").val();
 
-    $.ajax({
-        url: "<?=base_url("material/linebycodeean/")?>" + code_ean,
-        method: "POST",
-        dataType: 'json',
-        success: function(res) {
-            console.log(res);
-            let lineid = 0;
-            if (res != -1) {
-                lineid=res['id'];
-            }
+    if (stockid != 0) {
+        $.ajax({
+            url: "<?=base_url("material/linebycodeean/")?>" + code_ean,
+            method: "POST",
+            dataType: 'json',
+            success: function(res) {
+                console.log(res);
+                let lineid = 0;
+                if (res != -1) {
+                    lineid=res['id'];
+                }
 
-            $("#table-body").append(
-                "<tr>"+
-                "<td>"+code_ean+"</td>"+
-                "<td>"+stockname+"</td>"+
-                "<td>"+expensename+"</td>"+
-                "<td>"+projectname+"</td>"+
-                "<td>"+production_description+"</td>"+
-                "<td>"+unit+"</td>"+
-                "<td>"+quantity_on_document+"</td>"+
-                "<td>"+quantity_received+"</td>"+
-                "<td>"+acquisition_unit_price+"</td>"+
-                "<td>"+(acquisition_unit_price*vat_percent/100.0).toFixed(2)+"</td>"+
-                "<td>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
-                "<td>"+(acquisition_unit_price*quantity_on_document).toFixed(2)+"</td>"+
-                "<td>"+((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2)+"</td>"+
-                "<td>"+((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
-                "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2)+"</td>"+
-                "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</td>"+
-                "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</td>"+
-                "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document/100.0).toFixed(2)+"</td>"+
-                "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*vat_percent/100.0/100.0).toFixed(2)+"</td>"+
-                "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</td>"+
-                "<td hidden>"+stockid+"</td>"+
-                "<td hidden>"+expenseid+"</td>"+
-                "<td hidden>"+projectid+"</td>"+
-                "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr(this)'>" + "<i class='bi custom-edit-icon p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi custom-remove-icon p-1' title='Delete'></i>" + "</div>" + "</td>" +
-                "<td hidden>0</td>"+
-                "<td hidden>"+lineid+"</td>"+
-                "</tr>"
-            );
+                $("#table-body").append(
+                    "<tr>"+
+                    "<td>"+code_ean+"</td>"+
+                    "<td>"+stockname+"</td>"+
+                    "<td>"+expensename+"</td>"+
+                    "<td>"+projectname+"</td>"+
+                    "<td>"+production_description+"</td>"+
+                    "<td>"+unit+"</td>"+
+                    "<td>"+quantity_on_document+"</td>"+
+                    "<td>"+quantity_received+"</td>"+
+                    "<td>"+acquisition_unit_price+"</td>"+
+                    "<td>"+(acquisition_unit_price*vat_percent/100.0).toFixed(2)+"</td>"+
+                    "<td>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
+                    "<td>"+(acquisition_unit_price*quantity_on_document).toFixed(2)+"</td>"+
+                    "<td>"+((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2)+"</td>"+
+                    "<td>"+((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
+                    "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2)+"</td>"+
+                    "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</td>"+
+                    "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</td>"+
+                    "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document/100.0).toFixed(2)+"</td>"+
+                    "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*vat_percent/100.0/100.0).toFixed(2)+"</td>"+
+                    "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</td>"+
+                    "<td hidden>"+stockid+"</td>"+
+                    "<td hidden>"+expenseid+"</td>"+
+                    "<td hidden>"+projectid+"</td>"+
+                    "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr(this)'>" + "<i class='bi custom-edit-icon p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi custom-remove-icon p-1' title='Delete'></i>" + "</div>" + "</td>" +
+                    "<td hidden>0</td>"+
+                    "<td hidden>"+lineid+"</td>"+
+                    "</tr>"
+                );
 
-            ClearItem();
-            refreshTotalMark();
-        },
-        error: function(jqXHR, exception) {
-            console.log(jqXHR, exception);
-        },
-    });
+                ClearItem();
+                refreshTotalMark();
+            },
+            error: function(jqXHR, exception) {
+                console.log(jqXHR, exception);
+            },
+        });
+    }
+    else {
+        $("#table-body").append(
+            "<tr>"+
+            "<td>"+code_ean+"</td>"+
+            "<td>"+stockname+"</td>"+
+            "<td>"+expensename+"</td>"+
+            "<td>"+projectname+"</td>"+
+            "<td>"+production_description+"</td>"+
+            "<td>"+unit+"</td>"+
+            "<td>"+quantity_on_document+"</td>"+
+            "<td>"+quantity_received+"</td>"+
+            "<td>"+acquisition_unit_price+"</td>"+
+            "<td>"+(acquisition_unit_price*vat_percent/100.0).toFixed(2)+"</td>"+
+            "<td>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
+            "<td>"+(acquisition_unit_price*quantity_on_document).toFixed(2)+"</td>"+
+            "<td>"+((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2)+"</td>"+
+            "<td>"+((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
+            "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2)+"</td>"+
+            "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</td>"+
+            "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</td>"+
+            "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document/100.0).toFixed(2)+"</td>"+
+            "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*vat_percent/100.0/100.0).toFixed(2)+"</td>"+
+            "<td>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</td>"+
+            "<td hidden>"+stockid+"</td>"+
+            "<td hidden>"+expenseid+"</td>"+
+            "<td hidden>"+projectid+"</td>"+
+            "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr(this)'>" + "<i class='bi custom-edit-icon p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi custom-remove-icon p-1' title='Delete'></i>" + "</div>" + "</td>" +
+            "<td hidden>0</td>"+
+            "<td hidden>"+0+"</td>"+
+            "</tr>"
+        );
+
+        ClearItem();
+        refreshTotalMark();
+    }
 }
 
 function remove_tr(el) {

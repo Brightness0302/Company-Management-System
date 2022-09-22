@@ -84,55 +84,57 @@ class Supplier_model extends CI_Model {
         $lines=json_decode($lines, true);
 
         foreach ($lines as $index => $line) {
-            $qty = $line['quantity_received'];
-            $tline_id = 0;
-            if ($line['lineid']) {
-                $lineid = $line['lineid'];
-                $query =    "SELECT *
-                            FROM `material_totalline`
-                            WHERE `id` = '$lineid'";
+            if ($line['stockid'] != 0) {
+                $qty = $line['quantity_received'];
+                $tline_id = 0;
+                if ($line['lineid']) {
+                    $lineid = $line['lineid'];
+                    $query =    "SELECT *
+                                FROM `material_totalline`
+                                WHERE `id` = '$lineid'";
 
-                $data = $this->db->query($query)->result_array();
+                    $data = $this->db->query($query)->result_array();
 
-                if (count($data)!=0) {
-                    $data = $data[0];
-                    $qty += $data['qty'];
-                    $tline_id = $data['id'];
+                    if (count($data)!=0) {
+                        $data = $data[0];
+                        $qty += $data['qty'];
+                        $tline_id = $data['id'];
+                    }
                 }
-            }
 
-            if ($tline_id!=0) {
+                if ($tline_id!=0) {
+                    $data_sql = array(
+                        'qty'=>$qty, 
+                        'isremoved'=>false
+                    );
+                    $this->db->where('id', $tline_id);
+                    $this->db->update('material_totalline', $data_sql);
+                }
+                else {
+                    $data_sql = array(
+                        'code_ean'=>$line['code_ean'], 
+                        'production_description'=>$line['production_description'], 
+                        'expenseid'=>$line['expenseid'], 
+                        'units'=>$line['units'], 
+                        'acquisition_unit_price'=>$line['acquisition_unit_price'], 
+                        'vat'=>$line['vat'], 
+                        'makeup'=>$line['makeup'],
+                        'qty'=>$qty
+                    );
+                    $this->db->insert('material_totalline', $data_sql);
+                    $tline_id = $this->db->insert_id();
+                }
+
                 $data_sql = array(
-                    'qty'=>$qty, 
-                    'isremoved'=>false
-                );
-                $this->db->where('id', $tline_id);
-                $this->db->update('material_totalline', $data_sql);
-            }
-            else {
-                $data_sql = array(
-                    'code_ean'=>$line['code_ean'], 
-                    'production_description'=>$line['production_description'], 
                     'stockid'=>$line['stockid'], 
-                    'expenseid'=>$line['expenseid'], 
                     'projectid'=>$line['projectid'], 
-                    'units'=>$line['units'], 
-                    'acquisition_unit_price'=>$line['acquisition_unit_price'], 
-                    'vat'=>$line['vat'], 
-                    'makeup'=>$line['makeup'],
-                    'qty'=>$qty
+                    'productid'=>$product_id, 
+                    'line_id'=>$tline_id, 
+                    'quantity_on_document'=>$line['quantity_on_document'], 
+                    'quantity_received'=>$line['quantity_received']
                 );
-                $this->db->insert('material_totalline', $data_sql);
-                $tline_id = $this->db->insert_id();
+                $line_id = $this->db->insert('material_lines', $data_sql);
             }
-
-            $data_sql = array(
-                'productid'=>$product_id, 
-                'line_id'=>$tline_id, 
-                'quantity_on_document'=>$line['quantity_on_document'], 
-                'quantity_received'=>$line['quantity_received']
-            );
-            $line_id = $this->db->insert('material_lines', $data_sql);
         }
     }
 
@@ -173,62 +175,64 @@ class Supplier_model extends CI_Model {
         $res = $this->db->update('material_lines', $data_sql);
 
         foreach ($lines as $index => $line) {
-            $qty = $line['quantity_received'];
-            $tline_id = 0;
-            if ($line['lineid']) {
-                $lineid = $line['lineid'];
-                $query =    "SELECT *
-                            FROM `material_totalline`
-                            WHERE `id` = '$lineid'";
+            if ($line['stockid'] != 0) {
+                $qty = $line['quantity_received'];
+                $tline_id = 0;
+                if ($line['lineid']) {
+                    $lineid = $line['lineid'];
+                    $query =    "SELECT *
+                                FROM `material_totalline`
+                                WHERE `id` = '$lineid'";
 
-                $data = $this->db->query($query)->result_array();
+                    $data = $this->db->query($query)->result_array();
 
-                if (count($data)!=0) {
-                    $data = $data[0];
-                    $qty += $data['qty'];
-                    $tline_id = $data['id'];
+                    if (count($data)!=0) {
+                        $data = $data[0];
+                        $qty += $data['qty'];
+                        $tline_id = $data['id'];
+                    }
                 }
-            }
 
-            if ($tline_id!=0) {
+                if ($tline_id!=0) {
+                    $data_sql = array(
+                        'qty'=>$qty, 
+                        'isremoved'=>false
+                    );
+                    $this->db->where('id', $tline_id);
+                    $this->db->update('material_totalline', $data_sql);
+                }
+                else {
+                    $data_sql = array(
+                        'code_ean'=>$line['code_ean'], 
+                        'production_description'=>$line['production_description'], 
+                        'expenseid'=>$line['expenseid'], 
+                        'units'=>$line['units'], 
+                        'acquisition_unit_price'=>$line['acquisition_unit_price'], 
+                        'vat'=>$line['vat'], 
+                        'makeup'=>$line['makeup'],
+                        'qty'=>$qty
+                    );
+                    $this->db->insert('material_totalline', $data_sql);
+                    $tline_id = $this->db->insert_id();
+                }
+
                 $data_sql = array(
-                    'qty'=>$qty, 
+                    'stockid'=>$line['stockid'], 
+                    'projectid'=>$line['projectid'], 
+                    'productid'=>$product_id, 
+                    'line_id'=>$tline_id, 
+                    'quantity_on_document'=>$line['quantity_on_document'], 
+                    'quantity_received'=>$line['quantity_received'],
                     'isremoved'=>false
                 );
-                $this->db->where('id', $tline_id);
-                $this->db->update('material_totalline', $data_sql);
-            }
-            else {
-                $data_sql = array(
-                    'code_ean'=>$line['code_ean'], 
-                    'production_description'=>$line['production_description'], 
-                    'stockid'=>$line['stockid'], 
-                    'expenseid'=>$line['expenseid'], 
-                    'projectid'=>$line['projectid'], 
-                    'units'=>$line['units'], 
-                    'acquisition_unit_price'=>$line['acquisition_unit_price'], 
-                    'vat'=>$line['vat'], 
-                    'makeup'=>$line['makeup'],
-                    'qty'=>$qty
-                );
-                $this->db->insert('material_totalline', $data_sql);
-                $tline_id = $this->db->insert_id();
-            }
 
-            $data_sql = array(
-                'productid'=>$product_id, 
-                'line_id'=>$tline_id, 
-                'quantity_on_document'=>$line['quantity_on_document'], 
-                'quantity_received'=>$line['quantity_received'],
-                'isremoved'=>false
-            );
-
-            if ($line['id']) {
-                $this->db->where('id', $line['id']);
-                $res = $this->db->update('material_lines', $data_sql);
-            }
-            else {
-                $this->db->insert('material_lines', $data_sql);
+                if ($line['id']) {
+                    $this->db->where('id', $line['id']);
+                    $res = $this->db->update('material_lines', $data_sql);
+                }
+                else {
+                    $this->db->insert('material_lines', $data_sql);
+                }
             }
         }
     }
@@ -307,9 +311,7 @@ class Supplier_model extends CI_Model {
             $lines[$index]['lineid'] = $tline['id'];
             $lines[$index]['code_ean'] = $tline['code_ean'];
             $lines[$index]['production_description'] = $tline['production_description'];
-            $lines[$index]['stockid'] = $tline['stockid'];
             $lines[$index]['expenseid'] = $tline['expenseid'];
-            $lines[$index]['projectid'] = $tline['projectid'];
             $lines[$index]['units'] = $tline['units'];
             $lines[$index]['acquisition_unit_price'] = $tline['acquisition_unit_price'];
             $lines[$index]['vat'] = $tline['vat'];

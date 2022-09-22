@@ -95,9 +95,12 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="border : 1px solid black"><label class="my-2">Stock:</label></td>
+                                        <td style="border : 1px solid black"><label class="my-2 text-xs">Stock to stock:</label></td>
                                         <td>
                                             <select class="form-select" id="stockid">
+                                                <option value="0">
+                                                    No Stock
+                                                </option>
                                             <?php foreach ($stocks as $index => $stock):?>
                                                 <option value="<?=$stock['id']?>">
                                                     <?=str_replace("_"," ", $stock['name'])?>
@@ -113,7 +116,7 @@
                                                 <option value="0">
                                                     No Expenses Category
                                                 </option>
-                                            <?php foreach ($categories as $index => $category):?>
+                                            <?php foreach ($expenses as $index => $category):?>
                                                 <option value="<?=$category['id']?>">
                                                     <?=str_replace("_"," ", $category['name'])?>
                                                 </option>
@@ -128,11 +131,11 @@
                                                 <option value="0">
                                                     Not for a project
                                                 </option>
-                                            <!-- <?php foreach ($categories as $index => $category):?>
-                                                <option value="<?=$category['id']?>">
-                                                    <?=str_replace("_"," ", $category['name'])?>
+                                            <?php foreach ($projects as $index => $project):?>
+                                                <option value="<?=$project['id']?>">
+                                                    <?=str_replace("_"," ", $project['name'])?>
                                                 </option>
-                                            <?php endforeach;?> -->
+                                            <?php endforeach;?>
                                             </select>
                                         </td>
                                     </tr>
@@ -272,7 +275,7 @@
                                     <td><?=$line['code_ean']?></td>
                                     <td>
                                     <?php
-                                        $result;
+                                        $result = null;
                                         foreach ($stocks as $index => $stock) {
                                             if ($stock['id']==$line['stockid'])
                                                 $result = $stock;
@@ -283,17 +286,19 @@
                                         $total_seventh+=$line['selling_unit_price_without_vat']*$line['quantity_on_document'];
                                         $total_eighth+=$line['selling_unit_vat_value']*$line['quantity_on_document'];
                                         $total_ninth+=$line['selling_unit_price_with_vat']*$line['quantity_on_document'];
-                                        echo $result['name'];
+                                        if ($result)
+                                            echo $result['name'];
                                     ?>
                                     </td>
                                     <td>
                                     <?php
-                                        $result;
-                                        foreach ($categories as $index => $category) {
+                                        $result = null;
+                                        foreach ($expenses as $index => $category) {
                                             if ($category['id']==$line['expenseid'])
                                                 $result = $category;
                                         }
-                                        echo $result['name'];
+                                        if ($result)
+                                            echo $result['name'];
                                     ?>
                                     </td>
                                     <td>

@@ -64,8 +64,8 @@ class Material extends CI_Controller
         $data['company'] = $company['data'];
         $data['suppliers'] = $this->home->alldata('supplier');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['categories'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['product'] = $this->supplier->productfromsetting($companyid, 'material');
+        $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['totallines'] = $this->home->alldatafromdatabase($companyid, 'material_totalline');
 
@@ -98,18 +98,41 @@ class Material extends CI_Controller
         $data['company'] = $company['data'];
         $data['suppliers'] = $this->home->alldata('supplier');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['categories'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['totallines'] = $this->home->alldatafromdatabase($companyid, 'material_totalline');
-        $product = $this->home->databyidfromdatabase($companyid, 'material', $product_id);
 
         $data['lines'] = $this->supplier->alllinesbyproductidfromdatabase($companyid, 'material_lines', $product_id);
+        $product = $this->home->databyidfromdatabase($companyid, 'material', $product_id);
 
         $data['attached'] = "Attached Invoice";
 
         if ($product['status']=="failed")
             return;
         $data['product'] = $product['data'];
+
+        $lines = $data['product']['lines'];
+        $lines = json_decode($lines, true);
+        foreach ($lines as $key => $line) {
+            if ($line['stockid'] == 0) {
+                $line['code_ean'] = $line['code_ean'];
+                $line['production_description'] = $line['production_description'];
+                $line['expenseid'] = $line['expenseid'];
+                $line['units'] = $line['units'];
+                $line['acquisition_unit_price'] = $line['acquisition_unit_price'];
+                $line['vat'] = $line['vat'];
+                $line['makeup'] = $line['makeup'];
+                $line['acquisition_vat_value'] = number_format($line['acquisition_unit_price'] * $line['vat'] / 100.0, 2);
+                $line['acquisition_unit_price_with_vat'] = number_format($line['acquisition_unit_price'] * ($line['vat'] + 100.0) / 100.0, 2, '.', "");
+                $line['amount_without_vat'] = number_format($line['acquisition_unit_price'] * $line['quantity_on_document'], 2);
+                $line['amount_vat_value'] = number_format($line['acquisition_unit_price'] * $line['quantity_on_document'] * $line['vat'] / 100.0, 2, '.', "");
+                $line['total_amount'] = number_format($line['acquisition_unit_price'] * $line['quantity_on_document'] * ($line['vat'] + 100.0) / 100.0, 2, '.', "");
+                $line['selling_unit_price_without_vat'] = number_format($line['acquisition_unit_price'] * ($line['makeup']+100.0) / 100.0, 2, '.', "");
+                $line['selling_unit_vat_value'] = number_format($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * $line['vat'] / 100.0 / 100.0, 2, '.', "");
+                $line['selling_unit_price_with_vat'] = number_format($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * ($line['vat'] + 100.0) / 100.0 / 100.0, 2, '.', "");
+                array_push($data['lines'], $line);
+            }
+        }
 
         $invoicename = $data['product']['id'].".pdf";
         $path = "assets/company/attachment/".$companyname."/supplier/";

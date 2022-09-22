@@ -100,6 +100,9 @@
                                         <td style="border : 1px solid black"><label class="my-2 text-xs">Stock to save:</label></td>
                                         <td>
                                             <select class="form-select" id="stockid">
+                                                <option value="0">
+                                                    No Stock
+                                                </option>
                                             <?php foreach ($stocks as $index => $stock):?>
                                                 <option value="<?=$stock['id']?>">
                                                     <?=str_replace("_"," ", $stock['name'])?>
@@ -115,7 +118,7 @@
                                                 <option value="0">
                                                     No Expenses Category
                                                 </option>
-                                            <?php foreach ($categories as $index => $category):?>
+                                            <?php foreach ($expenses as $index => $category):?>
                                                 <option value="<?=$category['id']?>">
                                                     <?=str_replace("_"," ", $category['name'])?>
                                                 </option>
@@ -130,11 +133,11 @@
                                                 <option value="0">
                                                     Not for a project
                                                 </option>
-                                            <!-- <?php foreach ($categories as $index => $category):?>
-                                                <option value="<?=$category['id']?>">
-                                                    <?=str_replace("_"," ", $category['name'])?>
+                                            <?php foreach ($projects as $index => $project):?>
+                                                <option value="<?=$project['id']?>">
+                                                    <?=str_replace("_"," ", $project['name'])?>
                                                 </option>
-                                            <?php endforeach;?> -->
+                                            <?php endforeach;?>
                                             </select>
                                         </td>
                                     </tr>

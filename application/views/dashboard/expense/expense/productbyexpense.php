@@ -10,7 +10,7 @@
             <th id="upsubtotal">Value Ex VAT</th>
             <th id="upvat">VAT</th>
             <th id="uptotal">Total Receipt</th>
-            <td>Action</td>
+            <th>Action</th>
             <th>View</th>
         </tr>
     </thead>
