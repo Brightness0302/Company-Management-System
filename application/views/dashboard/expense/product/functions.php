@@ -113,7 +113,7 @@ function AddProduct() {
                 closeOnCancel: true
             },
             function() {
-                window.location.href = "<?=base_url('expense/product')?>";
+                window.location.href = "<?=$_SERVER['HTTP_REFERER']?>";
             });
         }
     });
@@ -194,7 +194,7 @@ function EditProduct(product_id) {
                 closeOnCancel: true
             },
             function() {
-                window.location.href = "<?=base_url('expense/product')?>";
+                window.location.href = "<?=$_SERVER['HTTP_REFERER']?>";
             });
         }
     });
@@ -240,7 +240,7 @@ function delProduct(product_id) {
                             closeOnCancel: true
                         },
                         function() {
-                            window.location.href = "<?=base_url('expense/product')?>";
+                            window.location.href = "<?=$_SERVER['HTTP_REFERER']?>";
                         });
                 },
                 error: function(jqXHR, exception) {
