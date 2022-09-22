@@ -89,9 +89,10 @@ class Supplier_model extends CI_Model {
                 $tline_id = 0;
                 if ($line['lineid']) {
                     $lineid = $line['lineid'];
+                    $stockid = $line['stockid'];
                     $query =    "SELECT *
                                 FROM `material_totalline`
-                                WHERE `id` = '$lineid'";
+                                WHERE `id` = '$lineid' AND `stockid` = '$stockid'";
 
                     $data = $this->db->query($query)->result_array();
 
@@ -113,6 +114,7 @@ class Supplier_model extends CI_Model {
                 else {
                     $data_sql = array(
                         'code_ean'=>$line['code_ean'], 
+                        'stockid'=>$line['stockid'], 
                         'production_description'=>$line['production_description'], 
                         'expenseid'=>$line['expenseid'], 
                         'units'=>$line['units'], 
@@ -180,9 +182,10 @@ class Supplier_model extends CI_Model {
                 $tline_id = 0;
                 if ($line['lineid']) {
                     $lineid = $line['lineid'];
+                    $stockid = $line['stockid'];
                     $query =    "SELECT *
                                 FROM `material_totalline`
-                                WHERE `id` = '$lineid'";
+                                WHERE `id` = '$lineid' AND `stockid` = '$stockid'";
 
                     $data = $this->db->query($query)->result_array();
 
@@ -204,13 +207,14 @@ class Supplier_model extends CI_Model {
                 else {
                     $data_sql = array(
                         'code_ean'=>$line['code_ean'], 
+                        'stockid'=>$line['stockid'], 
                         'production_description'=>$line['production_description'], 
                         'expenseid'=>$line['expenseid'], 
                         'units'=>$line['units'], 
                         'acquisition_unit_price'=>$line['acquisition_unit_price'], 
                         'vat'=>$line['vat'], 
-                        'makeup'=>$line['makeup'],
-                        'qty'=>$qty
+                        'makeup'=>$line['makeup'], 
+                        'qty'=>$qty 
                     );
                     $this->db->insert('material_totalline', $data_sql);
                     $tline_id = $this->db->insert_id();

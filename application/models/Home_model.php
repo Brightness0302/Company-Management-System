@@ -31,7 +31,7 @@ class Home_model extends CI_Model {
 
         $query =    "SELECT *
                     FROM `$data`
-                    WHERE `isremoved`=false AND `$item`='$value";
+                    WHERE `isremoved`=false AND `$item`='$value'";
 
         return $this->db->query($query)->result_array();
     }

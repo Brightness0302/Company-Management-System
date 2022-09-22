@@ -307,7 +307,15 @@
                                     </td>
                                     <td>
                                     <?php
-                                        echo $line['projectid'];
+                                        $result = null;
+                                        foreach ($projects as $index => $project) {
+                                            if ($project['id']==$line['projectid'])
+                                                $result = $project;
+                                        }
+                                        if ($result)
+                                            echo $result['name'];
+                                        else 
+                                            echo "No Expense Category";
                                     ?>
                                     </td>
                                     <td><?=$line['production_description']?></td>

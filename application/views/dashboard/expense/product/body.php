@@ -27,7 +27,7 @@
             <td><?=($index)?></td>
             <td>
             <?php 
-                $result="";
+                $result=null;
                 foreach ($expenses as $key => $expense) {
                     if ($expense['id']==$product['categoryid']) {
                         $result=$expense;

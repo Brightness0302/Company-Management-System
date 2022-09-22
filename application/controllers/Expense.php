@@ -151,6 +151,7 @@ class Expense extends CI_Controller
 
         foreach ($data['products'] as $index => $product) {
             $data['products'][$index]['attached'] = false;
+            $data['products'][$index]['project'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'project', 'id', $product['projectid']);
             $invoicename = $product['id'].".pdf";
             $path = "assets/company/attachment/".$companyname."/expense/";
             if(file_exists($path.$invoicename)) {

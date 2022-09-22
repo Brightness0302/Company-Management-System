@@ -57,7 +57,7 @@ class Project extends CI_Controller
         $data['project'] = $this->project->productfromsetting($companyid, 'project');
 
         $session['menu']="Projects";
-        $session['submenu']="prm";
+        $session['submenu']="pj_pm";
         $session['second-submenu']="Add New Project";
         $this->session->set_flashdata('menu', $session);
 
@@ -95,7 +95,7 @@ class Project extends CI_Controller
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Projects";
-        $session['submenu']="prm";
+        $session['submenu']="pj_pm";
         $session['second-submenu']="Edit Project";
         $this->session->set_flashdata('menu', $session);
 
@@ -140,26 +140,19 @@ class Project extends CI_Controller
     public function showdatabyproject() {
         $id = $_GET['id'];
         $companyid = $this->session->userdata('companyid');
+        $company_name = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
 
-        $material = $this->home->alldatafromdatabase($companyid, 'material');
-
-        foreach ($data['supplier_materials'] as $index => $product) {
-            $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $product['id']);
-            $data['supplier_materials'][$index]['attached'] = false;
-
-            $data['supplier_materials'][$index]['acq_subtotal_without_vat'] = $result['acq_subtotal_without_vat'];
-            $data['supplier_materials'][$index]['acq_subtotal_vat'] = $result['acq_subtotal_vat'];
-            $data['supplier_materials'][$index]['acq_subtotal_with_vat'] = $result['acq_subtotal_with_vat'];
-            $data['supplier_materials'][$index]['selling_subtotal_without_vat'] = $result['selling_subtotal_without_vat'];
-            $data['supplier_materials'][$index]['selling_subtotal_vat'] = $result['selling_subtotal_vat'];
-            $data['supplier_materials'][$index]['selling_subtotal_with_vat'] = $result['selling_subtotal_with_vat'];
-            $invoicename = $product['id'].".pdf";
-            $path = "assets/company/attachment/".$companyname."/supplier/";
-            if(file_exists($path.$invoicename)) {
-                $data['supplier_materials'][$index]['attached'] = true;
-            }
-        }
-
+        $data['company'] = $company['data'];
+        $project = $this->home->databyidfromdatabase($companyid, 'project', $id);
+        if ($project['status']=='failed')
+            return;
+        $data['project'] = $project['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['expense_products'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'expense_product', 'projectid', $id);
 
         foreach ($data['expense_products'] as $index => $product) {
@@ -172,8 +165,8 @@ class Project extends CI_Controller
         }
 
         $session['menu']="Projects";
-        $session['submenu']="prm";
-        $session['second-submenu']="Edit Project";
+        $session['submenu']="pj_pm";
+        $session['second-submenu']="Project by ".$data['project']['name'];
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
