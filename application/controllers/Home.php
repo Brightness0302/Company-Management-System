@@ -64,7 +64,6 @@ class Home extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['clients'] = $this->home->alldata('client');
-        $data['projects'] = $this->home->alldata('project');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');

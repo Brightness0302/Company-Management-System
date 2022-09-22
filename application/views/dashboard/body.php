@@ -401,7 +401,7 @@
                 </a>
                 <ul id="icons-nav" class="nav-content collapse <?=$menu['menu']=="Projects"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="<?=base_url('client/projectmanager')?>">
+                        <a href="<?=base_url('project/index')?>">
                             <i class="bi <?=$menu['submenu']=="pj_pm"?"bi-circle-fill":"bi-circle"?>"></i><span>Project Management</span>
                         </a>
                     </li>

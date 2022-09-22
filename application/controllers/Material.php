@@ -19,7 +19,6 @@ class Material extends CI_Controller
         $data['company'] = $company['data'];
         $data['suppliers'] = $this->home->alldata('supplier');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['categories'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'material');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 

@@ -4,6 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Home_model extends CI_Model {
     //get all data from $data table in manager database.
     public function alldata($data) {
+        $default_db = $this->db->database;
+        $this->db->query('use '.$default_db);
+        
         $query =    "SELECT *
                     FROM `$data`
                     WHERE `isremoved`=false";
@@ -18,6 +21,17 @@ class Home_model extends CI_Model {
         $query =    "SELECT *
                     FROM `$data`
                     WHERE `isremoved`=false";
+
+        return $this->db->query($query)->result_array();
+    }
+    //get all data from $data table in $companyid database
+    public function alldatabycustomsettingfromdatabase($companyid, $data, $item, $value) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $query =    "SELECT *
+                    FROM `$data`
+                    WHERE `isremoved`=false AND `$item`='$value";
 
         return $this->db->query($query)->result_array();
     }
@@ -58,6 +72,9 @@ class Home_model extends CI_Model {
     }
     //get all information which name=$name from $table table in manager database
     public function databyname($name, $table) {
+        $default_db = $this->db->database;
+        $this->db->query('use '.$default_db);
+
         $query =    "SELECT *
                     FROM `$table`
                     WHERE `name`='$name' AND `isremoved`=false";
@@ -847,48 +864,6 @@ class Home_model extends CI_Model {
 
         $this->db->where('username', $username);
         $res=$this->db->update('user', $data);
-        return $res;
-    }
-    //create project using $name
-    public function createProject($name) {
-        $name = str_replace(" ","_",$name);
-        $data = array(
-            'name'=>$name
-        );
-
-        $query = "SELECT *
-                FROM `project`
-                WHERE `name`='$name'";
-
-        $res = $this->db->query($query)->result_array();
-        $projects_id = -1;
-
-        if (count($res)!=0) {
-            return $projects_id;
-        }
-
-        $this->db->insert('project',$data);
-        $projects_id = $this->db->insert_id();
-        return $projects_id;
-    }
-    //save project using $id, $name
-    public function saveProject($id, $name) {
-        $data = array(
-            'name'=>$name,
-        );
-
-        $this->db->where('id', $id);
-        $res=$this->db->update('project', $data);
-        return $res;
-    }
-    //del project using $id
-    public function delProject($id) {
-        $data = array(
-            'isremoved'=>TRUE
-        );
-
-        $this->db->where('id', $id);
-        $res=$this->db->update('project', $data);
         return $res;
     }
     //update projectid of invoice from invoices array

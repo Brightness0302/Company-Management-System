@@ -473,10 +473,6 @@ class Client extends CI_Controller
         $result = $this->home->removeInvoice($type, $data['company']['id'], $invoice_id);
         echo $result;
     }
-    //Del project
-    public function delproject($project_id) {
-        echo $this->home->delProject($project_id);
-    }
     //Save(Add/Edit) Client post(object(name, number, ...)) get(id)
     public function saveclient() {
         $name=$this->input->post('name');
