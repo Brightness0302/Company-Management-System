@@ -40,11 +40,16 @@ $(function() {
         "autoWidth": false,
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    
     $("#example2").DataTable({
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+
+    $("#table_in_modal").DataTable({
+      "responsive": true, "bFilter": true, "bInfo": false, "pagingType": "simple_numbers", "autoWidth": false,
+    }).buttons().container().appendTo('#table_in_modal_wrapper .col-md-6:eq(0)');
 });
 </script>
