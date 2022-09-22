@@ -6,6 +6,12 @@ $(document).ready(function() {
             refreshAmount();
         }
     });
+    $("#product_coin").change(function() {
+        const els = $(".coin");
+        els.each((index, element) => {
+            $(element).text(this.value);
+        });
+    });
 });
 
 function refreshAmount() {

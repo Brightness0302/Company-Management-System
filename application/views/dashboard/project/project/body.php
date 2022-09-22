@@ -5,6 +5,7 @@
             <th>No</th>
             <th>Project Name</th>
             <th>Client Name</th>
+            <th>Client Reference</th>
             <th>Value</th>
             <th>VAT</th>
             <th>Amount</th>
@@ -18,6 +19,7 @@
             <td><?=++$index?></td>
             <td><a class="text-black" href="<?=base_url("project/showdatabyproject?id=").$project['id']?>"><?=$project['name']?></a></td>
             <td><?=$project['client']['name']?></td>
+            <td><?=$project['client']['Ref']?></td>
             <td><?=$project['value']?></td>
             <td><?=$project['vat']?></td>
             <td><?=number_format($project['value']*($project['vat']+100.0)/100.0, 2, '.', "")?></td>

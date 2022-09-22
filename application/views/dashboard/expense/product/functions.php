@@ -219,7 +219,7 @@ function delProduct(product_id) {
         }
         try {
             $.ajax({
-                url: "<?=base_url('product/delproduct/')?>" + product_id,
+                url: "<?=base_url('expense/delproduct/')?>" + product_id,
                 method: "POST",
                 dataType: 'text',
                 async: true,
@@ -240,7 +240,7 @@ function delProduct(product_id) {
                             closeOnCancel: true
                         },
                         function() {
-                            window.location.href = "<?=base_url('product/index')?>";
+                            window.location.href = "<?=base_url('expense/index')?>";
                         });
                 },
                 error: function(jqXHR, exception) {
