@@ -240,7 +240,7 @@ function delProduct(product_id) {
                             closeOnCancel: true
                         },
                         function() {
-                            window.location.href = "<?=base_url('expense/index')?>";
+                            window.location.href = "<?=base_url('expense/product')?>";
                         });
                 },
                 error: function(jqXHR, exception) {
