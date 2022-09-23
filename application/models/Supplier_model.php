@@ -333,8 +333,7 @@ class Supplier_model extends CI_Model {
     }
 
     public function getdatabyproductidfromdatabase($companyid, $table, $product_id) {
-        $companyid = "database".$companyid;
-        $this->db->query('use '.$companyid);
+        $this->db->query("use database".$companyid);
 
         $query =    "SELECT *
                     FROM `$table`
@@ -365,6 +364,21 @@ class Supplier_model extends CI_Model {
             $res['selling_subtotal_without_vat'] += ($tline['acquisition_unit_price']*($tline['makeup']+100.0)/100.0) * $line['quantity_on_document'];
             $res['selling_subtotal_vat'] += ($tline['acquisition_unit_price']*($tline['makeup']+100.0)/100.0) * $line['quantity_on_document'] * $tline['vat'] / 100.0;
             $res['selling_subtotal_with_vat'] += ($tline['acquisition_unit_price']*($tline['makeup']+100.0)/100.0) * $line['quantity_on_document'] * ($tline['vat'] + 100.0) / 100.0;
+        }
+
+        $product = $this->home->databyidfromdatabase($companyid, 'material', $product_id);
+        $product = $product['data'];
+        $lines = $product['lines'];
+        $lines = json_decode($lines, true);
+        foreach ($lines as $key => $line) {
+            if ($line['stockid'] == 0) {
+                $res['acq_subtotal_without_vat'] += $line['acquisition_unit_price'] * $line['quantity_on_document'];
+                $res['acq_subtotal_vat'] += $line['acquisition_unit_price'] * $line['quantity_on_document'] * $line['vat'] / 100.0;
+                $res['acq_subtotal_with_vat'] += $line['acquisition_unit_price'] * $line['quantity_on_document'] * ($line['vat'] + 100.0) / 100.0;
+                $res['selling_subtotal_without_vat'] += ($line['acquisition_unit_price'] * ($line['makeup']+100.0) / 100.0) * $line['quantity_on_document'];
+                $res['selling_subtotal_vat'] += $line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * $line['quantity_on_document'] * $line['vat'] / 100.0 / 100.0;
+                $res['selling_subtotal_with_vat'] += $line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * $line['quantity_on_document'] * ($line['vat'] + 100.0) / 100.0 / 100.0;
+            }
         }
         return $res;
     }

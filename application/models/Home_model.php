@@ -26,6 +26,7 @@ class Home_model extends CI_Model {
     }
     //get all data from $data table in $companyid database
     public function alldatabycustomsettingfromdatabase($companyid, $data, $item, $value) {
+        return $companyid.' '.$data.' '.$item.' '.$value;
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 

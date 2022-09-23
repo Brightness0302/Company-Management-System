@@ -34,7 +34,7 @@
                 echo $result['name'];
             ?>
             </td>
-            <td><?=$product['projectid']?></td>
+            <td><?=($product['project'])?$product['project']['id']:"Not project"?></td>
             <td><?=$product['date']?></td>
             <td><?=$product['observation']?></td>
             <td><?=$product['value_without_vat']?></td>

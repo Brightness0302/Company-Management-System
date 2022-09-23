@@ -341,12 +341,15 @@ class Expense extends CI_Controller
 
         foreach ($data['products'] as $index => $product) {
             $data['products'][$index]['attached'] = false;
+            $data['products'][$index]['project'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'project', 'id', $product['projectid']);
+            echo $data['products'][$index]['project']['name'];
             $invoicename = $product['id'].".pdf";
             $path = "assets/company/attachment/".$companyname."/expense/";
             if(file_exists($path.$invoicename)) {
                 $data['products'][$index]['attached'] = true;
             }
         }
+        return;
 
         $session['menu']="Expenses";
         $session['submenu']="pmbyid";
