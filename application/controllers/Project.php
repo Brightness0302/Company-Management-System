@@ -151,11 +151,32 @@ class Project extends CI_Controller
         if ($project['status']=='failed')
             return;
         $data['project'] = $project['data'];
+        $res = $this->home->databyid($data['project']['client'], 'client');
+        $data['project']['client'] = $res['data'];
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data['supplier_products'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'material_lines', 'projectid', $id);
+        foreach ($data['supplier_products'] as $key => $product) {
+            $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'material', 'id', $product['productid']);
+            $data['supplier_products'][$key]['material'] = $res[0];
+            $data['supplier_products'][$key]['attached'] = false;
+
+            $invoicename = $data['supplier_products'][$key]['material']['id'].".pdf";
+            $path = "assets/company/attachment/".$company_name."/supplier/";
+            if(file_exists($path.$invoicename)) {
+                $data['supplier_products'][$key]['attached'] = true;
+            }
+
+            $data['supplier_products'][$key]['material']['supplier'] = $this->home->alldatabycustomsetting($companyid, 'supplier', 'id', $data['supplier_products'][$key]['material']['supplierid']);
+            $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'material_totalline', 'id', $product['line_id']);
+            $data['supplier_products'][$key]['total_line'] = $res[0];
+            $data['supplier_products'][$key]['stock'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'stock', 'id', $product['stockid']);
+        }
+
         $data['expense_products'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'expense_product', 'projectid', $id);
 
         foreach ($data['expense_products'] as $index => $product) {
+            $data['expense_products'][$index]['category'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'expense_category', 'id', $product['categoryid']);
             $data['expense_products'][$index]['attached'] = false;
             $invoicename = $product['id'].".pdf";
             $path = "assets/company/attachment/".$company_name."/expense/";
@@ -166,7 +187,7 @@ class Project extends CI_Controller
 
         $session['menu']="Projects";
         $session['submenu']="pj_pm";
-        $session['second-submenu']="Project by ".$data['project']['name'];
+        $session['second-submenu']="Project: ".$data['project']['name'];
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');

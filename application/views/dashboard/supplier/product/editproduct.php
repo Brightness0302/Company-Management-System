@@ -384,7 +384,7 @@
         <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center">
                 <div class="absolute">
-                    <label for="file-upload mb-0" id="file-text" class="btn btn-outline-secondary" style="color: red; margin: auto;">
+                    <label for="file-upload" id="file-text" class="btn btn-outline-secondary" style="color: red; margin: auto;">
                         <i class="fa fa-cloud-upload"></i> <?=$attached?>
                     </label>
                     <input id="file-upload" name='upload_cont_img' type="file" style="display:none;">

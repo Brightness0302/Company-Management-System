@@ -25,8 +25,18 @@ class Home_model extends CI_Model {
         return $this->db->query($query)->result_array();
     }
     //get all data from $data table in $companyid database
+    public function alldatabycustomsetting($companyid, $data, $item, $value) {
+        $default_db = $this->db->database;
+        $this->db->query('use '.$default_db);
+
+        $query =    "SELECT *
+                    FROM `$data`
+                    WHERE `isremoved`=false AND `$item`='$value'";
+
+        return $this->db->query($query)->result_array();
+    }
+    //get all data from $data table in $companyid database
     public function alldatabycustomsettingfromdatabase($companyid, $data, $item, $value) {
-        return $companyid.' '.$data.' '.$item.' '.$value;
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
