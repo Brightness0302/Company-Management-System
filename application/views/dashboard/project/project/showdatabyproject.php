@@ -13,25 +13,26 @@
 <?php $labor_total=10;?>
 
 <div id="section1" class="border border-lime-600">
+    <!-- chart for total value and material, and expense and labor value -->
     <div id="section1" class="border border-lime-600 m-3">
         <div style="width: 840px; height: 420px; margin: auto;">
             <canvas id="canvas" style="display: block; box-sizing: border-box; height: 560px; width: 1120px;" width="1120" height="560"></canvas>
         </div>
     </div>
-
+    <!-- chart details -->
     <div id="section1" class="border border-lime-600 m-3 text-lg">
         <p>Project: <?=$project['name']?> ( <?=$project['client']['name'].' - '.$project['client']['Ref']?> )</p>
         <p>- Date of begining: <input type="date" name="" value="<?=date('Y-m-d')?>" disabled></p>
         <p>- Date for completion: <input type="date" name="" value="<?=date('Y-m-d')?>" disabled></p>
         <p>- Project value: <input type="text" name="" value="<?=$project['value']?>" disabled></p>
-        <p>- Project value: <input type="text" name="" value="<?=$supplier_total?>" disabled></p>
-        <p>- Project value: <input type="text" name="" value="<?=$expense_total?>" disabled></p>
-        <p>- Project value: <input type="text" name="" value="<?=$labor_total?>" disabled></p>
+        <p>- Materials total value: <input type="text" name="" value="<?=$supplier_total?>" disabled></p>
+        <p>- Expenses total value: <input type="text" name="" value="<?=$expense_total?>" disabled></p>
+        <p>- Labor total value: <input type="text" name="" value="<?=$labor_total?>" disabled></p>
         <hr>
         <p>- Gross Profit: <input type="text" name="" value="<?=$project['value'] - $supplier_total - $expense_total - $labor_total?>" disabled></p>
     </div>
 </div>
-
+<!-- chart script -->
 <script>
 var barChartData = {
     labels: [
@@ -117,18 +118,10 @@ window.onload = function() {
         }
     });
 };
-
-document.getElementById('randomizeData').addEventListener('click', function() {
-    barChartData.datasets.forEach(function(dataset, i) {
-        dataset.data = dataset.data.map(function() {
-            return randomScalingFactor();
-        });
-    });
-    window.myBar.update();
-});
 </script>
 
 <div id="section1" class="border border-lime-600 mt-3">
+    <!-- material details -->
     <div id="section1" class="row d-flex justify-content-center align-items-center border border-lime-600 m-3">
         <p class="text-lg">Materials: </p>
         <table id="invoicetable" class="table table-bordered table-striped">
@@ -167,7 +160,7 @@ document.getElementById('randomizeData').addEventListener('click', function() {
             </tbody>
         </table>
     </div>
-
+    <!-- expenses details -->
     <div id="section1" class="row d-flex justify-content-center align-items-center border border-lime-600 m-3">
         <p class="text-lg">Expenses: </p>
         <table id="invoicetable" class="table table-bordered table-striped">
@@ -222,7 +215,7 @@ document.getElementById('randomizeData').addEventListener('click', function() {
             </tbody>
         </table>
     </div>
-
+    <!-- labor details -->
     <div id="section1" class="row d-flex justify-content-center align-items-center border border-lime-600 m-3">
         <p class="text-lg">Labor: </p>
         <table id="invoicetable" class="table table-bordered table-striped">
