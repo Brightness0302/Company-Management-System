@@ -25,74 +25,66 @@
             <div class="col-sm-2">
                 <p>Project: </p>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-10">
                 <p><?=$project['name']?> ( <?=$project['client']['name'].' - '.$project['client']['Ref']?> )</p>
             </div>
-            <div class="col-sm-8"></div>
         </div>
         <div class="row">
             <div class="col-sm-2">
                 <p>- Date of begining: </p>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-10">
                 <p><?=date('Y/m/d', strtotime($project['startdate']))?></p>
             </div>
-            <div class="col-sm-8"></div>
         </div>
         <div class="row">
             <div class="col-sm-2">
                 <p>- Date for completion: </p>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-10">
                 <p><?=date('Y/m/d', strtotime($project['enddate']))?></p>
             </div>
-            <div class="col-sm-8"></div>
         </div>
         <div class="row">
             <div class="col-sm-2">
                 <p>- Project value: </p>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-10">
                 <p><?=$project['value'].' '.$project['coin']?></p>
             </div>
-            <div class="col-sm-8"></div>
         </div>
         <div class="row">
             <div class="col-sm-2">
                 <p>- Materials total value: </p>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-10">
                 <p><?=$supplier_total.' '.$project['coin']?></p>
             </div>
-            <div class="col-sm-8"></div>
         </div>
         <div class="row">
             <div class="col-sm-2">
                 <p>- Expenses total value: </p>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-10">
                 <p><?=$expense_total.' '.$project['coin']?></p>
             </div>
-            <div class="col-sm-8"></div>
         </div>
         <div class="row">
             <div class="col-sm-2">
                 <p>- Labor total value: </p>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-10">
                 <p><?=$labor_total?></p>
             </div>
-            <div class="col-sm-8"></div>
         </div>
         <hr>
         <div class="row">
             <div class="col-sm-2">
                 <p>- Gross Profit: </p>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-10">
                 <p><?=($project['value'] - $supplier_total - $expense_total - $labor_total).' '.$project['coin']?></p>
             </div>
-            <div class="col-sm-8"></div>
         </div>
     </div>
 </div>
