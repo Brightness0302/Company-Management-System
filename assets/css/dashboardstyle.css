@@ -41,7 +41,6 @@ h6 {
 # dashboardmain
 --------------------------------------------------------------*/
 #dashboardmain {
-  min-height: 100vh;
   margin-top: 60px;
   padding: 20px 30px;
   transition: all 0.3s;

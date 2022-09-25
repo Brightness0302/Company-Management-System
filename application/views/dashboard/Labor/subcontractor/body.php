@@ -6,8 +6,8 @@
             <th>Name</th>
             <th>Start date</th>
             <th>End date</th>
-            <th>Observation</th>
             <th>Salary(daily)</th>
+            <th>Observation</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -19,8 +19,8 @@
             <td><?=$employee['name']?></td>
             <td><?=$employee['startdate']?></td>
             <td><?=$employee['enddate']?></td>
-            <td><?=$employee['observation']?></td>
             <td><?=$employee['daily_rate'].' '.$employee['coin']?></td>
+            <td><?=$employee['observation']?></td>
             <td class="form-inline flex justify-around">
                 <a href="<?=base_url('labor/editsubcontractor/'.$employee['id'])?>"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delemployee('<?=$employee['id']?>')" <?=$employee['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>

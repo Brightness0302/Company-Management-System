@@ -1,4 +1,6 @@
 <script type="text/javascript">
+var daysperyear = 218;
+var count_month = 12;
 $(document).ready(function() {
     $("input").change(function() {
         const id = this.id;
@@ -12,6 +14,7 @@ $(document).ready(function() {
             $(element).text(this.value);
         });
     });
+    refreshAmount();
 });
 
 function refreshAmount() {
@@ -19,7 +22,8 @@ function refreshAmount() {
     const tax = $("#tax").val();
     
     if (salary && tax) {
-        $("#amount").val((salary*(100.0+parseFloat(tax))/100.0).toFixed(2));
+        $("#total").val((parseFloat(salary)+parseFloat(tax)).toFixed(2));
+        $("#daily").val(((parseFloat(salary)+parseFloat(tax))*count_month/daysperyear).toFixed(2));
     }
 }
 

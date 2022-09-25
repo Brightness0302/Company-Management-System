@@ -172,4 +172,11 @@ function delproject(projectid) {
         });
     });
 }
+
+function clickclient(client_id, client_name) {
+    alert(client_id + ' ' + client_name);
+    short_name = getFirstLetters(client_name);
+    $("#client_id").text(client_id);
+    $("#client_name").val(client_name);
+}
 </script>
