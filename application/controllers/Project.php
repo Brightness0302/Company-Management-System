@@ -19,7 +19,6 @@ class Project extends CI_Controller
         $data['clients'] = $this->home->alldata('client');
         $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         foreach ($data['projects'] as $key => $project) {
@@ -110,7 +109,7 @@ class Project extends CI_Controller
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
-
+    //save project details into database (id: number)
     public function saveproject() {
         $companyid = $this->session->userdata('companyid');
 
@@ -131,13 +130,13 @@ class Project extends CI_Controller
         $result = $this->project->saveProject($companyid, $id, $name, $client, $observation, $coin, $value, $vat);
         echo $result;
     }
-    //Del project
+    //Del project details from database (id: number)
     public function delproject($project_id) {
         $companyid = $this->session->userdata('companyid');
 
         echo $this->project->delProject($companyid, 'project', $project_id);
     }
-
+    //show data by project id from database (id: number)
     public function showdatabyproject() {
         $id = $_GET['id'];
         $companyid = $this->session->userdata('companyid');

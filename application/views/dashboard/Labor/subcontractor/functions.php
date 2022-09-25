@@ -2,55 +2,58 @@
 $(document).ready(function() {
     $("input").change(function() {
         const id = this.id;
-        if (id == "value" || id == "vat") {
+        if (id == "salary" || id == "startdate" || id == "enddate") {
             refreshAmount();
         }
     });
-    $("#product_coin").change(function() {
+    $("#coin").change(function() {
         const els = $(".coin");
         els.each((index, element) => {
             $(element).text(this.value);
         });
     });
+    refreshAmount();
 });
 
 function refreshAmount() {
-    const value = $("#value").val();
-    const vat = $("#vat").val();
+    const startdate = $("#startdate").val();
+    const enddate = $("#enddate").val();
+    const days = ((new Date(enddate)).getTime()-(new Date(startdate)).getTime()) / (1000 * 3600 * 24);
+    const salary = $("#salary").val();
     
-    if (value && vat) {
-        $("#amount").val((value*(100.0+parseFloat(vat))/100.0).toFixed(2));
+    if (salary && days>=0) {
+        $("#amount").val(((days+1)*salary).toFixed(2));
     }
 }
 
 function get_formdata() {
-    const project_name = $("#project_name").val();
-    const client_id = $("#client_id").text();
-    const value = $("#value").val();
-    const vat = $("#vat").val();
-    const coin = $("#product_coin").val();
+    const name = $("#name").val();
     const observation = $("#observation").val();
+    const coin = $("#coin").val();
+    const startdate = $("#startdate").val();
+    const enddate = $("#enddate").val();
+    const salary = $("#salary").val();
 
     const form_data = {
-        project_name: project_name, 
-        client_id: client_id,
+        name: name, 
         observation: observation, 
         coin: coin, 
-        value: value,
-        vat: vat
+        startdate: startdate, 
+        enddate: enddate, 
+        salary: salary, 
     };
     return form_data;
 }
 
-function AddProject() {
+function AddEmployee() {
     const form_data = get_formdata();
     console.log(form_data);
 
-    if (!form_data.client_id)
+    if (!form_data.name)
         return;
 
     $.ajax({
-        url: "<?=base_url('project/saveproject')?>", 
+        url: "<?=base_url('labor/savesubcontractor')?>", 
         method: "POST", 
         data: form_data, 
         dataType: 'text', 
@@ -58,12 +61,12 @@ function AddProject() {
         success: function(res) {
             console.log(res);
             if (res < 1) {
-                swal("Add Project", "Failed", "error");
+                swal("Add Employee", "Failed", "error");
                 return;
             }
             swal({
-                title: "Project",
-                text: "Add Project",
+                title: "Employee",
+                text: "Add Employee",
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
@@ -73,23 +76,23 @@ function AddProject() {
                 closeOnCancel: true
             },
             function() {
-                window.location.href = "<?=base_url('project/index')?>";
+                window.location.href = "<?=$_SERVER['HTTP_REFERER']?>";
             });
         },
         error: function(jqXHR, exception) {
             console.log(jqXHR);
             console.log(exception);
-            swal("Add Project", "Server Error", "warning");
+            swal("Add Employee", "Server Error", "warning");
         }
     });
 }
 
-function EditProject(projectid) {
+function EditEmployee(employeeid) {
     const form_data = get_formdata();
     console.log(form_data);
 
     $.ajax({
-        url: "<?=base_url('project/saveproject?id=')?>"+projectid, 
+        url: "<?=base_url('labor/savesubcontractor?id=')?>"+employeeid, 
         method: "POST", 
         data: form_data, 
         dataType: 'text', 
@@ -97,12 +100,12 @@ function EditProject(projectid) {
         success: function(res) {
             console.log(res);
             if (res != 1) {
-                swal("Edit Project", "Failed", "error");
+                swal("Edit Employee", "Failed", "error");
                 return;
             }
             swal({
-                title: "Project",
-                text: "Edit Project",
+                title: "Employee",
+                text: "Edit Employee",
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
@@ -112,22 +115,22 @@ function EditProject(projectid) {
                 closeOnCancel: true
             },
             function() {
-                window.location.href = "<?=base_url('project/index')?>";
+                window.location.href = "<?=$_SERVER['HTTP_REFERER']?>";
             });
         },
         error: function(jqXHR, exception) {
             console.log(jqXHR);
             console.log(exception);
-            swal("Add Project", "Server Error", "warning");
+            swal("Edit Employee", "Server Error", "warning");
         }
     });
 }
 
-function delproject(projectid) {
+function delproject(employeeid) {
     return;
     swal({
-        title: "Project",
-        text: "Del Project",
+        title: "Employee",
+        text: "Del Employee",
         type: "warning",
         showCancelButton: true,
         html: true,
@@ -139,19 +142,19 @@ function delproject(projectid) {
     },
     function() {
         $.ajax({
-            url: "<?=base_url('project/delproject/')?>"+projectid, 
+            url: "<?=base_url('labor/delsubcontractor/')?>"+employeeid, 
             method: "POST", 
             dataType: 'text', 
             async: true,
             success: function(res) {
                 console.log(res);
                 if (res != 1) {
-                    swal("Delete Project", "Failed", "error");
+                    swal("Delete Employee", "Failed", "error");
                     return;
                 }
                 swal({
-                    title: "Project",
-                    text: "Delete Project",
+                    title: "Employee",
+                    text: "Delete Employee",
                     type: "success",
                     showCancelButton: false,
                     confirmButtonClass: "btn-success",
@@ -161,13 +164,13 @@ function delproject(projectid) {
                     closeOnCancel: true
                 },
                 function() {
-                    window.location.href = "<?=base_url('project/index')?>";
+                    window.location.href = "<?=$_SERVER['HTTP_REFERER']?>";
                 });
             },
             error: function(jqXHR, exception) {
                 console.log(jqXHR);
                 console.log(exception);
-                swal("Add Project", "Server Error", "warning");
+                swal("Delete Employee", "Server Error", "warning");
             }
         });
     });

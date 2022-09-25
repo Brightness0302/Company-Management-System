@@ -1,4 +1,4 @@
-<!-- ======= Hero Section ======= -->
+======= Hero Section ======= -->
 <?php $menu = $this->session->flashdata('menu');?>
 <body style="font-size: 13px !important;">
     <!-- ======= Header ======= -->
@@ -344,7 +344,7 @@
                         <a href="<?=base_url('stock/index')?>">
                             <i class="bi <?=($menu['submenu']=="stm"||$menu['submenu']=="pmbs")?"bi-caret-right-square-fill":"bi-caret-right-square"?>"></i><span>Stock Management</span>
                         </a>
-                        <ul id="stocks-nav" class="nav-content collapse show" data-bs-parent="#charts-nav">
+                        <ul id="projects-nav" class="nav-content collapse show" data-bs-parent="#charts-nav">
                             <li>
                                 <?php foreach($stocks as $stock):?>
                                 <a href="<?=base_url("stock/showproductbystock?stock_id=").$stock['id']?>" style="padding-left: 56px;">
@@ -394,7 +394,7 @@
                     </li>
                 </ul>
             </li><!-- End Charts Nav -->
-
+            <!-- Project Module -->
             <li class="nav-item">
                 <a class="nav-link <?=$menu['menu']=="Projects"?"":"collapsed"?>" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
                     <i class="bx bx-task"></i><span>Projects</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -406,7 +406,24 @@
                         </a>
                     </li>
                 </ul>
-            </li><!-- End Icons Nav -->
+            </li><!-- End Project Module -->
+
+            <!-- Labor Module -->
+            <li class="nav-item">
+                <a class="nav-link <?=$menu['menu']=="Labors"?"":"collapsed"?>" data-bs-target="#labors-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bx bx-task"></i><span>Labor</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="labors-nav" class="nav-content collapse <?=$menu['menu']=="Labors"?"show":""?>" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="<?=base_url("labor/permanentemployee")?>" style="padding-left: 56px;">
+                            <i class="bi <?=($menu['submenu']=='l_pem')?"bi-circle-fill":"bi-circle"?>"></i><span>Permanent Employee</span>
+                        </a>
+                        <a href="<?=base_url("labor/subcontractor")?>" style="padding-left: 56px;">
+                            <i class="bi <?=($menu['submenu']=='l_sc')?"bi-circle-fill":"bi-circle"?>"></i><span>Sub-Contractors</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Labor Module -->
 
             <li class="nav-heading">Projects</li>
             <!-- End Profile Page Nav -->
@@ -560,6 +577,10 @@
                         echo "Payment Management";
                     else if($menu['submenu']=="pj_pm")
                         echo "Project Management";
+                    else if($menu['submenu']=="l_pem")
+                        echo "Permanent Employees";
+                    else if($menu['submenu']=="l_sc")
+                        echo "Sub-Contractors";
                     else if($menu['submenu']=="prm")
                         echo "Proforma Management";
                     else if($menu['submenu']=="ppm")
@@ -600,4 +621,4 @@
                     </li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+        </div><!-- End Page Title
