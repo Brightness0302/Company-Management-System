@@ -31,6 +31,17 @@
                               </tr>
                             </table>
                         </div>
+                    </div>
+                    <hr>
+                    <div class="row d-flex justify-content-center align-items-center border border-lime-600">
+                        <div class="col-sm-3 text-center">
+                            <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                              <tr>
+                                  <td style="border : 1px solid black"><label class="my-2">Observation:</label></td>
+                                  <td><input type="text" class="form-control" id="observation" value="<?=$project['observation']?>">
+                              </tr>
+                            </table>
+                        </div>
                         <div class="col-sm-3 text-center">
                             <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                               <tr>

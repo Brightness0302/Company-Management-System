@@ -6,12 +6,13 @@ class Project_model extends CI_Model {
         return number_format($number, $decimals, '.', "");
     }
 
-    public function createProject($companyid, $name, $client, $coin, $value, $vat) {
+    public function createProject($companyid, $name, $client, $observation, $coin, $value, $vat) {
         $this->db->query('use database'.$companyid);
 
         $data = array(
             'name'=>$name, 
             'client'=>$client, 
+            'observation'=>$observation, 
             'value'=>$value, 
             'vat'=>$vat, 
             'coin'=>$coin, 
@@ -22,15 +23,17 @@ class Project_model extends CI_Model {
         return $product_id;
     }
 
-    public function saveProject($companyid, $id, $name, $client, $coin, $value, $vat) {
+    public function saveProject($companyid, $id, $name, $client, $observation, $coin, $value, $vat) {
         $this->db->query('use database'.$companyid);
 
         $data = array(
             'name'=>$name, 
             'client'=>$client, 
+            'observation'=>$observation, 
             'value'=>$value, 
             'vat'=>$vat, 
             'coin'=>$coin, 
+            'enddate'=>date("Y-m-d")
         );
 
         $this->db->where('id', $id);

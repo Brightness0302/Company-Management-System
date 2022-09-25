@@ -31,6 +31,17 @@
                               </tr>
                             </table>
                         </div>
+                    </div>
+                    <hr>
+                    <div class="row d-flex justify-content-center align-items-center border border-lime-600">
+                        <div class="col-sm-3 text-center">
+                            <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                              <tr>
+                                  <td style="border : 1px solid black"><label class="my-2">Observation:</label></td>
+                                  <td><input type="text" class="form-control" id="observation" value="">
+                              </tr>
+                            </table>
+                        </div>
                         <div class="col-sm-3 text-center">
                             <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                               <tr>
@@ -40,19 +51,19 @@
                             </table>
                         </div>
                         <div class="col-sm-3 text-center">
-                          <table class="table mb-0" style="border : 1px solid gray; text-align: left">
-                                <tr>
-                                    <td style="border : 1px solid black"><label class="my-2">Select Coin:</label></td>
-                                    <td>
-                                        <div class="m-auto">
-                                            <select class="form-select w-full" id="product_coin">
-                                                <option value="€">EURO</option>
-                                                <option value="LEI">LEI</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                </tr>
-                          </table>
+                            <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                                  <tr>
+                                      <td style="border : 1px solid black"><label class="my-2">Select Coin:</label></td>
+                                      <td>
+                                          <div class="m-auto">
+                                              <select class="form-select w-full" id="product_coin">
+                                                  <option value="€">EURO</option>
+                                                  <option value="LEI">LEI</option>
+                                              </select>
+                                          </div>
+                                      </td>
+                                  </tr>
+                            </table>
                         </div>
                     </div>
                     <hr>

@@ -322,7 +322,7 @@ class Expense extends CI_Controller
         }
         // echo json_encode($arr);
     }
-
+    //View expenses by expense category, (expense_id: number)
     public function showproductbyexpenseid() {
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
@@ -336,20 +336,26 @@ class Expense extends CI_Controller
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $expense_id = $_GET['expense_id'];
-        $data['expense'] = $this->home->databyidfromdatabase($companyid, 'expense_category', $expense_id)['data'];
+        $res = $this->home->databyidfromdatabase($companyid, 'expense_category', $expense_id);
+        if ($res['status']=="failed")
+            return;
+        $data['expense'] = $res['data'];
         $data['products'] = $this->expense->alldatabyexpenseidfromdatabase($companyid, 'expense_product', $expense_id);
 
         foreach ($data['products'] as $index => $product) {
             $data['products'][$index]['attached'] = false;
-            $data['products'][$index]['project'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'project', 'id', $product['projectid']);
-            echo $data['products'][$index]['project']['name'];
+            $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'project', 'id', $product['projectid']);
+            $data['products'][$index]['project'] = null;
+            if (count($res)>0) {
+                $data['products'][$index]['project'] = $res[0];
+            }
+
             $invoicename = $product['id'].".pdf";
             $path = "assets/company/attachment/".$companyname."/expense/";
             if(file_exists($path.$invoicename)) {
                 $data['products'][$index]['attached'] = true;
             }
         }
-        return;
 
         $session['menu']="Expenses";
         $session['submenu']="pmbyid";

@@ -6,6 +6,7 @@
             <th>Project Name</th>
             <th>Client Name</th>
             <th>Client Reference</th>
+            <th>Observation</th>
             <th>Value</th>
             <th>VAT</th>
             <th>Amount</th>
@@ -20,8 +21,9 @@
             <td><a class="text-black" href="<?=base_url("project/showdatabyproject?id=").$project['id']?>"><?=$project['name']?></a></td>
             <td><?=$project['client']['name']?></td>
             <td><?=$project['client']['Ref']?></td>
+            <td><?=$project['observation']?></td>
             <td><?=$project['value'].' '.$project['coin']?></td>
-            <td><?=number_format($project['value']*$project['vat']/100.0, 2, '.', "").'%'?></td>
+            <td><?=number_format($project['value']*$project['vat']/100.0, 2, '.', "").' '.$project['coin']?></td>
             <td><?=number_format($project['value']*($project['vat']+100.0)/100.0, 2, '.', "").' '.$project['coin']?></td>
             <td class="form-inline flex justify-around">
                 <a href="<?=base_url('project/editproject/'.$project['id'])?>"><i class="bi custom-edit-icon"></i></a>

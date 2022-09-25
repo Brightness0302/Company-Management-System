@@ -21,15 +21,79 @@
     </div>
     <!-- chart details -->
     <div id="section1" class="border border-lime-600 m-3 text-lg">
-        <p>Project: <?=$project['name']?> ( <?=$project['client']['name'].' - '.$project['client']['Ref']?> )</p>
-        <p>- Date of begining: <input type="date" name="" value="<?=date('Y-m-d')?>" disabled></p>
-        <p>- Date for completion: <input type="date" name="" value="<?=date('Y-m-d')?>" disabled></p>
-        <p>- Project value: <input type="text" name="" value="<?=$project['value']?>" disabled></p>
-        <p>- Materials total value: <input type="text" name="" value="<?=$supplier_total?>" disabled></p>
-        <p>- Expenses total value: <input type="text" name="" value="<?=$expense_total?>" disabled></p>
-        <p>- Labor total value: <input type="text" name="" value="<?=$labor_total?>" disabled></p>
+        <div class="row">
+            <div class="col-sm-2">
+                <p>Project: </p>
+            </div>
+            <div class="col-sm-2">
+                <p><?=$project['name']?> ( <?=$project['client']['name'].' - '.$project['client']['Ref']?> )</p>
+            </div>
+            <div class="col-sm-8"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <p>- Date of begining: </p>
+            </div>
+            <div class="col-sm-2">
+                <p><?=date('Y/m/d', strtotime($project['startdate']))?></p>
+            </div>
+            <div class="col-sm-8"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <p>- Date for completion: </p>
+            </div>
+            <div class="col-sm-2">
+                <p><?=date('Y/m/d', strtotime($project['enddate']))?></p>
+            </div>
+            <div class="col-sm-8"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <p>- Project value: </p>
+            </div>
+            <div class="col-sm-2">
+                <p><?=$project['value'].' '.$project['coin']?></p>
+            </div>
+            <div class="col-sm-8"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <p>- Materials total value: </p>
+            </div>
+            <div class="col-sm-2">
+                <p><?=$supplier_total.' '.$project['coin']?></p>
+            </div>
+            <div class="col-sm-8"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <p>- Expenses total value: </p>
+            </div>
+            <div class="col-sm-2">
+                <p><?=$expense_total.' '.$project['coin']?></p>
+            </div>
+            <div class="col-sm-8"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <p>- Labor total value: </p>
+            </div>
+            <div class="col-sm-2">
+                <p><?=$labor_total?></p>
+            </div>
+            <div class="col-sm-8"></div>
+        </div>
         <hr>
-        <p>- Gross Profit: <input type="text" name="" value="<?=$project['value'] - $supplier_total - $expense_total - $labor_total?>" disabled></p>
+        <div class="row">
+            <div class="col-sm-2">
+                <p>- Gross Profit: </p>
+            </div>
+            <div class="col-sm-2">
+                <p><?=($project['value'] - $supplier_total - $expense_total - $labor_total).' '.$project['coin']?></p>
+            </div>
+            <div class="col-sm-8"></div>
+        </div>
     </div>
 </div>
 <!-- chart script -->
