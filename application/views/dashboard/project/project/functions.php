@@ -128,7 +128,6 @@ function EditProject(projectid) {
 }
 
 function delproject(projectid) {
-    return;
     swal({
         title: "Project",
         text: "Del Project",
