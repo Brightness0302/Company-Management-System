@@ -119,15 +119,17 @@ class Project extends CI_Controller
         $vat = $this->input->post('vat');
         $coin = $this->input->post('coin');
         $observation = $this->input->post('observation');
+        $startdate = $this->input->post('startdate');
+        $enddate = $this->input->post('enddate');
 
         if (!isset($_GET['id'])) {
-            $projectid = $this->project->createProject($companyid, $name, $client, $observation, $coin, $value, $vat);
+            $projectid = $this->project->createProject($companyid, $name, $client, $observation, $startdate, $enddate, $coin, $value, $vat);
             echo $projectid;
             return;
         }
 
         $id = $_GET['id'];
-        $result = $this->project->saveProject($companyid, $id, $name, $client, $observation, $coin, $value, $vat);
+        $result = $this->project->saveProject($companyid, $id, $name, $client, $observation, $startdate, $enddate, $coin, $value, $vat);
         echo $result;
     }
     //Del project details from database (id: number)

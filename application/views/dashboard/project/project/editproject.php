@@ -37,8 +37,16 @@
                         <div class="col-sm-3 text-center">
                             <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                               <tr>
-                                  <td style="border : 1px solid black"><label class="my-2">Observation:</label></td>
-                                  <td><input type="text" class="form-control" id="observation" value="<?=$project['observation']?>">
+                                  <td style="border : 1px solid black"><label class="my-2">Starting Date:</label></td>
+                                  <td><input type="date" class="form-control" id="startdate" value="<?=date('Y-m-d')?>"></td>
+                              </tr>
+                            </table>
+                        </div>
+                        <div class="col-sm-3 text-center">
+                            <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                              <tr>
+                                  <td style="border : 1px solid black"><label class="my-2">Ending Date:</label></td>
+                                  <td><input type="date" class="form-control" id="enddate" value="<?=date('Y-m-d')?>"></td>
                               </tr>
                             </table>
                         </div>
@@ -112,6 +120,14 @@
                                     </td>
                                 </tr>
                           </table>
+                        </div>
+                        <div class="col-sm-3 text-center">
+                            <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                              <tr>
+                                  <td style="border : 1px solid black"><label class="my-2">Observation:</label></td>
+                                  <td><input type="text" class="form-control" id="observation" value="<?=$project['observation']?>">
+                              </tr>
+                            </table>
                         </div>
                     </div>
                 </div>

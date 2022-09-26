@@ -1,7 +1,7 @@
 <body>
     <section id="hero" class="align-items-center">
         <div data-aos="fade-up" data-aos-delay="100">
-            <a href="<?=base_url('project/index')?>"><button
+            <a href="<?=$_SERVER['HTTP_REFERER']?>"><button
                     class="backbutton w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-2xl"
                     title="Add New Client">&#8249;</button></a>
         </div>
@@ -37,8 +37,16 @@
                         <div class="col-sm-3 text-center">
                             <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                               <tr>
-                                  <td style="border : 1px solid black"><label class="my-2">Observation:</label></td>
-                                  <td><input type="text" class="form-control" id="observation" value="">
+                                  <td style="border : 1px solid black"><label class="my-2">Starting Date:</label></td>
+                                  <td><input type="date" class="form-control" id="startdate" value="<?=date('Y-m-d')?>"></td>
+                              </tr>
+                            </table>
+                        </div>
+                        <div class="col-sm-3 text-center">
+                            <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                              <tr>
+                                  <td style="border : 1px solid black"><label class="my-2">Ending Date:</label></td>
+                                  <td><input type="date" class="form-control" id="enddate" value="<?=date('Y-m-d')?>"></td>
                               </tr>
                             </table>
                         </div>
@@ -113,13 +121,21 @@
                                 </tr>
                           </table>
                         </div>
+                        <div class="col-sm-3 text-center">
+                            <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                              <tr>
+                                  <td style="border : 1px solid black"><label class="my-2">Observation:</label></td>
+                                  <td><input type="text" class="form-control" id="observation" value="">
+                              </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center">
-                <button class="cbutton bg-red" onclick="AddProject()">Save</button> / <a href="<?=base_url('project/index')?>"><button class="cbutton bg-white">Cancel</button></a>
+                <button class="cbutton bg-red" onclick="AddProject()">Save</button> / <a href="<?=$_SERVER['HTTP_REFERER']?>"><button class="cbutton bg-white">Cancel</button></a>
             </div>
         </div>
 

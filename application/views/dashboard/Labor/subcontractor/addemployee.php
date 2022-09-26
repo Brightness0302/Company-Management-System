@@ -49,7 +49,7 @@
                     </div>
                     <hr>
                     <div class="row d-flex justify-content-center align-items-center border border-lime-600">
-                        <div class="col-sm-4 text-center">
+                        <div class="col-sm-6 text-center">
                           <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                 <tr>
                                     <td style="border : 1px solid black"><label class="my-2">Start Date:</label></td>
@@ -61,7 +61,7 @@
                                 </tr>
                           </table>
                         </div>
-                        <div class="col-sm-4 text-center">
+                        <div class="col-sm-6 text-center">
                           <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                 <tr>
                                     <td style="border : 1px solid black"><label class="my-2">End Date:</label></td>
@@ -73,6 +73,9 @@
                                 </tr>
                           </table>
                         </div>
+                    </div>
+                    <hr>
+                    <div class="row d-flex justify-content-center align-items-center border border-lime-600">
                         <div class="col-sm-4 text-center">
                           <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                 <tr>
@@ -88,18 +91,7 @@
                                 </tr>
                           </table>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="row d-flex justify-content-center align-items-center border border-lime-600">
-                        <div class="col-sm-6 text-center">
-                            <table class="table mb-0" style="border : 1px solid gray; text-align: left">
-                              <tr>
-                                  <td style="border : 1px solid black"><label class="my-2">Observation:</label></td>
-                                  <td><input type="text" class="form-control" id="observation" value="">
-                              </tr>
-                            </table>
-                        </div>
-                        <div class="col-sm-6 text-center">
+                        <div class="col-sm-4 text-center">
                           <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                 <tr>
                                     <td style="border : 1px solid black"><label class="my-2">Total:</label></td>
@@ -113,6 +105,14 @@
                                     </td>
                                 </tr>
                           </table>
+                        </div>
+                        <div class="col-sm-4 text-center">
+                            <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                              <tr>
+                                  <td style="border : 1px solid black"><label class="my-2">Observation:</label></td>
+                                  <td><input type="text" class="form-control" id="observation" value="">
+                              </tr>
+                            </table>
                         </div>
                     </div>
                 </div>

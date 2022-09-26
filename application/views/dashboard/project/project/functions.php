@@ -30,11 +30,15 @@ function get_formdata() {
     const vat = $("#vat").val();
     const coin = $("#product_coin").val();
     const observation = $("#observation").val();
+    const startdate = $('#startdate').val();
+    const enddate = $('#enddate').val();
 
     const form_data = {
         project_name: project_name, 
         client_id: client_id,
         observation: observation, 
+        startdate: startdate, 
+        enddate: enddate, 
         coin: coin, 
         value: value,
         vat: vat
