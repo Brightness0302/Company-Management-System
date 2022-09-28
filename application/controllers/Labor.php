@@ -417,9 +417,12 @@ class Labor extends CI_Controller
         echo json_encode($employees);
     }
     //Get Project Id from project name
-    public function getidfromdatabase($tablename, $project_name) {
+    public function getidfromdatabase() {
         $companyid = $this->session->userdata('companyid');
-        $res = $this->home->alldatabycustomsettingfromdatabase($companyid, $tablename, 'name', $project_name);
+        $database = $this->input->post('database');
+        $item = $this->input->post('item');
+        $value = $this->input->post('value');
+        $res = $this->home->alldatabycustomsettingfromdatabase($companyid, $database, $item, $value);
         if (count($res)<=0)
             return;
 

@@ -116,9 +116,15 @@ function remove_tr(el) {
 async function get_formdata() {
     const projectname = $("#projectname").val();
 
+    let form_data_temp = {
+        database: 'project', 
+        item: 'name', 
+        value: projectname, 
+    };
     const projectid = await $.ajax({
-        url: "<?=base_url('labor/getidfromdatabase/')?>" + 'project' + '/' + projectname, 
+        url: "<?=base_url('labor/getidfromdatabase')?>", 
         method: "POST", 
+        data: form_data_temp, 
         dataType: 'text', 
         async: true, 
         success: function(res) {
@@ -136,10 +142,16 @@ async function get_formdata() {
 
     for (const element of table.children("tr")) {
         const etr = $(element).find("td");
+        form_data_temp = {
+            database: $(etr[0]).text(), 
+            item: 'name', 
+            value: $(etr[1]).text(), 
+        };
 
         const employeeid = await $.ajax({
-            url: "<?=base_url('labor/getidfromdatabase/')?>" + $(etr[0]).text() + '/' + $(etr[1]).text(), 
+            url: "<?=base_url('labor/getidfromdatabase')?>", 
             method: "POST", 
+            data: form_data_temp, 
             dataType: 'text', 
             async: true, 
             success: function(res) {
