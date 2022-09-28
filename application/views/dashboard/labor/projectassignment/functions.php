@@ -14,9 +14,16 @@ function GetDailyRate() {
     const isemployee = $("#isemployee").val();
     const employee_name = $("#employee_name").val();
 
+    let form_data_temp = {
+        database: isemployee, 
+        item: 'name', 
+        value: employee_name, 
+    };
+
     $.ajax({
-        url: "<?=base_url("labor/getDailyRate/")?>" + isemployee + '/' + employee_name,
+        url: "<?=base_url("labor/getDailyRate")?>",
         method: "POST",
+        data: form_data_temp, 
         dataType: 'text',
         success: function(res) {
             console.log(res);

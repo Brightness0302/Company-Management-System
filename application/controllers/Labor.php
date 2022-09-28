@@ -429,17 +429,20 @@ class Labor extends CI_Controller
         $project = $res[0];
         echo $project['id'];
     }
-    //Get Daily Rate according to $employee_type ($employee_type: database name, $employee_name: employee name)
-    public function getDailyRate($employee_type, $employee_name) {
+    //Get Daily Rate according to $database ($database: database name, $employee_name: employee name)
+    public function getDailyRate() {
         $companyid = $this->session->userdata('companyid');
-        $res = $this->home->alldatabycustomsettingfromdatabase($companyid, $employee_type, 'name', $employee_name);
+        $database = $this->input->post('database');
+        $item = $this->input->post('item');
+        $value = $this->input->post('value');
+        $res = $this->home->alldatabycustomsettingfromdatabase($companyid, $database, $item, $value);
         if (count($res)<=0)
             return;
 
         $employee = $res[0];
-        if ($employee_type == "employee_permanent") {
+        if ($database == "employee_permanent") {
             echo ($employee['salary'] + $employee['tax']) * 12 / 218;
-        } else if ($employee_type == "employee_subcontract") {
+        } else if ($database == "employee_subcontract") {
             echo $employee['daily_rate'];
         }
     }
