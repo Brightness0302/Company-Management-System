@@ -38,6 +38,55 @@ class Labor_model extends CI_Model {
         return $res;
     }
 
+    public function CreateAssignment($companyid, $projectid, $employee_type, $employee_id, $startdate, $workingdays, $observation) {
+        $this->db->query('use database'.$companyid);
+
+        $query =    "SELECT *
+                    FROM `project_assignment`
+                    WHERE `isemployee`='$employee_type' AND `employeeid`='employee_id'";
+
+        $res = $this->db->query($query)->result_array();
+        if (count($res)>0)
+            return -1;
+
+        $data = array(
+            'project_id'=>$projectid, 
+            'isemployee'=>$employee_type, 
+            'employeeid'=>$employee_id, 
+            'startdate'=>$startdate, 
+            'workingdays'=>$workingdays, 
+            'observation'=>$observation, 
+        );
+
+        $this->db->insert('project_assignment', $data);
+        $product_id = $this->db->insert_id();
+        return $product_id;
+    }
+
+    public function SaveAssignment($companyid, $projectid, $id, $employee_type, $employee_id, $startdate, $workingdays, $observation) {
+        $this->db->query('use database'.$companyid);
+
+        $data = array(
+            'project_id'=>$projectid, 
+            'isemployee'=>$employee_type, 
+            'employeeid'=>$employee_id, 
+            'startdate'=>$startdate, 
+            'workingdays'=>$workingdays, 
+            'observation'=>$observation, 
+        );
+
+        $this->db->where('id', $id);
+        $res=$this->db->update('project_assignment', $data);
+        return $res;
+    }
+
+    public function DelAssignment($companyid, $projectid) {
+        $this->db->query('use database'.$companyid);
+        
+        $this->db->where('project_id', $projectid);
+        $this->db->delete('project_assignment');
+    }
+
     public function delPermanentEmployee($companyid, $table, $id) {
         $this->db->query('use database'.$companyid);
 

@@ -241,9 +241,7 @@
                             $total_first=0;$total_second=0;$total_third=0;$total_forth=0;$total_fifth=0;$total_sixth=0;
                         ?>
                     </div>
-
                     <hr>
-
                     <div class="row d-flex justify-content-center align-items-center border border-lime-600">
                         <table class="table table-bordered table-striped text-center text-xs">
                             <thead>

@@ -124,7 +124,7 @@
                     <div class="row d-flex justify-content-center align-items-center mt-3">
                         <div class="text-center">
                             <div class="absolute">
-                                <label for="file-upload" id="file-text" class="btn btn-outline-secondary" style="color: red;">
+                                <label for="file-upload" id="file-text" class="btn btn-outline-secondary mb-0" style="color: red;">
                                     <i class="fa fa-cloud-upload"></i> <?=$attached?>
                                 </label>
                                 <input id="file-upload" name='upload_cont_img' type="file" style="display:none;">

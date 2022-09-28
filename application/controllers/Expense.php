@@ -200,7 +200,9 @@ class Expense extends CI_Controller
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/expense/product/head');
         $this->load->view('dashboard/expense/product/addproduct');
+        $this->load->view('dashboard/expense/product/foot');
         $this->load->view('dashboard/expense/product/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
@@ -239,7 +241,9 @@ class Expense extends CI_Controller
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/expense/product/head');
         $this->load->view('dashboard/expense/product/editproduct');
+        $this->load->view('dashboard/expense/product/foot');
         $this->load->view('dashboard/expense/product/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
