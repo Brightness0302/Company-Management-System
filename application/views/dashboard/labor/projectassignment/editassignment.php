@@ -115,13 +115,21 @@
                             <tbody id="table-body">
                               <?php foreach($assignments as $key=>$assignment):?>
                               <tr>
-                                <td><?=$assignment['isemployee']?></td>
+                                <td>
+                                  <?php 
+                                    if($assignment['isemployee']=="employee_permanent") 
+                                      echo "Permanent Employee";
+                                    else if($assignment['isemployee']=="employee_subcontract")
+                                      echo "Sub-Contractor";
+                                  ?>
+                                </td>
                                 <td><?=$assignment['employee']['name']?></td>
                                 <td><?=$assignment['startdate']?></td>
                                 <td><?=$assignment['workingdays']?></td>
                                 <td><?=$assignment['observation']?></td>
                                 <td class='align-middle flex justify-center'><div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div></td>
                                 <td hidden><?=$assignment['id']?></td>
+                                <td hidden><?=$assignment['isemployee']?></td>
                               </tr>
                               <?php endforeach;?>
                             </tbody>

@@ -48,18 +48,24 @@ function clickproject(projectname) {
 
 function SaveItem() {
     const isemployee = $("#isemployee").val();
+    let employee_type="";
+    if (isemployee=="employee_permanent")
+        employee_type="Permanent Employee";
+    else if (isemployee=="employee_subcontract")
+        employee_type="Sub-Contractor";
     const employee_name = $("#employee_name").val();
     const startdate = $("#startdate").val();
     const workingdays = $("#workingdays").val();
     const observation = $("#observation").val();
     $("#table-body").append("<tr>"+
-        "<td>"+isemployee+"</td>"+
+        "<td>"+employee_type+"</td>"+
         "<td>"+employee_name+"</td>"+
         "<td>"+startdate+"</td>"+
         "<td>"+workingdays+"</td>"+
         "<td>"+observation+"</td>"+
         "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr(this)'>" + "<i class='bi custom-edit-icon p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi custom-remove-icon p-1' title='Delete'></i>" + "</div>" + "</td>" +
         "<td hidden>-1</td>"+
+        "<td hidden>"+isemployee+"</td>"+
         "</tr>");
     ClearItem();
 }
@@ -82,7 +88,7 @@ function edit_tr(el) {
     const workingdays = $("#workingdays");
     const observation = $("#observation");
 
-    isemployee.val($(etd[0]).text());
+    isemployee.val($(etd[7]).text());
     employee_name.val($(etd[1]).text());
     startdate.val($(etd[2]).text());
     workingdays.val($(etd[3]).text());
@@ -97,16 +103,22 @@ function save_tr(el) {
     const etd = $(etr).find("td");
 
     const isemployee = $("#isemployee").val();
+    let employee_type="";
+    if (isemployee=="employee_permanent")
+        employee_type="Permanent Employee";
+    else if (isemployee=="employee_subcontract")
+        employee_type="Sub-Contractor";
     const employee_name = $("#employee_name").val();
     const startdate = $("#startdate").val();
     const workingdays = $("#workingdays").val();
     const observation = $("#observation").val();
 
-    $(etd[0]).text(isemployee);
+    $(etd[0]).text(employee_type);
     $(etd[1]).text(employee_name);
     $(etd[2]).text(startdate);
     $(etd[3]).text(workingdays);
     $(etd[4]).text(observation);
+    $(etd[7]).text(isemployee);
 
     $(etd[5]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div>");
     ClearItem();
@@ -177,7 +189,7 @@ async function get_formdata() {
 
         lines.push({
             id: $(etr[6]).text(),
-            employee_type:$(etr[0]).text(),
+            employee_type:$(etr[7]).text(),
             employee_id:employeeid,
             startdate:$(etr[2]).text(),
             workingdays:$(etr[3]).text(),

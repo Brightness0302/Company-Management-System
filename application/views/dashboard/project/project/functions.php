@@ -1,4 +1,79 @@
 <script type="text/javascript">
+
+let chartdata = '<?=json_encode($projects)?>';
+chartdata = JSON.parse(chartdata);
+
+var barChartData = {
+    labels: [
+        <?php foreach ($projects as $project):?>
+        <?php if(!$project['isremoved']):?>
+            "<?=$project['name']?>", 
+        <?php endif;?>
+        <?php endforeach;?>
+    ],
+    datasets: [{
+        label: 'Value EX VAT',
+        backgroundColor: window.chartColors.lightred,
+        data: [
+            <?php foreach ($projects as $project):?>
+            <?php if(!$project['isremoved']):?>
+                "<?=(date("Y", strtotime($project['enddate']))==date("Y"))?$project['value']:0?>", 
+            <?php endif;?>
+            <?php endforeach;?>
+        ],
+        type: 'bar'
+    }]
+};
+window.onload = function() {
+    var ctx = document.getElementById("canvas").getContext("2d");
+    window.myBar = new Chart(ctx, {
+        type: 'bar',
+        data: barChartData,
+        options: {
+            title:{
+                display:true,
+                text:"Stock situation"
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(t, d) {
+                       if (t.datasetIndex === 0) {
+                          var xLabel = d.datasets[t.datasetIndex].label;
+                          var yLabel = t.yLabel + ' €';
+                          return xLabel + ': ' + yLabel;
+                       } else if (t.datasetIndex === 1) {
+                          var xLabel = d.datasets[t.datasetIndex].label;
+                          var yLabel = t.yLabel >= 1000 ? t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " €" : t.yLabel + " €";
+                          return xLabel + ': ' + yLabel;
+                       }
+                    }
+                }
+            },
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    // Change here
+                    barPercentage: 0.2, 
+                    stacked: true,
+                }],
+                yAxes: [{
+                    stacked: true,
+                    ticks: {
+                        beginAtZero: true,
+                        callback: function(value, index, values) {
+                            if (parseInt(value) >= 1000) {
+                                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " €";
+                            } else {
+                                return value + " €";
+                            }
+                        }
+                    }
+                }]
+            }
+        }
+    });
+};
+
 $(document).ready(function() {
     $("input").change(function() {
         const id = this.id;
@@ -11,6 +86,25 @@ $(document).ready(function() {
         els.each((index, element) => {
             $(element).text(this.value);
         });
+    });
+});
+
+$(function() {
+    var startYear = 1800;
+    for (i = (new Date().getFullYear()); i > startYear; i--) {
+        $('#yearpicker').append($('<option />').val(i).html(i));
+    }
+    $("#yearpicker").change(function() {
+        const year = (this.value);
+
+        barChartData.datasets[0].data = [
+            <?php foreach ($projects as $project):?>
+            <?php if(!$project['isremoved']):?>
+                ("<?=date("Y", strtotime($project['enddate']))?>"==year)?"<?=$project['value']?>":0,
+            <?php endif;?>
+            <?php endforeach;?>
+        ];
+        window.myBar.update();
     });
 });
 

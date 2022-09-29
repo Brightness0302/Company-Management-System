@@ -21,7 +21,8 @@ class Expense extends CI_Controller
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $chart = [];
-        for($i=2000;$i<3000;$i++) {
+        $currentyear = intval(date("Y"))+1;
+        for($i=2000;$i<$currentyear;$i++) {
             foreach ($data['expenses'] as $key => $category) {
                 $chart[$i][$category['name']]=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
             }

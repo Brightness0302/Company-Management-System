@@ -110,7 +110,6 @@
                                     <th>Working Days</th>
                                     <th>Observation</th>
                                     <th>Action</th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody id="table-body">

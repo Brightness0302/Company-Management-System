@@ -13,6 +13,7 @@
 <?php $labor_total=0; foreach ($assignments as $assignment):?>
     <?php $labor_total+=$assignment['employee']['daily_rate']*$assignment['workingdays'];?>
 <?php endforeach;?>
+<?php $supplier_total = number_format($supplier_total, 2, '.', ''); $expense_total = number_format($expense_total, 2, '.', ''); $labor_total = number_format($labor_total, 2, '.', '');?>
 <a class="btn btn-info mb-2" href="javascript:window.history.go(-1);"><i class="bi bi-backspace"></i></a>
 <div id="section1" class="border border-lime-600">
     <!-- chart for total value and material, and expense and labor value -->
@@ -24,13 +25,11 @@
     <!-- chart details -->
     <div id="section1" class="border border-lime-600 m-3 text-lg">
         <div class="row">
-            <div class="col-sm-2">
-                <p>Project: </p>
-            </div>
-            <div class="col-sm-10">
-                <p><?=$project['name']?> ( <?=$project['client']['name'].' - '.$project['client']['Ref']?> )</p>
+            <div>
+                <p>Project: <b class="ml-2"><?=$project['name']?></b> ( <?=$project['client']['name'].' - '.$project['client']['Ref']?> )</p>
             </div>
         </div>
+        <hr class="border-gray-600">
         <div class="row">
             <div class="col-sm-2">
                 <p>- Date of begining: </p>
@@ -79,7 +78,7 @@
                 <p><?=number_format($labor_total, 2, '.', "").' '.$project['coin']?></p>
             </div>
         </div>
-        <hr>
+        <hr class="border-gray-600">
         <div class="row">
             <div class="col-sm-2">
                 <p>- Gross Profit: </p>
@@ -137,7 +136,7 @@ window.onload = function() {
             title:{
                 display: true,
                 fontSize: 24, 
-                text:"Project Situation"
+                text:"Project Details"
             },
             tooltips: {
                 callbacks: {
@@ -294,7 +293,14 @@ window.onload = function() {
             <?php $index=0; foreach($assignments as $key=>$assignment):?>
                 <tr>
                     <td><?=++$index?></td>
-                    <td><?=$assignment['isemployee']?></td>
+                    <td>
+                        <?php 
+                            if($assignment['isemployee']=="employee_permanent") 
+                                echo "Permanent Employee";
+                            else if($assignment['isemployee']=="employee_subcontract")
+                                echo "Sub-Contractor";
+                        ?>
+                    </td>
                     <td><?=$assignment['employee']['name']?></td>
                     <td><?=date("Y/m/d", strtotime($assignment['startdate']))?></td>
                     <td><?=$assignment['workingdays']?></td>

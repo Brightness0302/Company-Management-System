@@ -1,87 +1,12 @@
+<div class="flex justify-end">
+    <div class="w-56">
+        <select id="yearpicker" class="form-select">
+        </select>
+    </div>
+</div>
 <div style="width: 1120px; height: 560px; margin: auto;">
     <canvas id="canvas" style="display: block; box-sizing: border-box; height: 560px; width: 1120px;" width="1120" height="560"></canvas>
 </div>
-<script>
-var barChartData = {
-    labels: [
-        <?php foreach ($projects as $project):?>
-        <?php if(!$project['isremoved']):?>
-            "<?=$project['name']?>", 
-        <?php endif;?>
-        <?php endforeach;?>
-    ],
-    datasets: [{
-        label: 'Value EX VAT',
-        backgroundColor: window.chartColors.lightred,
-        data: [
-            <?php foreach ($projects as $project):?>
-            <?php if(!$project['isremoved']):?>
-                "<?=$project['value']?>", 
-            <?php endif;?>
-            <?php endforeach;?>
-        ],
-        type: 'bar'
-    }]
-};
-window.onload = function() {
-    var ctx = document.getElementById("canvas").getContext("2d");
-    window.myBar = new Chart(ctx, {
-        type: 'bar',
-        data: barChartData,
-        options: {
-            title:{
-                display:true,
-                text:"Stock situation"
-            },
-            tooltips: {
-                callbacks: {
-                    label: function(t, d) {
-                       if (t.datasetIndex === 0) {
-                          var xLabel = d.datasets[t.datasetIndex].label;
-                          var yLabel = t.yLabel + ' €';
-                          return xLabel + ': ' + yLabel;
-                       } else if (t.datasetIndex === 1) {
-                          var xLabel = d.datasets[t.datasetIndex].label;
-                          var yLabel = t.yLabel >= 1000 ? t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " €" : t.yLabel + " €";
-                          return xLabel + ': ' + yLabel;
-                       }
-                    }
-                }
-            },
-            responsive: true,
-            scales: {
-                xAxes: [{
-                    // Change here
-                    barPercentage: 0.2, 
-                    stacked: true,
-                }],
-                yAxes: [{
-                    stacked: true,
-                    ticks: {
-                        beginAtZero: true,
-                        callback: function(value, index, values) {
-                            if (parseInt(value) >= 1000) {
-                                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " €";
-                            } else {
-                                return value + " €";
-                            }
-                        }
-                    }
-                }]
-            }
-        }
-    });
-};
-
-document.getElementById('randomizeData').addEventListener('click', function() {
-    barChartData.datasets.forEach(function(dataset, i) {
-        dataset.data = dataset.data.map(function() {
-            return randomScalingFactor();
-        });
-    });
-    window.myBar.update();
-});
-</script>
 
 <a class="btn btn-success mb-2" href="<?=base_url('project/addproject')?>">Add New</a>
 <table id="example1" class="table table-bordered table-striped text-center">
