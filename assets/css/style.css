@@ -2146,6 +2146,10 @@ td, th {
   vertical-align: middle !important;
 }
 
+td {
+  padding: 0.3rem 0.3rem !important;
+}
+
 th {
   background-color: lightgray !important;
 }
