@@ -20,12 +20,7 @@
                               <tr>
                                   <td style="border : 1px solid black"><label class="my-2">Project:</label></td>
                                   <td>
-                                      <input type="text" class="form-control" id="projectname" list="projectlines" name="browser" title="Choose your color">
-                                      <datalist id="projectlines">
-                                          <?php foreach($projects as $project):?>
-                                          <option value="<?=$project['name']?>">
-                                          <?php endforeach;?>
-                                      </datalist>
+                                      <input type="text" class="form-control" id="projectname" name="browser" title="Choose your color" data-toggle="modal" data-target="#ProjectModalCenter">
                                   </td>
                               </tr>
                             </table>
@@ -159,6 +154,46 @@
                         <td><?=$index?></td>
                         <td><?=str_replace("_"," ", $employee['name'])?></td>
                         <td><?=$employee['observation']?></td>
+                    </tr>
+                    <?php endif;?>
+                    <?php endforeach;?>
+                  </tbody>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="ProjectModalCenter" tabindex="-1" role="dialog" aria-labelledby="ProjectModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Projects</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <table id="table_in_modal" class="table table-bordered table-striped"><thead>
+                      <tr>
+                        <th>No</th>
+                        <th>P.Name</th>
+                        <th>P.Observation</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <?php $index = 0;?>
+                    <?php foreach ($projects as $project):?>
+                    <?php if(!$project['isremoved']):?>
+                    <?php $index++;?>
+                    <tr onclick="clickproject('<?=$project['name']?>')" data-dismiss="modal">
+                        <td><?=$index?></td>
+                        <td><?=str_replace("_"," ", $project['name'])?></td>
+                        <td><?=$project['observation']?></td>
                     </tr>
                     <?php endif;?>
                     <?php endforeach;?>

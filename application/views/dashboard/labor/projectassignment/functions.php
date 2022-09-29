@@ -42,6 +42,10 @@ function clickemployee(employeeid, employeename) {
     GetDailyRate();
 }
 
+function clickproject(projectname) {
+    $("#projectname").val(projectname);
+}
+
 function SaveItem() {
     const isemployee = $("#isemployee").val();
     const employee_name = $("#employee_name").val();
