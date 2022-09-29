@@ -453,7 +453,7 @@ class Product extends CI_Controller
         $this->load->view('footer');
     }
     //Delete Supplier param(supplier_name)
-    public function delrecipet($product_id) {
+    public function delrecipe($product_id) {
         $companyid = $this->session->userdata('companyid');
         $result = $this->supplier->removedatabyidfromdatabase($companyid, $product_id, 'product_recipe');
         echo $result;
