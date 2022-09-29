@@ -10,7 +10,9 @@
 <?php endif;?>
 <?php endforeach;?>
 
-<?php $labor_total=10;?>
+<?php $labor_total=0; foreach ($assignments as $assignment):?>
+    <?php $labor_total+=$assignment['employee']['daily_rate']*$assignment['workingdays'];?>
+<?php endforeach;?>
 
 <div id="section1" class="border border-lime-600">
     <!-- chart for total value and material, and expense and labor value -->
@@ -58,7 +60,7 @@
                 <p>- Materials total value: </p>
             </div>
             <div class="col-sm-10">
-                <p><?=$supplier_total.' '.$project['coin']?></p>
+                <p><?=number_format($supplier_total, 2, '.', "").' '.$project['coin']?></p>
             </div>
         </div>
         <div class="row">
@@ -66,7 +68,7 @@
                 <p>- Expenses total value: </p>
             </div>
             <div class="col-sm-10">
-                <p><?=$expense_total.' '.$project['coin']?></p>
+                <p><?=number_format($expense_total, 2, '.', "").' '.$project['coin']?></p>
             </div>
         </div>
         <div class="row">
@@ -74,7 +76,7 @@
                 <p>- Labor total value: </p>
             </div>
             <div class="col-sm-10">
-                <p><?=$labor_total?></p>
+                <p><?=number_format($labor_total, 2, '.', "").' '.$project['coin']?></p>
             </div>
         </div>
         <hr>
@@ -278,18 +280,29 @@ window.onload = function() {
             <thead class="text-center">
                 <tr>
                     <th>No</th>
-                    <th>Category</th>
-                    <th>Project</th>
-                    <th>Date</th>
+                    <th>Employee Type</th>
+                    <th>Employee Name</th>
+                    <th>Starting Date</th>
+                    <th>Working Days</th>
                     <th>Observation</th>
                     <th id="upsubtotal">Value Ex VAT</th>
-                    <th id="upvat">VAT</th>
                     <th id="uptotal">Total Receipt</th>
                     <!-- <th>Invoice status</th> -->
-                    <th>View</th>
                 </tr>
             </thead>
             <tbody class="text-center">
+            <?php $index=0; foreach($assignments as $key=>$assignment):?>
+                <tr>
+                    <td><?=++$index?></td>
+                    <td><?=$assignment['isemployee']?></td>
+                    <td><?=$assignment['employee']['name']?></td>
+                    <td><?=$assignment['startdate']?></td>
+                    <td><?=$assignment['workingdays']?></td>
+                    <td><?=$assignment['observation']?></td>
+                    <td><?=number_format($assignment['employee']['daily_rate'], 2, '.', "")?></td>
+                    <td><?=number_format($assignment['employee']['daily_rate']*$assignment['workingdays'], 2, '.', "")?></td>
+                </tr>
+            <?php endforeach;?>
             </tbody>
         </table>
     </div>

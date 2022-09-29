@@ -187,6 +187,19 @@ class Project extends CI_Controller
             }
         }
 
+        $data['assignments'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'project_assignment', 'project_id', $id);
+
+        foreach ($data['assignments'] as $key => $assignment) {
+            $res = $this->home->alldatabycustomsettingfromdatabase($companyid, $assignment['isemployee'], 'id', $assignment['employeeid']);
+            $data['assignments'][$key]['employee'] = [];
+            if (count($res)>0) {
+                $data['assignments'][$key]['employee'] = $res[0];
+                if ($assignment['isemployee']=="employee_permanent") {
+                    $data['assignments'][$key]['employee']['daily_rate'] = ($data['assignments'][$key]['employee']['salary'] + $data['assignments'][$key]['employee']['tax']) * 12 / 218;
+                }
+            }
+        }
+
         $session['menu']="Projects";
         $session['submenu']="pj_pm";
         $session['second-submenu']="Project: ".$data['project']['name'];
