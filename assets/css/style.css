@@ -532,7 +532,7 @@ h6 {
 
 @media (max-height: 800px) {
   #hero {
-    height: auto;
+    /*height: auto;*/
   }
 }
 
