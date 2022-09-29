@@ -36,6 +36,8 @@ window.onload = function() {
             responsive: true,
             scales: {
                 xAxes: [{
+                    // Change here
+                    barPercentage: 0.2, 
                     stacked: true,
                 }],
                 yAxes: [{

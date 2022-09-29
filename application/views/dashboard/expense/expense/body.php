@@ -8,9 +8,7 @@
 <div class="m-auto" style="width:80%;">
     <canvas id="canvas" style="display: block; box-sizing: border-box; height: 560px; width: 1120px;" width="1120" height="560"></canvas>
 </div>
-
 <hr>
-
 <table id="example1" class="table table-bordered table-striped">
     <thead class="text-center">
         <tr>
