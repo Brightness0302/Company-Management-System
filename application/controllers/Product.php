@@ -25,10 +25,12 @@ class Product extends CI_Controller
             $materials = json_decode($product['materials'], true);
             foreach ($materials as $key => $material) {
                 $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
-            
-                $materials[$key]['code_ean'] = $result['code_ean'];
-                $materials[$key]['production_description'] = $result['production_description'];
-                $materials[$key]['selling_unit_price_without_vat'] = $result['selling_unit_price_without_vat'];
+
+                if ($result != -1) {
+                    $materials[$key]['code_ean'] = $result['code_ean'];
+                    $materials[$key]['production_description'] = $result['production_description'];
+                    $materials[$key]['selling_unit_price_without_vat'] = $result['selling_unit_price_without_vat'];
+                }
             }
             $data['products'][$index]['materials'] = json_encode($materials);
         }
