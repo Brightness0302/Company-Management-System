@@ -2142,6 +2142,21 @@ section {
 .custom-paid-image {
 }
 
-.highlight {
+td, th {
+  vertical-align: middle !important;
+}
+
+th {
+  background-color: lightgray !important;
+}
+
+.table-hover tbody tr:hover td {
     background-color: lightyellow !important;
+    --bs-table-accent-bg: none !important;
+}
+
+.container-table {
+  margin: auto;
+  width: 90%;
+  min-width: 1140px;
 }
