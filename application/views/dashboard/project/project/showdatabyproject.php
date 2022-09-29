@@ -179,9 +179,9 @@ window.onload = function() {
 
 <div id="section1" class="border border-lime-600 mt-3">
     <!-- material details -->
-    <div id="section1" class="row d-flex justify-content-center align-items-center border border-lime-600 m-3">
-        <p class="text-lg">Materials: </p>
-        <table id="invoicetable" class="table table-bordered table-striped">
+    <div class="container-table" class="row d-flex justify-content-center align-items-center border border-lime-600 m-3">
+        <p class="text-lg"><b><u>Materials:</u></b></p>
+        <table id="invoicetable" class="table table-bordered table-hover">
             <thead class="text-center">
                 <tr>
                     <th>No</th>
@@ -218,9 +218,9 @@ window.onload = function() {
         </table>
     </div>
     <!-- expenses details -->
-    <div id="section1" class="row d-flex justify-content-center align-items-center border border-lime-600 m-3">
-        <p class="text-lg">Expenses: </p>
-        <table id="invoicetable" class="table table-bordered table-striped">
+    <div class="container-table" class="row d-flex justify-content-center align-items-center border border-lime-600 m-3">
+        <p class="text-lg"><b><u>Expenses:</u></b></p>
+        <table id="invoicetable" class="table table-bordered table-hover">
             <thead class="text-center">
                 <tr>
                     <th>No</th>
@@ -273,9 +273,9 @@ window.onload = function() {
         </table>
     </div>
     <!-- labor details -->
-    <div id="section1" class="row d-flex justify-content-center align-items-center border border-lime-600 m-3">
-        <p class="text-lg">Labor: </p>
-        <table id="invoicetable" class="table table-bordered table-striped">
+    <div class="container-table" class="row d-flex justify-content-center align-items-center border border-lime-600 m-3">
+        <p class="text-lg"><b><u>Labor:</u></b></p>
+        <table id="invoicetable" class="table table-bordered table-hover">
             <thead class="text-center">
                 <tr>
                     <th>No</th>

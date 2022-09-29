@@ -1,6 +1,6 @@
 <?php $first=0;?>
 <a class="btn btn-success mb-2" href="<?=base_url('product/addorder')?>">Add New</a>
-<table id="producttable" class="table table-bordered table-striped text-center">
+<table id="producttable" class="table table-bordered table-hover text-center">
     <thead class="text-center">
         <tr>
             <th>No</th>
@@ -39,7 +39,7 @@
       <?php $first+=$order['price']*$order['product_qty']; endforeach;?>
     </tbody>
 </table>
-<table id="total-table" class="table table-bordered table-striped absolute">
+<table id="total-table" class="table table-bordered table-hover absolute">
     <thead>
         <tr>
             <th></th>

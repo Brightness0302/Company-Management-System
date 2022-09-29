@@ -240,7 +240,7 @@
                         <?php
                             $total_first=0;$total_second=0;$total_third=0;$total_forth=0;$total_fifth=0;$total_sixth=0;
                         ?>
-                        <table class="table table-bordered table-striped text-center">
+                        <table class="table table-bordered table-hover text-center">
                             <thead>
                                 <tr>
                                     <th>Code EAN</th>
@@ -254,7 +254,7 @@
                             <tbody id="table-body1">
                             </tbody>
                         </table>
-                        <table class="table table-bordered table-striped text-center">
+                        <table class="table table-bordered table-hover text-center">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -267,7 +267,7 @@
                             </thead>
                             <tbody id="table-body2"></tbody>
                         </table>
-                        <table class="table table-bordered table-striped text-center">
+                        <table class="table table-bordered table-hover text-center">
                             <thead>
                                 <tr>
                                     <th>Expense description</th>
@@ -282,7 +282,7 @@
                     <div class="row d-flex justify-content-center align-items-center">
                         <div class="col-sm-8"></div>
                         <div class="col-sm-4">
-                            <table id="total-table" class="table table-bordered table-striped relative text-center" data-aos="fade-up" data-aos-delay="100">
+                            <table id="total-table" class="table table-bordered table-hover relative text-center" data-aos="fade-up" data-aos-delay="100">
                                 <thead>
                                     <tr>
                                         <th>Name</th>

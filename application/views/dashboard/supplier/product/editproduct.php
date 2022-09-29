@@ -243,7 +243,7 @@
                         <?php
                             $total_first=0;$total_second=0;$total_third=0;$total_seventh=0;$total_eighth=0;$total_ninth=0;
                         ?>
-                        <table id="lines" class="table table-bordered table-striped text-center text-xs">
+                        <table id="lines" class="table table-bordered table-hover text-center text-xs">
                             <thead>
                                 <tr>
                                     <th>Code EAN</th>
@@ -351,7 +351,7 @@
                 </div>
             </div>
         </div>
-        <table id="total-table" class="table table-bordered table-striped relative text-center text-xs" data-aos="fade-up" data-aos-delay="100">
+        <table id="total-table" class="table table-bordered table-hover relative text-center text-xs" data-aos="fade-up" data-aos-delay="100">
             <thead>
                 <tr>
                     <th></th>

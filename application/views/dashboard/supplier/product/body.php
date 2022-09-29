@@ -1,6 +1,6 @@
 <?php $acq_subtotal_without_vat=0; $acq_subtotal_vat=0; $acq_subtotal_with_vat=0;$selling_subtotal_without_vat=0; $selling_subtotal_vat=0; $selling_subtotal_with_vat=0;?>
 <a class="btn btn-success mb-2" href="<?=base_url('material/addproduct')?>">Add New</a>
-<table id="invoicetable" class="table table-bordered table-striped text-xs">
+<table id="invoicetable" class="table table-bordered table-hover text-xs">
     <thead class="text-center">
         <tr>
             <th>No</th>
@@ -72,7 +72,7 @@
         <?php endforeach;?>
     </tbody>
 </table>
-<table id="total-table" class="table table-bordered table-striped absolute text-xs" style="width: 50%;">
+<table id="total-table" class="table table-bordered table-hover absolute text-xs" style="width: 50%;">
     <thead class="text-center">
         <tr>
             <th></th>

@@ -1,7 +1,7 @@
 <div class="container">
     <h1>Assigning Invoices to Project</h1>
     <a class="btn btn-success mb-2" href="<?=base_url('client/addprojectbyinvoices')?>">Add New</a>
-    <table id="example1" class="table table-bordered table-striped text-center">
+    <table id="example1" class="table table-bordered table-hover text-center">
         <thead>
             <tr>
                 <th>No</th>
@@ -47,7 +47,7 @@
 <hr class="border-red-600" />
 <div class="container">
     <h1>Assigning Projects to Client</h1>
-    <table id="example2" class="table table-bordered table-striped text-center">
+    <table id="example2" class="table table-bordered table-hover text-center">
         <thead>
             <tr>
                 <th>No</th>

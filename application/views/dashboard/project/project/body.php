@@ -9,7 +9,7 @@
 </div>
 
 <a class="btn btn-success mb-2" href="<?=base_url('project/addproject')?>">Add New</a>
-<table id="example1" class="table table-bordered table-striped text-center">
+<table id="example1" class="table table-bordered table-hover text-center">
     <thead>
         <tr>
             <th>No</th>
@@ -24,8 +24,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach($projects as $key=>$project):?>
-        <?php $index=0;?>
+        <?php $index=0; foreach($projects as $key=>$project):?>
         <tr>
             <td><?=++$index?></td>
             <td><a class="text-black" href="<?=base_url("project/showdatabyproject?id=").$project['id']?>"><?=str_replace('_', ' ', $project['name'])?></a></td>

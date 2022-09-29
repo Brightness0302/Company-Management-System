@@ -6,9 +6,7 @@ chartdata = JSON.parse(chartdata);
 var barChartData = {
     labels: [
         <?php foreach ($projects as $project):?>
-        <?php if(!$project['isremoved']):?>
             "<?=$project['name']?>", 
-        <?php endif;?>
         <?php endforeach;?>
     ],
     datasets: [{
@@ -16,9 +14,7 @@ var barChartData = {
         backgroundColor: window.chartColors.lightred,
         data: [
             <?php foreach ($projects as $project):?>
-            <?php if(!$project['isremoved']):?>
                 "<?=(date("Y", strtotime($project['enddate']))==date("Y"))?$project['value']:0?>", 
-            <?php endif;?>
             <?php endforeach;?>
         ],
         type: 'bar'
@@ -70,7 +66,7 @@ window.onload = function() {
                     }
                 }]
             }
-        }
+        },
     });
 };
 
@@ -96,14 +92,23 @@ $(function() {
     }
     $("#yearpicker").change(function() {
         const year = (this.value);
+        barChartData.labels = [
+            <?php foreach ($projects as $project):?>
+                "<?=$project['name']?>", 
+            <?php endforeach;?>
+        ]
 
         barChartData.datasets[0].data = [
             <?php foreach ($projects as $project):?>
-            <?php if(!$project['isremoved']):?>
                 ("<?=date("Y", strtotime($project['enddate']))?>"==year)?"<?=$project['value']?>":0,
-            <?php endif;?>
             <?php endforeach;?>
         ];
+
+        <?php foreach (array_reverse($projects) as $index=>$project):?>
+            if ("<?=date("Y", strtotime($project['enddate']))?>"!=year) {
+                barChartData.labels.splice('<?=count($projects)-$index-1?>', 1);
+            }
+        <?php endforeach;?>
         window.myBar.update();
     });
 });

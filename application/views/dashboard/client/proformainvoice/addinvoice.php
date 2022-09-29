@@ -100,7 +100,7 @@
                             </button>
                           </div>
                           <div class="modal-body">
-                            <table id="table_in_modal" class="table table-bordered table-striped">
+                            <table id="table_in_modal" class="table table-bordered table-hover">
                               <thead>
                                   <tr>
                                     <th>No</th>

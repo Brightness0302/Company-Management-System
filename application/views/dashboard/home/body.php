@@ -86,7 +86,7 @@
     <!-- Table template for Report -->
     <div>
         <h2>Demo Table for Report</h2>
-        <table class="table table-striped text-center">
+        <table class="table table-hover text-center">
           <thead>
             <tr>
               <th scope="col">No</th>
@@ -129,7 +129,7 @@
      <!-- Table with stripped rows -->
     <div class="mt-16">
         <h2>Demo Table for Report</h2>
-        <table class="table table-striped">
+        <table class="table table-hover">
         <thead>
             <tr>
               <th scope="col">#</th>

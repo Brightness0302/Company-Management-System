@@ -1,5 +1,5 @@
 <a class="btn btn-success mb-2" href="<?=base_url('client/addinvoice')?>">Add New</a>
-<table id="invoicetable" class="table table-bordered table-striped">
+<table id="invoicetable" class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>No</th>
@@ -51,7 +51,7 @@
         <?php endforeach;?>
     </tbody>
 </table>
-<table id="total-table" class="table table-bordered table-striped absolute" style="width: 50%;">
+<table id="total-table" class="table table-bordered table-hover absolute" style="width: 50%;">
     <thead>
         <tr>
             <th></th>

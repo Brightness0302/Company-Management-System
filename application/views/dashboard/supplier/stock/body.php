@@ -96,7 +96,7 @@ document.getElementById('randomizeData').addEventListener('click', function() {
     window.myBar.update();
 });
 </script>
-<table id="example1" class="table table-bordered table-striped mt-10">
+<table id="example1" class="table table-bordered table-hover mt-10">
     <thead class="text-center">
         <tr>
             <th>No</th>

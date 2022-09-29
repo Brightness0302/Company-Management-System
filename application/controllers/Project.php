@@ -212,7 +212,6 @@ class Project extends CI_Controller
         $this->load->view('dashboard/project/project/shead');
         $this->load->view('dashboard/project/project/showdatabyproject');
         $this->load->view('dashboard/project/project/foot');
-        $this->load->view('dashboard/project/project/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }

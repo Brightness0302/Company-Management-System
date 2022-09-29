@@ -1,5 +1,5 @@
 <a class="btn btn-info mb-2" href="javascript:window.history.go(-1);"><i class="bi bi-backspace"></i></a>
-<table id="productbystock" class="table table-bordered table-striped">
+<table id="productbystock" class="table table-bordered table-hover">
     <thead class="text-center">
         <tr>
             <th>No</th>
@@ -41,7 +41,7 @@
         <?php endforeach;?>
     </tbody>
 </table>
-<table id="total-table" class="table table-bordered table-striped absolute" style="width: 50%;">
+<table id="total-table" class="table table-bordered table-hover absolute" style="width: 50%;">
     <thead>
         <tr>
             <th></th>

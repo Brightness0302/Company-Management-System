@@ -1,5 +1,5 @@
 <?php $total_subtotal=0; $total_vat_amount=0; $total_total_amount=0;?>
-<table id="invoicetable" class="table table-bordered table-striped">
+<table id="invoicetable" class="table table-bordered table-hover">
     <thead>
         <tr class="text-sm">
             <th>No</th>

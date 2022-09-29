@@ -243,7 +243,7 @@
                             $labours = json_decode($product['labours'], true);
                             $auxiliaries = json_decode($product['auxiliaries'], true);
                         ?>
-                        <table class="table table-bordered table-striped text-center">
+                        <table class="table table-bordered table-hover text-center">
                             <thead>
                                 <tr>
                                     <th>Code EAN</th>
@@ -272,7 +272,7 @@
                                 <?php endforeach;?>
                             </tbody>
                         </table>
-                        <table class="table table-bordered table-striped text-center">
+                        <table class="table table-bordered table-hover text-center">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -300,7 +300,7 @@
                                 <?php endforeach;?>
                             </tbody>
                         </table>
-                        <table class="table table-bordered table-striped text-center">
+                        <table class="table table-bordered table-hover text-center">
                             <thead>
                                 <tr>
                                     <th>Expense description</th>
@@ -328,7 +328,7 @@
                     <div class="row d-flex justify-content-center align-items-center">
                         <div class="col-sm-8"></div>
                         <div class="col-sm-4">
-                            <table id="total-table" class="table table-bordered table-striped relative text-center" data-aos="fade-up" data-aos-delay="100">
+                            <table id="total-table" class="table table-bordered table-hover relative text-center" data-aos="fade-up" data-aos-delay="100">
                                 <thead>
                                     <tr>
                                         <th>Name</th>

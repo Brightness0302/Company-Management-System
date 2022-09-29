@@ -1,4 +1,4 @@
-<table id="invoicetable" class="table table-bordered table-striped">
+<table id="invoicetable" class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>No</th>

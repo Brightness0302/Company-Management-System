@@ -1,6 +1,6 @@
 <?php $total_subtotal=0; $total_vat_amount=0; $total_total_amount=0;?>
 <a class="btn btn-success mb-2" href="<?=base_url('expense/addproduct')?>">Add New</a>
-<table id="invoicetable" class="table table-bordered table-striped">
+<table id="invoicetable" class="table table-bordered table-hover">
     <thead class="text-center">
         <tr>
             <th>No</th>
@@ -59,7 +59,7 @@
         <?php endforeach;?>
     </tbody>
 </table>
-<table id="total-table" class="table table-bordered table-striped absolute" style="width: 50%;">
+<table id="total-table" class="table table-bordered table-hover absolute" style="width: 50%;">
     <thead>
         <tr>
             <th></th>

@@ -1,5 +1,5 @@
 <a class="btn btn-success mb-2" href="<?=base_url('client/addproforma')?>">Add New</a>
-<table id="invoicetable" class="table table-bordered table-striped">
+<table id="invoicetable" class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>No</th>

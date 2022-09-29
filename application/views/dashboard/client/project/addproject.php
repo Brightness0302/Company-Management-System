@@ -29,7 +29,7 @@
                         <h4>Project's Assigning</h4>
 
                         <div class="row">
-                            <table id="projecttable" class="table table-bordered table-striped">
+                            <table id="projecttable" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>No</th>

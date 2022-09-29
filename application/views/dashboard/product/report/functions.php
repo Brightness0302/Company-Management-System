@@ -250,14 +250,14 @@ function viewsoldandreceive(tline_id, el) {
                 "<td></td>"+
                 "<td colSpan='100'>"+
                 "<p class='text-center text-lg'>Products received</p>"+
-                "<table class='table table-bordered table-striped'>"+
+                "<table class='table table-bordered table-hover'>"+
                 "<thead>"+
                 "<tr><th>No</th><th>Code EAN</th><th>Description</th><th>Qty received</th><th>Qty on document</th><th>Supplier Name</th><th>Invoice Number</th><th>Invoice Date</th></tr>"+
                 "</thead>"+
                 "<tbody>"+supplierinvoice+"</tbody>"+
                 "</table>"+
                 "<p class='text-center text-lg'>Products sold</p>"+
-                "<table class='table table-bordered table-striped'>"+
+                "<table class='table table-bordered table-hover'>"+
                 "<thead>"+
                 "<tr><th>No</th><th>Code EAN</th><th>Description</th><th>Qty invoiced</th><th>Qty shipped</th><th>Client Name</th><th>Invoice Number</th><th>Invoice Date</th></tr>"+
                 "</thead>"+

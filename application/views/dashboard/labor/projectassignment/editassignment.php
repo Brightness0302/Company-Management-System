@@ -101,7 +101,7 @@
                     </div>
                     <hr>
                     <div class="row d-flex justify-content-center align-items-center border border-lime-600">
-                        <table class="table table-bordered table-striped text-center text-xs">
+                        <table class="table table-bordered table-hover text-center text-xs">
                             <thead>
                                 <tr>
                                     <th>Employee Type</th>
@@ -155,7 +155,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <table id="table_in_modal" class="table table-bordered table-striped"><thead>
+                <table id="table_in_modal" class="table table-bordered table-hover"><thead>
                       <tr>
                         <th>No</th>
                         <th>P.Name</th>
@@ -195,7 +195,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <table id="table_in_modal" class="table table-bordered table-striped">
+                <table id="table_in_modal" class="table table-bordered table-hover">
                   <thead>
                       <tr>
                         <th>No</th>
@@ -236,7 +236,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <table id="table_in_modal" class="table table-bordered table-striped">
+                <table id="table_in_modal" class="table table-bordered table-hover">
                   <thead>
                       <tr>
                         <th>No</th>

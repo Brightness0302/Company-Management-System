@@ -1,5 +1,5 @@
 <a class="btn btn-success mb-2" href="<?=base_url('labor/addpermanentemployee')?>">Add New</a>
-<table id="example1" class="table table-bordered table-striped text-center">
+<table id="example1" class="table table-bordered table-hover text-center">
     <thead>
         <tr>
             <th>No</th>
