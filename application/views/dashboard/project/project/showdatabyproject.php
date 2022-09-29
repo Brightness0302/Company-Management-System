@@ -13,7 +13,7 @@
 <?php $labor_total=0; foreach ($assignments as $assignment):?>
     <?php $labor_total+=$assignment['employee']['daily_rate']*$assignment['workingdays'];?>
 <?php endforeach;?>
-
+<a class="btn btn-info mb-2" href="javascript:window.history.go(-1);"><i class="bi bi-backspace"></i></a>
 <div id="section1" class="border border-lime-600">
     <!-- chart for total value and material, and expense and labor value -->
     <div id="section1" class="border border-lime-600 m-3">

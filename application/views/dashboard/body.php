@@ -422,7 +422,7 @@
                             <i class="bi <?=($menu['submenu']=='l_sc')?"bi-circle-fill":"bi-circle"?>"></i><span>Sub-Contractors</span>
                         </a>
                         <a href="<?=base_url("labor/projectassignment")?>" style="padding-left: 56px;">
-                            <i class="bi <?=($menu['submenu']=='l_pa')?"bi-circle-fill":"bi-circle"?>"></i><span>Project Assignment</span>
+                            <i class="bi <?=($menu['submenu']=='l_pa')?"bi-circle-fill":"bi-circle"?>"></i><span>Project Labor Assignment</span>
                         </a>
                     </li>
                 </ul>
@@ -583,7 +583,7 @@
                     else if($menu['submenu']=="l_pem")
                         echo "Permanent Employees";
                     else if($menu['submenu']=="l_pa")
-                        echo "Project Assignment";
+                        echo "Project Labor Assignment";
                     else if($menu['submenu']=="l_sc")
                         echo "Sub-Contractors";
                     else if($menu['submenu']=="prm")

@@ -2141,3 +2141,7 @@ section {
 
 .custom-paid-image {
 }
+
+.highlight {
+    background-color: lightyellow !important;
+}

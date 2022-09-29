@@ -101,10 +101,10 @@ document.getElementById('randomizeData').addEventListener('click', function() {
         <?php $index=0;?>
         <tr>
             <td><?=++$index?></td>
-            <td><a class="text-black" href="<?=base_url("project/showdatabyproject?id=").$project['id']?>"><?=$project['name']?></a></td>
-            <td><?=$project['client']['name']?></td>
+            <td><a class="text-black" href="<?=base_url("project/showdatabyproject?id=").$project['id']?>"><?=str_replace('_', ' ', $project['name'])?></a></td>
+            <td><?=str_replace('_', ' ', $project['client']['name'])?></td>
             <td><?=$project['client']['Ref']?></td>
-            <td><?=$project['value'].' '.$project['coin']?></td>
+            <td><?=number_format($project['value'], 2, '.', "").' '.$project['coin']?></td>
             <td><?=number_format($project['value']*$project['vat']/100.0, 2, '.', "").' '.$project['coin']?></td>
             <td><?=number_format($project['value']*($project['vat']+100.0)/100.0, 2, '.', "").' '.$project['coin']?></td>
             <td><?=$project['observation']?></td>
