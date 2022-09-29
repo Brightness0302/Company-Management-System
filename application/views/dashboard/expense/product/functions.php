@@ -15,10 +15,8 @@ function onchange_input() {
     const vat_amount = $("#vat_amount").val();
     const vat_percent = vat_amount/value_without_vat*100.0;
     
-    if (value_without_vat && vat_percent) {
-        $("#vat_percent").val(parseInt(vat_percent));
-        $("#total_amount").val((parseFloat(value_without_vat)+parseFloat(vat_amount)).toFixed(2));
-    }
+    $("#vat_percent").val(parseInt(vat_percent));
+    $("#total_amount").val((parseFloat(value_without_vat)+parseFloat(vat_amount)).toFixed(2));
 }
 
 function DeleteAttachedFile() {

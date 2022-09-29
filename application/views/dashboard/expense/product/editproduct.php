@@ -12,21 +12,11 @@
                 </div>
             </div>
 
-            <div class="container">
+            <div class="pages">
                 <div class="text-sm">
                     <div id="section1" class="row d-flex justify-content-center align-items-center border border-lime-600">
-                        <div class="col-sm-4 text-center">
-                            <table class="table " style="border : 1px solid gray; text-align: left">
-                                <tr>
-                                    <td style="border : 1px solid black">Observations:</td>
-                                    <td>
-                                        <input type="text" class="form-control " id="observation" value="<?=$product['observation']?>" title="Choose your color">
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="col-sm-4 text-center">
-                            <table class="table " style="border : 1px solid gray; text-align: left">
+                        <div class="col-sm-6 text-center">
+                            <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                 <tr>
                                     <td style="border : 1px solid black"> Category Name: </td>
                                     <td>
@@ -54,8 +44,8 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-sm-4 text-center">
-                            <table class="table " style="border : 1px solid gray; text-align: left">
+                        <div class="col-sm-6 text-center">
+                            <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                 <tr>
                                     <td style="border : 1px solid black">Expense Date:</td>
                                     <td>
@@ -76,49 +66,58 @@
                             </table>
                         </div>
                     </div>
-
                     <hr>
-
                     <div class="row d-flex justify-content-center align-items-center border border-lime-600">
-                        <div id="section2" class="row row d-flex justify-content-center align-items-center">
-                            <div class="col-sm-4 text-center d-flex">
-                                <table class="table " style="border : 1px solid gray; text-align: left">
-                                    <tr>
-                                        <td style="border : 1px solid black">Value without VAT: </td>
-                                        <td>
-                                            <div class="m-auto">
-                                                <input type="number" class="form-control " id="value_without_vat" value="<?=$product['value_without_vat']?>" title="Choose your color">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border : 1px solid black">VAT amount:</td>
-                                        <td>
-                                            <div class="m-auto">
-                                                <input type="text" class="form-control " id="vat_amount" value="<?=$product['vat']?>" title="Choose your color">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="col-sm-4 text-center d-flex">
-                                <table class="table " style="border : 1px solid gray; text-align: left">
-                                    <tr>
-                                        <td style="border : 1px solid black"> VAT %: </td>
-                                        <td>
-                                            <input type="text" class="form-control" id="vat_percent" value="<?=$product['vat_percent']?>" title="Choose your color" readOnly>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border : 1px solid black">Total Value:</td>
-                                        <td>
-                                            <div class="m-auto">
-                                                <input type="text" class="form-control " id="total_amount" value="<?=$product['total']?>" title="Choose your color" readOnly>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
+                        <div class="col-sm-6 text-center d-flex">
+                            <table class="table my-2" style="border : 1px solid gray; text-align: left">
+                                <tr>
+                                    <td style="border : 1px solid black">Value without VAT: </td>
+                                    <td>
+                                        <div class="m-auto">
+                                            <input type="number" class="form-control " id="value_without_vat" value="<?=$product['value_without_vat']?>" title="Choose your color">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border : 1px solid black">VAT amount:</td>
+                                    <td>
+                                        <div class="m-auto">
+                                            <input type="text" class="form-control " id="vat_amount" value="<?=$product['vat']?>" title="Choose your color">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-sm-6 text-center d-flex">
+                            <table class="table my-2" style="border : 1px solid gray; text-align: left">
+                                <tr>
+                                    <td style="border : 1px solid black"> VAT %: </td>
+                                    <td>
+                                        <input type="text" class="form-control" id="vat_percent" value="<?=$product['vat_percent']?>" title="Choose your color" readOnly>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border : 1px solid black">Total Value:</td>
+                                    <td>
+                                        <div class="m-auto">
+                                            <input type="text" class="form-control " id="total_amount" value="<?=$product['total']?>" title="Choose your color" readOnly>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row d-flex justify-content-center align-items-center border border-lime-600">
+                        <div class="col-sm-6 text-center">
+                            <table class="table my-2" style="border : 1px solid gray; text-align: left">
+                                <tr>
+                                    <td style="border : 1px solid black">Observations:</td>
+                                    <td>
+                                        <input type="text" class="form-control " id="observation" value="<?=$product['observation']?>" title="Choose your color">
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                     <div class="row d-flex justify-content-center align-items-center mt-3">
