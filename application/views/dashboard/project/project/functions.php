@@ -90,6 +90,7 @@ $(function() {
     for (i = (new Date().getFullYear()); i > startYear; i--) {
         $('#yearpicker').append($('<option />').val(i).html(i));
     }
+    refreshChart();
     $("#yearpicker").change(function() {
         const year = (this.value);
         barChartData.labels = [
@@ -103,15 +104,19 @@ $(function() {
                 ("<?=date("Y", strtotime($project['enddate']))?>"==year)?"<?=$project['value']?>":0,
             <?php endforeach;?>
         ];
-
-        <?php foreach (array_reverse($projects) as $index=>$project):?>
-            if ("<?=date("Y", strtotime($project['enddate']))?>"!=year) {
-                barChartData.labels.splice('<?=count($projects)-$index-1?>', 1);
-            }
-        <?php endforeach;?>
+        refreshChart();
         window.myBar.update();
     });
 });
+
+function refreshChart() {
+    const year = ($("#yearpicker").val());
+    <?php foreach (array_reverse($projects) as $index=>$project):?>
+        if ("<?=date("Y", strtotime($project['enddate']))?>"!=year) {
+            barChartData.labels.splice('<?=count($projects)-$index-1?>', 1);
+        }
+    <?php endforeach;?>
+}
 
 function refreshAmount() {
     const value = $("#value").val();
