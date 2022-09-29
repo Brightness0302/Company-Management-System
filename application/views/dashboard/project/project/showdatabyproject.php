@@ -85,7 +85,7 @@
                 <p>- Gross Profit: </p>
             </div>
             <div class="col-sm-10">
-                <p><?=($project['value'] - $supplier_total - $expense_total - $labor_total).' '.$project['coin']?></p>
+                <p><?=number_format(($project['value'] - $supplier_total - $expense_total - $labor_total), 2, '.', "").' '.$project['coin']?></p>
             </div>
         </div>
     </div>
@@ -259,7 +259,7 @@ window.onload = function() {
                     ?>
                     </td>
                     <td><?=$product['projectid']?></td>
-                    <td><?=$product['date']?></td>
+                    <td><?=date("Y/m/d", strtotime($product['date']))?></td>
                     <td><?=$product['observation']?></td>
                     <td><?=$product['value_without_vat']?></td>
                     <td><?=$product['vat']?></td>
@@ -296,7 +296,7 @@ window.onload = function() {
                     <td><?=++$index?></td>
                     <td><?=$assignment['isemployee']?></td>
                     <td><?=$assignment['employee']['name']?></td>
-                    <td><?=$assignment['startdate']?></td>
+                    <td><?=date("Y/m/d", strtotime($assignment['startdate']))?></td>
                     <td><?=$assignment['workingdays']?></td>
                     <td><?=$assignment['observation']?></td>
                     <td><?=number_format($assignment['employee']['daily_rate'], 2, '.', "")?></td>
