@@ -11,7 +11,7 @@ var barChartData = {
     ],
     datasets: [{
         label: 'Value EX VAT',
-        backgroundColor: window.chartColors.lightred,
+        backgroundColor: window.chartColors.lightblue,
         data: [
             <?php foreach ($projects as $project):?>
                 "<?=(date("Y", strtotime($project['enddate']))==date("Y"))?$project['value']:0?>", 
@@ -28,7 +28,7 @@ window.onload = function() {
         options: {
             title:{
                 display:true,
-                text:"Stock situation"
+                text:"Project"
             },
             tooltips: {
                 callbacks: {

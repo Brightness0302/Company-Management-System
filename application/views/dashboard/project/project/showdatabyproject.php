@@ -185,10 +185,10 @@ window.onload = function() {
             <thead class="text-center">
                 <tr>
                     <th>No</th>
-                    <th>Code ean</th>
+                    <th class="text-left">Code ean</th>
+                    <th class="text-left">Description</th>
                     <th>NIR Date</th>
                     <th>Date</th>
-                    <th>Description</th>
                     <th>Value EX VAT</th>
                     <th>VAT</th>
                     <th>Total Amount</th>
@@ -201,10 +201,10 @@ window.onload = function() {
                 <?php $index++;?>
                 <tr>
                     <td><?=($index)?></td>
-                    <td><?=$product['total_line']['code_ean']?></td>
+                    <td class="text-left"><?=$product['total_line']['code_ean']?></td>
+                    <td class="text-left"><?=$product['total_line']['production_description']?></td>
                     <td><?=date("Y/m/d", strtotime($product['material']['date_of_reception']))?></td>
                     <td><?=date("Y/m/d", strtotime($product['material']['invoice_date']))?></td>
-                    <td><?=$product['total_line']['production_description']?></td>
                     <td><?=number_format($product['total_line']['acquisition_unit_price']*$product['quantity_on_document'], 2, '.', "")?></td>
                     <td><?=number_format($product['total_line']['acquisition_unit_price']*($product['total_line']['vat'])/100.0*$product['quantity_on_document'], 2, '.', "")?></td>
                     <td><?=number_format($product['total_line']['acquisition_unit_price']*($product['total_line']['vat']+100.0)/100.0*$product['quantity_on_document'], 2, '.', "")?></td>
@@ -224,13 +224,13 @@ window.onload = function() {
             <thead class="text-center">
                 <tr>
                     <th>No</th>
-                    <th>Category</th>
+                    <th class="text-left">Category</th>
                     <th>Project</th>
                     <th>Date</th>
-                    <th>Observation</th>
                     <th id="upsubtotal">Value Ex VAT</th>
                     <th id="upvat">VAT</th>
-                    <th id="uptotal">Total Receipt</th>
+                    <th id="uptotal">Total cost</th>
+                    <th class="text-left">Observation</th>
                     <!-- <th>Invoice status</th> -->
                     <th>View</th>
                 </tr>
@@ -241,7 +241,7 @@ window.onload = function() {
                 <?php $index++;?>
                 <tr>
                     <td><?=($index)?></td>
-                    <td>
+                    <td class="text-left">
                     <?php 
                         $result="";
                         foreach ($expenses as $key => $expense) {
@@ -259,13 +259,13 @@ window.onload = function() {
                     </td>
                     <td><?=$product['projectid']?></td>
                     <td><?=date("Y/m/d", strtotime($product['date']))?></td>
-                    <td><?=$product['observation']?></td>
                     <td><?=$product['value_without_vat']?></td>
                     <td><?=$product['vat']?></td>
                     <td><?=$product['total']?></td>
                     <td class="text-center">
                         <a href="<?=$product['attached']?base_url('assets/company/attachment/'.$company['name'].'/expense/'.$product['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$product['attached']?"":'pointer-events: none'?>"><i class="bi custom-view-icon"></i></a>
                     </td>
+                    <td class="text-left"><?=$product['observation']?></td>
                 </tr>
                 <?php endif;?>
                 <?php endforeach;?>
@@ -279,13 +279,13 @@ window.onload = function() {
             <thead class="text-center">
                 <tr>
                     <th>No</th>
-                    <th>Employee Type</th>
-                    <th>Employee Name</th>
+                    <th class="text-left">Employee Type</th>
+                    <th class="text-left">Employee Name</th>
                     <th>Starting Date</th>
                     <th>Working Days</th>
-                    <th>Observation</th>
                     <th id="upsubtotal">Value Ex VAT</th>
-                    <th id="uptotal">Total Receipt</th>
+                    <th id="uptotal">Total Cost</th>
+                    <th class="text-left">Observation</th>
                     <!-- <th>Invoice status</th> -->
                 </tr>
             </thead>
@@ -293,7 +293,7 @@ window.onload = function() {
             <?php $index=0; foreach($assignments as $key=>$assignment):?>
                 <tr>
                     <td><?=++$index?></td>
-                    <td>
+                    <td class="text-left">
                         <?php 
                             if($assignment['isemployee']=="employee_permanent") 
                                 echo "Permanent Employee";
@@ -301,12 +301,12 @@ window.onload = function() {
                                 echo "Sub-Contractor";
                         ?>
                     </td>
-                    <td><?=$assignment['employee']['name']?></td>
+                    <td class="text-left"><?=$assignment['employee']['name']?></td>
                     <td><?=date("Y/m/d", strtotime($assignment['startdate']))?></td>
                     <td><?=$assignment['workingdays']?></td>
-                    <td><?=$assignment['observation']?></td>
                     <td><?=number_format($assignment['employee']['daily_rate'], 2, '.', "")?></td>
                     <td><?=number_format($assignment['employee']['daily_rate']*$assignment['workingdays'], 2, '.', "")?></td>
+                    <td class="text-left"><?=$assignment['observation']?></td>
                 </tr>
             <?php endforeach;?>
             </tbody>

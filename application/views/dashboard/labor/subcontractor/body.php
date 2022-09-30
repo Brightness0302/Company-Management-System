@@ -6,7 +6,7 @@
             <th class="text-left">Name</th>
             <th>Start date</th>
             <th>End date</th>
-            <th>Salary(daily)</th>
+            <th>Daily cost</th>
             <th class="text-left">Observation</th>
             <th>Action</th>
         </tr>
