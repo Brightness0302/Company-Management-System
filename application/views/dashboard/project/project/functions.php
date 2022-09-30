@@ -90,7 +90,6 @@ $(function() {
     for (i = (new Date().getFullYear()); i > startYear; i--) {
         $('#yearpicker').append($('<option />').val(i).html(i));
     }
-    refreshChart();
     $("#yearpicker").change(function() {
         const year = (this.value);
         barChartData.labels = [
