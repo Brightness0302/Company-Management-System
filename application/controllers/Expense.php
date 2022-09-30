@@ -357,7 +357,7 @@ class Expense extends CI_Controller
         foreach ($data['products'] as $index => $product) {
             $data['products'][$index]['attached'] = false;
             $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'project', 'id', $product['projectid']);
-            $data['products'][$index]['project'] = null;
+            $data['products'][$index]['project'] = [];
             if (count($res)>0) {
                 $data['products'][$index]['project'] = $res[0];
             }
