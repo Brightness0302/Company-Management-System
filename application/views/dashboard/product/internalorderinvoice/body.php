@@ -25,8 +25,8 @@
         <td><?=$order['order_date']?></td>
         <td><?=$order['product_name']?></td>
         <td><?=$order['product_qty']?></td>
-        <td><?=$order['price']?></td>
-        <td><?=number_format($order['price']*$order['product_qty'], 2, '.', '')?></td>
+        <td><?=(array_key_exists('price', $order))?$order['price']:'undefined'?></td>
+        <td><?=(array_key_exists('price', $order))?number_format($order['price']*$order['product_qty'], 2, '.', ''):'undefined'?></td>
         <td><?=$order['order_observation']?></td>
         <td class="form-inline flex justify-around">
             <a href="<?=base_url('product/editorder/'.$order['id'])?>"><i class="bi custom-edit-icon"></i></a>
@@ -36,7 +36,7 @@
             <button onclick="savebydata(this)"><i class="bi custom-view-icon"></i></button><a id="htmltopdf" href="<?=base_url('product/htmltopdfofinternalorder')?>" target="_blank" hidden>Download PDF</a>
         </td>
       </tr>
-      <?php $first+=$order['price']*$order['product_qty']; endforeach;?>
+      <?php $first+=(array_key_exists('price', $order))?($order['price']*$order['product_qty']):0; endforeach;?>
     </tbody>
 </table>
 <table id="total-table" class="table table-bordered table-hover absolute">
