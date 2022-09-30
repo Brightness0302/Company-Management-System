@@ -1,7 +1,7 @@
 <?php $first=0; $second=0; $third=0; $fourth=0;?>
 <a class="btn btn-success mb-2" href="<?=base_url('product/addrecipe')?>">Add New</a>
 <table id="producttable" class="table table-bordered table-hover text-center">
-    <thead class="text-center">
+    <thead>
         <tr>
             <th>No</th>
             <th>Product Name</th>
@@ -13,7 +13,7 @@
             <th>Export</th>
         </tr>
     </thead>
-    <tbody class="text-center">
+    <tbody>
       <?php foreach($products as $index=>$product):?>
       <tr>
         <td><?=$product['id']?></td>
@@ -67,7 +67,7 @@
       <?php endforeach;?>
     </tbody>
 </table>
-<table id="total-table" class="table table-bordered table-hover absolute">
+<table id="total-table" class="table table-bordered table-hover absolute text-center">
     <thead>
         <tr>
             <th></th>

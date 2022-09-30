@@ -54,6 +54,7 @@ class Project extends CI_Controller
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['project'] = $this->project->productfromsetting($companyid, 'project');
+        $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
 
         $session['menu']="Projects";
         $session['submenu']="pj_pm";
@@ -86,6 +87,7 @@ class Project extends CI_Controller
 
         $res = $this->home->databyid($data['project']['client'], 'client');
         $data['project']['client'] = $res['data'];
+        $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
 
         $data['company'] = $company['data'];
         $data['clients'] = $this->home->alldata('client');

@@ -86,7 +86,7 @@ class Labor extends CI_Controller
 
         $session['menu']="Labors";
         $session['submenu']="l_pa";
-        $session['second-submenu']="Sub-Contractors";
+        $session['second-submenu']="Project Assignment";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');

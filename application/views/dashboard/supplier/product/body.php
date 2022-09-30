@@ -4,9 +4,9 @@
     <thead class="text-center">
         <tr>
             <th>No</th>
-            <th>Number</th>
-            <th>Supplier Name</th>
-            <th>Observations</th>
+            <th class="text-left">Number</th>
+            <th class="text-left">Supplier Name</th>
+            <th class="text-left">Observations</th>
             <th>NIR No</th>
             <th>NIR Date</th>
             <th>Date</th>
@@ -28,8 +28,8 @@
         <?php $index++;?>
         <tr>
             <td><?=($index)?></td>
-            <td><?=$product['invoice_number']?></td>
-            <td>
+            <td class="text-left"><?=$product['invoice_number']?></td>
+            <td class="text-left">
             <?php 
                 $result;
                 foreach ($suppliers as $supplier){
@@ -49,7 +49,7 @@
                 echo $result['isremoved']?"(<span id='boot-icon' class='bi bi-circle-fill' style='font-size: 12px; color: rgb(255, 0, 0);''></span>)":"";
             ?>
             </td>
-            <td><?=$product['observation']?></td>
+            <td class="text-left"><?=$product['observation']?></td>
             <td><?=$product['id']?></td>
             <td><?=date("Y/m/d", strtotime($product['date_of_reception']))?></td>
             <td><?=date("Y/m/d", strtotime($product['invoice_date']))?></td>

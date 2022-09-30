@@ -9,25 +9,25 @@
     <canvas id="canvas" style="display: block; box-sizing: border-box; height: 560px; width: 1120px;" width="1120" height="560"></canvas>
 </div>
 <hr>
-<table id="example1" class="table table-bordered table-hover">
-    <thead class="text-center">
+<table id="example1" class="table table-bordered table-hover text-center">
+    <thead>
         <tr>
-            <th>No</th>
-            <th>Name</th>
-            <th>Code</th>
+            <th class="w-16">No</th>
+            <th class="w-48">Code</th>
+            <th class="text-left">Name</th>
             <th>Action</th>
         </tr>
     </thead>
-    <tbody class="text-center">
+    <tbody>
         <?php $index=0;?>
         <?php foreach ($expenses as $expense):?>
         <?php if(!$expense['isremoved']):?>
         <?php $index++;?>
         <tr>
             <td><?=($index)?></td>
-            <td><a class="text-black" href="<?=base_url('expense/showproductbyexpenseid?expense_id='.$expense['id'])?>"><?=$expense['name']?></a></td>
             <td><?=$expense['code']?></td>
-            <td class="form-inline flex justify-around">
+            <td class="text-left"><a class="text-black" href="<?=base_url('expense/showproductbyexpenseid?expense_id='.$expense['id'])?>"><?=$expense['name']?></a></td>
+            <td class="form-inline flex justify-evenly">
                 <a href="<?=base_url('expense/editexpense/'.$expense['id'])?>"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delExpense('<?=$expense['id']?>')" <?=$expense['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>

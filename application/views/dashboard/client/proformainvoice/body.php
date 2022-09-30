@@ -1,11 +1,11 @@
 <a class="btn btn-success mb-2" href="<?=base_url('client/addproforma')?>">Add New</a>
-<table id="invoicetable" class="table table-bordered table-hover">
+<table id="invoicetable" class="table table-bordered table-hover text-center">
     <thead>
         <tr>
             <th>No</th>
-            <th>Proforma Number</th>
-            <th>Client Name</th>
-            <th>Reference</th>
+            <th class="text-left">Proforma Number</th>
+            <th class="text-left">Client Name</th>
+            <th class="text-left">Reference</th>
             <th>Issued Date</th>
             <th>Amount</th>
             <th>Action</th>
@@ -18,8 +18,8 @@
         <?php $index++;?>
         <tr>
             <td><?=($index)?></td>
-            <td><?=$invoice['id']?><?=$invoice['isremoved']?"[<label class='danger'>deleted</label>]":""?></td>
-            <td>
+            <td class="text-left"><?=$invoice['id']?><?=$invoice['isremoved']?"[<label class='danger'>deleted</label>]":""?></td>
+            <td class="text-left">
                 <?php 
                     $result;
                     foreach ($clients as $client){
@@ -31,7 +31,7 @@
                     echo $result['isremoved']?"(<span id='boot-icon' class='bi bi-circle-fill' style='font-size: 12px; color: rgb(255, 0, 0);''></span>)":"";
                 ?>
             </td>
-            <td><?=$invoice['input_inputreference']?></td>
+            <td class="text-left"><?=$invoice['input_inputreference']?></td>
             <td><?=date("Y/m/d", strtotime($invoice['date_of_issue']))?></td>
             <td><?=$invoice['total']?></td>
             <td class="form-inline flex justify-around">

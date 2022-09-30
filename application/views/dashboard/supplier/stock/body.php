@@ -101,7 +101,7 @@ document.getElementById('randomizeData').addEventListener('click', function() {
         <tr>
             <th>No</th>
             <th>Code</th>
-            <th>Name</th>
+            <th class="text-left">Name</th>
             <th>ACQ amount EX VAT</th>
             <th>Selling amount EX VAT</th>
             <th>Action</th>
@@ -115,7 +115,7 @@ document.getElementById('randomizeData').addEventListener('click', function() {
         <tr>
             <td><?=($index)?></td>
             <td><a class="text-black" href="<?=base_url("stock/showproductbystock?stock_id=").$stock['id']?>"><?=$stock['code']?></a></td>
-            <td><a class="text-black" href="<?=base_url("stock/showproductbystock?stock_id=").$stock['id']?>"><?=$stock['name']?></a></td>
+            <td class="text-left"><a class="text-black" href="<?=base_url("stock/showproductbystock?stock_id=").$stock['id']?>"><?=$stock['name']?></a></td>
             <td><?=$stock['amount_without_vat']?></td>
             <td><?=$stock['selling_amount_without_vat']?></td>
             <td class="form-inline flex justify-around">

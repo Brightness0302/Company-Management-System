@@ -3,10 +3,10 @@
     <thead>
         <tr>
             <th>No</th>
-            <th>Name</th>
-            <th>Reference</th>
-            <th>Address</th>
-            <th>VAT</th>
+            <th class="text-left">Name</th>
+            <th class="text-left">Reference</th>
+            <th class="text-left">Address</th>
+            <th class="text-left">VAT</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -17,10 +17,10 @@
         <?php $index++;?>
         <tr>
             <td><?=($index)?></td>
-            <td><?=str_replace("_"," ",$client['name']).($client['isremoved']?"[<label class='danger'>deleted</label>]":"")?></td>
-            <td><?=$client['Ref']?></td>
-            <td><?=$client['address']?></td>
-            <td><?=$client['VAT']?></td>
+            <td class="text-left"><?=str_replace("_"," ",$client['name']).($client['isremoved']?"[<label class='danger'>deleted</label>]":"")?></td>
+            <td class="text-left"><?=$client['Ref']?></td>
+            <td class="text-left"><?=$client['address']?></td>
+            <td class="text-left"><?=$client['VAT']?></td>
             <td class="form-inline flex justify-evenly">
                 <a class="<?=$client['isremoved']?"pointer-events-none":""?>" href="<?=base_url('client/editclient/'.$client['id'])?>" title="Edit"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delClient('<?=$client['id']?>')" title="Delete" <?=$client['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>

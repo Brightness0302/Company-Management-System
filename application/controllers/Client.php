@@ -117,7 +117,6 @@ class Client extends CI_Controller
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
         $this->load->view('dashboard/client/payment/head');
-        $this->load->view('dashboard/client/payment/shead');
         $this->load->view('dashboard/client/payment/body');
         $this->load->view('dashboard/client/payment/foot');
         $this->load->view('dashboard/client/payment/functions.php');
