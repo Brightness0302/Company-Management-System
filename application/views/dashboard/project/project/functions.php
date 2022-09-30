@@ -87,6 +87,7 @@ $(document).ready(function() {
 
 $(function() {
     var startYear = 1800;
+    $('#yearpicker').append($('<option />').val(-1).html("All Data"));
     for (i = (new Date().getFullYear()); i > startYear; i--) {
         $('#yearpicker').append($('<option />').val(i).html(i));
     }
@@ -100,7 +101,7 @@ $(function() {
 
         barChartData.datasets[0].data = [
             <?php foreach ($projects as $project):?>
-                ("<?=date("Y", strtotime($project['enddate']))?>"==year)?"<?=$project['value']?>":0,
+                ("<?=date("Y", strtotime($project['enddate']))?>"==year||year==-1)?"<?=$project['value']?>":0,
             <?php endforeach;?>
         ];
         refreshChart();
@@ -110,6 +111,8 @@ $(function() {
 
 function refreshChart() {
     const year = ($("#yearpicker").val());
+    if (year==-1)
+        return;
     <?php foreach (array_reverse($projects) as $index=>$project):?>
         if ("<?=date("Y", strtotime($project['enddate']))?>"!=year) {
             barChartData.labels.splice('<?=count($projects)-$index-1?>', 1);
