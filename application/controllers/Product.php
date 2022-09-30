@@ -66,36 +66,34 @@ class Product extends CI_Controller
 
         foreach ($data['orders'] as $key => $order) {
             $res_product = $this->home->databyidfromdatabase($companyid, 'product_recipe', $order['product_description']);
-            if ($res_product['status'] == "false") {
-                echo -1;
-                return;
-            }
-            $product = $res_product['data'];
-            $price = 0;
-            $materials = json_decode($product['materials'], true);
-            foreach ($materials as $index => $material) {
-                $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
+            if ($res_product['status'] == "success") {
+                $product = $res_product['data'];
+                $price = 0;
+                $materials = json_decode($product['materials'], true);
+                foreach ($materials as $index => $material) {
+                    $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
 
-                if ($result!=-1) {
-                    $materials[$index]['code_ean'] = $result['code_ean'];
-                    $materials[$index]['production_description'] = $result['production_description'];
-                    $materials[$index]['selling_unit_price_without_vat'] = $result['selling_unit_price_without_vat'];
-                    $price += $material['amount']*$materials[$index]['selling_unit_price_without_vat'];
+                    if ($result!=-1) {
+                        $materials[$index]['code_ean'] = $result['code_ean'];
+                        $materials[$index]['production_description'] = $result['production_description'];
+                        $materials[$index]['selling_unit_price_without_vat'] = $result['selling_unit_price_without_vat'];
+                        $price += $material['amount']*$materials[$index]['selling_unit_price_without_vat'];
+                    }
                 }
-            }
-            $product['materials'] = json_encode($materials);
+                $product['materials'] = json_encode($materials);
 
-            $labours = json_decode($product['labours'], true);
-            foreach ($labours as $index => $labour) {
-                $price += $labour['time']*$labour['hourly'];
-            }
+                $labours = json_decode($product['labours'], true);
+                foreach ($labours as $index => $labour) {
+                    $price += $labour['time']*$labour['hourly'];
+                }
 
-            $auxiliaries = json_decode($product['auxiliaries'], true);
-            foreach ($auxiliaries as $index => $auxiliary) {
-                $price += $auxiliary['value'];
+                $auxiliaries = json_decode($product['auxiliaries'], true);
+                foreach ($auxiliaries as $index => $auxiliary) {
+                    $price += $auxiliary['value'];
+                }
+                $data['orders'][$key]['price'] = $price;
+                $data['orders'][$key]['product_name'] = $product['name'];
             }
-            $data['orders'][$key]['price'] = $price;
-            $data['orders'][$key]['product_name'] = $product['name'];
         }
 
         $session['menu']="Products";
