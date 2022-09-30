@@ -66,7 +66,7 @@ class Product extends CI_Controller
 
         foreach ($data['orders'] as $key => $order) {
             $res_product = $this->home->databyidfromdatabase($companyid, 'product_recipe', $order['product_description']);
-            if ($res_product['status'] == false) {
+            if ($res_product['status'] == "false") {
                 echo -1;
                 return;
             }
@@ -75,11 +75,13 @@ class Product extends CI_Controller
             $materials = json_decode($product['materials'], true);
             foreach ($materials as $index => $material) {
                 $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
-            
-                $materials[$index]['code_ean'] = $result['code_ean'];
-                $materials[$index]['production_description'] = $result['production_description'];
-                $materials[$index]['selling_unit_price_without_vat'] = $result['selling_unit_price_without_vat'];
-                $price += $material['amount']*$materials[$index]['selling_unit_price_without_vat'];
+
+                if ($result!=-1) {
+                    $materials[$index]['code_ean'] = $result['code_ean'];
+                    $materials[$index]['production_description'] = $result['production_description'];
+                    $materials[$index]['selling_unit_price_without_vat'] = $result['selling_unit_price_without_vat'];
+                    $price += $material['amount']*$materials[$index]['selling_unit_price_without_vat'];
+                }
             }
             $product['materials'] = json_encode($materials);
 
@@ -233,13 +235,16 @@ class Product extends CI_Controller
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
         foreach ($data['products'] as $key => $product) {
             $res = $this->home->databyid($product['user'], 'user');
-            $data['products'][$key]['userdata'] = $res['data'];
+            if ($res['status']=="success") {
+                $data['products'][$key]['userdata'] = $res['data'];
+            }
             $res = $this->home->databyidfromdatabase($companyid, 'product_recipe', $product['product_description']);
-            $data['products'][$key]['recipe'] = $res['data'];
-
-            $year = intval(date("Y",strtotime($product['date'])));
-            $month = (date("n", strtotime($product['date'])));
-            $chart[$year][$data['products'][$key]['recipe']['name']][$month-1]++;
+            if ($res['status']=="success") {
+                $data['products'][$key]['recipe'] = $res['data'];
+                $year = intval(date("Y",strtotime($product['date'])));
+                $month = (date("n", strtotime($product['date'])));
+                $chart[$year][$data['products'][$key]['recipe']['name']][$month-1]++;
+            }            
         }
         $data['chart'] = json_encode($chart);
         $session['menu']="Products";

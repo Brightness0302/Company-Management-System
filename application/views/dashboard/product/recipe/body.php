@@ -4,7 +4,7 @@
     <thead>
         <tr>
             <th>No</th>
-            <th>Product Name</th>
+            <th class="text-left">Product Name</th>
             <th id="first">Materials Amount</th>
             <th id="second">Labours Amount</th>
             <th id="third">Auxiliary Amount</th>
@@ -17,7 +17,7 @@
       <?php foreach($products as $index=>$product):?>
       <tr>
         <td><?=$product['id']?></td>
-        <td><?=$product['name']?></td>
+        <td class="text-left"><?=$product['name']?></td>
         <td>
           <?php 
             $total = 0;

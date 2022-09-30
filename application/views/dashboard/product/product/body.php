@@ -4,7 +4,7 @@
     <thead class="text-center">
         <tr>
             <th>No</th>
-            <th>Description</th>
+            <th class="text-left">Description</th>
             <th>Serial Number</th>
             <th>Date</th>
             <th>Order Number</th>
@@ -20,7 +20,7 @@
       <?php foreach($products as $index=>$product):?>
       <tr>
         <td><?=$product['id']?></td>
-        <td><?=$product['recipe']['name']?></td>
+        <td class="text-left"><?=$product['recipe']['name']?></td>
         <td><?=$product['serialnumber']?></td>
         <td><?=$product['date']?></td>
         <td><?=$product['order_number']?></td>

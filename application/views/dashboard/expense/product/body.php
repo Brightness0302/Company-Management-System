@@ -41,8 +41,8 @@
                 }
             ?>
             </td>
-            <td class="text-left"><?=$product['projectid']?></td>
-            <td><?=$product['date']?></td>
+            <td class="text-left"><?=($product['project']!=[])?$product['project']['name']:"Not Project"?></td>
+            <td><?=date("Y/m/d", strtotime($product['date']))?></td>
             <td class="text-left"><?=$product['observation']?></td>
             <td><?=$product['value_without_vat']?></td>
             <td><?=$product['vat']?></td>
