@@ -23,7 +23,7 @@
         <td><?=$index?></td>
         <td><?=$order['id']?></td>
         <td><?=$order['order_date']?></td>
-        <td><?=$order['product_name']?></td>
+        <td><?=(array_key_exists('product_name', $order))?$order['product_name']:'undefined'?></td>
         <td><?=$order['product_qty']?></td>
         <td><?=(array_key_exists('price', $order))?$order['price']:'undefined'?></td>
         <td><?=(array_key_exists('price', $order))?number_format($order['price']*$order['product_qty'], 2, '.', ''):'undefined'?></td>
