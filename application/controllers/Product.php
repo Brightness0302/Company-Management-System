@@ -188,7 +188,9 @@ class Product extends CI_Controller
             $res = $this->home->databyid($product['user'], 'user');
             $data['products'][$key]['userdata'] = $res['data'];
             $res = $this->home->databyidfromdatabase($companyid, 'product_recipe', $product['product_description']);
-            $data['products'][$key]['recipe'] = $res['data'];
+            if ($res['status']=="success") {
+                $data['products'][$key]['recipe'] = $res['data'];
+            }
         }
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
