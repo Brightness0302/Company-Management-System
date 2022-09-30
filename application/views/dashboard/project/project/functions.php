@@ -60,7 +60,7 @@ window.onload = function() {
                             if (parseInt(value) >= 1000) {
                                 return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " €";
                             } else {
-                                return value + " €";
+                                return parseInt(value*10)/10.0 + " €";
                             }
                         }
                     }
