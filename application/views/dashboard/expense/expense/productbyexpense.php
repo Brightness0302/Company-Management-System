@@ -9,7 +9,7 @@
             <th id="upsubtotal">Value Ex VAT</th>
             <th id="upvat">VAT</th>
             <th id="uptotal">Total cost</th>
-            <th>Observation</th>
+            <th class="text-left">Observation</th>
             <th>Action</th>
             <th>View</th>
         </tr>
@@ -39,7 +39,7 @@
             <td><?=$product['value_without_vat']?></td>
             <td><?=$product['vat']?></td>
             <td><?=$product['total']?></td>
-            <td><?=$product['observation']?></td>
+            <td class="text-left"><?=$product['observation']?></td>
             <td class="form-inline flex justify-around">
                 <a href="<?=base_url('expense/editproduct/'.$product['id'])?>"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
