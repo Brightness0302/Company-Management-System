@@ -7,10 +7,10 @@
             <th class="text-left">Category</th>
             <th class="text-left">Project</th>
             <th>Date</th>
-            <th class="text-left">Observation</th>
             <th id="upsubtotal">Value Ex VAT</th>
             <th id="upvat">VAT</th>
             <th id="uptotal">Total Receipt</th>
+            <th class="text-left">Observation</th>
             <!-- <th>Invoice status</th> -->
             <th>Action</th>
             <th>View</th>
@@ -43,10 +43,10 @@
             </td>
             <td class="text-left"><?=($product['project']!=[])?$product['project']['name']:"Not Project"?></td>
             <td><?=date("Y/m/d", strtotime($product['date']))?></td>
-            <td class="text-left"><?=$product['observation']?></td>
             <td><?=$product['value_without_vat']?></td>
             <td><?=$product['vat']?></td>
             <td><?=$product['total']?></td>
+            <td class="text-left"><?=$product['observation']?></td>
             <td class="form-inline flex justify-around">
                 <a href="<?=base_url('expense/editproduct/'.$product['id'])?>"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>

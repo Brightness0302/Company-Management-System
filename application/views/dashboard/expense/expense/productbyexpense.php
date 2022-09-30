@@ -3,8 +3,8 @@
     <thead class="text-center">
         <tr>
             <th>No</th>
-            <th>Category</th>
-            <th>Project</th>
+            <th class="text-left">Category</th>
+            <th class="text-left">Project</th>
             <th>Date</th>
             <th id="upsubtotal">Value Ex VAT</th>
             <th id="upvat">VAT</th>
@@ -23,7 +23,7 @@
         ?>
         <tr>
             <td><?=($index)?></td>
-            <td>
+            <td class="text-left">
             <?php 
                 $result;
                 foreach ($expenses as $key => $expense) {
@@ -34,7 +34,7 @@
                 echo $result['name'];
             ?>
             </td>
-            <td><?=($product['project'])?$product['project']['name']:"Not project"?></td>
+            <td class="text-left"><?=($product['project'])?$product['project']['name']:"Not project"?></td>
             <td><?=$product['date']?></td>
             <td><?=$product['value_without_vat']?></td>
             <td><?=$product['vat']?></td>
