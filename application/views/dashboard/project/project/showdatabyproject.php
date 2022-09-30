@@ -262,10 +262,10 @@ window.onload = function() {
                     <td><?=$product['value_without_vat']?></td>
                     <td><?=$product['vat']?></td>
                     <td><?=$product['total']?></td>
+                    <td class="text-left"><?=$product['observation']?></td>
                     <td class="text-center">
                         <a href="<?=$product['attached']?base_url('assets/company/attachment/'.$company['name'].'/expense/'.$product['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$product['attached']?"":'pointer-events: none'?>"><i class="bi custom-view-icon"></i></a>
                     </td>
-                    <td class="text-left"><?=$product['observation']?></td>
                 </tr>
                 <?php endif;?>
                 <?php endforeach;?>
