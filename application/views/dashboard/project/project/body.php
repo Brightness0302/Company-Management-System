@@ -16,6 +16,8 @@
             <th class="text-left">Project Name</th>
             <th class="text-left">Client Name</th>
             <th class="text-left">Client Reference</th>
+            <th>Starting Date</th>
+            <th>Ending Date</th>
             <th>Value</th>
             <th>VAT</th>
             <th>Amount</th>
@@ -30,6 +32,8 @@
             <td class="text-left"><a class="text-black" href="<?=base_url("project/showdatabyproject?id=").$project['id']?>"><?=str_replace('_', ' ', $project['name'])?></a></td>
             <td class="text-left"><?=str_replace('_', ' ', $project['client']['name'])?></td>
             <td class="text-left"><?=$project['client']['Ref']?></td>
+            <td><?=date("Y/m/d", strtotime($project['startdate']))?></td>
+            <td><?=date("Y/m/d", strtotime($project['enddate']))?></td>
             <td><?=number_format($project['value'], 2, '.', "").' '.$project['coin']?></td>
             <td><?=number_format($project['value']*$project['vat']/100.0, 2, '.', "").' '.$project['coin']?></td>
             <td><?=number_format($project['value']*($project['vat']+100.0)/100.0, 2, '.', "").' '.$project['coin']?></td>

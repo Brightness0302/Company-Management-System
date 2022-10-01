@@ -83,7 +83,7 @@ $(document).ready(function() {
 });
 
 $(function() {
-    var startYear = 2020;
+    var startYear = 2019;
     for (i = (new Date().getFullYear()); i > startYear; i--) {
         $('#yearpicker').append($('<option />').val(i).html(i));
     }
