@@ -1,8 +1,4 @@
 <script type="text/javascript">
-
-let chartdata = '<?=json_encode($projects)?>';
-chartdata = JSON.parse(chartdata);
-
 var barChartData = {
     labels: [
         <?php foreach ($projects as $project):?>
@@ -83,7 +79,6 @@ $(document).ready(function() {
             $(element).text(this.value);
         });
     });
-    refreshChart();
 });
 
 $(function() {
