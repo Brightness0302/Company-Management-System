@@ -10,7 +10,7 @@ var barChartData = {
         backgroundColor: window.chartColors.lightblue,
         data: [
             <?php foreach ($projects as $project):?>
-                "<?=(date("Y", strtotime($project['enddate']))==date("Y"))?$project['value']:0?>", 
+                "<?=$project['value']?>", 
             <?php endforeach;?>
         ],
         type: 'bar'
@@ -79,11 +79,12 @@ $(document).ready(function() {
             $(element).text(this.value);
         });
     });
-    refreshChart("<?=date("Y")?>");
+    refreshChart(-1);
 });
 
 $(function() {
     var startYear = 2019;
+    $('#yearpicker').append($('<option />').val(-1).html("All Data"));
     for (i = (new Date().getFullYear()); i > startYear; i--) {
         $('#yearpicker').append($('<option />').val(i).html(i));
     }
@@ -106,6 +107,8 @@ $(function() {
 });
 
 function refreshChart(year) {
+    if (year==-1)
+        return;
     <?php foreach (array_reverse($projects) as $index=>$project):?>
         if ("<?=date("Y", strtotime($project['enddate']))?>"!=year) {
             barChartData.labels.splice('<?=count($projects)-$index-1?>', 1);
