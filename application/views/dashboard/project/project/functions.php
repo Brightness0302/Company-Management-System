@@ -98,7 +98,7 @@ $(function() {
 
         barChartData.datasets[0].data = [
             <?php foreach ($projects as $project):?>
-                ("<?=date("Y", strtotime($project['enddate']))?>"==year)?"<?=$project['value']?>":0,
+                ("<?=date("Y", strtotime($project['enddate']))?>"==year||year==-1)?"<?=$project['value']?>":0,
             <?php endforeach;?>
         ];
         refreshChart(year);
