@@ -560,7 +560,7 @@
         </div>
         <!-- End Extra Large Modal-->
         <div class="pagetitle">
-            <h1><?=$menu['menu']?></h1>
+            <h1><u><?=$menu['menu']?></u></h1>
             <hr>
             <nav>
                 <ol class="breadcrumb">
