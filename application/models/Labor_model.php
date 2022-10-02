@@ -99,7 +99,7 @@ class Labor_model extends CI_Model {
         return $res;
     }
     //Create Sub Contractor (companyid: number, name: string, observation: string, coin: string, salary: float, )
-    public function createSubContractor($companyid, $name, $observation, $coin, $startdate, $enddate, $salary) {
+    public function createSubContractor($companyid, $name, $observation, $coin, $vat, $startdate, $enddate, $salary) {
         $this->db->query('use database'.$companyid);
 
         $data = array(
@@ -107,6 +107,7 @@ class Labor_model extends CI_Model {
             'observation'=>$observation, 
             'coin'=>$coin, 
             'daily_rate'=>$salary, 
+            'vat'=>$vat, 
             'startdate'=>$startdate, 
             'enddate'=>$enddate, 
         );
@@ -116,7 +117,7 @@ class Labor_model extends CI_Model {
         return $product_id;
     }
 
-    public function saveSubContractor($companyid, $id, $name, $observation, $coin, $startdate, $enddate, $salary) {
+    public function saveSubContractor($companyid, $id, $name, $observation, $coin, $vat, $startdate, $enddate, $salary) {
         $this->db->query('use database'.$companyid);
 
         $data = array(
@@ -124,6 +125,7 @@ class Labor_model extends CI_Model {
             'observation'=>$observation, 
             'coin'=>$coin, 
             'daily_rate'=>$salary, 
+            'vat'=>$vat, 
             'startdate'=>$startdate, 
             'enddate'=>$enddate, 
         );

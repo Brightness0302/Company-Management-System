@@ -430,9 +430,9 @@ h6 {
   padding-top: 80px;
 }
 
-#hero h1 {
+#hero .container-header {
   margin: 0;
-  font-size: 56px;
+  font-size: 44px;
   font-weight: 700;
   line-height: 72px;
   color: #124265;
@@ -441,7 +441,7 @@ h6 {
 
 #hero h2 {
   margin: 0;
-  font-size: 40px;
+  font-size: 48px;
   font-weight: 700;
   line-height: 72px;
   color: #124265;
@@ -452,7 +452,7 @@ h6 {
   font-size: 24px;
   font-weight: 700;
   line-height: 72px;
-  color: blue;
+  color: #124265;
   font-family: "Poppins", sans-serif;
 }
 
@@ -2140,6 +2140,87 @@ section {
 }
 
 .custom-paid-image {
+}
+
+.custom-client-image {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("../image/menu/clients-1.png");
+}
+
+.custom-dashboard-image {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("../image/menu/Dashboard.png");
+}
+
+.custom-expense-image {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("../image/menu/Expenses-2.png");
+}
+
+.custom-labor-image {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("../image/menu/labor-2.png");
+}
+
+.custom-product-image {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("../image/menu/products-1.png");
+}
+
+.custom-project-image {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("../image/menu/projects-1.png");
+}
+
+.custom-report-image {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("../image/menu/Reports & statistics.png");
+}
+
+.custom-stock-image {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("../image/menu/stocks-2.png");
+}
+
+.custom-supplier-image {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("../image/menu/suppliers-3.png");
 }
 
 td, th {

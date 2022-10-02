@@ -5,7 +5,7 @@
             <th>No</th>
             <th class="text-left">Name</th>
             <th>Salary (monthly)</th>
-            <th>Tax (monthly)</th>
+            <th>Contribution (monthly)</th>
             <th>Monthly total cost</th>
             <th>Daily cost</th>
             <th class="text-left">Observation</th>

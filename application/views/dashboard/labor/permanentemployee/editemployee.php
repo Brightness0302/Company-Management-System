@@ -67,7 +67,7 @@
                         <div class="col-sm-4 text-center">
                           <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                 <tr>
-                                    <td style="border : 1px solid black"><label class="my-2">Tax:</label></td>
+                                    <td style="border : 1px solid black"><label class="my-2">Contribution:</label></td>
                                     <td>
                                         <div class="m-auto">
                                             <input type="text" class="form-control " id="tax" value="<?=$employee['tax']?>" title="Choose your color">

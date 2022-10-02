@@ -75,6 +75,9 @@ $(function() {
                 orientation: 'landscape',
                 pageSize: 'LEGAL',
                 title: "<?=$company['name'].'-'.$stock['name'].'-'.date("Y/m/d")?>",
+                customize: function (doc) {
+                    doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                }
             }, "print", "colvis",
         ]
     }).buttons().container().appendTo('#productbystock_wrapper .col-md-6:eq(0)');

@@ -2,7 +2,7 @@
 $(document).ready(function() {
     $("input").change(function() {
         const id = this.id;
-        if (id == "salary" || id == "startdate" || id == "enddate") {
+        if (id == "salary" || id == "startdate" || id == "enddate" || id == "vat") {
             refreshAmount();
         }
     });
@@ -20,9 +20,12 @@ function refreshAmount() {
     const enddate = $("#enddate").val();
     const days = ((new Date(enddate)).getTime()-(new Date(startdate)).getTime()) / (1000 * 3600 * 24);
     const salary = $("#salary").val();
+    const vat = $("#vat").val();
     
     if (salary && days>=0) {
         $("#amount").val(((days+1)*salary).toFixed(2));
+        $("#vat_amount").val(((days+1)*salary*vat/100.0).toFixed(2));
+        $("#total_amount").val(((days+1)*salary*(parseFloat(vat)+100.0)/100.0).toFixed(2));
     }
 }
 
@@ -33,6 +36,7 @@ function get_formdata() {
     const startdate = $("#startdate").val();
     const enddate = $("#enddate").val();
     const salary = $("#salary").val();
+    const vat = $("#vat").val();
 
     const form_data = {
         name: name, 
@@ -41,6 +45,7 @@ function get_formdata() {
         startdate: startdate, 
         enddate: enddate, 
         salary: salary, 
+        vat: vat, 
     };
     return form_data;
 }

@@ -349,15 +349,16 @@ class Labor extends CI_Controller
         $startdate = $this->input->post('startdate');
         $enddate = $this->input->post('enddate');
         $salary = $this->input->post('salary');
+        $vat = $this->input->post('vat');
 
         if (!isset($_GET['id'])) {
-            $projectid = $this->labor->createSubContractor($companyid, $name, $observation, $coin, $startdate, $enddate, $salary);
+            $projectid = $this->labor->createSubContractor($companyid, $name, $observation, $coin, $vat, $startdate, $enddate, $salary);
             echo $projectid;
             return;
         }
 
         $id = $_GET['id'];
-        $result = $this->labor->saveSubContractor($companyid, $id, $name, $observation, $coin, $startdate, $enddate, $salary);
+        $result = $this->labor->saveSubContractor($companyid, $id, $name, $observation, $coin, $vat, $startdate, $enddate, $salary);
         echo $result;
     }
     //Save project assignment details into database('project_assignment') $project_id could be different with $projectid

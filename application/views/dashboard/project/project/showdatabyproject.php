@@ -179,6 +179,7 @@ window.onload = function() {
 
 <div id="section1" class="border border-lime-600 mt-3">
     <!-- material details -->
+    <?php $first11=0.0; $second11=0.0; $third11=0.0;?>
     <div class="container-table" class="row d-flex justify-content-center align-items-center border border-lime-600 m-3">
         <p class="text-lg"><b><u>Materials:</u></b></p>
         <table id="invoicetable" class="table table-bordered table-hover">
@@ -189,9 +190,9 @@ window.onload = function() {
                     <th class="text-left">Description</th>
                     <th>NIR Date</th>
                     <th>Date</th>
-                    <th>Value EX VAT</th>
-                    <th>VAT</th>
-                    <th>Total Amount</th>
+                    <th id="first11">Value EX VAT</th>
+                    <th id="second11">VAT</th>
+                    <th id="third11">Total Amount</th>
                     <th>View</th>
                 </tr>
             </thead>
@@ -211,13 +212,37 @@ window.onload = function() {
                     <td>
                         <a href="<?=$product['attached']?base_url('assets/company/attachment/'.$company['name'].'/supplier/'.$product['material']['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$product['attached']?"":'pointer-events: none'?>"><i class="bi custom-view-icon"></i></a>
                     </td>
+                    <?php
+                        $first11 += $product['total_line']['acquisition_unit_price']*$product['quantity_on_document'];
+                        $second11 += $product['total_line']['acquisition_unit_price']*($product['total_line']['vat'])/100.0*$product['quantity_on_document'];
+                        $third11 += $product['total_line']['acquisition_unit_price']*($product['total_line']['vat']+100.0)/100.0*$product['quantity_on_document'];
+                    ?>
                 </tr>
                 <?php endif;?>
                 <?php endforeach;?>
             </tbody>
         </table>
     </div>
+    <table id="total-table1" class="table table-bordered table-hover sticky text-center">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Total Amount EX VAT</th>
+                <th>Total VAT</th>
+                <th>Total Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="downtotalmark">Total:</td>
+                <td id="total_first11"><?=number_format($first11, 2, '.', "")?></td>
+                <td id="total_second11"><?=number_format($second11, 2, '.', "")?></td>
+                <td id="total_third11"><?=number_format($third11, 2, '.', "")?></td>
+            </tr>
+        </tbody>
+    </table>
     <!-- expenses details -->
+    <?php $first21=0.0; $second21=0.0; $third21=0.0;?>
     <div class="container-table" class="row d-flex justify-content-center align-items-center border border-lime-600 m-3">
         <p class="text-lg"><b><u>Expenses:</u></b></p>
         <table id="invoicetable" class="table table-bordered table-hover">
@@ -227,9 +252,9 @@ window.onload = function() {
                     <th class="text-left">Category</th>
                     <th>Project</th>
                     <th>Date</th>
-                    <th id="upsubtotal">Value Ex VAT</th>
-                    <th id="upvat">VAT</th>
-                    <th id="uptotal">Total cost</th>
+                    <th id="first21">Value Ex VAT</th>
+                    <th id="second21">VAT</th>
+                    <th id="third21">Total cost</th>
                     <th class="text-left">Observation</th>
                     <!-- <th>Invoice status</th> -->
                     <th>View</th>
@@ -266,13 +291,37 @@ window.onload = function() {
                     <td class="text-center">
                         <a href="<?=$product['attached']?base_url('assets/company/attachment/'.$company['name'].'/expense/'.$product['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$product['attached']?"":'pointer-events: none'?>"><i class="bi custom-view-icon"></i></a>
                     </td>
+                    <?php
+                        $first21 += $product['value_without_vat'];
+                        $second21 += $product['vat'];
+                        $third21 += $product['total'];
+                    ?>
                 </tr>
                 <?php endif;?>
                 <?php endforeach;?>
             </tbody>
         </table>
     </div>
+    <table id="total-table2" class="table table-bordered table-hover sticky text-center">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Total Amount EX VAT</th>
+                <th>Total VAT</th>
+                <th>Total Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="downtotalmark">Total:</td>
+                <td id="total_first21"><?=number_format($first21, 2, '.', "")?></td>
+                <td id="total_second21"><?=number_format($second21, 2, '.', "")?></td>
+                <td id="total_third21"><?=number_format($third21, 2, '.', "")?></td>
+            </tr>
+        </tbody>
+    </table>
     <!-- labor details -->
+    <?php $first31=0.0; $second31=0.0; $third31=0.0;?>
     <div class="container-table" class="row d-flex justify-content-center align-items-center border border-lime-600 m-3">
         <p class="text-lg"><b><u>Labor:</u></b></p>
         <table id="invoicetable" class="table table-bordered table-hover">
@@ -283,8 +332,8 @@ window.onload = function() {
                     <th class="text-left">Employee Name</th>
                     <th>Starting Date</th>
                     <th>Working Days</th>
-                    <th id="upsubtotal">Value Ex VAT</th>
-                    <th id="uptotal">Total Cost</th>
+                    <th id="first31">Value Ex VAT</th>
+                    <th id="second31">Total Cost</th>
                     <th class="text-left">Observation</th>
                     <!-- <th>Invoice status</th> -->
                 </tr>
@@ -307,9 +356,81 @@ window.onload = function() {
                     <td><?=number_format($assignment['employee']['daily_rate'], 2, '.', "")?></td>
                     <td><?=number_format($assignment['employee']['daily_rate']*$assignment['workingdays'], 2, '.', "")?></td>
                     <td class="text-left"><?=$assignment['observation']?></td>
+                    <?php
+                        $first31 += $assignment['employee']['daily_rate'];
+                        $second31 += $assignment['employee']['daily_rate']*$assignment['workingdays'];
+                    ?>
                 </tr>
             <?php endforeach;?>
             </tbody>
         </table>
     </div>
+    <table id="total-table3" class="table table-bordered table-hover sticky text-center">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Total Value EX VAT</th>
+                <th>Total Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="downtotalmark">Total:</td>
+                <td id="total_first31"><?=number_format($first31, 2, '.', "")?></td>
+                <td id="total_second31"><?=number_format($second31, 2, '.', "")?></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+<script type="text/javascript">
+    function getOffset(el) {
+      const rect = el.getBoundingClientRect();
+      return {
+        left: rect.left,
+        top: rect.top,
+        width: rect.width
+      };
+    }
+
+    function refreshbrowser() {
+      const first_row_11 =  getOffset(first11);
+      const first_row_12 = getOffset(second11);
+      const first_row_13 = getOffset(third11);
+
+      document.getElementById("total-table1").style.left = parseFloat(first_row_11.left - 100)+"px";
+
+      document.getElementById("total-table1").style.width = parseFloat(100+first_row_11.width+first_row_12.width+first_row_13.width) + "px";
+      document.getElementById("downtotalmark").style.width = 100+"px";
+      document.getElementById("total_first11").style.width  = first_row_11.width + "px";
+      document.getElementById("total_second11").style.width  = first_row_12.width + "px";
+      document.getElementById("total_third11").style.width  = first_row_13.width + "px";
+
+      const first_row_21 =  getOffset(first21);
+      const first_row_22 = getOffset(second21);
+      const first_row_23 = getOffset(third21);
+
+      document.getElementById("total-table2").style.left = parseFloat(first_row_21.left - 100)+"px";
+
+      document.getElementById("total-table2").style.width = parseFloat(100+first_row_21.width+first_row_22.width+first_row_23.width) + "px";
+      document.getElementById("downtotalmark").style.width = 100+"px";
+      document.getElementById("total_first21").style.width  = first_row_21.width + "px";
+      document.getElementById("total_second21").style.width  = first_row_22.width + "px";
+      document.getElementById("total_third21").style.width  = first_row_23.width + "px";
+
+      const first_row_31 =  getOffset(first31);
+      const first_row_32 = getOffset(second31);
+
+      document.getElementById("total-table3").style.left = parseFloat(first_row_31.left - 100)+"px";
+
+      document.getElementById("total-table3").style.width = parseFloat(100+first_row_31.width+first_row_32.width) + "px";
+      document.getElementById("downtotalmark").style.width = 100+"px";
+      document.getElementById("total_first31").style.width  = first_row_31.width + "px";
+      document.getElementById("total_second31").style.width  = first_row_32.width + "px";
+    }
+
+    refreshbrowser();
+    
+    onresize = (event) => {
+      refreshbrowser();
+    };
+</script>

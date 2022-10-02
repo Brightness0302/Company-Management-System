@@ -49,7 +49,7 @@
                     </div>
                     <hr>
                     <div class="row d-flex justify-content-center align-items-center border border-lime-600">
-                        <div class="col-sm-6 text-center">
+                        <div class="col-sm-3 text-center">
                           <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                 <tr>
                                     <td style="border : 1px solid black"><label class="my-2">Start Date:</label></td>
@@ -61,7 +61,7 @@
                                 </tr>
                           </table>
                         </div>
-                        <div class="col-sm-6 text-center">
+                        <div class="col-sm-3 text-center">
                           <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                 <tr>
                                     <td style="border : 1px solid black"><label class="my-2">End Date:</label></td>
@@ -73,28 +73,40 @@
                                 </tr>
                           </table>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="row d-flex justify-content-center align-items-center border border-lime-600">
-                        <div class="col-sm-4 text-center">
+                        <div class="col-sm-3 text-center">
                           <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                 <tr>
-                                    <td style="border : 1px solid black"><label class="my-2">Payment:</label></td>
+                                    <td style="border : 1px solid black"><label class="my-2">Daily Payment:</label></td>
                                     <td>
                                         <div class="m-auto">
                                             <input type="number" class="form-control " id="salary" value="0.0" title="Choose your color">
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <label class="my-2"><span class="coin">€</span><span>/daily</span></label>
+                                        <label class="my-2"><span class="coin">€</span></label>
                                     </td>
                                 </tr>
                           </table>
                         </div>
-                        <div class="col-sm-4 text-center">
+                        <div class="col-sm-3 text-center">
                           <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                 <tr>
-                                    <td style="border : 1px solid black"><label class="my-2">Total:</label></td>
+                                    <td style="border : 1px solid black"><label class="my-2">VAT percentage:</label></td>
+                                    <td>
+                                        <div class="m-auto">
+                                            <input type="text" class="form-control " id="vat" value="0" title="Choose your color">
+                                        </div>
+                                    </td>
+                                </tr>
+                          </table>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row d-flex justify-content-center align-items-center border border-lime-600">
+                        <div class="col-sm-3 text-center">
+                          <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                                <tr>
+                                    <td style="border : 1px solid black"><label class="my-2">Amount EX VAT:</label></td>
                                     <td>
                                         <div class="m-auto">
                                             <input type="text" class="form-control " id="amount" value="0.0" title="Choose your color">
@@ -106,7 +118,37 @@
                                 </tr>
                           </table>
                         </div>
-                        <div class="col-sm-4 text-center">
+                        <div class="col-sm-3 text-center">
+                          <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                                <tr>
+                                    <td style="border : 1px solid black"><label class="my-2">VAT amount:</label></td>
+                                    <td>
+                                        <div class="m-auto">
+                                            <input type="text" class="form-control " id="vat_amount" value="0.0" title="Choose your color">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="my-2 coin">€</label>
+                                    </td>
+                                </tr>
+                          </table>
+                        </div>
+                        <div class="col-sm-3 text-center">
+                          <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                                <tr>
+                                    <td style="border : 1px solid black"><label class="my-2">Total:</label></td>
+                                    <td>
+                                        <div class="m-auto">
+                                            <input type="text" class="form-control " id="total_amount" value="0.0" title="Choose your color">
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="my-2 coin">€</label>
+                                    </td>
+                                </tr>
+                          </table>
+                        </div>
+                        <div class="col-sm-3 text-center">
                             <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                               <tr>
                                   <td style="border : 1px solid black"><label class="my-2">Observation:</label></td>

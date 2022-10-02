@@ -241,15 +241,14 @@
 
             <li class="nav-item">
                 <a class="nav-link " href="<?=base_url('home/dashboard')?>">
-                    <i class="bi bi-grid"></i>
+                    <i class="bi custom-dashboard-image"></i>
                     <span>Dashboard</span>
                 </a>
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
                 <a class="nav-link <?=$menu['menu']=="Clients"?"":"collapsed"?>" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-person-bounding-box"></i><span>Clients</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi custom-client-image"></i><span>Clients</span>
                 </a>
                 <ul id="components-nav" class="nav-content collapse <?=$menu['menu']=="Clients"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
@@ -283,8 +282,7 @@
 
             <li class="nav-item">
                 <a class="nav-link <?=$menu['menu']=="Suppliers"?"":"collapsed"?>" data-bs-target="#supplier-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-person-bounding-box"></i><span>Suppliers</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi custom-supplier-image"></i><span>Suppliers</span>
                 </a>
                 <ul id="supplier-nav" class="nav-content collapse <?=$menu['menu']=="Suppliers"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
@@ -309,7 +307,7 @@
 
             <li class="nav-item">
                 <a class="nav-link <?=$menu['menu']=="Expenses"?"":"collapsed"?>" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bx bxs-cylinder"></i><span>Expenses</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bx custom-expense-image"></i><span>Expenses</span>
                 </a>
                 <ul id="tables-nav" class="nav-content collapse <?=$menu['menu']=="Expenses"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
@@ -337,7 +335,7 @@
 
             <li class="nav-item">
                 <a class="nav-link <?=$menu['menu']=="Stocks"?"":"collapsed"?>" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bx bxs-diamond"></i><span>Stocks</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bx custom-stock-image"></i><span>Stocks</span>
                 </a>
                 <ul id="charts-nav" class="nav-content collapse <?=$menu['menu']=="Stocks"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
@@ -359,8 +357,7 @@
 
             <li class="nav-item">
                 <a class="nav-link <?=$menu['menu']=="Products"?"":"collapsed"?>" data-bs-target="#product-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-person-bounding-box"></i><span>Products</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi custom-product-image"></i><span>Products</span>
                 </a>
                 <ul id="product-nav" class="nav-content collapse <?=$menu['menu']=="Products"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
@@ -397,7 +394,7 @@
             <!-- Project Module -->
             <li class="nav-item">
                 <a class="nav-link <?=$menu['menu']=="Projects"?"":"collapsed"?>" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bx bx-task"></i><span>Projects</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bx custom-project-image"></i><span>Projects</span>
                 </a>
                 <ul id="icons-nav" class="nav-content collapse <?=$menu['menu']=="Projects"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
@@ -411,7 +408,7 @@
             <!-- Labor Module -->
             <li class="nav-item">
                 <a class="nav-link <?=$menu['menu']=="Labors"?"":"collapsed"?>" data-bs-target="#labors-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bx bx-task"></i><span>Labor</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bx custom-labor-image"></i><span>Labor</span>
                 </a>
                 <ul id="labors-nav" class="nav-content collapse <?=$menu['menu']=="Labors"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
@@ -428,22 +425,25 @@
                 </ul>
             </li><!-- End Labor Module -->
 
-            <li class="nav-heading">Projects</li>
-            <!-- End Profile Page Nav -->
+            <!-- Statistics Module -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
-                    <i class="bi bi-question-circle"></i>
-                    <span>F.A.Q</span>
+                <a class="nav-link <?=$menu['menu']=="Labors"?"":"collapsed"?>" data-bs-target="#report-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bx custom-report-image"></i><span>Reports & Statistics</span>
                 </a>
-            </li>
-            <!-- End F.A.Q Page Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
-                    <i class="bi bi-envelope"></i>
-                    <span>Contact</span>
-                </a>
-            </li><!-- End Contact Page Nav -->
+                <ul id="report-nav" class="nav-content collapse <?=$menu['menu']=="Labors"?"show":""?>" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="<?=base_url("labor/permanentemployee")?>" style="padding-left: 56px;">
+                            <i class="bi <?=($menu['submenu']=='l_pem')?"bi-circle-fill":"bi-circle"?>"></i><span>Permanent Employee</span>
+                        </a>
+                        <a href="<?=base_url("labor/subcontractor")?>" style="padding-left: 56px;">
+                            <i class="bi <?=($menu['submenu']=='l_sc')?"bi-circle-fill":"bi-circle"?>"></i><span>Sub-Contractors</span>
+                        </a>
+                        <a href="<?=base_url("labor/projectassignment")?>" style="padding-left: 56px;">
+                            <i class="bi <?=($menu['submenu']=='l_pa')?"bi-circle-fill":"bi-circle"?>"></i><span>Project Labor Assignment</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End  Statistics Module -->
         </ul>
 
     </aside><!-- End Sidebar-->
