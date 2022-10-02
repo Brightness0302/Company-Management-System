@@ -1,11 +1,11 @@
-======= Hero Section ======= -->
+<!-- ======= Hero Section ======= -->
 <?php $menu = $this->session->flashdata('menu');?>
 <body style="font-size: 13px !important;">
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
+            <a href="index.html" class="logo d-flex align-items-center justify-center">
                 <img src="<?=base_url('assets/company/image/'.$company['id']).'.jpg'?>" alt="">
                 <span class="d-none d-lg-block"><?=str_replace("_"," ", $company['name'])?></span>
             </a>
@@ -318,7 +318,7 @@
                             <li>
                                 <?php foreach($expenses as $expense):?>
                                 <a href="<?=base_url("expense/showproductbyexpenseid?expense_id=").$expense['id']?>" style="padding-left: 56px;">
-                                    <i class="bi <?=($menu['second-submenu']=='expense'.$expense['id'])?"bi-circle-fill":"bi-circle"?>"></i><span><?=$expense['name']?></span>
+                                    <i class="bi <?=($menu['second-submenu']=="expense - ".$expense['name'])?"bi-circle-fill":"bi-circle"?>"></i><span><?=$expense['name']?></span>
                                 </a>
                                 <?php endforeach;?>
                             </li>
@@ -346,7 +346,7 @@
                             <li>
                                 <?php foreach($stocks as $stock):?>
                                 <a href="<?=base_url("stock/showproductbystock?stock_id=").$stock['id']?>" style="padding-left: 56px;">
-                                    <i class="bi <?=($menu['second-submenu']=='stock'.$stock['id'])?"bi-circle-fill":"bi-circle"?>"></i><span><?=$stock['name']?></span>
+                                    <i class="bi <?=($menu['second-submenu']=="stock - ".$stock['name'])?"bi-circle-fill":"bi-circle"?>"></i><span><?=$stock['name']?></span>
                                 </a>
                                 <?php endforeach;?>
                             </li>
@@ -399,7 +399,7 @@
                 <ul id="icons-nav" class="nav-content collapse <?=$menu['menu']=="Projects"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="<?=base_url('project/index')?>">
-                            <i class="bi <?=$menu['submenu']=="pj_pm"?"bi-circle-fill":"bi-circle"?>"></i><span>Project Management</span>
+                            <i class="bi <?=$menu['submenu']=="pj_pm"?"bi-circle-fill":"bi-circle"?>"></i><span>Projects Management</span>
                         </a>
                     </li>
                 </ul>
@@ -563,7 +563,6 @@
             <h1><?=$menu['menu']?></h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html"><?=$menu['menu']?></a></li>
                     <li class="breadcrumb-item active">
                     <?php
                     if($menu['submenu']=="cm")
@@ -599,24 +598,18 @@
                     else if($menu['submenu']=="p_prm")
                         echo "Product recipe management";
                     else if($menu['submenu']=="pmbs")
-                        echo "Stock Management By Stock";
+                        echo "Stock Management";
                     else if($menu['submenu']=="empr")
                         echo "Register expenses";
                     else if($menu['submenu']=="pmbyid")
-                        echo "Expense Management By Expense";
+                        echo "Expense Management";
                     else if($menu['submenu']=="p_ioi")
                         echo "Internal production order";
                     else if($menu['submenu']=="p_iop")
                         echo "Internal order production";
                     ?></li>
                     <li class="breadcrumb-item active">
-                    <?php
-                    if($menu['submenu']=="pmbs")
-                        echo $stock['name'];
-                    else if($menu['submenu']=="pmbyid")
-                        echo $expense['name'];
-                    else echo $menu['second-submenu'];
-                    ?>
+                    <?=$menu['second-submenu']?>
                     </li>
                 </ol>
             </nav>
