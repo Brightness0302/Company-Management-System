@@ -561,6 +561,7 @@
         <!-- End Extra Large Modal-->
         <div class="pagetitle">
             <h1><?=$menu['menu']?></h1>
+            <hr>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item active">
