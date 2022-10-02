@@ -21,8 +21,8 @@
         <tr>
             <td><?=++$index?></td>
             <td class="text-left"><?=$employee['name']?></td>
-            <td><?=$employee['startdate']?></td>
-            <td><?=$employee['enddate']?></td>
+            <td><?=date("Y/m/d", strtotime($employee['startdate']))?></td>
+            <td><?=date("Y/m/d", strtotime($employee['enddate']))?></td>
             <td><?=$employee['daily_rate'].' '.$employee['coin']?></td>
             <td><?=$employee['daily_rate']*(floatval(date_diff(date_create($employee['startdate']), date_create($employee['enddate']))->format("%a"))+1.0).' '.$employee['coin']?></td>
             <td><?=$employee['daily_rate']*(floatval(date_diff(date_create($employee['startdate']), date_create($employee['enddate']))->format("%a"))+1.0)*$employee['vat']/100.0.' '.$employee['coin']?></td>

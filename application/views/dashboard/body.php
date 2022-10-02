@@ -427,19 +427,13 @@
 
             <!-- Statistics Module -->
             <li class="nav-item">
-                <a class="nav-link <?=$menu['menu']=="Labors"?"":"collapsed"?>" data-bs-target="#report-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link <?=$menu['menu']=="Reports"?"":"collapsed"?>" data-bs-target="#report-nav" data-bs-toggle="collapse" href="#">
                     <i class="bx custom-report-image"></i><span>Reports & Statistics</span>
                 </a>
-                <ul id="report-nav" class="nav-content collapse <?=$menu['menu']=="Labors"?"show":""?>" data-bs-parent="#sidebar-nav">
+                <ul id="report-nav" class="nav-content collapse <?=$menu['menu']=="Reports"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="<?=base_url("labor/permanentemployee")?>" style="padding-left: 56px;">
                             <i class="bi <?=($menu['submenu']=='l_pem')?"bi-circle-fill":"bi-circle"?>"></i><span>Permanent Employee</span>
-                        </a>
-                        <a href="<?=base_url("labor/subcontractor")?>" style="padding-left: 56px;">
-                            <i class="bi <?=($menu['submenu']=='l_sc')?"bi-circle-fill":"bi-circle"?>"></i><span>Sub-Contractors</span>
-                        </a>
-                        <a href="<?=base_url("labor/projectassignment")?>" style="padding-left: 56px;">
-                            <i class="bi <?=($menu['submenu']=='l_pa')?"bi-circle-fill":"bi-circle"?>"></i><span>Project Labor Assignment</span>
                         </a>
                     </li>
                 </ul>
