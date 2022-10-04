@@ -60,6 +60,8 @@ class Report extends CI_Controller
                 $data['client_invoices'][$key]['project'] = $res['data'];
             }
         }
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Reports";
         $session['submenu']="r_cc";

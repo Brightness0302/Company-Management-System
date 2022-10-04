@@ -10,12 +10,12 @@ var barChartData = {
         label: 'Value EX VAT',
         backgroundColor: [ 
             <?php foreach ($client_invoices as $key => $invoice):?>
-                ("<?=$invoice['ispaid']?>"==true) ? window.chartColors.lightred : window.chartColors.lightblue, 
+                ("<?=$invoice['ispaid']?>"==false) ? window.chartColors.lightred : window.chartColors.lightblue, 
             <?php endforeach;?>
         ], 
         data: [
             <?php foreach ($client_invoices as $invoice):?>
-                "<?=$invoice['sub_total']?>", 
+                "<?=$invoice['total']?>", 
             <?php endforeach;?>
         ],
         type: 'bar'
@@ -96,13 +96,13 @@ $(function() {
 
         barChartData.datasets[0].data = [
             <?php foreach ($client_invoices as $invoice):?>
-                "<?=$invoice['sub_total']?>", 
+                "<?=$invoice['total']?>", 
             <?php endforeach;?>
         ];
 
         barChartData.datasets[0].backgroundColor = [
             <?php foreach ($client_invoices as $key => $invoice):?>
-                ("<?=$invoice['ispaid']?>"==true) ? window.chartColors.lightred : window.chartColors.lightblue, 
+                ("<?=$invoice['ispaid']?>"==false) ? window.chartColors.lightred : window.chartColors.lightblue, 
             <?php endforeach;?>
         ];
         refreshChart(start, end);
