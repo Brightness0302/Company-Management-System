@@ -36,7 +36,7 @@ window.onload = function() {
                             fillStyle: window.chartColors.lightblue,
                         }, 
                         {
-                            text: "Total Value(In-Paid)",
+                            text: "Total Value(UnPaid)",
                             fillStyle: window.chartColors.lightred,
                         }];
                         return legends;
