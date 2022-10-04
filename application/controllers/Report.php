@@ -78,6 +78,58 @@ class Report extends CI_Controller
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
+    //View chart for client invoices filtering year and month.
+    public function supplierchart() {
+        $this->check_usersession();
+        $companyid = $this->session->userdata('companyid');
+        $company_name = $this->session->userdata('companyname');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['user'] = $this->session->userdata('user');
+        $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
+        $data['setting1'] = $res[0];
+
+        $data['supplier_invoices'] = $this->home->alldatafromdatabase($companyid, 'material');
+        foreach ($data['supplier_invoices'] as $index => $invoice) {
+            $res = $this->home->databyid($invoice['supplierid'], 'supplier');
+            if ($res['status']=='success') {
+                $data['supplier_invoices'][$index]['supplier'] = $res['data'];
+            }
+            $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $invoice['id']);
+            $data['supplier_invoices'][$index]['attached'] = false;
+
+            $data['supplier_invoices'][$index]['acq_subtotal_without_vat'] = $result['acq_subtotal_without_vat'];
+            $data['supplier_invoices'][$index]['acq_subtotal_vat'] = $result['acq_subtotal_vat'];
+            $data['supplier_invoices'][$index]['acq_subtotal_with_vat'] = $result['acq_subtotal_with_vat'];
+            $data['supplier_invoices'][$index]['selling_subtotal_without_vat'] = $result['selling_subtotal_without_vat'];
+            $data['supplier_invoices'][$index]['selling_subtotal_vat'] = $result['selling_subtotal_vat'];
+            $data['supplier_invoices'][$index]['selling_subtotal_with_vat'] = $result['selling_subtotal_with_vat'];
+            $invoicename = $invoice['id'].".pdf";
+            $path = "assets/company/attachment/".$company_name."/supplier/";
+            if(file_exists($path.$invoicename)) {
+                $data['supplier_invoices'][$index]['attached'] = true;
+            }
+        }
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+
+        $session['menu']="Reports & Statistics";
+        $session['submenu']="r_sc";
+        $session['second-submenu']="Supplier Chart";
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/report/supplier/head');
+        $this->load->view('dashboard/report/supplier/body');
+        $this->load->view('dashboard/report/supplier/foot');
+        $this->load->view('dashboard/report/supplier/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
     //If usersession is not exist, goto login page.
     public function check_usersession() {
         if($this->session->userdata('user')) {

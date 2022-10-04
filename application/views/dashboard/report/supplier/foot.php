@@ -42,8 +42,7 @@ $(function() {
                 startdate.setDate(startdate.getDate() - 1);
                 var enddate = new Date($('#enddate').val());
                 enddate.setDate(enddate.getDate() + 1);
-                var date = new Date(data[5] || 0); // use data for the age column
-             
+                var date = new Date(data[6] || 0); // use data for the age column             
                 if (
                     (date > startdate && date < enddate)
                 ) {

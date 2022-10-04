@@ -628,7 +628,7 @@
                         echo "Internal production order";
                     else if($menu['submenu']=="p_iop")
                         echo "Internal order production";
-                    else if($menu['submenu']=="r_cc")
+                    else if($menu['submenu']=="r_cc" || $menu['submenu']=="r_sc")
                         echo "Reports & Statistics";
                     ?></li>
                     <li class="breadcrumb-item active">

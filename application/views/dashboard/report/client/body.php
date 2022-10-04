@@ -23,7 +23,6 @@
             <th id="upvat">VAT Amount</th>
             <th id="uptotal">Total Amount</th>
             <th>Invoice status</th>
-            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -42,10 +41,6 @@
             <td><?=$invoice['tax']?></td>
             <td><?=$invoice['total']?></td>
             <td class="text-center"><?=$invoice['ispaid']?"<i class='bi custom-paid-icon'></i>":"<i class='bi custom-notpaid-icon'></i>"?></td>
-            <td class="form-inline flex justify-around">
-                <a href="<?=base_url('client/editinvoice/'.$invoice['id'])?>"><i class="bi custom-edit-icon"></i></a>
-                <button onclick="delInvoice('<?=$invoice['id']?>')" <?=$invoice['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
-            </td>
         </tr>
         <?php endif;?>
         <?php endforeach;?>
