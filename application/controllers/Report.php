@@ -63,7 +63,7 @@ class Report extends CI_Controller
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
-        $session['menu']="Reports";
+        $session['menu']="Reports & Statistics";
         $session['submenu']="r_cc";
         $session['second-submenu']="Client Chart";
         $this->session->set_flashdata('menu', $session);

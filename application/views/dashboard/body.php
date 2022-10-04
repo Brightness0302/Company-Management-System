@@ -427,28 +427,28 @@
 
             <!-- Statistics Module -->
             <li class="nav-item">
-                <a class="nav-link <?=$menu['menu']=="Reports"?"":"collapsed"?>" data-bs-target="#report-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link <?=$menu['menu']=="Reports & Statistics"?"":"collapsed"?>" data-bs-target="#report-nav" data-bs-toggle="collapse" href="#">
                     <i class="bx custom-report-image"></i><span>Reports & Statistics</span>
                 </a>
-                <ul id="report-nav" class="nav-content collapse <?=$menu['menu']=="Reports"?"show":""?>" data-bs-parent="#sidebar-nav">
+                <ul id="report-nav" class="nav-content collapse <?=$menu['menu']=="Reports & Statistics"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="<?=base_url("report/clientchart")?>" style="padding-left: 56px;">
-                            <i class="bi <?=($menu['submenu']=='r_cc')?"bi-circle-fill":"bi-circle"?>"></i><span>Clients Chart</span>
+                            <i class="bi <?=($menu['submenu']=='r_cc')?"bi-circle-fill":"bi-circle"?>"></i><span>Clients</span>
                         </a>
                     </li>
                     <li>
                         <a href="<?=base_url("report/supplierchart")?>" style="padding-left: 56px;">
-                            <i class="bi <?=($menu['submenu']=='r_sc')?"bi-circle-fill":"bi-circle"?>"></i><span>Suppliers Chart</span>
+                            <i class="bi <?=($menu['submenu']=='r_sc')?"bi-circle-fill":"bi-circle"?>"></i><span>Suppliers</span>
                         </a>
                     </li>
                     <li>
                         <a href="<?=base_url("report/expensechart")?>" style="padding-left: 56px;">
-                            <i class="bi <?=($menu['submenu']=='r_ec')?"bi-circle-fill":"bi-circle"?>"></i><span>Expenses Chart</span>
+                            <i class="bi <?=($menu['submenu']=='r_ec')?"bi-circle-fill":"bi-circle"?>"></i><span>Expenses</span>
                         </a>
                     </li>
                     <li>
                         <a href="<?=base_url("report/vatchart")?>" style="padding-left: 56px;">
-                            <i class="bi <?=($menu['submenu']=='r_vc')?"bi-circle-fill":"bi-circle"?>"></i><span>VAT Chart</span>
+                            <i class="bi <?=($menu['submenu']=='r_vc')?"bi-circle-fill":"bi-circle"?>"></i><span>VAT</span>
                         </a>
                     </li>
                     <li>
@@ -628,6 +628,8 @@
                         echo "Internal production order";
                     else if($menu['submenu']=="p_iop")
                         echo "Internal order production";
+                    else if($menu['submenu']=="r_cc")
+                        echo "Reports & Statistics";
                     ?></li>
                     <li class="breadcrumb-item active">
                     <?=$menu['second-submenu']?>

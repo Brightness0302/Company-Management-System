@@ -7,7 +7,7 @@ var barChartData = {
         <?php endforeach;?>
     ],
     datasets: [{
-        label: 'Value EX VAT',
+        label: 'Total Value',
         backgroundColor: [ 
             <?php foreach ($client_invoices as $key => $invoice):?>
                 ("<?=$invoice['ispaid']?>"==false) ? window.chartColors.lightred : window.chartColors.lightblue, 
@@ -28,15 +28,25 @@ window.onload = function() {
         data: barChartData,
         options: {
             legend: {
-                labels: {
-                    fontColor: window.chartColors.lightred,
-                    fontSize: 18, 
+                labels : {
+                    fontSize: 16, 
+                    generateLabels: function(chart){
+                        var legends = [{
+                            text: "Total Value(Paid)",
+                            fillStyle: window.chartColors.lightblue,
+                        }, 
+                        {
+                            text: "Total Value(In-Paid)",
+                            fillStyle: window.chartColors.lightred,
+                        }];
+                        return legends;
+                    }
                 }
             },
             title:{
                 display:true,
                 fontSize: 24, 
-                text:"Client Invoices"
+                text:"Invoices situation"
             },
             tooltips: {
                 callbacks: {
