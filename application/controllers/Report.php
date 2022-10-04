@@ -51,7 +51,7 @@ class Report extends CI_Controller
 
         $data['client_invoices'] = $this->home->alldatafromdatabase($companyid, 'invoice');
         foreach ($data['client_invoices'] as $key => $invoice) {
-            $res = $this->home->databyidfromdatabase($companyid, 'invoice', $invoice['client_id']);
+            $res = $this->home->databyid($invoice['client_id'], 'client');
             if ($res['status']=='success') {
                 $data['client_invoices'][$key]['client'] = $res['data'];
             }

@@ -27,9 +27,16 @@ window.onload = function() {
         type: 'bar',
         data: barChartData,
         options: {
+            legend: {
+                labels: {
+                    fontColor: window.chartColors.lightred,
+                    fontSize: 18, 
+                }
+            },
             title:{
                 display:true,
-                text:"Project"
+                fontSize: 24, 
+                text:"Client Invoices"
             },
             tooltips: {
                 callbacks: {
@@ -72,6 +79,7 @@ window.onload = function() {
 };
 
 $(document).ready(function() {
+    refreshPage();
 });
 
 $(function() {
@@ -102,6 +110,30 @@ $(function() {
     });
 });
 
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
+function refreshPage() {
+    console.log('<?=$setting1['startdate']?>');
+    $("#startdate").val(formatDate(new Date('<?=$setting1['startdate']?>')));
+    $("#enddate").val(formatDate(new Date()));
+
+    const start = $("#start").val();
+    const end = $("#end").val();
+    console.log(start, end);
+}
+
 function refreshChart(startdate, enddate) {
     <?php foreach (array_reverse($client_invoices) as $index=>$invoice):?>
         if ( !("<?=date("Y-m", strtotime($invoice['due_date']))?>">=startdate && "<?=date("Y-m", strtotime($invoice['due_date']))?>"<=enddate) ) {
@@ -110,6 +142,19 @@ function refreshChart(startdate, enddate) {
             barChartData.datasets[0].backgroundColor.splice('<?=count($client_invoices)-$index-1?>', 1);
         }
     <?php endforeach;?>
+    console.log(startdate, enddate);
+    const from = new Date(startdate);
+    const to = new Date(enddate);
+    console.log(from, to);
+    var firstDay = new Date(from.getFullYear(), from.getMonth() + 1, 1);
+    var lastDay = new Date(to.getFullYear(), to.getMonth() + 2, 0);
+    console.log(firstDay, lastDay);
+
+    $("#startdate").val(formatDate(firstDay));
+    $("#enddate").val(formatDate(lastDay));
+
+    let clickEvent = new Event('change');
+    document.getElementById("startdate").dispatchEvent(clickEvent);
 }
 
 $(document).ready(function() {
