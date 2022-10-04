@@ -432,8 +432,28 @@
                 </a>
                 <ul id="report-nav" class="nav-content collapse <?=$menu['menu']=="Reports"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="<?=base_url("labor/permanentemployee")?>" style="padding-left: 56px;">
-                            <i class="bi <?=($menu['submenu']=='l_pem')?"bi-circle-fill":"bi-circle"?>"></i><span>Permanent Employee</span>
+                        <a href="<?=base_url("report/clientchart")?>" style="padding-left: 56px;">
+                            <i class="bi <?=($menu['submenu']=='r_cc')?"bi-circle-fill":"bi-circle"?>"></i><span>Clients Chart</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?=base_url("report/supplierchart")?>" style="padding-left: 56px;">
+                            <i class="bi <?=($menu['submenu']=='r_sc')?"bi-circle-fill":"bi-circle"?>"></i><span>Suppliers Chart</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?=base_url("report/expensechart")?>" style="padding-left: 56px;">
+                            <i class="bi <?=($menu['submenu']=='r_ec')?"bi-circle-fill":"bi-circle"?>"></i><span>Expenses Chart</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?=base_url("report/vatchart")?>" style="padding-left: 56px;">
+                            <i class="bi <?=($menu['submenu']=='r_vc')?"bi-circle-fill":"bi-circle"?>"></i><span>VAT Chart</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?=base_url("report/traceabilitychart")?>" style="padding-left: 56px;">
+                            <i class="bi <?=($menu['submenu']=='r_tc')?"bi-circle-fill":"bi-circle"?>"></i><span>Traceability</span>
                         </a>
                     </li>
                 </ul>
