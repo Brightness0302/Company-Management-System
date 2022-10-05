@@ -78,7 +78,7 @@ class Report extends CI_Controller
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
-    //View chart for client invoices filtering year and month.
+    //View chart for supplier invoices filtering year and month.
     public function supplierchart() {
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
@@ -127,6 +127,55 @@ class Report extends CI_Controller
         $this->load->view('dashboard/report/supplier/body');
         $this->load->view('dashboard/report/supplier/foot');
         $this->load->view('dashboard/report/supplier/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
+
+    //View chart for expense products filtering category and year and month.
+    public function expensechart() {
+        $this->check_usersession();
+        $companyid = $this->session->userdata('companyid');
+        $company_name = $this->session->userdata('companyname');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['user'] = $this->session->userdata('user');
+        $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
+        $data['setting1'] = $res[0];
+
+        $data['expense_products'] = $this->home->alldatafromdatabase($companyid, 'expense_product');
+        foreach ($data['expense_products'] as $index => $product) {
+            $res = $this->home->databyidfromdatabase($companyid, 'expense_category', $product['categoryid']);
+            if ($res['status']=='success') {
+                $data['expense_products'][$index]['category'] = $res['data'];
+            }
+            $res = $this->home->databyidfromdatabase($companyid, 'project', $product['projectid']);
+            if ($res['status']=='success') {
+                $data['expense_products'][$index]['project'] = $res['data'];
+            }
+            $data['expense_products'][$index]['attached'] = false;
+            $invoicename = $product['id'].".pdf";
+            $path = "assets/company/attachment/".$company_name."/expense/";
+            if(file_exists($path.$invoicename)) {
+                $data['expense_products'][$index]['attached'] = true;
+            }
+        }
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+
+        $session['menu']="Reports & Statistics";
+        $session['submenu']="r_ec";
+        $session['second-submenu']="Expense Chart";
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/report/expense/head');
+        $this->load->view('dashboard/report/expense/body');
+        $this->load->view('dashboard/report/expense/foot');
+        $this->load->view('dashboard/report/expense/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }

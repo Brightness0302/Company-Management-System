@@ -1,9 +1,9 @@
 <body>
     <section id="hero" class="align-items-center">
         <div data-aos="fade-up" data-aos-delay="100">
-            <a href="<?=$_SERVER['HTTP_REFERER']?>"><button
-                    class="backbutton w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-2xl"
-                    title="Add New Client">&#8249;</button></a>
+            <a href="<?=$_SERVER['HTTP_REFERER']?>">
+                <button class="backbutton w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-2xl" title="Add New Client">&#8249;</button>
+            </a>
         </div>
         <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
             <div class="row justify-content-center">
@@ -174,7 +174,7 @@
                 </table>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
