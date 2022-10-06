@@ -53,6 +53,30 @@ window.onload = function() {
         type: 'bar',
         data: barChartData,
         options: {
+            legend: {
+                labels : 
+                {
+                    generateLabels: function(chart){
+                        var legends = [{
+                            text: "VAT collected",
+                            fillStyle: window.chartColors.lightblue,
+                        }, 
+                        {
+                            text: "VAT paid",
+                            fillStyle: window.chartColors.lightgreen,
+                        }, 
+                        {
+                            text: "VAT difference(PLUS)",
+                            fillStyle: window.chartColors.lightred,
+                        }, 
+                        {
+                            text: "VAT difference(MINUS)",
+                            fillStyle: window.chartColors.lightpurple,
+                        }];
+                        return legends;
+                    }
+                }
+            },
             title:{
                 display: true,
                 fontSize: 24, 
