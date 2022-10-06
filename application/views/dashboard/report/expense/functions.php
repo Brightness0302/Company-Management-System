@@ -5,7 +5,7 @@ var barChartData = {
         <?php foreach ($expense_products as $product):?>
             "<?=$product['number'].' [ '.$product['observation'].' ] '?>", 
         <?php endforeach;?>
-    ],
+    ], 
     datasets: [{
         label: 'Total Value',
         backgroundColor: [ 
@@ -46,7 +46,7 @@ window.onload = function() {
             title:{
                 display:true,
                 fontSize: 24, 
-                text:"Invoices situation"
+                text:"Expenses situation"
             },
             tooltips: {
                 callbacks: {

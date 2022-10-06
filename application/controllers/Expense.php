@@ -17,12 +17,17 @@ class Expense extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['user'] = $this->session->userdata('user');
+
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
+        $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
+        $data['setting1'] = $res[0];
+        $startyear = intval(date("Y",strtotime($data['setting1']['startdate'])));
+
         $chart = [];
         $currentyear = intval(date("Y"))+1;
-        for($i=2000;$i<$currentyear;$i++) {
+        for($i=$startyear;$i<$currentyear;$i++) {
             foreach ($data['expenses'] as $key => $category) {
                 $chart[$i][$category['name']]=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
             }
@@ -40,6 +45,7 @@ class Expense extends CI_Controller
                 $chart[$year][$category['name']][$month-1] += number_format($product['total'], 2, '.', "");
             }
         }
+
         $data['chart'] = json_encode($chart);
         
         $session['menu']="Expenses";

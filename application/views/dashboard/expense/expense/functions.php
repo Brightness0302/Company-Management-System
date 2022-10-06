@@ -49,8 +49,8 @@ window.onload = function() {
 };
 
 $(function() {
-    var startYear = 1800;
-    for (i = (new Date().getFullYear()); i > startYear; i--)
+    var startYear = "<?=intval(date("Y",strtotime($setting1['startdate'])))?>";
+    for (i = (new Date().getFullYear()); i >= startYear; i--)
     {
         $('#yearpicker').append($('<option />').val(i).html(i));
     }

@@ -13,14 +13,16 @@ window.chartColors = {
 	transparency: 'rgba(255, 255, 255, 0)', 
 	lightred: 'rgb(255, 177, 193)',
 	lightblue: 'rgb(154, 208, 245)',
+	lightgreen: 'rgb(144,238,144)',
+	lightpurple: 'rgb(203, 195, 227)',
 };
 
-window.borderColors = ['rgb(240, 0, 0)', 'rgb(0, 240, 0)', 'rgb(0, 0, 240)', 'rgb(240, 240, 0)', 'rgb(0, 240, 240)', 'rgb(240, 0, 240)', 'rgb(240, 120, 0)', 'rgb(0, 120, 240)', 'rgb(240, 120, 240)'];
+window.borderColors = ['rgba(240, 0, 0, 15)', 'rgba(0, 240, 0, 15)', 'rgba(0, 0, 240, 15)', 'rgba(240, 240, 0, 15)', 'rgba(0, 240, 240, 15)', 'rgba(240, 0, 240, 15)', 'rgba(240, 120, 0, 15)', 'rgba(0, 120, 240, 15)', 'rgba(240, 120, 240, 15)'];
 while (window.borderColors.length<100) {
 	const r = Math.floor(Math.random() * 255 / 30) * 30;
 	const g = Math.floor(Math.random() * 255 / 30) * 30;
 	const b = Math.floor(Math.random() * 255 / 30) * 30;
-	const color = 'rgb('+(r)+', '+(g)+', '+(b)+')';
+	const color = 'rgb('+(r)+', '+(g)+', '+(b)+', 15)';
 	if (window.borderColors.indexOf(color) == -1)
 		window.borderColors.push(color);
 }
