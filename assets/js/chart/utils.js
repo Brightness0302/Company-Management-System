@@ -17,7 +17,7 @@ window.chartColors = {
 	lightpurple: 'rgb(203, 195, 227)',
 };
 
-window.borderColors = ['rgba(240, 0, 0, 15)', 'rgba(0, 240, 0, 15)', 'rgba(0, 0, 240, 15)', 'rgba(240, 240, 0, 15)', 'rgba(0, 240, 240, 15)', 'rgba(240, 0, 240, 15)', 'rgba(240, 120, 0, 15)', 'rgba(0, 120, 240, 15)', 'rgba(240, 120, 240, 15)'];
+window.borderColors = ['rgb(255, 204, 203)', 'rgb(255, 213, 128)', 'rgb(255, 255, 224)', 'rgb(144, 238, 144)', 'rgb(173,216,230)', 'rgb(162, 139, 231)', 'rgb(207, 159, 255)'];
 while (window.borderColors.length<100) {
 	const r = Math.floor(Math.random() * 255 / 30) * 30;
 	const g = Math.floor(Math.random() * 255 / 30) * 30;
