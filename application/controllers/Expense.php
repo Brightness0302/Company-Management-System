@@ -74,6 +74,11 @@ class Expense extends CI_Controller
         $data['company'] = $company['data'];
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        
+        $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
+        $data['setting1'] = $res[0];
+
+        $data['chart'] = json_encode([]);
 
         $session['menu']="Expenses";
         $session['submenu']="em";
@@ -86,7 +91,7 @@ class Expense extends CI_Controller
         $this->load->view('dashboard/expense/expense/head');
         $this->load->view('dashboard/expense/expense/addexpense');
         $this->load->view('dashboard/expense/expense/foot');
-        $this->load->view('dashboard/expense/expense/functions.php');
+        $this->load->view('dashboard/expense/expense/functions');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
@@ -101,6 +106,11 @@ class Expense extends CI_Controller
         $data['company'] = $company['data'];
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        
+        $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
+        $data['setting1'] = $res[0];
+
+        $data['chart'] = json_encode([]);
 
         $result = $this->home->databyidfromdatabase($companyid, 'expense_category', $expense_id);
         if ($result['status']=="failed")
@@ -118,7 +128,7 @@ class Expense extends CI_Controller
         $this->load->view('dashboard/expense/expense/head');
         $this->load->view('dashboard/expense/expense/editexpense');
         $this->load->view('dashboard/expense/expense/foot');
-        $this->load->view('dashboard/expense/expense/functions.php');
+        $this->load->view('dashboard/expense/expense/functions');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
