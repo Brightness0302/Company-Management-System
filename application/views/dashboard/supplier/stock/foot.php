@@ -62,7 +62,6 @@ $(function() {
         "pageLength": 100,
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#invoicetable_wrapper .col-md-6:eq(0)');
-
     $("#productbystock").DataTable({
         "responsive": true,
         "lengthChange": false,
@@ -74,7 +73,7 @@ $(function() {
                 extend: 'pdfHtml5',
                 orientation: 'landscape',
                 pageSize: 'LEGAL',
-                title: "<?=$company['name'].'-'.$stock['name'].'-'.date("Y/m/d")?>",
+                title: "<?=isset($stock)?$company['name'].'-'.$stock['name'].'-'.date("Y/m/d"):$company['name']?>",
                 customize: function (doc) {
                     doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
                 }

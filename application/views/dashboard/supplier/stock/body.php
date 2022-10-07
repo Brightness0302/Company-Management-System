@@ -86,15 +86,6 @@ window.onload = function() {
         }
     });
 };
-
-document.getElementById('randomizeData').addEventListener('click', function() {
-    barChartData.datasets.forEach(function(dataset, i) {
-        dataset.data = dataset.data.map(function() {
-            return randomScalingFactor();
-        });
-    });
-    window.myBar.update();
-});
 </script>
 <table id="example1" class="table table-bordered table-hover mt-10">
     <thead class="text-center">
