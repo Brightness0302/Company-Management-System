@@ -266,6 +266,94 @@ class Report extends CI_Controller
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
+    //View client and supplier page filtering search words.
+    public function traceabilitychart() {
+        $this->check_usersession();
+        $companyid = $this->session->userdata('companyid');
+        $company_name = $this->session->userdata('companyname');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['user'] = $this->session->userdata('user');
+        $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
+        $data['setting1'] = $res[0];
+
+        $data['client_invoices'] = $this->home->alldatafromdatabase($companyid, 'invoice');
+        foreach ($data['client_invoices'] as $key => $invoice) {
+            $res = $this->home->databyid($invoice['client_id'], 'client');
+            if ($res['status']=='success') {
+                $data['client_invoices'][$key]['client'] = $res['data'];
+            }
+            $res = $this->home->databyidfromdatabase($companyid, 'project', $invoice['projectid']);
+            if ($res['status']=='success') {
+                $data['client_invoices'][$key]['project'] = $res['data'];
+            }
+            $lines=array();
+
+            $token = "This is from stock by productid";
+            $invoice_lines = $invoice['lines'];
+            $invoice_lines=json_decode($invoice_lines, true);
+            foreach ($invoice_lines as $index => $line) {
+                if (substr($line['description'], 0, strlen($token)) == $token) {
+                    $id = substr($line['description'], strlen($token));
+
+                    $result = $this->home->databyidfromdatabase($companyid, 'material_totalline', $id);
+                    if ($result['status']!="failed") {
+                        $res = $result['data'];
+                        // array_push($lines, (object) [ 'code_ean' => $res['code_ean'], 'production_description' => $res['production_description'] ]);
+                        array_push($lines, $res['code_ean'], $res['production_description']);
+                    }
+                } 
+                else {
+                    // array_push($lines, (object) [ 'production_description' => $line['description'] ]);
+                    array_push($lines, $line['description']);
+                }
+            }
+            $data['client_invoices'][$key]['material_lines'] = json_encode($lines);
+        }
+
+        $data['supplier_invoices'] = $this->home->alldatafromdatabase($companyid, 'material');
+        foreach ($data['supplier_invoices'] as $index => $invoice) {
+            $res = $this->home->databyid($invoice['supplierid'], 'supplier');
+            if ($res['status']=='success') {
+                $data['supplier_invoices'][$index]['supplier'] = $res['data'];
+            }
+            $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $invoice['id']);
+            $data['supplier_invoices'][$index]['attached'] = false;
+
+            $data['supplier_invoices'][$index]['acq_subtotal_without_vat'] = $result['acq_subtotal_without_vat'];
+            $data['supplier_invoices'][$index]['acq_subtotal_vat'] = $result['acq_subtotal_vat'];
+            $data['supplier_invoices'][$index]['acq_subtotal_with_vat'] = $result['acq_subtotal_with_vat'];
+            $data['supplier_invoices'][$index]['selling_subtotal_without_vat'] = $result['selling_subtotal_without_vat'];
+            $data['supplier_invoices'][$index]['selling_subtotal_vat'] = $result['selling_subtotal_vat'];
+            $data['supplier_invoices'][$index]['selling_subtotal_with_vat'] = $result['selling_subtotal_with_vat'];
+
+            $invoicename = $invoice['id'].".pdf";
+            $path = "assets/company/attachment/".$company_name."/supplier/";
+            if(file_exists($path.$invoicename)) {
+                $data['supplier_invoices'][$index]['attached'] = true;
+            }
+        }
+        
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+
+        $session['menu']="Reports & Statistics";
+        $session['submenu']="r_tc";
+        $session['second-submenu']="Traceability";
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/report/traceability/head');
+        $this->load->view('dashboard/report/traceability/body');
+        $this->load->view('dashboard/report/traceability/foot');
+        $this->load->view('dashboard/report/traceability/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
     //If usersession is not exist, goto login page.
     public function check_usersession() {
         if($this->session->userdata('user')) {
