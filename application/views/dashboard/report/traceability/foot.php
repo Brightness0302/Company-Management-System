@@ -38,6 +38,6 @@ $(function() {
 </script>
 <style type="text/css">
     .dataTables_filter {
-        display: none;
+        display: none !important;
     }
 </style>

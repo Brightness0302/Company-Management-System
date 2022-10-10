@@ -332,4 +332,17 @@ class Material extends CI_Controller
         header('Content-Type: application/json');
         echo json_encode($data);
     }
+
+    public function getLinesByProjectId($product_id) {
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+
+        $product = $this->home->databyidfromdatabase($companyid, 'material', $product_id);
+        if ($product['status']=="failed")
+            return;
+        $data['supplier_invoices'] = json_decode($product['data']['lines']);
+
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
 };

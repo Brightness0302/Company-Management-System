@@ -19,12 +19,10 @@
         </tr>
     </thead>
     <tbody>
-        <?php $index=0;?>
-        <?php foreach ($client_invoices as $invoice):?>
+        <?php $index=0; foreach ($client_invoices as $invoice):?>
         <?php if(!$invoice['isremoved']):?>
-        <?php $index++;?>
         <tr>
-            <td><?=($index)?></td>
+            <td><?=(++$index)?></td>
             <td><?=date("Y").'-'.$invoice['input_invoicenumber']?><?=$invoice['isremoved']?"[<label class='danger'>deleted</label>]":""?></td>
             <td><?=str_replace("_"," ", $invoice['client']['name'])?></td>
             <td><?=$invoice['input_inputreference']?></td>
@@ -60,16 +58,15 @@
             <th id="fifth">Selling VAT<br/> sub-total</th>
             <th id="sixth">Selling sub-total<br/> with VAT</th>
             <th>Status</th>
+            <th>Action</th>
             <th hidden></th>
         </tr>
     </thead>
-    <tbody class="text-center">
-        <?php $index=0;?>
-        <?php foreach ($supplier_invoices as $invoice):?>
+    <tbody class="text-center" id="product_body">
+        <?php $index1=0; foreach ($supplier_invoices as $invoice):?>
         <?php if(!$invoice['isremoved']):?>
-        <?php $index++;?>
         <tr>
-            <td><?=($index)?></td>
+            <td><?=(++$index1)?></td>
             <td class="text-left"><?=$invoice['invoice_number']?></td>
             <td class="text-left"><?=str_replace("_"," ", $invoice['supplier']['name']);?></td>
             <td class="text-left"><?=$invoice['observation']?></td>
@@ -83,6 +80,7 @@
             <td><?=number_format($invoice['selling_subtotal_vat'], 2, '.', "")?></td>
             <td><?=number_format($invoice['selling_subtotal_with_vat'], 2, '.', "")?></td>
             <td><?=$invoice['ispaid']?"<i class='bi custom-paid-icon'></i>":"<i class='bi custom-notpaid-icon'></i>"?></td>
+            <td class="text-center"><button onclick="viewProductsforNIR('<?=$invoice['id']?>', this)"><i class="bi custom-view-icon"></i></button></td>
             <td hidden><?php
                 $lines = array();
 
