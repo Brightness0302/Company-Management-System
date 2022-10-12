@@ -516,12 +516,21 @@ h6 {
   color: #2487ce;
 }
 
+#hero .icon-box .icon .ri-stack-line {
+  transition: .3s ease;
+  opacity: .7;
+}
+
 #hero .icon-box:hover {
   transform: scale(1.08);
 }
 
 #hero .icon-box:hover .title a {
   color: #2487ce;
+}
+
+#hero .icon-box:hover .icon .ri-stack-line {
+  opacity: 1;
 }
 
 @media (min-width: 1024px) {
