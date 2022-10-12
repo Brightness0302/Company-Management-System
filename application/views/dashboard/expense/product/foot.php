@@ -77,12 +77,14 @@ $(function() {
             var enddate = new Date($('#enddate').val());
             enddate.setDate(enddate.getDate() + 1);
             var date = new Date(data[3] || 0); // use data for the age column
-            var name = data[1];
             var searchvalue = $("#searchtag").val();
+            const condition0 = data[1].toLowerCase().includes(searchvalue.toLowerCase());
+            const condition1 = data[2].toLowerCase().includes(searchvalue.toLowerCase());
+            const condition2 = data[7].toLowerCase().includes(searchvalue.toLowerCase());
             // console.log(name, reference, searchvalue, startdate, enddate, date);
          
             if (
-                (date > startdate && date < enddate) && (name.toLowerCase().includes(searchvalue.toLowerCase()))
+                (date > startdate && date < enddate) && (condition0 || condition1 || condition2)
             ) {
                 subtotal += parseFloat(data[4]);
                 vat += parseFloat(data[5]);

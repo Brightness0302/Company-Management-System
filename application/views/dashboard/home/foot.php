@@ -42,3 +42,9 @@ $(function() {
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 });
 </script>
+<style type="text/css">
+	td {
+		border: none;
+		border-top: 1px solid #dee2e6;
+	}
+</style>

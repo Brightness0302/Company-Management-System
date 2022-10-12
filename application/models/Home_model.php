@@ -46,6 +46,17 @@ class Home_model extends CI_Model {
 
         return $this->db->query($query)->result_array();
     }
+    //get all data from $data table by YEAR=$value in $companyid database
+    public function alldatabyyearsettingfromdatabase($companyid, $data, $item, $value) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $query =    "SELECT *
+                    FROM `$data`
+                    WHERE `isremoved`=false AND YEAR(`$item`)='$value'";
+
+        return $this->db->query($query)->result_array();
+    }
     //get dateissue, datedue, lastid for invoice
     public function invoicefromsetting($companyid, $table) {
         $companyid = "database".$companyid;
@@ -382,7 +393,7 @@ class Home_model extends CI_Model {
         $res=$this->db->update('supplier', $data);
         return $res;
     }
-
+    //Reincrease the qty of each line of $lines on material_totalline
     public function gobacklines($companyid, $lines) {
         $token = "This is from stock by productid";
         $pattern = "/([\{\}\[\]]+)/";
@@ -418,7 +429,7 @@ class Home_model extends CI_Model {
             } 
         }
     }
-
+    //json decode $lines and then Decrease qty property in material_totalline by qty of each line of $lines
     public function deductionlines($companyid, $lines) {
         $token = "This is from stock by productid";
         $pattern = "/([\{\}\[\]]+)/";
@@ -438,24 +449,23 @@ class Home_model extends CI_Model {
 
                 $data = $this->db->query($query)->result_array();
 
-                if (count($data)==0)
-                    return -1;
+                if (count($data)>0) {
+                    $data = $data[0];
 
-                $data = $data[0];
+                    $data['qty'] -= intval($line['qty']);
 
-                $data['qty'] -= intval($line['qty']);
+                    $data_sql = array(
+                        'qty'=>$data['qty']
+                    );
 
-                $data_sql = array(
-                    'qty'=>$data['qty']
-                );
-
-                $this->db->where('id', $id);
-                $this->db->update('material_totalline', $data_sql);
+                    $this->db->where('id', $id);
+                    $this->db->update('material_totalline', $data_sql);
+                }
             } 
         }
     }
     //create invoice information using $id, $companyid, ...
-    public function createInvoice($companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines) {
+    public function createInvoice($companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $lines) {
         $client_name = str_replace(" ","",$client_name);
         $client_name = str_replace("\n","", $client_name);
         $client = $this->databyname($client_name, 'client');
@@ -515,6 +525,7 @@ class Home_model extends CI_Model {
             'client_id'=>$client["data"]["id"], 
             'sub_total'=>$sub_total, 
             'tax'=>$tax, 
+            'invoice_discount'=>$invoice_discount, 
             'total'=>$total, 
             'lines'=>$lines
         );
@@ -536,7 +547,7 @@ class Home_model extends CI_Model {
         return $projects_id;
     }
     //save invoice information using $id, $companyid, ...
-    public function saveInvoice($id, $companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines) {
+    public function saveInvoice($id, $companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $lines) {
         $client_name = str_replace(" ", "", $client_name);
         $client_name = str_replace("\n","", $client_name);
         $client = $this->databyname($client_name, 'client');
@@ -591,6 +602,7 @@ class Home_model extends CI_Model {
             'client_id'=>$client["data"]["id"], 
             'sub_total'=>$sub_total, 
             'tax'=>$tax, 
+            'invoice_discount'=>$invoice_discount, 
             'total'=>$total, 
             'lines'=>$lines
         );

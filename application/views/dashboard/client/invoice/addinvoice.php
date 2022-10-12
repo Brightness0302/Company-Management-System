@@ -184,7 +184,7 @@
                         <div class="row-sm-6 p-4">
                             <strong class="font_24">Amount</strong>
                         </div>
-                        <div class="row-sm-6 p-1">
+                        <div class="row-sm-6 pl-4">
                             <strong class="text-3xl" id="amount_total">0.00</strong> <label class="text-3xl coinsymbol">€</label>
                         </div>
                     </div>
@@ -205,6 +205,7 @@
                         <th class="text-right">Rate(<label class="coinsymbol">€</label>)</th>
                         <th class="text-right">Qty</th>
                         <th class="text-right">Line Total(<label class="coinsymbol">€</label>)</th>
+                        <th class="text-center">Action</th>
                     </thead>
                     <tbody id="table_body">
                     </tbody>
@@ -236,6 +237,7 @@
                                     <div class="w-full m-3 form-control">Stock:</div>
                                     <div class="w-full m-3 form-control">Product:</div>
                                     <div class="w-full m-3 form-control">Amount:</div>
+                                    <div class="w-full m-3 form-control">Discount:</div>
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="m-3">
@@ -261,6 +263,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="m-3">
+                                        <input class="form-control" type="text" name="discount" id="product_discount" />
+                                    </div>
                                 </div>
                             </div>
                           </div>
@@ -281,6 +286,13 @@
             </div>
 
             <div class="text_right m-3">
+                <p class="d_inline text-green-600 text-center text-lg">- </p>
+                <p class="d_inline w_75 p-2 text-primary text-center">Discount</p>
+                <p class="d_inline w_15 p-2" id="discount">0.00</p><label class="coinsymbol">€</label>
+            </div>
+
+            <div class="text_right m-3">
+                <p class="d_inline text-green-600 text-center text-lg">+ </p>
                 <p class="d_inline w_75 p-2 text-primary text-center">VAT</p>
                 <p class="d_inline w_15 p-2" id="tax">0.00</p><label class="coinsymbol">€</label>
             </div>

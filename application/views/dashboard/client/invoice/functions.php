@@ -3,16 +3,19 @@ $(document).ready(function() {
     $("select").select2({ width: '100%' });
 
     $("#btn_add_line").click(function() {
-        appendTable("", 0, 1);
+        appendTable("", 0, 1, 0);
         $("input").change(function() {
             const eid = $(this).attr('id');
-            if (eid == "line_rate" || eid == "line_qty") {
+            if (eid == "line_rate" || eid == "line_qty" || eid == "line_discount") {
                 //Update Line_total value;
                 const etr = $(this).closest('tr');
                 const erate = etr.find("input[id*='line_rate']");
                 const eqty = etr.find("input[id*='line_qty']");
+                const ediscount = etr.find("input[id*='line_discount']");
                 const etotal = etr.find("input[id*='line_total']");
+                const ediscount_amount = etr.find("input[id*='discount_amount']");
                 etotal[0].value = (erate[0].value * eqty[0].value).toFixed(2);
+                ediscount_amount[0].value = (erate[0].value * eqty[0].value * ediscount[0].value / 100.0).toFixed(2);
                 //Update total, sub_total;
                 refresh();
             }
@@ -36,6 +39,7 @@ $(document).ready(function() {
     $("#save_product").click(function() {
         const lineid = $("#product_code_ean").val();
         const amount = $("#product_amount").val();
+        const discount = $("#product_discount").val();
 
         const product_code_ean = document.getElementById('product_code_ean');
         const stock = document.getElementById('stockid');
@@ -55,16 +59,19 @@ $(document).ready(function() {
                 console.log(lineid, code_ean, productname, amount);
                 const product_description = "[" + code_ean + "] - " + productname;
 
-                appendTable(product_description, parseFloat(price), amount);
+                appendTable(product_description, parseFloat(price), amount, discount);
                 $("input").change(function() {
                     const eid = $(this).attr('id');
-                    if (eid == "line_rate" || eid == "line_qty") {
+                    if (eid == "line_rate" || eid == "line_qty" || eid == "line_discount") {
                         //Update Line_total value;
                         const etr = $(this).closest('tr');
                         const erate = etr.find("input[id*='line_rate']");
                         const eqty = etr.find("input[id*='line_qty']");
+                        const ediscount = etr.find("input[id*='line_discount']");
                         const etotal = etr.find("input[id*='line_total']");
+                        const ediscount_amount = etr.find("input[id*='discount_amount']");
                         etotal[0].value = (erate[0].value * eqty[0].value).toFixed(2);
+                        ediscount_amount[0].value = (erate[0].value * eqty[0].value * ediscount[0].value / 100.0).toFixed(2);
                         //Update total, sub_total;
                         refresh();
                     }
@@ -80,36 +87,41 @@ $(document).ready(function() {
 
 $("input").change(function() {
     const eid = $(this).attr('id');
-    if (eid == "line_rate" || eid == "line_qty") {
+    if (eid == "line_rate" || eid == "line_qty" || eid == "line_discount") {
         //Update Line_total value;
         const etr = $(this).closest('tr');
         const erate = etr.find("input[id*='line_rate']");
         const eqty = etr.find("input[id*='line_qty']");
+        const ediscount = etr.find("input[id*='line_discount']");
         const etotal = etr.find("input[id*='line_total']");
+        const ediscount_amount = etr.find("input[id*='discount_amount']");
         etotal[0].value = (erate[0].value * eqty[0].value).toFixed(2);
+        ediscount_amount[0].value = (erate[0].value * eqty[0].value * ediscount[0].value / 100.0).toFixed(2);
         //Update total, sub_total;
         refresh();
     }
 });
 
-function appendTable(product_description, product_rate, product_amount) {
+function appendTable(product_description, product_rate, product_amount, product_discount) {
     $("#table_body").append(
-        "<tr>" +
+        "<tr class='border'>" +
         "<td>" +
-        "<textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text-left bg-transparent no_broder' name='description' cols='200'>" + product_description + "</textarea>" +
+        "<textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text-left bg-transparent no_broder' name='description' cols='200' rows='1'>" + product_description + "</textarea>" +
         "</td>" +
         "<td class='text-center'>" +
-        "<input type='text' value='" + product_rate + "' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>" +
+        "<input type='text' value='" + product_rate + "' class='form form-control m_auto w-full p-2 mt-2 text-right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>" +
+        ((product_description!="")?"<input type='text' value='" + product_discount + "' class='w-full text-right bg-transparent border-none' name='discount' placeholder='Discount' id='line_discount'>":"") +
         "</td>" +
         "<td>" +
         "<input type='number' min=1 class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='qty' placeholder='Quantity' id='line_qty' value='" + product_amount +"'>" +
         "</td>" +
         "<td>" +
         "<input type='text' value='" + parseFloat(product_rate*product_amount).toFixed(2) + "' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>" +
+        ((product_description!="")?"<input type='text' value='" + parseFloat(product_rate*product_amount*product_discount/100.0).toFixed(2) + "' class='w-full text-right bg-transparent border-none' name='discount_amount' placeholder='Discount_amount' id='discount_amount' readOnly>":"") +
         "</td>" +
-        "<td class='align-middle'>" +
-        "<div id='btn_remove_row' onclick='remove_tr(this)'>" +
-        "<i class='bi custom-remove-icon p-3'></i>" +
+        "<td class='align-middle text-center'>" +
+        "<div class='mt-2 p-2' id='btn_remove_row' onclick='remove_tr(this)'>" +
+        "<i class='bi custom-remove-icon'></i>" +
         "</div>" +
         "</td>" +
         "</tr>"
@@ -165,20 +177,26 @@ function refresh() {
     const table = $("#table_body");
     let sub_total = 0;
     let total = 0;
+    let discount = 0.0;
     let tax = 0;
     table.children("tr").each((index, element) => {
         const erate = $(element).find("input[id*='line_rate']");
         const eqty = $(element).find("input[id*='line_qty']");
+        const ediscount = $(element).find("input[id*='line_discount']");
+        const vdiscount = $(element).find("input[id*='discount_amount']");
         const etotal = $(element).find("input[id*='line_total']");
         let vqty = eqty[0].value;
         if (vqty<=0) {
             eqty[0].value = 1;
             vqty=1;
         }
-
         sub_total += parseFloat(etotal[0].value);
+        if (vdiscount.length == 1) {
+            discount += parseFloat(vdiscount[0].value);
+        }
     });
-    total = parseFloat(sub_total);
+    console.log(discount);
+    total = parseFloat(sub_total - discount);
     const evat = $("#invoice_vat").html();
     let vvat = 0.0;
     if (evat != "Add a VAT") {
@@ -187,6 +205,7 @@ function refresh() {
     }
     $("#sub_total").text(sub_total.toFixed(2));
     $("#total").text((total * (1.0 + vvat)).toFixed(2));
+    $("#discount").text((discount));
     $("#amount_total").text($("#total").text());
     $("#tax").text((total * vvat).toFixed(2));
 }
@@ -294,6 +313,7 @@ function get_formdata() {
     const client_name = $("#client_name").html();
     const client_address = $("#client_address").html();
     const sub_total = $("#sub_total").text();
+    const invoice_discount = $("#discount").html();
     const tax = $("#tax").text();
     const total = $("#total").text();
     const companycoin = $("#companycoin").val();
@@ -306,8 +326,12 @@ function get_formdata() {
         const edescription = $(element).find("textarea[id*='line_description']");
         const etax = $(element).find("a[id*='btnaddtax']");
         const etotal = $(element).find("input[id*='line_total']");
+        const ediscount = $(element).find("input[id*='line_discount']");
+        let vdiscount = 0.0;
+        if (ediscount.length == 1)
+            vdiscount = ediscount[0].value;
 
-        lines.push({rate: erate[0].value, qty: eqty[0].value, description: edescription[0].value, total: etotal[0].value});
+        lines.push({rate: erate[0].value, qty: eqty[0].value, discount: vdiscount, description: edescription[0].value, total: etotal[0].value});
     });
 
     const str_lines = JSON.stringify(lines);
@@ -318,6 +342,7 @@ function get_formdata() {
         input_invoicenumber: input_invoicenumber,
         input_inputreference: input_inputreference,
         invoice_vat: invoice_vat,
+        invoice_discount: invoice_discount, 
         short_name: short_name, 
         client_name: client_name,
         client_address: client_address,
@@ -392,6 +417,9 @@ function addInvoice() {
             function() {
                 window.location.href = "<?=base_url('client/invoicemanager')?>";
             });
+        },
+        error: function(jqXHR, exception) {
+            console.log(jqXHR, exception);
         }
     });
 }

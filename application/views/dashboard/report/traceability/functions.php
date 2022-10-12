@@ -52,7 +52,7 @@ function viewProductsforNIR(invoice_id, el) {
             etr.after("<tr id='viewProductsforNIR' style='background: cornsilk;'>"+
                 "<td></td>"+
                 "<td colSpan='100'>"+
-                "<p class='text-center text-lg'>Products track</p>"+
+                "<p class='text-center text-lg'>Products trace</p>"+
                 "<table class='table table-bordered table-hover'>"+
                 "<thead>"+
                 "<tr><th>No</th><th>Code EAN</th><th>Description</th><th>Qty received</th><th>Qty on document</th><th>Acq unit price Ex VAT</th><th>VAT: Acq/unit</th><th>Acq unit price with VAT</th><th>Acq amount Ex VAT</th><th>Acq amount VAT</th><th>Acq total amount</th><th>Selling unit price Ex VAT</th><th>VAT Sell/unit</th><th>Selling unit price with VAT</th><th>Selling amount Ex VAT</th><th>VAT: Selling amount</th><th>Selling amount with VAT</th></tr>"+

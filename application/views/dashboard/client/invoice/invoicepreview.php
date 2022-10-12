@@ -7,22 +7,22 @@
     }
 </style>
 <body >
-    <div style="position: relative; width: 800px;">
+    <div style="width: 800px; display: flex; flex-direction: column; height: 100vh;">
         <!-- Content Start-->
         <div class="container p-2">
             <!-- Company Info Section -->
-            <div class="row" style=" border-bottom: 1px black solid; margin-bottom: -10px;">
+            <div class="row" style="margin-bottom: -40px; border: 1px black solid; border-radius: 10px;">
                 <div>
                     <!-- Title Section -->
                     <div class="p-3">
                         <h1 class="float-left">Invoice</h1>
                     </div>
                     <!-- Company Avatar start-->
-                    <img style="position: absolute; margin-top: 30px; left: 50px;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="150">
+                    <img style="position: absolute; margin-top: 30px; left: 50px;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="100">
                     <!-- Company Avatar end-->
                 </div>
-                <div style="position: relative; left: 300px; top: -50px; margin-bottom: -50px;">
-                    <div style="margin-bottom: 50px;"><p class="text-lg font-bold"><?=str_replace("_"," ", $company['name'])?></p></div>
+                <div style="position: relative; left: 300px; top: -50px; margin-bottom: -75px;">
+                    <div style="margin-top:20px; margin-bottom: 20px;"><p class="text-lg font-bold"><?=str_replace("_"," ", $company['name'])?></p></div>
                     <div class="row" style="margin-top: 25px;">
                         <div style="width: 110px; display: inline-block;">
                             <p class="font-bold" style="margin: 0px !important; padding: 0px !important;">Address:</p>
@@ -46,8 +46,8 @@
             <!-- Company Info Section End -->
 
             <!-- Add Client Section Start -->
-            <div class="row" style=" margin-bottom: -50px; margin-top: 20px;">
-                <div class="text-left" style="width: 250px; margin-top: 25px; display: inline-block;">
+            <div class="row" style=" margin-bottom: 0px; margin-top: 50px; border: 1px black solid; border-radius: 10px;">
+                <div class="text-left" style="width: 240px; margin-top: 50px; margin-bottom: -30px; display: inline-block;">
                     <div class="py-2">
                         <strong style="margin-left: 30px;">Billed to : </strong>
                         <?php if($invoice['client_name'] != "Add a Client"):?>
@@ -70,7 +70,7 @@
                     </div>
                 </div>
 
-                <div style="width: 120px; margin-top: 25px; min-height: 200px; display: inline-block;">
+                <div style="width: 120px; margin-top: 25px; min-height: 180px; display: inline-block;">
                     <div class="col">
                         <div class="row-sm-6 px-0 py-2">
                             <strong>Date of Issue</strong>
@@ -83,7 +83,7 @@
                     </div>
                 </div>
 
-                <div style="width: 200px; margin-top: 25px; min-height: 200px; display: inline-block;">
+                <div style="width: 200px; margin-top: 25px; min-height: 180px; display: inline-block;">
                     <div class="col">
                         <div class="row-sm-6 px-0 py-2">
                             <strong>Invoice Number</strong>
@@ -96,12 +96,12 @@
                     </div>
                 </div>
 
-                <div style="width: 150px; margin-top: 25px; min-height: 200px; display: inline-block;">
+                <div style="width: 150px; margin-top: 25px; min-height: 180px; display: inline-block;">
                     <div>
                         <strong style="font-size: 24px;">Amount</strong>
                     </div>
                     <div>
-                        <strong style="font-size: 28px;"><?=$invoice['total'].' '.$invoice['companycoin']?></strong>
+                        <strong style="font-size: 28px;"><?=number_format($invoice['total'], 2, '.', '').' '.$invoice['companycoin']?></strong>
                     </div>
                 </div>
 
@@ -111,7 +111,7 @@
         <!-- Content End -->
 
         <!-- Add Line Section Start-->
-        <div class="container" style="border-top: 1px solid black;">
+        <div class="container" style="border: 1px solid black; border-radius: 10px;">
             <div style="margin-bottom: 20px;">
                 <!-- Description Table -->
                 <table class="table invoicepreview">

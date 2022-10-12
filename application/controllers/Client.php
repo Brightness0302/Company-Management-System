@@ -513,19 +513,20 @@ class Client extends CI_Controller
         $client_name=$this->input->post('client_name');
         $sub_total=$this->input->post('sub_total');
         $tax=$this->input->post('tax');
+        $invoice_discount=$this->input->post('invoice_discount');
         $total=$this->input->post('total');
         $lines=$this->input->post('lines');
 
         $client_name = str_replace(" ","_", $client_name);
 
         if (!isset($_GET['id'])) {
-            $projects_id = $this->home->createInvoice($data['company']['id'], $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines);
+            $projects_id = $this->home->createInvoice($data['company']['id'], $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $lines);
             echo $projects_id;
             return;
         }
 
         $id = $_GET['id'];
-        $result = $this->home->saveInvoice($id, $data['company']['id'], $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $total, $lines);
+        $result = $this->home->saveInvoice($id, $data['company']['id'], $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $lines);
         echo $result;
     }
     //Save(Add/Edit) User post(object(name, number, ...)) get(id)

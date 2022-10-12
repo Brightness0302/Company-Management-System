@@ -199,7 +199,7 @@
                         <div class="row-sm-6 p-4">
                             <strong class="font_24">Amount</strong>
                         </div>
-                        <div class="row-sm-6 p-1">
+                        <div class="row-sm-6 pl-4">
                             <strong class="text-3xl" id="amount_total"><?=$invoice['total']?></strong> <label class="text-3xl coinsymbol">€</label>
                         </div>
                     </div>
@@ -221,26 +221,33 @@
                         <th class="text-right">Rate(<label class="coinsymbol">€</label>)</th>
                         <th class="text-right pr-2">Qty</th>
                         <th class="text-right">Line Total(<label class="coinsymbol">€</label>)</th>
+                        <th class="text-center">Action</th>
                     </thead>
                     <tbody id="table_body">
                         <?php ?>
                         <?php foreach ($lines as $index => $line):?>
                         <tr>
                             <td>
-                                <textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text-left bg-transparent no_broder' name='description' cols='200'><?=$line['description']?></textarea>
+                                <textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text-left bg-transparent no_broder' name='description' cols='200' rows='1'><?=$line['description']?></textarea>
                             </td>
                             <td class='text-center'>
                                 <input type='text' value="<?=$line['rate']?>" class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>
+                                <?php if($line['discount']!=0):?>
+                                <input type='text' value='<?=$line['discount']?>' class='w-full text-right bg-transparent border-none' name='discount' placeholder='Discount' id='line_discount'>
+                                <?php endif;?>
                             </td>
                             <td>
                                 <input type='number' min='1' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='qty' placeholder='Quantity' id='line_qty' value="<?=$line['qty']?>">
                             </td>
                             <td>
                                 <input type='text' value="<?=$line['total']?>" class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>
+                                <?php if($line['discount']!=0):?>
+                                <input type='text' value='<?=number_format($line['total']*$line['discount']/100.0, 2, '.', '')?>' class='w-full text-right bg-transparent border-none' name='discount' placeholder='Discount' id='discount_amount'>
+                                <?php endif;?>
                             </td>
-                            <td class='align-middle'>
-                                <div id='btn_remove_row' onclick='remove_tr(this)'>
-                                    <i class='bi custom-remove-icon p-3'></i>
+                            <td class='align-middle text-center'>
+                                <div class="mt-2 p-2" id='btn_remove_row' onclick='remove_tr(this)'>
+                                    <i class='bi custom-remove-icon'></i>
                                 </div>
                             </td>
                         </tr>
@@ -275,6 +282,7 @@
                                     <div class="w-full m-3 form-control">Stock:</div>
                                     <div class="w-full m-3 form-control">Product:</div>
                                     <div class="w-full m-3 form-control">Amount:</div>
+                                    <div class="w-full m-3 form-control">Discount:</div>
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="m-3">
@@ -300,6 +308,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="m-3">
+                                        <input class="form-control" type="text" name="discount" id="product_discount" />
+                                    </div>
                                 </div>
                             </div>
                           </div>
@@ -320,6 +331,13 @@
             </div>
 
             <div class="text_right m-3">
+                <p class="d_inline text-green-600 text-center text-lg">- </p>
+                <p class="d_inline w_75 p-2 text-primary text-center">Discount</p>
+                <p class="d_inline w_15 p-2" id="discount"><?=$invoice['invoice_discount']?></p><label class="coinsymbol">€</label>
+            </div>
+
+            <div class="text_right m-3">
+                <p class="d_inline text-green-600 text-center text-lg">+ </p>
                 <p class="d_inline w_75 p-2 text-primary text-center">VAT</p>
                 <p class="d_inline w_15 p-2" id="tax"><?=$invoice['tax']?></p><label class="coinsymbol">€</label>
             </div>

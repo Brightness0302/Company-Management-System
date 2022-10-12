@@ -58,15 +58,50 @@ class Home extends CI_Controller
     //View dashboard
     public function dashboard() {
         $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyid($companyid, 'company');
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
-        $data['clients'] = $this->home->alldata('client');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data['client_invoices'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'invoice', 'ispaid', false);
+        foreach ($data['client_invoices'] as $key => $invoice) {
+            $res = $this->home->databyid($invoice['client_id'], 'client');
+            if ($res['status']=='success') {
+                $data['client_invoices'][$key]['client'] = $res['data'];
+            }
+        }
+
+        $data['supplier_invoices'] = $this->home->alldatafromdatabase($companyid, 'material');
+        foreach ($data['supplier_invoices'] as $index => $invoice) {
+            $res = $this->home->databyid($invoice['supplierid'], 'supplier');
+            if ($res['status']=='success') {
+                $data['supplier_invoices'][$index]['supplier'] = $res['data'];
+            }
+
+            $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $invoice['id']);
+            $data['supplier_invoices'][$index]['attached'] = false;
+
+            $data['supplier_invoices'][$index]['acq_subtotal_without_vat'] = $result['acq_subtotal_without_vat'];
+            $data['supplier_invoices'][$index]['acq_subtotal_vat'] = $result['acq_subtotal_vat'];
+            $data['supplier_invoices'][$index]['acq_subtotal_with_vat'] = $result['acq_subtotal_with_vat'];
+            $data['supplier_invoices'][$index]['selling_subtotal_without_vat'] = $result['selling_subtotal_without_vat'];
+            $data['supplier_invoices'][$index]['selling_subtotal_vat'] = $result['selling_subtotal_vat'];
+            $data['supplier_invoices'][$index]['selling_subtotal_with_vat'] = $result['selling_subtotal_with_vat'];
+            $invoicename = $invoice['id'].".pdf";
+            $path = "assets/company/attachment/".$companyname."/supplier/";
+            if(file_exists($path.$invoicename)) {
+                $data['supplier_invoices'][$index]['attached'] = true;
+            }
+        }
+
+        $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
+        foreach ($data['projects'] as $key => $project) {
+            $res = $this->home->databyid($project['client'], 'client');
+            $data['projects'][$key]['client'] = $res['data'];
+        }
 
         $session['menu']="Dashboard";
         $session['submenu']="";
