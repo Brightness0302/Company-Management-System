@@ -46,6 +46,28 @@ class Home_model extends CI_Model {
 
         return $this->db->query($query)->result_array();
     }
+    //Get all data from $data table filtering by $item<$value for date from $companyid database
+    public function alldatabysmallerthandatefromdatabase($companyid, $data, $item, $value) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $query =    "SELECT *
+                    FROM `$data`
+                    WHERE `isremoved`=false AND DATE(`$item`)<'$value'";
+
+        return $this->db->query($query)->result_array();
+    }
+    //Get all data from $data table filtering by $item<$value for date from $companyid database
+    public function alldatabybiggerthandatefromdatabase($companyid, $data, $item, $value) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $query =    "SELECT *
+                    FROM `$data`
+                    WHERE `isremoved`=false AND DATE(`$item`)>'$value'";
+
+        return $this->db->query($query)->result_array();
+    }
     //get all data from $data table by YEAR=$value in $companyid database
     public function alldatabyyearsettingfromdatabase($companyid, $data, $item, $value) {
         $companyid = "database".$companyid;

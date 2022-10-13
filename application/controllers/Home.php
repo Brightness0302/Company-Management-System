@@ -97,10 +97,22 @@ class Home extends CI_Controller
             }
         }
 
-        $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
-        foreach ($data['projects'] as $key => $project) {
+        $firstday = date('Y-m-d');
+        $data['projects_success'] = $this->home->alldatabysmallerthandatefromdatabase($companyid, 'project', 'enddate', $firstday);
+        foreach ($data['projects_success'] as $key => $project) {
             $res = $this->home->databyid($project['client'], 'client');
-            $data['projects'][$key]['client'] = $res['data'];
+            $data['projects_success'][$key]['client'] = $res['data'];
+        }
+        $data['projects_progress'] = $this->home->alldatabybiggerthandatefromdatabase($companyid, 'project', 'enddate', $firstday);
+        foreach ($data['projects_progress'] as $key => $project) {
+            $res = $this->home->databyid($project['client'], 'client');
+            $data['projects_progress'][$key]['client'] = $res['data'];
+        }
+
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        foreach ($data['stocks'] as $index => $stock) {
+            $data['stocks'][$index]['amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'amount_without_vat');
+            $data['stocks'][$index]['selling_amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'selling_amount_without_vat');
         }
 
         $session['menu']="Dashboard";

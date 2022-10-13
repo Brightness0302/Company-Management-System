@@ -20,19 +20,6 @@
 <script src="<?=base_url('assets')?>/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="<?=base_url('assets')?>/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script>
-function getFirstLetters(str) {
-	const firstLetters = str
-		.split(' ')
-		.map(word => word[0])
-		.join('');
-
-	return firstLetters;
-}
-function clickclient(client_name) {
-	alert(client_name);
-	short_name = getFirstLetters(client_name);
-	$("#upload_client").html("<h5 class='upload_text p-2'><div class='circle' style='display: inline-block;'>"+short_name+"</div><p style='display: inline-block; font-size: 16px;' id='client_name'>"+client_name+"</p></h5>");
-}
 $(function() {
     $("#example1").DataTable({
         "responsive": true,
@@ -40,6 +27,36 @@ $(function() {
         "autoWidth": false,
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#client_invoices').dataTable( {
+		"scrollY": '300px',
+		"scrollCollapse": true,
+		"paging": false,
+	} );
+    $('#supplier_invoices').dataTable( {
+		"scrollY": '300px',
+		"scrollCollapse": true,
+		"paging": false,
+	} );
+    $('#projects_table').dataTable( {
+		"scrollY": '300px',
+		"scrollCollapse": true,
+		"paging": false,
+	} );
+    $('#projects_in-progress_table').dataTable( {
+		"scrollY": '300px',
+		"scrollCollapse": true,
+		"paging": false,
+	} );
+	$('#stocks-table').dataTable( {
+		"scrollY": '300px',
+		"scrollCollapse": true,
+		"paging": false,
+	});
+	$('#backups-table').dataTable( {
+		"scrollY": '300px',
+		"scrollCollapse": true,
+		"paging": false,
+	});
 });
 </script>
 <style type="text/css">
