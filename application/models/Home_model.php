@@ -79,6 +79,21 @@ class Home_model extends CI_Model {
 
         return $this->db->query($query)->result_array();
     }
+    //get date_of_reception, product_number, received_with_document for invoice
+    public function productfromsetting($table) {
+        $default_db = $this->db->database;
+        $this->db->query('use '.$default_db);
+
+        $query = "SELECT `AUTO_INCREMENT`
+            FROM information_schema.TABLES 
+            WHERE TABLE_SCHEMA = '" . $default_db . "' AND TABLE_NAME = '$table'";
+
+        $queryvalue = $this->db->query($query)->result_array();
+
+        $data = $queryvalue[0]['AUTO_INCREMENT'];
+
+        return $data;
+    }
     //get dateissue, datedue, lastid for invoice
     public function invoicefromsetting($companyid, $table) {
         $companyid = "database".$companyid;
