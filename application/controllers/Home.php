@@ -355,8 +355,8 @@ class Home extends CI_Controller
     //backup function for mysql database
     public function backup() {
         $db_user = "root";
-        $db_pwd = "";
-        $db_name = "manage";
+        $db_pwd = "jUfPzJq5872x";
+        $db_name = "avscloud";
         $bkp_file_path = "assets/data.sql";
 
         // create backup
