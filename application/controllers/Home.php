@@ -363,7 +363,7 @@ class Home extends CI_Controller
             $db_names .= ' '.'database'.$i;
         }
 
-        shell_exec("mysqldump -u {$db_user} -p{$db_pwd} --databases {$db_names} > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql");
+        shell_exec("1 * * * * mysqldump -u {$db_user} -p{$db_pwd} --databases {$db_names} > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql");
         echo $db_names;
     }
 };
