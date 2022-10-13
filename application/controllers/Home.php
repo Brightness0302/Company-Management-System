@@ -357,7 +357,7 @@ class Home extends CI_Controller
         $db_user = "root";
         $db_pwd = "";
         $db_name = "manage";
-        $bkp_file_path = "data.sql";
+        $bkp_file_path = "assets/data.sql";
 
         // create backup
         shell_exec("mysqldump -u {$db_user} -p{$db_pwd} {$db_name} > {$bkp_file_path}");
