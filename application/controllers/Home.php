@@ -360,7 +360,7 @@ class Home extends CI_Controller
         $db_names = "avscloud";
         $bkp_file_path = "assets/backups/";
         for ($i=1; $i<$count; $i++) { 
-            $db_names += ' '.'database'.$i;
+            $db_names .= ' '.'database'.$i;
         }
 
         shell_exec("mysqldump -u {$db_user} -p{$db_pwd} --databases {$db_names} > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql");
