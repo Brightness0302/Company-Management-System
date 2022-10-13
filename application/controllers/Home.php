@@ -360,7 +360,9 @@ class Home extends CI_Controller
         $bkp_file_path = "assets/backups/";
 
         foreach ($db_names as $key => $db_name) {
-            $file_path = $bkp_file_path.date("d_m_Y_h_i_s_a").'/'.$db_name.'.sql';
+            $date = date("d_m_Y_h_i_s_a");
+            mkdir($bkp_file_path.$date, 0777, TRUE);
+            $file_path = $bkp_file_path.$date.'/'.$db_name.'.sql';
             shell_exec("mysqldump -u {$db_user} -p{$db_pwd} {$db_name} > {$file_path}");
         }
     }
