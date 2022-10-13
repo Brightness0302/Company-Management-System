@@ -356,10 +356,11 @@ class Home extends CI_Controller
     public function backup() {
         $db_user = "root";
         $db_pwd = "jUfPzJq5872x";
-        $db_name = "avscloud database1 database2";
-        $bkp_file_path = "assets/data.sql";
+        $db_names = array("avscloud", "database1", "database2", "database3", "database4");
+        $bkp_file_path = "assets/backups/";
 
-        // create backup
-        shell_exec("mysqldump -u {$db_user} -p{$db_pwd} {$db_name} > {$bkp_file_path}");
+        foreach ($db_names as $key => $db_name) {
+            shell_exec("mysqldump -u {$db_user} -p{$db_pwd} {$db_name} > {$bkp_file_path.date("d_m_Y_h_i_s_a").'/'.$db_name.'.sql'}");
+        }
     }
 };
