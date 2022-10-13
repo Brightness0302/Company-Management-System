@@ -637,6 +637,7 @@ class Client extends CI_Controller
         $data["client_address"]=$this->input->post('client_address');
         $data["sub_total"]=$this->input->post('sub_total');
         $data["tax"]=$this->input->post('tax');
+        $data["invoice_discount"]=$this->input->post('invoice_discount');
         $data["total"]=$this->input->post('total');
         $data["lines"]=$this->input->post('lines');
         $data["companycoin"]=$this->input->post('companycoin');

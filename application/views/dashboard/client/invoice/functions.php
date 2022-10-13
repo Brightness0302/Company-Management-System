@@ -110,7 +110,7 @@ function appendTable(product_description, product_rate, product_amount, product_
         "</td>" +
         "<td class='text-center'>" +
         "<input type='text' value='" + product_rate + "' class='form form-control m_auto w-full p-2 mt-2 text-right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>" +
-        ((product_description!="")?"<input type='text' value='" + product_discount + "' class='w-full text-right bg-transparent border-none' name='discount' placeholder='Discount' id='line_discount'>":"") +
+        ((product_description!="")?"<div class='row'><label class='col-sm-6 my-0'>Discount: </label><input type='text' value='" + product_discount + "' class='col-sm-4 w-full text-right bg-transparent border-none' name='discount' placeholder='Discount' id='line_discount'><label class='col-sm-2 my-0'>%</label></div>":"") +
         "</td>" +
         "<td>" +
         "<input type='number' min=1 class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='qty' placeholder='Quantity' id='line_qty' value='" + product_amount +"'>" +

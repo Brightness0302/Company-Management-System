@@ -233,7 +233,11 @@
                             <td class='text-center'>
                                 <input type='text' value="<?=$line['rate']?>" class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>
                                 <?php if($line['discount']!=0):?>
-                                <input type='text' value='<?=$line['discount']?>' class='w-full text-right bg-transparent border-none' name='discount' placeholder='Discount' id='line_discount'>
+                                <div class='row'>
+                                    <label class='col-sm-6 my-0'>Discount: </label>
+                                    <input type='text' value='<?=$line['discount']?>' class='col-sm-4 w-full text-right bg-transparent border-none' name='discount' placeholder='Discount' id='line_discount'>
+                                    <label class='col-sm-2 my-0'>%</label>
+                                </div>
                                 <?php endif;?>
                             </td>
                             <td>
@@ -309,7 +313,14 @@
                                         </div>
                                     </div>
                                     <div class="m-3">
-                                        <input class="form-control" type="text" name="discount" id="product_discount" />
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <input class="form-control " type="text" name="discount" id="product_discount" />
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <p class="text-base">%</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -332,7 +343,7 @@
 
             <div class="text_right m-3">
                 <p class="d_inline text-green-600 text-center text-lg">- </p>
-                <p class="d_inline w_75 p-2 text-primary text-center">Discount</p>
+                <p class="d_inline w_75 p-2 text-primary text-center">Total Discount</p>
                 <p class="d_inline w_15 p-2" id="discount"><?=$invoice['invoice_discount']?></p><label class="coinsymbol">€</label>
             </div>
 

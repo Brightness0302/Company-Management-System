@@ -125,11 +125,23 @@
                     <tbody id="preview_table_body">
                     <?php foreach ($lines as $index => $line):?>
                         <tr>
-                            <td><p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 10px !important;"><?=$index+1?></p></td>
-                            <td><p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 10px !important;"><?=$line['description']?></p></td>
+                            <td>
+                                <p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 10px !important;"><?=$index+1?></p>
+                            </td>
+                            <td>
+                                <div style="flex-direction: column;">
+                                    <p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 10px !important;"><?=$line['description']?></p>
+                                    <p style="text-align: center; font-size: 14px;">Discount: <?=$line['discount']?> %</p>
+                                </div>
+                            </td>
                             <td><p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 10px !important;"><?=$line['rate']?></p></td>
                             <td><p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 10px !important;"><?=$line['qty']?></p></td>
-                            <td><p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 10px !important;"><?=$line['total']?></p></td>
+                            <td>
+                                <div style="flex-direction: column;">
+                                    <p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 10px !important;"><?=$line['total']?></p>
+                                    <p style="text-align: center;"><?=number_format($line['total'] * $line['discount'] / 100.0, 2, '.', '')?></p>
+                                </div>
+                            </td>
                         </tr>
                     <?php endforeach;?>
                     </tbody>
@@ -140,6 +152,11 @@
                 <div class="text_right">
                     <p class="d_inline text-center">Sub total: </p>
                     <p class="d_inline"><?=$invoice['sub_total'].' '.$invoice['companycoin']?></p>
+                </div>
+
+                <div class="text_right">
+                    <p class="d_inline text-primary text-center">Total Discount: </p>
+                    <p class="d_inline "><?=$invoice['invoice_discount'].' '.$invoice['companycoin']?></p>
                 </div>
 
                 <div class="text_right">

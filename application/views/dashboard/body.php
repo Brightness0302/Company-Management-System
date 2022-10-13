@@ -478,10 +478,8 @@
                     <div class="modal-body">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Back Up & Restore Settings</h5>
-
                                 <!-- Bordered Tabs Justified -->
-                                <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified"
+                                <ul class="nav nav-tabs nav-tabs-bordered w-full" id="borderedTabJustified"
                                     role="tablist">
                                     <li class="nav-item flex-fill" role="presentation">
                                         <button id="backup" class="nav-link w-100 active" id="home-tab"
@@ -525,9 +523,9 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="inputPassword5"
-                                                    class="form-label text-black">PICK UP DATE</label>
+                                                    class="form-label text-black">PICK UP TIME</label>
                                                 <div class="col-sm-10">
-                                                    <input type="date" class="form-control">
+                                                    <input type="time" class="form-control">
                                                 </div>
                                             </div>
                                         </form><!-- End Multi Columns Form -->
@@ -571,7 +569,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary"
-                            data-bs-dismiss="modal">Confirm</button>
+                            data-bs-dismiss="modal" onclick="confirm()">Confirm</button>
                         <button type="button" class="btn btn-primary" onClick="alert('Saved!!!')">Save
                             changes</button>
                     </div>

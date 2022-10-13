@@ -264,7 +264,14 @@
                                         </div>
                                     </div>
                                     <div class="m-3">
-                                        <input class="form-control" type="text" name="discount" id="product_discount" />
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <input class="form-control " type="text" name="discount" id="product_discount" />
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <p class="text-base">%</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -287,7 +294,7 @@
 
             <div class="text_right m-3">
                 <p class="d_inline text-green-600 text-center text-lg">- </p>
-                <p class="d_inline w_75 p-2 text-primary text-center">Discount</p>
+                <p class="d_inline w_75 p-2 text-primary text-center">Total Discount</p>
                 <p class="d_inline w_15 p-2" id="discount">0.00</p><label class="coinsymbol">€</label>
             </div>
 
