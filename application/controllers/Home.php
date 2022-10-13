@@ -357,8 +357,8 @@ class Home extends CI_Controller
         $db_user = "root";
         $db_pwd = "jUfPzJq5872x";
         $db_names = array("avscloud", "database1", "database2", "database3", "database4");
-        $bkp_file_path = "assets/backups/data.sql";
+        $bkp_file_path = "assets/backups/";
 
-        shell_exec("mysqldump -u {$db_user} -p{$db_pwd} --databases avscloud database1 database2 database3 database4 > {$bkp_file_path}");
+        shell_exec("mysqldump -u {$db_user} -p{$db_pwd} --databases avscloud database1 database2 database3 database4 > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql");
     }
 };
