@@ -396,7 +396,7 @@ class Home extends CI_Controller
         for ($i=1; $i<$count; $i++) { 
             $db_names .= ' '.'database'.$i;
         }
-        $command = "5 * * * * php /var/www/html/crm/index.php home backup".PHP_EOL;
+        $command = "*/5 * * * * php /var/www/html/crm/index.php home backup".PHP_EOL;
 
         $prev_crontab = shell_exec('crontab -l');
         file_put_contents('assets/tmp/crontab.txt', $command);
