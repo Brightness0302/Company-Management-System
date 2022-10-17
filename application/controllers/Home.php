@@ -352,6 +352,40 @@ class Home extends CI_Controller
         }
         // echo json_encode($arr);
     }
+
+    function cronjob_exists($command){
+
+        $cronjob_exists=false;
+
+        exec('crontab -l', $crontab);
+
+
+        if(isset($crontab)&&is_array($crontab)){
+
+            $crontab = array_flip($crontab);
+
+            if(isset($crontab[$command])){
+
+                $cronjob_exists=true;
+
+            }
+
+        }
+        return $cronjob_exists;
+    }
+
+    function append_cronjob($command){
+
+        if(is_string($command)&&!empty($command)&&cronjob_exists($command)===FALSE){
+
+            //add job to crontab
+            exec('echo -e "`crontab -l`\n'.$command.'" | crontab -', $output);
+
+
+        }
+
+        return $output;
+    }
     //backup function for mysql database
     public function backup() {
         $count = $this->home->productfromsetting('company');
@@ -366,10 +400,11 @@ class Home extends CI_Controller
         // exec('crontab -l', $crontab);
         // file_put_contents('/tmp/crontab.txt', "5 * * * * mysqldump -u {$db_user} -p{$db_pwd} --opt --all-databases > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql".PHP_EOL);
         // echo exec('crontab /tmp/crontab.txt');
-        $crontab_r; $crontab_l; $output;
-        exec('crontab -r', $crontab_r);
-        exec('crontab -l', $crontab_l);
-        exec('echo -e "`crontab -l`\n'."5 * * * * mysqldump -u {$db_user} -p{$db_pwd} --opt --all-databases > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql".'" | crontab -', $output);
-        echo json_encode($output);
+
+        
+        // exec('crontab -r', $crontab_r);
+        // exec('crontab -l', $crontab_l);
+        // exec('echo -e "`crontab -l`\n'."5 * * * * mysqldump -u {$db_user} -p{$db_pwd} --opt --all-databases > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql".'" | crontab -', $output);
+        append_cronjob("5 * * * * mysqldump -u {$db_user} -p{$db_pwd} --opt --all-databases > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql");
     }
 };
