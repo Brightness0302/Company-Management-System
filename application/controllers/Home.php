@@ -396,9 +396,10 @@ class Home extends CI_Controller
         for ($i=1; $i<$count; $i++) { 
             $db_names .= ' '.'database'.$i;
         }
+        $command = "*/5 * * * * php /var/www/html/crm/index.php home backup".PHP_EOL;
 
         $prev_crontab = shell_exec('crontab -l');
-        file_put_contents('assets/tmp/crontab.txt', "*/5 * * * * php /var/www/html/crm/index.php home backup".PHP_EOL);
+        file_put_contents('assets/tmp/crontab.txt', $command.PHP_EOL);
         exec('crontab /var/www/html/crm/assets/tmp/crontab.txt');
         shell_exec('crontab /var/www/html/crm/assets/tmp/crontab.txt');
         exec('crontab /var/www/html/crm/assets/tmp/crontab.txt');
@@ -406,10 +407,10 @@ class Home extends CI_Controller
         exec('crontab /var/www/html/crm/assets/tmp/crontab.txt');
         shell_exec('crontab /var/www/html/crm/assets/tmp/crontab.txt');
 
-        $command = "*/5 * * * * php /var/www/html/crm/index.php home backup".PHP_EOL;
         //add job to crontab
         exec('echo -e "`crontab -l`\n'.$command.'" | crontab -', $output);
-        echo $output;
+        // echo $output;
+        echo "success";
 
         // exec('crontab -r', $crontab_r);
         // exec('crontab -l', $crontab_l);
