@@ -399,16 +399,9 @@ class Home extends CI_Controller
         $command = "*/5 * * * * php /var/www/html/crm/index.php home backup".PHP_EOL;
 
         $prev_crontab = shell_exec('crontab -l');
-        file_put_contents('assets/tmp/crontab.txt', $command.PHP_EOL);
-        exec('crontab /var/www/html/crm/assets/tmp/crontab.txt');
-        shell_exec('crontab /var/www/html/crm/assets/tmp/crontab.txt');
-        exec('crontab /var/www/html/crm/assets/tmp/crontab.txt');
-        shell_exec('crontab /var/www/html/crm/assets/tmp/crontab.txt');
-        exec('crontab /var/www/html/crm/assets/tmp/crontab.txt');
-        shell_exec('crontab /var/www/html/crm/assets/tmp/crontab.txt');
+        file_put_contents('assets/tmp/crontab.txt', $command);
+        exec('crontab -u root /var/www/html/crm/assets/tmp/crontab.txt');
 
-        //add job to crontab
-        exec('echo -e "`crontab -l`\n'.$command.'" | crontab -', $output);
         // echo $output;
         echo "success";
 
