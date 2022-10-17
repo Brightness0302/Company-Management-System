@@ -392,7 +392,7 @@ class Home extends CI_Controller
         $db_user = "root";
         $db_pwd = "jUfPzJq5872x";
         $db_names = "avscloud";
-        $bkp_file_path = "assets/backups/";
+        $bkp_file_path = "../../assets/backups/";
         for ($i=1; $i<$count; $i++) { 
             $db_names .= ' '.'database'.$i;
         }
