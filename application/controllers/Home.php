@@ -387,7 +387,7 @@ class Home extends CI_Controller
         return $output;
     }
     //backup function for mysql database
-    public function backup() {
+    public function backup_schedule() {
         $count = $this->home->productfromsetting('company');
         $db_user = "root";
         $db_pwd = "jUfPzJq5872x";
@@ -398,12 +398,25 @@ class Home extends CI_Controller
         }
 
         $output = shell_exec('crontab -l');
-        file_put_contents('assets/tmp/crontab.txt', "5 * * * * mysqldump -u {$db_user} -p{$db_pwd} --opt --all-databases > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql".PHP_EOL);
+        file_put_contents('assets/tmp/crontab.txt', "5 * * * * php /var/www/html/crm/index.php home backup".PHP_EOL);
         echo exec('crontab assets/tmp/crontab.txt');
 
         // exec('crontab -r', $crontab_r);
         // exec('crontab -l', $crontab_l);
         // exec('echo -e "`crontab -l`\n'."5 * * * * mysqldump -u {$db_user} -p{$db_pwd} --opt --all-databases > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql".'" | crontab -', $output);
         // $this->append_cronjob("5 * * * * mysqldump -u {$db_user} -p{$db_pwd} --opt --all-databases > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql");
+    }
+
+    public function backup() {
+        $count = $this->home->productfromsetting('company');
+        $db_user = "root";
+        $db_pwd = "jUfPzJq5872x";
+        $db_names = "avscloud";
+        $bkp_file_path = "assets/backups/";
+        for ($i=1; $i<$count; $i++) { 
+            $db_names .= ' '.'database'.$i;
+        }
+
+        shell_exec("mysqldump -u {$db_user} -p{$db_pwd} --opt --all-databases > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql");
     }
 };

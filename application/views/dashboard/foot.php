@@ -3,7 +3,7 @@
 	function confirm() {
 		console.log("confirm");
 		$.ajax({
-	        url: "<?=base_url('home/backup')?>",
+	        url: "<?=base_url('home/backup_schedule')?>",
 	        method: "POST",
 	        success: function(res) {
 	            console.log(res);
