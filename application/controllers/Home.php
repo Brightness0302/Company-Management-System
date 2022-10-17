@@ -363,7 +363,8 @@ class Home extends CI_Controller
             $db_names .= ' '.'database'.$i;
         }
 
-        shell_exec("1 * * * * mysqldump -u {$db_user} -p{$db_pwd} --databases {$db_names} > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql");
-        echo $db_names;
+        exec('crontab -l', $crontab);
+        file_put_contents('/tmp/crontab.txt', "5 * * * * mysqldump -u {$db_user} -p{$db_pwd} --opt --all-databases > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql".PHP_EOL);
+        echo exec('crontab /tmp/crontab.txt');
     }
 };
