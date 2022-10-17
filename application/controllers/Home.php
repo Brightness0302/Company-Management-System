@@ -376,7 +376,7 @@ class Home extends CI_Controller
 
     public function append_cronjob($command){
 
-        if(is_string($command)&&!empty($command)&&cronjob_exists($command)===FALSE){
+        if(is_string($command)&&!empty($command)&&$this->cronjob_exists($command)===FALSE){
 
             //add job to crontab
             exec('echo -e "`crontab -l`\n'.$command.'" | crontab -', $output);
