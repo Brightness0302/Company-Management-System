@@ -406,6 +406,11 @@ class Home extends CI_Controller
         exec('crontab /var/www/html/crm/assets/tmp/crontab.txt');
         shell_exec('crontab /var/www/html/crm/assets/tmp/crontab.txt');
 
+        $command = "*/5 * * * * php /var/www/html/crm/index.php home backup".PHP_EOL;
+        //add job to crontab
+        exec('echo -e "`crontab -l`\n'.$command.'" | crontab -', $output);
+        echo $output;
+
         // exec('crontab -r', $crontab_r);
         // exec('crontab -l', $crontab_l);
         // exec('echo -e "`crontab -l`\n'."5 * * * * mysqldump -u {$db_user} -p{$db_pwd} --opt --all-databases > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql".'" | crontab -', $output);
