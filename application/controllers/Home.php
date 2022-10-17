@@ -353,7 +353,7 @@ class Home extends CI_Controller
         // echo json_encode($arr);
     }
 
-    function cronjob_exists($command){
+    public function cronjob_exists($command){
 
         $cronjob_exists=false;
 
@@ -374,7 +374,7 @@ class Home extends CI_Controller
         return $cronjob_exists;
     }
 
-    function append_cronjob($command){
+    public function append_cronjob($command){
 
         if(is_string($command)&&!empty($command)&&cronjob_exists($command)===FALSE){
 
@@ -401,7 +401,7 @@ class Home extends CI_Controller
         // file_put_contents('/tmp/crontab.txt', "5 * * * * mysqldump -u {$db_user} -p{$db_pwd} --opt --all-databases > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql".PHP_EOL);
         // echo exec('crontab /tmp/crontab.txt');
 
-        
+
         // exec('crontab -r', $crontab_r);
         // exec('crontab -l', $crontab_l);
         // exec('echo -e "`crontab -l`\n'."5 * * * * mysqldump -u {$db_user} -p{$db_pwd} --opt --all-databases > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql".'" | crontab -', $output);
