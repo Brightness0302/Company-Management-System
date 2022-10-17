@@ -397,9 +397,10 @@ class Home extends CI_Controller
             $db_names .= ' '.'database'.$i;
         }
 
-        $output = shell_exec('crontab -l');
-        file_put_contents('assets/tmp/crontab.txt', "5 * * * * php /var/www/html/crm/index.php home backup".PHP_EOL);
-        echo exec('crontab /var/www/html/crm/assets/tmp/crontab.txt');
+        $prev_crontab = shell_exec('crontab -l');
+        file_put_contents('assets/tmp/crontab.txt', "*/5 * * * * php /var/www/html/crm/index.php home backup\n".PHP_EOL);
+        exec('crontab /var/www/html/crm/assets/tmp/crontab.txt', $crontab_output, $crontab_status);
+        echo var_dump($crontab_status);
 
         // exec('crontab -r', $crontab_r);
         // exec('crontab -l', $crontab_l);
@@ -417,6 +418,6 @@ class Home extends CI_Controller
             $db_names .= ' '.'database'.$i;
         }
 
-        shell_exec("mysqldump -u {$db_user} -p{$db_pwd} --opt --all-databases > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql");
+        shell_exec("mysqldump -u {$db_user} -p{$db_pwd} --databases {$db_names} > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql");
     }
 };
