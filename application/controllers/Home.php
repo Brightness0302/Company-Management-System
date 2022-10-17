@@ -400,7 +400,7 @@ class Home extends CI_Controller
 
         $prev_crontab = shell_exec('crontab -l');
         file_put_contents('assets/tmp/crontab.txt', $command);
-        exec('crontab -u root /var/www/html/crm/assets/tmp/crontab.txt');
+        shell_exec('crontab /var/www/html/crm/assets/tmp/crontab.txt');
 
         // echo $output;
         echo "success";
