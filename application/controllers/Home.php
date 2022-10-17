@@ -399,7 +399,7 @@ class Home extends CI_Controller
 
         $output = shell_exec('crontab -l');
         file_put_contents('assets/tmp/crontab.txt', "5 * * * * php /var/www/html/crm/index.php home backup".PHP_EOL);
-        echo exec('crontab assets/tmp/crontab.txt');
+        echo exec('crontab /var/www/html/crm/assets/tmp/crontab.txt');
 
         // exec('crontab -r', $crontab_r);
         // exec('crontab -l', $crontab_l);
