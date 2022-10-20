@@ -353,6 +353,7 @@ class Home extends CI_Controller
         // echo json_encode($arr);
     }
     public function get_backups() {
+        $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $path = "assets/company/backups/".$companyname;
         $files = scandir($path);
@@ -360,6 +361,7 @@ class Home extends CI_Controller
     //backup function for mysql database
     public function backup_schedule() {
         $count = $this->home->productfromsetting('company');
+        $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $db_user = "root";
         $db_pwd = "jUfPzJq5872x";
