@@ -353,7 +353,8 @@ class Home extends CI_Controller
         // echo json_encode($arr);
     }
     public function get_backups() {
-        $path = "assets/"
+        $companyname = $this->session->userdata('companyname');
+        $path = "assets/company/backups/".$companyname;
         $files = scandir($path);
     }
     //backup function for mysql database
