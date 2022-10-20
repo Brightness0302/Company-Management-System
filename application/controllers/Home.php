@@ -352,51 +352,21 @@ class Home extends CI_Controller
         }
         // echo json_encode($arr);
     }
-
-    public function cronjob_exists($command){
-
-        $cronjob_exists=false;
-
-        exec('crontab -l', $crontab);
-
-
-        if(isset($crontab)&&is_array($crontab)){
-
-            $crontab = array_flip($crontab);
-
-            if(isset($crontab[$command])){
-
-                $cronjob_exists=true;
-
-            }
-
-        }
-        return $cronjob_exists;
-    }
-
-    public function append_cronjob($command){
-
-        if(is_string($command)&&!empty($command)&&$this->cronjob_exists($command)===FALSE){
-
-            //add job to crontab
-            exec('echo -e "`crontab -l`\n'.$command.'" | crontab -', $output);
-
-
-        }
-
-        return $output;
+    public function get_backups() {
+        $path = "assets/"
+        $files = scandir($path);
     }
     //backup function for mysql database
     public function backup_schedule() {
         $count = $this->home->productfromsetting('company');
+        $companyname = $this->session->userdata('companyname');
         $db_user = "root";
         $db_pwd = "jUfPzJq5872x";
         $db_names = "avscloud";
-        $bkp_file_path = "/var/www/html/crm/assets/backups/";
         for ($i=1; $i<$count; $i++) { 
             $db_names .= ' '.'database'.$i;
         }
-        $command = "5 * * * * php /var/www/html/crm/index.php home backup".PHP_EOL;
+        $command = "5 * * * * php /var/www/html/crm/index.php home setbackup {$companyid} {$companyname}".PHP_EOL;
 
         $prev_crontab = shell_exec('crontab -l');
         file_put_contents('assets/tmp/crontab.txt', $command);
@@ -411,16 +381,17 @@ class Home extends CI_Controller
         // $this->append_cronjob("5 * * * * mysqldump -u {$db_user} -p{$db_pwd} --opt --all-databases > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql");
     }
 
-    public function backup() {
+    public function setbackup($companyid, $companyname) {
         $count = $this->home->productfromsetting('company');
         $db_user = "root";
         $db_pwd = "jUfPzJq5872x";
-        $db_names = "avscloud";
-        $bkp_file_path = "assets/backups/";
-        for ($i=1; $i<$count; $i++) { 
-            $db_names .= ' '.'database'.$i;
+        $db_names = 'database'.$companyid;
+        $bkp_file_path = "assets/company/backups/".$companyname;
+
+        if (!file_exists($bkp_file_path)) {
+            mkdir($bkp_file_path, 0777, true);
         }
 
-        shell_exec("mysqldump -u {$db_user} -p{$db_pwd} --databases {$db_names} > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql");
+        shell_exec("mysqldump -u {$db_user} -p{$db_pwd} --databases {$db_names} > {$bkp_file_path}/$(date +'%d_%m_%Y_%H_%M_%S').sql");
     }
 };
