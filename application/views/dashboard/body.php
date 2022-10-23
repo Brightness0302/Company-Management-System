@@ -584,7 +584,9 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item active">
                     <?php
-                    if($menu['submenu']=="cm")
+                    if ($menu['menu']=="Dashboard")
+                        echo "Dashboard";
+                    else if($menu['submenu']=="cm")
                         echo "Client Management";
                     else if($menu['submenu']=="im")
                         echo "Invoice Management";
@@ -629,9 +631,11 @@
                     else if($menu['submenu']=="r_cc" || $menu['submenu']=="r_sc" || $menu['submenu']=="r_ec" || $menu['submenu']=="r_vc" || $menu['submenu']=="r_tc")
                         echo "Reports & Statistics";
                     ?></li>
-                    <li class="breadcrumb-item active">
-                    <?=$menu['second-submenu']?>
-                    </li>
+                    <?php if($menu['second-submenu']!="NONE"):?>
+                        <li class="breadcrumb-item active">
+                        <?=$menu['second-submenu']?>
+                        </li>
+                    <?php endif;?>
                 </ol>
             </nav>
         </div><!-- End Page Title

@@ -117,7 +117,7 @@ class Home extends CI_Controller
 
         $session['menu']="Dashboard";
         $session['submenu']="";
-        $session['second-submenu']="";
+        $session['second-submenu']="NONE";
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');

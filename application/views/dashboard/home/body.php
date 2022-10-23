@@ -106,7 +106,7 @@
 
     <div class="col-md-6">
       <!-- Projects -->
-      <div class="card card-default">
+      <div class="card card-warning">
         <div class="card-header">
           <h3 class="card-title p-1 text-black">Projects completed 2022</h3>
 

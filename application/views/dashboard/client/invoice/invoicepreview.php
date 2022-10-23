@@ -139,7 +139,7 @@
                             <td>
                                 <div style="flex-direction: column;">
                                     <p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 10px !important;"><?=$line['total']?></p>
-                                    <p style="text-align: center;"><?=number_format($line['total'] * $line['discount'] / 100.0, 2, '.', '')?></p>
+                                    <p style="text-align: center; font-size: 14px;"><?=number_format($line['total'] * $line['discount'] / 100.0, 2, '.', '')?></p>
                                 </div>
                             </td>
                         </tr>
