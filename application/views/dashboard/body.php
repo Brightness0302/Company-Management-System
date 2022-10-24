@@ -539,25 +539,23 @@
                                                     class="form-label text-black">PERIOD</label>
                                                 <!-- <input type="email" class="form-control" id="inputEmail5"> -->
                                                 <div class="col-sm-10">
-                                                    <select class="form-select"
-                                                        aria-label="Default select example">
-                                                        <option selected>Select your period for Back Up
-                                                        </option>
-                                                        <option value="1">Every day</option>
-                                                        <option value="2">Two days</option>
-                                                        <option value="3">Three days</option>
-                                                        <option value="1">Four day</option>
-                                                        <option value="2">Five days</option>
-                                                        <option value="3">Six days</option>
-                                                        <option value="3">Seven days</option>
+                                                    <select class="form-select" id="backup_period" aria-label="Default select example">
+                                                        <optgroup label="Select your period for Back Up">
+                                                            <option value="1" selected>Every day</option>
+                                                            <option value="2">Two days</option>
+                                                            <option value="3">Three days</option>
+                                                            <option value="4">Four day</option>
+                                                            <option value="5">Five days</option>
+                                                            <option value="6">Six days</option>
+                                                            <option value="7">Seven days</option>
+                                                        </optgroup>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="inputPassword5"
-                                                    class="form-label text-black">PICK UP DATE</label>
+                                                <label for="inputPassword5" class="form-label text-black">PICK UP DATE</label>
                                                 <div class="col-sm-10">
-                                                    <input type="date" class="form-control">
+                                                    <input type="date" id="backup_date" class="form-control">
                                                 </div>
                                             </div>
                                         </form><!-- End Multi Columns Form -->
@@ -568,10 +566,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary"
-                            data-bs-dismiss="modal" onclick="confirm()">Confirm</button>
-                        <button type="button" class="btn btn-primary" onClick="alert('Saved!!!')">Save
-                            changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="backup_now()">Backup Now</button>
+                        <button type="button" class="btn btn-primary" onclick="save_setting()">Save changes</button>
                     </div>
                 </div>
             </div>
