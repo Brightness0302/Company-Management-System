@@ -267,9 +267,13 @@
                 <?php foreach ($backups as $backup):?>
                 <?php $index++;?>
                 <tr>
-                    <?php sscanf($backup,"%d_%d_%d_%d_%d_%d.sql", $dat, $mon, $Yea, $hou, $min, $sec);?>
+                    <?php sscanf($backup,"%d_%d_%d_%d_%d_%d.sql", $dat, $mon, $Yea, $hou, $min, $sec);
+                      $dt = new DateTime($Yea.'-'.$mon.'-'.$dat.' '.$hou.':'.$min.':'.$sec, new DateTimeZone('EU'));
+                      $loc = (new DateTime)->getTimezone();
+                      $dt->setTimezone($loc);?>
                     <td><?=($index)?></td>
-                    <td><?=$Yea.'/'.$mon.'/'.$dat.' '.$hou.'.'.$min.'.'.$sec.' GMP+2'?></td>
+                    <td><?=$Yea.'/'.$mon.'/'.$dat.' '.$hou.'.'.$min.'.'.$sec.' GMP+2'?>
+                    <?=date("Y/m/d H:i:s", $dt)?></td>
                     <td><?=($backup)?></td>
                 </tr>
                 <?php endforeach;?>
