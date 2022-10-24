@@ -258,7 +258,8 @@
             <thead class="text-center">
                 <tr>
                     <th>No</th>
-                    <th class="text-left">Backup files</th>
+                    <th class="text-left">Date</th>
+                    <th>FileName</th>
                 </tr>
             </thead>
             <tbody class="text-center">
@@ -266,7 +267,9 @@
                 <?php foreach ($backups as $backup):?>
                 <?php $index++;?>
                 <tr>
+                    <?php sscanf($backup,"%d_%d_%d_%d_%d_%d.sql", $dat, $mon, $Yea, $hou, $min, $sec);?>
                     <td><?=($index)?></td>
+                    <td><?=$Yea.'/'.$mon.'/'.$dat.' '.$hou.'.'.$min.'.'.$sec.' GMP+2'?></td>
                     <td><?=($backup)?></td>
                 </tr>
                 <?php endforeach;?>
