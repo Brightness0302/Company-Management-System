@@ -1,3 +1,4 @@
+<?=json_encode($data['backups'])?>
 <div class="w-full p-2">
   <div class="row">
     <div class="col-md-6">
