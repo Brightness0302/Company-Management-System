@@ -272,7 +272,7 @@
                       $loc = (new DateTime)->getTimezone();
                       $dt->setTimezone($loc);?>
                     <td><?=($index)?></td>
-                    <td><?=date("Y/m/d H:i:s", $dt)?></td>
+                    <td><?=date("Y/m/d H:i:s", strtotime($dt))?></td>
                     <td><?=($backup)?></td>
                 </tr>
                 <?php endforeach;?>
