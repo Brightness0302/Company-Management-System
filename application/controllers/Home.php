@@ -358,7 +358,7 @@ class Home extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $path = "/var/www/html/crm/assets/company/backups/".$companyname;
-        $files = scandir($path, 1);
+        $files = array_diff(scandir($path), array('.', '..'));
         return $files;
     }
     //backup function for mysql database
