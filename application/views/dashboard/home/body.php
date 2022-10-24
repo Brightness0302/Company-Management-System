@@ -268,7 +268,7 @@
                 <?php $index++;?>
                 <tr>
                     <?php sscanf($backup,"%d_%d_%d_%d_%d_%d.sql", $dat, $mon, $Yea, $hou, $min, $sec);
-                      $dt = new DateTime($Yea.'-'.$mon.'-'.$dat.' '.$hou.':'.$min.':'.$sec, new DateTimeZone('CEST'));
+                      $dt = new DateTime($Yea.'-'.$mon.'-'.$dat.' '.$hou.':'.$min.':'.$sec, new DateTimeZone('Europe/Paris'));
                       $loc = (new DateTime)->getTimezone();
                       $dt->setTimezone($loc);?>
                     <td><?=($index)?></td>
