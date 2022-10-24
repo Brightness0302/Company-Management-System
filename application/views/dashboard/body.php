@@ -503,8 +503,7 @@
                                         <!-- Multi Columns Form -->
                                         <form class="row g-3">
                                             <div class="col-md-6">
-                                                <label for="inputEmail5"
-                                                    class="form-label text-black">PERIOD</label>
+                                                <label class="form-label text-black">PERIOD</label>
                                                 <!-- <input type="email" class="form-control" id="inputEmail5"> -->
                                                 <div class="col-sm-10">
                                                     <select class="form-select" id="backup_period" aria-label="Default select example">
@@ -521,16 +520,15 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="inputPassword5"
-                                                    class="form-label text-black">PICK UP TIME</label>
+                                                <label class="form-label text-black">PICK UP TIME</label>
                                                 <div class="col-sm-10">
                                                     <input type="time" id="backup_date" value="<?=date("h:i")?>" class="form-control">
                                                 </div>
                                             </div>
                                         </form><!-- End Multi Columns Form -->
                                     </div>
-                                    <div class="tab-pane fade" id="bordered-justified-restore"
-                                        role="tabpanel" aria-labelledby="profile-tab">
+                                    <div class="tab-pane fade" id="bordered-justified-restore" role="tabpanel" aria-labelledby="profile-tab">
+                                        <label class="form-label text-black">PICK UP File</label>
                                         <!-- Restore Setting Sections  -->
                                         <select class="form-select" id="restore_picker" aria-label="Default select example">
                                             <optgroup label="Select a Backup file">
