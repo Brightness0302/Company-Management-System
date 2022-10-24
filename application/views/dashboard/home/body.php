@@ -1,4 +1,3 @@
-<?=json_encode($backups)?>
 <div class="w-full p-2">
   <div class="row">
     <div class="col-md-6">
@@ -259,23 +258,17 @@
             <thead class="text-center">
                 <tr>
                     <th>No</th>
-                    <th class="text-left">Stock Category</th>
-                    <th>ACQ amount EX VAT</th>
-                    <th>Selling amount EX VAT</th>
+                    <th class="text-left">Backup files</th>
                 </tr>
             </thead>
             <tbody class="text-center">
                 <?php $index=0;?>
-                <?php foreach ($stocks as $stock):?>
-                <?php if(!$stock['isremoved']):?>
+                <?php foreach ($backups as $backup):?>
                 <?php $index++;?>
                 <tr>
                     <td><?=($index)?></td>
-                    <td class="text-left"><?=$stock['name']?></td>
-                    <td><?=$stock['amount_without_vat']?></td>
-                    <td><?=$stock['selling_amount_without_vat']?></td>
+                    <td><?=($backup)?></td>
                 </tr>
-                <?php endif;?>
                 <?php endforeach;?>
             </tbody>
           </table>
