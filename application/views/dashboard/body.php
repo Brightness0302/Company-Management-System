@@ -507,38 +507,6 @@
                                                     class="form-label text-black">PERIOD</label>
                                                 <!-- <input type="email" class="form-control" id="inputEmail5"> -->
                                                 <div class="col-sm-10">
-                                                    <select class="form-select"
-                                                        aria-label="Default select example">
-                                                        <option selected>Select your period for Back Up
-                                                        </option>
-                                                        <option value="1">Every day</option>
-                                                        <option value="2">Two days</option>
-                                                        <option value="3">Three days</option>
-                                                        <option value="1">Four day</option>
-                                                        <option value="2">Five days</option>
-                                                        <option value="3">Six days</option>
-                                                        <option value="3">Seven days</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="inputPassword5"
-                                                    class="form-label text-black">PICK UP TIME</label>
-                                                <div class="col-sm-10">
-                                                    <input type="time" class="form-control">
-                                                </div>
-                                            </div>
-                                        </form><!-- End Multi Columns Form -->
-                                    </div>
-                                    <div class="tab-pane fade" id="bordered-justified-restore"
-                                        role="tabpanel" aria-labelledby="profile-tab">
-                                        <!-- Restore Setting Sections  -->
-                                        <form class="row g-3">
-                                            <div class="col-md-6">
-                                                <label for="inputEmail5"
-                                                    class="form-label text-black">PERIOD</label>
-                                                <!-- <input type="email" class="form-control" id="inputEmail5"> -->
-                                                <div class="col-sm-10">
                                                     <select class="form-select" id="backup_period" aria-label="Default select example">
                                                         <optgroup label="Select your period for Back Up">
                                                             <option value="1" selected>Every day</option>
@@ -553,12 +521,32 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="inputPassword5" class="form-label text-black">PICK UP DATE</label>
+                                                <label for="inputPassword5"
+                                                    class="form-label text-black">PICK UP TIME</label>
                                                 <div class="col-sm-10">
-                                                    <input type="date" id="backup_date" class="form-control">
+                                                    <input type="time" id="backup_date" class="form-control">
                                                 </div>
                                             </div>
                                         </form><!-- End Multi Columns Form -->
+                                    </div>
+                                    <div class="tab-pane fade" id="bordered-justified-restore"
+                                        role="tabpanel" aria-labelledby="profile-tab">
+                                        <!-- Restore Setting Sections  -->
+                                        <select class="form-select" id="restore_picker" aria-label="Default select example">
+                                            <optgroup label="Select a Backup file">
+                                                <?php $index=0;?>
+                                                <?php foreach ($backups as $backup):?>
+                                                <?php $index++;?>
+                                                    <?php sscanf($backup,"%d_%d_%d_%d_%d_%d.sql", $dat, $mon, $Yea, $hou, $min, $sec);
+                                                    $dt = new DateTime($Yea.'-'.$mon.'-'.$dat.' '.$hou.':'.$min.':'.$sec, new DateTimeZone('Europe/Paris'));
+                                                    $loc = (new DateTime)->getTimezone();
+                                                    $dt->setTimezone($loc);?>
+                                                    <option value="<?=$backup?>"><?=$dt->format('Y/m/d H:i:s')?></option>
+                                                <?php endforeach;?>
+                                                <option>
+                                                </option>
+                                            </optgroup>
+                                        </select>
                                     </div>
                                 </div><!-- End Bordered Tabs Justified -->
 
