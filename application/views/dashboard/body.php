@@ -524,7 +524,7 @@
                                                 <label for="inputPassword5"
                                                     class="form-label text-black">PICK UP TIME</label>
                                                 <div class="col-sm-10">
-                                                    <input type="time" id="backup_date" class="form-control">
+                                                    <input type="time" id="backup_date" value="<?=date("h:i")?>" class="form-control">
                                                 </div>
                                             </div>
                                         </form><!-- End Multi Columns Form -->
