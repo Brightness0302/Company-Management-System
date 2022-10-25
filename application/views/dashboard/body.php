@@ -523,7 +523,7 @@
                                             <div class="col-md-6">
                                                 <label class="form-label text-black">PICK UP TIME</label>
                                                 <div class="col-sm-10">
-                                                    <input type="time" id="backup_date" value="<?=date("h:i")?>" class="form-control">
+                                                    <input type="time" id="backup_date" value="<?=date("H:i")?>" class="form-control">
                                                 </div>
                                             </div>
                                         </form><!-- End Multi Columns Form -->

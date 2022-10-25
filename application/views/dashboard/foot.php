@@ -20,6 +20,8 @@
 		const backup_date = $("#backup_date").val();
 		const data = backup_date.split(':');
 
+		console.log(backup_date);
+
 		const form_data = {
 	        period: period, 
 	        hou: data[0],
