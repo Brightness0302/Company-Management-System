@@ -358,7 +358,12 @@ class Home extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $path = "/var/www/html/crm/assets/company/backups/".$companyname;
-        $files = array_diff(scandir($path), array('.', '..'));
+        $files = [];
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            echo 'This is a server using Windows!';
+        } else {
+            $files = array_diff(scandir($path), array('.', '..'));
+        }
         return $files;
     }
     //backup function for mysql database
@@ -366,13 +371,17 @@ class Home extends CI_Controller
         $count = $this->home->productfromsetting('company');
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
-        $db_user = "root";
-        $db_pwd = "jUfPzJq5872x";
-        $db_names = "avscloud";
-        for ($i=1; $i<$count; $i++) { 
-            $db_names .= ' '.'database'.$i;
-        }
-        $command = "5 * * * * php /var/www/html/crm/index.php home setbackup {$companyid} {$companyname}".PHP_EOL;
+
+        $period=$this->input->post('period');
+        $hou=$this->input->post('hou');
+        $min=$this->input->post('min');
+        // $db_user = "root";
+        // $db_pwd = "jUfPzJq5872x";
+        // $db_names = "avscloud";
+        // for ($i=1; $i<$count; $i++) { 
+        //     $db_names .= ' '.'database'.$i;
+        // }
+        $command = "{$min} {$hou} */{$period} * * php /var/www/html/crm/index.php home setbackup {$companyid} {$companyname}".PHP_EOL;
 
         $prev_crontab = shell_exec('crontab -l');
         file_put_contents('assets/tmp/crontab.txt', $command);

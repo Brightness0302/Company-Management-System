@@ -18,10 +18,12 @@
 		console.log("save_setting");
 		const period = $("#backup_period").val();
 		const backup_date = $("#backup_date").val();
+		const data = backup_date.replace(/[()\s]+/g, '').split(':');
 
 		const form_data = {
 	        period: period, 
-	        date: backup_date 
+	        hou: data[0],
+	        min: data[1],
 	    };
 	    console.log(form_data);
 	    return;

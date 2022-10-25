@@ -497,6 +497,7 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+                                    <!-- Backup function -->
                                     <div class="tab-pane fade show active" id="bordered-justified-backup"
                                         role="tabpanel" aria-labelledby="home-tab">
                                         <!-- Back Up setting Sections -->
@@ -527,16 +528,17 @@
                                             </div>
                                         </form><!-- End Multi Columns Form -->
                                     </div>
+                                    <!-- Restore function -->
                                     <div class="tab-pane fade" id="bordered-justified-restore" role="tabpanel" aria-labelledby="profile-tab">
                                         <label class="form-label text-black">PICK UP File</label>
                                         <!-- Restore Setting Sections  -->
                                         <select class="form-select" id="restore_picker" aria-label="Default select example">
-                                            <optgroup label="Select a Backup file">
+                                            <optgroup label="Select a Restore file">
                                                 <?php $index=0;?>
                                                 <?php foreach ($backups as $backup):?>
                                                 <?php $index++;?>
                                                     <?php sscanf($backup,"%d_%d_%d_%d_%d_%d.sql", $dat, $mon, $Yea, $hou, $min, $sec);
-                                                    $dt = new DateTime($Yea.'-'.$mon.'-'.$dat.' '.$hou.':'.$min.':'.$sec, new DateTimeZone('Europe/Paris'));
+                                                    $dt = new DateTime($Yea.'-'.$mon.'-'.$dat.' '.$hou.':'.$min.':'.$sec);
                                                     $loc = (new DateTime)->getTimezone();
                                                     $dt->setTimezone($loc);?>
                                                     <option value="<?=$backup?>"><?=$dt->format('Y/m/d H:i:s')?></option>
@@ -547,12 +549,11 @@
                                         </select>
                                     </div>
                                 </div><!-- End Bordered Tabs Justified -->
-
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="backup_now()">Backup Now</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="backup_now()">Confirm</button>
                         <button type="button" class="btn btn-primary" onclick="save_setting()">Save changes</button>
                     </div>
                 </div>

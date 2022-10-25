@@ -104,7 +104,7 @@
       <!-- /.card -->
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-12">
       <!-- Projects -->
       <div class="card card-warning">
         <div class="card-header">
@@ -150,7 +150,7 @@
       <!-- /.card -->
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-12">
       <!-- Projects -->
       <div class="card card-dark">
         <div class="card-header">
