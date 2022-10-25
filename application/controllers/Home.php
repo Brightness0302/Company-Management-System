@@ -381,6 +381,7 @@ class Home extends CI_Controller
         // for ($i=1; $i<$count; $i++) { 
         //     $db_names .= ' '.'database'.$i;
         // }
+        echo $period.$hou.$min;
         $command = "{$min} {$hou} */{$period} * * php /var/www/html/crm/index.php home setbackup {$companyid} {$companyname}".PHP_EOL;
 
         $prev_crontab = shell_exec('crontab -l');
