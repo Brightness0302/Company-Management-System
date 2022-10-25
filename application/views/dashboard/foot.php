@@ -25,8 +25,6 @@
 	        hou: data[0],
 	        min: data[1],
 	    };
-	    console.log(form_data);
-	    return;
 		$.ajax({
 	        url: "<?=base_url('home/backup_schedule')?>", 
 	        data: form_data, 
