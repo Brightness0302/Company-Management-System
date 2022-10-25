@@ -121,6 +121,7 @@
           <table id="projects_table" class="table table-bordered table-hover text-center">
             <thead>
                 <tr>
+                    <th class="text-left">No</th>
                     <th class="text-left">Project Name</th>
                     <th class="text-left">Client Name</th>
                     <th class="text-left">Client Reference</th>
@@ -133,6 +134,7 @@
             <tbody>
                 <?php $index=0; foreach($projects_success as $key=>$project):?>
                 <tr>
+                    <td><?=++$index?></td>
                     <td class="text-left"><a class="text-black" href="<?=base_url("project/showdatabyproject?id=").$project['id']?>"><?=str_replace('_', ' ', $project['name'])?></a></td>
                     <td class="text-left"><?=str_replace('_', ' ', $project['client']['name'])?></td>
                     <td class="text-left"><?=$project['client']['Ref']?></td>
@@ -167,6 +169,7 @@
           <table id="projects_in-progress_table" class="table table-bordered table-hover text-center">
             <thead>
                 <tr>
+                    <th class="text-left">No</th>
                     <th class="text-left">Project Name</th>
                     <th class="text-left">Client Name</th>
                     <th class="text-left">Client Reference</th>
@@ -179,6 +182,7 @@
             <tbody>
                 <?php $index=0; foreach($projects_progress as $key=>$project):?>
                 <tr>
+                  <td><?=++$index?></td>
                     <td class="text-left"><a class="text-black" href="<?=base_url("project/showdatabyproject?id=").$project['id']?>"><?=str_replace('_', ' ', $project['name'])?></a></td>
                     <td class="text-left"><?=str_replace('_', ' ', $project['client']['name'])?></td>
                     <td class="text-left"><?=$project['client']['Ref']?></td>
