@@ -18,7 +18,7 @@
 		console.log("download");
 		const filename = $("#restore_picker").val();
 		$("#download").attr("href", "<?=base_url('home/download/')?>"+filename);
-		$("#download").click();
+		$("#download")[0].click();
 	}
 	function save_setting() {
 		console.log("save_setting");
