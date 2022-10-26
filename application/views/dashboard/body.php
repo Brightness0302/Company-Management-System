@@ -1,5 +1,6 @@
 <!-- ======= Hero Section ======= -->
 <?php $menu = $this->session->flashdata('menu');?>
+<?=$backup['period'].$backup['date']?>
 <body style="font-size: 13px !important;">
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
@@ -503,35 +504,35 @@
                                         <!-- Back Up setting Sections -->
                                         <!-- Multi Columns Form -->
                                         <form class="row g-3">
-                                            <div class="col-md-4">
+                                            <div class="col-md-5">
                                                 <label class="form-label text-black">PERIOD</label>
                                                 <!-- <input type="email" class="form-control" id="inputEmail5"> -->
                                                 <div class="col-sm-10">
                                                     <select class="form-select" id="backup_period" aria-label="Default select example">
                                                         <optgroup label="Select your period for Back Up">
-                                                            <option value="1" selected>Every day</option>
-                                                            <option value="2">Two days</option>
-                                                            <option value="3">Three days</option>
-                                                            <option value="4">Four day</option>
-                                                            <option value="5">Five days</option>
-                                                            <option value="6">Six days</option>
-                                                            <option value="7">Seven days</option>
+                                                            <option value="1" <?=($backup['period']==1)?"selected":""?>>Every day</option>
+                                                            <option value="2" <?=($backup['period']==2)?"selected":""?>>Two days</option>
+                                                            <option value="3" <?=($backup['period']==3)?"selected":""?>>Three days</option>
+                                                            <option value="4" <?=($backup['period']==4)?"selected":""?>>Four day</option>
+                                                            <option value="5" <?=($backup['period']==5)?"selected":""?>>Five days</option>
+                                                            <option value="6" <?=($backup['period']==6)?"selected":""?>>Six days</option>
+                                                            <option value="7" <?=($backup['period']==7)?"selected":""?>>Seven days</option>
                                                         </optgroup>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-5">
                                                 <label class="form-label text-black">PICK UP TIME</label>
                                                 <div class="col-sm-10">
-                                                    <input type="time" id="backup_date" value="<?=date("H:i")?>" class="form-control">
+                                                    <input type="time" id="backup_date" value="<?=$backup['date']?>" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <button type="button" class="btn btn-default form-control mt-6" onclick="download()">Download</button>
                                             </div>
-                                            <div class="col-md-2">
+                                            <!-- <div class="col-md-2">
                                                 <button type="button" class="btn btn-secondary form-control mt-6" onclick="backup_now()">Backup Now</button>
-                                            </div>
+                                            </div> -->
                                             <a id="download" href="" hidden>Download PDF</a>
                                         </form><!-- End Multi Columns Form -->
                                     </div>

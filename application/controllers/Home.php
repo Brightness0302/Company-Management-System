@@ -49,10 +49,26 @@ class Home extends CI_Controller
         $this->load->view('footer');
     }
     //goto dashboard
-    public function gotodashboard($company_id) {
-        $company = $this->home->databyid($company_id, 'company');
-        $this->session->set_userdata('companyid', $company_id);
+    public function gotodashboard($companyid) {
+        $company = $this->home->databyid($companyid, 'company');
+        $this->session->set_userdata('companyid', $companyid);
         $this->session->set_userdata('companyname', $company['data']['name']);
+        $backup_date = date('H:i');
+        $period = 1;
+
+        $handle = fopen("assets/tmp/crontab.txt", "r");
+        if ($handle) {
+            while (($line = fgets($handle)) !== false) {
+                sscanf($line,"%s %s */%s %s %s %s %s %s %s %s %s", $str1, $str2, $str3, $str4, $str5, $str6, $str7, $str8, $str9, $str10, $str11);
+                if ($str10 == $companyid) {
+                    $backup_date = $str2.':'.$str1;
+                    $period = $str3;
+                }
+            }
+
+            fclose($handle);
+        }
+        $this->session->set_userdata('backup', ['period'=> $period, 'date'=> $backup_date]);
         redirect(base_url('home/dashboard'));
     }
     //View dashboard
@@ -60,6 +76,9 @@ class Home extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+
+        $data['backup'] = $this->session->userdata('backup');
+
         $company = $this->home->databyid($companyid, 'company');
         if ($company['status']=='failed')
             return;
