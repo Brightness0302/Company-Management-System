@@ -421,7 +421,7 @@ class Home extends CI_Controller
         $db_name = 'database'.$companyid;
         $db_user = "root";
         $db_pwd = "jUfPzJq5872x";
-        shell_exec("mysql -u {$db_user} -p{$db_pwd} {$db_name} < $filename")
+        shell_exec("mysql -u {$db_user} -p{$db_pwd} {$db_name} < $filename");
     }
 
     public function download($filename) {
