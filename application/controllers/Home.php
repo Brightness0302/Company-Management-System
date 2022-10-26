@@ -397,7 +397,10 @@ class Home extends CI_Controller
         // $this->append_cronjob("5 * * * * mysqldump -u {$db_user} -p{$db_pwd} --opt --all-databases > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql");
     }
 
-    public function setbackup($companyid, $companyname) {
+    public function setbackup() {
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+
         $count = $this->home->productfromsetting('company');
         $db_user = "root";
         $db_pwd = "jUfPzJq5872x";
@@ -409,6 +412,16 @@ class Home extends CI_Controller
         }
 
         shell_exec("mysqldump -u {$db_user} -p{$db_pwd} --databases {$db_names} > {$bkp_file_path}/$(date +'%d_%m_%Y_%H_%M_%S').sql");
+    }
+
+    public function restore($filename) {
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+
+        $db_name = 'database'.$companyid;
+        $db_user = "root";
+        $db_pwd = "jUfPzJq5872x";
+        shell_exec("mysql -u {$db_user} -p{$db_pwd} {$db_name} < $filename")
     }
 
     public function download($filename) {

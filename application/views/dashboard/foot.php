@@ -3,7 +3,22 @@
 	function backup_now() {
 		console.log("backup_now");
 		$.ajax({
-	        url: "<?=base_url('home/setbackup/').$company['id'].'/'.$company['name']?>",
+	        url: "<?=base_url('home/setbackup')?>",
+	        method: "POST",
+	        success: function(res) {
+	            console.log(res);
+	        },
+	        error: function(res1, res2) {
+	        	console.log("Error");
+	        	console.log(res1, res2);
+	        }
+	    });
+	}
+	function restore_now() {
+		console.log("restore_now");
+		const filename = $("#restore_picker").val();
+		$.ajax({
+	        url: "<?=base_url('home/restore/')?>"+filename,
 	        method: "POST",
 	        success: function(res) {
 	            console.log(res);
