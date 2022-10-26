@@ -410,4 +410,11 @@ class Home extends CI_Controller
 
         shell_exec("mysqldump -u {$db_user} -p{$db_pwd} --databases {$db_names} > {$bkp_file_path}/$(date +'%d_%m_%Y_%H_%M_%S').sql");
     }
+
+    public function download($filename) {
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+        $file = 'assets/company/backups/'.$companyname.'/'.$filename;
+        force_download($file, NULL);
+    }
 };

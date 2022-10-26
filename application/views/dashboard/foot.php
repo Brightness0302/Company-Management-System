@@ -14,6 +14,13 @@
 	        }
 	    });
 	}
+	function download() {
+		console.log("download");
+		const filename = $("#restore_picker").val();
+		$("#download").attr("href", "<?=base_url('home/download/')?>"+filename);
+		return;
+		$("#download").click();
+	}
 	function save_setting() {
 		console.log("save_setting");
 		const period = $("#backup_period").val();

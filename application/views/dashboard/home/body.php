@@ -7,7 +7,7 @@
           <h3 class="card-title p-1 text-white">Clients: Outstanding invoices</h3>
 
           <div class="card-tools p-1">
-            <button type="button" class="border-none btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+            <button type="button" class="border-none btn btn-tool m-auto" data-card-widget="collapse"><i class="fas fa-minus"></i>
             </button>
           </div>
           <!-- /.card-tools -->
@@ -60,7 +60,7 @@
           <h3 class="card-title p-1 text-white">Suppliers: Outstanding invoices</h3>
 
           <div class="card-tools p-1">
-            <button type="button" class="border-none btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+            <button type="button" class="border-none btn btn-tool m-auto" data-card-widget="collapse"><i class="fas fa-minus"></i>
             </button>
           </div>
           <!-- /.card-tools -->
@@ -111,7 +111,7 @@
           <h3 class="card-title p-1 text-black">Projects completed 2022</h3>
 
           <div class="card-tools p-1">
-            <button type="button" class="border-none btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+            <button type="button" class="border-none btn btn-tool m-auto" data-card-widget="collapse"><i class="fas fa-minus"></i>
             </button>
           </div>
           <!-- /.card-tools -->
@@ -159,7 +159,7 @@
           <h3 class="card-title p-1 text-white">Projects in progress</h3>
 
           <div class="card-tools p-1">
-            <button type="button" class="border-none btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+            <button type="button" class="border-none btn btn-tool m-auto" data-card-widget="collapse"><i class="fas fa-minus"></i>
             </button>
           </div>
           <!-- /.card-tools -->
@@ -207,7 +207,7 @@
           <h3 class="card-title p-1 text-white">Stocks</h3>
 
           <div class="card-tools p-1">
-            <button type="button" class="border-none btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+            <button type="button" class="border-none btn btn-tool m-auto" data-card-widget="collapse"><i class="fas fa-minus"></i>
             </button>
           </div>
           <!-- /.card-tools -->
@@ -251,7 +251,7 @@
           <h3 class="card-title p-1 text-white">Last program backup</h3>
 
           <div class="card-tools p-1">
-            <button type="button" class="border-none btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+            <button type="button" class="border-none btn btn-tool m-auto" data-card-widget="collapse"><i class="fas fa-minus"></i>
             </button>
           </div>
           <!-- /.card-tools -->

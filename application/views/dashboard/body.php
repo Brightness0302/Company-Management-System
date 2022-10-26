@@ -503,7 +503,7 @@
                                         <!-- Back Up setting Sections -->
                                         <!-- Multi Columns Form -->
                                         <form class="row g-3">
-                                            <div class="col-md-6">
+                                            <div class="col-md-5">
                                                 <label class="form-label text-black">PERIOD</label>
                                                 <!-- <input type="email" class="form-control" id="inputEmail5"> -->
                                                 <div class="col-sm-10">
@@ -520,11 +520,14 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-5">
                                                 <label class="form-label text-black">PICK UP TIME</label>
                                                 <div class="col-sm-10">
                                                     <input type="time" id="backup_date" value="<?=date("H:i")?>" class="form-control">
                                                 </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button type="button" class="btn btn-secondary form-control mt-6" data-bs-dismiss="modal" onclick="backup_now()">Backup Now</button>
                                             </div>
                                         </form><!-- End Multi Columns Form -->
                                     </div>
@@ -532,28 +535,40 @@
                                     <div class="tab-pane fade" id="bordered-justified-restore" role="tabpanel" aria-labelledby="profile-tab">
                                         <label class="form-label text-black">PICK UP File</label>
                                         <!-- Restore Setting Sections  -->
-                                        <select class="form-select" id="restore_picker" aria-label="Default select example">
-                                            <optgroup label="Select a Restore file">
-                                                <?php $index=0;?>
-                                                <?php foreach ($backups as $backup):?>
-                                                <?php $index++;?>
-                                                    <?php sscanf($backup,"%d_%d_%d_%d_%d_%d.sql", $dat, $mon, $Yea, $hou, $min, $sec);
-                                                    $dt = new DateTime($Yea.'-'.$mon.'-'.$dat.' '.$hou.':'.$min.':'.$sec);
-                                                    $loc = (new DateTime)->getTimezone();
-                                                    $dt->setTimezone($loc);?>
-                                                    <option value="<?=$backup?>"><?=$dt->format('Y/m/d H:i:s')?></option>
-                                                <?php endforeach;?>
-                                                <option>
-                                                </option>
-                                            </optgroup>
-                                        </select>
+                                        <div class="row g-3">
+                                            <div class="col-md-8">
+                                                <select class="form-select" id="restore_picker" aria-label="Default select example">
+                                                    <optgroup label="Select a Restore file">
+                                                        <?php $index=0;?>
+                                                        <?php foreach ($backups as $backup):?>
+                                                        <?php $index++;?>
+                                                            <?php sscanf($backup,"%d_%d_%d_%d_%d_%d.sql", $dat, $mon, $Yea, $hou, $min, $sec);
+                                                            $dt = new DateTime($Yea.'-'.$mon.'-'.$dat.' '.$hou.':'.$min.':'.$sec);
+                                                            $loc = (new DateTime)->getTimezone();
+                                                            $dt->setTimezone($loc);?>
+                                                            <option value="<?=$backup?>"><?=$dt->format('Y/m/d H:i:s')?></option>
+                                                        <?php endforeach;?>
+                                                        <option>
+                                                        </option>
+                                                    </optgroup>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button type="button" class="btn btn-default form-control" data-bs-dismiss="modal" onclick="download()">Download</button>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button type="button" class="btn btn-secondary form-control" data-bs-dismiss="modal" onclick="restore_now()">Restore Now</button>
+                                            </div>
+                                            <a id="download" href="" hidden>Download PDF</a>
+                                        </div>
+                                        
                                     </div>
                                 </div><!-- End Bordered Tabs Justified -->
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="backup_now()">Confirm</button>
+                        
                         <button type="button" class="btn btn-primary" onclick="save_setting()">Save changes</button>
                     </div>
                 </div>
