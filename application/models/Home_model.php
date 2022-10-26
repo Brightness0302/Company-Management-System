@@ -752,8 +752,7 @@ class Home_model extends CI_Model {
             'default' => '0',
           ),
           'startdate' => array(
-            'type' => 'DATE',
-            'default' => CURRENT_TIMESTAMP,
+            'type' => 'TIMESTAMP',
           ),
           'isremoved' => array(
             'type' => 'TINYINT',
