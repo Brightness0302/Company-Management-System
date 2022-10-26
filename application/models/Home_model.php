@@ -728,6 +728,55 @@ class Home_model extends CI_Model {
             'unsigned' => TRUE,
             'auto_increment' => TRUE
           ),
+          'name' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'observation' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'coin' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+            'default' => '€',
+          ),
+          'salary' => array(
+            'type' => 'float',
+            'constraint' => 9,
+            'default' => '0',
+          ),
+          'tax' => array(
+            'type' => 'float',
+            'constraint' => 9,
+            'default' => '0',
+          ),
+          'startdate' => array(
+            'type' => 'DATE',
+            'default' => CURRENT_TIMESTAMP,
+          ),
+          'isremoved' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1
+          )
+         );
+
+        $this->dbforge->add_field($fields);
+
+        // define primary key
+        $this->dbforge->add_key('id', TRUE);
+
+        // create table
+        $this->dbforge->create_table('employee_permanent');
+
+        // define table fields
+        $fields = array(
+          'id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'unsigned' => TRUE,
+            'auto_increment' => TRUE
+          ),
           'projectid' => array(
             'type' => 'INT',
             'constraint' => 9,
