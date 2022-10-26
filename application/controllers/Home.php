@@ -354,6 +354,50 @@ class Home extends CI_Controller
         }
         // echo json_encode($arr);
     }
+    //UploadImage post(fileinput) param(path)
+    public function uploadCustomBackup() {
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+        // echo "123:".$this->lang->line('proj.proj_sel');
+
+        // echo $countfiles;
+        $path = "assets/company/backups/".$companyname.'/custom/';
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+        $filename = $_FILES['files']['name'][0];   
+        if(!empty($filename)) {
+            if(file_exists($path.$filename)) {
+                unlink($path.$filename);
+            }
+
+            $_FILES['file']['name'] = $_FILES['files']['name'][0];
+            $_FILES['file']['type'] = $_FILES['files']['type'][0];
+            $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][0];
+            $_FILES['file']['error'] = $_FILES['files']['error'][0];
+            $_FILES['file']['size'] = $_FILES['files']['size'][0];
+
+            $config['upload_path'] = $path;
+            $config['allowed_types'] = 'sql';
+            $config['max_size'] = "5120000"; // Can be set to particular file size , here it is 2 MB(2048 Kb)
+
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            // $arr = array('msg' => 'something went wrong', 'success' => false);
+
+            if($this->upload->do_upload('file')) {
+                $uploadData = $this->upload->data();
+                // $this->resize_image($uploadData['full_path']);
+                // $filename = $uploadData['file_name'];
+                // $arr = array('msg' => 'Image has been uploaded successfully', 'success' => true);
+            }
+            else {
+                echo $this->upload->display_errors();
+            }
+        }
+        // echo json_encode($arr);
+    }
+
     public function get_backups() {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
@@ -385,6 +429,19 @@ class Home extends CI_Controller
         $command = "{$min} {$hou} */{$period} * * php /var/www/html/crm/index.php home setbackup {$companyid} {$companyname}".PHP_EOL;
 
         $prev_crontab = shell_exec('crontab -l');
+
+        $handle = fopen("assets/tmp/crontab.txt", "r");
+        if ($handle) {
+            while (($line = fgets($handle)) !== false) {
+                sscanf($line,"%s %s %s %s %s %s %s %s %s %s %s", $str1, $str2, $str3, $str4, $str5, $str6, $str7, $str8, $str9, $str10, $str11);
+                if ($str10 != $companyid) {
+                    $command.=$line.PHP_EOL;
+                }
+            }
+
+            fclose($handle);
+        }
+
         file_put_contents('assets/tmp/crontab.txt', $command);
         shell_exec('crontab /var/www/html/crm/assets/tmp/crontab.txt');
 
@@ -397,10 +454,7 @@ class Home extends CI_Controller
         // $this->append_cronjob("5 * * * * mysqldump -u {$db_user} -p{$db_pwd} --opt --all-databases > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql");
     }
 
-    public function setbackup() {
-        $companyid = $this->session->userdata('companyid');
-        $companyname = $this->session->userdata('companyname');
-
+    public function setbackup($companyid, $companyname) {
         $count = $this->home->productfromsetting('company');
         $db_user = "root";
         $db_pwd = "jUfPzJq5872x";
@@ -410,18 +464,27 @@ class Home extends CI_Controller
         if (!file_exists($bkp_file_path)) {
             mkdir($bkp_file_path, 0777, true);
         }
+        $date = date('d_m_Y_H_i_s');
 
-        shell_exec("mysqldump -u {$db_user} -p{$db_pwd} --databases {$db_names} > {$bkp_file_path}/$(date +'%d_%m_%Y_%H_%M_%S').sql");
+        shell_exec("mysqldump -u {$db_user} -p{$db_pwd} --databases {$db_names} > {$bkp_file_path}/{$date}.sql");
+        echo $date.".sql";
     }
 
     public function restore($filename) {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
 
+        $type=$this->input->post('type');
+
+        if ($type == 1)
+            $filename = 'custom/'.$filename;
+        $filename = "/var/www/html/crm/assets/company/backups/".$companyname.'/'.$filename;
+        echo "filename: ".$filename;
+
         $db_name = 'database'.$companyid;
         $db_user = "root";
         $db_pwd = "jUfPzJq5872x";
-        shell_exec("mysql -u {$db_user} -p{$db_pwd} {$db_name} < $filename");
+        shell_exec("mysql -u {$db_user} -p{$db_pwd} {$db_name} < {$filename}");
     }
 
     public function download($filename) {

@@ -503,7 +503,7 @@
                                         <!-- Back Up setting Sections -->
                                         <!-- Multi Columns Form -->
                                         <form class="row g-3">
-                                            <div class="col-md-5">
+                                            <div class="col-md-4">
                                                 <label class="form-label text-black">PERIOD</label>
                                                 <!-- <input type="email" class="form-control" id="inputEmail5"> -->
                                                 <div class="col-sm-10">
@@ -520,15 +520,19 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-5">
+                                            <div class="col-md-4">
                                                 <label class="form-label text-black">PICK UP TIME</label>
                                                 <div class="col-sm-10">
                                                     <input type="time" id="backup_date" value="<?=date("H:i")?>" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
-                                                <button type="button" class="btn btn-secondary form-control mt-6" data-bs-dismiss="modal" onclick="backup_now()">Backup Now</button>
+                                                <button type="button" class="btn btn-default form-control mt-6" onclick="download()">Download</button>
                                             </div>
+                                            <div class="col-md-2">
+                                                <button type="button" class="btn btn-secondary form-control mt-6" onclick="backup_now()">Backup Now</button>
+                                            </div>
+                                            <a id="download" href="" hidden>Download PDF</a>
                                         </form><!-- End Multi Columns Form -->
                                     </div>
                                     <!-- Restore function -->
@@ -542,24 +546,25 @@
                                                         <?php $index=0;?>
                                                         <?php foreach ($backups as $backup):?>
                                                         <?php $index++;?>
-                                                            <?php sscanf($backup,"%d_%d_%d_%d_%d_%d.sql", $dat, $mon, $Yea, $hou, $min, $sec);
+                                                            <!-- <?php sscanf($backup,"%d_%d_%d_%d_%d_%d.sql", $dat, $mon, $Yea, $hou, $min, $sec);
                                                             $dt = new DateTime($Yea.'-'.$mon.'-'.$dat.' '.$hou.':'.$min.':'.$sec);
                                                             $loc = (new DateTime)->getTimezone();
-                                                            $dt->setTimezone($loc);?>
-                                                            <option value="<?=$backup?>"><?=$dt->format('Y/m/d H:i:s')?></option>
+                                                            $dt->setTimezone($loc);?> -->
+                                                            <option value="<?=$backup?>"><?=$backup?></option>
                                                         <?php endforeach;?>
-                                                        <option>
-                                                        </option>
+                                                            <option id="custom-select" value=""></option>
                                                     </optgroup>
                                                 </select>
                                             </div>
                                             <div class="col-md-2">
-                                                <button type="button" class="btn btn-default form-control" data-bs-dismiss="modal" onclick="download()">Download</button>
+                                                <label for="file-upload" id="file-text" class="btn btn-secondary form-control" style="color: red;">
+                                                    <i class="fa fa-cloud-upload"></i> Custom select
+                                                </label>
+                                                <input id="file-upload" name='upload_cont_img' type="file" style="display:none;">
                                             </div>
                                             <div class="col-md-2">
-                                                <button type="button" class="btn btn-secondary form-control" data-bs-dismiss="modal" onclick="restore_now()">Restore Now</button>
+                                                <button type="button" class="btn btn-secondary form-control" onclick="restore_now()">Restore Now</button>
                                             </div>
-                                            <a id="download" href="" hidden>Download PDF</a>
                                         </div>
                                         
                                     </div>

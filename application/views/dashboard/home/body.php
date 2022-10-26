@@ -262,7 +262,7 @@
             <thead class="text-center">
                 <tr>
                     <th>No</th>
-                    <th class="text-left">Date</th>
+                    <!-- <th class="text-left">Date</th> -->
                     <th>FileName</th>
                 </tr>
             </thead>
@@ -271,12 +271,12 @@
                 <?php foreach ($backups as $backup):?>
                 <?php $index++;?>
                 <tr>
-                    <?php sscanf($backup,"%d_%d_%d_%d_%d_%d.sql", $dat, $mon, $Yea, $hou, $min, $sec);
+                    <!-- <?php sscanf($backup,"%d_%d_%d_%d_%d_%d.sql", $dat, $mon, $Yea, $hou, $min, $sec);
                       $dt = new DateTime($Yea.'-'.$mon.'-'.$dat.' '.$hou.':'.$min.':'.$sec, new DateTimeZone('Europe/Paris'));
                       $loc = (new DateTime)->getTimezone();
-                      $dt->setTimezone($loc);?>
+                      $dt->setTimezone($loc);?> -->
                     <td><?=($index)?></td>
-                    <td><?=$dt->format('Y/m/d H:i:s')?></td>
+                    <!-- <td><?=$dt->format('Y/m/d H:i:s')?></td> -->
                     <td><?=($backup)?></td>
                 </tr>
                 <?php endforeach;?>
