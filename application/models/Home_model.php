@@ -751,12 +751,10 @@ class Home_model extends CI_Model {
             'constraint' => 9,
             'default' => '0',
           ),
-          'startdate' => array(
-            'type' => 'TIMESTAMP',
-          ),
+          'startdate date default current_timestamp',
           'isremoved' => array(
             'type' => 'TINYINT',
-            'constraint' => 1
+            'constraint' => 1,
           )
          );
 
