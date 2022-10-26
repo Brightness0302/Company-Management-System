@@ -53,7 +53,7 @@ class Home extends CI_Controller
         $company = $this->home->databyid($companyid, 'company');
         $this->session->set_userdata('companyid', $companyid);
         $this->session->set_userdata('companyname', $company['data']['name']);
-        $backup_date = date('H:i');
+        $backup_date = false;
         $period = 1;
 
         $handle = fopen("assets/tmp/crontab.txt", "r");

@@ -524,7 +524,7 @@
                                             <div class="col-md-5">
                                                 <label class="form-label text-black">PICK UP TIME</label>
                                                 <div class="col-sm-10">
-                                                    <input type="time" id="backup_date" value="<?=$backup['date']?>" class="form-control">
+                                                    <input type="time" id="backup_date" value="<?=($backup['date']==false)?date('H:i'):$backup['date']?>" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
