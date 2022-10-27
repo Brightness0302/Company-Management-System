@@ -13,6 +13,7 @@ class Product extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($companyname, 'company');
         if ($company['status']=='failed')
             return;
@@ -56,6 +57,7 @@ class Product extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($companyname, 'company');
         if ($company['status']=='failed')
             return;
@@ -117,6 +119,7 @@ class Product extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($companyname, 'company');
         if ($company['status']=='failed')
             return;
@@ -178,6 +181,7 @@ class Product extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($companyname, 'company');
         if ($company['status']=='failed')
             return;
@@ -215,6 +219,7 @@ class Product extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($companyname, 'company');
         if ($company['status']=='failed')
             return;
@@ -266,6 +271,7 @@ class Product extends CI_Controller
     public function addrecipe() {
         $companyid = $this->session->userdata('companyid');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyid($companyid, 'company');
         if ($company['status']=='failed')
             return;
@@ -294,11 +300,11 @@ class Product extends CI_Controller
     public function addproduct() {
         $companyid = $this->session->userdata('companyid');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyid($companyid, 'company');
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
-        $data['user'] = $this->session->userdata('user');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['product'] = $this->product->productfromsetting($companyid, 'product');
@@ -324,6 +330,7 @@ class Product extends CI_Controller
     public function addorder() {
         $companyid = $this->session->userdata('companyid');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyid($companyid, 'company');
         if ($company['status']=='failed')
             return;
@@ -354,6 +361,7 @@ class Product extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyid($companyid, 'company');
         if ($company['status']=='failed')
             return;
@@ -396,6 +404,7 @@ class Product extends CI_Controller
     public function editproduct($product_id) {
         $companyid = $this->session->userdata('companyid');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyid($companyid, 'company');
         if ($company['status']=='failed')
             return;
@@ -432,6 +441,7 @@ class Product extends CI_Controller
     public function editorder($order_id) {
         $companyid = $this->session->userdata('companyid');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyid($companyid, 'company');
         if ($company['status']=='failed')
             return;

@@ -17,6 +17,7 @@ class Client extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $data['clients'] = $this->home->alldata('client');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
@@ -41,6 +42,7 @@ class Client extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -70,6 +72,7 @@ class Client extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -99,6 +102,7 @@ class Client extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -128,6 +132,7 @@ class Client extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -156,7 +161,6 @@ class Client extends CI_Controller
     //Toggle payment of invoice function
     public function toggleinvoicepayment($invoice_id) {
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -168,7 +172,6 @@ class Client extends CI_Controller
     //Toggle payment of invoice function
     public function setinvoicepayment($invoice_id, $ispaid) {
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -182,6 +185,7 @@ class Client extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -207,6 +211,7 @@ class Client extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -239,6 +244,7 @@ class Client extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -268,6 +274,7 @@ class Client extends CI_Controller
     public function addprojectbyinvoices() {
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -289,6 +296,7 @@ class Client extends CI_Controller
     public function editprojectbyinvoices($project_id) {
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -314,6 +322,7 @@ class Client extends CI_Controller
     public function editclientbyprojects($client_id) {
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -345,6 +354,7 @@ class Client extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -376,6 +386,7 @@ class Client extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -427,6 +438,7 @@ class Client extends CI_Controller
         $data['clients'] = $this->home->alldata('client');
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;

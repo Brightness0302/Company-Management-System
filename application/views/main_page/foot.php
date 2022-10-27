@@ -51,6 +51,7 @@ function AddCompany() {
             data: form_data,
             dataType: 'text',
             success: function(res) {
+                console.log(res);
                 try {
                     const id = res;
                     if (id === null || id === '') {

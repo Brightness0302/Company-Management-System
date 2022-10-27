@@ -76,7 +76,6 @@ class Home extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
-
         $data['backup'] = $this->session->userdata('backup');
 
         $company = $this->home->databyid($companyid, 'company');
@@ -257,6 +256,7 @@ class Home extends CI_Controller
     }
     //Delete Company param(company_name)
     public function delcompany($company_id) {
+        $this->home->dropDB($company_id);
         echo $this->home->removeItem($company_id);
     }
     //Delete User param(user_name)
@@ -276,12 +276,11 @@ class Home extends CI_Controller
         $EORI=$this->input->post('EORI');
         $Coin=$this->input->post('Coin');
 
-        if ($name)
-
         if (!isset($_GET['id'])) {
             $projects_id = $this->home->createItem($name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Coin);
             if ($projects_id != -1) {
                 $this->home->createdatabase($projects_id);
+                $this->home->initializeDB($projects_id);
             }
             echo $projects_id;
             return;

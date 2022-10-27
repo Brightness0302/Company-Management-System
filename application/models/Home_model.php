@@ -774,6 +774,188 @@ class Home_model extends CI_Model {
             'unsigned' => TRUE,
             'auto_increment' => TRUE
           ),
+          'name' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'observation' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 100,
+          ),
+          'coin' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+            'default' => '€',
+          ),
+          'daily_rate' => array(
+            'type' => 'float',
+            'constraint' => 9,
+            'default' => '0',
+          ),
+          'vat' => array(
+            'type' => 'float',
+            'constraint' => 9,
+            'default' => '0',
+          ),
+          'startdate date default current_timestamp',
+          'enddate date default current_timestamp',
+          'isremoved' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1,
+          )
+         );
+
+        $this->dbforge->add_field($fields);
+
+        // define primary key
+        $this->dbforge->add_key('id', TRUE);
+
+        // create table
+        $this->dbforge->create_table('employee_subcontract');
+
+        // define table fields
+        $fields = array(
+          'id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'unsigned' => TRUE,
+            'auto_increment' => TRUE
+          ),
+          'name' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'code' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'isremoved' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1,
+          )
+         );
+
+        $this->dbforge->add_field($fields);
+
+        // define primary key
+        $this->dbforge->add_key('id', TRUE);
+
+        // create table
+        $this->dbforge->create_table('expense_category');
+
+        // define table fields
+        $fields = array(
+          'id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'unsigned' => TRUE,
+            'auto_increment' => TRUE
+          ),
+          'number' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'merchant' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'categoryid' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+          ),
+          'date date default current_timestamp',
+          'Coin' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 10,
+            'default' => '€',
+          ),
+          'observation' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'vat_percent' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+          ),
+          'value_without_vat' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'vat' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'total' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'projectid' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+          ),
+          'isremoved' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1,
+          )
+         );
+
+        $this->dbforge->add_field($fields);
+
+        // define primary key
+        $this->dbforge->add_key('id', TRUE);
+
+        // create table
+        $this->dbforge->create_table('expense_product');
+
+        // define table fields
+        $fields = array(
+          'id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'unsigned' => TRUE,
+            'auto_increment' => TRUE
+          ),
+          'order_date date default current_timestamp',
+          'order_observation' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'product_description' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'product_qty' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'default' => '0',
+          ),
+          'isproducted' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1,
+          ),
+          'production_date date default current_timestamp',
+          'isremoved' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1,
+          )
+         );
+
+        $this->dbforge->add_field($fields);
+
+        // define primary key
+        $this->dbforge->add_key('id', TRUE);
+
+        // create table
+        $this->dbforge->create_table('internalorder');
+
+        // define table fields
+        $fields = array(
+          'id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'unsigned' => TRUE,
+            'auto_increment' => TRUE
+          ),
           'projectid' => array(
             'type' => 'INT',
             'constraint' => 9,
@@ -820,6 +1002,16 @@ class Home_model extends CI_Model {
             'type' => 'VARCHAR',
             'constraint' => 60
           ),
+          'paid_date date default current_timestamp',
+          'paid_method' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+            'default' => 'Cash',
+          ),
+          'paid_observation' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 100,
+          ),
           'ispaid' => array(
             'type' => 'TINYINT',
             'constraint' => 1
@@ -837,6 +1029,268 @@ class Home_model extends CI_Model {
 
         // create table
         $this->dbforge->create_table('invoice');
+
+        // define table fields
+        $fields = array(
+          'id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'unsigned' => TRUE,
+            'auto_increment' => TRUE
+          ),
+          'date_of_reception date default current_timestamp',
+          'supplierid' => array(
+            'type' => 'INT',
+            'constraint' => 9
+          ),
+          'observation' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'invoice_date date default current_timestamp',
+          'invoice_number' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'invoice_coin' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'lines' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 10000,
+          ),
+          'paid_date date default current_timestamp',
+          'paid_method' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+            'default' => 'Cash',
+          ),
+          'paid_observation' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 100,
+          ),
+          'ispaid' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1
+          ),
+          'isremoved' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1,
+          )
+         );
+
+        $this->dbforge->add_field($fields);
+
+        // define primary key
+        $this->dbforge->add_key('id', TRUE);
+
+        // create table
+        $this->dbforge->create_table('material');
+
+        // define table fields
+        $fields = array(
+          'id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'unsigned' => TRUE,
+            'auto_increment' => TRUE
+          ),
+          'productid' => array(
+            'type' => 'INT',
+            'constraint' => 9
+          ),
+          'projectid' => array(
+            'type' => 'INT',
+            'constraint' => 9
+          ),
+          'stockid' => array(
+            'type' => 'INT',
+            'constraint' => 9
+          ),
+          'line_id' => array(
+            'type' => 'INT',
+            'constraint' => 9
+          ),
+          'quantity_on_document' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'default' => '0',
+          ),
+          'quantity_received' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'default' => '0',
+          ),
+          'isremoved' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1,
+          )
+         );
+
+        $this->dbforge->add_field($fields);
+
+        // define primary key
+        $this->dbforge->add_key('id', TRUE);
+
+        // create table
+        $this->dbforge->create_table('material_lines');
+
+        // define table fields
+        $fields = array(
+          'id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'unsigned' => TRUE,
+            'auto_increment' => TRUE
+          ),
+          'code_ean' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'production_description' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 100,
+          ),
+          'stockid' => array(
+            'type' => 'INT',
+            'constraint' => 9
+          ),
+          'expenseid' => array(
+            'type' => 'INT',
+            'constraint' => 9
+          ),
+          'units' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+            'default' => 'Pieces',
+          ),
+          'acquisition_unit_price' => array(
+            'type' => 'float',
+            'constraint' => 9,
+            'default' => '0',
+          ),
+          'vat' => array(
+            'type' => 'float',
+            'constraint' => 9,
+            'default' => '0',
+          ),
+          'makeup' => array(
+            'type' => 'float',
+            'constraint' => 9,
+            'default' => '0',
+          ),
+          'qty' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'default' => '0'
+          ),
+          'isremoved' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1,
+          )
+         );
+
+        $this->dbforge->add_field($fields);
+
+        // define primary key
+        $this->dbforge->add_key('id', TRUE);
+
+        // create table
+        $this->dbforge->create_table('material_totalline');
+
+        // define table fields
+        $fields = array(
+          'id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'unsigned' => TRUE,
+            'auto_increment' => TRUE
+          ),
+          'serialnumber' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 100,
+          ),
+          'order_number' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'date date default current_timestamp',
+          'user' => array(
+            'type' => 'INT',
+            'constraint' => 9
+          ),
+          'product_description' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 100,
+          ),
+          'lan-mac_address' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'wifi-mac_address' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'plug_standard' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'observation' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 100,
+          ),
+          'isremoved' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1,
+          )
+         );
+
+        $this->dbforge->add_field($fields);
+
+        // define primary key
+        $this->dbforge->add_key('id', TRUE);
+
+        // create table
+        $this->dbforge->create_table('product');
+
+        // define table fields
+        $fields = array(
+          'id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'unsigned' => TRUE,
+            'auto_increment' => TRUE
+          ),
+          'name' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'materials' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 5000,
+          ),
+          'labours' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 5000,
+          ),
+          'auxiliaries' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 5000,
+          ),
+          'isremoved' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1,
+          )
+         );
+
+        $this->dbforge->add_field($fields);
+
+        // define primary key
+        $this->dbforge->add_key('id', TRUE);
+
+        // create table
+        $this->dbforge->create_table('product_recipe');
 
         // define table fields
         $fields = array(
@@ -912,16 +1366,207 @@ class Home_model extends CI_Model {
 
         // define table fields
         $fields = array(
-          'startid' => array(
+          'id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'unsigned' => TRUE,
+            'auto_increment' => TRUE
+          ),
+          'name' => array(
             'type' => 'VARCHAR',
-            'constraint' => 30
+            'constraint' => 30,
+          ),
+          'observation' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 100,
+          ),
+          'client' => array(
+            'type' => 'INT',
+            'constraint' => 9
+          ),
+          'startdate date default current_timestamp',
+          'enddate date default current_timestamp',
+          'value' => array(
+            'type' => 'float',
+            'constraint' => 9,
+            'default' => '0',
+          ),
+          'vat' => array(
+            'type' => 'float',
+            'constraint' => 9,
+            'default' => '0',
+          ),
+          'coin' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+            'default' => '€',
+          ),
+          'isremoved' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1,
           )
          );
 
         $this->dbforge->add_field($fields);
 
+        // define primary key
+        $this->dbforge->add_key('id', TRUE);
+
+        // create table
+        $this->dbforge->create_table('project');
+
+        // define table fields
+        $fields = array(
+          'id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'unsigned' => TRUE,
+            'auto_increment' => TRUE
+          ),
+          'project_id' => array(
+            'type' => 'INT',
+            'constraint' => 9
+          ),
+          'observation' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 100,
+          ),
+          'isemployee' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+            'default' => 'employee_permanent',
+          ),
+          'employeeid' => array(
+            'type' => 'INT',
+            'constraint' => 9
+          ),
+          'workingdays' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'default' => '0',
+          ),
+          'startdate date default current_timestamp',
+          'isremoved' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1,
+          )
+         );
+
+        $this->dbforge->add_field($fields);
+
+        // define primary key
+        $this->dbforge->add_key('id', TRUE);
+
+        // create table
+        $this->dbforge->create_table('project_assignment');
+
+        // define table fields
+        $fields = array(
+          'id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'unsigned' => TRUE,
+            'auto_increment' => TRUE
+          ),
+          'invoiceid' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'default' => '1',
+          ),
+          'invoiceyear' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'default' => '2022',
+          ),
+         );
+
+        $this->dbforge->add_field($fields);
+
+        // define primary key
+        $this->dbforge->add_key('id', TRUE);
+
         // create table
         $this->dbforge->create_table('setting');
+
+        // define table fields
+        $fields = array(
+          'id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'unsigned' => TRUE,
+            'auto_increment' => TRUE
+          ),
+          'startdate date default current_timestamp',
+          'isremoved' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1,
+            'default' => '0',
+          )
+         );
+
+        $this->dbforge->add_field($fields);
+
+        // define primary key
+        $this->dbforge->add_key('id', TRUE);
+
+        // create table
+        $this->dbforge->create_table('setting1');
+
+        // define table fields
+        $fields = array(
+          'id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'unsigned' => TRUE,
+            'auto_increment' => TRUE
+          ),
+          'name' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'code' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'isremoved' => array(
+            'type' => 'TINYINT',
+            'constraint' => 1,
+          )
+         );
+
+        $this->dbforge->add_field($fields);
+
+        // define primary key
+        $this->dbforge->add_key('id', TRUE);
+
+        // create table
+        $this->dbforge->create_table('stock');
+    }
+    //Initialize database using $companyid
+    public function initializeDB($companyid) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $data = array(
+            'invoiceyear'=>date('Y')
+        );
+
+        $this->db->insert('setting',$data);
+        $insert_id = $this->db->insert_id();
+
+        $data = array(
+            'isremoved'=>false,
+        );
+
+        $this->db->insert('setting1',$data);
+        $insert_id1 = $this->db->insert_id();
+        return $insert_id.' '.$insert_id1;
+    }
+    //Drop Database for $companyid
+    public function dropDB($companyid) {
+        $companyid = "database".$companyid;
+        $this->load->dbforge();
+        return $this->dbforge->drop_database($companyid);
     }
     //create user using $username, $password, $company, $module
     public function createUser($username, $password, $company, $module) {

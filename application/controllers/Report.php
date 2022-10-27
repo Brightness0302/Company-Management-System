@@ -17,6 +17,7 @@ class Report extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $data['suppliers'] = $this->home->alldata('supplier');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
@@ -46,6 +47,7 @@ class Report extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
         $data['setting1'] = $res[0];
 
@@ -88,6 +90,7 @@ class Report extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
         $data['setting1'] = $res[0];
 
@@ -140,6 +143,7 @@ class Report extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
         $data['setting1'] = $res[0];
 
@@ -188,6 +192,7 @@ class Report extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
         $data['setting1'] = $res[0];
         $startyear = intval(date("Y",strtotime($data['setting1']['startdate'])));
@@ -276,6 +281,7 @@ class Report extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
         $data['setting1'] = $res[0];
 

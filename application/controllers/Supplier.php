@@ -17,6 +17,7 @@ class Supplier extends CI_Controller
             return;
         $data['company'] = $company['data'];
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $data['suppliers'] = $this->home->alldata('supplier');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
@@ -41,6 +42,7 @@ class Supplier extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -66,6 +68,7 @@ class Supplier extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
