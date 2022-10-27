@@ -246,7 +246,11 @@
                     <span>Dashboard</span>
                 </a>
             </li><!-- End Dashboard Nav -->
-
+            <?php 
+                $user_modules=json_decode($user['module']);
+            ?>
+            <?php if($user['rank'] == 1 || in_array($modules[0]['id'] - 1, $user_modules)):?>
+            <!-- Client component -->
             <li class="nav-item">
                 <a class="nav-link <?=$menu['menu']=="Clients"?"":"collapsed"?>" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi custom-client-image"></i><span>Clients</span>
@@ -280,7 +284,10 @@
 
                 </ul>
             </li><!-- End Components Nav -->
+            <?php endif;?>
 
+            <?php if($user['rank'] == 1 || in_array($modules[1]['id'] - 1, $user_modules)):?>
+            <!-- Supplier Component -->
             <li class="nav-item">
                 <a class="nav-link <?=$menu['menu']=="Suppliers"?"":"collapsed"?>" data-bs-target="#supplier-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi custom-supplier-image"></i><span>Suppliers</span>
@@ -305,7 +312,10 @@
                     </li>
                 </ul>
             </li><!-- End Components Nav -->
+            <?php endif;?>
 
+            <?php if($user['rank'] == 1 || in_array($modules[2]['id'] - 1, $user_modules)):?>
+            <!-- Expense Component -->
             <li class="nav-item">
                 <a class="nav-link <?=$menu['menu']=="Expenses"?"":"collapsed"?>" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
                     <i class="bx custom-expense-image"></i><span>Expenses</span>
@@ -333,7 +343,9 @@
                     </li>
                 </ul>
             </li><!-- End Tables Nav -->
+            <?php endif;?>
 
+            <?php if($user['rank'] == 1 || in_array($modules[3]['id'] - 1, $user_modules)):?>
             <li class="nav-item">
                 <a class="nav-link <?=$menu['menu']=="Stocks"?"":"collapsed"?>" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
                     <i class="bx custom-stock-image"></i><span>Stocks</span>
@@ -355,7 +367,9 @@
                     </li>
                 </ul>
             </li><!-- End Charts Nav -->
+            <?php endif;?>
 
+            <?php if($user['rank'] == 1 || in_array($modules[4]['id'] - 1, $user_modules)):?>
             <li class="nav-item">
                 <a class="nav-link <?=$menu['menu']=="Products"?"":"collapsed"?>" data-bs-target="#product-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi custom-product-image"></i><span>Products</span>
@@ -392,6 +406,9 @@
                     </li>
                 </ul>
             </li><!-- End Charts Nav -->
+            <?php endif;?>
+
+            <?php if($user['rank'] == 1 || in_array($modules[5]['id'] - 1, $user_modules)):?>
             <!-- Project Module -->
             <li class="nav-item">
                 <a class="nav-link <?=$menu['menu']=="Projects"?"":"collapsed"?>" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
@@ -405,6 +422,9 @@
                     </li>
                 </ul>
             </li><!-- End Project Module -->
+            <?php endif;?>
+
+            <?php if($user['rank'] == 1 || in_array($modules[6]['id'] - 1, $user_modules)):?>
 
             <!-- Labor Module -->
             <li class="nav-item">
@@ -425,7 +445,9 @@
                     </li>
                 </ul>
             </li><!-- End Labor Module -->
+            <?php endif;?>
 
+            <?php if($user['rank'] == 1 || in_array(($modules[7]['id'] - 1), $user_modules)):?>
             <!-- Statistics Module -->
             <li class="nav-item">
                 <a class="nav-link <?=$menu['menu']=="Reports & Statistics"?"":"collapsed"?>" data-bs-target="#report-nav" data-bs-toggle="collapse" href="#">
@@ -459,6 +481,7 @@
                     </li>
                 </ul>
             </li><!-- End  Statistics Module -->
+            <?php endif;?>
         </ul>
 
     </aside><!-- End Sidebar-->

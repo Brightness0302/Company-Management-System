@@ -46,7 +46,7 @@
                                     id="_addusercompany">
                                     <?php foreach ($companies as $key=>$company):?>
                                     <option value="<?=$company['id']-1?>"
-                                        <?= in_array(($company['id']-1), unserialize($user['company']))?"selected":""?>>
+                                        <?=in_array(($company['id']-1), json_decode($user['company']))?"selected":""?>>
                                         <?=str_replace("_"," ",$company['name'])?></option>
                                     <?php endforeach;?>
                                 </select>
@@ -56,11 +56,11 @@
                         <div class="row mt-3 ">
                             <label class="col-sm-2 col-form-label">Module</label>
                             <div class="col-sm-10">
-                                <select class="form-select" multiple aria-label="multiple select example"
+                                <select class="form-select h-52" multiple aria-label="multiple select example"
                                     id="_addusermodule">
                                     <?php foreach ($modules as $key=>$module):?>
                                     <option value="<?=$module['id']-1?>"
-                                        <?= in_array(($module['id']-1), unserialize($user['module']))?"selected":""?>>
+                                        <?=in_array(($module['id']-1), json_decode($user['module']))?"selected":""?>>
                                         <?=str_replace("_"," ",$module['name'])?></option>
                                     <?php endforeach;?>
                                 </select>

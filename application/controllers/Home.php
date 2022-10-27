@@ -19,7 +19,7 @@ class Home extends CI_Controller
             $data['users'] = $users;
         }
         else if ($data['user']['rank'] == 3) {
-            $usercompanies = unserialize($data['user']['company']);
+            $usercompanies = json_decode($data['user']['company']);
             $count=0;
             for ($i=0;$i<count($usercompanies);$i++) {
                 for ($j=0;$j<count($companies);$j++) {
@@ -76,6 +76,7 @@ class Home extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
+        $data['modules'] = $this->home->alldata('module');
         $data['backup'] = $this->session->userdata('backup');
 
         $company = $this->home->databyid($companyid, 'company');
@@ -294,8 +295,8 @@ class Home extends CI_Controller
     public function saveuser() {
         $username=$this->input->post('username');
         $password=$this->input->post('password');
-        $company=serialize($this->input->post('company'));
-        $module=serialize($this->input->post('module'));
+        $company=json_encode($this->input->post('company'));
+        $module=json_encode($this->input->post('module'));
 
         if (!isset($_GET['id'])) {
             $projects_id = $this->home->createUser($username, $password, $company, $module);

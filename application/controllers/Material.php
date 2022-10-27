@@ -14,6 +14,7 @@ class Material extends CI_Controller
         $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
         $company = $this->home->databyname($companyname, 'company');
         if ($company['status']=='failed')
             return;
@@ -60,6 +61,7 @@ class Material extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $data['user'] = $this->session->userdata('user');
         $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
         $company = $this->home->databyid($companyid, 'company');
         if ($company['status']=='failed')
             return;
@@ -95,6 +97,7 @@ class Material extends CI_Controller
         $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
         $company = $this->home->databyid($companyid, 'company');
         if ($company['status']=='failed')
             return;
@@ -256,6 +259,7 @@ class Material extends CI_Controller
         $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
         $company = $this->home->databyname($companyname, 'company');
         if ($company['status']=='failed')
             return;

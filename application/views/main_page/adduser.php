@@ -51,10 +51,10 @@
                             </div>
                         </div>
 
-                        <div class="row mt-3 ">
+                        <div class="row mt-3">
                             <label class="col-sm-2 col-form-label">Module</label>
                             <div class="col-sm-10">
-                                <select class="form-select" multiple aria-label="multiple select example"
+                                <select class="form-select h-52" multiple aria-label="multiple select example"
                                     id="_addusermodule">
                                     <?php foreach ($modules as $key=>$module):?>
                                     <option value="<?=$module['id']-1?>"><?=$module['name']?></option>

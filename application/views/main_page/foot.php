@@ -289,7 +289,6 @@ $("#_adduser").click(function() {
         company: _addusercompany,
         module: _addusermodule
     };
-    alert("<?=base_url('home/saveuser')?>");
     try {
         $.ajax({
             url: "<?=base_url('home/saveuser')?>",

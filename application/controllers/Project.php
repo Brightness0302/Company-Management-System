@@ -13,6 +13,7 @@ class Project extends CI_Controller
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -48,6 +49,7 @@ class Project extends CI_Controller
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -80,6 +82,7 @@ class Project extends CI_Controller
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -150,6 +153,7 @@ class Project extends CI_Controller
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;

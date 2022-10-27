@@ -18,6 +18,7 @@ class Stock extends CI_Controller
         $data['company'] = $company['data'];
         $data['user'] = $this->session->userdata('user');
         $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
@@ -48,6 +49,7 @@ class Stock extends CI_Controller
         $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
         $company = $this->home->databyname($companyname, 'company');
         if ($company['status']=='failed')
             return;
@@ -113,6 +115,7 @@ class Stock extends CI_Controller
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
@@ -139,6 +142,7 @@ class Stock extends CI_Controller
         $company_name = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
         $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;

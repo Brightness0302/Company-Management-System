@@ -107,7 +107,7 @@
                         <td>
                             <div class="col-sm-10 m-auto">
                                 <select class="form-select" aria-label="Default select example">
-                                    <?php $user_companies=unserialize($user['company']);?>
+                                    <?php $user_companies=json_decode($user['company']);?>
                                     <?php foreach ($user_companies as $user_key=>$user_company):?>
                                     <?php foreach ($companies as $key=>$company):?>
                                     <?php if (($user_company)==($company['id']-1)):?>
@@ -122,7 +122,7 @@
                         <td>
                             <div class="col-sm-10 m-auto">
                                 <select class="form-select" aria-label="Default select example">
-                                    <?php $user_modules=unserialize($user['module']);?>
+                                    <?php $user_modules=json_decode($user['module']);?>
                                     <?php foreach ($user_modules as $key=>$module):?>
                                     <option value="<?=$module?>"><?=$modules[$module]['name']?></option>
                                     <?php endforeach;?>
