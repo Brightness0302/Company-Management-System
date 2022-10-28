@@ -14,7 +14,7 @@
     <!-- DATERANGEPICKER -->
     <link rel="stylesheet" href="<?php echo base_url('assets/vendor/daterangepicker/daterangepicker.css') ?>">
     <!-- TAILWIND CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@1.9.6/dist/tailwind.min.css">
     <!-- JQUERY JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <!-- SWEETALERT2 -->
