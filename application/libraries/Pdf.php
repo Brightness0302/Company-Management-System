@@ -10,6 +10,14 @@ class Pdf
         $dompdf->load_html($html);
         $dompdf->set_paper($paper, $orientation);
         $dompdf->render();
+        
+        $f;
+		$l;
+		if(headers_sent($f,$l))
+		{
+		    echo $f,'<br/>',$l,'<br/>';
+		    die('now detect line');
+		}
 
         $dompdf->stream($filename, array('Attachment' => 0));
         exit();
