@@ -421,6 +421,9 @@ class Home extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $path = "/var/www/html/crm/assets/company/backups/".$companyname;
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
         $files = [];
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             echo 'This is a server using Windows!';
