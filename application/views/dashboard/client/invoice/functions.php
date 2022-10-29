@@ -110,14 +110,14 @@ function appendTable(product_description, product_rate, product_amount, product_
         "</td>" +
         "<td class='text-center'>" +
         "<input type='text' value='" + product_rate + "' class='form form-control m_auto w-full p-2 mt-2 text-right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>" +
-        ((product_description!="")?"<div class='row'><label class='col-sm-6 my-0'>Discount: </label><input type='text' value='" + product_discount + "' class='col-sm-4 w-full text-right bg-transparent border-none' name='discount' placeholder='Discount' id='line_discount'><label class='col-sm-2 my-0'>%</label></div>":"") +
+        "<div class='row'><label class='col-sm-6 my-0'>Discount: </label><input type='text' value='" + product_discount + "' class='col-sm-4 w-full text-right bg-transparent border-none' name='discount' placeholder='Discount' id='line_discount'><label class='col-sm-2 my-0'>%</label></div>" +
         "</td>" +
         "<td>" +
         "<input type='number' min=1 class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='qty' placeholder='Quantity' id='line_qty' value='" + product_amount +"'>" +
         "</td>" +
         "<td>" +
         "<input type='text' value='" + parseFloat(product_rate*product_amount).toFixed(2) + "' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>" +
-        ((product_description!="")?"<input type='text' value='" + parseFloat(product_rate*product_amount*product_discount/100.0).toFixed(2) + "' class='w-full text-right bg-transparent border-none' name='discount_amount' placeholder='Discount_amount' id='discount_amount' readOnly>":"") +
+        "<input type='text' value='" + parseFloat(product_rate*product_amount*product_discount/100.0).toFixed(2) + "' class='w-full text-right bg-transparent border-none' name='discount_amount' placeholder='Discount_amount' id='discount_amount' readOnly>" + 
         "</td>" +
         "<td class='align-middle text-center'>" +
         "<div class='mt-2 p-2' id='btn_remove_row' onclick='remove_tr(this)'>" +
@@ -195,7 +195,6 @@ function refresh() {
             discount += parseFloat(vdiscount[0].value);
         }
     });
-    console.log(discount);
     total = parseFloat(sub_total - discount);
     const evat = $("#invoice_vat").html();
     let vvat = 0.0;

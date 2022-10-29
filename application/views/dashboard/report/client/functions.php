@@ -21,6 +21,7 @@ var barChartData = {
         type: 'bar'
     }]
 };
+
 window.onload = function() {
     var ctx = document.getElementById("canvas").getContext("2d");
     window.myBar = new Chart(ctx, {
@@ -30,7 +31,7 @@ window.onload = function() {
             legend: {
                 labels : {
                     fontSize: 16, 
-                    generateLabels: function(chart){
+                    generateLabels: function(chart) {
                         var legends = [{
                             text: "Total Value(Paid)",
                             fillStyle: window.chartColors.lightblue,
@@ -51,15 +52,15 @@ window.onload = function() {
             tooltips: {
                 callbacks: {
                     label: function(t, d) {
-                       if (t.datasetIndex === 0) {
-                          var xLabel = d.datasets[t.datasetIndex].label;
-                          var yLabel = t.yLabel + ' €';
-                          return xLabel + ': ' + yLabel;
-                       } else if (t.datasetIndex === 1) {
-                          var xLabel = d.datasets[t.datasetIndex].label;
-                          var yLabel = t.yLabel >= 1000 ? t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " €" : t.yLabel + " €";
-                          return xLabel + ': ' + yLabel;
-                       }
+                        if (t.datasetIndex === 0) {
+                            var xLabel = d.datasets[t.datasetIndex].label;
+                            var yLabel = t.yLabel + ' €';
+                            return xLabel + ': ' + yLabel;
+                        } else if (t.datasetIndex === 1) {
+                            var xLabel = d.datasets[t.datasetIndex].label;
+                            var yLabel = t.yLabel >= 1000 ? t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " €" : t.yLabel + " €";
+                            return xLabel + ': ' + yLabel;
+                        }
                     }
                 }
             },

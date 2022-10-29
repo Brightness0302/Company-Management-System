@@ -173,7 +173,6 @@
 	}
 
 	//automatic logout when user doesn't act for 1 hour.
-	window.onload = set_interval();
 	window.onmousemove=reset_interval();
 	window.onclick=reset_interval();
 	window.onkeypress=reset_interval();
