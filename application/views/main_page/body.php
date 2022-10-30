@@ -30,20 +30,18 @@
             <div class="row icon-boxes">
                 <?php foreach ($companies as $key=>$company):?>
                 <?php if(!$company['isremoved']):?>
-                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-4" data-aos="zoom-in"
-                    data-aos-delay="200">
+                <?php if($user['rank'] == 1):?>
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-4 cursor-pointer" data-aos="zoom-in" data-aos-delay="200" onclick="window.location='<?=base_url('home/gotodashboard/'.$company['id'])?>'">
                     <div class="icon-box w-full">
                         <div class="icon min-w-full" style="display: flex;justify-content: center;align-items: center;">
-                            <img class="ri-stack-line"
-                                src="<?=base_url('assets/company/image/'.$company['id']).'.jpg'?>" style="height: 64px; max-width: 100%;"/>
+                            <img class="ri-stack-line" src="<?=base_url('assets/company/image/'.$company['id']).'.jpg'?>" style="height: 64px; max-width: 100%;" />
                         </div>
-                        <?php if($user['rank'] == 1):?>
                         <div class="temp-icon">
-                            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
-                                data-bs-toggle="dropdown">
-                                <span class="d-none d-md-block dropdown-toggle ps-2"><i class="fas fa-tools"></i></span>
+                            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                                <span class="d-none d-md-block dropdown-toggle ps-2">
+                                    <i class="fas fa-tools"></i>
+                                </span>
                             </a><!-- End Profile Iamge Icon -->
-
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                                 <li>
                                     <a class="dropdown-item d-flex align-items-center"
@@ -62,17 +60,16 @@
                                         <i class="bi custom-remove-icon"></i>
                                         <span>Delete</span>
                                     </button>
-                                </li>
-
+                                </li> 
                             </ul>
                         </div>
-                        <?php endif;?>
                         <hr />
-                        <h4 class="title text-center"><a
-                                href="<?=base_url('home/gotodashboard/'.$company['id'])?>"><?=str_replace("_"," ",$company['name'])?></a>
+                        <h4 class="title text-center">
+                            <?=str_replace("_"," ",$company['name'])?>
                         </h4>
                     </div>
                 </div>
+                <?php endif;?>
                 <?php endif;?>
                 <?php endforeach;?>
             </div>
