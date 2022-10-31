@@ -42,7 +42,7 @@
             <td><?=$invoice['tax']?></td>
             <td><?=$invoice['total']?></td>
             <td class="text-center"><?=$invoice['ispaid']?"<i class='bi custom-paid-icon'></i>":"<i class='bi custom-notpaid-icon'></i>"?></td>
-            <td class="form-inline flex justify-around">
+            <td class="align-middle">
                 <a href="<?=base_url('client/editinvoice/'.$invoice['id'])?>"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delInvoice('<?=$invoice['id']?>')" <?=$invoice['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>

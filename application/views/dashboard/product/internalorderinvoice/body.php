@@ -28,7 +28,7 @@
         <td><?=(array_key_exists('price', $order))?$order['price']:'undefined'?></td>
         <td><?=(array_key_exists('price', $order))?number_format($order['price']*$order['product_qty'], 2, '.', ''):'undefined'?></td>
         <td><?=$order['order_observation']?></td>
-        <td class="form-inline flex justify-around">
+        <td class="align-middle">
             <a href="<?=base_url('product/editorder/'.$order['id'])?>"><i class="bi custom-edit-icon"></i></a>
             <button onclick="delProduct('<?=$order['id']?>')" <?=$order['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
         </td>

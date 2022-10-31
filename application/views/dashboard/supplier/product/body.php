@@ -60,7 +60,7 @@
             <td><?=$fifth?></td>
             <td><?=$sixth?></td>
             <td><?=$product['ispaid']?"<i class='bi custom-paid-icon'></i>":"<i class='bi custom-notpaid-icon'></i>"?></td>
-            <td class="grid grid-cols-2 gap-1">
+            <td class="align-middle">
                 <a href="<?=base_url('material/editproduct/'.$product['id'])?>"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>

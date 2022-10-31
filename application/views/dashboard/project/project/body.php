@@ -38,7 +38,7 @@
             <td><?=number_format($project['value']*$project['vat']/100.0, 2, '.', "").' '.$project['coin']?></td>
             <td><?=number_format($project['value']*($project['vat']+100.0)/100.0, 2, '.', "").' '.$project['coin']?></td>
             <td class="text-left"><?=$project['observation']?></td>
-            <td class="form-inline flex justify-around">
+            <td class="align-middle">
                 <a href="<?=base_url('project/editproject/'.$project['id'])?>"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delproject('<?=$project['id']?>')" <?=$project['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>

@@ -28,7 +28,7 @@
             <td><?=$employee['daily_rate']*(floatval(date_diff(date_create($employee['startdate']), date_create($employee['enddate']))->format("%a"))+1.0)*$employee['vat']/100.0.' '.$employee['coin']?></td>
             <td><?=$employee['daily_rate']*(floatval(date_diff(date_create($employee['startdate']), date_create($employee['enddate']))->format("%a"))+1.0)*($employee['vat']+100.0)/100.0.' '.$employee['coin']?></td>
             <td class="text-left"><?=$employee['observation']?></td>
-            <td class="form-inline flex justify-around">
+            <td class="align-middle">
                 <a href="<?=base_url('labor/editsubcontractor/'.$employee['id'])?>"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delemployee('<?=$employee['id']?>')" <?=$employee['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>

@@ -23,7 +23,7 @@
             <td><?=number_format(($employee['salary']+$employee['tax']), 2 , '.', "").' '.$employee['coin']?></td>
             <td><?=number_format((($employee['salary']+$employee['tax'])*12/218), 2 , '.', "").' '.$employee['coin']?></td>
             <td class="text-left"><?=$employee['observation']?></td>
-            <td class="form-inline flex justify-around">
+            <td class="align-middle">
                 <a href="<?=base_url('labor/editpermanentemployee/'.$employee['id'])?>"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delemployee('<?=$employee['id']?>')" <?=$employee['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>

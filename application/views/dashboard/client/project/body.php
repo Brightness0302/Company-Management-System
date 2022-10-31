@@ -34,7 +34,7 @@
                         </select>
                     </div>
                 </td>
-                <td class="form-inline flex justify-around">
+                <td class="align-middle">
                     <a href="<?=base_url('client/editprojectbyinvoices/'.$project['id'])?>"><i class="bi custom-edit-icon"></i></a>
                     <button onclick="delproject('<?=$project['id']?>')"><i class="bi custom-remove-icon"></i></button>
                 </td>
@@ -84,7 +84,7 @@
                     </div>
                 </td>
                 <td><?=$client['isremoved']?"<label class='status danger'>In-Active</label>":"<label class='status success'>Active</label>"?></td>
-                <td class="form-inline flex justify-around">
+                <td class="align-middle">
                     <button href="<?=base_url('client/editclientbyprojects/'.$client['id'])?>"><i class="bi custom-edit-icon"></i></button>
                 </td>
             </tr>

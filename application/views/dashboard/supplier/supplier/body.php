@@ -21,7 +21,7 @@
             <td class="text-left"><?=$supplier['Ref']?></td>
             <td class="text-left"><?=$supplier['address']?></td>
             <td class="text-left"><?=$supplier['VAT']?></td>
-            <td class="form-inline flex justify-evenly">
+            <td class="align-middle">
                 <a class="<?=$supplier['isremoved']?"pointer-events-none":""?>" href="<?=base_url('supplier/editsupplier/'.$supplier['id'])?>" title="Edit"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delSupplier('<?=$supplier['id']?>')" title="Delete" <?=$supplier['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>

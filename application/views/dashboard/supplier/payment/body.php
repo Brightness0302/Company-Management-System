@@ -61,7 +61,7 @@
                 <?=$product['ispaid']?$product['paid_observation']:"-"?>
             </td>
             <td class="text-center"><?=$product['ispaid']?"<i class='bi custom-paid-icon'></i>":"<i class='bi custom-notpaid-icon'></i>"?></td>
-            <td class="form-inline flex justify-around">
+            <td class="text-center">
                 <button onclick="
                 SetPayment('<?=$product['id']?>', this)"><?=$product['ispaid']?"<i class='bi bi-dash'></i>":"<i class='bi bi-check-all'></i>"?></button>
             </td>

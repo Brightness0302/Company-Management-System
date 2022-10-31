@@ -15,7 +15,7 @@
                 <td><?=++$index?></td>
                 <td class="text-left"><?=$project['name']?></td>
                 <td><?=$project['numberofemployees']?></td>
-                <td class="form-inline flex justify-around">
+                <td class="align-middle">
                     <a href="<?=base_url('labor/editprojectassignment/'.$project['id'])?>"><i class="bi custom-edit-icon"></i></a>
                     <button onclick="delemployee('<?=$project['id']?>')" <?=$project['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
                 </td>

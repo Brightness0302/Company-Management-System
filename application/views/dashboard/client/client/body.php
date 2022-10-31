@@ -21,7 +21,7 @@
             <td class="text-left"><?=$client['Ref']?></td>
             <td class="text-left"><?=$client['address']?></td>
             <td class="text-left"><?=$client['VAT']?></td>
-            <td class="form-inline flex justify-evenly">
+            <td class="align-middle">
                 <a class="<?=$client['isremoved']?"pointer-events-none":""?>" href="<?=base_url('client/editclient/'.$client['id'])?>" title="Edit"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delClient('<?=$client['id']?>')" title="Delete" <?=$client['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>

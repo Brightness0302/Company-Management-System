@@ -109,7 +109,7 @@ window.onload = function() {
             <td class="text-left"><a class="text-black" href="<?=base_url("stock/showproductbystock?stock_id=").$stock['id']?>"><?=$stock['name']?></a></td>
             <td><?=$stock['amount_without_vat']?></td>
             <td><?=$stock['selling_amount_without_vat']?></td>
-            <td class="form-inline flex justify-around">
+            <td class="align-middle">
                 <a href="<?=base_url('stock/editstock/'.$stock['id'])?>"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delStock('<?=$stock['id']?>')" <?=$stock['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>
