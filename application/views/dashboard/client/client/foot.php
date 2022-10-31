@@ -32,6 +32,8 @@ $(function() {
 			customize: function (doc) {
 				doc.defaultStyle.fontSize = 8; //2, 3, 4,etc
 				doc.styles.tableHeader.fontSize = 6; //2, 3, 4, etc
+				if (doc.content[1].table.body.length === 0)
+					return;
 				const length = doc.content[1].table.body[0].length;
 				const widths = [];
 				widths[0] = '5%';
