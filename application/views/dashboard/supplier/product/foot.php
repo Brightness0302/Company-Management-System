@@ -62,7 +62,7 @@ $(function() {
                     widths[i] = (95/(length-2))+'%';
                 }
                 widths[length-1] = '0%';
-                console.log(widths, doc, length);
+                
                 doc.content[1].table.widths = widths;
             },
             action: function ( e, dt, node, config ) {
@@ -123,7 +123,6 @@ $(function() {
                 }
                 widths[length-2] = '0%';
                 widths[length-1] = '0%';
-                console.log(widths, doc, length);
                 doc.content[1].table.widths = widths;
             },
             action: function ( e, dt, node, config ) {
@@ -151,7 +150,6 @@ $(function() {
                         format: {
                             header: function ( data, columnIdx ) {
                                 data = data.replace("<br>", "");
-                                console.log(data);
                                 if (data === "Actions" || data === "Action" || data === "Pay" || data === "View")
                                     return "";
                                 return data;

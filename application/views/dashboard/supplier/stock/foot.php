@@ -67,7 +67,7 @@ $(function() {
                     widths[i] = (95/(length-2))+'%';
                 }
                 widths[length-1] = '0%';
-                console.log(widths, doc, length);
+                
                 doc.content[1].table.widths = widths;
             },
             action: function ( e, dt, node, config ) {
@@ -127,7 +127,7 @@ $(function() {
                     widths[i] = (95/(length-2))+'%';
                 }
                 widths[length-1] = '0%';
-                console.log(widths, doc, length);
+                
                 doc.content[1].table.widths = widths;
             },
             action: function ( e, dt, node, config ) {
