@@ -33,7 +33,6 @@ class Home extends CI_Controller
                 $data['companies']=[];
             }
         }
-
         $this->load->view('header');
         $this->load->view('main_page/head');
         $this->load->view('main_page/body', $data);
@@ -308,6 +307,7 @@ class Home extends CI_Controller
         $result = $this->home->saveUser($id, $username, $password, $company, $module);
         echo $result;
     }
+    //return data by id
     public function getdatabyid() {
         $id = $_GET['id'];
         $table = $_GET['table'];
@@ -416,7 +416,7 @@ class Home extends CI_Controller
         }
         // echo json_encode($arr);
     }
-
+    //return backup files on server.
     public function get_backups() {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
@@ -475,7 +475,7 @@ class Home extends CI_Controller
         // exec('echo -e "`crontab -l`\n'."5 * * * * mysqldump -u {$db_user} -p{$db_pwd} --opt --all-databases > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql".'" | crontab -', $output);
         // $this->append_cronjob("5 * * * * mysqldump -u {$db_user} -p{$db_pwd} --opt --all-databases > {$bkp_file_path}$(date +'%d_%m_%Y_%H_%M_%S').sql");
     }
-
+    //Set time for automatic backup
     public function setbackup($companyid, $companyname) {
         $count = $this->home->productfromsetting('company');
         $db_user = "root";
@@ -491,7 +491,7 @@ class Home extends CI_Controller
         shell_exec("mysqldump -u {$db_user} -p{$db_pwd} --databases {$db_names} > {$bkp_file_path}/{$date}.sql");
         echo $date.".sql";
     }
-
+    //restore the backup file for database.
     public function restore($filename) {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
@@ -508,7 +508,7 @@ class Home extends CI_Controller
         $db_pwd = "jUfPzJq5872x";
         shell_exec("mysql -u {$db_user} -p{$db_pwd} {$db_name} < {$filename}");
     }
-
+    //download backup file
     public function download($filename) {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');

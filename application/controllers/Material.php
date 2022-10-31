@@ -119,6 +119,7 @@ class Material extends CI_Controller
 
         $lines = $data['product']['lines'];
         $lines = json_decode($lines, true);
+        //Get all data of products by line in DB(line)
         foreach ($lines as $key => $line) {
             if ($line['stockid'] == 0) {
                 $line['id'] = 0;
@@ -315,7 +316,7 @@ class Material extends CI_Controller
         $res = $this->supplier->toggleinvoicepayment($data['company']['id'], $invoice_id);
         echo $res;
     }
-
+    //Save payment by $product_id(number)
     public function savepayment($product_id) {
         $companyid = $this->session->userdata('companyid');
         $paid_date = $this->input->post('paid_date');
@@ -324,7 +325,7 @@ class Material extends CI_Controller
 
         echo $this->supplier->savepayment($companyid, $product_id, $paid_date, $paid_method, $observation);
     }
-
+    //Get payment by $product_id
     public function getpaymentdata($product_id) {
         $companyid = $this->session->userdata('companyid');
         $data = $this->supplier->getpaymentdata($companyid, $product_id);
@@ -332,7 +333,7 @@ class Material extends CI_Controller
         header('Content-Type: application/json');
         echo json_encode($data);
     }
-
+    //Get line of product by $codeean
     public function linebycodeean($codeean) {
         $companyid = $this->session->userdata('companyid');
         $data = $this->supplier->linebycodeean($companyid, $codeean);
@@ -340,7 +341,7 @@ class Material extends CI_Controller
         header('Content-Type: application/json');
         echo json_encode($data);
     }
-
+    //Get lines of product by product id in DB(line)
     public function getLinesByProjectId($product_id) {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');

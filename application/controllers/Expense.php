@@ -160,7 +160,6 @@ class Expense extends CI_Controller
         $result = $this->expense->saveexpense($companyid, $id, $name, $code);
         echo $result;
     }
-
     //View expense page of add/edit/delete function
     public function product() {
         $this->check_usersession();

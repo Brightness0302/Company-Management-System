@@ -42,7 +42,7 @@ class Stock extends CI_Controller
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
-
+    //Show product data by stock id in DB(stock)
     public function showproductbystock() {
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
@@ -77,7 +77,7 @@ class Stock extends CI_Controller
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
-
+    //Get all product data by stock id
     public function getallproductsbystockid() {
         $stock_id = $_GET['stock_id'];
         $companyid = $this->session->userdata('companyid');
@@ -87,7 +87,7 @@ class Stock extends CI_Controller
         header('Content-Type: application/json');
         echo json_encode($products);
     }
-
+    //Get max amount from product by id on DB(stock)
     public function getmaxamountfromproductbyid() {
         $lineid = $_GET['lineid'];
         $companyid = $this->session->userdata('companyid');
@@ -96,7 +96,7 @@ class Stock extends CI_Controller
 
         echo $value;
     }
-
+    //Get stock data from product by line id on DB(stock)
     public function getdatafromproductbylineid() {
         $lineid = $_GET['lineid'];
         $companyid = $this->session->userdata('companyid');
@@ -108,7 +108,6 @@ class Stock extends CI_Controller
         header('Content-Type: application/json');
         echo json_encode($data);
     }
-
     //View clientpage of creating.
     public function addstock() {
         $companyid = $this->session->userdata('companyid');
@@ -191,7 +190,7 @@ class Stock extends CI_Controller
         $result = $this->supplier->saveStock($companyid, $id, $name, $code);
         echo $result;
     }
-
+    //showing invoice data by stock id on DB(stock)
     public function invoicebystockid($tline_id) {
         $companyid = $this->session->userdata('companyid');
         $data;

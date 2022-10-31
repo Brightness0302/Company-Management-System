@@ -685,7 +685,7 @@ class Client extends CI_Controller
         $this->session->set_userdata("htmltopdf", $data);
         echo "success";
     }
-
+    //Save payment by $invoice_id(number) for client invoice
     public function savepayment($invoice_id) {
         $companyid = $this->session->userdata('companyid');
         $paid_date = $this->input->post('paid_date');
@@ -694,7 +694,7 @@ class Client extends CI_Controller
 
         echo $this->home->savepayment($companyid, $invoice_id, $paid_date, $paid_method, $observation);
     }
-
+    //Get payment data(payment date, method, is paid) for client invoice.
     public function getpaymentdata($invoice_id) {
         $companyid = $this->session->userdata('companyid');
         $data = $this->home->getpaymentdata($companyid, $invoice_id);

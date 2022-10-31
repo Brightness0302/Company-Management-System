@@ -218,7 +218,7 @@ class Product extends CI_Controller
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
-
+    //View report manage for product
     public function reportmanager() {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
@@ -559,7 +559,7 @@ class Product extends CI_Controller
         $result = $this->product->saveOrder($companyid, $id, $order_date, $order_observation, $product_description, $product_qty);
         echo $result;
     }
-
+    //Get line by code ean on DB(line)
     public function linebycodeean($codeean) {
         $companyid = $this->session->userdata('companyid');
         $data = $this->supplier->linebycodeean($companyid, $codeean);
@@ -567,7 +567,7 @@ class Product extends CI_Controller
         header('Content-Type: application/json');
         echo json_encode($data);
     }
-
+    //Save session by json for deploying payment for each product
     public function savesessionbyjson() {
         $data['name'] = $this->input->post('name');
         $data['materials'] = $this->input->post('materials');
@@ -577,7 +577,7 @@ class Product extends CI_Controller
         $this->session->set_userdata("htmltopdf", $data);
         echo "success";
     }
-
+    //Save session by json of internal order
     public function savesessionbyjsonofinternalorder() {
         $data['id'] = $this->input->post('id');
         $data['order_date'] = $this->input->post('order_date');
@@ -659,7 +659,6 @@ class Product extends CI_Controller
 
         $this->load->view('dashboard/product/product/invoicepreview', $data);
     }
-
     //showing html page for deploying pdf
     public function invoicepreviewofinternalorder() {
         $companyid = $this->session->userdata('companyid');
@@ -673,7 +672,7 @@ class Product extends CI_Controller
 
         $this->load->view('dashboard/product/internalorder/invoicepreview', $data);
     }
-
+    //View product from recipe for each product
     public function productfromrecipe() {
         $id = $_GET['id'];
         $companyid = $this->session->userdata('companyid');
@@ -710,7 +709,7 @@ class Product extends CI_Controller
         header('Content-Type: application/json');
         echo json_encode($product);
     }
-
+    //Get product data from DB(internal order)
     public function getproductiondata() {
         $id = $_GET['id'];
         $companyid = $this->session->userdata('companyid');
@@ -721,7 +720,7 @@ class Product extends CI_Controller
         }
         echo $res['data']['isproducted'];
     }
-
+    //save production.
     public function setproduction() {
         $id = $_GET['id'];
         $companyid = $this->session->userdata('companyid');
