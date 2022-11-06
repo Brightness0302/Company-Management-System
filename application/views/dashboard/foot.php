@@ -145,7 +145,7 @@
 	function set_interval() {
 		console.log("set_interval");
 	  // the interval 'timer' is set as soon as the page loads
-	  timer = setInterval("auto_logout()", 1000);
+	  timer = setInterval("auto_logout()", 3600000);
 	  // the figure '10000' above indicates how many milliseconds the timer be set to.
 	  // Eg: to set it to 5 mins, calculate 5min = 5x60 = 300 sec = 300,000 millisec.
 	  // So set it to 300000
@@ -161,7 +161,7 @@
 	    clearInterval(timer);
 	    timer = 0;
 	    // second step: implement the timer again
-	    timer = setInterval("auto_logout()", 1000);
+	    timer = setInterval("auto_logout()", 3600000);
 	    // completed the reset of the timer
 	  }
 	}
