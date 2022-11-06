@@ -3,9 +3,7 @@
 <body>
     <section id="hero" class="align-items-center">
         <div data-aos="fade-up" data-aos-delay="100">
-            <a href="<?=base_url('home/dashboard/'.$company['name'])?>"><button
-                    class="backbutton w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-2xl"
-                    title="Add New Company">&#8249;</button></a>
+            <a href="<?=base_url('home/index')?>"><button class="backbutton w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-2xl" title="Add New Company">&#8249;</button></a>
         </div>
         <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
             <div class="row justify-content-center">
@@ -17,8 +15,7 @@
             <div class="pages">
                 <div class="page">
                     <div class="uploadcontainer">
-                        <img src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" alt="Avatar"
-                            id="uploadimage" class="image" style="width:100%;">
+                        <img src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" alt="Avatar" id="uploadimage" class="image" style="width:100%;">
                         <div class="middle">
                             <label class="uploadbutton">
                                 <input type="file" id="upload_image_file" style="display: none" />
@@ -28,18 +25,15 @@
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Company name</div>
-                        <input id="companyname" type="text" placeholder=""
-                            value="<?=str_replace("_"," ",$company['name'])?>" />
+                        <input id="companyname" type="text" placeholder="" value="<?=str_replace("_"," ",$company['name'])?>" />
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Company registration number</div>
-                        <input id="companynumber" type="text" placeholder=""
-                            value="<?=$company['number']?>" />
+                        <input id="companynumber" type="text" placeholder="" value="<?=$company['number']?>" />
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Address </div>
-                        <input id="companyaddress" type="text" placeholder=""
-                            value="<?=$company['address']?>" />
+                        <input id="companyaddress" type="text" placeholder="" value="<?=$company['address']?>" />
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> VAT number</div>
