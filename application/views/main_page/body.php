@@ -31,9 +31,9 @@
                 <?php foreach ($companies as $key=>$company):?>
                 <?php if(!$company['isremoved']):?>
                 <?php if($user['rank'] == 1):?>
-                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-4 cursor-pointer" data-aos="zoom-in" data-aos-delay="200" onclick="window.location='<?=base_url('home/gotodashboard/'.$company['id'])?>'">
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-4 cursor-pointer" data-aos="zoom-in" data-aos-delay="200">
                     <div class="icon-box w-full">
-                        <div class="icon min-w-full" style="display: flex;justify-content: center;align-items: center;">
+                        <div class="icon min-w-full" style="display: flex;justify-content: center;align-items: center;" onclick="window.location='<?=base_url('home/gotodashboard/'.$company['id'])?>'">
                             <img class="ri-stack-line" src="<?=base_url('assets/company/image/'.$company['id']).'.jpg'?>" style="height: 64px; max-width: 100%;" />
                         </div>
                         <div class="temp-icon">
@@ -64,7 +64,7 @@
                             </ul>
                         </div>
                         <hr />
-                        <h4 class="title text-center">
+                        <h4 class="title text-center" onclick="window.location='<?=base_url('home/gotodashboard/'.$company['id'])?>'">
                             <?=str_replace("_"," ",$company['name'])?>
                         </h4>
                     </div>

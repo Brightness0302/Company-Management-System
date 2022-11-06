@@ -30,6 +30,8 @@ $(function() {
         	text: 'PDF',
         	pageSize: 'LEGAL',
 			customize: function (doc) {
+				console.log(doc);
+				doc.defaultStyle.alignment = 'center';
 				doc.defaultStyle.fontSize = 8; //2, 3, 4,etc
 				doc.styles.tableHeader.fontSize = 6; //2, 3, 4, etc
 				if (doc.content[1].table.body.length === 0)
