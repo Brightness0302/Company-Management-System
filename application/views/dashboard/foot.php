@@ -13,7 +13,6 @@
 	        $("#custom-select").text(token + file);
 	        $("#custom-select").attr('value', token + curfile);
 	    });
-	    set_interval();
 	});
 	function backup_now() {
 		console.log("backup_now");
@@ -146,7 +145,7 @@
 	function set_interval() {
 		console.log("set_interval");
 	  // the interval 'timer' is set as soon as the page loads
-	  timer = setInterval("auto_logout()", 3600000);
+	  timer = setInterval("auto_logout()", 10);
 	  // the figure '10000' above indicates how many milliseconds the timer be set to.
 	  // Eg: to set it to 5 mins, calculate 5min = 5x60 = 300 sec = 300,000 millisec.
 	  // So set it to 300000
@@ -162,7 +161,7 @@
 	    clearInterval(timer);
 	    timer = 0;
 	    // second step: implement the timer again
-	    timer = setInterval("auto_logout()", 3600000);
+	    timer = setInterval("auto_logout()", 10);
 	    // completed the reset of the timer
 	  }
 	}
@@ -173,6 +172,7 @@
 	  window.location = "<?=base_url('')?>";
 	}
 
+	set_interval();
 	//automatic logout when user doesn't act for 1 hour.
 	// window.onload=set_interval();
 	window.onmousemove=reset_interval();
