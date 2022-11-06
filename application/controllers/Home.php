@@ -9,6 +9,7 @@ class Home extends CI_Controller
     }
     //View company page of add/edit/delete, user page of add/edit/delete
     public function index() { //$data['companies']
+        $this->check_usersession();
         $companies = $this->home->alldata('company');
         $modules = $this->home->alldata('module');
         $data['user'] = $this->session->userdata('user');
@@ -514,5 +515,16 @@ class Home extends CI_Controller
         $companyname = $this->session->userdata('companyname');
         $file = 'assets/company/backups/'.$companyname.'/'.$filename;
         force_download($file, NULL);
+    }
+    //If usersession is not exist, goto login page.
+    public function check_usersession() {
+        if($this->session->userdata('user')) {
+            // do something when exist
+            return true;
+        } else{
+            // do something when doesn't exist
+            redirect('home/signview');
+            return false;
+        }
     }
 };
