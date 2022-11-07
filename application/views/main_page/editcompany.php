@@ -59,8 +59,8 @@
                         </div>
                         <select class="form-select" id="companycoin">
                             <option value="EURO" <?=$company['Coin']=="EURO"?"selected":""?>>€</option>
-                            <option value="POUND" <?=$company['Coin']=="POUND"?"selected":""?>>£</option>
                             <option value="USD" <?=$company['Coin']=="USD"?"selected":""?>>$</option>
+                            <option value="LEI" <?=$company['Coin']=="LEI"?"selected":""?>>LEI</option>
                         </select>
                     </div>
                 </div>

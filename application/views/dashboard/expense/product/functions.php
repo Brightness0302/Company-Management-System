@@ -4,7 +4,7 @@ $(document).ready(function() {
         var i = $(this).prev('label').clone();
         var file = $('#file-upload')[0].files[0].name;
         if(file.length > 20)
-            file = file.substring(0,5) + "... ." + file.split(".").pop() + " File";;
+            file = file.substring(0,5) + "... ." + file.split(".").pop() + " File";
         $(this).prev('label').text(file);
     });
     document.getElementById('value_without_vat').addEventListener("input", onchange_input, false);

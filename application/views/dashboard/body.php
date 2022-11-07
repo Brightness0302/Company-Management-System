@@ -581,10 +581,10 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-2">
-                                                <label for="file-upload" id="file-text" class="btn btn-secondary form-control" style="color: red;">
+                                                <label for="restorefile-upload" id="restorefile-text" class="btn btn-secondary form-control" style="color: red;">
                                                     <i class="fa fa-cloud-upload"></i> Custom select
                                                 </label>
-                                                <input id="file-upload" name='upload_cont_img' type="file" style="display:none;">
+                                                <input id="restorefile-upload" name='upload_cont_img' type="file" style="display:none;">
                                             </div>
                                             <div class="col-md-2">
                                                 <button type="button" class="btn btn-secondary form-control" onclick="restore_now()">Restore Now</button>

@@ -59,8 +59,8 @@
                         </div>
                         <select class="form-select" id="companycoin">
                             <option value="EURO">€</option>
-                            <option value="POUND">£</option>
                             <option value="USD">$</option>
+                            <option value="LEI">LEI</option>
                         </select>
                     </div>
                 </div>

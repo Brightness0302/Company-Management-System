@@ -289,7 +289,7 @@ class Home_model extends CI_Model {
 
         $query = "SELECT *
                 FROM `company`
-                WHERE `name`='$name'";
+                WHERE `name`='$name' AND `isremoved`=false";
 
         $res = $this->db->query($query)->result_array();
         $projects_id = -1;
@@ -305,6 +305,7 @@ class Home_model extends CI_Model {
     //remove company information using $id
     public function removeItem($id) {
         $data = array(
+            'name'=>'-1', 
             'isremoved'=>TRUE
         );
 

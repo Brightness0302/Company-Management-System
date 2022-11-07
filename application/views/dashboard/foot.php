@@ -1,14 +1,14 @@
 </main><!-- End #main -->
 <script>
 	$(document).ready(function() {
-	    $('#file-upload').change(function() {
+	    $('#restorefile-upload').change(function() {
 	        var i = $(this).prev('label').clone();
-	        var curfile = $('#file-upload')[0].files[0].name;
+	        var curfile = $('#restorefile-upload')[0].files[0].name;
 	        var file = curfile;
 			const token = "Custom - ";
 	        if(curfile.length > 20)
 	            file = curfile.substring(0,5) + "... ." + curfile.split(".").pop() + " File";
-	        console.log("file-upload", file, curfile);
+	        console.log("restorefile-upload: ", file, curfile);
 	        $(this).prev('label').text(file);
 	        $("#custom-select").text(token + file);
 	        $("#custom-select").attr('value', token + curfile);
@@ -34,7 +34,7 @@
 	function restore_now() {
 		console.log("restore_now");
 		let filename = $("#restore_picker").val();
-		const curfile = $('#file-upload')[0].files[0].name;
+		const curfile = $('#restorefile-upload')[0].files[0].name;
 		const token = "Custom - ";
 		let path = "";
 
@@ -44,8 +44,8 @@
 				return;
 
 			var file_data = new FormData();
-	        var ins = document.getElementById('file-upload').files.length;
-	        file_data.append("files[]", document.getElementById('file-upload').files[0]);
+	        var ins = document.getElementById('restorefile-upload').files.length;
+	        file_data.append("files[]", document.getElementById('restorefile-upload').files[0]);
 	        $.ajax({
 	            url: "<?=base_url("home/uploadCustomBackup")?>", 
 	            method: "POST",
