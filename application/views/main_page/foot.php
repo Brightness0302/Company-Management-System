@@ -58,6 +58,10 @@ function AddCompany() {
                         swal("Add Company", "Server Error", "error");
                         return;
                     }
+                    if (id === -2) {
+                        swal("Add Company", "Already created", "error");
+                        return;
+                    }
                     if (id === -1) {
                         swal("Add Company", "Conflict database", "warning");
                         return;
