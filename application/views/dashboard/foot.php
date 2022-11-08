@@ -143,7 +143,7 @@
 	// Add the following into your HEAD section
 	var timer = 0;
 	function set_interval() {
-		console.log("set_interval");
+		// console.log("set_interval");
 	  // the interval 'timer' is set as soon as the page loads
 	  timer = setInterval("auto_logout()", 3600000);
 	  // the figure '10000' above indicates how many milliseconds the timer be set to.
@@ -152,7 +152,7 @@
 	}
 
 	function reset_interval() {
-		console.log("reset_interval");
+		// console.log("reset_interval");
 	  //resets the timer. The timer is reset on each of the below events:
 	  // 1. mousemove   2. mouseclick   3. key press 4. scroliing
 	  //first step: clear the existing timer
@@ -175,8 +175,16 @@
 	set_interval();
 	//automatic logout when user doesn't act for 1 hour.
 	// window.onload=set_interval();
-	window.onmousemove=reset_interval();
-	window.onclick=reset_interval();
-	window.onkeypress=reset_interval();
-	window.onscroll=reset_interval();
+	window.onmousemove = function() {
+		reset_interval();
+	}
+	window.onclick = function() {
+		reset_interval();
+	}
+	window.onkeypress = function() {
+		reset_interval();
+	}
+	window.onscroll = function() {
+		reset_interval();
+	}
 </script>
