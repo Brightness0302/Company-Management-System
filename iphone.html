@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Company Management System</title>
+</head>
+
+<body>
+
+
+
+<!--As 1926.1 2012  Form 
+
+Copyright Peter Warde 0403 266003
+
+Version .01  8/11/2022
+
+-->
+
+
+
+<!-- Javascript Section -->
+
+
+
+
+
+<!-- Save a File of The Correct clauses -->
+
+
+
+<script>
+
+function SaveFile(){
+  var data=[];
+
+  $("input:checkbox:checked").each(function(){
+
+    data.push($(this).data('value'));
+
+    data.push('\n'); //To Add a new line   
+
+  });
+    
+  var reader = new FileReader();
+  var blob = new Blob([data],{ type: 'plain/text;charset=UTF-8' });
+  reader.onload = function(e){
+    // window.location.href = reader.result;
+    const tempLink = document.createElement('a');
+    tempLink.style.display = 'none';
+    tempLink.href = e.target.result;
+    tempLink.download = "123.txt"; // some props receive from the component.
+    document.body.appendChild(tempLink);
+    tempLink.click();
+    document.body.removeChild(tempLink);
+  }
+  reader.readAsDataURL(blob);
+
+}
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
+<!-- Colored buttons -->
+
+
+
+<!--<button id="btn">Button</button>
+
+
+
+<script> 
+
+
+
+const btn = document.getElementById('btn');
+
+
+
+btn.addEventListener('click', function onClick() {
+
+  btn.style.backgroundColor = 'red';
+
+  btn.style.color = 'white';
+
+});
+
+</script> 
+
+-->
+
+
+
+<!-- Examples Section to help for small modifications -->
+
+
+
+<!--
+
+<input type="checkbox" name="ck1" data-value="This is an example instruction of how to build this checklist"/>
+
+<label for="ck1">Check 1</label>
+
+<br/>
+
+-->
+
+
+
+<!-- CSS Section -->
+
+
+
+<style>
+
+      input.larger {
+
+        width: 25px;
+
+        height: 25px;
+
+      }
+
+p {
+
+  font-family: verdana;
+
+  font-size: 20px;
+
+}
+
+
+
+form {
+
+  font-family: verdana;
+
+  font-size: 20px;
+
+}
+
+
+
+input.text{
+
+  font-family: verdana;
+
+  font-size: 20px;
+
+  
+
+}
+
+
+
+
+
+    </style>
+
+
+
+
+
+
+
+<p><strong><span style="color:#8e44ad">Bobs</span>
+
+<br/> 
+
+
+
+<strong>Form <br/>
+
+
+
+<span style="font-size:20px"><strong>Tyres<span style="color:#8e44ad">&diams;</span></p>
+
+
+
+
+
+<p></strong></span><strong>Inspection Checklist</strong></span><br />
+
+
+
+</strong></span><strong>Swimming Pool</strong></span><br/>
+
+
+
+AS 1926.1 - 2012</strong></span></p>
+
+
+
+<p><em> Swimming Pools built or <br/> the barrier has been installed <br/> or altered after 1 May 2013.</em></p>
+
+
+
+
+
+<p><strong><form>
+
+  <label for="refname">Our Ref:</label><br>
+
+  <input type="text" id="refname" name="refname" style="font-size:20px">
+
+  </form></strong></p>
+
+
+
+
+
+<p><strong><form>
+
+  <label for="premises">Premises Address</label><br>
+
+  <textarea id="premises" name="premises" style="font-size:20px" rows="3" cols="25" ></textarea>
+
+  </form></strong></p>
+
+
+
+<p><strong><form>
+
+  <label for="Date">Actual Date and Time of <br/> This Inspection</label><br>
+
+  <input type="text" id="date" name="date" style="font-size:20px" >
+
+  </form></strong></p>
+
+
+
+<p>-------------------------------<p/>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck4" />
+
+Single Residential Dwelling <p/>
+
+
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name=ck5" />
+
+More than two residential dwellings<br />
+
+&nbsp; &nbsp;(e.g. multi-unit housing development)</p>
+
+
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck6" /> 
+
+Tourist or Visitor accommodation<p/>
+
+
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck7" />
+
+Other (specify)
+
+
+
+<form>
+
+  <input type="text" id="other" name="other" style="font-size:20px">
+
+  </form></p>
+
+
+
+<p>-------------------------------<p/>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck8" />
+
+An outdoor pool (that is not portable or <br> &nbsp; &nbsp; &nbsp; inflatable)<p/>
+
+
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck9" />
+
+A spa pool (Use Spa Pool Checklist)</p>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck10" />
+
+A portable or inflatable pool</p>
+
+
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck11" />
+
+An indoor pool</p>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck11" />
+
+In-ground pool <p/>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck12" />
+
+Above-ground pool <p/>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck13" />
+
+Other (specify)
+
+<form>
+
+  <input type="text" id="other1" name="other" style="font-size:20px">
+
+  </form></p>
+
+
+
+<p>-------------------------------<p/>
+
+
+
+
+
+
+
+<p>Is this pool safety barrier subject to <br/> the requirements of the AS1926.1-2012 standard <br/> due to alterations to the barrier  to bring the pool up to <br/> compliance or there is no proof for the date of construction. <br/> If the pool has been built after 30 April 2013,<br/> this new standard automatically applies.<p/>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck14" />
+
+<label for="ck14"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck15" />
+
+<label for="ck15"> NO</label><br>
+
+
+
+
+
+<p>-------------------------------<p/>
+
+
+
+
+
+<p>Boundary Fencing forms part of the Barrier? <br>
+
+ <p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck16" />
+
+<label for="ck16"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck17" />
+
+<label for="ck17"> NO</label><br>
+
+<p/>
+
+
+
+<p>House Walls form part of the Barrier?<br>
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck18" />
+
+<label for="ck18"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck19" />
+
+<label for="ck20"> NO</label><br>
+
+<p/>
+
+
+
+
+
+<p>A Gate forms part of the Barrier?<br>
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck62" />
+
+<label for="ck62"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck63" />
+
+<label for="ck63"> NO</label><br>
+
+<p/>
+
+<p>-------------------------------<p/>
+
+<p>Pool Fence Barrier<p/>
+
+
+
+<p> Is the barrier a minimum of <br>1200 mm high measured around <br> the outside of the  pool fence/ barrier?<br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck40" />
+
+<label for="ck41"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck41" data-value="Pool Fence Barrier
+
+The internal barrier was less than 1200mm in height in some locations.  The entire barrier must have an effective perpendicular height of at least 1200mm at any point along its length, on the outside as per AS1926.1-2012 (Section 2.1)
+
+" />
+
+<label for="ck41"> NO</label><br>
+
+
+
+
+
+<p> As per AS1926.1-2012 (Section 2.2.1) the height <br>and radius arc of operation of the Non Climbable<br> Zones(NCZ) 1,2,3,4 & 5 around the pool fence barrier <br> shall be not less than 900 mm <br>except NCZ4 in their relative quadrants. Within the NCZ<br> there shall be no handholds or footholds, objects or<br> plants greater than 10mm in size that will facilitate climbing.<br> <br>
+
+
+
+Are all the non-climbable zones free of objects?<br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck60" />
+
+<label for="ck60"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck61" data-value="There are climbable objects on the outside of the 1200mm swimming pool barrier within the 900mm non climbable zones. All climbable objects within 900mm of the outside of the swimming pool barrier are to be permanently removed, shielded or as per AS1926.1-2012." />
+
+<label for="ck61"> NO</label><br>
+
+
+
+
+
+<p>As per AS1926.1-2012 (Section 2.3.1) there are to be no steps, <br>retaining walls or level changes within 500 mm of the barrier. <br><br> 
+
+Does the barrier maintain a 500 mm exclusion zone?
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck48"  />
+
+<label for="ck48"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck49" data-value="
+
+There are items within the 500 mm exclusion zone which reduce the effective height of the barrier to less than its required minimum height.
+
+Remove any object/s reducing the effective height of the barrier or extend the height of the barrier so the 1200/1800 mm height is maintained as per AS1926.1-2012 (Section 2.3.1).
+
+"/>
+
+<label for="ck49"> NO</label><br>
+
+
+
+
+
+<p>Are all the gaps around the pool fence or barrier less than 100 mm?<br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck42" />
+
+<label for="ck42"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck43" data-value="The pool fence/ boundary barrier and/or gate/s have gaps more than 100mm
+
+The openings are to be reduced to no greater than 100mm in accordance with the Australian Standard.
+
+"/>
+
+<label for="ck43"> NO</label><br>
+
+
+
+
+
+<p>Is there a child resistant barrier in good repair <br> between any residential building structures,<br> which also include fixed BBQ's, clotheslines, sheds, garages,<br> cabanas, games rooms, lounge areas and <br> the like, but not shade structures, and the swimming pool?<br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck44" />
+
+<label for="ck44"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck45" data-value="According to the Swimming Pools Act 1992, swimming pools must be surrounded by a Child Resistant Barrier. (a) that separates the swimming pool from any residential building situated on the premises and from any place (whether public or private) adjoining the premises, and (b)  that is designed, constructed, installed and maintained in accordance with the standards prescribed by the regulations. 
+
+Residential building structures also include BBQ's, clotheslines, sheds, garages, cabanas, games rooms, lounge areas and the like.
+
+A child resistant barrier is to be designed, constructed, installed and maintained in accordance with the AS1926.1-2012 prescribed by the regulations.
+
+" />
+
+<label for="ck45"> NO</label><br>
+
+
+
+<p>Do all structural components show evidence of passing <br> requirements for the strength and rigidity of openings?
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck46" />
+
+<label for="ck46"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck47" data-value="There are structural components not capable of sustaining a force of 330 N without any or part of a component breaking, showing signs of fracture or loosening so the effectiveness of the panel is impaired.  Repair or replace the structural components noted so the components such as panel infills, top and bottom rails, vertical rails, rods, palings, pickets and the like, shall be capable of sustaining a force of 330 N.
+
+"/>
+
+<label for="ck47"> NO</label><br>
+
+
+
+
+
+<p>As per AS1926.1-2012 (Section 2.2.2) the pool fence/ barrier <br>with openings greater than 10 mm must not<br> have any objects in the 300 mm x 900 mm non-climbable <br> zone on the inside of the pool fence.<br><br>
+
+Does the pool fence have a 300 mm clear zone on the inside?
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck50" />
+
+<label for="ck50"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck51" data-value="The pool fence/ barrier has objects in the 300 x 900 mm non-climbable zone on the  inside of the pool fence.
+
+Remove any objects from within the 300mm non climb zone or shield the pool fence  901mm wide either side of the object, using a structural material.
+
+"/>
+
+<label for="ck51"> NO</label><br>
+
+
+
+
+
+
+
+<p>-------------------------------<p/>
+
+<p> Gate/s<p/>
+
+
+
+<p>As per AS1926.1-2012 (Section 2.4.3) hinges within NCZ <br>must not protrude out from the barrier with<br> a horizontal top surface depth greater than 10 mm and <br>have an opening between the gate post and<br> the gate stile of more than 10 mm.<br><br>
+
+
+
+ Are the hinges at least 900mm apart if they have <br>a 10 mm or more surface depth within NCZ?
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck70" />
+
+<label for="ck70"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck71" data-value= "
+
+Gates/s
+
+The hinges on the pool gate/barrier are less than 900mm apart from the top of the bottom hinge to the top of the top hinge and/or are within NCZ with a surface depth of more than 10 mm and have an opening between the gate post and the gate stile of more than 10 mm. 
+
+Place an angled  cap on the bottom hinge, if not, reposition or replace the hinges  900mm apart top to top.  The gap between gate post and the gate is no more than 10 mm as per AS1926.1-2012 (Section 2.4.3).
+
+"/>
+
+<label for="ck72"> NO</label><br>
+
+
+
+
+
+<p>Does the pool gate swing outwards, away from the pool <br>area uninterruptedly to a stop position <br>whereby it can close by itself?<br>
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck72" />
+
+<label for="ck72"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck73" data-value=" The pool gate does not swing outwards away from the pool or it is not swinging in full operation while remaining self closing from any position.
+
+Realign or replace the pool gate so that the gate opens outwards, away from the pool and swings in a full arc of operation freely to a stop position and closes automatically as per AS1926.1-2012 (Section 2.4.1.1)
+
+"/>
+
+<label for="ck73"> NO</label><br>
+
+
+
+
+
+<p>Is the gate self-closing and self-latching from<br> any position in the full arc of operation?<br>
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck74" />
+
+<label for="ck74"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck75" data-value="The pool gate does not swing outwards away from the pool or it is not swinging in full operation while remaining self closing from any position.
+
+Realign or replace the pool gate so that the gate opens outwards, away from the pool and swings in a full arc of operation freely to a stop position and closes automatically as per AS1926.1-2012 (Section 2.4.1.1)
+
+"/>
+
+<label for="ck75"> NO</label><br>
+
+
+
+
+
+<p>Is the pool latch 1500 mm from the finished ground <br>level or is the latch at least 150 mm from <br>the top of the gate located on the inside of the barrier?<br>
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck76" />
+
+<label for="ck76"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck77" data-value="The release point of the pool safety latch is less than 1500mm from ground finish level or the rear latch is less than 1200mm from finished ground level or 150 mm from the top inside edge of the gate which could potentially lead to unrestricted access in to the pool area.
+
+Replace or reposition the height of the latch so that it is at least 1500mm from ground level or if on the inside of the gate/barrier must be 150mm from the top rail and the hand access point at least 1200 mm from the ground finish level as per AS1926.1-2012 (Section 2.4.2.2)
+
+" />
+
+<label for="ck77"> NO</label><br>
+
+
+
+
+
+<p>-------------------------------<p/>
+
+<p>Boundary Barrier<p/>
+
+
+
+
+
+<p>Is the boundary fence 1800 mm minimum <br> in height measured from the top rail to <br>ground level on the inside of the barrier?<br>
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck78" />
+
+<label for="ck78"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck79" data-value= "Boundary Barrier
+
+The boundary fence is being used as part of the swimming pool barrier. The boundary fence is required to be a minimum height of 1800mm when measured from the inside of the swimming pool area in order to comply with the Australian Standard 1926.1~2007 ‘Part 1: Safety barriers for swimming pools’ (Australian Standard). Please replace or modify the existing boundary fence as per AS1926.1-2012 (Section 2.2)
+
+"/>
+
+<label for="ck79"> NO</label><br>
+
+
+
+
+
+<p>Is there an adequate 900mm NCZ located <br>on the inside of the boundary barriers/fences,<br> with maximum 10mm projections (footholds/handholds)<br> within the relevant NCZ?<br>
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck90" />
+
+<label for="ck90"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck91" data-value="A 900mm non climbable zone (900mm NCZ) must be maintained on the inside of the boundary fencing.  The 900mm NCZ is measured from the top of the fence. A 60º fillet or sheilding device may be used on climable objects, in addition, the boundary fences must extend for a distance of 900mm beyond the junction of any 1200mm swimming pool barrier. 
+
+" />
+
+<label for="ck91"> NO</label><br>
+
+
+
+
+
+
+
+<p>Is the width of an internal barrier that intersects<br> a boundary barrier that is within the 900mm NCZ  <br>not more than 50mm wide or is<br> the internal barrier  1800mm high? <br>
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck110" />
+
+<label for="ck110"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck112" data-value="The 1200mm barrier intersects with the 1800mm boundary fence. Because the top of the 1200mm barrier has a horizontal projection greater than 50mm and falls within the 900mm NCZ, it creates a foothold.  The height of the lower barrier shall extend to a height not less than 1800mm and extend not less than 900mm form the intersection. 
+
+"/>
+
+<label for="ck112"> NO</label><br>
+
+
+
+
+
+
+
+<p>-------------------------------<p/>
+
+<p>Mesh, Windows and Balustrades<p/>
+
+
+
+<p>As per AS1926.1-2012 (Section 2.3.2) Low barriers (not boundary) using perforated <br>mesh  not less than 1200 mm high, the openings<br> in the material must be no larger than 13 mm and can<br> the barrier sustain a lift of 100 N without leaving<br> a gap of more than 100 mm at the bottom and <br>can it support a weight of 25 kg without<br> reducing the height to below 1200 mm?<br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck92" />
+
+<label for="ck92"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck93" data-value="The perforated material has openings larger than 13 mm if the fence is not less than 1200 mm high.
+
+Replace the fence/barrier with steel mesh that has 13 mm or less sized apertures if used on a 1200 mm high fence or use another material to cover the apertures so that they may not be accessed and used as a footing or handrail to gain access in to the pool area.
+
+" />
+
+<label for="ck93"> NO</label><br>
+
+
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck94" />
+
+<label for="ck94"> NA</label><br>
+
+
+
+<p>As per AS1926.1-2012 (Section 2.3.2) High barriers (not boundary) using <br>perforated mesh are all the openings no <br>larger than 100 mm if not less than 1800 mm high<br> and can the barrier sustain a lift of 100 N without<br> leaving a gap of more than 100 mm at the <br>bottom and can it support a weight of 25 kg<br> without reducing the height to below 1800 mm?<br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck95" />
+
+<label for="ck95"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck96" data-value= "One or more openings are larger than 100mm or less than 1800 mm high and the barrier can not sustain a lift of 100 N and can not support a weight of 25 kg. 
+
+Replace the fence/barrier with steel mesh that has 100 mm or less sized apertures if used on a 1800 mm high fence or use another material to cover the apertures so that they may not be accessed and used as a footing or handrail to gain access in to the pool area.
+
+" />
+
+<label for="ck97"> NO</label><br>
+
+
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck98" />
+
+<label for="ck98"> NA</label><br>
+
+
+
+<p>Is the window opening either restricted to a 100 mm opening,<br> have a metal screen or bars fixed to the<br> window or is the window ledge at least 1800 mm high <br>from the finished ground level?<br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck100" />
+
+<label for="ck100"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck101" data-value="Where a window opens up directly on to the pool area, it is not totally covered by bars or a metal screen that are fixed to the building with fasteners that can only be removed by the use of a tool. The openings between the window (if not permanently fixed shut) are greater than 100 mm and the window ledge is not greater than 1800 mm from the ground to the window sill.
+
+Cover the opening portion of the windows with bars with gaps of less than 100mm or a screwed strong metal screen. Alternatively permanently fix the window/s closed or install a fixed screwed stopper  that the window/s cannot open greater than 99 mm to be compliant with per AS1926.1-2012 (Section 2.6)
+
+" />
+
+<label for="ck101"> NO</label><br>
+
+
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck102" />
+
+<label for="ck102"> NA</label><br>
+
+
+
+<p>Does any balconies located within 1800mm of the finished ground level<br> of a pool barrier,
+
+comply with pool fencing requirements?<br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck122" />
+
+<label for="ck122"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck123" data-value="A balustrade that complies with the Australian Standard must be provided to the balcony as the distance between the floor of the balcony and the finished ground level of the pool area is less than 1800mm, when measured vertically below the perimeter of the balcony. 
+
+The balustrade is to be a minimum height of 1200mm in accordance with the Australian Standard.
+
+"/>
+
+<label for="ck123"> NO</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck124" />
+
+<label for="ck124"> NA</label><br>
+
+
+
+<p>Does the balustrading of any balconies located within the 900mm NCZ<br> of a pool barrier,
+
+comply with pool fencing requirements?<br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck103" />
+
+<label for="ck103"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck104" data-value="The floor of the balcony is within 900mm from the top of the swimming pool barrier. The balustrade on the balcony is to be modified so that it complies as a swimming pool barrier, or alternatively, the pool barrier is to be relocated so that it is not within 900mm of the balcony floor in accordance with the Australian Standard. 
+
+"/>
+
+<label for="ck104"> NO</label><br>
+
+
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck105" />
+
+<label for="ck105"> NA</label><br>
+
+
+
+<p>-------------------------------<p/>
+
+<p>Safety Sign<p/>
+
+
+
+<p>As per section 17 of the Swimming Pools Act 1992, <br>a current resuscitation (CPR) sign must be <br>installed which includes updated details (Sept 2019)<br>of DRSABCD which can be easily read<br> from a distance of 3 metres.<br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck106" />
+
+<label for="ck106"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck107"  data-value= "There is no appropriate or current resuscitation (CPR) sign, including updated details of DRSABCD which can be easily read from a distance of 3 metres.
+
+As per section 17 of the Swimming Pools Act 1992, a new updated resuscitation (CPR) sign must be installed which includes updated details of DRSABCD which can be easily read from a distance of 3 meters.
+
+"/>
+
+<label for="ck107"> NO</label><br>
+
+
+
+<p>------------------------------<p/>
+
+<p>Significant Risk<p/>
+
+
+
+<p>If a registered certifier determines to issue under the Swimming Pools<br>  Act 1992 Section 22E a notice of noncompliance  stating the certifier <br>is of the opinion that the pool does pose a significant risk to public safety.
+
+
+
+<p>Is the pool located on the property deemed a significant risk to public safety?<p/> 
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck108" />
+
+<label for="ck108"> YES</label><br>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck109" />
+
+<label for="ck109"> NO</label><br>
+
+
+
+
+
+<p>------------------------------<p/>
+
+<p>Inspection results of the pool barrier. <p/>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck120" />
+
+Non-Compliant</p>
+
+
+
+<p style="margin-left:10px"><span style="font-size:20px"><input type="Checkbox" class="larger" name="ck121" />
+
+Compliant<p/>
+
+
+
+
+
+<p>-----------------------------<p/>
+
+<p><strong>RESULT</strong></p>
+
+<p> Writing Your Name in The Box is<br>Signing the Document
+
+
+
+<p><strong><form>
+
+  <label for="asofficer">Assessing Officer</label><br>
+
+  <input type="text" id="asofficer" name="asofficer" style="font-size:20px">
+
+  </form></strong></p>
+
+
+
+<p><strong><form>
+
+  <label for="asdate">Date</label><br>
+
+  <input type="text" id="asdate" name="asdate" style="font-size:15px">
+
+  </form></strong></p><br/>
+
+
+
+<p><strong><form>
+
+  <label for="co-officer">Concurring Officer</label><br>
+
+  <input type="text" id="conofficer" name="conofficer" style="font-size:20px">
+
+  </form></strong></p>
+
+
+
+<p><strong><form>
+
+  <label for="codate">Date</label><br>
+
+  <input type="text" id="codate" name="codate" style="font-size:15px">
+
+  </form></strong></p>
+
+
+
+<input type="button" style="font-size:40px" value="Save as File" onclick="SaveFile()">
+
+
+
+</body>
+
+</html> 
+
+
+
+
+
+
+
+
+
+
+
