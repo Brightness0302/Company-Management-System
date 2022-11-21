@@ -1,4 +1,4 @@
- ======= Hero Section ======= -->
+<!-- ======= Hero Section ======= -->
 <?php $menu = $this->session->flashdata('menu');?>
 <?=$backup['period'].$backup['date']?>
 <body style="font-size: 13px !important;">
@@ -526,4 +526,4 @@
                     <?php endif;?>
                 </ol>
             </nav>
-        </div><!-- End Page Title !
+        </div><!-- End Page Title -->
