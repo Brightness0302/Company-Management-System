@@ -385,7 +385,12 @@ h6 {
   margin-right: 6px;
 }
 
-.logo span {
+.logo-span {
+  text-align: center; 
+  margin-left: 30px;
+}
+
+.logo-span-text {
   font-size: 26px;
   font-weight: 700;
   color: #012970;
@@ -485,7 +490,6 @@ h6 {
 .header-nav .nav-icon {
   font-size: 22px;
   color: #012970;
-  margin-right: 25px;
   position: relative;
   padding: 0px;
 }
