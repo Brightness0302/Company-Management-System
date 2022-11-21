@@ -34,7 +34,7 @@
 	function restore_now() {
 		console.log("restore_now");
 		let filename = $("#restore_picker").val();
-		const curfile = $('#restorefile-upload')[0].files[0].name;
+		const curfile = $('#restorefile-upload')[0].files.length ? $('#restorefile-upload')[0].files[0].name : "";
 		const token = "Custom - ";
 		let path = "";
 
