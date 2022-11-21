@@ -30,7 +30,7 @@
             <div class="row icon-boxes">
                 <?php foreach ($companies as $key=>$company):?>
                 <?php if(!$company['isremoved']):?>
-                <?php if($user['rank'] == 1):?>
+                <?php if($user['rank'] == 1 || in_array(($company['id']-1), json_decode($user['company']))):?>
                 <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-4 cursor-pointer" data-aos="zoom-in" data-aos-delay="200">
                     <div class="icon-box w-full">
                         <div class="icon min-w-full" style="display: flex;justify-content: center;align-items: center;" onclick="window.location='<?=base_url('home/gotodashboard/'.$company['id'])?>'">
