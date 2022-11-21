@@ -16,7 +16,8 @@
         <?php foreach($employees as $key=>$employee):?>
         <?php $index=0;?>
         <tr>
-            <td><?=++$index?></td>
+            <?php $index++;?>
+            <td><?=$index?></td>
             <td class="text-left"><?=$employee['name']?></td>
             <td><?=$employee['salary'].' '.$employee['coin']?></td>
             <td><?=$employee['tax'].' '.$employee['coin']?></td>
