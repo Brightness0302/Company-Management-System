@@ -114,7 +114,7 @@
                                         <td>
                                             <select class="form-select" id="expenseid">
                                                 <option value="0">
-                                                    No Expenses Category
+                                                    No Expense Category
                                                 </option>
                                             <?php foreach ($expenses as $index => $category):?>
                                                 <option value="<?=$category['id']?>">
@@ -324,7 +324,7 @@
                                         if ($result)
                                             echo $result['name'];
                                         else 
-                                            echo "No Expense Category";
+                                            echo "Not for a project";
                                     ?>
                                     </td>
                                     <td><?=$line['production_description']?></td>
