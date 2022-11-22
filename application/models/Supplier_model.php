@@ -118,6 +118,7 @@ class Supplier_model extends CI_Model {
                         'production_description'=>$line['production_description'], 
                         'expenseid'=>$line['expenseid'], 
                         'units'=>$line['units'], 
+                        'serial_number'=>$line['serial_number'], 
                         'acquisition_unit_price'=>$line['acquisition_unit_price'], 
                         'vat'=>$line['vat'], 
                         'makeup'=>$line['makeup'],
@@ -211,6 +212,7 @@ class Supplier_model extends CI_Model {
                         'production_description'=>$line['production_description'], 
                         'expenseid'=>$line['expenseid'], 
                         'units'=>$line['units'], 
+                        'serial_number'=>$line['serial_number'], 
                         'acquisition_unit_price'=>$line['acquisition_unit_price'], 
                         'vat'=>$line['vat'], 
                         'makeup'=>$line['makeup'], 
@@ -317,6 +319,7 @@ class Supplier_model extends CI_Model {
             $lines[$index]['production_description'] = $tline['production_description'];
             $lines[$index]['expenseid'] = $tline['expenseid'];
             $lines[$index]['units'] = $tline['units'];
+            $lines[$index]['serial_number'] = $tline['serial_number'];
             $lines[$index]['acquisition_unit_price'] = $tline['acquisition_unit_price'];
             $lines[$index]['vat'] = $tline['vat'];
             $lines[$index]['makeup'] = $tline['makeup'];

@@ -160,6 +160,14 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td style="border : 1px solid black"><label class="my-2 text-xs">Serial Number:</label></td>
+                                        <td>
+                                            <div class="m-auto">
+                                                <input type="text" class="form-control " id="serial_number" value="" title="Choose your color">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td style="border : 1px solid black"><label class="my-2 text-xs">Acq unit price:</label></td>
                                         <td>
                                             <div class="m-auto">
@@ -252,6 +260,7 @@
                                     <th>Registered Project</th>
                                     <th>Product description</th>
                                     <th>Units</th>
+                                    <th>Serial Number</th>
                                     <th>Qty on doc</th>
                                     <th>Qty received</th>
                                     <th>Acq unit price Ex VAT</th>

@@ -28,8 +28,8 @@
             ?>
             <td><?=($index)?></td>
             <!-- <td><?=$result['name']?></td> -->
-            <td><?=$line['code_ean']?></td>
-            <td><?=$line['production_description']?></td>
+            <td class="text-left"><?=$line['code_ean']?></td>
+            <td class="text-left"><?=$line['production_description']?></td>
             <td><?=$line['qty']?></td>
             <td><?=number_format($line['acquisition_unit_price'], 2, '.', "")?></td>
             <td><?=number_format(($line['acquisition_unit_price']*floatval($line['qty'])), 2, '.', "")?></td>

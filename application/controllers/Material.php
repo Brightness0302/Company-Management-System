@@ -127,6 +127,7 @@ class Material extends CI_Controller
                 $line['production_description'] = $line['production_description'];
                 $line['expenseid'] = $line['expenseid'];
                 $line['units'] = $line['units'];
+                $line['serial_number'] = $line['serial_number'];
                 $line['acquisition_unit_price'] = $line['acquisition_unit_price'];
                 $line['vat'] = $line['vat'];
                 $line['makeup'] = $line['makeup'];

@@ -16,8 +16,8 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach($employees as $key=>$employee):?>
         <?php $index=0;?>
+        <?php foreach($employees as $key=>$employee):?>
         <tr>
             <td><?=++$index?></td>
             <td class="text-left"><?=$employee['name']?></td>

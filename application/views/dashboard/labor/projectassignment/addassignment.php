@@ -127,7 +127,7 @@
 
         <!-- Modal -->
         <div class="modal fade" id="PermanentEmployeeModalCenter" tabindex="-1" role="dialog" aria-labelledby="PermanentEmployeeModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 800px;">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Employees</h5>
@@ -168,7 +168,7 @@
 
         <!-- Modal -->
         <div class="modal fade" id="ProjectModalCenter" tabindex="-1" role="dialog" aria-labelledby="ProjectModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 800px;">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Projects</h5>
@@ -208,7 +208,7 @@
 
         <!-- Modal -->
         <div class="modal fade" id="SubContractorModalCenter" tabindex="-1" role="dialog" aria-labelledby="SubContractorModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 800px;">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Employees</h5>

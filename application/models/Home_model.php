@@ -295,7 +295,7 @@ class Home_model extends CI_Model {
         $projects_id = -1;
 
         if (count($res)!=0) {
-            return $projects_id;
+            return -2;
         }
 
         $this->db->insert('company',$data);
@@ -1165,6 +1165,10 @@ class Home_model extends CI_Model {
             'type' => 'VARCHAR',
             'constraint' => 30,
             'default' => 'Pieces',
+          ),
+          'serial_number' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
           ),
           'acquisition_unit_price' => array(
             'type' => 'float',
