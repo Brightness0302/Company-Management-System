@@ -135,6 +135,8 @@ class Home extends CI_Controller
         }
 
         $data['backups'] = $this->get_backups();
+        $data['permanentemployees'] = $this->home->alldatafromdatabase($companyid, 'employee_permanent');
+        $data['subcontractors'] = $this->home->alldatafromdatabase($companyid, 'employee_subcontract');
 
         $session['menu']="Dashboard";
         $session['submenu']="";

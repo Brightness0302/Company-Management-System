@@ -465,6 +465,91 @@ class Labor extends CI_Controller
             echo $employee['daily_rate'];
         }
     }
+
+    public function workingdetails() {
+        $companyid = $this->session->userdata('companyid');
+        $company_name = $this->session->userdata('companyname');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['permanentemployees'] = $this->home->alldatafromdatabase($companyid, 'employee_permanent');
+        $data['subcontractors'] = $this->home->alldatafromdatabase($companyid, 'employee_subcontract');
+
+        foreach ($data['permanentemployees'] as $key => $employee) {
+            $data['permanentemployees'][$key]['daily_rate'] = ($employee['salary'] + $employee['tax']) * 12 / 218;
+        }
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+
+        $session['menu']="Labors";
+        $session['submenu']="l_wd";
+        $session['second-submenu']="Sub-Contractors";
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/labor/subcontractor/head');
+        $this->load->view('dashboard/labor/subcontractor/body');
+        $this->load->view('dashboard/labor/subcontractor/foot');
+        $this->load->view('dashboard/labor/subcontractor/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
+
+    public function showworkingdetailsbyemployee() {
+        $companyid = $this->session->userdata('companyid');
+        $company_name = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $data['modules'] = $this->home->alldata('module');
+        $data['backup'] = $this->session->userdata('backup');
+        $company = $this->home->databyname($company_name, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['permanentemployees'] = $this->home->alldatafromdatabase($companyid, 'employee_permanent');
+        $data['subcontractors'] = $this->home->alldatafromdatabase($companyid, 'employee_subcontract');
+
+        $type = $_GET['type'];
+        $employee_id = $_GET['employee_id'];
+        $table = (($type=="permanentemployees")?"employee_permanent":(($type=="subcontractors")?"employee_subcontract":""));
+        $employee = $this->home->databyidfromdatabase($companyid, $table, $employee_id)['data'];
+        $data['assignments'] = $this->labor->getassignmentByEmployeeID($companyid, 'project_assignment', $table, $employee_id);
+        foreach ($data['assignments'] as $key => $assignment) {
+            $data['assignments'][$key]['project'] = $this->home->databyidfromdatabase($companyid, 'project', $assignment['project_id'])['data'];
+        }
+
+        $session['menu']="Labors";
+        $session['submenu']="l_wd";
+        $session['second-submenu']=$type.' - '.$employee['name'];
+        $this->session->set_flashdata('menu', $session);
+
+        $this->load->view('header');
+        $this->load->view('dashboard/head');
+        $this->load->view('dashboard/body', $data);
+        $this->load->view('dashboard/labor/workingdetails/head');
+        $this->load->view('dashboard/labor/workingdetails/body');
+        $this->load->view('dashboard/labor/workingdetails/foot');
+        $this->load->view('dashboard/labor/workingdetails/functions.php');
+        $this->load->view('dashboard/foot');
+        $this->load->view('footer');
+    }
+
+    public function getworkdetailsbydate() {
+        $companyid = $this->session->userdata('companyid');
+        $assignment_id = $this->input->post('assignment_id');
+        $detail_date = $this->input->post('detail_date');
+        echo $this->labor->getworkdetails($companyid, 'work_details', $assignment_id, $detail_date);
+    }
+
+    public function saveworkdetails() {
+        $companyid = $this->session->userdata('companyid');
+        $assignment_id = $this->input->post('assignment_id');
+        $detail_date = $this->input->post('detail_date');
+        $work_details = $this->input->post('work_details');
+        echo $this->labor->saveworkdetails($companyid, 'work_details', $assignment_id, $detail_date, $work_details);
+    }
     //If usersession is not exist, goto login page.
     public function check_usersession() {
         if($this->session->userdata('user')) {

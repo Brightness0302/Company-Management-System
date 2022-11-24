@@ -1,6 +1,5 @@
 <!-- ======= Hero Section ======= -->
 <?php $menu = $this->session->flashdata('menu');?>
-<?=$backup['period'].$backup['date']?>
 <body style="font-size: 13px !important;">
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
@@ -294,15 +293,32 @@
                 </a>
                 <ul id="labors-nav" class="nav-content collapse <?=$menu['menu']=="Labors"?"show":""?>" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="<?=base_url("labor/permanentemployee")?>" style="padding-left: 56px;">
+                        <a href="<?=base_url("labor/permanentemployee")?>">
                             <i class="bi <?=($menu['submenu']=='l_pem')?"bi-circle-fill":"bi-circle"?>"></i><span>Permanent Employee</span>
                         </a>
-                        <a href="<?=base_url("labor/subcontractor")?>" style="padding-left: 56px;">
+                        <a href="<?=base_url("labor/subcontractor")?>">
                             <i class="bi <?=($menu['submenu']=='l_sc')?"bi-circle-fill":"bi-circle"?>"></i><span>Sub-Contractors</span>
                         </a>
-                        <a href="<?=base_url("labor/projectassignment")?>" style="padding-left: 56px;">
+                        <a href="<?=base_url("labor/projectassignment")?>">
                             <i class="bi <?=($menu['submenu']=='l_pa')?"bi-circle-fill":"bi-circle"?>"></i><span>Project Labor Assignment</span>
                         </a>
+                        <a href="<?=base_url("labor/workingdetails")?>">
+                            <i class="bi <?=($menu['submenu']=='l_wd')?"bi-circle-fill":"bi-circle"?>"></i><span>Working Details</span>
+                        </a>
+                        <ul id="workingdetails-nav" class="nav-content collapse show" data-bs-parent="#labors-nav">
+                            <li>
+                                <?php foreach($permanentemployees as $employee):?>
+                                <a href="<?=base_url("labor/showworkingdetailsbyemployee?")."type=permanentemployees&employee_id=".$employee['id']?>" style="padding-left: 56px;">
+                                    <i class="bi <?=($menu['second-submenu']=="permanentemployees - ".$employee['name'])?"bi-circle-fill":"bi-circle"?>"></i><span><?=$employee['name']?></span>
+                                </a>
+                                <?php endforeach;?>
+                                <?php foreach($subcontractors as $employee):?>
+                                <a href="<?=base_url("labor/showworkingdetailsbyemployee?")."type=subcontractors&employee_id=".$employee['id']?>" style="padding-left: 56px;">
+                                    <i class="bi <?=($menu['second-submenu']=="subcontractors - ".$employee['name'])?"bi-circle-fill":"bi-circle"?>"></i><span><?=$employee['name']?></span>
+                                </a>
+                                <?php endforeach;?>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li><!-- End Labor Module -->
@@ -504,6 +520,8 @@
                         echo "Production reports";
                     else if($menu['submenu']=="p_pm")
                         echo "Product registration";
+                    else if($menu['submenu']=="l_wd")
+                        echo "Working Details";
                     else if($menu['submenu']=="p_prm")
                         echo "Product recipe management";
                     else if($menu['submenu']=="pmbs")

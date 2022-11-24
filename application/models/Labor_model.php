@@ -161,4 +161,63 @@ class Labor_model extends CI_Model {
 
         return $data;
     }
+
+    public function getassignmentByEmployeeID($companyid, $table, $isemployee, $employeeid) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $query =    "SELECT *
+                    FROM `$table`
+                    WHERE `employeeid`='$employeeid' AND `isemployee`='$isemployee'";
+
+        $res = $this->db->query($query)->result_array();
+        return $res;
+    }
+
+    public function saveworkdetails($companyid, $table, $assignment_id, $detail_date, $details) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+        // $detail_date=date("yyyy-mm-dd", strtotime($detail_date)); 
+
+        $query =    "SELECT *
+                    FROM `$table`
+                    WHERE `assignment_id`='$assignment_id' AND `detail_date`='$detail_date'";
+
+        $res = $this->db->query($query)->result_array();
+        if (count($res)==0) {
+            $data = array(
+                'assignment_id'=>$assignment_id, 
+                'detail_date'=>$detail_date, 
+                'details'=>$details, 
+            );
+
+            $this->db->insert($table, $data);
+            $product_id = $this->db->insert_id();
+            return $product_id;
+        }
+        else {
+            $data = array(
+                'details'=>$details, 
+            );
+
+            $this->db->where('id', $res[0]['id']);
+            $res=$this->db->update($table, $data);
+            return $res;
+        }
+    }
+
+    public function getworkdetails($companyid, $table, $assignment_id, $detail_date) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+        // $detail_date=date("yyyy-mm-dd", strtotime($detail_date)); 
+
+        $query =    "SELECT *
+                    FROM `$table`
+                    WHERE `assignment_id`='$assignment_id' AND `detail_date`='$detail_date'";
+
+        $res = $this->db->query($query)->result_array();
+        if (count($res)==0)
+            return "";
+        return $res[0]['details'];
+    }
 }

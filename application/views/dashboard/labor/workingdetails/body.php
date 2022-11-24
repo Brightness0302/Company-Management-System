@@ -1,0 +1,17 @@
+<table id="invoicetable" class="table table-bordered table-hover text-center">
+    <thead>
+        <tr>
+            <th>Day of the month</th>
+            <th>Select project</th>
+            <th>Work description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $index=0;?>
+        <tr>
+            <td>Tuesday, 1st of November</td>
+            <td>123</td>
+            <td>321</td>
+        </tr>
+    </tbody>
+</table>
