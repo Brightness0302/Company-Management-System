@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th class="w-48">Day of the month</th>
-            <th class="w-48">Select project</th>
+            <th class="w-96">Select project</th>
             <th>Work description</th>
         </tr>
     </thead>

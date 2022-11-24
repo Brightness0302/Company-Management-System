@@ -331,10 +331,10 @@ class Client extends CI_Controller
     //View invoicepage of editting.
     public function editinvoice($invoice_id) {
         $this->check_usersession();
-        $data['clients'] = $this->home->alldata('client');
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
         $data = $this->getData();
+        $data['clients'] = $this->home->alldata('client');
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'material');
 
         $session['menu']="Clients";

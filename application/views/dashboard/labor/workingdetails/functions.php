@@ -65,6 +65,7 @@ function refreshTableData() {
             // console.log(form_data);
             const details = await getData(form_data);
             $(etextarea[0]).val(details);
+            etextarea[0].dispatchEvent(new Event('input', {bubbles:true}));
         }
         catch(err) {
             console.log(err);
