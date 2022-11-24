@@ -7,20 +7,29 @@ class Expense extends CI_Controller
     {
         parent::__construct();
     }
+
+    public function getData() {
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
+        $company = $this->home->databyname($companyname, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data['permanentemployees'] = $this->home->alldatafromdatabase($companyid, 'employee_permanent');
+        $data['subcontractors'] = $this->home->alldatafromdatabase($companyid, 'employee_subcontract');
+        return $data;
+    }
     //View expense page of add/edit/delete function
     public function index() {
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data = $this->getData();
 
         $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
         $data['setting1'] = $res[0];
@@ -68,15 +77,7 @@ class Expense extends CI_Controller
     public function addexpense() {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data = $this->getData();
         
         $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
         $data['setting1'] = $res[0];
@@ -102,15 +103,7 @@ class Expense extends CI_Controller
     public function editexpense($expense_id) {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data = $this->getData();
         
         $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
         $data['setting1'] = $res[0];
@@ -165,15 +158,7 @@ class Expense extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($companyname, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data = $this->getData();
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'expense_product');
 
         foreach ($data['products'] as $index => $product) {
@@ -207,17 +192,8 @@ class Expense extends CI_Controller
     //View clientpage of creating.
     public function addproduct() {
         $companyid = $this->session->userdata('companyid');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyid($companyid, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
-
         $data['attached'] = "Attached Invoice";
 
         $session['menu']="Expenses";
@@ -239,16 +215,8 @@ class Expense extends CI_Controller
     public function editproduct($product_id) {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyid($companyid, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $product = $this->home->databyidfromdatabase($companyid, 'expense_product', $product_id);
 
         $data['attached'] = "Attached Invoice";
@@ -365,15 +333,7 @@ class Expense extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($companyname, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data = $this->getData();
 
         $expense_id = $_GET['expense_id'];
         $res = $this->home->databyidfromdatabase($companyid, 'expense_category', $expense_id);

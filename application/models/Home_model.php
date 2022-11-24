@@ -1359,7 +1359,7 @@ class Home_model extends CI_Model {
             'type' => 'TINYINT',
             'constraint' => 1
           )
-         );
+        );
 
         $this->dbforge->add_field($fields);
 
@@ -1410,7 +1410,7 @@ class Home_model extends CI_Model {
             'type' => 'TINYINT',
             'constraint' => 1,
           )
-         );
+        );
 
         $this->dbforge->add_field($fields);
 
@@ -1455,7 +1455,7 @@ class Home_model extends CI_Model {
             'type' => 'TINYINT',
             'constraint' => 1,
           )
-         );
+        );
 
         $this->dbforge->add_field($fields);
 
@@ -1483,7 +1483,7 @@ class Home_model extends CI_Model {
             'constraint' => 9,
             'default' => '2022',
           ),
-         );
+        );
 
         $this->dbforge->add_field($fields);
 
@@ -1507,7 +1507,7 @@ class Home_model extends CI_Model {
             'constraint' => 1,
             'default' => '0',
           )
-         );
+        );
 
         $this->dbforge->add_field($fields);
 
@@ -1537,7 +1537,7 @@ class Home_model extends CI_Model {
             'type' => 'TINYINT',
             'constraint' => 1,
           )
-         );
+        );
 
         $this->dbforge->add_field($fields);
 
@@ -1546,6 +1546,33 @@ class Home_model extends CI_Model {
 
         // create table
         $this->dbforge->create_table('stock');
+
+        // define table fields
+        $fields = array(
+          'id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+            'unsigned' => TRUE,
+            'auto_increment' => TRUE
+          ),
+          'assignment_id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+          ),
+          'detail_date date default current_timestamp',
+          'details' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 300,
+          ),
+        );
+
+        $this->dbforge->add_field($fields);
+
+        // define primary key
+        $this->dbforge->add_key('id', TRUE);
+
+        // create table
+        $this->dbforge->create_table('work_details');
     }
     //Initialize database using $companyid
     public function initializeDB($companyid) {

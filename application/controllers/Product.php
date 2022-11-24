@@ -7,9 +7,8 @@ class Product extends CI_Controller
     {
         parent::__construct();
     }
-    //View supplier page of add/edit/delete function
-    public function index() {
-        $this->check_usersession();
+
+    public function getData() {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
@@ -19,9 +18,19 @@ class Product extends CI_Controller
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
-        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data['permanentemployees'] = $this->home->alldatafromdatabase($companyid, 'employee_permanent');
+        $data['subcontractors'] = $this->home->alldatafromdatabase($companyid, 'employee_subcontract');
+        return $data;
+    }
+    //View supplier page of add/edit/delete function
+    public function index() {
+        $this->check_usersession();
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+        $data = $this->getData();
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
 
         foreach ($data['products'] as $index => $product) {
             $materials = json_decode($product['materials'], true);
@@ -57,16 +66,8 @@ class Product extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($companyname, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['orders'] = $this->home->alldatafromdatabase($companyid, 'internalorder');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         foreach ($data['orders'] as $key => $order) {
             $res_product = $this->home->databyidfromdatabase($companyid, 'product_recipe', $order['product_description']);
@@ -120,16 +121,8 @@ class Product extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($companyname, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['orders'] = $this->home->alldatafromdatabase($companyid, 'internalorder');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         foreach ($data['orders'] as $key => $order) {
             $res_product = $this->home->databyidfromdatabase($companyid, 'product_recipe', $order['product_description']);
@@ -183,13 +176,7 @@ class Product extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($companyname, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
         $data['recipes'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
         foreach ($data['products'] as $key => $product) {
@@ -200,8 +187,6 @@ class Product extends CI_Controller
                 $data['products'][$key]['recipe'] = $res['data'];
             }
         }
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Products";
         $session['submenu']="p_pm";
@@ -222,13 +207,7 @@ class Product extends CI_Controller
     public function reportmanager() {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($companyname, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
 
         $chart = [];
         $recipes = $this->home->alldatafromdatabase($companyid, 'product_recipe');
@@ -237,9 +216,6 @@ class Product extends CI_Controller
                 $chart[$i][$recipe['name']]=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             }
         }
-
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['recipes'] = $recipes;
 
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
@@ -275,15 +251,7 @@ class Product extends CI_Controller
     //View clientpage of creating.
     public function addrecipe() {
         $companyid = $this->session->userdata('companyid');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyid($companyid, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data = $this->getData();
         $data['product'] = $this->product->productfromsetting($companyid, 'product_recipe');
 
         $session['menu']="Products";
@@ -305,15 +273,7 @@ class Product extends CI_Controller
     //View clientpage of creating.
     public function addproduct() {
         $companyid = $this->session->userdata('companyid');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyid($companyid, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data = $this->getData();
         $data['product'] = $this->product->productfromsetting($companyid, 'product');
         $data['recipes'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
 
@@ -336,17 +296,9 @@ class Product extends CI_Controller
     //View clientpage of creating.
     public function addorder() {
         $companyid = $this->session->userdata('companyid');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyid($companyid, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['order'] = $this->product->internalorderfromsetting($companyid, 'internalorder');
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Products";
         $session['submenu']="p_ioi";
@@ -368,15 +320,7 @@ class Product extends CI_Controller
     public function editrecipe($product_id) {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyid($companyid, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data = $this->getData();
         $data['product'] = $this->product->productfromsetting($companyid, 'product_recipe');
         $product = $this->home->databyidfromdatabase($companyid, 'product_recipe', $product_id);
 
@@ -412,13 +356,7 @@ class Product extends CI_Controller
     //View clientpage of creating.
     public function editproduct($product_id) {
         $companyid = $this->session->userdata('companyid');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyid($companyid, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['user'] = $this->session->userdata('user');
         $product = $this->home->databyidfromdatabase($companyid, 'product', $product_id);
 
@@ -428,8 +366,6 @@ class Product extends CI_Controller
         $res = $this->home->databyid($data['product']['user'], 'user');
         $data['product']['userdata'] = $res['data'];
         $data['recipes'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Products";
         $session['submenu']="p_pm";
@@ -450,17 +386,9 @@ class Product extends CI_Controller
     //View clientpage of creating.
     public function editorder($order_id) {
         $companyid = $this->session->userdata('companyid');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyid($companyid, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['order'] = $this->home->databyidfromdatabase($companyid, 'internalorder', $order_id)['data'];
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Products";
         $session['submenu']="p_ioi";

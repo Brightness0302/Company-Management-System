@@ -7,21 +7,30 @@ class Labor extends CI_Controller
     {
         parent::__construct();
     }
+
+    public function getData() {
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
+        $company = $this->home->databyname($companyname, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data['permanentemployees'] = $this->home->alldatafromdatabase($companyid, 'employee_permanent');
+        $data['subcontractors'] = $this->home->alldatafromdatabase($companyid, 'employee_subcontract');
+        return $data;
+    }
     //View permanent employee of add/edit/delete function
     public function permanentemployee() {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
         $data['employees'] = $this->home->alldatafromdatabase($companyid, 'employee_permanent');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Labors";
         $session['submenu']="l_pem";
@@ -42,17 +51,9 @@ class Labor extends CI_Controller
     public function subcontractor() {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
         $data['employees'] = $this->home->alldatafromdatabase($companyid, 'employee_subcontract');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Labors";
         $session['submenu']="l_sc";
@@ -73,16 +74,8 @@ class Labor extends CI_Controller
     public function projectassignment() {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
 
         foreach ($data['projects'] as $key => $project) {
@@ -109,17 +102,8 @@ class Labor extends CI_Controller
     public function addpermanentemployee() {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
-        $data['employee'] = $this->project->productfromsetting($companyid, 'employee_permanent');
 
         $session['menu']="Labors";
         $session['submenu']="l_pem";
@@ -141,16 +125,8 @@ class Labor extends CI_Controller
     public function addsubcontractor() {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['employee'] = $this->project->productfromsetting($companyid, 'employee_subcontract');
 
         $session['menu']="Labors";
@@ -173,20 +149,9 @@ class Labor extends CI_Controller
     public function addprojectassignment() {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
-        
-        $data['permanentemployees'] = $this->home->alldatafromdatabase($companyid, 'employee_permanent');
-        $data['subcontractors'] = $this->home->alldatafromdatabase($companyid, 'employee_subcontract');
 
         foreach ($data['permanentemployees'] as $key => $employee) {
             $data['permanentemployees'][$key]['daily_rate'] = ($employee['salary'] + $employee['tax']) * 12 / 218;
@@ -212,16 +177,8 @@ class Labor extends CI_Controller
     public function editpermanentemployee($employee_id) {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $res = $this->home->databyidfromdatabase($companyid, 'employee_permanent', $employee_id);
         if ($res['status']=="failed") {
             return;
@@ -248,16 +205,8 @@ class Labor extends CI_Controller
     public function editsubcontractor($employee_id) {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $res = $this->home->databyidfromdatabase($companyid, 'employee_subcontract', $employee_id);
         if ($res['status']=="failed") {
             return;
@@ -284,16 +233,8 @@ class Labor extends CI_Controller
     public function editprojectassignment($projectid) {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
         $data['assignments'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'project_assignment', 'project_id', $projectid);
 
@@ -469,12 +410,7 @@ class Labor extends CI_Controller
     public function workingdetails() {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['permanentemployees'] = $this->home->alldatafromdatabase($companyid, 'employee_permanent');
-        $data['subcontractors'] = $this->home->alldatafromdatabase($companyid, 'employee_subcontract');
+        $data = $this->getData();
 
         foreach ($data['permanentemployees'] as $key => $employee) {
             $data['permanentemployees'][$key]['daily_rate'] = ($employee['salary'] + $employee['tax']) * 12 / 218;
@@ -501,15 +437,7 @@ class Labor extends CI_Controller
     public function showworkingdetailsbyemployee() {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['modules'] = $this->home->alldata('module');
-        $data['backup'] = $this->session->userdata('backup');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['permanentemployees'] = $this->home->alldatafromdatabase($companyid, 'employee_permanent');
-        $data['subcontractors'] = $this->home->alldatafromdatabase($companyid, 'employee_subcontract');
+        $data = $this->getData();
 
         $type = $_GET['type'];
         $employee_id = $_GET['employee_id'];

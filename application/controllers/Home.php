@@ -7,6 +7,23 @@ class Home extends CI_Controller
     {
         parent::__construct();
     }
+
+    public function getData() {
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
+        $company = $this->home->databyname($companyname, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data['permanentemployees'] = $this->home->alldatafromdatabase($companyid, 'employee_permanent');
+        $data['subcontractors'] = $this->home->alldatafromdatabase($companyid, 'employee_subcontract');
+        return $data;
+    }
     //View company page of add/edit/delete, user page of add/edit/delete
     public function index() { //$data['companies']
         $this->check_usersession();
@@ -75,16 +92,7 @@ class Home extends CI_Controller
     public function dashboard() {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['modules'] = $this->home->alldata('module');
-        $data['backup'] = $this->session->userdata('backup');
-
-        $company = $this->home->databyid($companyid, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data = $this->getData();
         $data['client_invoices'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'invoice', 'ispaid', false);
         foreach ($data['client_invoices'] as $key => $invoice) {
             $res = $this->home->databyid($invoice['client_id'], 'client');

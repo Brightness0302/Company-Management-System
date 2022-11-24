@@ -7,20 +7,29 @@ class Stock extends CI_Controller
     {
         parent::__construct();
     }
+
+    public function getData() {
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
+        $company = $this->home->databyname($companyname, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data['permanentemployees'] = $this->home->alldatafromdatabase($companyid, 'employee_permanent');
+        $data['subcontractors'] = $this->home->alldatafromdatabase($companyid, 'employee_subcontract');
+        return $data;
+    }
     //View supplier page of add/edit/delete function
     public function index() {
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data = $this->getData();
 
         foreach ($data['stocks'] as $index => $stock) {
             $data['stocks'][$index]['amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'amount_without_vat');
@@ -47,20 +56,11 @@ class Stock extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($companyname, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['suppliers'] = $this->home->alldata('supplier');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-
         $stock_id = $_GET['stock_id'];
         $data['stock'] = $this->home->databyidfromdatabase($companyid, 'stock', $stock_id)['data'];
         $data['products'] = $this->supplier->alllinesbystockidfromdatabase($companyid, 'material_totalline', $stock_id);
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Stocks";
         $session['submenu']="pmbs";
@@ -112,15 +112,7 @@ class Stock extends CI_Controller
     public function addstock() {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data = $this->getData();
 
         $session['menu']="Stocks";
         $session['submenu']="stm";
@@ -139,15 +131,7 @@ class Stock extends CI_Controller
     public function editstock($stock_id) {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data = $this->getData();
 
         $result = $this->home->databyidfromdatabase($companyid, 'stock', $stock_id);
         if ($result['status']=="failed")

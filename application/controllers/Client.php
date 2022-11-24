@@ -7,22 +7,30 @@ class Client extends CI_Controller
     {
         parent::__construct();
     }
+
+    public function getData() {
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
+        $company = $this->home->databyname($companyname, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data['permanentemployees'] = $this->home->alldatafromdatabase($companyid, 'employee_permanent');
+        $data['subcontractors'] = $this->home->alldatafromdatabase($companyid, 'employee_subcontract');
+        return $data;
+    }
     //View client page of add/edit/delete function
     public function index() {
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['user'] = $this->session->userdata('user');
-        $data['modules'] = $this->home->alldata('module');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Clients";
         $session['submenu']="cm";
@@ -44,17 +52,9 @@ class Client extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Clients";
         $session['submenu']="im";
@@ -76,17 +76,9 @@ class Client extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "proformainvoice");
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Clients";
         $session['submenu']="prm";
@@ -108,17 +100,9 @@ class Client extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Clients";
         $session['submenu']="pm";
@@ -140,18 +124,10 @@ class Client extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
         $data['projects'] = $this->home->alldata('project');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Projects";
         $session['submenu']="pj_pm";
@@ -195,15 +171,7 @@ class Client extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data = $this->getData();
 
         $session['menu']="Clients";
         $session['submenu']="cm";
@@ -223,18 +191,9 @@ class Client extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
         $data['invoice'] = $this->home->invoicefromsetting($data['company']['id'], 'invoice');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
-
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'material');
 
         $session['menu']="Clients";
@@ -258,17 +217,9 @@ class Client extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['invoice'] = $this->home->invoicefromsetting($data['company']['id'], 'proformainvoice');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Clients";
         $session['submenu']="prm";
@@ -290,13 +241,7 @@ class Client extends CI_Controller
     public function addprojectbyinvoices() {
         $this->check_usersession();
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
 
@@ -314,17 +259,11 @@ class Client extends CI_Controller
     public function editprojectbyinvoices($project_id) {
         $this->check_usersession();
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
+        $data = $this->getData();
         $project = $this->home->databyid($project_id, 'project');
         if ($project['status']=='failed')
             return;
         $data['project'] = $project['data'];
-        $data['company'] = $company['data'];
         $data['clients'] = $this->home->alldata('client');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
 
@@ -342,20 +281,13 @@ class Client extends CI_Controller
     public function editclientbyprojects($client_id) {
         $this->check_usersession();
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $res = $this->home->databyid($client_id, 'client');
         if ($res['status'] == "failed")
             return;
         $data['client'] = $res['data'];
         $data['projects'] = $this->home->alldata('project');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Clients";
         $session['submenu']="pjm";
@@ -376,15 +308,7 @@ class Client extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data = $this->getData();
 
         $session['menu']="Clients";
         $session['submenu']="cm";
@@ -410,17 +334,8 @@ class Client extends CI_Controller
         $data['clients'] = $this->home->alldata('client');
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data = $this->getData();
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'material');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Clients";
         $session['submenu']="im";
@@ -464,14 +379,7 @@ class Client extends CI_Controller
         $this->check_usersession();
         $data['clients'] = $this->home->alldata('client');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data = $this->getData();
 
         $session['menu']="Clients";
         $session['submenu']="prm";

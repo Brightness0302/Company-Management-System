@@ -7,21 +7,30 @@ class Report extends CI_Controller
     {
         parent::__construct();
     }
+
+    public function getData() {
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
+        $company = $this->home->databyname($companyname, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data['permanentemployees'] = $this->home->alldatafromdatabase($companyid, 'employee_permanent');
+        $data['subcontractors'] = $this->home->alldatafromdatabase($companyid, 'employee_subcontract');
+        return $data;
+    }
     //View supplier page of add/edit/delete function
     public function index() {
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
+        $data = $this->getData();
         $data['suppliers'] = $this->home->alldata('supplier');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Suppliers";
         $session['submenu']="sm";
@@ -43,13 +52,7 @@ class Report extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
+        $data = $this->getData();
         $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
         $data['setting1'] = $res[0];
 
@@ -87,13 +90,7 @@ class Report extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
+        $data = $this->getData();
         $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
         $data['setting1'] = $res[0];
 
@@ -141,13 +138,7 @@ class Report extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
+        $data = $this->getData();
         $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
         $data['setting1'] = $res[0];
 
@@ -191,13 +182,7 @@ class Report extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
+        $data = $this->getData();
         $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
         $data['setting1'] = $res[0];
         $startyear = intval(date("Y",strtotime($data['setting1']['startdate'])));
@@ -281,13 +266,7 @@ class Report extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
+        $data = $this->getData();
         $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
         $data['setting1'] = $res[0];
 

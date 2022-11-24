@@ -7,21 +7,30 @@ class Project extends CI_Controller
     {
         parent::__construct();
     }
+
+    public function getData() {
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+        $data['user'] = $this->session->userdata('user');
+        $data['backup'] = $this->session->userdata('backup');
+        $data['modules'] = $this->home->alldata('module');
+        $company = $this->home->databyname($companyname, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
+        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data['permanentemployees'] = $this->home->alldatafromdatabase($companyid, 'employee_permanent');
+        $data['subcontractors'] = $this->home->alldatafromdatabase($companyid, 'employee_subcontract');
+        return $data;
+    }
     //View client page of add/edit/delete function
     public function index() {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
         $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         foreach ($data['projects'] as $key => $project) {
             $res = $this->home->databyid($project['client'], 'client');
@@ -47,16 +56,8 @@ class Project extends CI_Controller
     public function addproject() {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['project'] = $this->project->productfromsetting($companyid, 'project');
         $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
 
@@ -80,26 +81,15 @@ class Project extends CI_Controller
     public function editproject($project_id) {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
+        $data = $this->getData();
         $project = $this->home->databyidfromdatabase($companyid, 'project', $project_id);
         if ($project['status']=='failed')
             return;
         $data['project'] = $project['data'];
-
-        $res = $this->home->databyid($data['project']['client'], 'client');
-        $data['project']['client'] = $res['data'];
+        $data['project']['client'] = $this->home->databyid($data['project']['client'], 'client')['data'];
         $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
-
-        $data['company'] = $company['data'];
         $data['clients'] = $this->home->alldata('client');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         $session['menu']="Projects";
         $session['submenu']="pj_pm";
@@ -151,22 +141,13 @@ class Project extends CI_Controller
         $id = $_GET['id'];
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($company_name, 'company');
-        if ($company['status']=='failed')
-            return;
-
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $project = $this->home->databyidfromdatabase($companyid, 'project', $id);
         if ($project['status']=='failed')
             return;
         $data['project'] = $project['data'];
         $res = $this->home->databyid($data['project']['client'], 'client');
         $data['project']['client'] = $res['data'];
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['supplier_products'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'material_lines', 'projectid', $id);
         foreach ($data['supplier_products'] as $key => $product) {
             $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'material', 'id', $product['productid']);

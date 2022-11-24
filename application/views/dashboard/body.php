@@ -302,7 +302,7 @@
                         <a href="<?=base_url("labor/projectassignment")?>">
                             <i class="bi <?=($menu['submenu']=='l_pa')?"bi-circle-fill":"bi-circle"?>"></i><span>Project Labor Assignment</span>
                         </a>
-                        <a href="<?=base_url("labor/workingdetails")?>">
+                        <a disabled>
                             <i class="bi <?=($menu['submenu']=='l_wd')?"bi-circle-fill":"bi-circle"?>"></i><span>Working Details</span>
                         </a>
                         <ul id="workingdetails-nav" class="nav-content collapse show" data-bs-parent="#labors-nav">

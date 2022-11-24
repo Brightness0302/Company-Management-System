@@ -7,9 +7,8 @@ class Material extends CI_Controller
     {
         parent::__construct();
     }
-    //View supplier page of add/edit/delete function
-    public function index() {
-        $this->check_usersession();
+
+    public function getData() {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $data['user'] = $this->session->userdata('user');
@@ -19,10 +18,20 @@ class Material extends CI_Controller
         if ($company['status']=='failed')
             return;
         $data['company'] = $company['data'];
-        $data['suppliers'] = $this->home->alldata('supplier');
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
-        $data['products'] = $this->home->alldatafromdatabase($companyid, 'material');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
+        $data['permanentemployees'] = $this->home->alldatafromdatabase($companyid, 'employee_permanent');
+        $data['subcontractors'] = $this->home->alldatafromdatabase($companyid, 'employee_subcontract');
+        return $data;
+    }
+    //View supplier page of add/edit/delete function
+    public function index() {
+        $this->check_usersession();
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+        $data = $this->getData();
+        $data['suppliers'] = $this->home->alldata('supplier');
+        $data['products'] = $this->home->alldatafromdatabase($companyid, 'material');
 
         foreach ($data['products'] as $index => $product) {
             $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $product['id']);
@@ -59,18 +68,10 @@ class Material extends CI_Controller
     //View clientpage of creating.
     public function addproduct() {
         $companyid = $this->session->userdata('companyid');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyid($companyid, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['suppliers'] = $this->home->alldata('supplier');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['product'] = $this->supplier->productfromsetting($companyid, 'material');
         $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['totallines'] = $this->home->alldatafromdatabase($companyid, 'material_totalline');
 
         $data['attached'] = "Attached Invoice";
@@ -95,17 +96,9 @@ class Material extends CI_Controller
     public function editproduct($product_id) {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyid($companyid, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['suppliers'] = $this->home->alldata('supplier');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['totallines'] = $this->home->alldatafromdatabase($companyid, 'material_totalline');
 
         $data['lines'] = $this->supplier->alllinesbyproductidfromdatabase($companyid, 'material_lines', $product_id);
@@ -259,18 +252,10 @@ class Material extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
-        $data['backup'] = $this->session->userdata('backup');
-        $data['modules'] = $this->home->alldata('module');
-        $company = $this->home->databyname($companyname, 'company');
-        if ($company['status']=='failed')
-            return;
-        $data['company'] = $company['data'];
+        $data = $this->getData();
         $data['suppliers'] = $this->home->alldata('supplier');
-        $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['categories'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'material');
-        $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
 
         foreach ($data['products'] as $index => $product) {
             $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $product['id']);
