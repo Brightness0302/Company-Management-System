@@ -132,7 +132,7 @@ $(function() {
             if (assingmentsforday) {
                 assingmentsforday=assingmentsforday?"<select class='w-full text-center' id='project'>"+assingmentsforday+"</select>":"";
                 const detail_date = currentdate.getFullYear() + '/' + (currentdate.getMonth()+1) + '/' + currentdate.getDate();
-                const jRow = $("<tr>").append("<td class='text-left'>"+weeks[currentdate.getDay()] + ' ' + detail_date+"</td>", "<td>"+assingmentsforday+"</td>", "<td>"+"<textarea class='w-full border' rows='1'></textarea>"+"</td>");
+                const jRow = $("<tr class='"+((currentdate.getDay()==6)?"bg-orange-200":((currentdate.getDay()==0)?"bg-red-200":""))+"'>").append("<td class='text-left'>"+weeks[currentdate.getDay()] + ' ' + detail_date+"</td>", "<td>"+assingmentsforday+"</td>", "<td>"+"<textarea class='w-full border' rows='1'></textarea>"+"</td>");
                 workdetailstable.row.add(jRow).draw();
             }
         }
