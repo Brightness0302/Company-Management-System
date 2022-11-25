@@ -2110,6 +2110,7 @@ section {
   background-repeat: no-repeat;
   background-size: contain;
   background-image: url("../image/tools/Edit-2.png");
+  cursor: pointer;
 }
 
 .custom-remove-icon {
@@ -2119,6 +2120,7 @@ section {
   background-repeat: no-repeat;
   background-size: contain;
   background-image: url("../image/tools/Delete-2.png");
+  cursor: pointer;
 }
 
 .custom-view-icon {
@@ -2128,6 +2130,7 @@ section {
   background-repeat: no-repeat;
   background-size: contain;
   background-image: url("../image/tools/View-2.png");
+  cursor: pointer;
 }
 
 .custom-paid-icon {
@@ -2137,6 +2140,7 @@ section {
   background-repeat: no-repeat;
   background-size: contain;
   background-image: url("../image/tools/green ball.png");
+  cursor: pointer;
 }
 
 .custom-notpaid-icon {
@@ -2146,6 +2150,7 @@ section {
   background-repeat: no-repeat;
   background-size: contain;
   background-image: url("../image/tools/red ball.png");
+  cursor: pointer;
 }
 
 .custom-paid-image {
