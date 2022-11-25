@@ -108,14 +108,14 @@
                                                 <div class="w-20">
                                                     <input type="text" class="form-control" id="invoice_coin_rate" value="<?=$product['invoice_coin_rate']?>" title="Choose your color" />
                                                 </div>
-                                                <div class="m-auto invoice_coin"><?=$product['invoice_coin']?></div>
+                                                <div class="m-auto invoice_coin"><?=($product['invoice_coin']?$product['invoice_coin']:"€")?></div>
                                                 &emsp;
                                             </div>
                                             <div class="flex">
                                                 <div class="w-20">
                                                     <input type="text" class="form-control" id="main_coin_rate" value="<?=$product['main_coin_rate']?>" title="Choose your color" />
                                                 </div>
-                                                <div class="m-auto main_coin"><?=$product['main_coin']?></div>
+                                                <div class="m-auto main_coin"><?=($product['main_coin']?$product['main_coin']:"€")?></div>
                                                 &emsp;
                                             </div>
                                         </div>
