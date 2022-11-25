@@ -14,7 +14,7 @@
 
             <div class="pages">
                 <div class="text-sm">
-                    <div id="section1" class="row d-flex justify-content-center align-items-center border border-lime-600">
+                    <div id="section1" class="row justify-content-center align-items-center border border-lime-600">
                         <div class="col-md-3 text-center">
                             <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                 <tr>
@@ -124,10 +124,8 @@
                             </table>
                         </div>
                     </div>
-
                     <hr>
-
-                    <div class="justify-content-center align-items-center border border-lime-600">
+                    <div class="row justify-content-center align-items-center border border-lime-600">
                         <div id="section2" class="row d-flex justify-content-center align-items-center">
                             <div class="col-md-3 text-center d-flex">
                                 <table class="table my-2" style="border : 1px solid gray; text-align: left">
@@ -289,10 +287,8 @@
                             </div>
                         </div>
                     </div>
-
                     <hr>
-
-                    <div class="row d-flex align-items-center overflow-x-auto select-none">
+                    <div class="row overflow-x-auto select-none">
                         <?php
                             $total_first=0;$total_second=0;$total_third=0;$total_seventh=0;$total_eighth=0;$total_ninth=0;
                         ?>

@@ -14,7 +14,7 @@
 
             <div class="pages">
                 <div class="text-sm">
-                    <div id="section1" class="row d-flex justify-content-center align-items-center border border-lime-600">
+                    <div id="section1" class="row justify-content-center align-items-center border border-lime-600">
                         <div class="col-md-3 text-center">
                             <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                 <tr>
@@ -119,10 +119,8 @@
                             </table>
                         </div>
                     </div>
-
                     <hr>
-
-                    <div class="align-items-center overflow-x-auto select-none">
+                    <div class="row justify-content-center align-items-center border border-lime-600">
                         <div id="section2" class="row d-flex justify-content-center align-items-center">
                             <div class="col-md-3 text-center d-flex">
                                 <table class="table my-2" style="border : 1px solid gray; text-align: left">
@@ -288,7 +286,7 @@
                         ?>
                     </div>
                     <hr>
-                    <div class="row d-flex justify-content-center align-items-center border border-lime-600">
+                    <div class="row overflow-x-auto select-none">
                         <table class="table table-bordered table-hover text-center text-xs">
                             <thead>
                                 <tr>
