@@ -443,10 +443,9 @@ class Labor extends CI_Controller
         $employee_id = $_GET['employee_id'];
         $table = (($type=="permanentemployees")?"employee_permanent":(($type=="subcontractors")?"employee_subcontract":""));
         $employee = $this->home->databyidfromdatabase($companyid, $table, $employee_id)['data'];
-        $data['assignments'] = $this->labor->getassignmentByEmployeeID($companyid, 'project_assignment', $table, $employee_id);
-        foreach ($data['assignments'] as $key => $assignment) {
-            $data['assignments'][$key]['project'] = $this->home->databyidfromdatabase($companyid, 'project', $assignment['project_id'])['data'];
-        }
+        $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
+        $data['employee'] = $employee;
+        $data['employee']['type'] = $table;
 
         $session['menu']="Labors";
         $session['submenu']="l_wd";
@@ -466,17 +465,21 @@ class Labor extends CI_Controller
 
     public function getworkdetailsbydate() {
         $companyid = $this->session->userdata('companyid');
-        $assignment_id = $this->input->post('assignment_id');
+        $employee_id = $this->input->post('employee_id');
+        $employee_type = $this->input->post('employee_type');
+        $project_id = $this->input->post('project_id');
         $detail_date = $this->input->post('detail_date');
-        echo $this->labor->getworkdetails($companyid, 'work_details', $assignment_id, $detail_date);
+        echo $this->labor->getworkdetails($companyid, 'work_details', $employee_id, $employee_type, $project_id, $detail_date);
     }
 
     public function saveworkdetails() {
         $companyid = $this->session->userdata('companyid');
-        $assignment_id = $this->input->post('assignment_id');
+        $employee_id = $this->input->post('employee_id');
+        $employee_type = $this->input->post('employee_type');
+        $project_id = $this->input->post('project_id');
         $detail_date = $this->input->post('detail_date');
         $work_details = $this->input->post('work_details');
-        echo $this->labor->saveworkdetails($companyid, 'work_details', $assignment_id, $detail_date, $work_details);
+        echo $this->labor->saveworkdetails($companyid, 'work_details', $employee_id, $employee_type, $project_id, $detail_date, $work_details);
     }
     //If usersession is not exist, goto login page.
     public function check_usersession() {

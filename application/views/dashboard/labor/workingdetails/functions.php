@@ -20,11 +20,15 @@ $(document).ready(function() {
         const etr = $(this).closest('tr');
         const eproject = etr.find("select");
         const edate = etr.find("td")[0];
+        const employee_id = "<?=$employee['id']?>";
+        const employee_type = "<?=$employee['type']?>";
         if (!eproject.length)
             return;
         const detail_date = $(edate).text().split(" ")[1];
         const form_data = {
-            assignment_id: eproject[0].value, 
+            employee_id: employee_id, 
+            employee_type: employee_type, 
+            project_id: eproject[0].value, 
             detail_date: detail_date,
             work_details: this.value, 
         };
@@ -45,13 +49,30 @@ $(document).ready(function() {
         });
     })
 
-    $("#invoicetable tbody tr td select").change(function() {
-        console.log("asdf");
+    $("#invoicetable tbody tr td select").change(async function() {
+        const etr = $(this).closest('tr');
+        const eproject = this.value;
+        const edate = etr.find("td")[0];
+        const detail_date = $(edate).text().split(" ")[1];
+        const etextarea = etr.find("textarea");
+        const employee_id = "<?=$employee['id']?>";
+        const employee_type = "<?=$employee['type']?>";
+        const form_data = {
+            employee_id: employee_id, 
+            employee_type: employee_type, 
+            project_id: eproject, 
+            detail_date: detail_date,
+        };
+        const details = await getData(form_data);
+        $(etextarea[0]).val(details);
+        etextarea[0].dispatchEvent(new Event('input', {bubbles:true}));
     })
     
 });
 function refreshTableData() {
     const etable = $("#invoicetable tbody");
+    const employee_id = "<?=$employee['id']?>";
+    const employee_type = "<?=$employee['type']?>";
     $(etable).children("tr").each(async(index, element) => {
         try {
             const etr = $(element).find("td");
@@ -59,7 +80,9 @@ function refreshTableData() {
             const eselect = $(etr[1]).find("select");
             const detail_date = $(etr[0]).text().split(" ")[1];
             const form_data = {
-                assignment_id: eselect[0].value, 
+                employee_id: employee_id, 
+                employee_type: employee_type, 
+                project_id: eselect[0].value, 
                 detail_date: detail_date,
             };
             // console.log(form_data);

@@ -15,7 +15,7 @@
             <div class="pages">
                 <div class="text-sm">
                     <div id="section1" class="row d-flex justify-content-center align-items-center border border-lime-600">
-                        <div class="col-sm-4 text-center">
+                        <div class="col-md-3 text-center">
                             <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                 <tr>
                                     <td style="border : 1px solid black"> Supplier Name: </td>
@@ -39,7 +39,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-sm-4 text-center">
+                        <div class="col-md-3 text-center">
                           <table class="table my-2" style="border : 1px solid gray; text-align: left">
                               <tr>
                                   <td style="border : 1px solid black">NIR Document No: </td>
@@ -51,7 +51,7 @@
                               </tr>
                           </table>
                         </div>
-                        <div class="col-sm-4 text-center">
+                        <div class="col-md-3 text-center">
                             <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                 <tr>
                                     <td style="border : 1px solid black">Invoice Date:</td>
@@ -68,12 +68,57 @@
                                 <tr>
                                     <td style="border : 1px solid black">Coin:</td>
                                     <td>
-                                        <select class="form-select" id="invoice_coin">
-                                            <option value="EURO" <?=($product['invoice_coin']=="EURO")?"selected":""?>>€</option>
-                                            <option value="POUND" <?=($product['invoice_coin']=="POUND")?"selected":""?>>£</option>
-                                            <option value="USD" <?=($product['invoice_coin']=="USD")?"selected":""?>>$</option>
-                                            <option value="LEI" <?=($product['invoice_coin']=="LEI")?"selected":""?>>LEI</option>
-                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <table class="table my-2" style="border : 1px solid gray; text-align: left;">
+                                <tr>
+                                    <td style="border : 1px solid black"><label class="my-2">Main Coin:</label></td>
+                                    <td>
+                                        <div class="m-auto">
+                                            <select class="form-select" id="main_coin">
+                                                <option value="€" <?=($product['main_coin']=="€")?"selected":""?>>EURO</option>
+                                                <option value="LEI" <?=($product['main_coin']=="LEI")?"selected":""?>>LEI</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border : 1px solid black"><label class="my-2">Invoice Coin:</label></td>
+                                    <td>
+                                        <div class="m-auto">
+                                            <select class="form-select" id="invoice_coin">
+                                                <option value="€" <?=($product['invoice_coin']=="€")?"selected":""?>>EURO</option>
+                                                <option value="£" <?=($product['invoice_coin']=="£")?"selected":""?>>POUND</option>
+                                                <option value="$" <?=($product['invoice_coin']=="$")?"selected":""?>>USD</option>
+                                                <option value="LEI" <?=($product['invoice_coin']=="LEI")?"selected":""?>>LEI</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border : 1px solid black">
+                                        <label class="my-2">Exchange rate:</label>
+                                    </td>
+                                    <td>
+                                        <div class="grid grid-cols-2">
+                                            <div class="flex">
+                                                <div class="w-20">
+                                                    <input type="text" class="form-control" id="invoice_coin_rate" value="<?=$product['invoice_coin_rate']?>" title="Choose your color" />
+                                                </div>
+                                                <div class="m-auto invoice_coin"><?=$product['invoice_coin']?></div>
+                                                &emsp;
+                                            </div>
+                                            <div class="flex">
+                                                <div class="w-20">
+                                                    <input type="text" class="form-control" id="main_coin_rate" value="<?=$product['main_coin_rate']?>" title="Choose your color" />
+                                                </div>
+                                                <div class="m-auto main_coin"><?=$product['main_coin']?></div>
+                                                &emsp;
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             </table>
@@ -82,9 +127,9 @@
 
                     <hr>
 
-                    <div class="row d-flex justify-content-center align-items-center border border-lime-600">
-                        <div id="section2" class="row row d-flex justify-content-center align-items-center">
-                            <div class="col-sm-3 text-center d-flex">
+                    <div class="justify-content-center align-items-center border border-lime-600">
+                        <div id="section2" class="row d-flex justify-content-center align-items-center">
+                            <div class="col-md-3 text-center d-flex">
                                 <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                     <tr>
                                         <td style="border : 1px solid black"><label class="my-2"> Description: </label></td>
@@ -142,7 +187,7 @@
                                 </table>
                             </div>
 
-                            <div class="col-sm-3 text-center">
+                            <div class="col-md-3 text-center">
                                 <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                     <tr>
                                         <td style="border : 1px solid black"><label class="my-2">Code EAN:</label></td>
@@ -184,7 +229,7 @@
                                 </table>
                             </div>
 
-                            <div class="col-sm-3 text-center">
+                            <div class="col-md-3 text-center">
                                 <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                     <tr>
                                         <td style="border : 1px solid black"><label class="my-2">Unit: </label></td>
@@ -216,7 +261,7 @@
                                 </table>
                             </div>
 
-                            <div class="col-sm-3 text-center">
+                            <div class="col-md-3 text-center">
                                 <table class="table my-2" style="border: 1px solid gray; text-align: left">
                                     <tr>
                                         <td style="border: 1px solid black"><label class="my-2">Mark Up%: </label></td>
@@ -237,7 +282,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div id="section3" class="row row d-flex justify-content-center align-items-center m-2">
+                        <div id="section3" class="row d-flex justify-content-center align-items-center m-2">
                             <div class="flex justify-end gap-3">
                                 <button class="btn btn-primary" onclick="SaveItem()">Save Item</button>
                                 <button class="btn btn-default" onclick="ClearItem()">Clear Item</button>
@@ -247,7 +292,7 @@
 
                     <hr>
 
-                    <div class="row d-flex justify-content-center align-items-center border border-lime-600">
+                    <div class="row d-flex align-items-center overflow-x-auto select-none">
                         <?php
                             $total_first=0;$total_second=0;$total_third=0;$total_seventh=0;$total_eighth=0;$total_ninth=0;
                         ?>

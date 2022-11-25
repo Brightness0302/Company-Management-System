@@ -172,17 +172,20 @@ class Material extends CI_Controller
         $observation = $this->input->post('observation');
         $invoice_date = $this->input->post('invoice_date');
         $invoice_number = $this->input->post('invoice_number');
+        $main_coin = $this->input->post('main_coin');
         $invoice_coin = $this->input->post('invoice_coin');
+        $invoice_coin_rate = $this->input->post('invoice_coin_rate');
+        $main_coin_rate = $this->input->post('main_coin_rate');
         $lines = $this->input->post('lines');
 
         if (!isset($_GET['id'])) {
-            $productid = $this->supplier->createProduct($companyid, $supplierid, $observation, $lines, $invoice_date, $invoice_number, $invoice_coin);
+            $productid = $this->supplier->createProduct($companyid, $supplierid, $observation, $lines, $invoice_date, $invoice_number, $main_coin, $invoice_coin, $invoice_coin_rate, $main_coin_rate);
             echo $productid;
             return;
         }
 
         $id = $_GET['id'];
-        $result = $this->supplier->saveProduct($companyid, $id, $supplierid, $observation, $lines, $invoice_date, $invoice_number, $invoice_coin);
+        $result = $this->supplier->saveProduct($companyid, $id, $supplierid, $observation, $lines, $invoice_date, $invoice_number, $main_coin, $invoice_coin, $invoice_coin_rate, $main_coin_rate);
         echo $result;
     }
     //If usersession is not exist, goto login page.

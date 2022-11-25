@@ -386,7 +386,7 @@ class Supplier_model extends CI_Model {
         return $res;
     }
 
-    public function createProduct($companyid, $supplierid, $observation, $lines, $invoice_date, $invoice_number, $invoice_coin) {
+    public function createProduct($companyid, $supplierid, $observation, $lines, $invoice_date, $invoice_number, $main_coin, $invoice_coin, $invoice_coin_rate, $main_coin_rate) {
         $this->db->query('use database'.$companyid);
 
         $data = array(
@@ -394,7 +394,10 @@ class Supplier_model extends CI_Model {
             'observation'=>$observation, 
             'invoice_date'=>$invoice_date, 
             'invoice_number'=>$invoice_number, 
+            'main_coin'=>$main_coin, 
             'invoice_coin'=>$invoice_coin, 
+            'invoice_coin_rate'=>$invoice_coin_rate, 
+            'main_coin_rate'=>$main_coin_rate, 
             'lines'=>$lines, 
         );
 
@@ -404,7 +407,7 @@ class Supplier_model extends CI_Model {
         return $product_id;
     }
 
-    public function saveProduct($companyid, $id, $supplierid, $observation, $lines, $invoice_date, $invoice_number, $invoice_coin) {
+    public function saveProduct($companyid, $id, $supplierid, $observation, $lines, $invoice_date, $invoice_number, $main_coin, $invoice_coin, $invoice_coin_rate, $main_coin_rate) {
         $this->db->query('use database'.$companyid);
 
         $data = array(
@@ -412,7 +415,10 @@ class Supplier_model extends CI_Model {
             'observation'=>$observation, 
             'invoice_date'=>$invoice_date, 
             'invoice_number'=>$invoice_number, 
+            'main_coin'=>$main_coin, 
             'invoice_coin'=>$invoice_coin, 
+            'invoice_coin_rate'=>$invoice_coin_rate, 
+            'main_coin_rate'=>$main_coin_rate, 
             'lines'=>$lines, 
         );
 

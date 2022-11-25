@@ -8,6 +8,20 @@ $(document).ready(function() {
             refreshSellingMarkforline();
         }
     });
+    
+    $("#main_coin").change(function() {
+        const els = $(".main_coin");
+        els.each((index, element) => {
+            $(element).text(this.value);
+        });
+    });
+    
+    $("#invoice_coin").change(function() {
+        const els = $(".invoice_coin");
+        els.each((index, element) => {
+            $(element).text(this.value);
+        });
+    });
 
     $('#file-upload').change(function() {
         var i = $(this).prev('label').clone();
@@ -17,7 +31,7 @@ $(document).ready(function() {
         $(this).prev('label').text(file);
     });
 
-    refreshCoinMarkInTable();
+    // refreshCoinMarkInTable();
 
     $('#code_ean').change(function() {
         const code_ean = this.value;
@@ -354,7 +368,10 @@ function AddProduct() {
     const observation = $("#observation").val();
     const invoice_date = $("#invoice_date").val();
     const invoice_number = $("#invoice_number").val();
+    const main_coin = $("#main_coin").val();
     const invoice_coin = $("#invoice_coin").val();
+    const invoice_coin_rate = $("#invoice_coin_rate").val();
+    const main_coin_rate = $("#main_coin_rate").val();
     let lines = [];
 
     const table = $("#table-body");
@@ -384,7 +401,10 @@ function AddProduct() {
         lines: str_lines,
         invoice_date: invoice_date,
         invoice_number: invoice_number,
-        invoice_coin: invoice_coin
+        main_coin: main_coin, 
+        invoice_coin: invoice_coin, 
+        invoice_coin_rate: invoice_coin_rate, 
+        main_coin_rate: main_coin_rate, 
     };
 
     $.ajax({
@@ -448,8 +468,11 @@ function EditProduct(product_id) {
     const observation = $("#observation").val();
     const invoice_date = $("#invoice_date").val();
     const invoice_number = $("#invoice_number").val();
-    const invoice_coin = $("#invoice_coin").val();
     const serial_number = $("#serial_number").val();
+    const main_coin = $("#main_coin").val();
+    const invoice_coin = $("#invoice_coin").val();
+    const invoice_coin_rate = $("#invoice_coin_rate").val();
+    const main_coin_rate = $("#main_coin_rate").val();
     let lines = [];
 
     const table = $("#table-body");
@@ -481,7 +504,10 @@ function EditProduct(product_id) {
         lines: str_lines,
         invoice_date: invoice_date,
         invoice_number: invoice_number,
-        invoice_coin: invoice_coin
+        main_coin: main_coin, 
+        invoice_coin: invoice_coin, 
+        invoice_coin_rate: invoice_coin_rate, 
+        main_coin_rate: main_coin_rate, 
     };
 
     $.ajax({

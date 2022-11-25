@@ -29,7 +29,12 @@ function getFirstLetters(str) {
 	return firstLetters;
 }
 $(function() {
-    const assignments = JSON.parse(`<?=json_encode($assignments)?>`);
+    const projects = JSON.parse(`<?=json_encode($projects)?>`);
+    let projects_str = "";
+    for (let j = 0; j < projects.length; j++) {
+        projects_str+='<option value="'+projects[j]['id']+'">'+projects[j]['name']+'</option>';
+    }
+    projects_str=projects_str?"<select class='w-full text-center border' id='project'>"+projects_str+"</select>":"";
     $("#invoicetable").DataTable({
         "responsive": true,
         "lengthChange": false,
@@ -93,7 +98,7 @@ $(function() {
 
     let workdetailstable = $("#invoicetable").DataTable();
 
-    $("#invoicetable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
+    $("#invoicetable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-m-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-m-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='producttable'></label></div>");
 
     $('input[type=search]').on('search', function () {
         workdetailstable.draw();
@@ -115,26 +120,15 @@ $(function() {
         var enddate = new Date($('#enddate').val());
         const oneday = 1000*60*60*24;
         const count_days = (enddate - startdate) / oneday;
-        console.log(count_days, assignments);
+        console.log(count_days, projects);
         workdetailstable.clear();
         const weeks = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         for (let i = 0; i < count_days+1; i++) {
             const currentdate = new Date(startdate);
             currentdate.setDate(currentdate.getDate() + i + 1);
-            let assingmentsforday = "";
-            for (let j = 0; j < assignments.length; j++) {
-                const startdate_assignment = new Date(assignments[j]['startdate']);
-                const enddate_assignment = new Date(startdate_assignment);
-                enddate_assignment.setDate(startdate_assignment.getDate() + assignments[j]['workingdays']);
-                if (currentdate>=startdate_assignment && currentdate <= enddate_assignment)
-                    assingmentsforday+='<option value="'+assignments[j]['id']+'">'+assignments[j]['project']['name']+'</option>';
-            }
-            if (assingmentsforday) {
-                assingmentsforday=assingmentsforday?"<select class='w-full text-center' id='project'>"+assingmentsforday+"</select>":"";
-                const detail_date = currentdate.getFullYear() + '/' + (currentdate.getMonth()+1) + '/' + currentdate.getDate();
-                const jRow = $("<tr class='"+((currentdate.getDay()==6)?"bg-orange-200":((currentdate.getDay()==0)?"bg-red-200":""))+"'>").append("<td class='text-left'>"+weeks[currentdate.getDay()] + ' ' + detail_date+"</td>", "<td>"+assingmentsforday+"</td>", "<td>"+"<textarea class='w-full border' rows='1'></textarea>"+"</td>");
-                workdetailstable.row.add(jRow).draw();
-            }
+            const detail_date = currentdate.getFullYear() + '/' + (currentdate.getMonth()+1) + '/' + currentdate.getDate();
+            const jRow = $("<tr class='"+((currentdate.getDay()==6)?"bg-orange-200":((currentdate.getDay()==0)?"bg-red-200":""))+"'>").append("<td class='text-left'>"+weeks[currentdate.getDay()] + ' ' + detail_date+"</td>", "<td>"+projects_str+"</td>", "<td>"+"<textarea class='w-full border' rows='1'></textarea>"+"</td>");
+            workdetailstable.row.add(jRow).draw();
         }
         refreshTableData();
         const tx = document.getElementsByTagName("textarea");

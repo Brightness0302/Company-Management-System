@@ -174,19 +174,21 @@ class Labor_model extends CI_Model {
         return $res;
     }
 
-    public function saveworkdetails($companyid, $table, $assignment_id, $detail_date, $details) {
+    public function saveworkdetails($companyid, $table, $employee_id, $employee_type, $project_id, $detail_date, $details) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
         // $detail_date=date("yyyy-mm-dd", strtotime($detail_date)); 
 
         $query =    "SELECT *
                     FROM `$table`
-                    WHERE `assignment_id`='$assignment_id' AND `detail_date`='$detail_date'";
+                    WHERE `employee_id`='$employee_id' AND `employee_type`='$employee_type' AND `project_id`='$project_id' AND `detail_date`='$detail_date'";
 
         $res = $this->db->query($query)->result_array();
         if (count($res)==0) {
             $data = array(
-                'assignment_id'=>$assignment_id, 
+                'employee_id'=>$employee_id, 
+                'employee_type'=>$employee_type, 
+                'project_id'=>$project_id, 
                 'detail_date'=>$detail_date, 
                 'details'=>$details, 
             );
@@ -206,14 +208,14 @@ class Labor_model extends CI_Model {
         }
     }
 
-    public function getworkdetails($companyid, $table, $assignment_id, $detail_date) {
+    public function getworkdetails($companyid, $table, $employee_id, $employee_type, $project_id, $detail_date) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
         // $detail_date=date("yyyy-mm-dd", strtotime($detail_date)); 
 
         $query =    "SELECT *
                     FROM `$table`
-                    WHERE `assignment_id`='$assignment_id' AND `detail_date`='$detail_date'";
+                    WHERE `employee_id`='$employee_id' AND `employee_type`='$employee_type' AND `project_id`='$project_id' AND `detail_date`='$detail_date'";
 
         $res = $this->db->query($query)->result_array();
         if (count($res)==0)

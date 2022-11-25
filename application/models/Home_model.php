@@ -1053,9 +1053,21 @@ class Home_model extends CI_Model {
             'type' => 'VARCHAR',
             'constraint' => 30,
           ),
+          'main_coin' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
           'invoice_coin' => array(
             'type' => 'VARCHAR',
             'constraint' => 30,
+          ),
+          'main_coin_rate' => array(
+            'type' => 'float',
+            'constraint' => 9
+          ),
+          'invoice_coin_rate' => array(
+            'type' => 'float',
+            'constraint' => 9
           ),
           'lines' => array(
             'type' => 'VARCHAR',
@@ -1555,7 +1567,15 @@ class Home_model extends CI_Model {
             'unsigned' => TRUE,
             'auto_increment' => TRUE
           ),
-          'assignment_id' => array(
+          'employee_id' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+          ),
+          'employee_type' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'project_id' => array(
             'type' => 'INT',
             'constraint' => 9,
           ),
