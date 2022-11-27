@@ -12,7 +12,7 @@
         </div><!-- End Logo -->
 
         <div class="logo-span">
-            <span class="d-none d-lg-block logo-span-text"><?=str_replace("_"," ", $company['name'])?></span>
+            <span class="d-none d-lg-block logo-span-text"><?=str_replace("_"," ", $company['name'])?> - <?=($company['Coin']=="EURO")?"€":(($company['Coin']=="USD")?"$":(($company['Coin']=="POUND")?"£":(($company['Coin']=="LEI")?"LEI":"")))?></span>
         </div>
 
         <nav class="header-nav ms-auto">

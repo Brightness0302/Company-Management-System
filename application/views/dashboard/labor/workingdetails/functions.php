@@ -53,7 +53,7 @@ $(document).ready(function() {
         const etr = $(this).closest('tr');
         const eproject = this.value;
         const edate = etr.find("td")[0];
-        const detail_date = $(edate).text().split(" ")[1];
+        const detail_date = strtodate($(edate).find("label")[1]);
         const etextarea = etr.find("textarea");
         const employee_id = "<?=$employee['id']?>";
         const employee_type = "<?=$employee['type']?>";
