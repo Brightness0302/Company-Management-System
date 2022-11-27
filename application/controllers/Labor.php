@@ -104,6 +104,7 @@ class Labor extends CI_Controller
         $company_name = $this->session->userdata('companyname');
         $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
+        $data['employee'] = $this->project->productfromsetting($companyid, 'employee_permanent');
 
         $session['menu']="Labors";
         $session['submenu']="l_pem";
