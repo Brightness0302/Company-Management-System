@@ -126,8 +126,8 @@ $(function() {
         for (let i = 0; i < count_days+1; i++) {
             const currentdate = new Date(startdate);
             currentdate.setDate(currentdate.getDate() + i + 1);
-            const detail_date = currentdate.getFullYear() + '/' + (currentdate.getMonth()+1) + '/' + currentdate.getDate();
-            const jRow = $("<tr class='"+((currentdate.getDay()==6)?"bg-orange-200":((currentdate.getDay()==0)?"bg-red-200":""))+"'>").append("<td class='text-left'>"+weeks[currentdate.getDay()] + ' ' + detail_date+"</td>", "<td>"+projects_str+"</td>", "<td>"+"<textarea class='w-full border' rows='1'></textarea>"+"</td>");
+            const detail_date = ("0" + (currentdate.getMonth()+1)).slice(-2) + '/' + ("0" + currentdate.getDate()).slice(-2) + '/' + currentdate.getFullYear();
+            const jRow = $("<tr class='"+((currentdate.getDay()==6)?"bg-orange-200":((currentdate.getDay()==0)?"bg-red-200":""))+"'>").append("<td class='text-left grid grid-cols-2 gap-4'><label>"+weeks[currentdate.getDay()] + '</label><label>' + detail_date+"</label></td>", "<td>"+projects_str+"</td>", "<td>"+"<textarea class='w-full border' rows='1'></textarea>"+"</td>");
             workdetailstable.row.add(jRow).draw();
         }
         refreshTableData();

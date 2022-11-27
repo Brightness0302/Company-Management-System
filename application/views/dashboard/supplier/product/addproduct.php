@@ -5,7 +5,7 @@
                     class="backbutton w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-2xl"
                     title="Add New Client">&#8249;</button></a>
         </div>
-        <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
+        <div class="position-relative m-3" data-aos="fade-up" data-aos-delay="100">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-9 text-center">
                     <h1>Supplier Invoice registration</h1>
@@ -101,14 +101,14 @@
                                         <div class="grid grid-cols-2">
                                             <div class="flex">
                                                 <div class="w-20">
-                                                    <input type="text" class="form-control" id="invoice_coin_rate" value="" title="Choose your color" />
+                                                    <input type="text" class="form-control" id="invoice_coin_rate" value="1" title="Choose your color" />
                                                 </div>
                                                 <div class="m-auto invoice_coin">€</div>
                                                 &emsp;
                                             </div>
                                             <div class="flex">
                                                 <div class="w-20">
-                                                    <input type="text" class="form-control" id="main_coin_rate" value="" title="Choose your color" />
+                                                    <input type="text" class="form-control" id="main_coin_rate" value="1" title="Choose your color" />
                                                 </div>
                                                 <div class="m-auto main_coin">€</div>
                                                 &emsp;
@@ -179,7 +179,6 @@
                                     </tr>
                                 </table>
                             </div>
-
                             <div class="col-md-3 text-center">
                                 <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                     <tr>
@@ -189,7 +188,7 @@
                                                 <input type="text" class="form-control" id="code_ean" list="stock_lines" name="browser" title="Choose your color">
                                                 <datalist id="stock_lines">
                                                     <?php foreach($totallines as $line):?>
-                                                    <option value="<?=$line['code_ean']?>">
+                                                    <option value="<?=$line['code_ean'].' - '.$line['id']?>"></option>
                                                     <?php endforeach;?>
                                                 </datalist>
                                             </div>
@@ -204,13 +203,29 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="border : 1px solid black"><label class="my-2 text-xs">Acq unit price:</label></td>
+                                        <td style="border : 1px solid black"><label class="my-2 text-xs">Acq invoice price:</label></td>
                                         <td>
-                                            <div class="m-auto">
-                                                <input type="number" class="form-control " id="acquisition_unit_price" value="0" title="Choose your color">
+                                            <div class="flex">
+                                                <input type="number" class="form-control " id="acq_invoice_price" value="0" title="Choose your color">
+                                                &emsp;
+                                                <div class="m-auto invoice_coin">€</div>
                                             </div>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td style="border : 1px solid black"><label class="my-2 text-xs">Acq unit price:</label></td>
+                                        <td>
+                                            <div class="flex">
+                                                <input type="number" class="form-control " id="acquisition_unit_price" value="0" title="Choose your color" disabled>
+                                                &emsp;
+                                                <div class="m-auto main_coin">€</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <table class="table my-2" style="border : 1px solid gray; text-align: left;">
                                     <tr>
                                         <td style="border : 1px solid black"><label class="my-2">VAT %:</label></td>
                                         <td>
@@ -219,11 +234,6 @@
                                             </div>  
                                         </td>
                                     </tr>
-                                </table>
-                            </div>
-
-                            <div class="col-md-3 text-center">
-                                <table class="table my-2" style="border : 1px solid gray; text-align: left;">
                                     <tr>
                                         <td style="border : 1px solid black"><label class="my-2">Unit: </label></td>
                                         <td>
@@ -239,7 +249,7 @@
                                         <td style="border : 1px solid black"><label class="my-2">Qty on doc: </label></td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="number" class="form-control " id="quantity_on_document" value="" title="Choose your color">
+                                                <input type="number" class="form-control " id="quantity_on_document" value="0" title="Choose your color">
                                             </div>
                                         </td>
                                     </tr>
@@ -247,13 +257,12 @@
                                         <td style="border : 1px solid black"><label class="my-2">Qty received:</label></td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="number" class="form-control " id="quantity_received" value="" title="Choose your color">
+                                                <input type="number" class="form-control " id="quantity_received" value="0" title="Choose your color">
                                             </div>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
-
                             <div class="col-md-3 text-center">
                                 <table class="table my-2" style="border: 1px solid gray; text-align: left">
                                     <tr>
@@ -287,7 +296,7 @@
                     </div>
                     <hr>
                     <div class="row overflow-x-auto select-none">
-                        <table class="table table-bordered table-hover text-center text-xs">
+                        <table class="table table-bordered table-hover text-center text-xxs">
                             <thead>
                                 <tr>
                                     <th>Code EAN</th>
@@ -299,6 +308,7 @@
                                     <th>Serial Number</th>
                                     <th>Qty on doc</th>
                                     <th>Qty received</th>
+                                    <th>Acq invoice price</th>
                                     <th>Acq unit price Ex VAT</th>
                                     <th>VAT: Acq/unit</th>
                                     <th>Acq unit price with VAT</th>
@@ -321,7 +331,7 @@
                 </div>
             </div>
         </div>
-        <table id="total-table" class="table table-bordered table-hover relative text-center text-xs" data-aos="fade-up" data-aos-delay="100">
+        <table id="total-table" class="table table-bordered table-hover relative text-center text-xxs" data-aos="fade-up" data-aos-delay="100">
             <thead>
                 <tr>
                     <th></th>
@@ -351,7 +361,7 @@
                 </tr>
             </tbody>
         </table>
-        <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
+        <div class="position-relative m-3" data-aos="fade-up" data-aos-delay="100">
             <div class="text-center">
                 <div class="absolute">
                     <label for="file-upload" id="file-text" class="btn btn-outline-secondary" style="color: red; margin: auto;">

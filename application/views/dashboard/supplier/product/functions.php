@@ -7,8 +7,17 @@ $(document).ready(function() {
         if (id == "acquisition_unit_price" || id == "mark_up_percent") {
             refreshSellingMarkforline();
         }
+        if (id == "acq_invoice_price") {
+            refreshACQInvoiceprice();
+        }
+        else if (id == "acquisition_unit_price") {
+            refreshACQprice();
+        }
+        else if (id == "invoice_coin_rate" || id == "main_coin_rate") {
+            refreshACQInvoiceprice();
+        }
     });
-    
+
     $("#main_coin").change(function() {
         const els = $(".main_coin");
         els.each((index, element) => {
@@ -34,9 +43,10 @@ $(document).ready(function() {
     // refreshCoinMarkInTable();
 
     $('#code_ean').change(function() {
-        const code_ean = this.value;
+        const code_ean = this.value.split(" - ")[0];
+        const code_ean_id = this.value.split(" - ")[1];
         $.ajax({
-            url: "<?=base_url("material/linebycodeean/")?>" + code_ean,
+            url: "<?=base_url("material/linebycodeean/")?>" + code_ean_id,
             method: "POST",
             dataType: 'json',
             success: function(res) {
@@ -49,21 +59,17 @@ $(document).ready(function() {
                 const production_description = $("#production_description");
                 const expenseid = $("#expenseid");
                 const code_ean = $("#code_ean");
+                const serial_number = $("#serial_number");
                 const unit = $("#unit");
-                const acquisition_unit_price = $("#acquisition_unit_price");
                 const vat_percent = $("#vat_percent");
-                const quantity_on_document = $("#quantity_on_document");
-                const quantity_received = $("#quantity_received");
                 const mark_up_percent = $("#mark_up_percent");
 
                 production_description.val(line['production_description']);
                 expenseid.val(line['expenseid']);
-                quantity_on_document.val("0");
-                quantity_received.val("0");
                 expenseid.trigger('change');
                 unit.val(line['units']);
                 unit.trigger('change');
-                acquisition_unit_price.val(line['acquisition_unit_price']);
+                serial_number.val(line['serial_number']);
                 vat_percent.val(line['vat']);
                 mark_up_percent.val(line['makeup']);
 
@@ -75,6 +81,26 @@ $(document).ready(function() {
         });
     });
 });
+
+function refreshACQInvoiceprice() {
+    const ACQInvoiceprice = parseFloat($("#acq_invoice_price").val());
+    const invoice_coin_rate = parseFloat($("#invoice_coin_rate").val());
+    const main_coin_rate = parseFloat($("#main_coin_rate").val());
+    if (!isNaN(invoice_coin_rate)==""||!isNaN(main_coin_rate)=="")
+        return;
+    $("#acquisition_unit_price").val((ACQInvoiceprice/invoice_coin_rate*main_coin_rate).toFixed(2));
+    refreshSellingMarkforline();
+}
+
+function refreshACQprice() {
+    const ACQMainprice = parseFloat($("#acquisition_unit_price").val());
+    const invoice_coin_rate = parseFloat($("#invoice_coin_rate").val());
+    const main_coin_rate = parseFloat($("#main_coin_rate").val());
+    if (!isNaN(invoice_coin_rate)==""||!isNaN(main_coin_rate)=="")
+        return;
+    $("#acq_invoice_price").val((ACQMainprice/main_coin_rate*invoice_coin_rate).toFixed(2));
+    refreshSellingMarkforline();
+}
 
 function refreshSellingMarkforline() {
     const acquisition_unit_price = $("#acquisition_unit_price").val();
@@ -109,12 +135,12 @@ function refreshTotalMark() {
     table.children("tr").each((index, element) => {
         const etr = $(element).find("td");
 
-        total_first.text((parseFloat(total_first.text()) + parseFloat($(etr[11]).text())).toFixed(2));
-        total_second.text((parseFloat(total_second.text()) + parseFloat($(etr[12]).text())).toFixed(2));
-        total_third.text((parseFloat(total_third.text()) + parseFloat($(etr[13]).text())).toFixed(2));
-        total_seventh.text(((parseFloat(total_seventh.text()) + parseFloat($(etr[17]).text()))).toFixed(2));
-        total_eighth.text(((parseFloat(total_eighth.text()) + parseFloat($(etr[18]).text()))).toFixed(2));
-        total_ninth.text(((parseFloat(total_ninth.text()) + parseFloat($(etr[19]).text()))).toFixed(2));
+        total_first.text((parseFloat(total_first.text()) + parseFloat($(etr[12]).text())).toFixed(2));
+        total_second.text((parseFloat(total_second.text()) + parseFloat($(etr[13]).text())).toFixed(2));
+        total_third.text((parseFloat(total_third.text()) + parseFloat($(etr[14]).text())).toFixed(2));
+        total_seventh.text(((parseFloat(total_seventh.text()) + parseFloat($(etr[18]).text()))).toFixed(2));
+        total_eighth.text(((parseFloat(total_eighth.text()) + parseFloat($(etr[19]).text()))).toFixed(2));
+        total_ninth.text(((parseFloat(total_ninth.text()) + parseFloat($(etr[20]).text()))).toFixed(2));
     });
 }
 
@@ -129,10 +155,14 @@ function SaveItem() {
     const stockname = select.options[select.selectedIndex].text;
     const expensename = select_expense.options[select_expense.selectedIndex].text;
     const projectname = select_project.options[select_project.selectedIndex].text;
-    const code_ean = $("#code_ean").val();
+    const code_ean = $("#code_ean").val().split(" - ")[0];
+    const code_ean_id = $("#code_ean").val().split(" - ")[1];
     const unit = $("#unit").val();
     const serial_number = $("#serial_number").val();
-    const acquisition_unit_price = $("#acquisition_unit_price").val();
+    const invoice_coin_rate = parseFloat($("#invoice_coin_rate").val());
+    const main_coin_rate = parseFloat($("#main_coin_rate").val());
+    const acq_invoice_price = $("#acq_invoice_price").val();
+    const acquisition_unit_price = parseFloat(acq_invoice_price/invoice_coin_rate*main_coin_rate).toFixed(2);
     const vat_percent = $("#vat_percent").val();
     const quantity_on_document = $("#quantity_on_document").val();
     const quantity_received = $("#quantity_received").val();
@@ -140,7 +170,7 @@ function SaveItem() {
 
     if (stockid != 0) {
         $.ajax({
-            url: "<?=base_url("material/linebycodeean/")?>" + code_ean,
+            url: "<?=base_url("material/linebycodeean/")?>" + code_ean_id,
             method: "POST",
             dataType: 'json',
             success: function(res) {
@@ -161,6 +191,7 @@ function SaveItem() {
                     "<td>"+serial_number+"</td>"+
                     "<td>"+quantity_on_document+"</td>"+
                     "<td>"+quantity_received+"</td>"+
+                    "<td>"+acq_invoice_price+"</td>"+
                     "<td>"+acquisition_unit_price+"</td>"+
                     "<td>"+(acquisition_unit_price*vat_percent/100.0).toFixed(2)+"</td>"+
                     "<td>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
@@ -179,6 +210,7 @@ function SaveItem() {
                     "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr(this)'>" + "<i class='bi custom-edit-icon p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi custom-remove-icon p-1' title='Delete'></i>" + "</div>" + "</td>" +
                     "<td hidden>0</td>"+
                     "<td hidden>"+lineid+"</td>"+
+                    "<td hidden>"+code_ean_id+"</td>"+
                     "</tr>"
                 );
 
@@ -202,6 +234,7 @@ function SaveItem() {
             "<td>"+serial_number+"</td>"+
             "<td>"+quantity_on_document+"</td>"+
             "<td>"+quantity_received+"</td>"+
+            "<td>"+acq_invoice_price+"</td>"+
             "<td>"+acquisition_unit_price+"</td>"+
             "<td>"+(acquisition_unit_price*vat_percent/100.0).toFixed(2)+"</td>"+
             "<td>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</td>"+
@@ -219,7 +252,8 @@ function SaveItem() {
             "<td hidden>"+projectid+"</td>"+
             "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr(this)'>" + "<i class='bi custom-edit-icon p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi custom-remove-icon p-1' title='Delete'></i>" + "</div>" + "</td>" +
             "<td hidden>0</td>"+
-            "<td hidden>"+0+"</td>"+
+            "<td hidden>0</td>"+
+            "<td hidden>"+code_ean_id+"</td>"+
             "</tr>"
         );
 
@@ -244,30 +278,34 @@ function edit_tr(el) {
     const code_ean = $("#code_ean");
     const unit = $("#unit");
     const serial_number = $("#serial_number");
+    const acq_invoice_price = $("#acq_invoice_price");
     const acquisition_unit_price = $("#acquisition_unit_price");
     const vat_percent = $("#vat_percent");
     const quantity_on_document = $("#quantity_on_document");
     const quantity_received = $("#quantity_received");
     const mark_up_percent = $("#mark_up_percent");
 
-    production_description.val($(etd[4]).text());
-    stockid.val($(etd[21]).text());
+    // production_description.val($(etd[4]).text());
+    stockid.val($(etd[22]).text());
     stockid.trigger('change');
-    expenseid.val($(etd[22]).text());
+    expenseid.val($(etd[23]).text());
     expenseid.trigger('change');
-    projectid.val($(etd[23]).text());
+    projectid.val($(etd[24]).text());
     projectid.trigger('change');
-    code_ean.val($(etd[0]).text());
+    code_ean.val($(etd[0]).text()+' - '+$(etd[28]).text());
+    code_ean.trigger('change');
     unit.val($(etd[5]).text());
     unit.trigger('change');
     serial_number.val($(etd[6]).text());
-    acquisition_unit_price.val($(etd[9]).text());
-    vat_percent.val(parseFloat($(etd[10]).text())*100.0/parseFloat($(etd[9]).text()));
+    acq_invoice_price.val($(etd[9]).text());
+    acq_invoice_price.trigger('change');
+    vat_percent.val(parseFloat($(etd[11]).text())*100.0/parseFloat($(etd[10]).text()));
     quantity_on_document.val($(etd[7]).text());
     quantity_received.val($(etd[8]).text());
-    mark_up_percent.val(((parseFloat($(etd[15]).text())*100.0/parseFloat($(etd[9]).text()))-100.0).toFixed(2));
+    mark_up_percent.val(((parseFloat($(etd[16]).text())*100.0/parseFloat($(etd[10]).text()))-100.0).toFixed(2));
+    mark_up_percent.trigger('change');
 
-    $(etd[24]).html("<div id='btn_save_row' onclick='save_tr(this)'><i class='bi bi-save-fill p-1' title='Save'></i></div><div id='btn_cancel_row' onclick='cancel_tr(this)'><i class='bi bi-shield-x p-1' title='Cancel'></i></div>");
+    $(etd[25]).html("<div id='btn_save_row' onclick='save_tr(this)'><i class='bi bi-save-fill p-1' title='Save'></i></div><div id='btn_cancel_row' onclick='cancel_tr(this)'><i class='bi bi-shield-x p-1' title='Cancel'></i></div>");
 
     refreshSellingMarkforline();
 }
@@ -286,10 +324,14 @@ function save_tr(el) {
     const stockname = select.options[select.selectedIndex].text;
     const expensename = select_expense.options[select_expense.selectedIndex].text;
     const projectname = select_project.options[select_project.selectedIndex].text;
-    const code_ean = $("#code_ean").val();
+    const code_ean = $("#code_ean").val().split(" - ")[0];
+    const code_ean_id = $("#code_ean").val().split(" - ")[1];
     const unit = $("#unit").val();
     const serial_number = $("#serial_number").val();
-    const acquisition_unit_price = $("#acquisition_unit_price").val();
+    const invoice_coin_rate = parseFloat($("#invoice_coin_rate").val());
+    const main_coin_rate = parseFloat($("#main_coin_rate").val());
+    const acq_invoice_price = $("#acq_invoice_price").val();
+    const acquisition_unit_price = parseFloat(acq_invoice_price/invoice_coin_rate*main_coin_rate).toFixed(2);
     const vat_percent = $("#vat_percent").val();
     const quantity_on_document = $("#quantity_on_document").val();
     const quantity_received = $("#quantity_received").val();
@@ -322,22 +364,24 @@ function save_tr(el) {
     $(etd[6]).text(serial_number);
     $(etd[7]).text(quantity_on_document);
     $(etd[8]).text(quantity_received);
-    $(etd[9]).text(acquisition_unit_price);
-    $(etd[10]).text((acquisition_unit_price*vat_percent/100.0));
-    $(etd[11]).text((acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2));
-    $(etd[12]).text((acquisition_unit_price*quantity_on_document).toFixed(2));
-    $(etd[13]).text(((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2));
-    $(etd[14]).text(((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2));
-    $(etd[15]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2));
-    $(etd[16]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2));
-    $(etd[17]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2));
-    $(etd[18]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document/100.0).toFixed(2));
-    $(etd[19]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*vat_percent/100.0/100.0).toFixed(2));
-    $(etd[20]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2));
-    $(etd[21]).text(stockid);
-    $(etd[22]).text(expenseid);
-    $(etd[23]).text(projectid);
-    $(etd[24]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div>");
+    $(etd[9]).text(acq_invoice_price);
+    $(etd[10]).text(acquisition_unit_price);
+    $(etd[11]).text((acquisition_unit_price*vat_percent/100.0).toFixed(2));
+    $(etd[12]).text((acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2));
+    $(etd[13]).text((acquisition_unit_price*quantity_on_document).toFixed(2));
+    $(etd[14]).text(((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2));
+    $(etd[15]).text(((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2));
+    $(etd[16]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2));
+    $(etd[17]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2));
+    $(etd[18]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2));
+    $(etd[19]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document/100.0).toFixed(2));
+    $(etd[20]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*vat_percent/100.0/100.0).toFixed(2));
+    $(etd[21]).text((acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2));
+    $(etd[22]).text(stockid);
+    $(etd[23]).text(expenseid);
+    $(etd[24]).text(projectid);
+    $(etd[25]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div>");
+    $(etd[28]).text(code_ean_id);
 
     ClearItem();
     refreshTotalMark();
@@ -347,7 +391,7 @@ function cancel_tr(el) {
     const etr = $(el).closest('tr');
     const etd = $(etr).find("td");
 
-    $(etd[24]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div>");
+    $(etd[25]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div>");
     ClearItem();
 }
 
@@ -356,6 +400,7 @@ function ClearItem() {
     $("#code_ean").val("");
     $("#serial_number").val("");
     $("#acquisition_unit_price").val("0");
+    $("#acq_invoice_price").val("0");
     $("#vat_percent").val("0");
     $("#quantity_on_document").val("0");
     $("#quantity_received").val("0");
@@ -379,18 +424,20 @@ function AddProduct() {
         const etr = $(element).find("td");
         lines.push({
             code_ean:$(etr[0]).text(),
-            stockid:$(etr[21]).text(),
-            expenseid:$(etr[22]).text(),
-            projectid:$(etr[23]).text(),
+            stockid:$(etr[22]).text(),
+            expenseid:$(etr[23]).text(),
+            projectid:$(etr[24]).text(),
             production_description:$(etr[4]).text(),
             units:$(etr[5]).text(),
             serial_number:$(etr[6]).text(),
             quantity_on_document:$(etr[7]).text(),
             quantity_received:$(etr[8]).text(),
-            acquisition_unit_price:$(etr[9]).text(),
-            vat: parseFloat($(etr[10]).text())*100.0/parseFloat($(etr[9]).text()), 
-            makeup: ((parseFloat($(etr[15]).text())*100.0/parseFloat($(etr[9]).text()))-100.0),
-            lineid:$(etr[26]).text()
+            acquisition_unit_price_on_invoice:$(etr[9]).text(),
+            acquisition_unit_price:$(etr[10]).text(),
+            vat: parseFloat($(etr[11]).text())*100.0/parseFloat($(etr[10]).text()), 
+            makeup: ((parseFloat($(etr[16]).text())*100.0/parseFloat($(etr[10]).text()))-100.0),
+            lineid:$(etr[27]).text(),
+            code_ean_id:$(etr[28]).text(),
         });
     });
     const str_lines = JSON.stringify(lines);
@@ -398,13 +445,13 @@ function AddProduct() {
     const form_data = {
         supplierid: supplierid,
         observation: observation,
-        lines: str_lines,
         invoice_date: invoice_date,
         invoice_number: invoice_number,
         main_coin: main_coin, 
         invoice_coin: invoice_coin, 
         invoice_coin_rate: invoice_coin_rate, 
         main_coin_rate: main_coin_rate, 
+        lines: str_lines,
     };
 
     $.ajax({
@@ -479,24 +526,25 @@ function EditProduct(product_id) {
     table.children("tr").each((index, element) => {
         const etr = $(element).find("td");
         lines.push({
-            id:$(etr[25]).text(),
+            id:$(etr[26]).text(),
             code_ean:$(etr[0]).text(),
-            stockid:$(etr[21]).text(),
-            expenseid:$(etr[25]).text(),
-            projectid:$(etr[23]).text(),
+            stockid:$(etr[22]).text(),
+            expenseid:$(etr[26]).text(),
+            projectid:$(etr[24]).text(),
             production_description:$(etr[4]).text(),
             units:$(etr[5]).text(),
             serial_number:$(etr[6]).text(),
             quantity_on_document:$(etr[7]).text(),
             quantity_received:$(etr[8]).text(),
-            acquisition_unit_price:$(etr[9]).text(),
-            vat: parseFloat($(etr[10]).text())*100.0/parseFloat($(etr[9]).text()), 
-            makeup: ((parseFloat($(etr[15]).text())*100.0/parseFloat($(etr[9]).text()))-100.0),
-            lineid:$(etr[26]).text()
+            acquisition_unit_price_on_invoice:$(etr[9]).text(),
+            acquisition_unit_price:$(etr[10]).text(),
+            vat: parseFloat($(etr[11]).text())*100.0/parseFloat($(etr[10]).text()), 
+            makeup: ((parseFloat($(etr[16]).text())*100.0/parseFloat($(etr[10]).text()))-100.0),
+            lineid:$(etr[27]).text(),
+            code_ean_id:$(etr[28]).text(),
         });
     });
     const str_lines = JSON.stringify(lines);
-    console.log(str_lines);
 
     const form_data = {
         supplierid: supplierid,

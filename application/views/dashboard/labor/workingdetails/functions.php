@@ -24,7 +24,7 @@ $(document).ready(function() {
         const employee_type = "<?=$employee['type']?>";
         if (!eproject.length)
             return;
-        const detail_date = $(edate).text().split(" ")[1];
+        const detail_date = strtodate($(edate).find("label")[1]);
         const form_data = {
             employee_id: employee_id, 
             employee_type: employee_type, 
@@ -69,6 +69,12 @@ $(document).ready(function() {
     })
     
 });
+
+function strtodate(detail_date_str_ISO) {
+    const detail_date_str_list = ($(detail_date_str_ISO).text()).split("/");
+    const detail_date = detail_date_str_list[2]+'/'+detail_date_str_list[0]+'/'+detail_date_str_list[1];
+    return detail_date;
+}
 function refreshTableData() {
     const etable = $("#invoicetable tbody");
     const employee_id = "<?=$employee['id']?>";
@@ -78,14 +84,13 @@ function refreshTableData() {
             const etr = $(element).find("td");
             const etextarea = $(etr[2]).find("textarea");
             const eselect = $(etr[1]).find("select");
-            const detail_date = $(etr[0]).text().split(" ")[1];
+            const detail_date = strtodate($(etr[0]).find("label")[1]);
             const form_data = {
                 employee_id: employee_id, 
                 employee_type: employee_type, 
                 project_id: eselect[0].value, 
                 detail_date: detail_date,
             };
-            // console.log(form_data);
             const details = await getData(form_data);
             $(etextarea[0]).val(details);
             etextarea[0].dispatchEvent(new Event('input', {bubbles:true}));

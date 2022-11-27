@@ -194,7 +194,7 @@
                                                 <input type="text" class="form-control" id="code_ean" list="stock_lines" name="browser" title="Choose your color">
                                                 <datalist id="stock_lines">
                                                     <?php foreach($totallines as $line):?>
-                                                    <option value="<?=$line['code_ean']?>">
+                                                    <option value="<?=$line['code_ean'].' - '.$line['id']?>">
                                                     <?php endforeach;?>
                                                 </datalist>
                                             </div>
@@ -209,13 +209,30 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="border : 1px solid black"><label class="my-2 text-xs">Acq unit price:</label></td>
+                                        <td style="border : 1px solid black"><label class="my-2 text-xs">Acq invoice price:</label></td>
                                         <td>
-                                            <div class="m-auto">
-                                                <input type="number" class="form-control " id="acquisition_unit_price" value="0" title="Choose your color">
+                                            <div class="flex">
+                                                <input type="number" class="form-control " id="acq_invoice_price" value="0" title="Choose your color">
+                                                &emsp;
+                                                <div class="m-auto invoice_coin">€</div>
                                             </div>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td style="border : 1px solid black"><label class="my-2 text-xs">Acq unit price:</label></td>
+                                        <td>
+                                            <div class="flex">
+                                                <input type="number" class="form-control " id="acquisition_unit_price" value="0" title="Choose your color">
+                                                &emsp;
+                                                <div class="m-auto main_coin">€</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="col-md-3 text-center">
+                                <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                     <tr>
                                         <td style="border : 1px solid black"><label class="my-2">VAT %:</label></td>
                                         <td>
@@ -224,11 +241,6 @@
                                             </div>  
                                         </td>
                                     </tr>
-                                </table>
-                            </div>
-
-                            <div class="col-md-3 text-center">
-                                <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                     <tr>
                                         <td style="border : 1px solid black"><label class="my-2">Unit: </label></td>
                                         <td>
@@ -304,6 +316,7 @@
                                     <th>Serial Number</th>
                                     <th>Qty on doc</th>
                                     <th>Qty received</th>
+                                    <th>Acq invoice price</th>
                                     <th>Acq unit price Ex VAT</th>
                                     <th>VAT: Acq/unit</th>
                                     <th>Acq unit price with VAT</th>
@@ -373,6 +386,7 @@
                                     <td><?=$line['serial_number']?></td>
                                     <td><?=$line['quantity_on_document']?></td>
                                     <td><?=$line['quantity_received']?></td>
+                                    <td><?=$line['acquisition_unit_price_on_invoice']?></td>
                                     <td><?=$line['acquisition_unit_price']?></td>
                                     <td><?=$line['acquisition_vat_value']?></td>
                                     <td><?=$line['acquisition_unit_price_with_vat']?></td>
@@ -394,6 +408,7 @@
                                     </td>
                                     <td hidden><?=$line['id']?></td>
                                     <td hidden><?=$line['lineid']?></td>
+                                    <td hidden><?=$line['code_ean_id']?></td>
                                 </tr>
                             <?php endforeach;?>
                             </tbody>

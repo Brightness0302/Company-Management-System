@@ -119,7 +119,6 @@ class Supplier_model extends CI_Model {
                         'expenseid'=>$line['expenseid'], 
                         'units'=>$line['units'], 
                         'serial_number'=>$line['serial_number'], 
-                        'acquisition_unit_price'=>$line['acquisition_unit_price'], 
                         'vat'=>$line['vat'], 
                         'makeup'=>$line['makeup'],
                         'qty'=>$qty
@@ -134,7 +133,9 @@ class Supplier_model extends CI_Model {
                     'productid'=>$product_id, 
                     'line_id'=>$tline_id, 
                     'quantity_on_document'=>$line['quantity_on_document'], 
-                    'quantity_received'=>$line['quantity_received']
+                    'quantity_received'=>$line['quantity_received'], 
+                    'acquisition_unit_price'=>$line['acquisition_unit_price'], 
+                    'acquisition_unit_price_on_invoice'=>$line['acquisition_unit_price_on_invoice'], 
                 );
                 $line_id = $this->db->insert('material_lines', $data_sql);
             }
@@ -213,7 +214,6 @@ class Supplier_model extends CI_Model {
                         'expenseid'=>$line['expenseid'], 
                         'units'=>$line['units'], 
                         'serial_number'=>$line['serial_number'], 
-                        'acquisition_unit_price'=>$line['acquisition_unit_price'], 
                         'vat'=>$line['vat'], 
                         'makeup'=>$line['makeup'], 
                         'qty'=>$qty 
@@ -228,8 +228,9 @@ class Supplier_model extends CI_Model {
                     'productid'=>$product_id, 
                     'line_id'=>$tline_id, 
                     'quantity_on_document'=>$line['quantity_on_document'], 
-                    'quantity_received'=>$line['quantity_received'],
-                    'isremoved'=>false
+                    'quantity_received'=>$line['quantity_received'], 
+                    'acquisition_unit_price'=>$line['acquisition_unit_price'], 
+                    'acquisition_unit_price_on_invoice'=>$line['acquisition_unit_price_on_invoice'], 
                 );
 
                 if ($line['id']) {
@@ -361,12 +362,12 @@ class Supplier_model extends CI_Model {
             $tline = $this->db->query($query)->result_array();
             $tline = $tline[0];
 
-            $res['acq_subtotal_without_vat'] += $tline['acquisition_unit_price'] * $line['quantity_on_document'];
-            $res['acq_subtotal_vat'] += $tline['acquisition_unit_price'] * $line['quantity_on_document'] * $tline['vat'] / 100.0;
-            $res['acq_subtotal_with_vat'] += $tline['acquisition_unit_price'] * $line['quantity_on_document'] * ($tline['vat'] + 100.0) / 100.0;
-            $res['selling_subtotal_without_vat'] += ($tline['acquisition_unit_price']*($tline['makeup']+100.0)/100.0) * $line['quantity_on_document'];
-            $res['selling_subtotal_vat'] += ($tline['acquisition_unit_price']*($tline['makeup']+100.0)/100.0) * $line['quantity_on_document'] * $tline['vat'] / 100.0;
-            $res['selling_subtotal_with_vat'] += ($tline['acquisition_unit_price']*($tline['makeup']+100.0)/100.0) * $line['quantity_on_document'] * ($tline['vat'] + 100.0) / 100.0;
+            $res['acq_subtotal_without_vat'] += $line['acquisition_unit_price'] * $line['quantity_on_document'];
+            $res['acq_subtotal_vat'] += $line['acquisition_unit_price'] * $line['quantity_on_document'] * $tline['vat'] / 100.0;
+            $res['acq_subtotal_with_vat'] += $line['acquisition_unit_price'] * $line['quantity_on_document'] * ($tline['vat'] + 100.0) / 100.0;
+            $res['selling_subtotal_without_vat'] += ($line['acquisition_unit_price']*($tline['makeup']+100.0)/100.0) * $line['quantity_on_document'];
+            $res['selling_subtotal_vat'] += ($line['acquisition_unit_price']*($tline['makeup']+100.0)/100.0) * $line['quantity_on_document'] * $tline['vat'] / 100.0;
+            $res['selling_subtotal_with_vat'] += ($line['acquisition_unit_price']*($tline['makeup']+100.0)/100.0) * $line['quantity_on_document'] * ($tline['vat'] + 100.0) / 100.0;
         }
 
         $product = $this->home->databyidfromdatabase($companyid, 'material', $product_id);
@@ -557,7 +558,7 @@ class Supplier_model extends CI_Model {
 
         $query =    "SELECT *
                     FROM `material_totalline`
-                    WHERE `code_ean`='$code_ean'";
+                    WHERE `id`='$code_ean'";
 
         $data = $this->db->query($query)->result_array();
         if (count($data) == 0) {
@@ -565,15 +566,15 @@ class Supplier_model extends CI_Model {
         }
         $data=$data[0];
 
-        $data['acquisition_vat_value'] = $this->toFixed($data['acquisition_unit_price'] * $data['vat'] / 100.0, 2);
-        $data['acquisition_unit_price_with_vat'] = $this->toFixed($data['acquisition_unit_price'] * ($data['vat'] + 100.0) / 100.0, 2);
-        $data['amount_without_vat'] = $this->toFixed($data['acquisition_unit_price'] * $data['qty'], 2);
-        $data['amount_vat_value'] = $this->toFixed($data['acquisition_unit_price'] * $data['qty'] * $data['vat'] / 100.0, 2);
-        $data['total_amount'] = $this->toFixed($data['acquisition_unit_price'] * $data['qty'] * ($data['vat'] + 100.0) / 100.0, 2);
-        $data['selling_unit_price_without_vat'] = $this->toFixed($data['acquisition_unit_price'] * ($data['makeup']+100.0) / 100.0, 2);
-        $data['selling_amount_without_vat'] = $this->toFixed(($data['acquisition_unit_price'] * ($data['makeup']+100.0) / 100.0) * $data['qty'], 2);
-        $data['selling_unit_vat_value'] = $this->toFixed($data['acquisition_unit_price'] * ($data['makeup'] + 100.0) * $data['vat'] / 100.0 / 100.0, 2);
-        $data['selling_unit_price_with_vat'] = $this->toFixed($data['acquisition_unit_price'] * ($data['makeup'] + 100.0) * ($data['vat'] + 100.0) / 100.0 / 100.0, 2);
+        // $data['acquisition_vat_value'] = $this->toFixed($data['acquisition_unit_price'] * $data['vat'] / 100.0, 2);
+        // $data['acquisition_unit_price_with_vat'] = $this->toFixed($data['acquisition_unit_price'] * ($data['vat'] + 100.0) / 100.0, 2);
+        // $data['amount_without_vat'] = $this->toFixed($data['acquisition_unit_price'] * $data['qty'], 2);
+        // $data['amount_vat_value'] = $this->toFixed($data['acquisition_unit_price'] * $data['qty'] * $data['vat'] / 100.0, 2);
+        // $data['total_amount'] = $this->toFixed($data['acquisition_unit_price'] * $data['qty'] * ($data['vat'] + 100.0) / 100.0, 2);
+        // $data['selling_unit_price_without_vat'] = $this->toFixed($data['acquisition_unit_price'] * ($data['makeup']+100.0) / 100.0, 2);
+        // $data['selling_amount_without_vat'] = $this->toFixed(($data['acquisition_unit_price'] * ($data['makeup']+100.0) / 100.0) * $data['qty'], 2);
+        // $data['selling_unit_vat_value'] = $this->toFixed($data['acquisition_unit_price'] * ($data['makeup'] + 100.0) * $data['vat'] / 100.0 / 100.0, 2);
+        // $data['selling_unit_price_with_vat'] = $this->toFixed($data['acquisition_unit_price'] * ($data['makeup'] + 100.0) * ($data['vat'] + 100.0) / 100.0 / 100.0, 2);
         return $data;
     }
 
