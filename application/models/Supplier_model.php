@@ -231,6 +231,7 @@ class Supplier_model extends CI_Model {
                     'quantity_received'=>$line['quantity_received'], 
                     'acquisition_unit_price'=>$line['acquisition_unit_price'], 
                     'acquisition_unit_price_on_invoice'=>$line['acquisition_unit_price_on_invoice'], 
+                    'isremoved'=>false,
                 );
 
                 if ($line['id']) {
@@ -321,17 +322,17 @@ class Supplier_model extends CI_Model {
             $lines[$index]['expenseid'] = $tline['expenseid'];
             $lines[$index]['units'] = $tline['units'];
             $lines[$index]['serial_number'] = $tline['serial_number'];
-            $lines[$index]['acquisition_unit_price'] = $tline['acquisition_unit_price'];
+            $lines[$index]['acquisition_unit_price'] = $line['acquisition_unit_price'];
             $lines[$index]['vat'] = $tline['vat'];
             $lines[$index]['makeup'] = $tline['makeup'];
-            $lines[$index]['acquisition_vat_value'] = $this->toFixed($tline['acquisition_unit_price'] * $tline['vat'] / 100.0, 2);
-            $lines[$index]['acquisition_unit_price_with_vat'] = $this->toFixed($tline['acquisition_unit_price'] * ($tline['vat'] + 100.0) / 100.0, 2);
-            $lines[$index]['amount_without_vat'] = $this->toFixed($tline['acquisition_unit_price'] * $line['quantity_on_document'], 2);
-            $lines[$index]['amount_vat_value'] = $this->toFixed($tline['acquisition_unit_price'] * $line['quantity_on_document'] * $tline['vat'] / 100.0, 2);
-            $lines[$index]['total_amount'] = $this->toFixed($tline['acquisition_unit_price'] * $line['quantity_on_document'] * ($tline['vat'] + 100.0) / 100.0, 2);
-            $lines[$index]['selling_unit_price_without_vat'] = $this->toFixed($tline['acquisition_unit_price'] * ($tline['makeup']+100.0) / 100.0, 2);
-            $lines[$index]['selling_unit_vat_value'] = $this->toFixed($tline['acquisition_unit_price'] * ($tline['makeup'] + 100.0) * $tline['vat'] / 100.0 / 100.0, 2);
-            $lines[$index]['selling_unit_price_with_vat'] = $this->toFixed($tline['acquisition_unit_price'] * ($tline['makeup'] + 100.0) * ($tline['vat'] + 100.0) / 100.0 / 100.0, 2);
+            $lines[$index]['acquisition_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * $tline['vat'] / 100.0, 2);
+            $lines[$index]['acquisition_unit_price_with_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($tline['vat'] + 100.0) / 100.0, 2);
+            $lines[$index]['amount_without_vat'] = $this->toFixed($line['acquisition_unit_price'] * $line['quantity_on_document'], 2);
+            $lines[$index]['amount_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * $line['quantity_on_document'] * $tline['vat'] / 100.0, 2);
+            $lines[$index]['total_amount'] = $this->toFixed($line['acquisition_unit_price'] * $line['quantity_on_document'] * ($tline['vat'] + 100.0) / 100.0, 2);
+            $lines[$index]['selling_unit_price_without_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($tline['makeup']+100.0) / 100.0, 2);
+            $lines[$index]['selling_unit_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * ($tline['makeup'] + 100.0) * $tline['vat'] / 100.0 / 100.0, 2);
+            $lines[$index]['selling_unit_price_with_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($tline['makeup'] + 100.0) * ($tline['vat'] + 100.0) / 100.0 / 100.0, 2);
         }
         return $lines;
     }
