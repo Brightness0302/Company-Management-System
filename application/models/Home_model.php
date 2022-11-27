@@ -1135,16 +1135,6 @@ class Home_model extends CI_Model {
             'constraint' => 9,
             'default' => '0',
           ),
-          'acquisition_unit_price_on_invoice' => array(
-            'type' => 'float',
-            'constraint' => 9,
-            'default' => '0',
-          ),
-          'acquisition_unit_price' => array(
-            'type' => 'float',
-            'constraint' => 9,
-            'default' => '0',
-          ),
           'isremoved' => array(
             'type' => 'TINYINT',
             'constraint' => 1,
@@ -1189,6 +1179,15 @@ class Home_model extends CI_Model {
             'default' => 'Pieces',
           ),
           'serial_number' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'acquisition_unit_price_on_invoice' => array(
+            'type' => 'float',
+            'constraint' => 9,
+            'default' => '0',
+          ),
+          'invoice_coin' => array(
             'type' => 'VARCHAR',
             'constraint' => 30,
           ),

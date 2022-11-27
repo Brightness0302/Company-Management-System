@@ -2259,3 +2259,11 @@ th {
   width: 90%;
   min-width: 1140px;
 }
+
+#section2 {
+  padding: unset;
+}
+
+.text-xxs {
+  font-size: 10px !important;
+}

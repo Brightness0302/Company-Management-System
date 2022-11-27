@@ -101,7 +101,6 @@ class Material extends CI_Controller
         $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
         $data['totallines'] = $this->home->alldatafromdatabase($companyid, 'material_totalline');
 
-        $data['lines'] = $this->supplier->alllinesbyproductidfromdatabase($companyid, 'material_lines', $product_id);
         $product = $this->home->databyidfromdatabase($companyid, 'material', $product_id);
 
         $data['attached'] = "Attached Invoice";
@@ -109,6 +108,7 @@ class Material extends CI_Controller
         if ($product['status']=="failed")
             return;
         $data['product'] = $product['data'];
+        $data['lines'] = $this->supplier->alllinesbyproductidfromdatabase($companyid, 'material_lines', $product_id, $data['product']['invoice_coin_rate'], $data['product']['main_coin_rate']);
 
         $lines = $data['product']['lines'];
         $lines = json_decode($lines, true);

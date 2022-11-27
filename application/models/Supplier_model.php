@@ -79,7 +79,7 @@ class Supplier_model extends CI_Model {
         return $res;
     }
 
-    public function createlines($companyid, $product_id, $lines) {
+    public function createlines($companyid, $product_id, $main_coin, $invoice_coin, $invoice_coin_rate, $main_coin_rate, $lines) {
         $this->db->query('use database'.$companyid);
         $lines=json_decode($lines, true);
 
@@ -90,9 +90,15 @@ class Supplier_model extends CI_Model {
                 if ($line['lineid']) {
                     $lineid = $line['lineid'];
                     $stockid = $line['stockid'];
+                    $expenseid = $line['expenseid'];
+                    $serial_number = $line['serial_number'];
+                    $units = $line['units'];
+                    $vat = $line['vat'];
+                    $makeup = $line['makeup'];
+                    $acquisition_unit_price_on_invoice = $line['acquisition_unit_price_on_invoice'];
                     $query =    "SELECT *
                                 FROM `material_totalline`
-                                WHERE `id` = '$lineid' AND `stockid` = '$stockid'";
+                                WHERE `id` = '$lineid' AND `stockid` = '$stockid' AND `expenseid` = '$expenseid' AND `serial_number` = '$serial_number' AND `units` = '$units' AND `vat` = '$vat' AND `makeup` = '$makeup' AND `invoice_coin` = '$invoice_coin' AND `acquisition_unit_price_on_invoice` = '$acquisition_unit_price_on_invoice'";
 
                     $data = $this->db->query($query)->result_array();
 
@@ -121,6 +127,8 @@ class Supplier_model extends CI_Model {
                         'serial_number'=>$line['serial_number'], 
                         'vat'=>$line['vat'], 
                         'makeup'=>$line['makeup'],
+                        'acquisition_unit_price_on_invoice'=>$line['acquisition_unit_price_on_invoice'], 
+                        'invoice_coin'=>$invoice_coin, 
                         'qty'=>$qty
                     );
                     $this->db->insert('material_totalline', $data_sql);
@@ -134,15 +142,13 @@ class Supplier_model extends CI_Model {
                     'line_id'=>$tline_id, 
                     'quantity_on_document'=>$line['quantity_on_document'], 
                     'quantity_received'=>$line['quantity_received'], 
-                    'acquisition_unit_price'=>$line['acquisition_unit_price'], 
-                    'acquisition_unit_price_on_invoice'=>$line['acquisition_unit_price_on_invoice'], 
                 );
                 $line_id = $this->db->insert('material_lines', $data_sql);
             }
         }
     }
 
-    public function savelines($companyid, $product_id, $lines) {
+    public function savelines($companyid, $product_id, $main_coin, $invoice_coin, $invoice_coin_rate, $main_coin_rate, $lines) {
         $this->db->query('use database'.$companyid);
         $lines=json_decode($lines, true);
 
@@ -185,9 +191,15 @@ class Supplier_model extends CI_Model {
                 if ($line['lineid']) {
                     $lineid = $line['lineid'];
                     $stockid = $line['stockid'];
+                    $expenseid = $line['expenseid'];
+                    $serial_number = $line['serial_number'];
+                    $units = $line['units'];
+                    $vat = $line['vat'];
+                    $makeup = $line['makeup'];
+                    $acquisition_unit_price_on_invoice = $line['acquisition_unit_price_on_invoice'];
                     $query =    "SELECT *
                                 FROM `material_totalline`
-                                WHERE `id` = '$lineid' AND `stockid` = '$stockid'";
+                                WHERE `id` = '$lineid' AND `stockid` = '$stockid' AND `expenseid` = '$expenseid' AND `serial_number` = '$serial_number' AND `units` = '$units' AND `vat` = '$vat' AND `makeup` = '$makeup' AND `invoice_coin` = '$invoice_coin' AND `acquisition_unit_price_on_invoice` = '$acquisition_unit_price_on_invoice'";
 
                     $data = $this->db->query($query)->result_array();
 
@@ -216,6 +228,8 @@ class Supplier_model extends CI_Model {
                         'serial_number'=>$line['serial_number'], 
                         'vat'=>$line['vat'], 
                         'makeup'=>$line['makeup'], 
+                        'acquisition_unit_price_on_invoice'=>$line['acquisition_unit_price_on_invoice'], 
+                        'invoice_coin'=>$invoice_coin, 
                         'qty'=>$qty 
                     );
                     $this->db->insert('material_totalline', $data_sql);
@@ -229,9 +243,7 @@ class Supplier_model extends CI_Model {
                     'line_id'=>$tline_id, 
                     'quantity_on_document'=>$line['quantity_on_document'], 
                     'quantity_received'=>$line['quantity_received'], 
-                    'acquisition_unit_price'=>$line['acquisition_unit_price'], 
-                    'acquisition_unit_price_on_invoice'=>$line['acquisition_unit_price_on_invoice'], 
-                    'isremoved'=>false,
+                    'isremoved'=>false
                 );
 
                 if ($line['id']) {
@@ -246,6 +258,9 @@ class Supplier_model extends CI_Model {
     }
 
     public function alllinesbystockidfromdatabase($companyid, $table, $stock_id) {
+        $company = $this->home->databyid($companyid, 'company')['data'];
+        $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
+
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
@@ -254,6 +269,12 @@ class Supplier_model extends CI_Model {
                     WHERE `stockid`='$stock_id' AND `isremoved`=false";
 
         $tlines = $this->db->query($query)->result_array();
+
+        foreach ($tlines as $index => $line) {
+            $invoice_coin = (($line['invoice_coin']=='€')?"EUR":(($line['invoice_coin']=='£')?"GBP":(($line['invoice_coin']=='$')?"USD":(($line['invoice_coin']=='LEI')?"RON":""))));
+            $tlines[$index]['acquisition_unit_price'] = $this->currencyConverter($invoice_coin, $target_coin, $line['acquisition_unit_price_on_invoice']);
+        }
+
         // $lines = [];
         // $count = 0;
 
@@ -297,7 +318,7 @@ class Supplier_model extends CI_Model {
         return $tlines;
     }
 
-    public function alllinesbyproductidfromdatabase($companyid, $table, $product_id) {
+    public function alllinesbyproductidfromdatabase($companyid, $table, $product_id, $invoice_coin_rate, $main_coin_rate) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
@@ -322,17 +343,18 @@ class Supplier_model extends CI_Model {
             $lines[$index]['expenseid'] = $tline['expenseid'];
             $lines[$index]['units'] = $tline['units'];
             $lines[$index]['serial_number'] = $tline['serial_number'];
-            $lines[$index]['acquisition_unit_price'] = $line['acquisition_unit_price'];
+            $lines[$index]['acquisition_unit_price'] = $tline['acquisition_unit_price_on_invoice'] / $invoice_coin_rate * $main_coin_rate;
+            $lines[$index]['acquisition_unit_price_on_invoice'] = $tline['acquisition_unit_price_on_invoice'];
             $lines[$index]['vat'] = $tline['vat'];
             $lines[$index]['makeup'] = $tline['makeup'];
-            $lines[$index]['acquisition_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * $tline['vat'] / 100.0, 2);
-            $lines[$index]['acquisition_unit_price_with_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($tline['vat'] + 100.0) / 100.0, 2);
-            $lines[$index]['amount_without_vat'] = $this->toFixed($line['acquisition_unit_price'] * $line['quantity_on_document'], 2);
-            $lines[$index]['amount_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * $line['quantity_on_document'] * $tline['vat'] / 100.0, 2);
-            $lines[$index]['total_amount'] = $this->toFixed($line['acquisition_unit_price'] * $line['quantity_on_document'] * ($tline['vat'] + 100.0) / 100.0, 2);
-            $lines[$index]['selling_unit_price_without_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($tline['makeup']+100.0) / 100.0, 2);
-            $lines[$index]['selling_unit_vat_value'] = $this->toFixed($line['acquisition_unit_price'] * ($tline['makeup'] + 100.0) * $tline['vat'] / 100.0 / 100.0, 2);
-            $lines[$index]['selling_unit_price_with_vat'] = $this->toFixed($line['acquisition_unit_price'] * ($tline['makeup'] + 100.0) * ($tline['vat'] + 100.0) / 100.0 / 100.0, 2);
+            $lines[$index]['acquisition_vat_value'] = $this->toFixed($lines[$index]['acquisition_unit_price'] * $tline['vat'] / 100.0, 2);
+            $lines[$index]['acquisition_unit_price_with_vat'] = $this->toFixed($lines[$index]['acquisition_unit_price'] * ($tline['vat'] + 100.0) / 100.0, 2);
+            $lines[$index]['amount_without_vat'] = $this->toFixed($lines[$index]['acquisition_unit_price'] * $line['quantity_on_document'], 2);
+            $lines[$index]['amount_vat_value'] = $this->toFixed($lines[$index]['acquisition_unit_price'] * $line['quantity_on_document'] * $tline['vat'] / 100.0, 2);
+            $lines[$index]['total_amount'] = $this->toFixed($lines[$index]['acquisition_unit_price'] * $line['quantity_on_document'] * ($tline['vat'] + 100.0) / 100.0, 2);
+            $lines[$index]['selling_unit_price_without_vat'] = $this->toFixed($lines[$index]['acquisition_unit_price'] * ($tline['makeup']+100.0) / 100.0, 2);
+            $lines[$index]['selling_unit_vat_value'] = $this->toFixed($lines[$index]['acquisition_unit_price'] * ($tline['makeup'] + 100.0) * $tline['vat'] / 100.0 / 100.0, 2);
+            $lines[$index]['selling_unit_price_with_vat'] = $this->toFixed($lines[$index]['acquisition_unit_price'] * ($tline['makeup'] + 100.0) * ($tline['vat'] + 100.0) / 100.0 / 100.0, 2);
         }
         return $lines;
     }
@@ -363,12 +385,19 @@ class Supplier_model extends CI_Model {
             $tline = $this->db->query($query)->result_array();
             $tline = $tline[0];
 
-            $res['acq_subtotal_without_vat'] += $line['acquisition_unit_price'] * $line['quantity_on_document'];
-            $res['acq_subtotal_vat'] += $line['acquisition_unit_price'] * $line['quantity_on_document'] * $tline['vat'] / 100.0;
-            $res['acq_subtotal_with_vat'] += $line['acquisition_unit_price'] * $line['quantity_on_document'] * ($tline['vat'] + 100.0) / 100.0;
-            $res['selling_subtotal_without_vat'] += ($line['acquisition_unit_price']*($tline['makeup']+100.0)/100.0) * $line['quantity_on_document'];
-            $res['selling_subtotal_vat'] += ($line['acquisition_unit_price']*($tline['makeup']+100.0)/100.0) * $line['quantity_on_document'] * $tline['vat'] / 100.0;
-            $res['selling_subtotal_with_vat'] += ($line['acquisition_unit_price']*($tline['makeup']+100.0)/100.0) * $line['quantity_on_document'] * ($tline['vat'] + 100.0) / 100.0;
+            $invoice_coin = (($tline['invoice_coin']=='€')?"EUR":(($tline['invoice_coin']=='£')?"GBP":(($tline['invoice_coin']=='$')?"USD":(($tline['invoice_coin']=='LEI')?"RON":""))));
+
+            $company = $this->home->databyid($companyid, 'company')['data'];
+            $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
+
+            $acquisition_unit_price = $this->currencyConverter($invoice_coin, $target_coin, $tline['acquisition_unit_price_on_invoice']);
+
+            $res['acq_subtotal_without_vat'] += $acquisition_unit_price * $line['quantity_on_document'];
+            $res['acq_subtotal_vat'] += $acquisition_unit_price * $line['quantity_on_document'] * $tline['vat'] / 100.0;
+            $res['acq_subtotal_with_vat'] += $acquisition_unit_price * $line['quantity_on_document'] * ($tline['vat'] + 100.0) / 100.0;
+            $res['selling_subtotal_without_vat'] += ($acquisition_unit_price*($tline['makeup']+100.0)/100.0) * $line['quantity_on_document'];
+            $res['selling_subtotal_vat'] += ($acquisition_unit_price*($tline['makeup']+100.0)/100.0) * $line['quantity_on_document'] * $tline['vat'] / 100.0;
+            $res['selling_subtotal_with_vat'] += ($acquisition_unit_price*($tline['makeup']+100.0)/100.0) * $line['quantity_on_document'] * ($tline['vat'] + 100.0) / 100.0;
         }
 
         $product = $this->home->databyidfromdatabase($companyid, 'material', $product_id);
@@ -405,7 +434,7 @@ class Supplier_model extends CI_Model {
 
         $this->db->insert('material', $data);
         $product_id = $this->db->insert_id();
-        $this->createlines($companyid, $product_id, $lines);
+        $this->createlines($companyid, $product_id, $main_coin, $invoice_coin, $invoice_coin_rate, $main_coin_rate, $lines);
         return $product_id;
     }
 
@@ -426,7 +455,7 @@ class Supplier_model extends CI_Model {
 
         $this->db->where('id', $id);
         $res=$this->db->update('material', $data);
-        $this->savelines($companyid, $id, $lines);
+        $this->savelines($companyid, $id, $main_coin, $invoice_coin, $invoice_coin_rate, $main_coin_rate, $lines);
         return $res;
     }
     //get date_of_reception, product_number, received_with_document for invoice
@@ -466,16 +495,47 @@ class Supplier_model extends CI_Model {
                     FROM `$table`
                     WHERE `stockid` = '$stockid'";
 
-        $data = $this->db->query($query)->result_array();
+        $data_for_totalline = $this->db->query($query)->result_array();
         $value = 0;
 
-        foreach ($data as $index => $line) {
+        foreach ($data_for_totalline as $index => $line) {
             $value += $this->databylineidfromdatabase($companyid, $table, $line['id'], $item);
         }
         return $value;
     }
 
+    function currencyConverter($currency_from, $currency_to, $currency_input) {
+        // Fetching JSON
+        $req_url = 'https://api.exchangerate-api.com/v4/latest/'.$currency_from;
+        $response_json = file_get_contents($req_url);
+
+        // Continuing if we got a result
+        if(false !== $response_json) {
+
+            // Try/catch for json_decode operation
+            try {
+
+                // Decoding
+                $response_object = json_decode($response_json, true);
+
+                // YOUR APPLICATION CODE HERE, e.g.
+                $currency_output = round(($currency_input * $response_object['rates'][$currency_to]), 2);
+
+
+                return $currency_output;
+            }
+            catch(Exception $e) {
+                return 0;
+            }
+        }
+
+    }
+
     public function databylineidfromdatabase($companyid, $table, $lineid, $item) {
+        $company = $this->home->databyid($companyid, 'company');
+        $company = $company['data'];
+        $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
+
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
@@ -487,16 +547,19 @@ class Supplier_model extends CI_Model {
         if (count($data)==0)
             return 0;
         $data = $data[0];
+        $invoice_coin = (($data['invoice_coin']=='€')?"EUR":(($data['invoice_coin']=='£')?"GBP":(($data['invoice_coin']=='$')?"USD":(($data['invoice_coin']=='LEI')?"RON":""))));
+        
+        $acquisition_unit_price = $this->currencyConverter($invoice_coin, $target_coin, $data['acquisition_unit_price_on_invoice']);
 
-        $data['acquisition_vat_value'] = $this->toFixed($data['acquisition_unit_price'] * $data['vat'] / 100.0, 2);
-        $data['acquisition_unit_price_with_vat'] = $this->toFixed($data['acquisition_unit_price'] * ($data['vat'] + 100.0) / 100.0, 2);
-        $data['amount_without_vat'] = $this->toFixed($data['acquisition_unit_price'] * $data['qty'], 2);
-        $data['amount_vat_value'] = $this->toFixed($data['acquisition_unit_price'] * $data['qty'] * $data['vat'] / 100.0, 2);
-        $data['total_amount'] = $this->toFixed($data['acquisition_unit_price'] * $data['qty'] * ($data['vat'] + 100.0) / 100.0, 2);
-        $data['selling_unit_price_without_vat'] = $this->toFixed($data['acquisition_unit_price'] * ($data['makeup']+100.0) / 100.0, 2);
-        $data['selling_amount_without_vat'] = $this->toFixed(($data['acquisition_unit_price'] * ($data['makeup']+100.0) / 100.0) * $data['qty'], 2);
-        $data['selling_unit_vat_value'] = $this->toFixed($data['acquisition_unit_price'] * ($data['makeup'] + 100.0) * $data['vat'] / 100.0 / 100.0, 2);
-        $data['selling_unit_price_with_vat'] = $this->toFixed($data['acquisition_unit_price'] * ($data['makeup'] + 100.0) * ($data['vat'] + 100.0) / 100.0 / 100.0, 2);
+        $data['acquisition_vat_value'] = $this->toFixed($acquisition_unit_price * $data['vat'] / 100.0, 2);
+        $data['acquisition_unit_price_with_vat'] = $this->toFixed($acquisition_unit_price * ($data['vat'] + 100.0) / 100.0, 2);
+        $data['amount_without_vat'] = $this->toFixed($acquisition_unit_price * $data['qty'], 2);
+        $data['amount_vat_value'] = $this->toFixed($acquisition_unit_price * $data['qty'] * $data['vat'] / 100.0, 2);
+        $data['total_amount'] = $this->toFixed($acquisition_unit_price * $data['qty'] * ($data['vat'] + 100.0) / 100.0, 2);
+        $data['selling_unit_price_without_vat'] = $this->toFixed($acquisition_unit_price * ($data['makeup']+100.0) / 100.0, 2);
+        $data['selling_amount_without_vat'] = $this->toFixed(($acquisition_unit_price * ($data['makeup']+100.0) / 100.0) * $data['qty'], 2);
+        $data['selling_unit_vat_value'] = $this->toFixed($acquisition_unit_price * ($data['makeup'] + 100.0) * $data['vat'] / 100.0 / 100.0, 2);
+        $data['selling_unit_price_with_vat'] = $this->toFixed($acquisition_unit_price * ($data['makeup'] + 100.0) * ($data['vat'] + 100.0) / 100.0 / 100.0, 2);
         
         return $data[$item];
     }

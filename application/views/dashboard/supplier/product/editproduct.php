@@ -237,7 +237,7 @@
                                         <td style="border : 1px solid black"><label class="my-2">VAT %:</label></td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="number" min="0" max="100" class="form-control " id="vat_percent" value="0" title="Choose your color">
+                                                <input type="text" min="0" max="100" class="form-control " id="vat_percent" value="0" title="Choose your color">
                                             </div>  
                                         </td>
                                     </tr>
@@ -277,7 +277,7 @@
                                         <td style="border: 1px solid black"><label class="my-2">Mark Up%: </label></td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="number" min="0" max="100" class="form-control " id="mark_up_percent" value="0" title="Choose your color">
+                                                <input type="text" min="0" max="100" class="form-control " id="mark_up_percent" value="0" title="Choose your color">
                                             </div>
                                         </td>
                                     </tr>
@@ -304,7 +304,7 @@
                         <?php
                             $total_first=0;$total_second=0;$total_third=0;$total_seventh=0;$total_eighth=0;$total_ninth=0;
                         ?>
-                        <table id="lines" class="table table-bordered table-hover text-center text-xs">
+                        <table id="lines" class="table table-bordered table-hover text-center text-xxs">
                             <thead>
                                 <tr>
                                     <th>Code EAN</th>
@@ -386,19 +386,19 @@
                                     <td><?=$line['serial_number']?></td>
                                     <td><?=$line['quantity_on_document']?></td>
                                     <td><?=$line['quantity_received']?></td>
-                                    <td><?=$line['acquisition_unit_price_on_invoice']?></td>
-                                    <td><?=$line['acquisition_unit_price']?></td>
-                                    <td><?=$line['acquisition_vat_value']?></td>
-                                    <td><?=$line['acquisition_unit_price_with_vat']?></td>
-                                    <td><?=$line['amount_without_vat']?></td>
-                                    <td><?=$line['amount_vat_value']?></td>
-                                    <td><?=$line['total_amount']?></td>
-                                    <td><?=$line['selling_unit_price_without_vat']?></td>
-                                    <td><?=$line['selling_unit_vat_value']?></td>
-                                    <td><?=$line['selling_unit_price_with_vat']?></td>
-                                    <td><?=$line['selling_unit_price_without_vat']*$line['quantity_on_document']?></td>
-                                    <td><?=$line['selling_unit_vat_value']*$line['quantity_on_document']?></td>
-                                    <td><?=$line['selling_unit_price_with_vat']*$line['quantity_on_document']?></td>
+                                    <td><label class='m-auto inline-block'><?=$line['acquisition_unit_price_on_invoice']?></label><div class='inline-block main_coin'><?=$product['invoice_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['acquisition_unit_price']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['acquisition_vat_value']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['acquisition_unit_price_with_vat']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['amount_without_vat']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['amount_vat_value']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['total_amount']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['selling_unit_price_without_vat']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['selling_unit_vat_value']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['selling_unit_price_with_vat']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['selling_unit_price_without_vat']*$line['quantity_on_document']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div class='inline-block main_coin'></td>
+                                    <td><label class='m-auto inline-block'><?=$line['selling_unit_vat_value']*$line['quantity_on_document']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div class='inline-block main_coin'></td>
+                                    <td><label class='m-auto inline-block'><?=$line['selling_unit_price_with_vat']*$line['quantity_on_document']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div class='inline-block main_coin'></td>
                                     <td hidden><?=$line['stockid']?></td>
                                     <td hidden><?=$line['expenseid']?></td>
                                     <td hidden><?=$line['projectid']?></td>
@@ -417,7 +417,7 @@
                 </div>
             </div>
         </div>
-        <table id="total-table" class="table table-bordered table-hover relative text-center text-xs" data-aos="fade-up" data-aos-delay="100">
+        <table id="total-table" class="table table-bordered table-hover relative text-center text-xxs" data-aos="fade-up" data-aos-delay="100">
             <thead>
                 <tr>
                     <th></th>
