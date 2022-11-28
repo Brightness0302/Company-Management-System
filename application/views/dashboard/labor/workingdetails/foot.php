@@ -104,8 +104,13 @@ $(function() {
         workdetailstable.draw();
     });
 
-    $("#searchtag").on('keyup', function (){
+    $("#searchtag").on('keyup', function () {
         workdetailstable.draw();
+    });
+
+    $("#searchtag").on('change', function () {
+        workdetailstable.draw();
+        refreshTable();
     });
     
     $("input[type=date]").on('change', function (){
@@ -120,7 +125,6 @@ $(function() {
         var enddate = new Date($('#enddate').val());
         const oneday = 1000*60*60*24;
         const count_days = (enddate - startdate) / oneday;
-        console.log(count_days, projects);
         workdetailstable.clear();
         const weeks = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         for (let i = 0; i < count_days+1; i++) {
@@ -131,10 +135,15 @@ $(function() {
             workdetailstable.row.add(jRow).draw();
         }
         refreshTableData();
-        const tx = document.getElementsByTagName("textarea");
-        for (let i = 0; i < tx.length; i++) {
-            tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
-            tx[i].addEventListener("input", OnInput, false);
+        const textareas = document.getElementsByTagName("textarea");
+        for (let i = 0; i < textareas.length; i++) {
+            textareas[i].setAttribute("style", "height:" + (textareas[i].scrollHeight) + "px;overflow-y:hidden;");
+            textareas[i].addEventListener("input", OnInput, false);
+            textareas[i].addEventListener("change", saveWorkdetails, false);
+        };
+        const selects = document.getElementsByTagName("select");
+        for (let i = 0; i < selects.length; i++) {
+            selects[i].addEventListener("change", getWorkdetails, false);
         };
     }
 

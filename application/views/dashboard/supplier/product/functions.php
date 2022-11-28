@@ -105,7 +105,6 @@ function refreshTable() {
 
     const table = $("#table-body");
     table.children("tr").each(async (index, element) => {
-        console.log("AAAAA");
         const etd = $(element).find("td");
 
         value = $(etd[9]).find("label").text();
