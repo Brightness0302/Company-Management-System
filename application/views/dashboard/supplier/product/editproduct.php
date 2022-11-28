@@ -14,11 +14,11 @@
 
             <div class="pages">
                 <div class="text-sm">
-                    <div id="section1" class="row justify-content-center align-items-center border border-lime-600">
+                    <div id="section1" class="row justify-content-center align-items-center border border-lime-600 h-56">
                         <div class="col-md-3 text-center">
-                            <table class="table my-2" style="border : 1px solid gray; text-align: left">
+                            <table class="table my-2 h-full" style="border : 1px solid gray; text-align: left">
                                 <tr>
-                                    <td style="border : 1px solid black"> Supplier Name: </td>
+                                    <td style="border : 1px solid black"><label class="my-2">Supplier Name:</label></td>
                                     <td>
                                         <select class="form-select" id="supplierid">
                                         <?php foreach ($suppliers as $index => $supplier):?>
@@ -30,7 +30,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="border : 1px solid black">Observations:</td>
+                                    <td style="border : 1px solid black"><label class="my-2">Observations:</label></td>
                                     <td>
                                         <div class="m-auto">
                                             <input type="text" class="form-control " id="observation" value="<?=$product['observation']?>" title="Choose your color">
@@ -40,40 +40,35 @@
                             </table>
                         </div>
                         <div class="col-md-3 text-center">
-                          <table class="table my-2" style="border : 1px solid gray; text-align: left">
+                          <table class="table my-2 h-full" style="border : 1px solid gray; text-align: left">
                               <tr>
-                                  <td style="border : 1px solid black">NIR Document No: </td>
-                                  <td><?=$product['id']?></td>
+                                  <td style="border : 1px solid black"><label class="my-2">NIR Document No: </label></td>
+                                  <td><label class="my-2"><?=$product['id']?></label></td>
                               </tr>
                               <tr>
-                                  <td style="border : 1px solid black">Date:</td>
-                                  <td><?=$product['date_of_reception']?></td>
+                                  <td style="border : 1px solid black"><label class="my-2">Date:</label></td>
+                                  <td><label class="my-2"><?=$product['date_of_reception']?></label></td>
                               </tr>
                           </table>
                         </div>
                         <div class="col-md-3 text-center">
-                            <table class="table my-2" style="border : 1px solid gray; text-align: left">
+                            <table class="table my-2 h-full" style="border : 1px solid gray; text-align: left">
                                 <tr>
-                                    <td style="border : 1px solid black">Invoice Date:</td>
+                                    <td style="border : 1px solid black"><label class="my-2">Invoice Date:</label></td>
                                     <td>
                                         <input type="date" class="form-control " id="invoice_date" value="<?=$product['invoice_date']?>" title="Choose your color">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="border : 1px solid black">Invoice Number: </td>
+                                    <td style="border : 1px solid black"><label class="my-2">Invoice Number:</label></td>
                                     <td>
                                         <input type="text" class="form-control " id="invoice_number" value="<?=$product['invoice_number']?>" title="Choose your color">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="border : 1px solid black">Coin:</td>
-                                    <td>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <div class="col-md-3 text-center">
-                            <table class="table my-2" style="border : 1px solid gray; text-align: left;">
+                            <table class="table my-2 h-full" style="border : 1px solid gray; text-align: left;">
                                 <tr>
                                     <td style="border : 1px solid black"><label class="my-2">Main Coin:</label></td>
                                     <td>
@@ -126,8 +121,8 @@
                     </div>
                     <hr>
                     <div class="row justify-content-center align-items-center border border-lime-600">
-                        <div id="section2" class="row d-flex justify-content-center align-items-center">
-                            <div class="col-md-3 text-center d-flex">
+                        <div id="section2" class="row d-flex justify-content-center align-items-center h-56">
+                            <div class="col-md-3 text-center">
                                 <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                     <tr>
                                         <td style="border : 1px solid black"><label class="my-2"> Description: </label></td>
@@ -184,7 +179,6 @@
                                     </tr>
                                 </table>
                             </div>
-
                             <div class="col-md-3 text-center">
                                 <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                     <tr>
@@ -222,7 +216,7 @@
                                         <td style="border : 1px solid black"><label class="my-2 text-xs">Acq unit price:</label></td>
                                         <td>
                                             <div class="flex">
-                                                <input type="number" class="form-control " id="acquisition_unit_price" value="0" title="Choose your color">
+                                                <input type="number" class="form-control " id="acquisition_unit_price" value="0" title="Choose your color" disabled>
                                                 &emsp;
                                                 <div class="m-auto main_coin">€</div>
                                             </div>
@@ -230,7 +224,6 @@
                                     </tr>
                                 </table>
                             </div>
-
                             <div class="col-md-3 text-center">
                                 <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                     <tr>
@@ -270,7 +263,6 @@
                                     </tr>
                                 </table>
                             </div>
-
                             <div class="col-md-3 text-center">
                                 <table class="table my-2" style="border: 1px solid gray; text-align: left">
                                     <tr>
