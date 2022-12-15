@@ -285,13 +285,17 @@ class Home extends CI_Controller
         $number=$this->input->post('number');
         $address=$this->input->post('address');
         $VAT=$this->input->post('VAT');
-        $bankname=$this->input->post('bankname');
-        $bankaccount=$this->input->post('bankaccount');
+        $bankname1=$this->input->post('bankname1');
+        $bic1=$this->input->post('bic1');
+        $bankaccount1=$this->input->post('bankaccount1');
+        $bankname2=$this->input->post('bankname2');
+        $bic2=$this->input->post('bic2');
+        $bankaccount2=$this->input->post('bankaccount2');
         $EORI=$this->input->post('EORI');
         $Coin=$this->input->post('Coin');
 
         if (!isset($_GET['id'])) {
-            $projects_id = $this->home->createItem($name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Coin);
+            $projects_id = $this->home->createItem($name, $number, $address, $VAT, $bankname1, $bic1, $bankaccount1, $bankname2, $bic2, $bankaccount2, $EORI, $Coin);
             if ($projects_id != -1) {
                 $this->home->createdatabase($projects_id);
                 $this->home->initializeDB($projects_id);
@@ -301,7 +305,7 @@ class Home extends CI_Controller
         }
 
         $id = $_GET['id'];
-        $result = $this->home->saveItem($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Coin);
+        $result = $this->home->saveItem($id, $name, $number, $address, $VAT, $bankname1, $bic1, $bankaccount1, $bankname2, $bic2, $bankaccount2, $EORI, $Coin);
         echo $result;
     }
     //Save(Add/Edit) User post(object(name, number, ...)) get(id)

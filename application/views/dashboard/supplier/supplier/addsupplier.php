@@ -49,8 +49,7 @@
                         <input id="Supplierbankaccount-2" class="text" type="text" placeholder="" />
                     </div>
                     <div class="input">
-                        <div class="title"><i class="material-icons">account_box</i> EORI number for import activities 
-                        </div>
+                        <div class="title"><i class="material-icons">account_box</i> EORI number for import activities</div>
                         <input id="Suppliereori" class="text" type="text" placeholder="" />
                     </div>
                     <div class="input">
@@ -60,8 +59,7 @@
                 </div>
             </div>
             <div class="text-center">
-                <button class="cbutton bg-red" onclick="AddSupplier()">Save</button> / <a
-                    href="<?=base_url('supplier/index')?>"><button class="cbutton bg-white">Cancel</button></a>
+                <button class="cbutton bg-red" onclick="AddSupplier()">Save</button> / <a href="<?=base_url('supplier/index')?>"><button class="cbutton bg-white">Cancel</button></a>
             </div>
         </div>
     </section><!-- End Hero -->

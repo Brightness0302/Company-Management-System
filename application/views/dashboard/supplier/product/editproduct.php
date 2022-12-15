@@ -120,7 +120,7 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row justify-content-center align-items-center border border-lime-600">
+                    <div class="row justify-content-center align-items-center border border-lime-600 h-56">
                         <div id="section2" class="row d-flex justify-content-center align-items-center h-56">
                             <div class="col-md-3 text-center">
                                 <table class="table my-2" style="border : 1px solid gray; text-align: left">
@@ -284,11 +284,11 @@
                                 </table>
                             </div>
                         </div>
-                        <div id="section3" class="row d-flex justify-content-center align-items-center m-2">
-                            <div class="flex justify-end gap-3">
-                                <button class="btn btn-primary" onclick="SaveItem()">Save Item</button>
-                                <button class="btn btn-default" onclick="ClearItem()">Clear Item</button>
-                            </div>
+                    </div>
+                    <div id="section3" class="row d-flex justify-content-center align-items-center m-2">
+                        <div class="flex justify-end gap-3">
+                            <button class="btn btn-primary" onclick="SaveItem()">Save Item</button>
+                            <button class="btn btn-default" onclick="ClearItem()">Clear Item</button>
                         </div>
                     </div>
                     <hr>

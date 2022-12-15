@@ -23,12 +23,16 @@ function AddCompany() {
     const number = $("#companynumber").val();
     const address = $("#companyaddress").val();
     const VAT = $("#companyvat").val();
-    const bankname = $("#companybankname").val();
-    const bankaccount = $("#companybankaccount").val();
+    const bankname1 = $("#companybankname1").val();
+    const bic1 = $("#companybic1").val();
+    const bankaccount1 = $("#companybankaccount1").val();
+    const bankname2 = $("#companybankname2").val();
+    const bic2 = $("#companybic2").val();
+    const bankaccount2 = $("#companybankaccount2").val();
     const EORI = $("#companyeori").val();
     const Coin = $("#companycoin").val();
 
-    if (!name || !number || !address || !VAT || !bankname || !bankaccount || !EORI) {
+    if (!name || !number || !address || !VAT || !bankname1 || !bic1 || !bankaccount1 || !bankname2 || !bic2 || !bankaccount2 || !EORI) {
         swal("Add Company", "You must fill the input.", "warning");
         return;
     }
@@ -38,8 +42,12 @@ function AddCompany() {
         number: number,
         address: address,
         VAT: VAT,
-        bankname: bankname,
-        bankaccount: bankaccount,
+        bankname1: bankname1,
+        bic1: bic1,
+        bankaccount1: bankaccount1,
+        bankname2: bankname2,
+        bic2: bic2,
+        bankaccount2: bankaccount2,
         EORI: EORI,
         Coin: Coin
     };
@@ -169,12 +177,16 @@ function EditCompany(companyid) {
     const number = $("#companynumber").val();
     const address = $("#companyaddress").val();
     const VAT = $("#companyvat").val();
-    const bankname = $("#companybankname").val();
-    const bankaccount = $("#companybankaccount").val();
+    const bankname1 = $("#companybankname1").val();
+    const bic1 = $("#companybic1").val();
+    const bankaccount1 = $("#companybankaccount1").val();
+    const bankname2 = $("#companybankname2").val();
+    const bic2 = $("#companybic2").val();
+    const bankaccount2 = $("#companybankaccount2").val();
     const EORI = $("#companyeori").val();
     const Coin = $("#companycoin").val();
 
-    if (!name || !number || !address || !VAT || !bankname || !bankaccount || !EORI) {
+    if (!name || !number || !address || !VAT || !bankname1 || !bic1 || !bankaccount1 || !bankname2 || !bic2 || !bankaccount2 || !EORI) {
         swal("Add Company", "You must fill the input.", "warning");
         return;
     }
@@ -184,8 +196,12 @@ function EditCompany(companyid) {
         number: number,
         address: address,
         VAT: VAT,
-        bankname: bankname,
-        bankaccount: bankaccount,
+        bankname1: bankname1,
+        bic1: bic1,
+        bankaccount1: bankaccount1,
+        bankname2: bankname2,
+        bic2: bic2,
+        bankaccount2: bankaccount2,
         EORI: EORI,
         Coin: Coin
     };

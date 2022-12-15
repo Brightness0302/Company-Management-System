@@ -42,21 +42,35 @@
                         <input id="companyvat" type="text" placeholder="" />
                     </div>
                     <div class="input">
-                        <div class="title"><i class="material-icons">account_box</i> Bank name</div>
-                        <input id="companybankname" type="text" placeholder="" />
-                    </div>
-                    <div class="input">
-                        <div class="title"><i class="material-icons">account_box</i> Bank account</div>
-                        <input id="companybankaccount" type="text" placeholder="" />
-                    </div>
-                    <div class="input">
-                        <div class="title"><i class="material-icons">account_box</i> EORI number for import activities
-                        </div>
+                        <div class="title"><i class="material-icons">account_box</i> EORI number for import activities</div>
                         <input id="companyeori" type="text" placeholder="" />
                     </div>
                     <div class="input">
-                        <div class="title"><i class="material-icons">account_box</i> COIN Type
-                        </div>
+                        <div class="title"><i class="material-icons">account_box</i> Bank name-1</div>
+                        <input id="companybankname1" type="text" placeholder="" />
+                    </div>
+                    <div class="input">
+                        <div class="title"><i class="material-icons">account_box</i> BIC-1</div>
+                        <input id="companybic1" type="text" placeholder="" />
+                    </div>
+                    <div class="input">
+                        <div class="title"><i class="material-icons">account_box</i> Bank account-1</div>
+                        <input id="companybankaccount1" type="text" placeholder="" />
+                    </div>
+                    <div class="input">
+                        <div class="title"><i class="material-icons">account_box</i> Bank name-2</div>
+                        <input id="companybankname2" type="text" placeholder="" />
+                    </div>
+                    <div class="input">
+                        <div class="title"><i class="material-icons">account_box</i> BIC-2</div>
+                        <input id="companybic2" type="text" placeholder="" />
+                    </div>
+                    <div class="input">
+                        <div class="title"><i class="material-icons">account_box</i> Bank account-2</div>
+                        <input id="companybankaccount2" type="text" placeholder="" />
+                    </div>
+                    <div class="input">
+                        <div class="title"><i class="material-icons">account_box</i> COIN Type</div>
                         <select class="form-select" id="companycoin">
                             <option value="EURO">€</option>
                             <option value="USD">$</option>

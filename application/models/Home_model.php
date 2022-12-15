@@ -256,15 +256,19 @@ class Home_model extends CI_Model {
 
     }
     //save company information using $id, $name, ...
-    public function saveItem($id, $name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Coin) {
+    public function saveItem($id, $name, $number, $address, $VAT, $bankname1, $bic1, $bankaccount1, $bankname2, $bic2, $bankaccount2, $EORI, $Coin) {
     	$name = str_replace(" ","_",$name);
         $data = array(
             'name'=>$name,
             'number'=>$number,
             'address'=>$address,
             'VAT'=>$VAT,
-            'bankname'=>$bankname,
-            'bankaccount'=>$bankaccount,
+            'bankname1'=>$bankname1,
+            'bic1'=>$bic1,
+            'bankaccount1'=>$bankaccount1,
+            'bankname2'=>$bankname2,
+            'bic2'=>$bic2,
+            'bankaccount2'=>$bankaccount2,
             'EORI'=>$EORI,
             'Coin'=>$Coin
         );
@@ -274,15 +278,19 @@ class Home_model extends CI_Model {
         return $res;
     }
     //create company information using $id, $name, ...
-    public function createItem($name, $number, $address, $VAT, $bankname, $bankaccount, $EORI, $Coin) {
+    public function createItem($name, $number, $address, $VAT, $bankname1, $bic1, $bankaccount1, $bankname2, $bic2, $bankaccount2, $EORI, $Coin) {
     	$name = str_replace(" ","_",$name);
         $data = array(
             'name'=>$name,
             'number'=>$number,
             'address'=>$address,
             'VAT'=>$VAT,
-            'bankname'=>$bankname,
-            'bankaccount'=>$bankaccount,
+            'bankname1'=>$bankname1,
+            'bic1'=>$bic1,
+            'bankaccount1'=>$bankaccount1,
+            'bankname2'=>$bankname2,
+            'bic2'=>$bic2,
+            'bankaccount2'=>$bankaccount2,
             'EORI'=>$EORI,
             'Coin'=>$Coin
         );

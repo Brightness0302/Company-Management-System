@@ -14,7 +14,7 @@
 
             <div class="pages">
                 <div class="text-sm">
-                    <div id="section1" class="row justify-content-center align-items-center border border-lime-600">
+                    <div id="section1" class="row justify-content-center align-items-center border border-lime-600 h-56">
                         <div class="col-md-3 text-center">
                             <table class="table my-2" style="border : 1px solid gray; text-align: left">
                                 <tr>
@@ -120,7 +120,7 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row justify-content-center align-items-center border border-lime-600">
+                    <div class="row justify-content-center align-items-center border border-lime-600 h-56">
                         <div id="section2" class="row d-flex justify-content-center align-items-center">
                             <div class="col-md-3 text-center d-flex">
                                 <table class="table my-2" style="border : 1px solid gray; text-align: left">
@@ -284,16 +284,16 @@
                                 </table>
                             </div>
                         </div>
-                        <div id="section3" class="row d-flex justify-content-center align-items-center m-2">
-                            <div class="flex justify-end gap-3">
-                                <button class="btn btn-primary" onclick="SaveItem()">Save Item</button>
-                                <button class="btn btn-default" onclick="ClearItem()">Clear Item</button>
-                            </div>
-                        </div>
-                        <?php
-                            $total_first=0;$total_second=0;$total_third=0;$total_forth=0;$total_fifth=0;$total_sixth=0;
-                        ?>
                     </div>
+                    <div id="section3" class="row d-flex justify-content-center align-items-center m-2">
+                        <div class="flex justify-end gap-3">
+                            <button class="btn btn-primary" onclick="SaveItem()">Save Item</button>
+                            <button class="btn btn-default" onclick="ClearItem()">Clear Item</button>
+                        </div>
+                    </div>
+                    <?php
+                        $total_first=0;$total_second=0;$total_third=0;$total_forth=0;$total_fifth=0;$total_sixth=0;
+                    ?>
                     <hr>
                     <div class="row overflow-x-auto select-none">
                         <table class="table table-bordered table-hover text-center text-xxs">
