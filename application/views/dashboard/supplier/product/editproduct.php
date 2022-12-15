@@ -14,9 +14,9 @@
 
             <div class="pages">
                 <div class="text-sm">
-                    <div id="section1" class="row justify-content-center align-items-center border border-lime-600 h-56">
+                    <div id="section1" class="row justify-content-center align-items-center border border-lime-600">
                         <div class="col-md-3 text-center">
-                            <table class="table my-2 h-full" style="border : 1px solid gray; text-align: left">
+                            <table class="table my-2 h-56" style="border : 1px solid gray; text-align: left">
                                 <tr>
                                     <td style="border : 1px solid black"><label class="my-2">Supplier Name:</label></td>
                                     <td>
@@ -40,7 +40,7 @@
                             </table>
                         </div>
                         <div class="col-md-3 text-center">
-                          <table class="table my-2 h-full" style="border : 1px solid gray; text-align: left">
+                          <table class="table my-2 h-56" style="border : 1px solid gray; text-align: left">
                               <tr>
                                   <td style="border : 1px solid black"><label class="my-2">NIR Document No: </label></td>
                                   <td><label class="my-2"><?=$product['id']?></label></td>
@@ -52,7 +52,7 @@
                           </table>
                         </div>
                         <div class="col-md-3 text-center">
-                            <table class="table my-2 h-full" style="border : 1px solid gray; text-align: left">
+                            <table class="table my-2 h-56" style="border : 1px solid gray; text-align: left">
                                 <tr>
                                     <td style="border : 1px solid black"><label class="my-2">Invoice Date:</label></td>
                                     <td>
@@ -68,7 +68,7 @@
                             </table>
                         </div>
                         <div class="col-md-3 text-center">
-                            <table class="table my-2 h-full" style="border : 1px solid gray; text-align: left;">
+                            <table class="table my-2 h-56" style="border : 1px solid gray; text-align: left;">
                                 <tr>
                                     <td style="border : 1px solid black"><label class="my-2">Main Coin:</label></td>
                                     <td>
@@ -123,7 +123,7 @@
                     <div class="row justify-content-center align-items-center border border-lime-600 h-56">
                         <div id="section2" class="row d-flex justify-content-center align-items-center h-56">
                             <div class="col-md-3 text-center">
-                                <table class="table my-2" style="border : 1px solid gray; text-align: left">
+                                <table class="table my-2 h-56" style="border : 1px solid gray; text-align: left">
                                     <tr>
                                         <td style="border : 1px solid black"><label class="my-2"> Description: </label></td>
                                         <td>
@@ -180,7 +180,7 @@
                                 </table>
                             </div>
                             <div class="col-md-3 text-center">
-                                <table class="table my-2" style="border : 1px solid gray; text-align: left">
+                                <table class="table my-2 h-56" style="border : 1px solid gray; text-align: left">
                                     <tr>
                                         <td style="border : 1px solid black"><label class="my-2">Code EAN:</label></td>
                                         <td>
@@ -225,7 +225,7 @@
                                 </table>
                             </div>
                             <div class="col-md-3 text-center">
-                                <table class="table my-2" style="border : 1px solid gray; text-align: left">
+                                <table class="table my-2 h-56" style="border : 1px solid gray; text-align: left">
                                     <tr>
                                         <td style="border : 1px solid black"><label class="my-2">VAT %:</label></td>
                                         <td>
@@ -264,7 +264,7 @@
                                 </table>
                             </div>
                             <div class="col-md-3 text-center">
-                                <table class="table my-2" style="border: 1px solid gray; text-align: left">
+                                <table class="table my-2 h-56" style="border: 1px solid gray; text-align: left">
                                     <tr>
                                         <td style="border: 1px solid black"><label class="my-2">Mark Up%: </label></td>
                                         <td>
