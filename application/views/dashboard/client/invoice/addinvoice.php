@@ -60,10 +60,10 @@
                                     <p class="font-bold">IBAN:</p>
                                 </div>
                                 <div class="col-sm-8">
-                                    <p class="font-normal"><?=$company['bankname']?></p>
+                                    <p class="font-normal"><?=$company['bankname1']?></p>
                                     <p class="font-normal"><?=$company['name']?></p>
                                     <p class="font-normal"><?=$company['EORI']?></p>
-                                    <p class="font-normal"><?=$company['bankaccount']?></p>
+                                    <p class="font-normal"><?=$company['bankaccount1']?></p>
                                 </div>
                             </div>
                         </div>
