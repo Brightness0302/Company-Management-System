@@ -35,10 +35,10 @@
                         <div style="width: 300px; display: inline-block;">
                             <p class="font-normal" style="text-align: justify !important; overflow-wrap: break-word; margin: 0px; padding: 0px;"><?=$company['address']?></p>
                             <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['number']?></p>
-                            <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankname']?></p>
+                            <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankname1']?></p>
                             <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=str_replace("_"," ", $company['name'])?></p>
                             <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['EORI']?></p>
-                            <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankaccount']?></p>
+                            <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankaccount1']?></p>
                         </div>
                     </div>
                 </div>
