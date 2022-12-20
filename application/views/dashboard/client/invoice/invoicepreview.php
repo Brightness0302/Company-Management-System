@@ -25,7 +25,7 @@
                     <!-- Company Avatar end-->
                 </div>
                 <div style="position: relative; left: 300px; top: -50px; margin-bottom: -75px;">
-                    <div style="margin-top:20px; margin-bottom: 20px;"><p class="text-lg font-bold"><?=str_replace("_"," ", $company['name'])?></p></div>
+                    <div style="margin-top:20px; margin-bottom: 30px;"><p class="text-lg font-bold"><?=str_replace("_"," ", $company['name'])?></p></div>
                     <div class="row" style="margin-top: 25px;">
                         <div style="width: 110px; display: inline-block;">
                             <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">Address:</p>
