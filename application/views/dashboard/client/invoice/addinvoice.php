@@ -102,16 +102,18 @@
                             </div>
                             <div>
                                 <select class="d_inline form-select" id="companycoin">
-                                    <option value="<?php if($company['Coin']=="EURO")echo "€";if ($company['Coin']=="POUND")echo "£";if ($company['Coin']=="USD")echo "$";?>">
-                                        <?php 
-                                        if($company['Coin']=="EURO")
-                                            echo "€";
-                                        if ($company['Coin']=="POUND")
-                                            echo "£";
-                                        if ($company['Coin']=="USD")
-                                            echo "$";
-                                        ?>
-                                    </option>
+                                    <?php if($company['Coin']):?>
+                                        <option value="<?php if($company['Coin']=="EURO")echo "€";if ($company['Coin']=="POUND")echo "£";if ($company['Coin']=="USD")echo "$";?>">
+                                            <?php 
+                                            if($company['Coin']=="EURO")
+                                                echo "€";
+                                            if ($company['Coin']=="POUND")
+                                                echo "£";
+                                            if ($company['Coin']=="USD")
+                                                echo "$";
+                                            ?>
+                                        </option>
+                                    <?php endif;?>
                                     <option value="LEI">Lei</option>
                                 </select>
                             </div>
