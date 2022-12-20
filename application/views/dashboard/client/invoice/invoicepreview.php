@@ -5,6 +5,9 @@
         margin-top: 30px;
         margin-bottom: 30px;
     }
+    .font-normal {
+        font-size: 14px;
+    }
 </style>
 <body >
     <div style="width: 800px; display: flex; flex-direction: column; height: 100vh;">
@@ -25,20 +28,28 @@
                     <div style="margin-top:20px; margin-bottom: 20px;"><p class="text-lg font-bold"><?=str_replace("_"," ", $company['name'])?></p></div>
                     <div class="row" style="margin-top: 25px;">
                         <div style="width: 110px; display: inline-block;">
-                            <p class="font-bold" style="margin: 0px !important; padding: 0px !important;">Address:</p>
-                            <p class="font-bold" style="margin: 0px !important; padding: 0px !important;">Reg Number:</p>
-                            <p class="font-bold" style="margin: 0px !important; padding: 0px !important;">Bank details:</p>
-                            <p class="font-bold" style="margin: 0px !important; padding: 0px !important;">Beneficiary:</p>
-                            <p class="font-bold" style="margin: 0px !important; padding: 0px !important;">BIC:</p>
-                            <p class="font-bold" style="margin: 0px !important; padding: 0px !important;">IBAN:</p>
+                            <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">Address:</p>
+                            <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">Reg Number:</p>
+                            <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">Beneficiary:</p>
+                            <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">BIC:</p>
+                            <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">Bank details:</p>
+                            <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">BIC:</p>
+                            <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">IBAN:</p>
+                            <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">Bank details2:</p>
+                            <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">BIC2:</p>
+                            <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">IBAN2:</p>
                         </div>
                         <div style="width: 300px; display: inline-block;">
-                            <p class="font-normal" style="text-align: justify !important; overflow-wrap: break-word; margin: 0px; padding: 0px;"><?=$company['address']?></p>
+                            <p class="font-normal" style="text-align: justify !important; overflow-wrap: break-word; margin: 0px !important; padding: 0px !important;"><?=$company['address']?></p>
                             <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['number']?></p>
-                            <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankname1']?></p>
                             <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=str_replace("_"," ", $company['name'])?></p>
                             <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['EORI']?></p>
+                            <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankname1']?></p>
+                            <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bic1']?></p>
                             <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankaccount1']?></p>
+                            <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankname2']?></p>
+                            <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bic2']?></p>
+                            <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankaccount2']?></p>
                         </div>
                     </div>
                 </div>
@@ -47,7 +58,7 @@
 
             <!-- Add Client Section Start -->
             <div class="row" style=" margin-bottom: 0px; margin-top: 50px; border: 1px black solid; border-radius: 10px;">
-                <div class="text-left" style="width: 240px; margin-top: 50px; margin-bottom: -30px; display: inline-block;">
+                <div class="text-left font-normal" style="width: 240px; margin-top: 50px; margin-bottom: -30px; display: inline-block;">
                     <div class="py-2">
                         <strong style="margin-left: 30px;">Billed to : </strong>
                         <?php if($invoice['client_name'] != "Add a Client"):?>
@@ -60,7 +71,7 @@
                         <?php else:?>
                         <div class="text-center">
                             <h5 class='upload_text p-2'>
-                                <div style='display: inline-block; font-size: 20px;' id='client_name'>None Client</div>
+                                <div style='display: inline-block; font-size: 20px;' id='client_name'>No Client</div>
                             </h5>
                         </div>
                         <?php endif;?>
@@ -70,7 +81,7 @@
                     </div>
                 </div>
 
-                <div style="width: 120px; margin-top: 25px; min-height: 180px; display: inline-block;">
+                <div class="font-normal" style="width: 120px; margin-top: 20px; min-height: 120px; display: inline-block;">
                     <div class="col">
                         <div class="row-sm-6 px-0 py-2">
                             <strong>Date of Issue</strong>
@@ -83,7 +94,7 @@
                     </div>
                 </div>
 
-                <div style="width: 200px; margin-top: 25px; min-height: 180px; display: inline-block;">
+                <div class="font-normal" style="width: 150px; margin-top: 20px; min-height: 120px; display: inline-block;">
                     <div class="col">
                         <div class="row-sm-6 px-0 py-2">
                             <strong>Invoice Number</strong>
@@ -91,27 +102,26 @@
                         </div>
                         <div class="row-sm-6 px-0 py-2">
                             <strong>Reference</strong>
-                            <p><?=$invoice['input_inputreference']?></p>
+                            <p><?=$invoice['input_inputreference']?$invoice['input_inputreference']:"---"?></p>
                         </div>
                     </div>
                 </div>
 
-                <div style="width: 150px; margin-top: 25px; min-height: 180px; display: inline-block;">
+                <div style="width: 200px; margin-top: 20px; min-height: 130px; display: inline-block;">
                     <div>
-                        <strong style="font-size: 24px;">Amount</strong>
+                        <strong style="font-size: 20px;">Amount</strong>
                     </div>
                     <div>
-                        <strong style="font-size: 28px;"><?=number_format($invoice['total'], 2, '.', '').' '.$invoice['companycoin']?></strong>
+                        <strong style="font-size: 24px;"><?=number_format($invoice['total'], 2, '.', '').' '.$invoice['companycoin']?></strong>
                     </div>
                 </div>
-
             </div>
             <!-- Add Client Section End -->
         </div>
         <!-- Content End -->
 
         <!-- Add Line Section Start-->
-        <div class="container" style="border: 1px solid black; border-radius: 10px;">
+        <div class="container font-normal" style="border: 1px solid black; border-radius: 10px;">
             <div style="margin-bottom: 20px;">
                 <!-- Description Table -->
                 <table class="table invoicepreview">

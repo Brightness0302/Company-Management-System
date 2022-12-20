@@ -52,18 +52,24 @@
                             <p class="text-lg font-bold"><?=str_replace("_"," ", $company['name'])?></p>
                             <p class="text-base font-bold">Address: <?=$company['address']?></p>
                             <p class="text-base font-bold">Reg Number: <?=$company['number']?></p>
+                            <p class="text-base font-bold">Beneficiary: <?=$company['name']?></p>
+                            <p class="text-base font-bold">BIC: <?=$company['EORI']?></p>
                             <div class="row">
                                 <div class="col-sm-4">
                                     <p class="font-bold">Bank details:</p>
-                                    <p class="font-bold">Beneficiary:</p>
                                     <p class="font-bold">BIC:</p>
                                     <p class="font-bold">IBAN:</p>
+                                    <p class="font-bold">Bank details2:</p>
+                                    <p class="font-bold">BIC2:</p>
+                                    <p class="font-bold">IBAN2:</p>
                                 </div>
                                 <div class="col-sm-8">
                                     <p class="font-normal"><?=$company['bankname1']?></p>
-                                    <p class="font-normal"><?=str_replace("_"," ", $company['name'])?></p>
-                                    <p class="font-normal"><?=$company['EORI']?></p>
+                                    <p class="font-normal"><?=$company['bic1']?></p>
                                     <p class="font-normal"><?=$company['bankaccount1']?></p>
+                                    <p class="font-normal"><?=$company['bankname2']?></p>
+                                    <p class="font-normal"><?=$company['bic2']?></p>
+                                    <p class="font-normal"><?=$company['bankaccount2']?></p>
                                 </div>
                             </div>
                         </div>
