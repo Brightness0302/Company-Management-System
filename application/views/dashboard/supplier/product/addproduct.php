@@ -120,7 +120,7 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row justify-content-center align-items-center border border-lime-600 h-56">
+                    <div class="row justify-content-center align-items-center border border-lime-600">
                         <div id="section2" class="row d-flex justify-content-center align-items-center">
                             <div class="col-md-3 text-center d-flex">
                                 <table class="table my-2 h-56" style="border : 1px solid gray; text-align: left">
