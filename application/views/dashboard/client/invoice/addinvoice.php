@@ -59,17 +59,25 @@
                                     <p class="font-bold">Bank details:</p>
                                     <p class="font-bold">BIC:</p>
                                     <p class="font-bold">IBAN:</p>
-                                    <p class="font-bold">Bank details2:</p>
-                                    <p class="font-bold">BIC2:</p>
-                                    <p class="font-bold">IBAN2:</p>
+                                    <div>
+                                        <input type="checkbox" id="isshow_bank2" name="isshow_bank2" /> <label id="label_isshow_bank2" class="m-0">BANK2</label>
+                                    </div>
+                                    <div class="isshow_bank2" style="display: none;">
+                                        <p class="font-bold">Bank details2:</p>
+                                        <p class="font-bold">BIC2:</p>
+                                        <p class="font-bold">IBAN2:</p>
+                                    </div>
                                 </div>
                                 <div class="col-sm-8">
                                     <p class="font-normal"><?=$company['bankname1']?></p>
                                     <p class="font-normal"><?=$company['bic1']?></p>
                                     <p class="font-normal"><?=$company['bankaccount1']?></p>
-                                    <p class="font-normal"><?=$company['bankname2']?></p>
-                                    <p class="font-normal"><?=$company['bic2']?></p>
-                                    <p class="font-normal"><?=$company['bankaccount2']?></p>
+                                    <br />
+                                    <div class="isshow_bank2" style="display: none;">
+                                        <p class="font-normal"><?=$company['bankname2']?></p>
+                                        <p class="font-normal"><?=$company['bic2']?></p>
+                                        <p class="font-normal"><?=$company['bankaccount2']?></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

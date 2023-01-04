@@ -568,6 +568,7 @@ class Client extends CI_Controller
     //Save information for deploying pdf.
     public function savesessionbyjson() {
         $data["type"]=$this->input->post('type');
+        $data["isshow_bank2"]=$this->input->post('isshow_bank2');
         $data["input_street"]=$this->input->post('input_street');
         $data["input_city"]=$this->input->post('input_city');
         $data["input_state"]=$this->input->post('input_state');

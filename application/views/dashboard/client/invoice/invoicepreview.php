@@ -35,9 +35,12 @@
                             <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">Bank details:</p>
                             <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">BIC:</p>
                             <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">IBAN:</p>
-                            <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">Bank details2:</p>
-                            <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">BIC2:</p>
-                            <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">IBAN2:</p>
+                            <div <?=(($invoice['isshow_bank2']==="true")?"":"hidden")?>>
+                                <br/>
+                                <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">Bank details2:</p>
+                                <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">BIC2:</p>
+                                <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">IBAN2:</p>
+                            </div>
                         </div>
                         <div style="width: 300px; display: inline-block;">
                             <p class="font-normal" style="text-align: justify !important; overflow-wrap: break-word; margin: 0px !important; padding: 0px !important;"><?=$company['address']?></p>
@@ -47,9 +50,12 @@
                             <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankname1']?></p>
                             <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bic1']?></p>
                             <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankaccount1']?></p>
-                            <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankname2']?></p>
-                            <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bic2']?></p>
-                            <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankaccount2']?></p>
+                            <div <?=(($invoice['isshow_bank2']==="true")?"":"hidden")?>>
+                                <br/>
+                                <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankname2']?></p>
+                                <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bic2']?></p>
+                                <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankaccount2']?></p>
+                            </div>
                         </div>
                     </div>
                 </div>

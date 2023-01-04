@@ -59,6 +59,7 @@
                                     <p class="font-bold">Bank details:</p>
                                     <p class="font-bold">BIC:</p>
                                     <p class="font-bold">IBAN:</p>
+                                    <br/>
                                     <p class="font-bold">Bank details2:</p>
                                     <p class="font-bold">BIC2:</p>
                                     <p class="font-bold">IBAN2:</p>
@@ -67,6 +68,7 @@
                                     <p class="font-normal"><?=$company['bankname1']?></p>
                                     <p class="font-normal"><?=$company['bic1']?></p>
                                     <p class="font-normal"><?=$company['bankaccount1']?></p>
+                                    <br/>
                                     <p class="font-normal"><?=$company['bankname2']?></p>
                                     <p class="font-normal"><?=$company['bic2']?></p>
                                     <p class="font-normal"><?=$company['bankaccount2']?></p>

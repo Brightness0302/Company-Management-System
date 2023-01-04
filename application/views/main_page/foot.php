@@ -31,8 +31,9 @@ function AddCompany() {
     const bankaccount2 = $("#companybankaccount2").val();
     const EORI = $("#companyeori").val();
     const Coin = $("#companycoin").val();
+    const ins = document.getElementById('upload_image_file').files.length;
 
-    if (!name || !number || !address || !VAT || !bankname1 || !bic1 || !bankaccount1 || !bankname2 || !bic2 || !bankaccount2 || !EORI) {
+    if (!name || !number || !address || !VAT || !bankname1 || !bic1 || !bankaccount1 || !bankname2 || !bic2 || !bankaccount2 || !EORI || !ins) {
         swal("Add Company", "You must fill the input.", "warning");
         return;
     }
@@ -79,7 +80,7 @@ function AddCompany() {
                         return;
                     }
                     var form_data = new FormData();
-                    var ins = document.getElementById('upload_image_file').files.length;
+                    
                     form_data.append("files[]", document.getElementById('upload_image_file').files[0]);
                     alert(form_data);
                     $.ajax({
@@ -185,9 +186,10 @@ function EditCompany(companyid) {
     const bankaccount2 = $("#companybankaccount2").val();
     const EORI = $("#companyeori").val();
     const Coin = $("#companycoin").val();
+    const ins = document.getElementById('upload_image_file').files.length;
 
-    if (!name || !number || !address || !VAT || !bankname1 || !bic1 || !bankaccount1 || !bankname2 || !bic2 || !bankaccount2 || !EORI) {
-        swal("Add Company", "You must fill the input.", "warning");
+    if (!name || !number || !address || !VAT || !bankname1 || !bic1 || !bankaccount1 || !bankname2 || !bic2 || !bankaccount2 || !EORI || !ins) {
+        swal("Edit Company", "You must fill the input.", "warning");
         return;
     }
 
@@ -240,7 +242,6 @@ function EditCompany(companyid) {
                         return;
                     }
                     var form_data = new FormData();
-                    var ins = document.getElementById('upload_image_file').files.length;
                     form_data.append("files[]", document.getElementById('upload_image_file').files[0]);
                     alert(form_data);
                     $.ajax({

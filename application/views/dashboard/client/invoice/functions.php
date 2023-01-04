@@ -31,6 +31,18 @@ $(document).ready(function() {
         $("#product_amount").val("0");
         refreshproductbystockid(stockid);
     });
+    $("#isshow_bank2").change(function() {
+        const isshow_bank2 = this.checked;
+        if (isshow_bank2 === true)
+            $(".isshow_bank2").show();
+        else
+            $(".isshow_bank2").hide();
+    });
+    $("#label_isshow_bank2").click(function() {
+        const isshow_bank2 = document.getElementById("isshow_bank2");
+        isshow_bank2.checked = !isshow_bank2.checked;
+        isshow_bank2.dispatchEvent(new Event('change', { 'bubbles': true }));
+    });
     $("#product_code_ean").change(function() {
         const lineid = this.value;
         $("#product_amount").val("0");
@@ -316,6 +328,7 @@ function get_formdata() {
     const tax = $("#tax").text();
     const total = $("#total").text();
     const companycoin = $("#companycoin").val();
+    const isshow_bank2 = document.getElementById("isshow_bank2").checked;
     let lines = [];
 
     const table = $("#table_body");
@@ -336,6 +349,7 @@ function get_formdata() {
     const str_lines = JSON.stringify(lines);
 
     const form_data = {
+        isshow_bank2: isshow_bank2, 
         date_of_issue: date_of_issue,
         due_date: due_date,
         input_invoicenumber: input_invoicenumber,
