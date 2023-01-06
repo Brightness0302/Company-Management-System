@@ -17,7 +17,7 @@
         <!-- Content Start-->
         <div class="container p-2">
             <!-- Company Info Section -->
-            <div class="row" style="margin-bottom: -40px; border: 1px black solid; border-radius: 10px;">
+            <div class="row" style="margin-bottom: -40px; border: 1px gray solid; border-radius: 10px;">
                 <div>
                     <!-- Title Section -->
                     <div class="p-3">
@@ -50,7 +50,7 @@
             <!-- Company Info Section End -->
 
             <!-- Add Client Section Start -->
-            <div class="row" style=" margin-bottom: 0px; margin-top: 50px; border: 1px black solid; border-radius: 10px;">
+            <div class="row" style=" margin-bottom: 0px; margin-top: 50px; border: 1px gray solid; border-radius: 10px;">
                 <div class="text-left font-normal" style="width: 240px; min-height: 150px; margin-top: 50px; margin-bottom: 0px; display: inline-block;">
                     <div class="py-2">
                         <strong style="margin-left: 30px;">Billed to : </strong>
@@ -114,7 +114,7 @@
         <!-- Content End -->
 
         <!-- Add Line Section Start-->
-        <div class="container font-normal" style="border: 1px solid black; border-radius: 10px;">
+        <div class="container font-normal" style="border: 1px solid gray; border-radius: 10px;">
             <div style="margin-top: 20px; margin-bottom: 20px; background-color: #f3f3f3; border-radius: 10px;">
                 <!-- Description Table -->
                 <table class="table invoicepreview">
@@ -151,7 +151,7 @@
                 </table>
             </div>
             <!-- Here the text area-->
-            <div style="border-top: 1px solid black;" class="text_right">
+            <div style="border-top: 1px solid gray;" class="text_right">
                 <div style="display: inline-block; margin-top: 30px;">
                     <p class="" style="margin: 0px !important; padding: 0px !important;">Sub total: </p>
                     <p class="text-primary" style="margin: 0px !important; padding: 0px !important;">Total Discount: </p>
