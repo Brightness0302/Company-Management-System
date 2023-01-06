@@ -52,7 +52,7 @@
                             <p class="text-lg font-bold"><?=str_replace("_"," ", $company['name'])?></p>
                             <p class="text-base font-bold">Address: <?=$company['address']?></p>
                             <p class="text-base font-bold">Reg Number: <?=$company['number']?></p>
-                            <p class="text-base font-bold">Beneficiary: <?=$company['name']?></p>
+                            <p class="text-base font-bold">VAT: <?=$company['VAT']?></p>
                             <p class="text-base font-bold">BIC: <?=$company['EORI']?></p>
                             <div class="row">
                                 <div class="col-sm-4">

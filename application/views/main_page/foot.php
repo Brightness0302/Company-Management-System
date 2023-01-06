@@ -25,9 +25,11 @@ function AddCompany() {
     const VAT = $("#companyvat").val();
     const bankname1 = $("#companybankname1").val();
     const bic1 = $("#companybic1").val();
+    const observation1 = $("#observation1").val();
     const bankaccount1 = $("#companybankaccount1").val();
     const bankname2 = $("#companybankname2").val();
     const bic2 = $("#companybic2").val();
+    const observation2 = $("#observation2").val();
     const bankaccount2 = $("#companybankaccount2").val();
     const EORI = $("#companyeori").val();
     const Coin = $("#companycoin").val();
@@ -45,9 +47,11 @@ function AddCompany() {
         VAT: VAT,
         bankname1: bankname1,
         bic1: bic1,
+        observation1: observation1,
         bankaccount1: bankaccount1,
         bankname2: bankname2,
         bic2: bic2,
+        observation2: observation2,
         bankaccount2: bankaccount2,
         EORI: EORI,
         Coin: Coin
@@ -180,15 +184,17 @@ function EditCompany(companyid) {
     const VAT = $("#companyvat").val();
     const bankname1 = $("#companybankname1").val();
     const bic1 = $("#companybic1").val();
+    const observation1 = $("#observation1").val();
     const bankaccount1 = $("#companybankaccount1").val();
     const bankname2 = $("#companybankname2").val();
     const bic2 = $("#companybic2").val();
+    const observation2 = $("#observation2").val();
     const bankaccount2 = $("#companybankaccount2").val();
     const EORI = $("#companyeori").val();
     const Coin = $("#companycoin").val();
     const ins = document.getElementById('upload_image_file').files.length;
 
-    if (!name || !number || !address || !VAT || !bankname1 || !bic1 || !bankaccount1 || !bankname2 || !bic2 || !bankaccount2 || !EORI || !ins) {
+    if (!name || !number || !address || !VAT || !bankname1 || !bic1 || !bankaccount1 || !bankname2 || !bic2 || !bankaccount2 || !EORI) {
         swal("Edit Company", "You must fill the input.", "warning");
         return;
     }
@@ -200,9 +206,11 @@ function EditCompany(companyid) {
         VAT: VAT,
         bankname1: bankname1,
         bic1: bic1,
+        observation1: observation1,
         bankaccount1: bankaccount1,
         bankname2: bankname2,
         bic2: bic2,
+        observation2: observation2,
         bankaccount2: bankaccount2,
         EORI: EORI,
         Coin: Coin

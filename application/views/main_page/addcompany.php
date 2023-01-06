@@ -54,6 +54,14 @@
                         <input id="companybic1" type="text" placeholder="" />
                     </div>
                     <div class="input">
+                        <div class="title"><i class="material-icons">account_box</i> Observation-1</div>
+                        <select class="form-select" id="observation1">
+                            <option value="EURO">EURO</option>
+                            <option value="RON">RON</option>
+                            <option value="USD">USD</option>
+                        </select>
+                    </div>
+                    <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Bank account-1</div>
                         <input id="companybankaccount1" type="text" placeholder="" />
                     </div>
@@ -64,6 +72,14 @@
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> BIC-2</div>
                         <input id="companybic2" type="text" placeholder="" />
+                    </div>
+                    <div class="input">
+                        <div class="title"><i class="material-icons">account_box</i> Observation-2</div>
+                        <select class="form-select" id="observation2">
+                            <option value="EURO">EURO</option>
+                            <option value="RON">RON</option>
+                            <option value="USD">USD</option>
+                        </select>
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Bank account-2</div>

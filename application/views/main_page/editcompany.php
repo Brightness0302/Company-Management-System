@@ -53,6 +53,14 @@
                         <input id="companybic1" type="text" placeholder="" value="<?=$company['bic1']?>" />
                     </div>
                     <div class="input">
+                        <div class="title"><i class="material-icons">account_box</i> Observation-1</div>
+                        <select class="form-select" id="observation1">
+                            <option value="EURO" <?=$company['observation1']=="EURO"?"selected":""?>>EURO</option>
+                            <option value="RON" <?=$company['observation1']=="RON"?"selected":""?>>RON</option>
+                            <option value="USD" <?=$company['observation1']=="USD"?"selected":""?>>USD</option>
+                        </select>
+                    </div>
+                    <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Bank account-1</div>
                         <input id="companybankaccount1" type="text" placeholder="" value="<?=$company['bankaccount1']?>" />
                     </div>
@@ -63,6 +71,14 @@
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> BIC-2</div>
                         <input id="companybic2" type="text" placeholder="" value="<?=$company['bic2']?>" />
+                    </div>
+                    <div class="input">
+                        <div class="title"><i class="material-icons">account_box</i> Observation-2</div>
+                        <select class="form-select" id="observation2">
+                            <option value="EURO" <?=$company['observation2']=="EURO"?"selected":""?>>EURO</option>
+                            <option value="RON" <?=$company['observation2']=="RON"?"selected":""?>>RON</option>
+                            <option value="USD" <?=$company['observation2']=="USD"?"selected":""?>>USD</option>
+                        </select>
                     </div>
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Bank account-2</div>

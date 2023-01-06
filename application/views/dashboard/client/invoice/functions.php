@@ -216,7 +216,7 @@ function refresh() {
     }
     $("#sub_total").text(sub_total.toFixed(2));
     $("#total").text((total * (1.0 + vvat)).toFixed(2));
-    $("#discount").text((discount));
+    $("#discount").text((discount).toFixed(2));
     $("#amount_total").text($("#total").text());
     $("#tax").text((total * vvat).toFixed(2));
 }
