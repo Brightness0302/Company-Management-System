@@ -36,7 +36,7 @@
                             <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">Address:</p>
                             <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">Reg Number:</p>
                             <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">VAT:</p>
-                            <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">BIC:</p>
+                            <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">EORI:</p>
                         </div>
                         <div style="display: inline-block;">
                             <p class="font-normal" style="text-align: justify !important; overflow-wrap: break-word; margin: 0px !important; padding: 0px !important;"><?=$company['address']?></p>

@@ -53,7 +53,7 @@
                             <p class="text-base font-bold">Address: <?=$company['address']?></p>
                             <p class="text-base font-bold">Reg Number: <?=$company['number']?></p>
                             <p class="text-base font-bold">VAT: <?=$company['VAT']?></p>
-                            <p class="text-base font-bold">BIC: <?=$company['EORI']?></p>
+                            <p class="text-base font-bold">EORI: <?=$company['EORI']?></p>
                             <div class="row">
                                 <div class="col-sm-4">
                                     <p class="font-bold">Bank details:</p>
