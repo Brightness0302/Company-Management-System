@@ -109,7 +109,6 @@ class Home extends CI_Controller
             }
 
             $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $invoice['id']);
-/*
             $data['supplier_invoices'][$index]['attached'] = false;
 
             $data['supplier_invoices'][$index]['acq_subtotal_without_vat'] = $result['acq_subtotal_without_vat'];
@@ -123,9 +122,8 @@ class Home extends CI_Controller
             if(file_exists($path.$invoicename)) {
                 $data['supplier_invoices'][$index]['attached'] = true;
             }
-            */
         }
-/*
+
         $firstday = date('Y-m-d');
         $data['projects_success'] = $this->home->alldatabysmallerthandatefromdatabase($companyid, 'project', 'enddate', $firstday);
         foreach ($data['projects_success'] as $key => $project) {
@@ -161,7 +159,6 @@ class Home extends CI_Controller
         $this->load->view('dashboard/home/foot');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
-        */
     }
     //No need
     public function signup($company_name) {
