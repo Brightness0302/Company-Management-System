@@ -377,6 +377,8 @@ class Supplier_model extends CI_Model {
             return $res;
         }
         foreach ($lines as $index => $line) {
+            $this->db->query("use database".$companyid);
+            
             $lineid = $line['line_id'];
             $query =    "SELECT *
                     FROM `material_totalline`

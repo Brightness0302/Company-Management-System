@@ -108,9 +108,8 @@ class Home extends CI_Controller
                 $data['supplier_invoices'][$index]['supplier'] = $res['data'];
             }
 
-            echo $companyid;
-/*
             $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $invoice['id']);
+/*
             $data['supplier_invoices'][$index]['attached'] = false;
 
             $data['supplier_invoices'][$index]['acq_subtotal_without_vat'] = $result['acq_subtotal_without_vat'];
