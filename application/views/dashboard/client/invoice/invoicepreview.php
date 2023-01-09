@@ -13,7 +13,7 @@
     }
 </style>
 <body >
-    <div style="width: 800px; display: flex; flex-direction: column; height: 100vh;">
+    <div style="width: 800px; display: flex; flex-direction: column;">
         <!-- Content Start-->
         <div class="container p-2">
             <!-- Company Info Section -->
@@ -133,8 +133,10 @@
                             </td>
                             <td>
                                 <div style="flex-direction: column;">
-                                    <p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 15px !important;"><?=$line['description']?></p>
-                                    <p style="text-align: center;" class="p-0" class="font-normal">Discount: <?=$line['discount']?> %</p>
+                                    <p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 15px !important;"><?=(($line['description'])?$line['description']:'No Description')?></p>
+                                    <?php if($line['discount']):?>
+                                        <p style="text-align: center;" class="p-0" class="font-normal">Discount: <?=$line['discount']?> %</p>
+                                    <?php endif;?>
                                 </div>
                             </td>
                             <td><p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 15px !important;"><?=$line['rate']?></p></td>
@@ -142,7 +144,9 @@
                             <td>
                                 <div style="flex-direction: column;">
                                     <p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 15px !important;"><?=$line['total']?></p>
-                                    <p style="text-align: center;" class="p-0" class="font-normal"><?=number_format($line['total'] * $line['discount'] / 100.0, 2, '.', '')?></p>
+                                    <?php if($line['discount']):?>
+                                        <p style="text-align: center;" class="p-0" class="font-normal"><?=number_format($line['total'] * $line['discount'] / 100.0, 2, '.', '')?></p>
+                                    <?php endif;?>
                                 </div>
                             </td>
                         </tr>
@@ -168,28 +172,37 @@
             <!-- Here the text area -->
         </div>
     </div>
-    <div style="width: 800px; display: flex; flex-direction: column;">
-        <div style="position: fixed; bottom: 0px; left: 40px;">
-            <div style="display: inline-block;">
-                <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">Bank details:</p>
-                <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">BIC:</p>
-                <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">IBAN:</p>
-                <div <?=(($invoice['isshow_bank2']==="true")?"":"hidden")?>>
-                    <br/>
-                    <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">Bank details2:</p>
-                    <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">BIC2:</p>
-                    <p class="font-bold font-normal" style="margin: 0px !important; padding: 0px !important;">IBAN2:</p>
+    <div style="width: 800px; display: flex; flex-direction: column;" class="text-center">
+        <div class="row">
+            <div style="position: fixed; bottom: 0px;">
+                <hr style="width: 750px;">
+                <div style="display: inline-block;">
+                    <?php if(($invoice['isshow_bank2']==="true")):?>
+                        <br/>
+                    <?php endif;?>
+                    <p class="font-bold font-normal text-right" style="margin: 0px !important; padding: 0px !important;">Bank details:</p>
+                    <p class="font-bold font-normal text-right" style="margin: 0px !important; padding: 0px !important;">BIC:</p>
+                    <p class="font-bold font-normal text-right" style="margin: 0px !important; padding: 0px !important;">IBAN:</p>
+                    <div <?=(($invoice['isshow_bank2']==="true")?"":"hidden")?>>
+                        <br/>
+                        <p class="font-bold font-normal text-right" style="margin: 0px !important; padding: 0px !important;">Bank details2:</p>
+                        <p class="font-bold font-normal text-right" style="margin: 0px !important; padding: 0px !important;">BIC2:</p>
+                        <p class="font-bold font-normal text-right" style="margin: 0px !important; padding: 0px !important;">IBAN2:</p>
+                    </div>
                 </div>
-            </div>
-            <div style="display: inline-block;">
-                <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankname1']?></p>
-                <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bic1']?></p>
-                <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankaccount1']?></p>
-                <div <?=(($invoice['isshow_bank2']==="true")?"":"hidden")?>>
-                    <br/>
-                    <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankname2']?></p>
-                    <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bic2']?></p>
-                    <p class="font-normal" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankaccount2']?></p>
+                <div style="display: inline-block; margin-left: 30px;">
+                    <?php if(($invoice['isshow_bank2']==="true")):?>
+                        <br/>
+                    <?php endif;?>
+                    <p class="font-normal text-right" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankname1']?></p>
+                    <p class="font-normal text-right" style="margin: 0px !important; padding: 0px !important;"><?=$company['bic1']?></p>
+                    <p class="font-normal text-right" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankaccount1']?></p>
+                    <div <?=(($invoice['isshow_bank2']==="true")?"":"hidden")?>>
+                        <br/>
+                        <p class="font-normal text-right" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankname2']?></p>
+                        <p class="font-normal text-right" style="margin: 0px !important; padding: 0px !important;"><?=$company['bic2']?></p>
+                        <p class="font-normal text-right" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankaccount2']?></p>
+                    </div>
                 </div>
             </div>
         </div>
