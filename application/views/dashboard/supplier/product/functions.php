@@ -531,7 +531,7 @@ function AddProduct() {
                 var form_data = new FormData();
                 var ins = document.getElementById('file-upload').files.length;
                 form_data.append("files[]", document.getElementById('file-upload').files[0]);
-                alert(form_data);
+                // alert(form_data);
                 $.ajax({
                     url: "<?=base_url("material/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + id,
                     method: "POST",
@@ -620,7 +620,7 @@ function EditProduct(product_id) {
         method: "POST",
         data: form_data, 
         success: function(res) {
-            alert(res);
+            // alert(res);
             const id = res;
             if (id != 1) {
                 swal("Edit Product", "Failed", "error");
@@ -636,7 +636,7 @@ function EditProduct(product_id) {
                 var form_data = new FormData();
                 var ins = document.getElementById('file-upload').files.length;
                 form_data.append("files[]", document.getElementById('file-upload').files[0]);
-                alert(form_data);
+                // alert(form_data);
                 $.ajax({
                     url: "<?=base_url("material/uploadinvoiceattach/".$company['name'].'/')?>" + supplierid + '/' + product_id,
                     method: "POST",
@@ -647,7 +647,7 @@ function EditProduct(product_id) {
                     dataType: 'text',
                     async: false,
                     success: function(res) {
-                        alert("uploaded:" + res);
+                        // alert("uploaded:" + res);
                     },
                     error: function(jqXHR, exception) {
                         alert("uploaded nothing");

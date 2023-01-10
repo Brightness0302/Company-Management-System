@@ -29,7 +29,7 @@ function getFirstLetters(str) {
 	return firstLetters;
 }
 function clickclient(client_name, client_address) {
-	alert(client_name);
+	// alert(client_name);
 	short_name = getFirstLetters(client_name);
 	$("#upload_client").html("<div class='text-left ml-10'><p class='font-bold text-lg' id='client_name'>"+client_name+"</p><p class='text-base' id='client_address'>"+client_address+"</p></div>");
 }

@@ -258,7 +258,7 @@ function add_vat(el) {
     },
     function() {
         ln1 = $('#input1').val();
-        alert(ln1);
+        // alert(ln1);
         if (!ln1) {
             alert("Error Input");
             return;
@@ -303,7 +303,7 @@ function add_tax(el) {
         ln1 = $('#input1').val();
         ln2 = $('#input2').val();
         ln3 = $('#input3').val();
-        alert(index + ln1 + ln2 + ln3);
+        // alert(index + ln1 + ln2 + ln3);
         if (!ln1 || !ln2 || !ln3) {
             alert("Error Input");
             return;
@@ -446,7 +446,7 @@ function editInvoice(invoice_id) {
         method: "POST",
         data: form_data, 
         success: function(res) {
-            alert(res);
+            // alert(res);
             const id = res;
             if (id != 1) {
                 swal("Edit Invoice", "Failed", "error");

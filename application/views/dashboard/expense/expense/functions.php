@@ -124,7 +124,7 @@ function EditExpense(expense_id) {
         method: "POST",
         data: form_data, 
         success: function(res) {
-            alert(res);
+            // alert(res);
             const id = res;
             if (id != 1) {
                 swal("Edit Stock", "Failed", "error");

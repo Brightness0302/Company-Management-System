@@ -27,7 +27,7 @@ function AddClient() {
             data: form_data,
             success: function(res) {
                 try {
-                    alert(res);
+                    // alert(res);
                     const id = res;
                     if (id === null || id === '') {
                         swal("Add Client", "Server Error", "error");

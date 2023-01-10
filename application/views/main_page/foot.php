@@ -86,7 +86,7 @@ function AddCompany() {
                     var form_data = new FormData();
                     
                     form_data.append("files[]", document.getElementById('upload_image_file').files[0]);
-                    alert(form_data);
+                    // alert(form_data);
                     $.ajax({
                         url: "<?=base_url('home/uploadImage/company/?id=')?>" + id,
                         method: "POST",
@@ -97,7 +97,7 @@ function AddCompany() {
                         dataType: 'text',
                         async: false,
                         success: function(res) {
-                            alert("uploaded:" + res);
+                            // alert("uploaded:" + res);
                             if (res === null || res === '') {
                                 swal({
                                         title: "Add Company",
@@ -251,7 +251,7 @@ function EditCompany(companyid) {
                     }
                     var form_data = new FormData();
                     form_data.append("files[]", document.getElementById('upload_image_file').files[0]);
-                    alert(form_data);
+                    // alert(form_data);
                     $.ajax({
                         url: "<?=base_url('home/uploadImage/company/?id=')?>" + companyid,
                         method: "POST",
@@ -262,7 +262,7 @@ function EditCompany(companyid) {
                         dataType: 'text',
                         async: false,
                         success: function(res) {
-                            alert("uploaded:" + res);
+                            // alert("uploaded:" + res);
                             if (res === null || res === '') {
                                 swal({
                                         title: "Edit Company",
@@ -325,7 +325,7 @@ $("#_adduser").click(function() {
             data: form_data,
             dataType: 'text',
             success: function(res) {
-                alert(res);
+                // alert(res);
                 const id = res;
                 if (id === null || id === '') {
                     swal("Add User", "Server Error", "error");
@@ -381,7 +381,7 @@ function _edituser(userid) {
             data: form_data,
             dataType: 'text',
             success: function(res) {
-                alert(res);
+                // alert(res);
                 const id = res;
                 if (id != 1) {
                     swal("Edit User", "Server Error", "error");

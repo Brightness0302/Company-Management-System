@@ -56,7 +56,7 @@
 	            dataType: 'text',
 	            async: false,
 	            success: function(res) {
-	                alert("uploaded:" + res);
+	                // alert("uploaded:" + res);
 
 	                const form_data = {
 				        type: 1,

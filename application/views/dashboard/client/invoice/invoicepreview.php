@@ -148,7 +148,14 @@
                                     <?php endif;?>
                                 </div>
                             </td>
-                            <td><p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 15px !important;"><?=$line['rate']?></p></td>
+                            <td>
+                                <div style="flex-direction: column;">
+                                    <p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 15px !important;"><?=$line['rate']?></p>
+                                    <?php if($line['discount']):?>
+                                        <p style="text-align: center;" class="p-0" class="font-normal"><?=number_format($line['rate'] * (100.0 - $line['discount']) / 100.0, 2, '.', '')?></p>
+                                    <?php endif;?>
+                                </div>
+                            </td>
                             <td><p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 15px !important;"><?=$line['qty']?></p></td>
                             <td>
                                 <div style="flex-direction: column;">

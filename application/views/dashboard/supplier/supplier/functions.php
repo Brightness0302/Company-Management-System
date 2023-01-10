@@ -11,7 +11,7 @@ function AddSupplier() {
     const EORI = $("#Suppliereori").val();
     const Ref = $("#SupplierRef").val();
 
-    alert(bankname_2+bankaccount_2);
+    // alert(bankname_2+bankaccount_2);
 
     const form_data = {
         name: name,
@@ -33,7 +33,7 @@ function AddSupplier() {
             data: form_data,
             success: function(res) {
                 try {
-                    alert(res);
+                    // alert(res);
                     const id = res;
                     if (id === null || id === '') {
                         swal("Add Supplier", "Server Error", "error");
