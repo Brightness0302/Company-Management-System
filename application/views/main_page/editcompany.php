@@ -55,7 +55,7 @@
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Observation-1</div>
                         <select class="form-select" id="observation1">
-                            <option value="EURO" <?=$company['observation1']=="EURO"?"selected":""?>>EURO</option>
+                            <option value="EURO" <?=$company['observation1']=="EUR"?"selected":""?>>EUR</option>
                             <option value="RON" <?=$company['observation1']=="RON"?"selected":""?>>RON</option>
                             <option value="USD" <?=$company['observation1']=="USD"?"selected":""?>>USD</option>
                         </select>
@@ -75,7 +75,7 @@
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Observation-2</div>
                         <select class="form-select" id="observation2">
-                            <option value="EURO" <?=$company['observation2']=="EURO"?"selected":""?>>EURO</option>
+                            <option value="EURO" <?=$company['observation2']=="EUR"?"selected":""?>>EUR</option>
                             <option value="RON" <?=$company['observation2']=="RON"?"selected":""?>>RON</option>
                             <option value="USD" <?=$company['observation2']=="USD"?"selected":""?>>USD</option>
                         </select>

@@ -56,7 +56,7 @@
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Observation-1</div>
                         <select class="form-select" id="observation1">
-                            <option value="EURO">EURO</option>
+                            <option value="EURO">EUR</option>
                             <option value="RON">RON</option>
                             <option value="USD">USD</option>
                         </select>
@@ -76,7 +76,7 @@
                     <div class="input">
                         <div class="title"><i class="material-icons">account_box</i> Observation-2</div>
                         <select class="form-select" id="observation2">
-                            <option value="EURO">EURO</option>
+                            <option value="EURO">EUR</option>
                             <option value="RON">RON</option>
                             <option value="USD">USD</option>
                         </select>

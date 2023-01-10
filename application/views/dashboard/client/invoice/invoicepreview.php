@@ -8,8 +8,17 @@
     .font-normal {
         font-size: 12px;
     }
+    .font-smaller {
+        font-size: 10px;
+    }
+    .font-smallest {
+        font-size: 8px;
+    }
     p {
         padding: 0px !important;
+    }
+    .text-bold {
+        font-weight: bold !important;
     }
 </style>
 <body >
@@ -173,38 +182,41 @@
         </div>
     </div>
     <div style="width: 800px; display: flex; flex-direction: column;" class="text-center">
-        <div class="row">
-            <div style="position: fixed; bottom: 0px;">
-                <hr style="width: 750px;">
-                <div style="display: inline-block;">
-                    <?php if(($invoice['isshow_bank2']==="true")):?>
-                        <br/>
+        <div style="position: fixed; bottom: 0px; width: 720px; margin-left: 40px; margin-right: 40px;">
+            <table class="table text-bold" style="margin: 0px !important;">
+                <tbody>
+                    <tr>
+                        <td style="margin: 0px !important; padding: 0px !important; text-align: center;">
+                            <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;">Bank details(<?=$company['observation1']?>):</p>
+                            <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;"><?=$company['bankname1']?></p>
+                        </td>
+                        <td style="margin: 0px !important; padding: 0px !important; text-align: center;">
+                            <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;">BIC:</p>
+                            <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;"><?=$company['bic1']?></p>
+                        </td>
+                        <td style="margin: 0px !important; padding: 0px !important; text-align: center;">
+                            <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;">IBAN:</p>
+                            <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;"><?=$company['bankaccount1']?></p>
+                        </td>
+                    </tr>
+                    <?php if($invoice['isshow_bank2']):?> 
+                    <tr>
+                        <td style="margin: 0px !important; padding: 0px !important; text-align: center;">
+                            <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;">Bank details2(<?=$company['observation2']?>):</p>
+                            <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;"><?=$company['bankname2']?></p>
+                        </td>
+                        <td style="margin: 0px !important; padding: 0px !important; text-align: center;">
+                            <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;">BIC2:</p>
+                            <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;"><?=$company['bic2']?></p>
+                        </td>
+                        <td style="margin: 0px !important; padding: 0px !important; text-align: center;">
+                            <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;">IBAN2:</p>
+                            <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;"><?=$company['bankaccount2']?></p>
+                        </td>
+                    </tr>
                     <?php endif;?>
-                    <p class="font-bold font-normal text-right" style="margin: 0px !important; padding: 0px !important;">Bank details:</p>
-                    <p class="font-bold font-normal text-right" style="margin: 0px !important; padding: 0px !important;">BIC:</p>
-                    <p class="font-bold font-normal text-right" style="margin: 0px !important; padding: 0px !important;">IBAN:</p>
-                    <div <?=(($invoice['isshow_bank2']==="true")?"":"hidden")?>>
-                        <br/>
-                        <p class="font-bold font-normal text-right" style="margin: 0px !important; padding: 0px !important;">Bank details2:</p>
-                        <p class="font-bold font-normal text-right" style="margin: 0px !important; padding: 0px !important;">BIC2:</p>
-                        <p class="font-bold font-normal text-right" style="margin: 0px !important; padding: 0px !important;">IBAN2:</p>
-                    </div>
-                </div>
-                <div style="display: inline-block; margin-left: 30px;">
-                    <?php if(($invoice['isshow_bank2']==="true")):?>
-                        <br/>
-                    <?php endif;?>
-                    <p class="font-normal text-right" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankname1']?></p>
-                    <p class="font-normal text-right" style="margin: 0px !important; padding: 0px !important;"><?=$company['bic1']?></p>
-                    <p class="font-normal text-right" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankaccount1']?></p>
-                    <div <?=(($invoice['isshow_bank2']==="true")?"":"hidden")?>>
-                        <br/>
-                        <p class="font-normal text-right" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankname2']?></p>
-                        <p class="font-normal text-right" style="margin: 0px !important; padding: 0px !important;"><?=$company['bic2']?></p>
-                        <p class="font-normal text-right" style="margin: 0px !important; padding: 0px !important;"><?=$company['bankaccount2']?></p>
-                    </div>
-                </div>
-            </div>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>
