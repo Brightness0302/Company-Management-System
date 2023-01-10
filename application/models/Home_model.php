@@ -1083,7 +1083,7 @@ class Home_model extends CI_Model {
           ),
           'lines' => array(
             'type' => 'VARCHAR',
-            'constraint' => 10000,
+            'constraint' => 30000,
           ),
           'paid_date date default current_timestamp',
           'paid_method' => array(
