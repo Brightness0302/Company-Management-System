@@ -1082,8 +1082,7 @@ class Home_model extends CI_Model {
             'constraint' => 9
           ),
           'lines' => array(
-            'type' => 'VARCHAR',
-            'constraint' => 30000,
+            'type' => 'LONGTEXT',
           ),
           'paid_date date default current_timestamp',
           'paid_method' => array(
