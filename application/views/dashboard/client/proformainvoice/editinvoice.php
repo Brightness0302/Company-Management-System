@@ -52,18 +52,32 @@
                             <p class="text-lg font-bold"><?=str_replace("_"," ", $company['name'])?></p>
                             <p class="text-base font-bold">Address: <?=$company['address']?></p>
                             <p class="text-base font-bold">Reg Number: <?=$company['number']?></p>
+                            <p class="text-base font-bold">VAT: <?=$company['VAT']?></p>
+                            <p class="text-base font-bold">EORI: <?=$company['EORI']?></p>
                             <div class="row">
                                 <div class="col-sm-4">
                                     <p class="font-bold">Bank details:</p>
-                                    <p class="font-bold">Beneficiary:</p>
                                     <p class="font-bold">BIC:</p>
                                     <p class="font-bold">IBAN:</p>
+                                    <div>
+                                        <input type="checkbox" id="isshow_bank2" name="isshow_bank2" /> <label id="label_isshow_bank2" class="m-0">BANK2</label>
+                                    </div>
+                                    <div class="isshow_bank2" style="display: none;">
+                                        <p class="font-bold">Bank details2:</p>
+                                        <p class="font-bold">BIC2:</p>
+                                        <p class="font-bold">IBAN2:</p>
+                                    </div>
                                 </div>
                                 <div class="col-sm-8">
-                                    <p class="font-normal"><?=$company['bankname']?></p>
-                                    <p class="font-normal"><?=str_replace("_"," ", $company['name'])?></p>
-                                    <p class="font-normal"><?=$company['EORI']?></p>
-                                    <p class="font-normal"><?=$company['bankaccount']?></p>
+                                    <p class="font-normal"><?=$company['bankname1']?></p>
+                                    <p class="font-normal"><?=$company['bic1']?></p>
+                                    <p class="font-normal"><?=$company['bankaccount1']?></p>
+                                    <br/>
+                                    <div class="isshow_bank2" style="display: none;">
+                                        <p class="font-normal"><?=$company['bankname2']?></p>
+                                        <p class="font-normal"><?=$company['bic2']?></p>
+                                        <p class="font-normal"><?=$company['bankaccount2']?></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -100,8 +114,33 @@
                     </div>
 
                     <div class="text-left ml-10">
-                        <p class="d_inline w_75 p-2 text-primary text-center" onclick="add_vat(this)" id="invoice_vat"><?=$invoice['invoice_vat']?></p>
+                        <p class="d_inline w_75 p-2 text-primary text-center text-lg" onclick="add_vat(this)" id="invoice_vat"><?=$invoice['invoice_vat']?></p>
                         <p class="d_inline w_15 p-2"></p>
+                    </div>
+
+                    <div class="text-left ml-10">
+                        <div class="flex jusify-content-start">
+                            <div>
+                                <p class="d_inline text-center text-lg" >Select Coin: </p>
+                            </div>
+                            <div>
+                                <select class="d_inline form-select" id="companycoin">
+                                    <?php if($company['Coin']!="LEI"):?>
+                                        <option value="<?php if($company['Coin']=="EURO")echo "€";if ($company['Coin']=="POUND")echo "£";if ($company['Coin']=="USD")echo "$";?>">
+                                            <?php 
+                                            if($company['Coin']=="EURO")
+                                                echo "€";
+                                            if ($company['Coin']=="POUND")
+                                                echo "£";
+                                            if ($company['Coin']=="USD")
+                                                echo "$";
+                                            ?>
+                                        </option>
+                                    <?php endif;?>
+                                    <option value="LEI">Lei</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Modal -->
@@ -128,7 +167,7 @@
                                 <?php foreach ($clients as $client):?>
                                 <?php if(!$client['isremoved']):?>
                                 <?php $index++;?>
-                                <tr onclick="clickclient('<?=$client['name']?>', '<?=$client['address']?>')" data-dismiss="modal">
+                                <tr onclick="clickclient('<?=str_replace("_"," ", $client['name'])?>', '<?=$client['address']?>', '<?=$client['Ref']?>')" data-dismiss="modal">
                                     <td><?=$index?></td>
                                     <td><?=str_replace("_"," ", $client['name'])?></td>
                                     <td><?=$client['Ref']?></td>
@@ -140,7 +179,6 @@
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
                           </div>
                         </div>
                       </div>
@@ -163,7 +201,7 @@
                     <div class="col">
                         <div class="row-sm-6 px-0 py-4">
                             <strong>Invoice Number</strong>
-                            <input class="form form-control bg-transparent no_broder" type="text" value="<?=$invoice['input_invoicenumber']?>" id="input_invoicenumber">
+                            <input class="form form-control bg-transparent no_broder" type="text" value="<?=$invoice['input_invoicenumber']?>" id="input_invoicenumber" readOnly>
                         </div>
                         <div class="row-sm-6 px-0 py-4">
                             <strong>Reference</strong>
@@ -177,8 +215,8 @@
                         <div class="row-sm-6 p-4">
                             <strong class="font_24">Amount</strong>
                         </div>
-                        <div class="row-sm-6 p-1">
-                            <strong class="text-5xl" id="amount_total">€<?=$invoice['total']?></strong>
+                        <div class="row-sm-6 pl-4">
+                            <strong class="text-3xl" id="amount_total"><?=$invoice['total']?></strong> <label class="text-3xl coinsymbol">€</label>
                         </div>
                     </div>
                 </div>
@@ -195,30 +233,41 @@
                 <!-- Description Table -->
                 <table class="table m_auto">
                     <thead>
-                        <th class="text-right">Description</th>
-                        <th class="text-right">Rate</th>
+                        <th class="text-left">Description</th>
+                        <th class="text-right">Rate(<label class="coinsymbol">€</label>)</th>
                         <th class="text-right pr-2">Qty</th>
-                        <th class="text-right">Line Total</th>
+                        <th class="text-right">Line Total(<label class="coinsymbol">€</label>)</th>
+                        <th class="text-center">Action</th>
                     </thead>
                     <tbody id="table_body">
                         <?php ?>
                         <?php foreach ($lines as $index => $line):?>
                         <tr>
                             <td>
-                                <input type='text' value="<?=$line['description']?>" class='form form-control w-full p-2 mt-2 text_right bg-transparent no_broder' name='description1' placeholder='Description1' id='line_description'>
+                                <textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text-left bg-transparent no_broder' name='description' cols='200' rows='1'><?=$line['description']?></textarea>
                             </td>
                             <td class='text-center'>
                                 <input type='text' value="<?=$line['rate']?>" class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>
+                                <?php if($line['discount']!=0):?>
+                                <div class='row'>
+                                    <label class='col-sm-6 my-0'>Discount: </label>
+                                    <input type='text' value='<?=$line['discount']?>' class='col-sm-4 w-full text-right bg-transparent border-none' name='discount' placeholder='Discount' id='line_discount'>
+                                    <label class='col-sm-2 my-0'>%</label>
+                                </div>
+                                <?php endif;?>
                             </td>
                             <td>
                                 <input type='number' min='1' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='qty' placeholder='Quantity' id='line_qty' value="<?=$line['qty']?>">
                             </td>
                             <td>
                                 <input type='text' value="<?=$line['total']?>" class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>
+                                <?php if($line['discount']!=0):?>
+                                <input type='text' value='<?=number_format($line['total']*$line['discount']/100.0, 2, '.', '')?>' class='w-full text-right bg-transparent border-none' name='discount' placeholder='Discount' id='discount_amount'>
+                                <?php endif;?>
                             </td>
-                            <td class='align-middle'>
-                                <div id='btn_remove_row' onclick='remove_tr(this)'>
-                                    <i class='bi custom-remove-icon p-3'></i>
+                            <td class='align-middle text-center'>
+                                <div class="mt-2 p-2" id='btn_remove_row' onclick='remove_tr(this)'>
+                                    <i class='bi custom-remove-icon'></i>
                                 </div>
                             </td>
                         </tr>
@@ -227,27 +276,100 @@
                 </table>
 
                 <!-- Add Line Button -->
-                <button class="btn m_auto" id="btn_add_line">
-                    <i class="bi bi-plus-circle"></i>
-                    Add Line
-                </button>
+                <div class="flex justify-evenly">
+                    <button class="btn w-full btn_add_line m-3" id="btn_add_line">
+                        <i class="bi bi-plus-circle"></i>
+                        Add Line
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="productfromstock" tabindex="-1" role="dialog" aria-labelledby="productfromstock" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 800px;">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Product from stock</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="row m-1">
+                                <div class="col-sm-3">
+                                    <div class="w-full m-3 form-control">Stock:</div>
+                                    <div class="w-full m-3 form-control">Product:</div>
+                                    <div class="w-full m-3 form-control">Amount:</div>
+                                    <div class="w-full m-3 form-control">Discount:</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="m-3">
+                                        <select class="form-select w-full" id="stockid">
+                                        <?php foreach ($stocks as $index => $stock):?>
+                                            <option value="<?=$stock['id']?>">
+                                                <?=$stock['name']?>
+                                            </option>
+                                        <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <div class="m-3">
+                                        <select class="form-select w-full" id="product_code_ean">
+                                        </select>
+                                    </div>
+                                    <div class="m-3">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <input class="form-control" type="number" name="amount" id="product_amount" value="0" max="99" min="0">
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <p class="text-center text-red text-base" id="amount_hint">0 products on stock</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="m-3">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <input class="form-control " type="text" name="discount" id="product_discount" />
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <p class="text-base">%</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="save_product" data-dismiss="modal">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <!-- Add Line Button -->
             </div>
             <!-- Here the text area-->
             <div class="text_right m-3">
                 <p class="d_inline w_75 p-2 text-center">Sub total</p>
-                <p class="d_inline w_15 p-2" id="sub_total"><?=$invoice['sub_total']?></p>
+                <p class="d_inline w_15 p-2" id="sub_total"><?=$invoice['sub_total']?></p><label class="coinsymbol">€</label>
             </div>
 
             <div class="text_right m-3">
-                <p class="d_inline w_75 p-2 text-primary text-center">VAT</p>
-                <p class="d_inline w_15 p-2" id="tax"><?=$invoice['tax']?></p>
+                <p class="d_inline text-green-600 text-center text-lg">- </p>
+                <p class="d_inline w_75 p-2 text-primary text-center">Total Discount</p>
+                <p class="d_inline w_15 p-2" id="discount"><?=$invoice['invoice_discount']?></p><label class="coinsymbol">€</label>
             </div>
 
-            <hr>
+            <div class="text_right m-3">
+                <p class="d_inline text-green-600 text-center text-lg">+ </p>
+                <p class="d_inline w_75 p-2 text-primary text-center">VAT</p>
+                <p class="d_inline w_15 p-2" id="tax"><?=$invoice['tax']?></p><label class="coinsymbol">€</label>
+            </div>
+
+            <hr style="border: 1px black solid;">
 
             <div class="text_right m-3">
                 <p class="d_inline w_75 p-2 text-primary text-center">Total</p>
-                <p class="d_inline w_15 p-2" id="total"><?=$invoice['total']?></p>
+                <p class="d_inline w_15 p-2" id="total"><?=$invoice['total']?></p><label class="coinsymbol">€</label>
             </div>
             <!-- Here the text area -->
         </div>

@@ -1,74 +1,217 @@
 <script type="text/javascript">
 $(document).ready(function() {
+    $("select").select2({ width: '100%' });
+
     $("#btn_add_line").click(function() {
-        $("#table_body").append(
-            "<tr>" +
-            "<td>" +
-            "<input type='text' class='form form-control w-full p-2 mt-2 text_right bg-transparent no_broder' name='description1' placeholder='Description1' id='line_description'>" +
-            "</td>" +
-            "<td class='text-center'>" +
-            "<input type='text' value='0' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>" +
-            "</td>" +
-            "<td>" +
-            "<input type='number' min=1 class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='qty' placeholder='Quantity' id='line_qty' value='1'>" +
-            "</td>" +
-            "<td>" +
-            "<input type='text' value='0' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>" +
-            "</td>" +
-            "<td class='align-middle'>" +
-            "<div id='btn_remove_row' onclick='remove_tr(this)'>" +
-            "<i class='bi custom-remove-icon p-3'></i>" +
-            "</div>" +
-            "</td>" +
-            "</tr>"
-        );
-        $("input").keyup(function() {
+        appendTable("", 0, 1, 0, "");
+        $("input").change(function() {
             const eid = $(this).attr('id');
-            if (eid == "line_rate" || eid == "line_qty") {
+            if (eid == "line_rate" || eid == "line_qty" || eid == "line_discount") {
                 //Update Line_total value;
                 const etr = $(this).closest('tr');
                 const erate = etr.find("input[id*='line_rate']");
                 const eqty = etr.find("input[id*='line_qty']");
+                const ediscount = etr.find("input[id*='line_discount']");
                 const etotal = etr.find("input[id*='line_total']");
-                etotal[0].value = erate[0].value * eqty[0].value;
+                const ediscount_amount = etr.find("input[id*='discount_amount']");
+                etotal[0].value = (erate[0].value * eqty[0].value).toFixed(2);
+                ediscount_amount[0].value = (erate[0].value * eqty[0].value * ediscount[0].value / 100.0).toFixed(2);
                 //Update total, sub_total;
                 refresh();
             }
         });
+        const tx = document.getElementsByTagName("textarea");
+        for (let i = 0; i < tx.length; i++) {
+            tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
+            tx[i].addEventListener("input", OnInput, false);
+        };
     });
-    $("input").keyup(function() {
-        const eid = $(this).attr('id');
-        if (eid == "line_rate" || eid == "line_qty") {
-            //Update Line_total value;
-            const etr = $(this).closest('tr');
-            const erate = etr.find("input[id*='line_rate']");
-            const eqty = etr.find("input[id*='line_qty']");
-            const etotal = etr.find("input[id*='line_total']");
-            etotal[0].value = erate[0].value * eqty[0].value;
-            //Update total, sub_total;
-            refresh();
+    $("#stockid").change(function() {
+        const stockid = this.value;
+        $("#product_amount").val("0");
+        refreshproductbystockid(stockid);
+    });
+    $("#isshow_bank2").change(function() {
+        const isshow_bank2 = this.checked;
+        if (isshow_bank2 === true)
+            $(".isshow_bank2").show();
+        else
+            $(".isshow_bank2").hide();
+    });
+    $("#label_isshow_bank2").click(function() {
+        const isshow_bank2 = document.getElementById("isshow_bank2");
+        isshow_bank2.checked = !isshow_bank2.checked;
+        isshow_bank2.dispatchEvent(new Event('change', { 'bubbles': true }));
+    });
+    $("#product_code_ean").change(function() {
+        const lineid = this.value;
+        $("#product_amount").val("0");
+        refreshproductamountbylineid(lineid);
+    });
+    $("#save_product").click(function() {
+        const lineid = $("#product_code_ean").val();
+        const amount = $("#product_amount").val();
+        const discount = $("#product_discount").val();
+
+        const product_code_ean = document.getElementById('product_code_ean');
+        const stock = document.getElementById('stockid');
+        const stockname = stock.options[stock.selectedIndex].text;
+
+        console.log("saveLine");
+
+        $.ajax({
+            url: "<?=base_url('stock/getdatafromproductbylineid?lineid=')?>" + lineid,
+            method: "POST",
+            dataType: 'json',
+            success: function(res) {
+                let price = res['price'];
+                let code_ean = res['code_ean'];
+                let productname = res['production_description'];
+                let serial_number = res['serial_number'];
+
+                console.log(lineid, code_ean, productname, amount, serial_number);
+                const product_description = "[" + code_ean + "] - " + productname;
+
+                appendTable(product_description, parseFloat(price), amount, discount, serial_number);
+                $("input").change(function() {
+                    const eid = $(this).attr('id');
+                    if (eid == "line_rate" || eid == "line_qty" || eid == "line_discount") {
+                        //Update Line_total value;
+                        const etr = $(this).closest('tr');
+                        const erate = etr.find("input[id*='line_rate']");
+                        const eqty = etr.find("input[id*='line_qty']");
+                        const ediscount = etr.find("input[id*='line_discount']");
+                        const etotal = etr.find("input[id*='line_total']");
+                        const ediscount_amount = etr.find("input[id*='discount_amount']");
+                        etotal[0].value = (erate[0].value * eqty[0].value).toFixed(2);
+                        ediscount_amount[0].value = (erate[0].value * eqty[0].value * ediscount[0].value / 100.0).toFixed(2);
+                        //Update total, sub_total;
+                        refresh();
+                    }
+                });
+            }, 
+            error: function (a, b) {
+                console.log(a, b);
+            }
+        });
+    });
+    refreshproductbystockid($("#stockid").val());
+});
+
+$("input").change(function() {
+    const eid = $(this).attr('id');
+    if (eid == "line_rate" || eid == "line_qty" || eid == "line_discount") {
+        //Update Line_total value;
+        const etr = $(this).closest('tr');
+        const erate = etr.find("input[id*='line_rate']");
+        const eqty = etr.find("input[id*='line_qty']");
+        const ediscount = etr.find("input[id*='line_discount']");
+        const etotal = etr.find("input[id*='line_total']");
+        const ediscount_amount = etr.find("input[id*='discount_amount']");
+        etotal[0].value = (erate[0].value * eqty[0].value).toFixed(2);
+        ediscount_amount[0].value = (erate[0].value * eqty[0].value * ediscount[0].value / 100.0).toFixed(2);
+        //Update total, sub_total;
+        refresh();
+    }
+});
+
+function appendTable(product_description, product_rate, product_amount, product_discount, serial_number) {
+    $("#table_body").append(
+        "<tr class='border'>" +
+        "<td>" +
+        "<textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text-left bg-transparent no_broder' name='description' cols='200' rows='1'>" + product_description + "</textarea>" +
+        "</td>" +
+        "<td class='text-center'>" +
+        "<input type='text' value='" + product_rate + "' class='form form-control m_auto w-full p-2 mt-2 text-right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>" +
+        "<div class='row'><label class='col-sm-6 my-0'>Discount: </label><input type='text' value='" + product_discount + "' class='col-sm-4 w-full text-right bg-transparent border-none' name='discount' placeholder='Discount' id='line_discount'><label class='col-sm-2 my-0'>%</label></div>" +
+        "</td>" +
+        "<td>" +
+        "<input type='number' min=1 class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='qty' placeholder='Quantity' id='line_qty' value='" + product_amount +"'>" +
+        "</td>" +
+        "<td>" +
+        "<input type='text' value='" + parseFloat(product_rate*product_amount).toFixed(2) + "' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>" +
+        "<input type='text' value='" + parseFloat(product_rate*product_amount*product_discount/100.0).toFixed(2) + "' class='w-full text-right bg-transparent border-none' name='discount_amount' placeholder='Discount_amount' id='discount_amount' readOnly>" + 
+        "</td>" +
+        "<td class='align-middle text-center'>" +
+        "<div class='mt-2 p-2' id='btn_remove_row' onclick='remove_tr(this)'>" +
+        "<i class='bi custom-remove-icon'></i>" +
+        "</div>" +
+        "</td>" +
+        "<td hidden>" +
+        "<input type='text' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='serial_number' placeholder='Serial Number' id='line_SN' value='" + serial_number +"'>" +
+        "</td>" +
+        "</tr>"
+    );
+    refresh();
+}
+
+function refreshproductbystockid(stockid) {
+    $.ajax({
+        url: "<?=base_url('stock/getallproductsbystockid?stock_id=')?>" + stockid,
+        method: "POST",
+        dataType: 'json',
+        success: function(res) {
+            var string = "";
+            var isfirst = true;
+            res.forEach((line) => {
+                if (line['stockid']==stockid) {
+                    string += "<option value="+line['id']+">"+line['code_ean']+" - "+line['production_description']+"</option>";
+                    if (isfirst == true) {
+                        console.log(line);
+                        const max = line['qty'];
+                        const amount_str = max + " products on stock";
+                        $("#amount_hint").text(amount_str);
+                        isfirst = false;
+                    }
+                }
+            });
+            $("#product_code_ean").html(string);
         }
     });
-});
+}
+
+function refreshproductamountbylineid(lineid) {
+    console.log(123);
+    $.ajax({
+        url: "<?=base_url('stock/getmaxamountfromproductbyid?lineid=')?>" + lineid,
+        method: "POST",
+        dataType: 'text',
+        success: function(res) {
+            const max = res;
+            const string = max + " products on stock";
+            $("#amount_hint").text(string);
+        }
+    });
+}
+
+function OnInput() {
+    this.style.height = "auto";
+    this.style.height = (this.scrollHeight) + "px";
+}
 
 function refresh() {
     const table = $("#table_body");
     let sub_total = 0;
     let total = 0;
+    let discount = 0.0;
     let tax = 0;
     table.children("tr").each((index, element) => {
         const erate = $(element).find("input[id*='line_rate']");
         const eqty = $(element).find("input[id*='line_qty']");
+        const ediscount = $(element).find("input[id*='line_discount']");
+        const vdiscount = $(element).find("input[id*='discount_amount']");
         const etotal = $(element).find("input[id*='line_total']");
         let vqty = eqty[0].value;
         if (vqty<=0) {
             eqty[0].value = 1;
             vqty=1;
         }
-
         sub_total += parseFloat(etotal[0].value);
+        if (vdiscount.length == 1) {
+            discount += parseFloat(vdiscount[0].value);
+        }
     });
-    total = parseFloat(sub_total);
+    total = parseFloat(sub_total - discount);
     const evat = $("#invoice_vat").html();
     let vvat = 0.0;
     if (evat != "Add a VAT") {
@@ -77,7 +220,8 @@ function refresh() {
     }
     $("#sub_total").text(sub_total.toFixed(2));
     $("#total").text((total * (1.0 + vvat)).toFixed(2));
-    $("#amount_total").text("€"+$("#total").text());
+    $("#discount").text((discount).toFixed(2));
+    $("#amount_total").text($("#total").text());
     $("#tax").text((total * vvat).toFixed(2));
 }
 
@@ -184,36 +328,47 @@ function get_formdata() {
     const client_name = $("#client_name").html();
     const client_address = $("#client_address").html();
     const sub_total = $("#sub_total").text();
+    const invoice_discount = $("#discount").html();
     const tax = $("#tax").text();
     const total = $("#total").text();
+    const companycoin = $("#companycoin").val();
+    const isshow_bank2 = document.getElementById("isshow_bank2").checked;
     let lines = [];
 
     const table = $("#table_body");
     table.children("tr").each((index, element) => {
         const erate = $(element).find("input[id*='line_rate']");
         const eqty = $(element).find("input[id*='line_qty']");
-        const edescription = $(element).find("input[id*='line_description']");
+        const edescription = $(element).find("textarea[id*='line_description']");
         const etax = $(element).find("a[id*='btnaddtax']");
         const etotal = $(element).find("input[id*='line_total']");
+        const ediscount = $(element).find("input[id*='line_discount']");
+        const eserialnumber = $(element).find("input[id*='line_SN']");
+        let vdiscount = 0.0;
+        if (ediscount.length == 1)
+            vdiscount = ediscount[0].value;
 
-        lines.push({rate: erate[0].value, qty: eqty[0].value, description: edescription[0].value, tax: "", total: etotal[0].value});
+        lines.push({rate: erate[0].value, qty: eqty[0].value, discount: vdiscount, SN: eserialnumber[0].value, description: edescription[0].value, total: etotal[0].value});
     });
 
     const str_lines = JSON.stringify(lines);
 
     const form_data = {
+        isshow_bank2: isshow_bank2, 
         date_of_issue: date_of_issue,
         due_date: due_date,
         input_invoicenumber: input_invoicenumber,
         input_inputreference: input_inputreference,
         invoice_vat: invoice_vat,
+        invoice_discount: invoice_discount, 
         short_name: short_name, 
         client_name: client_name,
         client_address: client_address,
         sub_total: sub_total,
         tax: tax,
         total: total,
-        lines: str_lines
+        lines: str_lines,
+        companycoin: companycoin
     };
     return form_data;
 }
@@ -226,6 +381,7 @@ function sendtoClient() {
         url: "<?=base_url('client/savesessionbyjson')?>",
         method: "POST",
         data: form_data, 
+        dataType: 'text', 
         success: function(res) {
             console.log(res);
             if (res != "success") {
@@ -258,14 +414,15 @@ function addInvoice() {
         url: "<?=base_url('client/saveinvoice')?>",
         method: "POST",
         data: form_data, 
+        dataType: "text", 
         success: function(res) {
             const id = res;
             if (id <= 0) {
-                swal("Add Proforma", "Failed", "error");
+                swal("Add Invoice", "Failed", "error");
                 return;
             }
             swal({
-                title: "Add Proforma",
+                title: "Add Invoice",
                 text: "Invoice Success",
                 type: "success",
                 showCancelButton: false,
@@ -278,6 +435,9 @@ function addInvoice() {
             function() {
                 window.location.href = "<?=base_url('client/proformainvoicemanager')?>";
             });
+        },
+        error: function(jqXHR, exception) {
+            console.log(jqXHR, exception);
         }
     });
 }
@@ -294,11 +454,11 @@ function editInvoice(invoice_id) {
             // alert(res);
             const id = res;
             if (id != 1) {
-                swal("Edit Proforma", "Failed", "error");
+                swal("Edit Invoice", "Failed", "error");
                 return;
             }
             swal({
-                title: "Edit Proforma",
+                title: "Edit Invoice",
                 text: "Invoice Success",
                 type: "success",
                 showCancelButton: false,
