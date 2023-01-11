@@ -5,6 +5,7 @@
             <th>No</th>
             <th>Code EAN</th>
             <th>Description</th>
+            <th>SN</th>
             <th>Qty</th>
             <th>ACQ price Ex VAT</th>
             <th id="upaquisition">ACQ amount Ex VAT</th>
@@ -30,6 +31,7 @@
             <!-- <td><?=$result['name']?></td> -->
             <td class="text-left"><?=$line['code_ean']?></td>
             <td class="text-left"><?=$line['production_description']?></td>
+            <td class="text-left"><?=$line['serial_number']?></td>
             <td><?=$line['qty']?></td>
             <td><?=number_format($line['acquisition_unit_price'], 2, '.', "")?></td>
             <td><?=number_format(($line['acquisition_unit_price']*floatval($line['qty'])), 2, '.', "")?></td>
@@ -52,6 +54,7 @@
     </thead>
     <tbody>
         <tr>
+            <?php $total_selling=number_format($total_selling, 2, '.', "")?>
             <td id="downtotalmark">Total:</td>
             <td id="aquisition"><?=$total_aquisition?></td>
             <td id="eight"></td>

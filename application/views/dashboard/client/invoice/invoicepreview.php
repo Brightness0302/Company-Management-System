@@ -142,7 +142,7 @@
                             </td>
                             <td>
                                 <div style="flex-direction: column;">
-                                    <p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 15px !important;"><?=(($line['description'])?$line['description']:'No Description')?></p>
+                                    <p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 15px !important;"><?=(($line['description'])?$line['description']:'No Description')?><?=(($line['SN'])?('(SN: '.$line['SN'].')'):"")?></p>
                                     <?php if($line['discount']):?>
                                         <p style="text-align: center;" class="p-0" class="font-normal">Discount: <?=$line['discount']?> %</p>
                                     <?php endif;?>
@@ -193,30 +193,30 @@
             <table class="table text-bold" style="margin: 0px !important;">
                 <tbody>
                     <tr>
-                        <td style="margin: 0px !important; padding: 0px !important; text-align: center;">
+                        <td style="margin: 0px !important; padding: 0px !important; text-align: left;">
                             <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;">Bank details(<?=$company['observation1']?>):</p>
                             <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;"><?=$company['bankname1']?></p>
                         </td>
-                        <td style="margin: 0px !important; padding: 0px !important; text-align: center;">
+                        <td style="margin: 0px !important; padding: 0px !important; text-align: left;">
                             <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;">BIC:</p>
                             <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;"><?=$company['bic1']?></p>
                         </td>
-                        <td style="margin: 0px !important; padding: 0px !important; text-align: center;">
+                        <td style="margin: 0px !important; padding: 0px !important; text-align: left;">
                             <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;">IBAN:</p>
                             <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;"><?=$company['bankaccount1']?></p>
                         </td>
                     </tr>
                     <?php if($invoice['isshow_bank2']):?> 
                     <tr>
-                        <td style="margin: 0px !important; padding: 0px !important; text-align: center;">
+                        <td style="margin: 0px !important; padding: 0px !important; text-align: left;">
                             <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;">Bank details2(<?=$company['observation2']?>):</p>
                             <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;"><?=$company['bankname2']?></p>
                         </td>
-                        <td style="margin: 0px !important; padding: 0px !important; text-align: center;">
+                        <td style="margin: 0px !important; padding: 0px !important; text-align: left;">
                             <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;">BIC2:</p>
                             <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;"><?=$company['bic2']?></p>
                         </td>
-                        <td style="margin: 0px !important; padding: 0px !important; text-align: center;">
+                        <td style="margin: 0px !important; padding: 0px !important; text-align: left;">
                             <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;">IBAN2:</p>
                             <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;"><?=$company['bankaccount2']?></p>
                         </td>

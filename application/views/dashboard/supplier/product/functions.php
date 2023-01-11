@@ -522,7 +522,7 @@ function AddProduct() {
                 return;
             }
             if ($('#file-upload').val() === '') {
-                alert("upload nothing");
+                // alert("upload nothing");
             }
             else {
                 const supplierid = $("#supplierid").val();
@@ -542,7 +542,7 @@ function AddProduct() {
                     dataType: 'text',
                     async: false,
                     success: function(res) {
-                        alert("uploaded:" + res);
+                        // alert("uploaded:" + res);
                     },
                     error: function(jqXHR, exception) {
                         swal("Add Company", "Load PDF", "error");
@@ -627,7 +627,7 @@ function EditProduct(product_id) {
                 return;
             }
             if ($('#file-upload').val() === '') {
-                alert("uploaded nothing");
+                // alert("uploaded nothing");
             }
             else {
                 const supplierid = $("#supplierid").val();

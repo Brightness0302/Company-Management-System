@@ -3,7 +3,7 @@ $(document).ready(function() {
     $("select").select2({ width: '100%' });
 
     $("#btn_add_line").click(function() {
-        appendTable("", 0, 1, 0);
+        appendTable("", 0, 1, 0, "");
         $("input").change(function() {
             const eid = $(this).attr('id');
             if (eid == "line_rate" || eid == "line_qty" || eid == "line_discount") {
@@ -67,11 +67,12 @@ $(document).ready(function() {
                 let price = res['price'];
                 let code_ean = res['code_ean'];
                 let productname = res['production_description'];
+                let serial_number = res['serial_number'];
 
-                console.log(lineid, code_ean, productname, amount);
+                console.log(lineid, code_ean, productname, amount, serial_number);
                 const product_description = "[" + code_ean + "] - " + productname;
 
-                appendTable(product_description, parseFloat(price), amount, discount);
+                appendTable(product_description, parseFloat(price), amount, discount, serial_number);
                 $("input").change(function() {
                     const eid = $(this).attr('id');
                     if (eid == "line_rate" || eid == "line_qty" || eid == "line_discount") {
@@ -114,7 +115,7 @@ $("input").change(function() {
     }
 });
 
-function appendTable(product_description, product_rate, product_amount, product_discount) {
+function appendTable(product_description, product_rate, product_amount, product_discount, serial_number) {
     $("#table_body").append(
         "<tr class='border'>" +
         "<td>" +
@@ -135,6 +136,9 @@ function appendTable(product_description, product_rate, product_amount, product_
         "<div class='mt-2 p-2' id='btn_remove_row' onclick='remove_tr(this)'>" +
         "<i class='bi custom-remove-icon'></i>" +
         "</div>" +
+        "</td>" +
+        "<td hidden>" +
+        "<input type='text' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='serial_number' placeholder='Serial Number' id='line_SN' value='" + serial_number +"'>" +
         "</td>" +
         "</tr>"
     );
@@ -339,11 +343,12 @@ function get_formdata() {
         const etax = $(element).find("a[id*='btnaddtax']");
         const etotal = $(element).find("input[id*='line_total']");
         const ediscount = $(element).find("input[id*='line_discount']");
+        const eserialnumber = $(element).find("input[id*='line_SN']");
         let vdiscount = 0.0;
         if (ediscount.length == 1)
             vdiscount = ediscount[0].value;
 
-        lines.push({rate: erate[0].value, qty: eqty[0].value, discount: vdiscount, description: edescription[0].value, total: etotal[0].value});
+        lines.push({rate: erate[0].value, qty: eqty[0].value, discount: vdiscount, SN: eserialnumber[0].value, description: edescription[0].value, total: etotal[0].value});
     });
 
     const str_lines = JSON.stringify(lines);
