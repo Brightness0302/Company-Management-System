@@ -238,7 +238,7 @@ function add_vat(el) {
             type: "warning",
             showCancelButton: false,
             confirmButtonClass: "btn-success",
-            confirmButtonText: "Letz go",
+            confirmButtonText: "OK",
             cancelButtonText: "No, cancel plx!",
             closeOnConfirm: true,
             closeOnCancel: true
@@ -255,7 +255,7 @@ function add_vat(el) {
         html: true,
         text: '<div class="row"><div class="col-sm-6"><p>Rate:</p></div><div class="col-sm-6"><input type="number" id="input1" max=99 min=0 value=0 onchange="if(this.value>99){this.value=99;}else if(this.value<0){this.value=0;}" placeholder="0%" style="border: 1px solid black;" class="w-full m-1" /></div></div>',
         confirmButtonClass: "btn-success",
-        confirmButtonText: "Letz go",
+        confirmButtonText: "OK",
         cancelButtonText: "No, cancel plx!",
         closeOnConfirm: true,
         closeOnCancel: true
@@ -280,7 +280,7 @@ function add_tax(el) {
             type: "warning",
             showCancelButton: false,
             confirmButtonClass: "btn-success",
-            confirmButtonText: "Letz go",
+            confirmButtonText: "OK",
             cancelButtonText: "No, cancel plx!",
             closeOnConfirm: true,
             closeOnCancel: true
@@ -298,7 +298,7 @@ function add_tax(el) {
         html: true,
         text: '<div class="row"><div class="col-sm-6"><p>Rate:</p><p>Tax Name:</p><p>Tax Number:</p></div><div class="col-sm-6"><input type="number" id="input1" onchange="if(this.value>99){this.value=99;}else if(this.value<0){this.value=0;}" placeholder="0%" style="border: 1px solid black;" class="w-full m-1" /><input class="w-full m-1" id="input2" type="text" placeholder="Tax Name" style="border: 1px solid black;" /><input class="w-full m-1" id="input3" type="text" placeholder="Tax Number" style="border: 1px solid black;" /></div></div>',
         confirmButtonClass: "btn-success",
-        confirmButtonText: "Letz go",
+        confirmButtonText: "OK",
         cancelButtonText: "No, cancel plx!",
         closeOnConfirm: true,
         closeOnCancel: true
@@ -427,7 +427,7 @@ function addInvoice() {
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true
@@ -463,7 +463,7 @@ function editInvoice(invoice_id) {
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true
@@ -512,7 +512,7 @@ function delInvoice(invoice_id) {
                             type: "success",
                             showCancelButton: false,
                             confirmButtonClass: "btn-success",
-                            confirmButtonText: "Letz go",
+                            confirmButtonText: "OK",
                             cancelButtonText: "No, cancel plx!",
                             closeOnConfirm: true,
                             closeOnCancel: true

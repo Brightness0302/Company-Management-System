@@ -231,7 +231,7 @@ async function AddProjectAssignment() {
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true
@@ -273,7 +273,7 @@ async function EditProjectAssignment(projectid) {
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true
@@ -299,7 +299,7 @@ function delProjectAssignment(projectid) {
         showCancelButton: true,
         html: true,
         confirmButtonClass: "btn-success",
-        confirmButtonText: "Letz go",
+        confirmButtonText: "OK",
         cancelButtonText: "No, cancel plx!",
         closeOnConfirm: true,
         closeOnCancel: true
@@ -322,7 +322,7 @@ function delProjectAssignment(projectid) {
                     type: "success",
                     showCancelButton: false,
                     confirmButtonClass: "btn-success",
-                    confirmButtonText: "Letz go",
+                    confirmButtonText: "OK",
                     cancelButtonText: "No, cancel plx!",
                     closeOnConfirm: true,
                     closeOnCancel: true

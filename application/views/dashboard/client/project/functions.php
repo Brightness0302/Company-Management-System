@@ -34,7 +34,7 @@ $(document).ready(function() {
                     type: "success",
                     showCancelButton: false,
                     confirmButtonClass: "btn-success",
-                    confirmButtonText: "Letz go",
+                    confirmButtonText: "OK",
                     cancelButtonText: "No, cancel plx!",
                     closeOnConfirm: true,
                     closeOnCancel: true
@@ -60,7 +60,7 @@ function addAssign(el) {
         showCancelButton: true,
         html: true,
         confirmButtonClass: "btn-success",
-        confirmButtonText: "Letz go",
+        confirmButtonText: "OK",
         cancelButtonText: "No, cancel plx!",
         closeOnConfirm: true,
         closeOnCancel: true
@@ -78,7 +78,7 @@ function delAssign(el) {
         showCancelButton: true,
         html: true,
         confirmButtonClass: "btn-success",
-        confirmButtonText: "Letz go",
+        confirmButtonText: "OK",
         cancelButtonText: "No, cancel plx!",
         closeOnConfirm: true,
         closeOnCancel: true
@@ -123,7 +123,7 @@ function saveProject(projectid) {
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true
@@ -148,7 +148,7 @@ function delproject(projectid) {
         showCancelButton: true,
         html: true,
         confirmButtonClass: "btn-success",
-        confirmButtonText: "Letz go",
+        confirmButtonText: "OK",
         cancelButtonText: "No, cancel plx!",
         closeOnConfirm: true,
         closeOnCancel: true
@@ -171,7 +171,7 @@ function delproject(projectid) {
                     type: "success",
                     showCancelButton: false,
                     confirmButtonClass: "btn-success",
-                    confirmButtonText: "Letz go",
+                    confirmButtonText: "OK",
                     cancelButtonText: "No, cancel plx!",
                     closeOnConfirm: true,
                     closeOnCancel: true
@@ -223,7 +223,7 @@ function saveClientbyprojects(clientname) {
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true

@@ -555,7 +555,7 @@ function AddProduct() {
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true
@@ -586,7 +586,7 @@ function EditProduct(product_id) {
             id:$(etr[26]).text(),
             code_ean:$(etr[0]).text(),
             stockid:$(etr[22]).text(),
-            expenseid:$(etr[26]).text(),
+            expenseid:$(etr[23]).text(),
             projectid:$(etr[24]).text(),
             production_description:$(etr[4]).text(),
             units:$(etr[5]).text(),
@@ -660,7 +660,7 @@ function EditProduct(product_id) {
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true
@@ -706,7 +706,7 @@ function delProduct(product_id) {
                             type: "success",
                             showCancelButton: false,
                             confirmButtonClass: "btn-success",
-                            confirmButtonText: "Letz go",
+                            confirmButtonText: "OK",
                             cancelButtonText: "No, cancel plx!",
                             closeOnConfirm: true,
                             closeOnCancel: true

@@ -98,7 +98,7 @@ function AddExpense() {
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true
@@ -136,7 +136,7 @@ function EditExpense(expense_id) {
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true
@@ -182,7 +182,7 @@ function delExpense(expense_id) {
                             type: "success",
                             showCancelButton: false,
                             confirmButtonClass: "btn-success",
-                            confirmButtonText: "Letz go",
+                            confirmButtonText: "OK",
                             cancelButtonText: "No, cancel plx!",
                             closeOnConfirm: true,
                             closeOnCancel: true

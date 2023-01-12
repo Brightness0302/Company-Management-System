@@ -105,7 +105,7 @@ function AddCompany() {
                                         type: "success",
                                         showCancelButton: false,
                                         confirmButtonClass: "btn-success",
-                                        confirmButtonText: "Letz go",
+                                        confirmButtonText: "OK",
                                         cancelButtonText: "No, cancel plx!",
                                         closeOnConfirm: true,
                                         closeOnCancel: true
@@ -239,7 +239,7 @@ function EditCompany(companyid) {
                                 type: "success",
                                 showCancelButton: false,
                                 confirmButtonClass: "btn-success",
-                                confirmButtonText: "Letz go",
+                                confirmButtonText: "OK",
                                 cancelButtonText: "No, cancel plx!",
                                 closeOnConfirm: true,
                                 closeOnCancel: true
@@ -270,7 +270,7 @@ function EditCompany(companyid) {
                                         type: "success",
                                         showCancelButton: false,
                                         confirmButtonClass: "btn-success",
-                                        confirmButtonText: "Letz go",
+                                        confirmButtonText: "OK",
                                         cancelButtonText: "No, cancel plx!",
                                         closeOnConfirm: true,
                                         closeOnCancel: true
@@ -341,7 +341,7 @@ $("#_adduser").click(function() {
                         type: "success",
                         showCancelButton: false,
                         confirmButtonClass: "btn-success",
-                        confirmButtonText: "Letz go",
+                        confirmButtonText: "OK",
                         cancelButtonText: "No, cancel plx!",
                         closeOnConfirm: true,
                         closeOnCancel: true
@@ -397,7 +397,7 @@ function _edituser(userid) {
                         type: "success",
                         showCancelButton: false,
                         confirmButtonClass: "btn-success",
-                        confirmButtonText: "Letz go",
+                        confirmButtonText: "OK",
                         cancelButtonText: "No, cancel plx!",
                         closeOnConfirm: true,
                         closeOnCancel: true
@@ -446,7 +446,7 @@ function Deluser(username) {
                                 type: "success",
                                 showCancelButton: false,
                                 confirmButtonClass: "btn-success",
-                                confirmButtonText: "Letz go",
+                                confirmButtonText: "OK",
                                 cancelButtonText: "No, cancel plx!",
                                 closeOnConfirm: true,
                                 closeOnCancel: true

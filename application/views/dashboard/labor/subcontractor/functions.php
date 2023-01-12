@@ -75,7 +75,7 @@ function AddEmployee() {
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true
@@ -114,7 +114,7 @@ function EditEmployee(employeeid) {
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true
@@ -140,7 +140,7 @@ function delproject(employeeid) {
         showCancelButton: true,
         html: true,
         confirmButtonClass: "btn-success",
-        confirmButtonText: "Letz go",
+        confirmButtonText: "OK",
         cancelButtonText: "No, cancel plx!",
         closeOnConfirm: true,
         closeOnCancel: true
@@ -163,7 +163,7 @@ function delproject(employeeid) {
                     type: "success",
                     showCancelButton: false,
                     confirmButtonClass: "btn-success",
-                    confirmButtonText: "Letz go",
+                    confirmButtonText: "OK",
                     cancelButtonText: "No, cancel plx!",
                     closeOnConfirm: true,
                     closeOnCancel: true

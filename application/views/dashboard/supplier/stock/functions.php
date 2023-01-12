@@ -24,7 +24,7 @@ function AddStock() {
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true
@@ -62,7 +62,7 @@ function EditStock(stock_id) {
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true
@@ -108,7 +108,7 @@ function delStock(stock_id) {
                             type: "success",
                             showCancelButton: false,
                             confirmButtonClass: "btn-success",
-                            confirmButtonText: "Letz go",
+                            confirmButtonText: "OK",
                             cancelButtonText: "No, cancel plx!",
                             closeOnConfirm: true,
                             closeOnCancel: true

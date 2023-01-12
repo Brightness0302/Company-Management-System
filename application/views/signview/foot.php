@@ -27,7 +27,7 @@ function signin() {
                                 type: msg['type'],
                                 showCancelButton: false,
                                 confirmButtonClass: "btn-" + msg['type'],
-                                confirmButtonText: "Letz go",
+                                confirmButtonText: "OK",
                                 cancelButtonText: "No, cancel plx!",
                                 closeOnConfirm: true,
                                 closeOnCancel: true
@@ -78,7 +78,7 @@ function signup(companyname) {
                                 type: msg['type'],
                                 showCancelButton: false,
                                 confirmButtonClass: "btn-" + msg['type'],
-                                confirmButtonText: "Letz go",
+                                confirmButtonText: "OK",
                                 cancelButtonText: "No, cancel plx!",
                                 closeOnConfirm: true,
                                 closeOnCancel: true

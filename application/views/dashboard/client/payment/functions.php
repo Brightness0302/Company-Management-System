@@ -19,7 +19,7 @@ function SuccessPayment(invoice_id, paid_date, paid_method, paid_observation, el
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true
@@ -86,7 +86,7 @@ function DeletePayment(invoice_id, el) {
                         type: "success",
                         showCancelButton: false,
                         confirmButtonClass: "btn-success",
-                        confirmButtonText: "Letz go",
+                        confirmButtonText: "OK",
                         cancelButtonText: "No, cancel plx!",
                         closeOnConfirm: true,
                         closeOnCancel: true
@@ -143,7 +143,7 @@ function SetPayment(invoice_id, el) {
                     html: true,
                     text: '<div class="row"><div class="col-sm-6"><div class="form-control">Payment Date:</div><div class="form-control">Payment Method:</div><div class="form-control">Observations:</div></div><div class="col-sm-6"><div><input class="form-control" type="date" id="paid_date" value="'+paid_date+'" placeholder="0%" style="border: 1px solid black;" class="w-full m-1" /></div><div><select class="form-select" style="width: 100%" id="paid_method"><option value="Cash" '+(paid_method=="Cash"?"selected":"")+'>Cash</option><option value="Bank Transfer" '+(paid_method=="Bank Transfer"?"selected":"")+'>Bank Transfer</option><option value="Credit Card" '+(paid_method=="Credit Card"?"selected":"")+'>Credit Card</option><option value="Paypal" '+(paid_method=="Paypal"?"selected":"")+'>Paypal</option><option value="Payoneer" '+(paid_method=="Payoneer"?"selected":"")+'>Payoneer</option></select></div><div></div><input class="form-control" type="text" name="" id="paid_observation" value="'+paid_observation+'"></div></div>',
                     confirmButtonClass: "btn-success",
-                    confirmButtonText: "Letz go",
+                    confirmButtonText: "OK",
                     cancelButtonText: "No, cancel plx!",
                     closeOnConfirm: true,
                     closeOnCancel: true

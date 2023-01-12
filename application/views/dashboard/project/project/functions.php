@@ -174,7 +174,7 @@ function AddProject() {
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true
@@ -213,7 +213,7 @@ function EditProject(projectid) {
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true
@@ -238,7 +238,7 @@ function delproject(projectid) {
         showCancelButton: true,
         html: true,
         confirmButtonClass: "btn-success",
-        confirmButtonText: "Letz go",
+        confirmButtonText: "OK",
         cancelButtonText: "No, cancel plx!",
         closeOnConfirm: true,
         closeOnCancel: true
@@ -261,7 +261,7 @@ function delproject(projectid) {
                     type: "success",
                     showCancelButton: false,
                     confirmButtonClass: "btn-success",
-                    confirmButtonText: "Letz go",
+                    confirmButtonText: "OK",
                     cancelButtonText: "No, cancel plx!",
                     closeOnConfirm: true,
                     closeOnCancel: true

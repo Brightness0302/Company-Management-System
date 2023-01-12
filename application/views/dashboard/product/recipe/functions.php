@@ -450,7 +450,7 @@ function AddProduct() {
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true
@@ -483,7 +483,7 @@ function EditProduct(product_id) {
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn-success",
-                confirmButtonText: "Letz go",
+                confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: true,
                 closeOnCancel: true
@@ -529,7 +529,7 @@ function delProduct(product_id) {
                             type: "success",
                             showCancelButton: false,
                             confirmButtonClass: "btn-success",
-                            confirmButtonText: "Letz go",
+                            confirmButtonText: "OK",
                             cancelButtonText: "No, cancel plx!",
                             closeOnConfirm: true,
                             closeOnCancel: true

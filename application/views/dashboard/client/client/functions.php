@@ -43,7 +43,7 @@ function AddClient() {
                                 type: "success",
                                 showCancelButton: false,
                                 confirmButtonClass: "btn-success",
-                                confirmButtonText: "Letz go",
+                                confirmButtonText: "OK",
                                 cancelButtonText: "No, cancel plx!",
                                 closeOnConfirm: true,
                                 closeOnCancel: true
@@ -105,7 +105,7 @@ function EditClient(clientid) {
                             type: "success",
                             showCancelButton: false,
                             confirmButtonClass: "btn-success",
-                            confirmButtonText: "Letz go",
+                            confirmButtonText: "OK",
                             cancelButtonText: "No, cancel plx!",
                             closeOnConfirm: true,
                             closeOnCancel: true
@@ -159,7 +159,7 @@ function delClient(clientid) {
                                 type: "success",
                                 showCancelButton: false,
                                 confirmButtonClass: "btn-success",
-                                confirmButtonText: "Letz go",
+                                confirmButtonText: "OK",
                                 cancelButtonText: "No, cancel plx!",
                                 closeOnConfirm: true,
                                 closeOnCancel: true
