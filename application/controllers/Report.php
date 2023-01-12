@@ -219,11 +219,13 @@ class Report extends CI_Controller
             $year = intval(date("Y",strtotime($material['invoice_date'])));
             $month = (date("n", strtotime($material['invoice_date'])));
 
-            if ($material['ispaid']==true) {
-                $chart_paid[$year][$month-1]['paid']+=$selling_subtotal_vat;
-            }
-            else {
-                $chart_paid[$year][$month-1]['unpaid']+=$selling_subtotal_vat;
+            if ($startyear<=$year) {
+                if ($material['ispaid']==true) {
+                    $chart_paid[$year][$month-1]['paid']+=$selling_subtotal_vat;
+                }
+                else {
+                    $chart_paid[$year][$month-1]['unpaid']+=$selling_subtotal_vat;
+                }
             }
         }
         $expense_products = $this->home->alldatafromdatabase($companyid, 'expense_product');
