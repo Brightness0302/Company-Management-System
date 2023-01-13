@@ -1,5 +1,6 @@
 <!-- ======= Hero Section ======= -->
 <?php $menu = $this->session->flashdata('menu');?>
+<?=$menu['second-submenu']?>
 <body style="font-size: 13px !important;">
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">

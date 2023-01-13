@@ -58,21 +58,18 @@ class Stock extends CI_Controller
         $companyname = $this->session->userdata('companyname');
         $data = $this->getData();
         $data['suppliers'] = $this->home->alldata('supplier');
-        if (isset($_GET['id'])) {
-            $stock_id = $_GET['stock_id'];
-            $data['stock'] = $this->home->databyidfromdatabase($companyid, 'stock', $stock_id)['data'];
-            $data['products'] = $this->supplier->alllinesbystockidfromdatabase($companyid, 'material_totalline', $stock_id);
-        }
-        else {
-            $data['products'] = $this->supplier->alllinesfromdatabase($companyid, 'material_totalline');
-        }
 
         $session['menu']="Stocks";
         $session['submenu']="pmbs";
-        if (isset($_GET['id'])) {
+
+        if (isset($_GET['stock_id'])) {
+            $stock_id = $_GET['stock_id'];
+            $data['stock'] = $this->home->databyidfromdatabase($companyid, 'stock', $stock_id)['data'];
+            $data['products'] = $this->supplier->alllinesbystockidfromdatabase($companyid, 'material_totalline', $stock_id);
             $session['second-submenu']="stock - ".$data['stock']['name'];
         }
         else {
+            $data['products'] = $this->supplier->alllinesfromdatabase($companyid, 'material_totalline');
             $session['second-submenu']="stock - All";
         }
         $this->session->set_flashdata('menu', $session);
