@@ -12,6 +12,7 @@
             <th id='upeight'>Selling price Ex VAT</th>
             <th id="upselling">Selling amount Ex VAT</th>
             <th>Action</th>
+            <th>View</th>
         </tr>
     </thead>
     <tbody class="text-center" id="product_body">
@@ -37,7 +38,12 @@
             <td><?=number_format(($line['acquisition_unit_price']*floatval($line['qty'])), 2, '.', "")?></td>
             <td><?=number_format($line['selling_unit_price_without_vat'], 2, '.', "")?></td>
             <td><?=number_format((floatval($line['selling_unit_price_with_vat']*$line['qty'])), 2, '.', "")?></td>
-            <td class="text-center"><button onclick="viewsoldandreceive('<?=$line['id']?>', this)"><i class="bi custom-view-icon"></i></button></td>
+            <td class="text-center">
+                <button onclick="delProduct('<?=$line['id']?>')"><i class="bi custom-remove-icon"></i></button>
+            </td>
+            <td class="text-center">
+                <button onclick="viewsoldandreceive('<?=$line['id']?>', this)"><i class="bi custom-view-icon"></i></button>
+            </td>
         </tr>
         <?php endif;?>
         <?php endforeach;?>

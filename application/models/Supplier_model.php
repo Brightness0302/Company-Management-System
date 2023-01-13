@@ -318,6 +318,26 @@ class Supplier_model extends CI_Model {
         return $tlines;
     }
 
+    public function alllinesfromdatabase($companyid, $table) {
+        $company = $this->home->databyid($companyid, 'company')['data'];
+        $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
+
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $query =    "SELECT *
+                    FROM `$table`
+                    WHERE `isremoved`=false";
+
+        $tlines = $this->db->query($query)->result_array();
+
+        foreach ($tlines as $index => $line) {
+            $invoice_coin = (($line['invoice_coin']=='€')?"EUR":(($line['invoice_coin']=='£')?"GBP":(($line['invoice_coin']=='$')?"USD":(($line['invoice_coin']=='LEI')?"RON":""))));
+            $tlines[$index]['acquisition_unit_price'] = $this->currencyConverter($invoice_coin, $target_coin, $line['acquisition_unit_price_on_invoice']);
+        }
+        return $tlines;
+    }
+
     public function alllinesbyproductidfromdatabase($companyid, $table, $product_id, $invoice_coin_rate, $main_coin_rate) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
@@ -364,7 +384,7 @@ class Supplier_model extends CI_Model {
 
         $query =    "SELECT *
                     FROM `$table`
-                    WHERE `productid`='$product_id'";
+                    WHERE `productid`='$product_id' AND `isremoved`=FALSE";
 
         $lines = $this->db->query($query)->result_array();
         $res['acq_subtotal_without_vat'] = 0.0;
@@ -738,5 +758,20 @@ class Supplier_model extends CI_Model {
             }
         }
         return $res_invoices;
+    }
+
+    public function delProduct($companyid, $table, $product_id) {
+        $this->db->query('use database'.$companyid);
+
+        $data = array(
+            'isremoved'=>TRUE, 
+        );
+
+        $this->db->where('id', $product_id);
+        $res=$this->db->update($table, $data);
+
+        $this->db->where('line_id', $product_id);
+        $res=$this->db->update('material_lines', $data);
+        return $res;
     }
 }

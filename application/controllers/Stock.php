@@ -58,13 +58,23 @@ class Stock extends CI_Controller
         $companyname = $this->session->userdata('companyname');
         $data = $this->getData();
         $data['suppliers'] = $this->home->alldata('supplier');
-        $stock_id = $_GET['stock_id'];
-        $data['stock'] = $this->home->databyidfromdatabase($companyid, 'stock', $stock_id)['data'];
-        $data['products'] = $this->supplier->alllinesbystockidfromdatabase($companyid, 'material_totalline', $stock_id);
+        if (isset($_GET['id'])) {
+            $stock_id = $_GET['stock_id'];
+            $data['stock'] = $this->home->databyidfromdatabase($companyid, 'stock', $stock_id)['data'];
+            $data['products'] = $this->supplier->alllinesbystockidfromdatabase($companyid, 'material_totalline', $stock_id);
+        }
+        else {
+            $data['products'] = $this->supplier->alllinesfromdatabase($companyid, 'material_totalline');
+        }
 
         $session['menu']="Stocks";
         $session['submenu']="pmbs";
-        $session['second-submenu']="stock - ".$data['stock']['name'];
+        if (isset($_GET['id'])) {
+            $session['second-submenu']="stock - ".$data['stock']['name'];
+        }
+        else {
+            $session['second-submenu']="stock - All";
+        }
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');
@@ -187,6 +197,12 @@ class Stock extends CI_Controller
         $data['client'] = $clientinvoice;
         header('Content-Type: application/json');
         echo json_encode($data);
+    }
+    //Delete Supplier param(supplier_name)
+    public function delProduct($product_id) {
+        $companyid = $this->session->userdata('companyid');
+        $result = $this->supplier->delProduct($companyid, 'material_totalline', $product_id);
+        echo $result;
     }
     //If usersession is not exist, goto login page.
     public function check_usersession() {

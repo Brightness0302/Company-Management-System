@@ -197,4 +197,57 @@ function viewsoldandreceive(tline_id, el) {
         }
     });
 }
+
+function delProduct(tline_id) {
+    swal({
+        title: "Are you sure?",
+        text: "Delete Stock",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-warning",
+        cancelButtonText: "No, cancel plx!",
+        confirmButtonText: "Yes, I do",
+        closeOnConfirm: true,
+        closeOnCancel: true
+    },
+    function(isconfirm) {
+        if (!isconfirm) {
+            alert(false);
+            return;
+        }
+        try {
+            $.ajax({
+                url: "<?=base_url('stock/delProduct/')?>" + tline_id,
+                method: "POST",
+                dataType: 'text',
+                async: true,
+                success: function(res) {
+                    if (res != 1) {
+                        swal("Delete Product", "Failed", "error");
+                        return;
+                    }
+                    swal({
+                            title: "Delete Product",
+                            text: "Product Success",
+                            type: "success",
+                            showCancelButton: false,
+                            confirmButtonClass: "btn-success",
+                            confirmButtonText: "OK",
+                            cancelButtonText: "No, cancel plx!",
+                            closeOnConfirm: true,
+                            closeOnCancel: true
+                        },
+                        function() {
+                            window.location.reload();
+                        });
+                },
+                error: function(jqXHR, exception) {
+                    swal("Delete Product", "Server Error", "warning");
+                }
+            });
+        } catch (error) {
+            swal("Delete Product", "Server Error", "warning");
+        }
+    });
+}
 </script>
