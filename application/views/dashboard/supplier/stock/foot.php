@@ -42,6 +42,8 @@ function onrefreshtotalmark() {
     $("#vat").html("0.0");
     $("#total").html("0.0");
 
+    $("#total_qty").html("0");
+    $("#missing_qty").html("0");
     $("#aquisition").html("0.0");
     $("#selling").html("0.0");
 }
@@ -193,7 +195,7 @@ $(function() {
     $("#productbystock_filter").html("Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
 
     var subtotal = 0.0, vat = 0.0, total = 0.0;
-    var aquisition = 0.0, selling = 0.0;
+    var total_qty = 0, missing_qty = 0, aquisition = 0.0, selling = 0.0;
 
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {
@@ -234,8 +236,12 @@ $(function() {
                 if (
                     (condition1 || condition2)
                 ) {
+                    total_qty += (parseInt(data[4])>0)?parseInt(data[4]):0;
+                    missing_qty += (parseInt(data[4])<0)?parseInt(data[4]):0;
                     aquisition += parseFloat(data[6]);
                     selling += parseFloat(data[8]);
+                    $("#total_qty").html(total_qty);
+                    $("#missing_qty").html(missing_qty);
                     $("#aquisition").html((aquisition).toFixed(2));
                     $("#selling").html((selling).toFixed(2));
                     return true;
@@ -255,7 +261,7 @@ $(function() {
     })
 
     productbystock.on('draw', function () {
-        aquisition = 0.0, selling = 0.0;
+        total_qty = 0, missing_qty = 0, aquisition = 0.0, selling = 0.0;
     })
 
     $("#searchtag").on('keyup', function () {

@@ -440,9 +440,8 @@ function save_tr(el) {
     const acquisition_unit_price = parseFloat(acq_invoice_price/invoice_coin_rate*main_coin_rate).toFixed(2);
     const vat_percent = $("#vat_percent").val();
     const quantity_on_document = $("#quantity_on_document").val();
-    const quantity_received = $("#quantity_received").val();
-    const mark_up_percent = $("#mark_up_percent").val();
-
+    const mark_up_percent = $("#quantity_received").val();
+    const quantity_received = $("#mark_up_percent").val();
     $.ajax({
         url: "<?=base_url("material/linebycodeean/")?>" + code_ean_id,
         method: "POST",

@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody class="text-center" id="product_body">
-        <?php $index=0; $total_aquisition=0; $total_selling=0;?>
+        <?php $index=0; $total_aquisition=0; $total_selling=0; $total_qty=0; $missing_qty=0; ?>
         <?php foreach ($products as $line):?>
         <?php if(!$line['isremoved']):?>
         <?php $index++;?>
@@ -26,7 +26,8 @@
                 $line['selling_unit_price_with_vat'] = floatval($line['selling_unit_price_without_vat']*($line['vat']+100.0)/100.0);
                 $total_aquisition += floatval($line['acquisition_unit_price']*$line['qty']);
                 $total_selling += floatval($line['selling_unit_price_with_vat'])*floatval($line['qty']);
-                
+                $total_qty += (($line['qty']>0)?$line['qty']:0);
+                $missing_qty += (($line['qty']<0)?$line['qty']:0);
             ?>
             <td><?=($index)?></td>
             <!-- <td><?=$result['name']?></td> -->
@@ -53,6 +54,8 @@
     <thead>
         <tr>
             <th></th>
+            <th>Total Qty</th>
+            <th>Missing Qty</th>
             <th>ACQ amount Ex VAT</th>
             <th></th>
             <th>Selling amount Ex VAT</th>
@@ -62,6 +65,8 @@
         <tr>
             <?php $total_selling=number_format($total_selling, 2, '.', "")?>
             <td id="downtotalmark">Total:</td>
+            <td id="total_qty"><?=$total_qty?></td>
+            <td id="missing_qty"><?=$missing_qty?></td>
             <td id="aquisition"><?=$total_aquisition?></td>
             <td id="eight"></td>
             <td id="selling"><?=$total_selling?></td>
@@ -85,10 +90,10 @@
 
       console.log(first_row_1.left);
 
-      document.getElementById("total-table").style.left = parseFloat(first_row_1.left - 100)+"px";
+      document.getElementById("total-table").style.left = parseFloat(first_row_1.left - 250)+"px";
 
-      document.getElementById("total-table").style.width = parseFloat(100+first_row_1.width+first_row_2.width+first_row_3.width) + "px";
-      document.getElementById("downtotalmark").style.width = 100+"px";
+      document.getElementById("total-table").style.width = parseFloat(250+first_row_1.width+first_row_2.width+first_row_3.width) + "px";
+      // document.getElementById("downtotalmark").style.width = 250+"px";
       document.getElementById("aquisition").style.width  = first_row_1.width + "px";
       document.getElementById("eight").style.width  = first_row_2.width + "px";
       document.getElementById("selling").style.width  = first_row_3.width + "px";
