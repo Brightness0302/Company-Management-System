@@ -84,7 +84,38 @@ $(document).ready(function() {
             },
         });
     });
+    $('input[type=radio][name=multi-SN]').change(function() {
+        if (this.value === '1') {
+            $("#SN_input").hide();
+            $("#SN_btn").show();
+        }
+        else if (this.value === '0') {
+            $("#SN_input").show();
+            $("#SN_btn").hide();
+        }
+    });
+    $('#quantity_received').change(function() {
+        refreshSNTable();
+    });
 });
+
+function getSN() {
+    const quantity_received = $("#quantity_received").val();
+    const SN_array = [];
+    for (let i = 0; i < quantity_received; i++) {
+        SN_array.push($(`#SN`+(i+1)).val());
+    }
+    return SN_array;
+}
+
+function refreshSNTable() {
+    const quantity_received = $("#quantity_received").val();
+    let htmlforSN = "";
+    for (let i = 0; i < quantity_received; i++) {
+        htmlforSN += `<div class="row m-2"><div class="col-sm-4 m-auto">Serial Number` + (i+1) + `: </div><div class="col-sm-8"><input type="text" class="form-control" id="SN` + (i+1) + `" /></div></div>`;
+    }
+    $("#SN_Tables").html(htmlforSN);
+}
 
 function refreshACQInvoiceprice() {
     const ACQInvoiceprice = parseFloat($("#acq_invoice_price").val());
@@ -205,108 +236,126 @@ function SaveItem() {
     const code_ean = $("#code_ean").val().split(" - ")[0];
     const code_ean_id = $("#code_ean").val().split(" - ")[1];
     const unit = $("#unit").val();
-    const serial_number = $("#serial_number").val();
+    let SNs = [];
     const invoice_coin_rate = parseFloat($("#invoice_coin_rate").val());
     const main_coin_rate = parseFloat($("#main_coin_rate").val());
     const acq_invoice_price = $("#acq_invoice_price").val();
     const acquisition_unit_price = parseFloat(acq_invoice_price/invoice_coin_rate*main_coin_rate).toFixed(2);
     const vat_percent = $("#vat_percent").val();
-    const quantity_on_document = $("#quantity_on_document").val();
-    const quantity_received = $("#quantity_received").val();
+    let quantity_on_document = $("#quantity_on_document").val();
+    let quantity_received = $("#quantity_received").val();
     const mark_up_percent = $("#mark_up_percent").val();
-    console.log(code_ean, code_ean_id);
-
-    if (stockid != 0) {
-        $.ajax({
-            url: "<?=base_url("material/linebycodeean/")?>" + code_ean_id,
-            method: "POST",
-            dataType: 'json',
-            success: function(res) {
-                console.log(res);
-                let lineid = 0;
-                if (res != -1) {
-                    lineid=res['id'];
-                }
-
-                $("#table-body").append(
-                    "<tr>"+
-                    "<td>"+code_ean+"</td>"+
-                    "<td>"+stockname+"</td>"+
-                    "<td>"+expensename+"</td>"+
-                    "<td>"+projectname+"</td>"+
-                    "<td>"+production_description+"</td>"+
-                    "<td>"+unit+"</td>"+
-                    "<td>"+serial_number+"</td>"+
-                    "<td>"+quantity_on_document+"</td>"+
-                    "<td>"+quantity_received+"</td>"+
-                    "<td><label class='m-auto inline-block'>"+acq_invoice_price+"</label><div class='inline-block invoice_coin'>"+invoice_coin+"</div></td>"+
-                    "<td><label class='m-auto inline-block'>"+acquisition_unit_price+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                    "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*vat_percent/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                    "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                    "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*quantity_on_document).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                    "<td><label class='m-auto inline-block'>"+((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                    "<td><label class='m-auto inline-block'>"+((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                    "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                    "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                    "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                    "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                    "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*vat_percent/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                    "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                    "<td hidden>"+stockid+"</td>"+
-                    "<td hidden>"+expenseid+"</td>"+
-                    "<td hidden>"+projectid+"</td>"+
-                    "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr(this)'>" + "<i class='bi custom-edit-icon p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi custom-remove-icon p-1' title='Delete'></i>" + "</div>" + "</td>" +
-                    "<td hidden>0</td>"+
-                    "<td hidden>"+lineid+"</td>"+
-                    "<td hidden>"+code_ean_id+"</td>"+
-                    "</tr>"
-                );
-
-                ClearItem();
-                refreshTotalMark();
-            },
-            error: function(jqXHR, exception) {
-                console.log(jqXHR, exception);
-            },
-        });
+    let countforSN;
+    const typeforSN = $('input[type=radio][name=multi-SN]:checked').val();
+    if (typeforSN === '1') {
+        SNs = getSN();
+        countforSN = SNs.length;
+        quantity_received = 1;
+        quantity_on_document = 1;
     }
     else {
-        $("#table-body").append(
-            "<tr>"+
-            "<td>"+code_ean+"</td>"+
-            "<td>"+stockname+"</td>"+
-            "<td>"+expensename+"</td>"+
-            "<td>"+projectname+"</td>"+
-            "<td>"+production_description+"</td>"+
-            "<td>"+unit+"</td>"+
-            "<td>"+serial_number+"</td>"+
-            "<td>"+quantity_on_document+"</td>"+
-            "<td>"+quantity_received+"</td>"+
-            "<td><label class='m-auto inline-block'>"+acq_invoice_price+"</label><div class='inline-block invoice_coin'>"+invoice_coin+"</div></td>"+
-            "<td><label class='m-auto inline-block'>"+acquisition_unit_price+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-            "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*vat_percent/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-            "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-            "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*quantity_on_document).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-            "<td><label class='m-auto inline-block'>"+((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-            "<td><label class='m-auto inline-block'>"+((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-            "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-            "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-            "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-            "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-            "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*vat_percent/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-            "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-            "<td hidden>"+stockid+"</td>"+
-            "<td hidden>"+expenseid+"</td>"+
-            "<td hidden>"+projectid+"</td>"+
-            "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr(this)'>" + "<i class='bi custom-edit-icon p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi custom-remove-icon p-1' title='Delete'></i>" + "</div>" + "</td>" +
-            "<td hidden>0</td>"+
-            "<td hidden>0</td>"+
-            "<td hidden>"+code_ean_id+"</td>"+
-            "</tr>"
-        );
+        SNs.push($("#serial_number").val());
+        countforSN = 1;
+    }
+    console.log(typeforSN, SNs);
+    if (!code_ean || !production_description) {
+        alert("Please, Fill in the gap.");
+    }
 
-        ClearItem();
-        refreshTotalMark();
+    for (var i = 0; i < countforSN; i++) {
+        let serial_number = SNs[i];
+        if (stockid != 0) {
+            $.ajax({
+                url: "<?=base_url("material/linebycodeean/")?>" + code_ean_id,
+                method: "POST",
+                dataType: 'json',
+                success: function(res) {
+                    console.log(res);
+                    let lineid = 0;
+                    if (res != -1) {
+                        lineid=res['id'];
+                    }
+
+                    $("#table-body").append(
+                        "<tr>"+
+                        "<td>"+code_ean+"</td>"+
+                        "<td>"+stockname+"</td>"+
+                        "<td>"+expensename+"</td>"+
+                        "<td>"+projectname+"</td>"+
+                        "<td>"+production_description+"</td>"+
+                        "<td>"+unit+"</td>"+
+                        "<td>"+serial_number+"</td>"+
+                        "<td>"+quantity_on_document+"</td>"+
+                        "<td>"+quantity_received+"</td>"+
+                        "<td><label class='m-auto inline-block'>"+acq_invoice_price+"</label><div class='inline-block invoice_coin'>"+invoice_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+acquisition_unit_price+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*vat_percent/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*quantity_on_document).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*vat_percent/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td hidden>"+stockid+"</td>"+
+                        "<td hidden>"+expenseid+"</td>"+
+                        "<td hidden>"+projectid+"</td>"+
+                        "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr(this)'>" + "<i class='bi custom-edit-icon p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi custom-remove-icon p-1' title='Delete'></i>" + "</div>" + "</td>" +
+                        "<td hidden>0</td>"+
+                        "<td hidden>"+lineid+"</td>"+
+                        "<td hidden>"+code_ean_id+"</td>"+
+                        "</tr>"
+                    );
+
+                    ClearItem();
+                    refreshTotalMark();
+                },
+                error: function(jqXHR, exception) {
+                    console.log(jqXHR, exception);
+                },
+            });
+        }
+        else {
+            $("#table-body").append(
+                "<tr>"+
+                "<td>"+code_ean+"</td>"+
+                "<td>"+stockname+"</td>"+
+                "<td>"+expensename+"</td>"+
+                "<td>"+projectname+"</td>"+
+                "<td>"+production_description+"</td>"+
+                "<td>"+unit+"</td>"+
+                "<td>"+serial_number+"</td>"+
+                "<td>"+quantity_on_document+"</td>"+
+                "<td>"+quantity_received+"</td>"+
+                "<td><label class='m-auto inline-block'>"+acq_invoice_price+"</label><div class='inline-block invoice_coin'>"+invoice_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+acquisition_unit_price+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*vat_percent/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*quantity_on_document).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*vat_percent/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td hidden>0</td>"+
+                "<td hidden>"+expenseid+"</td>"+
+                "<td hidden>"+projectid+"</td>"+
+                "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr(this)'>" + "<i class='bi custom-edit-icon p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr(this)'>" + "<i class='bi custom-remove-icon p-1' title='Delete'></i>" + "</div>" + "</td>" +
+                "<td hidden>0</td>"+
+                "<td hidden>0</td>"+
+                "<td hidden>"+code_ean_id+"</td>"+
+                "</tr>"
+            );
+
+            ClearItem();
+            refreshTotalMark();
+        }
     }
 }
 
