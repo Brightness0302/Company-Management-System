@@ -197,8 +197,11 @@
                                     <tr>
                                         <td style="border : 1px solid black"><label class="my-2 text-xs">Serial Number:</label></td>
                                         <td>
-                                            <div class="m-auto">
-                                                <input type="text" class="form-control " id="serial_number" value="" title="Choose your color">
+                                            <div class="m-auto" id="SN_input">
+                                                <input type="text" class="form-control" id="serial_number" value="" title="Choose your color">
+                                            </div>
+                                            <div class="m-auto hidden" id="SN_btn">
+                                                <button class="btn btn-default w-full" data-toggle="modal" data-target="#exampleModalCenter">...</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -265,6 +268,19 @@
                             </div>
                             <div class="col-md-3 text-center">
                                 <table class="table my-2 h-56" style="border: 1px solid gray; text-align: left">
+                                    <tr>
+                                        <td style="border: 1px solid black"><label class="my-2">Want to add SN: </label></td>
+                                        <td>
+                                            <div class="m-auto">
+                                                <div class="mx-2 inline-block">
+                                                    <input type="radio" class="form-radio mr-1" style="transform: scale(1.5);" id="yes_for_multi-SN" name="multi-SN" value="1" title="Choose your color" /> <label class="m-0" for="yes_for_multi-SN">Yes</label>
+                                                </div>
+                                                <div class="mx-2 inline-block float-right">
+                                                    <input type="radio" class="form-radio mr-1" style="transform: scale(1.5);" id="no_for_multi-SN" name="multi-SN" value="0" title="Choose your color" checked/> <label class="m-0" for="no_for_multi-SN">No</label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td style="border: 1px solid black"><label class="my-2">Mark Up%: </label></td>
                                         <td>
@@ -453,6 +469,25 @@
             </div>
         </div>
     </section><!-- End Hero -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+      <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 600px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Serial Numbers</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="SN_Tables">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Okay</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 <script type="text/javascript">
     function getOffset(el) {
