@@ -37,7 +37,7 @@
                     <!-- Company Avatar end-->
                 </div>
                 <div style="position: relative; left: 300px; top: -50px; margin-bottom: -50px;">
-                    <div style="margin-top: 30px; margin-bottom: 10px;">
+                    <div style="margin-top: 30px; margin-bottom: 10px; margin-left: <?=(($invoice['type']=='invoice')?"0px":(($invoice['type']=='Proforma')?"-30px":"0px"))?>";>
                         <p class="text-lg font-bold"><?=str_replace("_"," ", $company['name'])?></p>
                     </div>
                     <div style="margin-top: 20px;">
