@@ -29,11 +29,12 @@ class Stock extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
+        $currencyrates = $this->session->userdata('currencyRates');
         $data = $this->getData();
 
         foreach ($data['stocks'] as $index => $stock) {
-            $data['stocks'][$index]['amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'amount_without_vat');
-            $data['stocks'][$index]['selling_amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'selling_amount_without_vat');
+            $data['stocks'][$index]['amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'amount_without_vat', $currencyrates);
+            $data['stocks'][$index]['selling_amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'selling_amount_without_vat', $currencyrates);
         }
 
         $session['menu']="Stocks";
@@ -56,6 +57,7 @@ class Stock extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
+        $currencyrates = $this->session->userdata('currencyRates');
         $data = $this->getData();
         $data['suppliers'] = $this->home->alldata('supplier');
 
@@ -65,11 +67,11 @@ class Stock extends CI_Controller
         if (isset($_GET['stock_id'])) {
             $stock_id = $_GET['stock_id'];
             $data['stock'] = $this->home->databyidfromdatabase($companyid, 'stock', $stock_id)['data'];
-            $data['products'] = $this->supplier->alllinesbystockidfromdatabase($companyid, 'material_totalline', $stock_id);
+            $data['products'] = $this->supplier->alllinesbystockidfromdatabase($companyid, 'material_totalline', $stock_id, $currencyrates);
             $session['second-submenu']="stock - ".$data['stock']['name'];
         }
         else {
-            $data['products'] = $this->supplier->alllinesfromdatabase($companyid, 'material_totalline');
+            $data['products'] = $this->supplier->alllinesfromdatabase($companyid, 'material_totalline', $currencyrates);
             $session['second-submenu']="stock - All";
         }
         $this->session->set_flashdata('menu', $session);

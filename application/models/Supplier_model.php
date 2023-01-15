@@ -257,7 +257,7 @@ class Supplier_model extends CI_Model {
         }
     }
 
-    public function alllinesbystockidfromdatabase($companyid, $table, $stock_id) {
+    public function alllinesbystockidfromdatabase($companyid, $table, $stock_id, $currencyrates="") {
         $company = $this->home->databyid($companyid, 'company')['data'];
         $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
 
@@ -272,7 +272,7 @@ class Supplier_model extends CI_Model {
 
         foreach ($tlines as $index => $line) {
             $invoice_coin = (($line['invoice_coin']=='€')?"EUR":(($line['invoice_coin']=='£')?"GBP":(($line['invoice_coin']=='$')?"USD":(($line['invoice_coin']=='LEI')?"RON":""))));
-            $tlines[$index]['acquisition_unit_price'] = $this->currencyConverter($invoice_coin, $target_coin, $line['acquisition_unit_price_on_invoice']);
+            $tlines[$index]['acquisition_unit_price'] = $this->currencyConverter($invoice_coin, $target_coin, $line['acquisition_unit_price_on_invoice'], $currencyrates);
         }
 
         // $lines = [];
@@ -318,7 +318,7 @@ class Supplier_model extends CI_Model {
         return $tlines;
     }
 
-    public function alllinesfromdatabase($companyid, $table) {
+    public function alllinesfromdatabase($companyid, $table, $currencyrates="") {
         $company = $this->home->databyid($companyid, 'company')['data'];
         $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
 
@@ -333,7 +333,7 @@ class Supplier_model extends CI_Model {
 
         foreach ($tlines as $index => $line) {
             $invoice_coin = (($line['invoice_coin']=='€')?"EUR":(($line['invoice_coin']=='£')?"GBP":(($line['invoice_coin']=='$')?"USD":(($line['invoice_coin']=='LEI')?"RON":""))));
-            $tlines[$index]['acquisition_unit_price'] = $this->currencyConverter($invoice_coin, $target_coin, $line['acquisition_unit_price_on_invoice']);
+            $tlines[$index]['acquisition_unit_price'] = $this->currencyConverter($invoice_coin, $target_coin, $line['acquisition_unit_price_on_invoice'], $currencyrates);
         }
         return $tlines;
     }
@@ -379,7 +379,7 @@ class Supplier_model extends CI_Model {
         return $lines;
     }
 
-    public function getdatabyproductidfromdatabase($companyid, $table, $product_id) {
+    public function getdatabyproductidfromdatabase($companyid, $table, $product_id, $currencyrates="") {
         $this->db->query("use database".$companyid);
 
         $query =    "SELECT *
@@ -412,7 +412,7 @@ class Supplier_model extends CI_Model {
             $company = $this->home->databyid($companyid, 'company')['data'];
             $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
 
-            $acquisition_unit_price = $this->currencyConverter($invoice_coin, $target_coin, $tline['acquisition_unit_price_on_invoice']);
+            $acquisition_unit_price = $this->currencyConverter($invoice_coin, $target_coin, $tline['acquisition_unit_price_on_invoice'], $currencyrates);
 
             $res['acq_subtotal_without_vat'] += $acquisition_unit_price * $line['quantity_on_document'];
             $res['acq_subtotal_vat'] += $acquisition_unit_price * $line['quantity_on_document'] * $tline['vat'] / 100.0;
@@ -509,7 +509,7 @@ class Supplier_model extends CI_Model {
         return $this->db->query($query)->result_array();
     }
 
-    public function getdatafromstockid($companyid, $stockid, $item) {
+    public function getdatafromstockid($companyid, $stockid, $item, $currencyrates="") {
         $table = "material_totalline";
         $this->db->query('use database'.$companyid);
 
@@ -521,15 +521,20 @@ class Supplier_model extends CI_Model {
         $value = 0;
 
         foreach ($data_for_totalline as $index => $line) {
-            $value += $this->databylineidfromdatabase($companyid, $table, $line['id'], $item);
+            $value += $this->databylineidfromdatabase($companyid, $table, $line['id'], $item, $currencyrates);
         }
         return $value;
     }
 
-    function currencyConverter($currency_from, $currency_to, $currency_input) {
-        // Fetching JSON
-        $req_url = 'https://api.exchangerate-api.com/v4/latest/'.$currency_from;
-        $response_json = file_get_contents($req_url);
+    function currencyConverter($currency_from, $currency_to, $currency_input, $currencyrates="") {
+        if ($currencyrates=="") {
+            // Fetching JSON
+            $req_url = 'https://api.exchangerate-api.com/v4/latest/'.$currency_from;
+            $response_json = file_get_contents($req_url);
+        }
+        else {
+            $response_json = $currencyrates;
+        }
 
         // Continuing if we got a result
         if(false !== $response_json) {
@@ -553,13 +558,31 @@ class Supplier_model extends CI_Model {
 
     }
 
-    public function databylineidfromdatabase($companyid, $table, $lineid, $item) {
+    public function GetcurrencyRates($currency_from) {
+        // Fetching JSON
+        $req_url = 'https://api.exchangerate-api.com/v4/latest/'.$currency_from;
+        $response_json = file_get_contents($req_url);
+
+        // Continuing if we got a result
+        if(false !== $response_json) {
+
+            // Try/catch for json_decode operation
+            try {
+                return $response_json;
+            }
+            catch(Exception $e) {
+                return "";
+            }
+
+        }
+    }
+
+    public function databylineidfromdatabase($companyid, $table, $lineid, $item, $currencyrates="") {
         $company = $this->home->databyid($companyid, 'company');
         $company = $company['data'];
-        $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
+        $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":"RON"))));
 
-        $companyid = "database".$companyid;
-        $this->db->query('use '.$companyid);
+        $this->db->query('use database'.$companyid);
 
         $query =    "SELECT *
                     FROM `$table`
@@ -571,7 +594,7 @@ class Supplier_model extends CI_Model {
         $data = $data[0];
         $invoice_coin = (($data['invoice_coin']=='€')?"EUR":(($data['invoice_coin']=='£')?"GBP":(($data['invoice_coin']=='$')?"USD":(($data['invoice_coin']=='LEI')?"RON":""))));
         
-        $acquisition_unit_price = $this->currencyConverter($invoice_coin, $target_coin, $data['acquisition_unit_price_on_invoice']);
+        $acquisition_unit_price = $this->currencyConverter($invoice_coin, $target_coin, $data['acquisition_unit_price_on_invoice'], $currencyrates);
 
         $data['acquisition_vat_value'] = $this->toFixed($acquisition_unit_price * $data['vat'] / 100.0, 2);
         $data['acquisition_unit_price_with_vat'] = $this->toFixed($acquisition_unit_price * ($data['vat'] + 100.0) / 100.0, 2);

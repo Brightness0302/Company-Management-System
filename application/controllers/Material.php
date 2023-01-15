@@ -29,12 +29,13 @@ class Material extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
+        $currencyrates = $this->session->userdata('currencyRates');
         $data = $this->getData();
         $data['suppliers'] = $this->home->alldata('supplier');
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'material');
 
         foreach ($data['products'] as $index => $product) {
-            $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $product['id']);
+            $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $product['id'], $currencyrates);
             $data['products'][$index]['attached'] = false;
 
             $data['products'][$index]['acq_subtotal_without_vat'] = $result['acq_subtotal_without_vat'];
@@ -256,13 +257,14 @@ class Material extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
+        $currencyrates = $this->session->userdata('currencyRates');
         $data = $this->getData();
         $data['suppliers'] = $this->home->alldata('supplier');
         $data['categories'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'material');
 
         foreach ($data['products'] as $index => $product) {
-            $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $product['id']);
+            $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $product['id'], $currencyrates);
             $data['products'][$index]['attached'] = false;
 
             $data['products'][$index]['acq_subtotal_without_vat'] = $result['acq_subtotal_without_vat'];

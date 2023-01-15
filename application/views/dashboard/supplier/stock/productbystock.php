@@ -31,9 +31,9 @@
             ?>
             <td><?=($index)?></td>
             <!-- <td><?=$result['name']?></td> -->
-            <td class="text-left"><?=$line['code_ean']?></td>
+            <td class="text-center"><?=$line['code_ean']?></td>
             <td class="text-left"><?=$line['production_description']?></td>
-            <td class="text-left"><?=$line['serial_number']?></td>
+            <td class="text-center"><?=$line['serial_number']?></td>
             <td><?=$line['qty']?></td>
             <td><?=number_format($line['acquisition_unit_price'], 2, '.', "")?></td>
             <td><?=number_format(($line['acquisition_unit_price']*floatval($line['qty'])), 2, '.', "")?></td>
@@ -64,12 +64,12 @@
     <tbody>
         <tr>
             <?php $total_selling=number_format($total_selling, 2, '.', "")?>
-            <td id="downtotalmark">Total:</td>
-            <td id="total_qty"><?=$total_qty?></td>
-            <td id="missing_qty"><?=$missing_qty?></td>
-            <td id="aquisition"><?=$total_aquisition?></td>
+            <td id="downtotalmark" class="text-center">Total:</td>
+            <td id="total_qty" class="text-center"><?=$total_qty?></td>
+            <td id="missing_qty" class="text-center"><?=$missing_qty?></td>
+            <td id="aquisition" class="text-center"><?=$total_aquisition?></td>
             <td id="eight"></td>
-            <td id="selling"><?=$total_selling?></td>
+            <td id="selling" class="text-center"><?=$total_selling?></td>
         </tr>
     </tbody>
 </table>
