@@ -30,7 +30,7 @@
                 <div>
                     <!-- Title Section -->
                     <div class="p-3">
-                        <h2 class="float-left" style="margin-left: 10px;"><?=(($invoice['type']=='invoice')?"Invoice":(($invoice['type']=='proforma')?"Proforma Invoice":"Invoice"))?></h2>
+                        <h2 class="float-left" style="margin-left: 10px;"><?=(($invoice['type']=='invoice')?"Invoice":(($invoice['type']=='Proforma')?"Proforma Invoice":"Invoice"))?></h2>
                     </div>
                     <!-- Company Avatar start-->
                     <img style="position: absolute; margin-top: 20px; left: 60px;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="100">
