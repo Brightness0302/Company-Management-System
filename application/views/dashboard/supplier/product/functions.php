@@ -103,9 +103,19 @@ function getSN() {
     const quantity_received = $("#quantity_received").val();
     const SN_array = [];
     for (let i = 0; i < quantity_received; i++) {
-        SN_array.push($(`#SN`+(i+1)).val());
+        const value = $(`#SN`+(i+1)).val();
+        if (value) {
+            SN_array.push(value);
+        }
     }
     return SN_array;
+}
+
+function checkSN(SNs) {
+    const quantity_received = $("#quantity_received").val();
+    if (quantity_received == SNs.length)
+        return true;
+    return false;
 }
 
 function refreshSNTable() {
@@ -257,9 +267,15 @@ function SaveItem() {
         SNs.push($("#serial_number").val());
         countforSN = 1;
     }
-    console.log(typeforSN, SNs);
+    
+    if (checkSN(SNs)===false) {
+        alert("Please, Fill in the gap for Serial Numbers.");
+        return;
+    }
+
     if (!code_ean || !production_description) {
         alert("Please, Fill in the gap.");
+        return;
     }
 
     for (var i = 0; i < countforSN; i++) {

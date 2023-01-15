@@ -188,20 +188,17 @@
                                                 <input type="text" class="form-control" id="code_ean" list="stock_lines" name="browser" title="Choose your color">
                                                 <datalist id="stock_lines">
                                                     <?php foreach($totallines as $line):?>
-                                                    <option value="<?=$line['code_ean'].' - '.$line['id']?>">
+                                                    <option value="<?=$line['code_ean'].' - '.$line['id']?>"></option>
                                                     <?php endforeach;?>
                                                 </datalist>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="SN_input">
                                         <td style="border : 1px solid black"><label class="my-2 text-xs">Serial Number:</label></td>
                                         <td>
-                                            <div class="m-auto" id="SN_input">
+                                            <div class="m-auto">
                                                 <input type="text" class="form-control" id="serial_number" value="" title="Choose your color">
-                                            </div>
-                                            <div class="m-auto hidden" id="SN_btn">
-                                                <button class="btn btn-default w-full" data-toggle="modal" data-target="#exampleModalCenter">...</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -278,6 +275,14 @@
                                                 <div class="mx-2 inline-block float-right">
                                                     <input type="radio" class="form-radio mr-1" style="transform: scale(1.5);" id="no_for_multi-SN" name="multi-SN" value="0" title="Choose your color" checked/> <label class="m-0" for="no_for_multi-SN">No</label>
                                                 </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="SN_btn" class="hidden">
+                                        <td style="border : 1px solid black"><label class="my-2 text-xs">Serial Number:</label></td>
+                                        <td>
+                                            <div class="m-auto">
+                                                <button class="btn btn-default w-full" data-toggle="modal" data-target="#exampleModalCenter">...</button>
                                             </div>
                                         </td>
                                     </tr>
