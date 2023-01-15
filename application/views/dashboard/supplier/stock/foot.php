@@ -229,12 +229,13 @@ $(function() {
             if ( settings.nTable.id === 'productbystock' ) {
                 // Filtering for "myTable".
                 var searchvalue = $("#searchtag").val();
-                var condition1 = (data[1].toLowerCase().includes(searchvalue.toLowerCase()));
-                var condition2 = (data[2].toLowerCase().includes(searchvalue.toLowerCase()));
+                let condition1 = (data[1].toLowerCase().includes(searchvalue.toLowerCase()));
+                let condition2 = (data[2].toLowerCase().includes(searchvalue.toLowerCase()));
+                let condition3 = (data[3].toLowerCase().includes(searchvalue.toLowerCase()));
                 console.log(condition1, condition2);
              
                 if (
-                    (condition1 || condition2)
+                    (condition1 || condition2 || condition3)
                 ) {
                     total_qty += (parseInt(data[4])>0)?parseInt(data[4]):0;
                     missing_qty += (parseInt(data[4])<0)?parseInt(data[4]):0;
