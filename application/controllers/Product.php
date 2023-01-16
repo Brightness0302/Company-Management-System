@@ -29,13 +29,14 @@ class Product extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
+        $currencyrates = $this->session->userdata('currencyRates');
         $data = $this->getData();
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
 
         foreach ($data['products'] as $index => $product) {
             $materials = json_decode($product['materials'], true);
             foreach ($materials as $key => $material) {
-                $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
+                $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id'], $currencyrates);
 
                 if ($result != -1) {
                     $materials[$key]['code_ean'] = $result['code_ean'];
