@@ -227,4 +227,35 @@ class Product_model extends CI_Model {
         $res = $this->db->update('internalorder', $data);
         return $res;
     }
+
+    function currencyConverter($currency_from, $currency_to, $currency_input, $currencyrates="") {
+        if ($currencyrates=="") {
+            // Fetching JSON
+            $req_url = 'https://api.exchangerate-api.com/v4/latest/'.$currency_from;
+            $response_json = file_get_contents($req_url);
+        }
+        else {
+            $response_json = $currencyrates;
+        }
+
+        // Continuing if we got a result
+        if(false !== $response_json) {
+
+            // Try/catch for json_decode operation
+            try {
+
+                // Decoding
+                $response_object = json_decode($response_json, true);
+
+                // YOUR APPLICATION CODE HERE, e.g.
+                $currency_output = round(($currency_input * $response_object['rates'][$currency_to]), 2);
+
+
+                return $currency_output;
+            }
+            catch(Exception $e) {
+                return 0;
+            }
+        }
+    }
 }
