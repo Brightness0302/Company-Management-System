@@ -33,7 +33,7 @@
             <button onclick="delProduct('<?=$order['id']?>')" <?=$order['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
         </td>
         <td class="text-center">
-            <button onclick="savebydata(this)"><i class="bi custom-view-icon"></i></button><a id="htmltopdf" href="<?=base_url('product/htmltopdfofinternalorder')?>" target="_blank" hidden>Download PDF</a>
+            <button onclick="savebydata(this)"><i class="bi custom-view-icon"></i></button><a id="htmltopdf" href="<?=base_url('product/htmltopdforinternalorder')?>" target="_blank" hidden>Download PDF</a>
         </td>
       </tr>
       <?php $first+=(array_key_exists('price', $order))?($order['price']*$order['product_qty']):0; endforeach;?>

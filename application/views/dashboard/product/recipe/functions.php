@@ -14,6 +14,7 @@ $(document).ready(function() {
             $(element).text(this.value);
         });
     });
+    $("#product_coin").trigger('change');
     $("#stockid").change(function() {
         const stockid = this.value;
         $("#product_amount").val("0");
@@ -161,7 +162,7 @@ function SaveItem1() {
             $("#table-body1").append(
                 "<tr>"+
                 "<td>"+res['code_ean']+"</td>"+
-                "<td>"+res['production_description']+"</td>"+
+                "<td class='text-left'>"+res['production_description']+"</td>"+
                 "<td>"+amount+"</td>"+
                 "<td>"+res['selling_unit_price_without_vat']+"</td>"+
                 "<td>"+total_amount+"</td>"+
@@ -418,6 +419,7 @@ function get_formdata() {
     const table1 = $("#table-body1");
     const table2 = $("#table-body2");
     const table3 = $("#table-body3");
+    const coin = $("#product_coin").val();
     table1.children("tr").each((index, element) => {
         const etd = $(element).find("td");
         materials.push({id: $(etd[6]).text(), amount: $(etd[2]).text()});
@@ -433,9 +435,10 @@ function get_formdata() {
 
     const form_data = {
         name: product_name, 
+        coin: coin, 
         materials: JSON.stringify(materials),
         labours: JSON.stringify(labours),
-        auxiliaries: JSON.stringify(auxiliaries)
+        auxiliaries: JSON.stringify(auxiliaries),
     };
     return form_data;
 }
@@ -443,6 +446,7 @@ function get_formdata() {
 function AddProduct() {
     const form_data = get_formdata();
     console.log(form_data);
+    return;
 
     $.ajax({
         url: "<?=base_url('product/saverecipe')?>",

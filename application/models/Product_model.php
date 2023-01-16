@@ -6,11 +6,12 @@ class Product_model extends CI_Model {
         return number_format($number, $decimals, '.', "");
     }
 
-    public function createRecipe($companyid, $name, $materials, $labours, $auxiliaries) {
+    public function createRecipe($companyid, $name, $coin, $materials, $labours, $auxiliaries) {
         $this->db->query('use database'.$companyid);
 
         $data = array(
             'name'=>$name, 
+            'coin'=>$coin, 
             'materials'=>$materials, 
             'labours'=>$labours, 
             'auxiliaries'=>$auxiliaries, 
@@ -21,11 +22,12 @@ class Product_model extends CI_Model {
         return $product_id;
     }
 
-    public function saveRecipe($companyid, $id, $name, $materials, $labours, $auxiliaries) {
+    public function saveRecipe($companyid, $id, $name, $coin, $materials, $labours, $auxiliaries) {
         $this->db->query('use database'.$companyid);
 
         $data = array(
             'name'=>$name, 
+            'coin'=>$coin, 
             'materials'=>$materials, 
             'labours'=>$labours, 
             'auxiliaries'=>$auxiliaries, 

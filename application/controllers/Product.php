@@ -67,6 +67,7 @@ class Product extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
+        $currencyrates = $this->session->userdata('currencyRates');
         $data = $this->getData();
         $data['orders'] = $this->home->alldatafromdatabase($companyid, 'internalorder');
 
@@ -77,7 +78,7 @@ class Product extends CI_Controller
                 $price = 0;
                 $materials = json_decode($product['materials'], true);
                 foreach ($materials as $index => $material) {
-                    $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
+                    $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id'], $currencyrates);
 
                     if ($result!=-1) {
                         $materials[$index]['code_ean'] = $result['code_ean'];
@@ -122,6 +123,7 @@ class Product extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
+        $currencyrates = $this->session->userdata('currencyRates');
         $data = $this->getData();
         $data['orders'] = $this->home->alldatafromdatabase($companyid, 'internalorder');
 
@@ -135,7 +137,7 @@ class Product extends CI_Controller
             $price = 0;
             $materials = json_decode($product['materials'], true);
             foreach ($materials as $index => $material) {
-                $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
+                $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id'], $currencyrates);
             
                 $materials[$index]['code_ean'] = $result['code_ean'];
                 $materials[$index]['production_description'] = $result['production_description'];
@@ -431,18 +433,19 @@ class Product extends CI_Controller
         $companyid = $this->session->userdata('companyid');
 
         $name = $this->input->post('name');
+        $coin = $this->input->post('coin');
         $materials = $this->input->post('materials');
         $labours = $this->input->post('labours');
         $auxiliaries = $this->input->post('auxiliaries');
 
         if (!isset($_GET['id'])) {
-            $productid = $this->product->createRecipe($companyid, $name, $materials, $labours, $auxiliaries);
+            $productid = $this->product->createRecipe($companyid, $name, $coin, $materials, $labours, $auxiliaries);
             echo $productid;
             return;
         }
 
         $id = $_GET['id'];
-        $result = $this->product->saveRecipe($companyid, $id, $name, $materials, $labours, $auxiliaries);
+        $result = $this->product->saveRecipe($companyid, $id, $name, $coin, $materials, $labours, $auxiliaries);
         echo $result;
     }
     //Save(Add/Edit) Supplier post(object(name, number, ...)) get(id)
@@ -526,6 +529,7 @@ class Product extends CI_Controller
 
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
+        $currencyrates = $this->session->userdata('currencyRates');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
@@ -535,7 +539,7 @@ class Product extends CI_Controller
 
         $materials = json_decode($data['product']['materials'], true);
         foreach ($materials as $index => $material) {
-            $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
+            $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id'], $currencyrates);
         
             $materials[$index]['code_ean'] = $result['code_ean'];
             $materials[$index]['production_description'] = $result['production_description'];
@@ -549,7 +553,7 @@ class Product extends CI_Controller
         echo "success";
     }
     //convert html to pdf
-    public function htmltopdfofinternalorder() {
+    public function htmltopdforinternalorder() {
         $this->load->library('Pdf');
 
         $companyid = $this->session->userdata('companyid');
@@ -570,6 +574,7 @@ class Product extends CI_Controller
     public function invoicepreview() {
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
+        $currencyrates = $this->session->userdata('currencyRates');
         $data['user'] = $this->session->userdata('user');
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
@@ -579,7 +584,7 @@ class Product extends CI_Controller
 
         $materials = json_decode($data['product']['materials'], true);
         foreach ($materials as $index => $material) {
-            $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
+            $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id'], $currencyrates);
         
             $materials[$index]['code_ean'] = $result['code_ean'];
             $materials[$index]['production_description'] = $result['production_description'];
@@ -606,6 +611,7 @@ class Product extends CI_Controller
     public function productfromrecipe() {
         $id = $_GET['id'];
         $companyid = $this->session->userdata('companyid');
+        $currencyrates = $this->session->userdata('currencyRates');
 
         $res_product = $this->home->databyidfromdatabase($companyid, 'product_recipe', $id);
         if ($res_product['status'] == false) {
@@ -616,7 +622,7 @@ class Product extends CI_Controller
         $price = 0;
         $materials = json_decode($product['materials'], true);
         foreach ($materials as $index => $material) {
-            $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
+            $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id'], $currencyrates);
         
             $materials[$index]['code_ean'] = $result['code_ean'];
             $materials[$index]['production_description'] = $result['production_description'];

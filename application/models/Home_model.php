@@ -1319,6 +1319,10 @@ class Home_model extends CI_Model {
             'type' => 'VARCHAR',
             'constraint' => 30,
           ),
+          'coin' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
           'materials' => array(
             'type' => 'LONGTEXT',
           ),
