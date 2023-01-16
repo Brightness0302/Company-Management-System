@@ -1320,16 +1320,13 @@ class Home_model extends CI_Model {
             'constraint' => 30,
           ),
           'materials' => array(
-            'type' => 'VARCHAR',
-            'constraint' => 5000,
+            'type' => 'LONGTEXT',
           ),
           'labours' => array(
-            'type' => 'VARCHAR',
-            'constraint' => 5000,
+            'type' => 'LONGTEXT',
           ),
           'auxiliaries' => array(
-            'type' => 'VARCHAR',
-            'constraint' => 5000,
+            'type' => 'LONGTEXT',
           ),
           'isremoved' => array(
             'type' => 'TINYINT',

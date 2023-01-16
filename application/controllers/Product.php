@@ -41,7 +41,7 @@ class Product extends CI_Controller
                 if ($result != -1) {
                     $materials[$key]['code_ean'] = $result['code_ean'];
                     $materials[$key]['production_description'] = $result['production_description'];
-                    $materials[$key]['selling_unit_price_without_vat'] = $result['selling_unit_price_without_vat'];
+                    $materials[$key]['selling_unit_price_without_vat'] = $result['selling_unit_price_without_vat'] * $material['amount'];
                 }
             }
             $data['products'][$index]['materials'] = json_encode($materials);
@@ -82,7 +82,7 @@ class Product extends CI_Controller
                     if ($result!=-1) {
                         $materials[$index]['code_ean'] = $result['code_ean'];
                         $materials[$index]['production_description'] = $result['production_description'];
-                        $materials[$index]['selling_unit_price_without_vat'] = $result['selling_unit_price_without_vat'];
+                        $materials[$index]['selling_unit_price_without_vat'] = $result['selling_unit_price_without_vat'] * $material['amount'];
                         $price += $material['amount']*$materials[$index]['selling_unit_price_without_vat'];
                     }
                 }
