@@ -338,19 +338,19 @@
                                 <tbody>
                                     <tr>
                                         <td>Material Total:</td>
-                                        <td id="first_total"><?=number_format($total_first, 2, '.', '')?></td>
+                                        <td><label id="first_total" class="font-normal"><?=number_format($total_first, 2, '.', '')?></label> <label class="coin font-normal">€</label></td>
                                     </tr>
                                     <tr>
                                         <td>Labour Total:</td>
-                                        <td id="second_total"><?=number_format($total_second, 2, '.', '')?></td>
+                                        <td><label id="second_total" class="font-normal"><?=number_format($total_second, 2, '.', '')?></label> <label class="coin font-normal">€</label></td>
                                     </tr>
                                     <tr>
                                         <td>Auxiliary Total:</td>
-                                        <td id="third_total"><?=number_format($total_third, 2, '.', '')?></td>
+                                        <td><label id="third_total" class="font-normal"><?=number_format($total_third, 2, '.', '')?></label> <label class="coin font-normal">€</label></td>
                                     </tr>
                                     <tr>
                                         <td>Total:</td>
-                                        <td id="fourth_total"><?=number_format($total_first+$total_second+$total_third, 2, '.', '')?></td>
+                                        <td><label id="fourth_total" class="font-normal"><?=number_format($total_first+$total_second+$total_third, 2, '.', '')?></label> <label class="coin font-normal">€</label></td>
                                     </tr>
                                 </tbody>
                             </table>

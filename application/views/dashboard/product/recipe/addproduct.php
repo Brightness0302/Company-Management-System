@@ -292,19 +292,19 @@
                                 <tbody>
                                     <tr>
                                         <td>Material Total:</td>
-                                        <td><label id="first_total font-normal">0</label> <label class="coin font-normal">€</label></td>
+                                        <td><label id="first_total" class="font-normal">0</label> <label class="coin font-normal">€</label></td>
                                     </tr>
                                     <tr>
                                         <td>Labour Total:</td>
-                                        <td><label id="second_total font-normal">0</label> <label class="coin font-normal">€</label></td>
+                                        <td><label id="second_total" class="font-normal">0</label> <label class="coin font-normal">€</label></td>
                                     </tr>
                                     <tr>
                                         <td>Auxiliary Total:</td>
-                                        <td><label id="third_total font-normal">0</label> <label class="coin font-normal">€</label></td>
+                                        <td><label id="third_total" class="font-normal">0</label> <label class="coin font-normal">€</label></td>
                                     </tr>
                                     <tr>
                                         <td>Total:</td>
-                                        <td><label id="fourth_total font-normal">0</label> <label class="coin font-normal">€</label></td>
+                                        <td><label id="fourth_total" class="font-normal">0</label> <label class="coin font-normal">€</label></td>
                                     </tr>
                                 </tbody>
                             </table>

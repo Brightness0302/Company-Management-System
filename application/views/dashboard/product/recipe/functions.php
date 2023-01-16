@@ -121,6 +121,7 @@ function refreshTotalMark() {
     second_total.text("0");
     third_total.text("0");
     fourth_total.text("0");
+    console.log(first_total);
 
     const table1 = $("#table-body1");
     const table2 = $("#table-body2");
