@@ -328,7 +328,9 @@ class Material extends CI_Controller
     //Get line of product by $codeean
     public function linebycodeean($codeean) {
         $companyid = $this->session->userdata('companyid');
-        $data = $this->supplier->linebycodeean($companyid, $codeean);
+        $currencyrates = $this->session->userdata('currencyRates');
+
+        $data = $this->supplier->linebycodeean($companyid, $codeean, $currencyrates);
 
         header('Content-Type: application/json');
         echo json_encode($data);

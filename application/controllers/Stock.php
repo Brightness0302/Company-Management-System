@@ -109,8 +109,9 @@ class Stock extends CI_Controller
     public function getdatafromproductbylineid() {
         $lineid = $_GET['lineid'];
         $companyid = $this->session->userdata('companyid');
+        $currencyrates = $this->session->userdata('currencyRates');
 
-        $line_data = $this->supplier->getalldatabylineidfromdatabase($companyid, 'material_totalline', $lineid);
+        $line_data = $this->supplier->getalldatabylineidfromdatabase($companyid, 'material_totalline', $lineid, $currencyrates);
 
         $data['price'] = $line_data['selling_unit_price_without_vat'];
         $data['code_ean'] = $line_data['code_ean'];
