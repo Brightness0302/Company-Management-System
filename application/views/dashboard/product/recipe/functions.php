@@ -579,7 +579,7 @@ function SaveAsPDF() {
 
 function savebydata(id) {
     $.ajax({
-        url: "<?=base_url('home/getdatabyid?table=product&id=')?>"+id,
+        url: "<?=base_url('home/getdatabyid?table=product_recipe&id=')?>"+id,
         method: "POST",
         dataType: 'json', 
         success: function(res) {

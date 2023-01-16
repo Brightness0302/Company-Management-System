@@ -380,6 +380,9 @@ class Supplier_model extends CI_Model {
     }
 
     public function getdatabyproductidfromdatabase($companyid, $table, $product_id, $currencyrates="") {
+        $company = $this->home->databyid($companyid, 'company')['data'];
+        $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
+        
         $this->db->query("use database".$companyid);
 
         $query =    "SELECT *
@@ -408,9 +411,6 @@ class Supplier_model extends CI_Model {
             $tline = $tline[0];
 
             $invoice_coin = (($tline['invoice_coin']=='€')?"EUR":(($tline['invoice_coin']=='£')?"GBP":(($tline['invoice_coin']=='$')?"USD":(($tline['invoice_coin']=='LEI')?"RON":""))));
-
-            $company = $this->home->databyid($companyid, 'company')['data'];
-            $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
 
             $acquisition_unit_price = $this->currencyConverter($invoice_coin, $target_coin, $tline['acquisition_unit_price_on_invoice'], $currencyrates);
 
@@ -529,7 +529,7 @@ class Supplier_model extends CI_Model {
     function currencyConverter($currency_from, $currency_to, $currency_input, $currencyrates="") {
         if ($currencyrates=="") {
             // Fetching JSON
-            $req_url = 'https://api.exchangerate-api.com/v4/latest/'.$currency_from;
+            $req_url = 'https://api.exchangerate-api.com/v4/latest/'.$currency_to;
             $response_json = file_get_contents($req_url);
         }
         else {
@@ -546,7 +546,7 @@ class Supplier_model extends CI_Model {
                 $response_object = json_decode($response_json, true);
 
                 // YOUR APPLICATION CODE HERE, e.g.
-                $currency_output = round(($currency_input * $response_object['rates'][$currency_to]), 2);
+                $currency_output = round(($currency_input / $response_object['rates'][$currency_from]), 2);
 
 
                 return $currency_output;
@@ -704,6 +704,39 @@ class Supplier_model extends CI_Model {
         $query =    "SELECT *
                     FROM `material_totalline`
                     WHERE `code_ean`='$code_ean'";
+
+        $data = $this->db->query($query)->result_array();
+        if (count($data) == 0) {
+            return -1;
+        }
+        $data=$data[0];
+        $invoice_coin = (($data['invoice_coin']=='€')?"EUR":(($data['invoice_coin']=='£')?"GBP":(($data['invoice_coin']=='$')?"USD":(($data['invoice_coin']=='LEI')?"RON":""))));
+        
+        $acquisition_unit_price = $this->currencyConverter($invoice_coin, $target_coin, $data['acquisition_unit_price_on_invoice'], $currencyrates);
+
+        $data['acquisition_vat_value'] = $this->toFixed($acquisition_unit_price * $data['vat'] / 100.0, 2);
+        $data['acquisition_unit_price_with_vat'] = $this->toFixed($acquisition_unit_price * ($data['vat'] + 100.0) / 100.0, 2);
+        $data['amount_without_vat'] = $this->toFixed($acquisition_unit_price * $data['qty'], 2);
+        $data['amount_vat_value'] = $this->toFixed($acquisition_unit_price * $data['qty'] * $data['vat'] / 100.0, 2);
+        $data['total_amount'] = $this->toFixed($acquisition_unit_price * $data['qty'] * ($data['vat'] + 100.0) / 100.0, 2);
+        $data['selling_unit_price_without_vat'] = $this->toFixed($acquisition_unit_price * ($data['makeup']+100.0) / 100.0, 2);
+        $data['selling_amount_without_vat'] = $this->toFixed(($acquisition_unit_price * ($data['makeup']+100.0) / 100.0) * $data['qty'], 2);
+        $data['selling_unit_vat_value'] = $this->toFixed($acquisition_unit_price * ($data['makeup'] + 100.0) * $data['vat'] / 100.0 / 100.0, 2);
+        $data['selling_unit_price_with_vat'] = $this->toFixed($acquisition_unit_price * ($data['makeup'] + 100.0) * ($data['vat'] + 100.0) / 100.0 / 100.0, 2);
+        return $data;
+    }
+
+    public function linebyid($companyid, $id, $currencyrates="") {
+        $company = $this->home->databyid($companyid, 'company');
+        $company = $company['data'];
+        $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
+        
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $query =    "SELECT *
+                    FROM `material_totalline`
+                    WHERE `id`='$id'";
 
         $data = $this->db->query($query)->result_array();
         if (count($data) == 0) {

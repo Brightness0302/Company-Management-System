@@ -140,7 +140,7 @@ class Product_model extends CI_Model {
         $company = $this->home->databyid($companyid, 'company');
         $company = $company['data'];
         $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
-        
+
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
@@ -231,7 +231,7 @@ class Product_model extends CI_Model {
     function currencyConverter($currency_from, $currency_to, $currency_input, $currencyrates="") {
         if ($currencyrates=="") {
             // Fetching JSON
-            $req_url = 'https://api.exchangerate-api.com/v4/latest/'.$currency_from;
+            $req_url = 'https://api.exchangerate-api.com/v4/latest/'.$currency_to;
             $response_json = file_get_contents($req_url);
         }
         else {
@@ -248,7 +248,7 @@ class Product_model extends CI_Model {
                 $response_object = json_decode($response_json, true);
 
                 // YOUR APPLICATION CODE HERE, e.g.
-                $currency_output = round(($currency_input * $response_object['rates'][$currency_to]), 2);
+                $currency_output = round(($currency_input / $response_object['rates'][$currency_from]), 2);
 
 
                 return $currency_output;

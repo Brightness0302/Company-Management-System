@@ -47,7 +47,7 @@ $(document).ready(function() {
         const code_ean = this.value.split(" - ")[0];
         const code_ean_id = this.value.split(" - ")[1];
         $.ajax({
-            url: "<?=base_url("material/linebycodeean/")?>" + code_ean_id,
+            url: "<?=base_url("material/linebyid/")?>" + code_ean_id,
             method: "POST",
             dataType: 'json',
             success: function(res) {

@@ -321,6 +321,7 @@ class Product extends CI_Controller
     public function editrecipe($product_id) {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
+        $currencyrates = $this->session->userdata('currencyRates');
         $data = $this->getData();
         $data['product'] = $this->product->productfromsetting($companyid, 'product_recipe');
         $product = $this->home->databyidfromdatabase($companyid, 'product_recipe', $product_id);
@@ -331,7 +332,7 @@ class Product extends CI_Controller
 
         $materials = json_decode($data['product']['materials'], true);
         foreach ($materials as $index => $material) {
-            $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
+            $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id'], $currencyrates);
         
             $materials[$index]['code_ean'] = $result['code_ean'];
             $materials[$index]['production_description'] = $result['production_description'];
