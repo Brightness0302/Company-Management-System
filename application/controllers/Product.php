@@ -45,6 +45,28 @@ class Product extends CI_Controller
                 }
             }
             $data['products'][$index]['materials'] = json_encode($materials);
+
+            $companyCoin = (($data['company']['Coin']=='EURO')?"EUR":(($data['company']['Coin']=='POUND')?"GBP":(($data['company']['Coin']=='USD')?"USD":(($data['company']['Coin']=='LEI')?"RON":""))));
+            $recipeCoin = (($product['coin']=='€')?"EUR":(($product['coin']=='£')?"GBP":(($product['coin']=='$')?"USD":(($product['coin']=='LEI')?"RON":""))));
+            $labours = json_decode($product['labours'], true);
+            foreach ($labours as $key => $labour) {
+                $result = $this->product->currencyConverter($recipeCoin, $companyCoin, $labour['hourly'], $currencyrates);
+
+                if ($result != -1) {
+                    $labours[$key]['hourly'] = $result;
+                }
+            }
+            $data['products'][$index]['labours'] = json_encode($labours);
+
+            $auxiliaries = json_decode($product['auxiliaries'], true);
+            foreach ($auxiliaries as $key => $auxiliary) {
+                $result = $this->product->currencyConverter($recipeCoin, $companyCoin, $auxiliary['value'], $currencyrates);
+
+                if ($result != -1) {
+                    $auxiliaries[$key]['value'] = $result;
+                }
+            }
+            $data['products'][$index]['auxiliaries'] = json_encode($auxiliaries);
         }
 
         $session['menu']="Products";

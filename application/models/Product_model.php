@@ -261,7 +261,7 @@ class Product_model extends CI_Model {
         return $res;
     }
 
-    function currencyConverter($currency_from, $currency_to, $currency_input, $currencyrates="") {
+    public function currencyConverter($currency_from, $currency_to, $currency_input, $currencyrates="") {
         if ($currencyrates=="") {
             // Fetching JSON
             $req_url = 'https://api.exchangerate-api.com/v4/latest/'.$currency_to;
