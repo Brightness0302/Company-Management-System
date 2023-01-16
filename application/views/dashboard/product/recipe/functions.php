@@ -32,11 +32,12 @@ $(document).ready(function() {
         const product_code_ean = document.getElementById('product_code_ean');
         const stock = document.getElementById('stockid');
         const stockname = stock.options[stock.selectedIndex].text;
+        const coin = $("#product_coin").val();
 
         console.log("saveLine");
 
         $.ajax({
-            url: "<?=base_url('stock/getdatafromproductbylineid?lineid=')?>" + lineid,
+            url: "<?=base_url('stock/getdatafromproductbycoin?lineid=')?>" + lineid + "&coin=" + coin,
             method: "POST",
             dataType: 'json',
             success: function(res) {
@@ -143,6 +144,7 @@ function refreshTotalMark() {
 function SaveItem1() {
     const production_description = $("#production_description").val();
     const code_ean = $("#code_ean").val();
+    const coin = $("#product_coin").val();
     const amount = $("#production_count").val();
     const total_amount = $("#total_amount").val();
     if (!code_ean) {
@@ -150,7 +152,7 @@ function SaveItem1() {
         return;
     }
     $.ajax({
-        url: "<?=base_url("material/linebycodeean/")?>" + code_ean,
+        url: "<?=base_url("material/linebycoin/")?>" + code_ean + "?coin=" + coin,
         method: "POST",
         dataType: 'json',
         success: function(res) {

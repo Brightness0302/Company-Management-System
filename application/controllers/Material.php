@@ -335,6 +335,20 @@ class Material extends CI_Controller
         header('Content-Type: application/json');
         echo json_encode($data);
     }
+    //Get line of product by $codeean
+    public function linebycoin($codeean) {
+        if (!isset($_GET['coin'])) {
+            echo -1;
+            return;
+        }
+        $companyid = $this->session->userdata('companyid');
+        $coin = $_GET['coin'];
+
+        $data = $this->supplier->linebycoin($companyid, $codeean, $coin);
+
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
     //Get line of product by $id
     public function linebyid($id) {
         $companyid = $this->session->userdata('companyid');
