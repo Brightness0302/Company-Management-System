@@ -144,7 +144,10 @@ function SaveItem1() {
     const code_ean = $("#code_ean").val();
     const amount = $("#production_count").val();
     const total_amount = $("#total_amount").val();
-
+    if (!code_ean) {
+        alert("Please, fill in the gap.");
+        return;
+    }
     $.ajax({
         url: "<?=base_url("material/linebycodeean/")?>" + code_ean,
         method: "POST",
@@ -182,6 +185,10 @@ function SaveItem2() {
     const labour_time = $("#labour_time").val();
     const labour_hourly = $("#labour_hourly").val();
     const labour_total = $("#labour_total").val();
+    if (!labour_name || !labour_time || !labour_hourly) {
+        alert("Please, fill in the gap.");
+        return;
+    }
     $("#table-body2").append(
         "<tr>"+
         "<td>"+labour_name+"</td>"+
@@ -202,7 +209,10 @@ function SaveItem3() {
     const auxiliary_title = $("#auxiliary_title").val();
     const auxiliary_observation = $("#auxiliary_observation").val();
     const auxiliary_expense = $("#auxiliary_expense").val();
-
+    if (!auxiliary_title || !auxiliary_expense) {
+        alert("Please, fill in the gap.");
+        return;
+    }
     $("#table-body3").append(
         "<tr>"+
         "<td>"+auxiliary_title+"</td>"+

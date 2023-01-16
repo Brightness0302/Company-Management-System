@@ -90,6 +90,7 @@ class Stock extends CI_Controller
     public function getallproductsbystockid() {
         $stock_id = $_GET['stock_id'];
         $companyid = $this->session->userdata('companyid');
+        
         $products = $this->supplier->alldatabystockidfromdatabase($companyid, 'material_totalline', $stock_id);
         
         //add the header here

@@ -139,7 +139,7 @@
                                         <td style="border : 1px solid black"><label class="my-2">Time:</label></td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="text" class="form-control " id="labour_time" value="" title="Choose your color">
+                                                <input type="text" class="form-control " id="labour_time" value="0.0" title="Choose your color">
                                             </div>
                                         </td>
                                         <td class="text-center"><label class="my-2">hrs</label></td>
@@ -148,7 +148,7 @@
                                         <td style="border : 1px solid black"><label class="my-2">Hourly cost:</label></td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="text" class="form-control " id="labour_hourly" value="" title="Choose your color">
+                                                <input type="text" class="form-control " id="labour_hourly" value="0.0" title="Choose your color">
                                             </div>
                                         </td>
                                         <td class="text-center">
@@ -163,7 +163,7 @@
                                         <td style="border : 1px solid black"><label class="my-2">Amount:</label></td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="text" class="form-control " id="labour_total" value="" title="Choose your color">
+                                                <input type="text" class="form-control " id="labour_total" value="0.0" title="Choose your color">
                                             </div>
                                         </td>
                                     </tr>
