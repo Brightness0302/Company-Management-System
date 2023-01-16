@@ -53,8 +53,9 @@ class Report extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
         $data = $this->getData();
-        $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
-        $data['setting1'] = $res[0];
+        // $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
+        // $data['setting1'] = $res[0];
+        $data['setting1'] = $this->home->getEarliestdate($companyid, 'invoice', 'date_of_issue');
 
         $data['client_invoices'] = $this->home->alldatafromdatabase($companyid, 'invoice');
         foreach ($data['client_invoices'] as $key => $invoice) {
@@ -92,8 +93,9 @@ class Report extends CI_Controller
         $company_name = $this->session->userdata('companyname');
         $currencyrates = $this->session->userdata('currencyRates');
         $data = $this->getData();
-        $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
-        $data['setting1'] = $res[0];
+        // $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
+        // $data['setting1'] = $res[0];
+        $data['setting1'] = $this->home->getEarliestdate($companyid, 'material', 'invoice_date');
 
         $data['supplier_invoices'] = $this->home->alldatafromdatabase($companyid, 'material');
         foreach ($data['supplier_invoices'] as $index => $invoice) {
@@ -140,8 +142,9 @@ class Report extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
         $data = $this->getData();
-        $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
-        $data['setting1'] = $res[0];
+        // $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
+        // $data['setting1'] = $res[0];
+        $data['setting1'] = $this->home->getEarliestdate($companyid, 'expense_product', 'date');
 
         $data['expense_products'] = $this->home->alldatafromdatabase($companyid, 'expense_product');
         foreach ($data['expense_products'] as $index => $product) {
@@ -184,8 +187,13 @@ class Report extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
         $data = $this->getData();
-        $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
-        $data['setting1'] = $res[0];
+        // $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
+        // $data['setting1'] = $res[0];
+        $earliestdateforinvoice = $this->home->getEarliestdate($companyid, 'invoice', 'date_of_issue');
+        $earliestdateforsupplier = $this->home->getEarliestdate($companyid, 'material', 'invoice_date');
+        $earliestdateforproduct = $this->home->getEarliestdate($companyid, 'expense_product', 'date');
+        $earliestdates = array($earliestdateforinvoice['startdate'], $earliestdateforsupplier['startdate'], $earliestdateforproduct['startdate']);
+        $data['setting1']['startdate'] = min($earliestdates);
         $startyear = intval(date("Y",strtotime($data['setting1']['startdate'])));
 
         $chart_collected = [];

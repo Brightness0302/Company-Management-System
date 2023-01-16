@@ -700,7 +700,7 @@ class Supplier_model extends CI_Model {
 
         $query =    "SELECT *
                     FROM `material_totalline`
-                    WHERE `id`='$code_ean'";
+                    WHERE `code_ean`='$code_ean'";
 
         $data = $this->db->query($query)->result_array();
         if (count($data) == 0) {

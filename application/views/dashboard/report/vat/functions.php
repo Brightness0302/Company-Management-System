@@ -3,6 +3,7 @@ let chart_collected = '<?=$chart_collected?>';
 let chart_paid = '<?=$chart_paid?>';
 chart_collected = JSON.parse(chart_collected);
 chart_paid = JSON.parse(chart_paid);
+var startYear = "<?=intval(date("Y",strtotime($setting1['startdate'])))?>";
 console.log(chart_collected, chart_paid);
 
 var barChartData = {
@@ -13,7 +14,7 @@ var barChartData = {
             backgroundColor: window.chartColors.lightblue,
             data: [
                 <?php for ($i = 0; $i < 12; $i ++):?>
-                    (parseFloat(chart_collected[2022]["<?=$i?>"]['paid'])+parseFloat(chart_collected[2022]["<?=$i?>"]['unpaid'])).toFixed(2),
+                    (parseFloat(chart_collected[startYear]["<?=$i?>"]['paid'])+parseFloat(chart_collected[startYear]["<?=$i?>"]['unpaid'])).toFixed(2),
                 <?php endfor;?>
             ],
             stack: 'bar1',
@@ -24,7 +25,7 @@ var barChartData = {
             backgroundColor: window.chartColors.lightgreen,
             data: [
                 <?php for ($i = 0; $i < 12; $i ++):?>
-                    (parseFloat(chart_paid[2022]["<?=$i?>"]['paid'])+parseFloat(chart_paid[2022]["<?=$i?>"]['unpaid'])).toFixed(2),
+                    (parseFloat(chart_paid[startYear]["<?=$i?>"]['paid'])+parseFloat(chart_paid[startYear]["<?=$i?>"]['unpaid'])).toFixed(2),
                 <?php endfor;?>
             ],
             stack: 'bar2',
@@ -34,12 +35,12 @@ var barChartData = {
             label: 'VAT difference',
             backgroundColor: [ 
                 <?php for ($i = 0; $i < 12; $i ++):?>
-                    ((parseFloat(chart_collected[2022]["<?=$i?>"]['paid'])+parseFloat(chart_collected[2022]["<?=$i?>"]['unpaid'])-parseFloat(chart_paid[2022]["<?=$i?>"]['paid'])-parseFloat(chart_paid[2022]["<?=$i?>"]['unpaid']))>0)?window.chartColors.lightred:window.chartColors.lightpurple, 
+                    ((parseFloat(chart_collected[startYear]["<?=$i?>"]['paid'])+parseFloat(chart_collected[startYear]["<?=$i?>"]['unpaid'])-parseFloat(chart_paid[startYear]["<?=$i?>"]['paid'])-parseFloat(chart_paid[startYear]["<?=$i?>"]['unpaid']))>0)?window.chartColors.lightred:window.chartColors.lightpurple, 
                 <?php endfor;?>
             ], 
             data: [
                 <?php for ($i = 0; $i < 12; $i ++):?>
-                    (parseFloat(chart_collected[2022]["<?=$i?>"]['paid'])+parseFloat(chart_collected[2022]["<?=$i?>"]['unpaid'])-parseFloat(chart_paid[2022]["<?=$i?>"]['paid'])-parseFloat(chart_paid[2022]["<?=$i?>"]['unpaid'])).toFixed(2),
+                    (parseFloat(chart_collected[startYear]["<?=$i?>"]['paid'])+parseFloat(chart_collected[startYear]["<?=$i?>"]['unpaid'])-parseFloat(chart_paid[startYear]["<?=$i?>"]['paid'])-parseFloat(chart_paid[startYear]["<?=$i?>"]['unpaid'])).toFixed(2),
                 <?php endfor;?>
             ],
             type: 'bar'
@@ -102,7 +103,6 @@ window.onload = function() {
 };
 
 $(function() {
-    var startYear = "<?=intval(date("Y",strtotime($setting1['startdate'])))?>";
     for (i = (new Date().getFullYear()); i >= startYear; i--)
     {
         $('#yearpicker').append($('<option />').val(i).html(i));

@@ -131,6 +131,25 @@ class Home_model extends CI_Model {
 
         return $data;
     }
+
+    public function getEarliestdate($companyid, $table, $item) {
+        $this->db->query('use database'.$companyid);
+
+        $query =    "SELECT *
+            FROM `$table`
+            WHERE `isremoved`=false
+            ORDER BY `$item` ASC LIMIT 1";
+
+        $res = $this->db->query($query)->result_array();
+        if (count($res) == 0) {
+            $res = $this->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
+            $res = $res[0];
+            return $res;
+        }
+        $res = $res[0];
+        $data['startdate'] = $res[$item];
+        return $data;
+    }
     //get all information which name=$name from $table table in manager database
     public function databyname($name, $table) {
         $default_db = $this->db->database;
