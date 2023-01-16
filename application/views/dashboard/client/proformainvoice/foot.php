@@ -173,6 +173,7 @@ $(function() {
             $(elements[i]).html(this.value);
         }
     });
+    $("select[id=companycoin]").trigger('change');
 
     $("#table_in_modal").DataTable({
       "responsive": true, "bFilter": true, "bInfo": false, "pagingType": "simple_numbers", "autoWidth": false,

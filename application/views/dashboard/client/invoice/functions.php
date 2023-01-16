@@ -155,7 +155,7 @@ function refreshproductbystockid(stockid) {
             var isfirst = true;
             res.forEach((line) => {
                 if (line['stockid']==stockid) {
-                    string += "<option value="+line['id']+">"+line['code_ean']+" - "+line['production_description']+"</option>";
+                    string += "<option value="+line['id']+">"+line['code_ean']+" - "+line['production_description']+" [ "+line['serial_number']+" ]</option>";
                     if (isfirst == true) {
                         console.log(line);
                         const max = line['qty'];
