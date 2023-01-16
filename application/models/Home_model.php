@@ -99,24 +99,6 @@ class Home_model extends CI_Model {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
-        if ($table == 'invoice') {
-            $query =    "SELECT *
-                        FROM `setting`
-                        WHERE `id` = '1'";
-
-            $res = $this->db->query($query)->result_array();
-            $res = $res[0];
-
-            $data['date_of_issue'] = date("Y-m-d");
-            $data['due_date'] = date('Y-m-d', strtotime($data['date_of_issue']. ' + 1 months'));
-            $data['input_invoicenumber'] = intval($res['invoiceid'])+1;
-
-            if ($res['invoiceyear'] != date("Y")) {
-                $data['input_invoicenumber'] = 1;
-            }
-            return $data;
-        }
-
         $query = "SELECT `AUTO_INCREMENT`
             FROM information_schema.TABLES 
             WHERE TABLE_SCHEMA = '" . $companyid . "' AND TABLE_NAME = '$table'";
@@ -126,6 +108,26 @@ class Home_model extends CI_Model {
         $data['date_of_issue'] = date("Y-m-d");
         $data['due_date'] = date('Y-m-d', strtotime($data['date_of_issue']. ' + 1 months'));
         $data['input_invoicenumber'] = $queryvalue[0]['AUTO_INCREMENT'];
+
+        if ($table == 'invoice') {
+            $value = false;
+            $input_invoicenumber = $data['input_invoicenumber'];
+            while (!$value) {
+                $query =    "SELECT *
+                    FROM `$table`
+                    WHERE `input_invoicenumber`='$input_invoicenumber' AND `isremoved`=false";
+
+                $res = $this->db->query($query)->result_array();
+                if (count($res) == 0) {
+                    $value = true;
+                    $data['input_invoicenumber'] = $input_invoicenumber;
+                }
+                else {
+                    $value = false;
+                    $input_invoicenumber++;
+                }
+            }
+        }
 
         return $data;
     }

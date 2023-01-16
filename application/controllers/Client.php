@@ -193,7 +193,7 @@ class Client extends CI_Controller
         $company_name = $this->session->userdata('companyname');
         $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
-        $data['invoice'] = $this->home->invoicefromsetting($data['company']['id'], 'invoice');
+        $data['invoice'] = $this->home->invoicefromsetting($companyid, 'invoice');
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'material');
 
         $session['menu']="Clients";
@@ -219,7 +219,7 @@ class Client extends CI_Controller
         $company_name = $this->session->userdata('companyname');
         $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
-        $data['invoice'] = $this->home->invoicefromsetting($data['company']['id'], 'proformainvoice');
+        $data['invoice'] = $this->home->invoicefromsetting($companyid, 'proformainvoice');
 
         $session['menu']="Clients";
         $session['submenu']="prm";
