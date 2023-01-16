@@ -268,7 +268,7 @@ function SaveItem() {
         countforSN = 1;
     }
     
-    if (checkSN(SNs)===false) {
+    if (checkSN(SNs)===false && typeforSN === '1') {
         alert("Please, Fill in the gap for Serial Numbers.");
         return;
     }
