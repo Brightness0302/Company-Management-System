@@ -143,7 +143,6 @@ class Home extends CI_Controller
 
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         foreach ($data['stocks'] as $index => $stock) {
-            echo $index;
             $data['stocks'][$index]['amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'amount_without_vat', $currencyrates);
             $data['stocks'][$index]['selling_amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'selling_amount_without_vat', $currencyrates);
         }
@@ -452,7 +451,7 @@ class Home extends CI_Controller
         }
         $files = [];
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            echo 'This is a server using Windows!';
+            // echo 'This is a server using Windows!';
         } else {
             $files = array_diff(scandir($path), array('.', '..'));
         }
