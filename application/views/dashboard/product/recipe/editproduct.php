@@ -258,7 +258,7 @@
                                 <?php foreach($materials as $index=>$material):?>
                                 <tr>
                                     <td><?=$material['code_ean']?></td>
-                                    <td><?=$material['production_description']?></td>
+                                    <td class="text-left"><?=$material['production_description']?></td>
                                     <td><?=$material['amount']?></td>
                                     <td><?=$material['selling_unit_price_without_vat']?></td>
                                     <td><?=number_format($material['amount']*$material['selling_unit_price_without_vat'], 2, '.', "")?></td>

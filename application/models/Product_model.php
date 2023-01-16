@@ -171,6 +171,37 @@ class Product_model extends CI_Model {
         return $data;
     }
 
+    public function getdatabycoinfromdatabase($companyid, $table, $tline_id, $coin) {
+        $target_coin = (($coin=='€')?"EUR":(($coin=='£')?"GBP":(($coin=='$')?"USD":(($coin=='LEI')?"RON":""))));
+
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $query =    "SELECT *
+                    FROM `$table`
+                    WHERE `id`='$tline_id'";
+
+        $data = $this->db->query($query)->result_array();
+        if (count($data) == 0) {
+            return -1;
+        }
+        $data=$data[0];
+        $invoice_coin = (($data['invoice_coin']=='€')?"EUR":(($data['invoice_coin']=='£')?"GBP":(($data['invoice_coin']=='$')?"USD":(($data['invoice_coin']=='LEI')?"RON":""))));
+        
+        $acquisition_unit_price = $this->currencyConverterbycoin($invoice_coin, $target_coin, $data['acquisition_unit_price_on_invoice']);
+
+        $data['acquisition_vat_value'] = $this->toFixed($acquisition_unit_price * $data['vat'] / 100.0, 2);
+        $data['acquisition_unit_price_with_vat'] = $this->toFixed($acquisition_unit_price * ($data['vat'] + 100.0) / 100.0, 2);
+        $data['amount_without_vat'] = $this->toFixed($acquisition_unit_price * $data['qty'], 2);
+        $data['amount_vat_value'] = $this->toFixed($acquisition_unit_price * $data['qty'] * $data['vat'] / 100.0, 2);
+        $data['total_amount'] = $this->toFixed($acquisition_unit_price * $data['qty'] * ($data['vat'] + 100.0) / 100.0, 2);
+        $data['selling_unit_price_without_vat'] = $this->toFixed($acquisition_unit_price * ($data['makeup']+100.0) / 100.0, 2);
+        $data['selling_amount_without_vat'] = $this->toFixed(($acquisition_unit_price * ($data['makeup']+100.0) / 100.0) * $data['qty'], 2);
+        $data['selling_unit_vat_value'] = $this->toFixed($acquisition_unit_price * ($data['makeup'] + 100.0) * $data['vat'] / 100.0 / 100.0, 2);
+        $data['selling_unit_price_with_vat'] = $this->toFixed($acquisition_unit_price * ($data['makeup'] + 100.0) * ($data['vat'] + 100.0) / 100.0 / 100.0, 2);
+        return $data;
+    }
+
     public function setproduct($companyid, $id, $setproducted) {
         $this->db->query('use database'.$companyid);
 
@@ -251,6 +282,37 @@ class Product_model extends CI_Model {
 
                 // YOUR APPLICATION CODE HERE, e.g.
                 $currency_output = round(($currency_input / $response_object['rates'][$currency_from]), 2);
+
+
+                return $currency_output;
+            }
+            catch(Exception $e) {
+                return 0;
+            }
+        }
+    }
+
+    function currencyConverterbycoin($currency_from, $currency_to, $currency_input, $currencyrates="") {
+        if ($currencyrates=="") {
+            // Fetching JSON
+            $req_url = 'https://api.exchangerate-api.com/v4/latest/'.$currency_to;
+            $response_json = file_get_contents($req_url);
+        }
+        else {
+            $response_json = $currencyrates;
+        }
+
+        // Continuing if we got a result
+        if(false !== $response_json) {
+
+            // Try/catch for json_decode operation
+            try {
+
+                // Decoding
+                $response_object = json_decode($response_json, true);
+
+                // YOUR APPLICATION CODE HERE, e.g.
+                $currency_output = round(($currency_input * $response_object['rates'][$currency_to] / $response_object['rates'][$currency_from]), 2);
 
 
                 return $currency_output;

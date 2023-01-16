@@ -257,12 +257,13 @@ function save_tr1(el) {
     const etd = $(etr).find("td");
 
     const code_ean = $("#code_ean").val();
+    const coin = $("#product_coin").val();
     const production_description = $("#production_description").val();
     const amount = $("#production_count").val();
     const total_amount = $("#total_amount").val();
 
     $.ajax({
-        url: "<?=base_url("material/linebycodeean/")?>" + code_ean,
+        url: "<?=base_url("material/linebycoin/")?>" + code_ean + "?coin=" + coin,
         method: "POST",
         dataType: 'json',
         success: function(res) {
