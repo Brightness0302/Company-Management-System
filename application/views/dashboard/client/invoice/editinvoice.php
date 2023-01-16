@@ -270,6 +270,9 @@
                                     <i class='bi custom-remove-icon'></i>
                                 </div>
                             </td>
+                            <td hidden>
+                                <input type='text' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='serial_number' placeholder='Serial Number' id='line_SN' value="<?=$line['serial_number']?>">
+                            </td>
                         </tr>
                         <?php endforeach;?>
                     </tbody>

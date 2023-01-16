@@ -266,7 +266,7 @@
                             <div class="col-md-3 text-center">
                                 <table class="table my-2 h-56" style="border: 1px solid gray; text-align: left">
                                     <tr>
-                                        <td style="border: 1px solid black"><label class="my-2">Want to add SN: </label></td>
+                                        <td style="border: 1px solid black"><label class="my-2">Want to add multiple SN: </label></td>
                                         <td>
                                             <div class="m-auto">
                                                 <div class="mx-2 inline-block">
