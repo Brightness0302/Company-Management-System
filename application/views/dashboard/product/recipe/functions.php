@@ -56,6 +56,10 @@ $(document).ready(function() {
             }
         });
     });
+    $("#production_count").change(function() {
+        const prev = $(this).data('val');
+        const current = this.value;
+    })
     refreshproductbystockid($("#stockid").val());
 });
 
@@ -168,7 +172,7 @@ function SaveItem1() {
                 "<td class='text-left'>"+res['production_description']+"</td>"+
                 "<td>"+amount+"</td>"+
                 "<td>"+res['selling_unit_price_without_vat']+"</td>"+
-                "<td>"+total_amount+"</td>"+
+                "<td>"+(res['selling_unit_price_without_vat'] * amount)+"</td>"+
                 "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr1(this)'>" + "<i class='bi custom-edit-icon p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr1(this)'>" + "<i class='bi custom-remove-icon p-1' title='Delete'></i>" + "</div>" + "</td>" +
                 "<td hidden>"+res['id']+"</td>"+
                 "</tr>"
@@ -277,7 +281,7 @@ function save_tr1(el) {
             $(etd[1]).text(production_description);
             $(etd[2]).text(amount);
             $(etd[3]).text(res['selling_unit_price_without_vat']);
-            $(etd[4]).text(total_amount);
+            $(etd[4]).text((res['selling_unit_price_without_vat'] * amount));
             $(etd[5]).html("<div id='btn_edit_row' onclick='edit_tr1(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr1(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div>");
             $(etd[6]).text(res['id']);
 
@@ -450,7 +454,6 @@ function get_formdata() {
 function AddProduct() {
     const form_data = get_formdata();
     console.log(form_data);
-    return;
 
     $.ajax({
         url: "<?=base_url('product/saverecipe')?>",
