@@ -611,6 +611,17 @@ class Client extends CI_Controller
         header('Content-Type: application/json');
         echo json_encode($data);
     }
+    //Get isInvoiceNumber for client invoice
+    public function isInvoiceNumber() {
+        $companyid = $this->session->userdata('companyid');
+        if (!isset($_GET['invoice_number'])) {
+            echo 0;
+            return;
+        }
+        $invoice_id = $_GET['invoice_id'];
+        $invoice_number = $_GET['invoice_number'];
+        echo $this->home->isInvoiceNumber($companyid, $invoice_id, $invoice_number);
+    }
     //If usersession is not exist, goto login page.
     public function check_usersession() {
         if($this->session->userdata('user')) {

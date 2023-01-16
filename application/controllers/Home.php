@@ -409,7 +409,7 @@ class Home extends CI_Controller
         if (!file_exists($path)) {
             mkdir($path, 0777, true);
         }
-        $filename = $_FILES['files']['name'][0];   
+        $filename = $_FILES['files']['name'][0];
         if(!empty($filename)) {
             if(file_exists($path.$filename)) {
                 unlink($path.$filename);

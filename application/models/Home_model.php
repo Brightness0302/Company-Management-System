@@ -1785,4 +1785,19 @@ class Home_model extends CI_Model {
         }
         return $res[0];
     }
+
+    public function isInvoiceNumber($companyid, $invoice_id, $invoice_number) {
+        $companyid = "database".$companyid;
+        $this->db->query('use '.$companyid);
+
+        $query =    "SELECT *
+                    FROM `invoice`
+                    WHERE `id`!='$invoice_id' AND `input_invoicenumber`='$invoice_number' AND `isremoved`=false";
+
+        $res = $this->db->query($query)->result_array();
+        if (count($res) == 0) {
+            return 1;
+        }
+        return 0;
+    }
 }

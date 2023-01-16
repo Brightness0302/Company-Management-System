@@ -48,6 +48,29 @@ $(document).ready(function() {
         $("#product_amount").val("0");
         refreshproductamountbylineid(lineid);
     });
+    $("#input_invoicenumber").change(async function() {
+        try {
+            const array = window.location.pathname.split("/");
+            const lastsegment = array[array.length - 2];
+            let invoice_id = -1;
+            if (lastsegment == "editinvoice") {
+                invoice_id = array[array.length - 1];
+            }
+            const isInvoceNumber = await asyncGET("<?=base_url('client/isInvoiceNumber?invoice_number=')?>" + this.value + "&invoice_id=" + invoice_id);
+            console.log(isInvoceNumber=='1', isInvoceNumber);
+            if (isInvoceNumber == '1') {
+                $(this).addClass("no_border");
+                $(this).removeClass("border_red");
+            }
+            else {
+                $(this).removeClass("no_border");
+                $(this).addClass("border_red");
+            }
+        } catch(e) {
+            console.log(e);
+        }
+    });
+    $("#input_invoicenumber").trigger("change");
     $("#save_product").click(function() {
         const lineid = $("#product_code_ean").val();
         const amount = $("#product_amount").val();
@@ -98,6 +121,25 @@ $(document).ready(function() {
     refreshproductbystockid($("#stockid").val());
 });
 
+function asyncGET(url) {
+    return new Promise(function(resolve, reject) {
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "json",
+            beforeSend: function() {
+
+            },
+            success: function(data) {
+                resolve(data);
+            },
+            error: function(err) {
+                reject(err);
+            }
+        });
+    });
+}
+
 $("input").change(function() {
     const eid = $(this).attr('id');
     if (eid == "line_rate" || eid == "line_qty" || eid == "line_discount") {
@@ -119,17 +161,17 @@ function appendTable(product_description, product_rate, product_amount, product_
     $("#table_body").append(
         "<tr class='border'>" +
         "<td>" +
-        "<textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text-left bg-transparent no_broder' name='description' cols='200' rows='1'>" + product_description + "</textarea>" +
+        "<textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text-left bg-transparent no_border' name='description' cols='200' rows='1'>" + product_description + "</textarea>" +
         "</td>" +
         "<td class='text-center'>" +
-        "<input type='text' value='" + product_rate + "' class='form form-control m_auto w-full p-2 mt-2 text-right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>" +
+        "<input type='text' value='" + product_rate + "' class='form form-control m_auto w-full p-2 mt-2 text-right bg-transparent no_border' name='rate' placeholder='Rate' id='line_rate'>" +
         "<div class='row'><label class='col-sm-6 my-0'>Discount: </label><input type='text' value='" + product_discount + "' class='col-sm-4 w-full text-right bg-transparent border-none' name='discount' placeholder='Discount' id='line_discount'><label class='col-sm-2 my-0'>%</label></div>" +
         "</td>" +
         "<td>" +
-        "<input type='number' min=1 class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='qty' placeholder='Quantity' id='line_qty' value='" + product_amount +"'>" +
+        "<input type='number' min=1 class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_border' name='qty' placeholder='Quantity' id='line_qty' value='" + product_amount +"'>" +
         "</td>" +
         "<td>" +
-        "<input type='text' value='" + parseFloat(product_rate*product_amount).toFixed(2) + "' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>" +
+        "<input type='text' value='" + parseFloat(product_rate*product_amount).toFixed(2) + "' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_border' name='total' placeholder='€0.00' id='line_total' readOnly>" +
         "<input type='text' value='" + parseFloat(product_rate*product_amount*product_discount/100.0).toFixed(2) + "' class='w-full text-right bg-transparent border-none' name='discount_amount' placeholder='Discount_amount' id='discount_amount' readOnly>" + 
         "</td>" +
         "<td class='align-middle text-center'>" +
@@ -138,7 +180,7 @@ function appendTable(product_description, product_rate, product_amount, product_
         "</div>" +
         "</td>" +
         "<td hidden>" +
-        "<input type='text' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='serial_number' placeholder='Serial Number' id='line_SN' value='" + serial_number +"'>" +
+        "<input type='text' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_border' name='serial_number' placeholder='Serial Number' id='line_SN' value='" + serial_number +"'>" +
         "</td>" +
         "</tr>"
     );
@@ -406,7 +448,30 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
-function addInvoice() {
+async function isInvoiceNumber(invoice_id=-1) {
+    try {
+        const isInvoceNumber = await asyncGET("<?=base_url('client/isInvoiceNumber?invoice_number=')?>" + $("#input_invoicenumber").val() + "&invoice_id=" + invoice_id);
+        console.log(isInvoceNumber=='1', isInvoceNumber);
+        if (isInvoceNumber == '1') {
+            return true;
+        }
+        else {
+            alert("Please, retype Invoice Number");
+            return false;
+        }
+    } catch(e) {
+        console.log(e);
+        return false;
+    }
+}
+
+async function addInvoice() {
+    const res = await isInvoiceNumber();
+    console.log(res);
+    if (res == false) {
+        return;
+    }
+
     let form_data = get_formdata();
     form_data["type"] = "invoice";
 
@@ -442,7 +507,13 @@ function addInvoice() {
     });
 }
 
-function editInvoice(invoice_id) {
+async function editInvoice(invoice_id) {
+    const res = await isInvoiceNumber(invoice_id);
+    console.log(res);
+    if (res == false) {
+        return;
+    }
+
     let form_data = get_formdata();
     form_data["type"] = "invoice";
 

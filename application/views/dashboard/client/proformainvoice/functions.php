@@ -119,17 +119,17 @@ function appendTable(product_description, product_rate, product_amount, product_
     $("#table_body").append(
         "<tr class='border'>" +
         "<td>" +
-        "<textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text-left bg-transparent no_broder' name='description' cols='200' rows='1'>" + product_description + "</textarea>" +
+        "<textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text-left bg-transparent no_border' name='description' cols='200' rows='1'>" + product_description + "</textarea>" +
         "</td>" +
         "<td class='text-center'>" +
-        "<input type='text' value='" + product_rate + "' class='form form-control m_auto w-full p-2 mt-2 text-right bg-transparent no_broder' name='rate' placeholder='Rate' id='line_rate'>" +
+        "<input type='text' value='" + product_rate + "' class='form form-control m_auto w-full p-2 mt-2 text-right bg-transparent no_border' name='rate' placeholder='Rate' id='line_rate'>" +
         "<div class='row'><label class='col-sm-6 my-0'>Discount: </label><input type='text' value='" + product_discount + "' class='col-sm-4 w-full text-right bg-transparent border-none' name='discount' placeholder='Discount' id='line_discount'><label class='col-sm-2 my-0'>%</label></div>" +
         "</td>" +
         "<td>" +
-        "<input type='number' min=1 class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='qty' placeholder='Quantity' id='line_qty' value='" + product_amount +"'>" +
+        "<input type='number' min=1 class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_border' name='qty' placeholder='Quantity' id='line_qty' value='" + product_amount +"'>" +
         "</td>" +
         "<td>" +
-        "<input type='text' value='" + parseFloat(product_rate*product_amount).toFixed(2) + "' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='total' placeholder='€0.00' id='line_total' readOnly>" +
+        "<input type='text' value='" + parseFloat(product_rate*product_amount).toFixed(2) + "' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_border' name='total' placeholder='€0.00' id='line_total' readOnly>" +
         "<input type='text' value='" + parseFloat(product_rate*product_amount*product_discount/100.0).toFixed(2) + "' class='w-full text-right bg-transparent border-none' name='discount_amount' placeholder='Discount_amount' id='discount_amount' readOnly>" + 
         "</td>" +
         "<td class='align-middle text-center'>" +
@@ -138,7 +138,7 @@ function appendTable(product_description, product_rate, product_amount, product_
         "</div>" +
         "</td>" +
         "<td hidden>" +
-        "<input type='text' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_broder' name='serial_number' placeholder='Serial Number' id='line_SN' value='" + serial_number +"'>" +
+        "<input type='text' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_border' name='serial_number' placeholder='Serial Number' id='line_SN' value='" + serial_number +"'>" +
         "</td>" +
         "</tr>"
     );

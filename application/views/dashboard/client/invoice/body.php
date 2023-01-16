@@ -22,7 +22,7 @@
         <?php $index++;?>
         <tr>
             <td><?=($index)?></td>
-            <td><?=date("Y").'-'.$invoice['input_invoicenumber']?><?=$invoice['isremoved']?"[<label class='danger'>deleted</label>]":""?></td>
+            <td><?=$invoice['input_invoicenumber']?><?=$invoice['isremoved']?"[<label class='danger'>deleted</label>]":""?></td>
             <td>
                 <?php 
                     $result;

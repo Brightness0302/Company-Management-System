@@ -26,24 +26,24 @@
                     <div class="row">
                         <div class="col-sm-7" id="company_input" hidden>
                             <div>
-                                <input type="text" class="form form-control input-sm no_broder mt-2 r-0 text_right bg-transparent" placeholder="Street" id="input_street">
+                                <input type="text" class="form form-control input-sm no_border mt-2 r-0 text_right bg-transparent" placeholder="Street" id="input_street">
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <input type="text" class="form form-control input-sm no_broder mt-2 text_right bg-transparent" placeholder="City" id="input_city">
+                                    <input type="text" class="form form-control input-sm no_border mt-2 text_right bg-transparent" placeholder="City" id="input_city">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form form-control input-sm no_broder mt-2 text_right bg-transparent" placeholder="State" id="input_state">
+                                    <input type="text" class="form form-control input-sm no_border mt-2 text_right bg-transparent" placeholder="State" id="input_state">
                                 </div>
                             </div>
-                            <input type="text" class="form form-control input-sm no_broder mt-2 text_right bg-transparent" placeholder="Zip Code" id="input_zipcode">
-                            <input type="text" class="form form-control input-sm no_broder mt-2 text_right bg-transparent" placeholder="France" id="input_nation">
+                            <input type="text" class="form form-control input-sm no_border mt-2 text_right bg-transparent" placeholder="Zip Code" id="input_zipcode">
+                            <input type="text" class="form form-control input-sm no_border mt-2 text_right bg-transparent" placeholder="France" id="input_nation">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <input type="text" class="form form-control input-sm no_broder mt-2 text_right bg-transparent" placeholder="Tax Name" id="input_taxname">
+                                    <input type="text" class="form form-control input-sm no_border mt-2 text_right bg-transparent" placeholder="Tax Name" id="input_taxname">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form form-control input-sm no_broder mt-2 text_right bg-transparent" placeholder="Tax Number" id="input_taxnumber">
+                                    <input type="text" class="form form-control input-sm no_border mt-2 text_right bg-transparent" placeholder="Tax Number" id="input_taxnumber">
                                 </div>
                             </div>
                         </div>
@@ -174,11 +174,11 @@
                     <div class="col">
                         <div class="row-sm-6 px-0 py-4">
                             <strong>Date of Issue</strong>
-                            <input class="form form-control bg-transparent no_broder" type="date" value="<?=$invoice['date_of_issue']?>" id="date_of_issue">
+                            <input class="form form-control bg-transparent no_border" type="date" value="<?=$invoice['date_of_issue']?>" id="date_of_issue">
                         </div>
                         <div class="row-sm-6 px-0 py-4">
                             <strong>Due Date</strong>
-                            <input class="form form-control bg-transparent no_broder" type="date" value="<?=$invoice['due_date']?>" id="due_date">
+                            <input class="form form-control bg-transparent no_border" type="date" value="<?=$invoice['due_date']?>" id="due_date">
                         </div>
                     </div>
                 </div>
@@ -186,11 +186,11 @@
                     <div class="col">
                         <div class="row-sm-6 px-0 py-4">
                             <strong>Invoice Number</strong>
-                            <input class="form form-control bg-transparent no_broder" type="text" value="<?=$invoice['input_invoicenumber']?>" id="input_invoicenumber" readOnly>
+                            <input class="form form-control bg-transparent no_border" type="text" value="<?=$invoice['input_invoicenumber']?>" id="input_invoicenumber" readOnly>
                         </div>
                         <div class="row-sm-6 px-0 py-4">
                             <strong>Reference</strong>
-                            <input class="form form-control bg-transparent no_broder" type="text" id="input_inputreference" placeholder="eg. France" readonly>
+                            <input class="form form-control bg-transparent no_border" type="text" id="input_inputreference" placeholder="eg. France" readonly>
                         </div>
                     </div>
                 </div>
