@@ -61,6 +61,7 @@
                                         <td>
                                             <div class="m-auto">
                                                 <input type="text" class="form-control" id="code_ean" value="" title="Choose your color" data-toggle="modal" data-target="#productfromstock">
+                                                <input type="text" id="line_id" value="" hidden>
                                             </div>
                                         </td>
                                     </tr>

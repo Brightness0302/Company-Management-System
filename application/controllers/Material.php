@@ -336,7 +336,7 @@ class Material extends CI_Controller
         echo json_encode($data);
     }
     //Get line of product by $codeean
-    public function linebycoin($codeean) {
+    public function linebycoin($lineid) {
         if (!isset($_GET['coin'])) {
             echo -1;
             return;
@@ -344,7 +344,7 @@ class Material extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $coin = $_GET['coin'];
 
-        $data = $this->supplier->linebycoin($companyid, $codeean, $coin);
+        $data = $this->supplier->linebycoin($companyid, $lineid, $coin);
 
         header('Content-Type: application/json');
         echo json_encode($data);

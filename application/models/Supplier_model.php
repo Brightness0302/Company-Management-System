@@ -788,7 +788,7 @@ class Supplier_model extends CI_Model {
         return $data;
     }
 
-    public function linebycoin($companyid, $code_ean, $coin) {
+    public function linebycoin($companyid, $lineid, $coin) {
         $target_coin = (($coin=='€')?"EUR":(($coin=='£')?"GBP":(($coin=='$')?"USD":(($coin=='LEI')?"RON":""))));
         
         $companyid = "database".$companyid;
@@ -796,7 +796,7 @@ class Supplier_model extends CI_Model {
 
         $query =    "SELECT *
                     FROM `material_totalline`
-                    WHERE `code_ean`='$code_ean'";
+                    WHERE `id`='$lineid'";
 
         $data = $this->db->query($query)->result_array();
         if (count($data) == 0) {

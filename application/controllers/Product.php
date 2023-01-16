@@ -662,7 +662,7 @@ class Product extends CI_Controller
         foreach ($auxiliaries as $index => $auxiliary) {
             $price += $auxiliary['value'];
         }
-        $product['price'] = $price;
+        $product['price'] = number_format($price, 2, '.', "");
 
         header('Content-Type: application/json');
         echo json_encode($product);

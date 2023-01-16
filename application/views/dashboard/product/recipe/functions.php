@@ -47,6 +47,7 @@ $(document).ready(function() {
 
                 console.log(lineid, code_ean, productname, amount);
                 $("#code_ean").val(code_ean);
+                $("#line_id").val(lineid);
                 $("#production_description").val(productname);
                 $("#production_count").val(amount);
                 $("#total_amount").val((price*amount).toFixed(2));
@@ -57,8 +58,32 @@ $(document).ready(function() {
         });
     });
     $("#production_count").change(function() {
-        const prev = $(this).data('val');
-        const current = this.value;
+        const lineid = $("#line_id").val();
+        const amount = this.value;
+        const coin = $("#product_coin").val();
+
+        console.log("saveLine");
+
+        $.ajax({
+            url: "<?=base_url('stock/getdatafromproductbycoin?lineid=')?>" + lineid + "&coin=" + coin,
+            method: "POST",
+            dataType: 'json',
+            success: function(res) {
+                let price = res['price'];
+                let code_ean = res['code_ean'];
+                let productname = res['production_description'];
+
+                console.log(lineid, code_ean, productname, amount);
+                $("#code_ean").val(code_ean);
+                $("#line_id").val(lineid);
+                $("#production_description").val(productname);
+                $("#production_count").val(amount);
+                $("#total_amount").val((price*amount).toFixed(2));
+            }, 
+            error: function (a, b) {
+                console.log(a, b);
+            }
+        });
     })
     refreshproductbystockid($("#stockid").val());
 });
@@ -149,6 +174,7 @@ function refreshTotalMark() {
 function SaveItem1() {
     const production_description = $("#production_description").val();
     const code_ean = $("#code_ean").val();
+    const line_id = $("#line_id").val();
     const coin = $("#product_coin").val();
     const amount = $("#production_count").val();
     const total_amount = $("#total_amount").val();
@@ -157,7 +183,7 @@ function SaveItem1() {
         return;
     }
     $.ajax({
-        url: "<?=base_url("material/linebycoin/")?>" + code_ean + "?coin=" + coin,
+        url: "<?=base_url("material/linebycoin/")?>" + line_id + "?coin=" + coin,
         method: "POST",
         dataType: 'json',
         success: function(res) {
@@ -245,11 +271,13 @@ function edit_tr1(el) {
     const etd = $(etr).find("td");
 
     const code_ean = $("#code_ean");
+    const line_id = $("#line_id");
     const production_description = $("#production_description");
     const amount = $("#production_count");
     const total_amount = $("#total_amount");
 
     code_ean.val($(etd[0]).text());
+    line_id.val($(etd[6]).text());
     production_description.val($(etd[1]).text());
     amount.val($(etd[2]).text());
     total_amount.val($(etd[4]).text());
@@ -262,13 +290,14 @@ function save_tr1(el) {
     const etd = $(etr).find("td");
 
     const code_ean = $("#code_ean").val();
+    const line_id = $("#line_id").val();
     const coin = $("#product_coin").val();
     const production_description = $("#production_description").val();
     const amount = $("#production_count").val();
     const total_amount = $("#total_amount").val();
 
     $.ajax({
-        url: "<?=base_url("material/linebycoin/")?>" + code_ean + "?coin=" + coin,
+        url: "<?=base_url("material/linebycoin/")?>" + line_id + "?coin=" + coin,
         method: "POST",
         dataType: 'json',
         success: function(res) {
