@@ -2,6 +2,7 @@
 
 let chartdata = '<?=$chart?>';
 chartdata = JSON.parse(chartdata);
+console.log(chartdata);
 
 var barChartData = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -11,7 +12,7 @@ var barChartData = {
                 label: '<?=$category['name']?>',
                 borderColor: window.borderColors[(<?=$key?>)%window.borderColors.length],
                 backgroundColor: window.chartColors.transparency,
-                data: chartdata[2022]["<?=$category['name']?>"],
+                data: chartdata["<?=date("Y")?>"]["<?=$category['name']?>"],
                 type: 'line'
             },
         <?php endforeach;?>
