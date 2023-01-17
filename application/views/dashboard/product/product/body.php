@@ -5,6 +5,7 @@
         <tr>
             <th>No</th>
             <th class="text-left">Description</th>
+            <th>Code EAN</th>
             <th>Serial Number</th>
             <th>Date</th>
             <th>Order Number</th>
@@ -21,6 +22,7 @@
       <tr>
         <td><?=$product['id']?></td>
         <td class="text-left"><?=$product['recipe']['name']?></td>
+        <td><?=$product['code_ean']?></td>
         <td><?=$product['serialnumber']?></td>
         <td><?=$product['date']?></td>
         <td><?=$product['order_number']?></td>

@@ -1260,6 +1260,10 @@ class Home_model extends CI_Model {
             'unsigned' => TRUE,
             'auto_increment' => TRUE
           ),
+          'code_ean' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 100,
+          ),
           'serialnumber' => array(
             'type' => 'VARCHAR',
             'constraint' => 100,

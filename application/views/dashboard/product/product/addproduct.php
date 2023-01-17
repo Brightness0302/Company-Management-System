@@ -42,6 +42,18 @@
                         <div class="col-sm-3 text-center">
                           <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                 <tr>
+                                    <td style="border : 1px solid black"><label class="my-2">Code EAN:</label></td>
+                                    <td>
+                                        <div class="m-auto">
+                                            <input type="text" class="form-control " id="code_ean" value="" title="Choose your color">
+                                        </div>
+                                    </td>
+                                </tr>
+                          </table>
+                        </div>
+                        <div class="col-sm-3 text-center">
+                          <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                                <tr>
                                     <td style="border : 1px solid black"><label class="my-2">Serial Number:</label></td>
                                     <td>
                                         <div class="m-auto">

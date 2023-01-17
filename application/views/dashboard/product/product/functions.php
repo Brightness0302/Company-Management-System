@@ -6,6 +6,7 @@ $(document).ready(function() {
 function get_formdata() {
     let materials = [], labours = [], auxiliaries = [];
     const production_description = $("#production_description").val();
+    const code_ean = $("#code_ean").val();
     const serial_number = $("#serial_number").val();
     const product_date = $("#product_date").val();
     const order_number = $("#order_number").val();
@@ -16,6 +17,7 @@ function get_formdata() {
 
     const form_data = {
         production_description: production_description, 
+        code_ean: code_ean, 
         serial_number: serial_number, 
         product_date: product_date, 
         order_number: order_number, 

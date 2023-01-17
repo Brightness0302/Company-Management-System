@@ -38,10 +38,81 @@ class Product_model extends CI_Model {
         return $res;
     }
 
-    public function createProduct($companyid, $production_description, $serial_number, $product_user, $product_date, $order_number, $lan_mac, $wifi_mac, $plug_standard, $observation) {
+    function deductionmaterials($companyid, $table, $recipe_id) {
         $this->db->query('use database'.$companyid);
 
+        $query =    "SELECT *
+                    FROM `$table`
+                    WHERE `id`='$recipe_id' AND `isremoved`=false";
+
+        $data = $this->db->query($query)->result_array();
+        if (count($data) == 0) {
+            return -1;
+        }
+        $materials = json_decode($data[0]['materials'], true);
+        foreach ($materials as $key => $material) {
+            $id = $material['id'];
+            $query =    "SELECT *
+                    FROM `material_totalline`
+                    WHERE `id`='$id' AND `isremoved`=false";
+
+            $data = $this->db->query($query)->result_array();
+            if (count($data) == 0) {
+                break;
+            }
+            $qty = ($data[0]['qty'] - $material['amount']);
+
+            $data = array(
+                'qty'=>$qty, 
+            );
+
+            $this->db->where('id', $id);
+            $res=$this->db->update('material_totalline', $data);
+        }
+        return 1;
+    }
+
+    function refreshmaterials($companyid, $table, $recipe_id) {
+        $this->db->query('use database'.$companyid);
+
+        $query =    "SELECT *
+                    FROM `$table`
+                    WHERE `id`='$recipe_id' AND `isremoved`=false";
+
+        $data = $this->db->query($query)->result_array();
+        if (count($data) == 0) {
+            return -1;
+        }
+        $materials = json_decode($data[0]['materials'], true);
+        foreach ($materials as $key => $material) {
+            $id = $material['id'];
+            $query =    "SELECT *
+                    FROM `material_totalline`
+                    WHERE `id`='$id' AND `isremoved`=false";
+
+            $data = $this->db->query($query)->result_array();
+            if (count($data) == 0) {
+                break;
+            }
+            $qty = ($data[0]['qty'] + $material['amount']);
+
+            $data = array(
+                'qty'=>$qty, 
+            );
+
+            $this->db->where('id', $id);
+            $res=$this->db->update('material_totalline', $data);
+        }
+        return 1;
+    }
+
+    public function createProduct($companyid, $production_description, $code_ean, $serial_number, $product_user, $product_date, $order_number, $lan_mac, $wifi_mac, $plug_standard, $observation) {
+        $this->db->query('use database'.$companyid);
+
+        $this->deductionmaterials($companyid, 'product_recipe', $production_description);
+
         $data = array(
+            'code_ean'=>$code_ean, 
             'serialnumber'=>$serial_number, 
             'date'=>$product_date, 
             'order_number'=>$order_number, 
@@ -58,10 +129,23 @@ class Product_model extends CI_Model {
         return $product_id;
     }
 
-    public function saveProduct($companyid, $id, $production_description, $serial_number, $product_user, $product_date, $order_number, $lan_mac, $wifi_mac, $plug_standard, $observation) {
+    public function saveProduct($companyid, $id, $production_description, $code_ean, $serial_number, $product_user, $product_date, $order_number, $lan_mac, $wifi_mac, $plug_standard, $observation) {
         $this->db->query('use database'.$companyid);
 
+        $query =    "SELECT *
+                    FROM `product`
+                    WHERE `id`='$id' AND `isremoved`=false";
+
+        $data = $this->db->query($query)->result_array();
+        if (count($data) == 0) {
+            return -1;
+        }
+        $data = $data[0];
+        $this->refreshmaterials($companyid, 'product_recipe', $data['product_description']);
+        $this->deductionmaterials($companyid, 'product_recipe', $production_description);
+
         $data = array(
+            'code_ean'=>$code_ean, 
             'serialnumber'=>$serial_number, 
             'date'=>$product_date, 
             'order_number'=>$order_number, 
