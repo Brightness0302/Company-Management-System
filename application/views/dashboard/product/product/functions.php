@@ -8,6 +8,11 @@ function get_formdata() {
     const production_description = $("#production_description").val();
     const code_ean = $("#code_ean").val();
     const serial_number = $("#serial_number").val();
+
+    const stockid = $("#stockid").val();
+    const unit = $("#unit").val();
+    const markup = $("#markup").val();
+
     const product_date = $("#product_date").val();
     const order_number = $("#order_number").val();
     const lan_mac = $("#lan_mac").val();
@@ -19,6 +24,12 @@ function get_formdata() {
         production_description: production_description, 
         code_ean: code_ean, 
         serial_number: serial_number, 
+
+        // registering item into stock
+        stockid: stockid, 
+        unit: unit, 
+        markup: markup, 
+
         product_date: product_date, 
         order_number: order_number, 
         lan_mac: lan_mac, 

@@ -106,7 +106,7 @@ class Product_model extends CI_Model {
         return 1;
     }
 
-    public function createProduct($companyid, $production_description, $code_ean, $serial_number, $product_user, $product_date, $order_number, $lan_mac, $wifi_mac, $plug_standard, $observation) {
+    public function createProduct($companyid, $production_description, $code_ean, $serial_number, $stockid, $unit, $markup, $product_user, $product_date, $order_number, $lan_mac, $wifi_mac, $plug_standard, $observation) {
         $this->db->query('use database'.$companyid);
 
         $this->deductionmaterials($companyid, 'product_recipe', $production_description);
@@ -114,6 +114,11 @@ class Product_model extends CI_Model {
         $data = array(
             'code_ean'=>$code_ean, 
             'serialnumber'=>$serial_number, 
+
+            'stockid'=>$stockid, 
+            'unit'=>$unit, 
+            'markup'=>$markup, 
+            
             'date'=>$product_date, 
             'order_number'=>$order_number, 
             'user'=>$product_user, 
@@ -129,7 +134,7 @@ class Product_model extends CI_Model {
         return $product_id;
     }
 
-    public function saveProduct($companyid, $id, $production_description, $code_ean, $serial_number, $product_user, $product_date, $order_number, $lan_mac, $wifi_mac, $plug_standard, $observation) {
+    public function saveProduct($companyid, $id, $production_description, $code_ean, $serial_number, $stockid, $unit, $markup, $product_user, $product_date, $order_number, $lan_mac, $wifi_mac, $plug_standard, $observation) {
         $this->db->query('use database'.$companyid);
 
         $query =    "SELECT *
@@ -147,6 +152,11 @@ class Product_model extends CI_Model {
         $data = array(
             'code_ean'=>$code_ean, 
             'serialnumber'=>$serial_number, 
+
+            'stockid'=>$stockid, 
+            'unit'=>$unit, 
+            'markup'=>$markup, 
+            
             'date'=>$product_date, 
             'order_number'=>$order_number, 
             'user'=>$product_user, 

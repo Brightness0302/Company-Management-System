@@ -479,6 +479,11 @@ class Product extends CI_Controller
         $production_description = $this->input->post('production_description');
         $code_ean = $this->input->post('code_ean');
         $serial_number = $this->input->post('serial_number');
+
+        $stockid = $this->input->post('stockid');
+        $unit = $this->input->post('unit');
+        $markup = $this->input->post('markup');
+
         $product_user = $user['id'];
         $product_date = $this->input->post('product_date');
         $order_number = $this->input->post('order_number');
@@ -488,13 +493,13 @@ class Product extends CI_Controller
         $observation = $this->input->post('observation');
 
         if (!isset($_GET['id'])) {
-            $productid = $this->product->createProduct($companyid, $production_description, $code_ean, $serial_number, $product_user, $product_date, $order_number, $lan_mac, $wifi_mac, $plug_standard, $observation);
+            $productid = $this->product->createProduct($companyid, $production_description, $code_ean, $serial_number, $stockid, $unit, $markup, $product_user, $product_date, $order_number, $lan_mac, $wifi_mac, $plug_standard, $observation);
             echo $productid;
             return;
         }
 
         $id = $_GET['id'];
-        $result = $this->product->saveProduct($companyid, $id, $production_description, $code_ean, $serial_number, $product_user, $product_date, $order_number, $lan_mac, $wifi_mac, $plug_standard, $observation);
+        $result = $this->product->saveProduct($companyid, $id, $production_description, $code_ean, $serial_number, $stockid, $unit, $markup, $product_user, $product_date, $order_number, $lan_mac, $wifi_mac, $plug_standard, $observation);
         echo $result;
     }
     //Save(Add/Edit) Supplier post(object(name, number, ...)) get(id)

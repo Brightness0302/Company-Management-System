@@ -29,6 +29,10 @@ function getFirstLetters(str) {
 	return firstLetters;
 }
 $(function() {
+    $("#table_in_modal").DataTable({
+      "responsive": true, "bFilter": true, "bInfo": false, "pagingType": "simple_numbers", "autoWidth": false,
+    }).buttons().container().appendTo('#table_in_modal_wrapper .col-md-6:eq(0)');
+
     $("#example1").DataTable({
         "responsive": true,
         "lengthChange": false,

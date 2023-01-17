@@ -70,6 +70,59 @@
                             <div class="col-sm-3 text-center d-flex">
                                 <table class="table mb-0" style="border : 1px solid gray; text-align: left">
                                     <tr>
+                                        <td style="border : 1px solid black"><label class="my-2">Stock to save:</label></td>
+                                        <td>
+                                            <select class="form-select" id="stockid">
+                                                <option value="0" <?=(($product['stockid']==0)?"selected":"")?>>
+                                                    No Stock
+                                                </option>
+                                            <?php foreach ($stocks as $index => $stock):?>
+                                                <option value="<?=$stock['id']?>" <?=(($product['stockid']==$stock['id'])?"selected":"")?>>
+                                                    <?=str_replace("_"," ", $stock['name'])?>
+                                                </option>
+                                            <?php endforeach;?>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="col-sm-3 text-center d-flex">
+                                <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                                    <tr>
+                                        <td style="border : 1px solid black"><label class="my-2">Unit: </label></td>
+                                        <td>
+                                            <select class="form-select" id="unit">
+                                                <option value="Pieces" <?=(($product['unit']=="Pieces")?"selected":"")?>>Pieces</option>
+                                                <option value="Hours" <?=(($product['unit']=="Hours")?"selected":"")?>>Hours</option>
+                                                <option value="KG" <?=(($product['unit']=="KG")?"selected":"")?>>KG</option>
+                                                <option value="Pair" <?=(($product['unit']=="Pair")?"selected":"")?>>Pair</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="col-sm-3 text-center d-flex">
+                                <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                                    <tr>
+                                        <td style="border : 1px solid black"><label class="my-2">Mark Up%:</label></td>
+                                        <td>
+                                            <div class="m-auto">
+                                                <input type="text" min="0" max="100" class="form-control " id="markup" value="<?=$product['markup']?>" title="Choose your color">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row d-flex justify-content-center align-items-center border border-lime-600">
+                        <div id="section2" class="row row d-flex justify-content-center align-items-center">
+                            <div class="col-sm-3 text-center d-flex">
+                                <table class="table mb-0" style="border : 1px solid gray; text-align: left">
+                                    <tr>
                                         <td style="border : 1px solid black"><label class="my-2">User:</label></td>
                                         <td>
                                             <div class="m-auto">
