@@ -37,6 +37,7 @@ class Product extends CI_Controller
             $materials = json_decode($product['materials'], true);
             foreach ($materials as $key => $material) {
                 $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id'], $currencyrates);
+                $materials[$key]['selling_unit_price_without_vat'] = 0;
 
                 if ($result != -1) {
                     $materials[$key]['code_ean'] = $result['code_ean'];
