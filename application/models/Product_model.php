@@ -118,7 +118,9 @@ class Product_model extends CI_Model {
             $result = $this->home->databyidfromdatabase($companyid, 'material_totalline', $material['id']);
 
             if ($result['status'] == "success") {
-                $price += $material['amount']*$materials[$index]['selling_unit_price_without_vat'];
+                $material_line = $result['data'];
+                $selling_unit_price_without_vat = $this->toFixed($material_line['acquisition_unit_price_on_invoice'] * ($material_line['makeup']+100.0) / 100.0, 2);
+                $price += $material['amount']*$selling_unit_price_without_vat;
             }
         }
 
@@ -132,7 +134,7 @@ class Product_model extends CI_Model {
             $price += $auxiliary['value'];
         }
 
-        $recipe['price'] = $price;
+        $recipe['price'] = $this->toFixed($price, 2);
         return $recipe;
     }
 
@@ -147,7 +149,7 @@ class Product_model extends CI_Model {
         $description = $recipe['name'];
         $price = $recipe['price'];
         $coin = $recipe['coin'];
-        $this->supplier->createMaterialforProduct($code_ean, $serial_number, $stockid, $unit, $markup, $description, $price, $coin);
+        $materialid = $this->supplier->createMaterialforProduct($code_ean, $serial_number, $stockid, $unit, $markup, $description, $price, $coin);
 
         $data = array(
             'code_ean'=>$code_ean, 
@@ -203,7 +205,7 @@ class Product_model extends CI_Model {
             'stockid'=>$stockid, 
             'unit'=>$unit, 
             'markup'=>$markup, 
-            'materialid'=>$materialid, 
+            'materialid'=>$data['materialid'], 
             
             'date'=>$product_date, 
             'order_number'=>$order_number, 
