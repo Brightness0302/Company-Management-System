@@ -30,8 +30,12 @@ function getFirstLetters(str) {
 }
 $(function() {
     $("#table_in_modal").DataTable({
-      "responsive": true, "bFilter": true, "bInfo": false, "pagingType": "simple_numbers", "autoWidth": false,
+      "responsive": true, "bInfo": false, "pagingType": "simple_numbers", "autoWidth": false,
     }).buttons().container().appendTo('#table_in_modal_wrapper .col-md-6:eq(0)');
+
+    let table_in_modal = $("#table_in_modal").DataTable();
+
+    $("#table_in_modal_filter").html("<label>Search:<input id='searchtagfortable_in_modal' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='table_in_modal'></label>");
 
     $("#example1").DataTable({
         "responsive": true,
@@ -94,7 +98,7 @@ $(function() {
     
     let project = $("#example1").DataTable();
 
-    $("#example1_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
+    $("#example1_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtagforexample1' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='example1'></label></div>");
 
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {
@@ -105,7 +109,7 @@ $(function() {
                 startdate.setDate(startdate.getDate() - 1);
                 var enddate = new Date($('#enddate').val());
                 enddate.setDate(enddate.getDate() + 1);
-                var searchvalue = $("#searchtag").val();
+                var searchvalue = $("#searchtagforexample1").val();
                 var date0 = new Date(data[4] || 0);
                 var date1 = new Date(data[5] || 0);
                 const condition0 = data[0].toLowerCase().includes(searchvalue.toLowerCase());
@@ -122,13 +126,36 @@ $(function() {
                 }
                 return false;
             }
+            else if (settings.nTable.id === "table_in_modal") {
+                // Filtering for "myTable".
+                var searchvalue = $("#searchtagfortable_in_modal").val();
+                const condition0 = data[0].toLowerCase().includes(searchvalue.toLowerCase());
+                const condition1 = data[1].toLowerCase().includes(searchvalue.toLowerCase());
+                const condition2 = data[2].toLowerCase().includes(searchvalue.toLowerCase());
+                // console.log(client_name, reference, searchvalue, startdate, enddate, date);
+             
+                if (
+                    (condition0 || condition1 || condition2)
+                ) {
+                    return true;
+                }
+                return false;
+            }
         }
     );
-    $('input[type=search]').on('search', function () {
+    $('#searchtagfortable_in_modal').on('search', function () {
+        table_in_modal.draw();
+    });
+
+    $('#searchtagforexample1').on('search', function () {
         project.draw();
     });
 
-    $("#searchtag").on('keyup', function () {
+    $("#searchtagfortable_in_modal").on('keyup', function () {
+        table_in_modal.draw();
+    });
+    
+    $("#searchtagforexample1").on('keyup', function () {
         project.draw();
     });
     

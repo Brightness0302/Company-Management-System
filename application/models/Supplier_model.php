@@ -257,6 +257,43 @@ class Supplier_model extends CI_Model {
         }
     }
 
+    public function createMaterialforProduct($code_ean, $serial_number, $stockid, $unit, $makeup, $production_description, $acquisition_unit_price_on_invoice, $invoice_coin) {
+        $data_sql = array(
+            'code_ean'=>$code_ean, 
+            'stockid'=>$stockid, 
+            'production_description'=>$production_description, 
+            'expenseid'=>0, 
+            'units'=>$unit, 
+            'serial_number'=>$serial_number, 
+            'vat'=>0, 
+            'makeup'=>$makeup,
+            'acquisition_unit_price_on_invoice'=>$acquisition_unit_price_on_invoice, 
+            'invoice_coin'=>$invoice_coin, 
+            'qty'=>1
+        );
+        $this->db->insert('material_totalline', $data_sql);
+        $material_id = $this->db->insert_id();
+        return $material_id;
+    }
+
+    public function saveMaterialforProduct($id, $code_ean, $serial_number, $stockid, $unit, $makeup, $production_description, $acquisition_unit_price_on_invoice, $invoice_coin) {
+        $data_sql = array(
+            'code_ean'=>$code_ean, 
+            'stockid'=>$stockid, 
+            'production_description'=>$production_description, 
+            'expenseid'=>0, 
+            'units'=>$unit, 
+            'serial_number'=>$serial_number, 
+            'vat'=>0, 
+            'makeup'=>$makeup,
+            'acquisition_unit_price_on_invoice'=>$acquisition_unit_price_on_invoice, 
+            'invoice_coin'=>$invoice_coin, 
+        );
+        $this->db->where('id', $id);
+        $result = $this->db->update('material_totalline', $data_sql);
+        return $result;
+    }
+
     public function alllinesbystockidfromdatabase($companyid, $table, $stock_id, $currencyrates="") {
         $company = $this->home->databyid($companyid, 'company')['data'];
         $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));

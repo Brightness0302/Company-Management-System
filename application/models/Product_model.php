@@ -106,10 +106,48 @@ class Product_model extends CI_Model {
         return 1;
     }
 
+    public function getDatafromrecipe($companyid, $production_description) {
+        $res = $this->home->databyidfromdatabase($companyid, 'product_recipe', $production_description);
+        if ($res['status'] != "success")
+            return -1;
+        $recipe = $res['data'];
+
+        $price = 0;
+        $materials = json_decode($recipe['materials'], true);
+        foreach ($materials as $index => $material) {
+            $result = $this->home->databyidfromdatabase($companyid, 'material_totalline', $material['id']);
+
+            if ($result['status'] == "success") {
+                $price += $material['amount']*$materials[$index]['selling_unit_price_without_vat'];
+            }
+        }
+
+        $labours = json_decode($recipe['labours'], true);
+        foreach ($labours as $index => $labour) {
+            $price += $labour['time']*$labour['hourly'];
+        }
+
+        $auxiliaries = json_decode($recipe['auxiliaries'], true);
+        foreach ($auxiliaries as $index => $auxiliary) {
+            $price += $auxiliary['value'];
+        }
+
+        $recipe['price'] = $price;
+        return $recipe;
+    }
+
     public function createProduct($companyid, $production_description, $code_ean, $serial_number, $stockid, $unit, $markup, $product_user, $product_date, $order_number, $lan_mac, $wifi_mac, $plug_standard, $observation) {
         $this->db->query('use database'.$companyid);
 
+        $recipe = $this->getDatafromrecipe($companyid, $production_description);
+        if ($recipe == -1)
+            return;
+
         $this->deductionmaterials($companyid, 'product_recipe', $production_description);
+        $description = $recipe['name'];
+        $price = $recipe['price'];
+        $coin = $recipe['coin'];
+        $this->supplier->createMaterialforProduct($code_ean, $serial_number, $stockid, $unit, $markup, $description, $price, $coin);
 
         $data = array(
             'code_ean'=>$code_ean, 
@@ -118,7 +156,8 @@ class Product_model extends CI_Model {
             'stockid'=>$stockid, 
             'unit'=>$unit, 
             'markup'=>$markup, 
-            
+            'materialid'=>$materialid, 
+
             'date'=>$product_date, 
             'order_number'=>$order_number, 
             'user'=>$product_user, 
@@ -137,6 +176,10 @@ class Product_model extends CI_Model {
     public function saveProduct($companyid, $id, $production_description, $code_ean, $serial_number, $stockid, $unit, $markup, $product_user, $product_date, $order_number, $lan_mac, $wifi_mac, $plug_standard, $observation) {
         $this->db->query('use database'.$companyid);
 
+        $recipe = $this->getDatafromrecipe($companyid, $production_description);
+        if ($recipe == -1)
+            return;
+
         $query =    "SELECT *
                     FROM `product`
                     WHERE `id`='$id' AND `isremoved`=false";
@@ -148,6 +191,10 @@ class Product_model extends CI_Model {
         $data = $data[0];
         $this->refreshmaterials($companyid, 'product_recipe', $data['product_description']);
         $this->deductionmaterials($companyid, 'product_recipe', $production_description);
+        $description = $recipe['name'];
+        $price = $recipe['price'];
+        $coin = $recipe['coin'];
+        $this->supplier->saveMaterialforProduct($data['materialid'], $code_ean, $serial_number, $stockid, $unit, $markup, $description, $price, $coin);
 
         $data = array(
             'code_ean'=>$code_ean, 
@@ -156,6 +203,7 @@ class Product_model extends CI_Model {
             'stockid'=>$stockid, 
             'unit'=>$unit, 
             'markup'=>$markup, 
+            'materialid'=>$materialid, 
             
             'date'=>$product_date, 
             'order_number'=>$order_number, 
