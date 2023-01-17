@@ -102,6 +102,7 @@
 		$.ajax({
 	        url: "<?=base_url('home/setbackup/').$company['id'].'/'.$company['name']?>", 
 	        method: "POST", 
+            dataType: 'text',
 	        success: function(res) {
 	        	console.log(res);
 				const filename = res;

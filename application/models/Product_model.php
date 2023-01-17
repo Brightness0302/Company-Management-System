@@ -232,7 +232,7 @@ class Product_model extends CI_Model {
 
         $query =    "SELECT *
                     FROM `$table`
-                    WHERE `id`='$tline_id'";
+                    WHERE `id`='$tline_id' AND `isremoved`=false";
 
         $data = $this->db->query($query)->result_array();
         if (count($data) == 0) {
@@ -263,7 +263,7 @@ class Product_model extends CI_Model {
 
         $query =    "SELECT *
                     FROM `$table`
-                    WHERE `id`='$tline_id'";
+                    WHERE `id`='$tline_id' AND `isremoved`=false";
 
         $data = $this->db->query($query)->result_array();
         if (count($data) == 0) {
