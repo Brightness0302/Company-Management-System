@@ -1,6 +1,6 @@
 <?php $supplier_total=0; foreach ($supplier_products as $product):?>
 <?php if(!$product['isremoved']):?>
-    <?php $supplier_total+=$product['total_line']['acquisition_unit_price']*$product['quantity_on_document'];?>
+    <?php $supplier_total+=$product['total_line']['acquisition_unit_price_on_invoice']*$product['quantity_on_document'];?>
 <?php endif;?>
 <?php endforeach;?>
 
@@ -206,16 +206,16 @@ window.onload = function() {
                     <td class="text-left"><?=$product['total_line']['production_description']?></td>
                     <td><?=date("Y/m/d", strtotime($product['material']['date_of_reception']))?></td>
                     <td><?=date("Y/m/d", strtotime($product['material']['invoice_date']))?></td>
-                    <td><?=number_format($product['total_line']['acquisition_unit_price']*$product['quantity_on_document'], 2, '.', "")?></td>
-                    <td><?=number_format($product['total_line']['acquisition_unit_price']*($product['total_line']['vat'])/100.0*$product['quantity_on_document'], 2, '.', "")?></td>
-                    <td><?=number_format($product['total_line']['acquisition_unit_price']*($product['total_line']['vat']+100.0)/100.0*$product['quantity_on_document'], 2, '.', "")?></td>
+                    <td><?=number_format($product['total_line']['acquisition_unit_price_on_invoice']*$product['quantity_on_document'], 2, '.', "")?></td>
+                    <td><?=number_format($product['total_line']['acquisition_unit_price_on_invoice']*($product['total_line']['vat'])/100.0*$product['quantity_on_document'], 2, '.', "")?></td>
+                    <td><?=number_format($product['total_line']['acquisition_unit_price_on_invoice']*($product['total_line']['vat']+100.0)/100.0*$product['quantity_on_document'], 2, '.', "")?></td>
                     <td>
                         <a href="<?=$product['attached']?base_url('assets/company/attachment/'.$company['name'].'/supplier/'.$product['material']['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$product['attached']?"":'pointer-events: none'?>"><i class="bi custom-view-icon"></i></a>
                     </td>
                     <?php
-                        $first11 += $product['total_line']['acquisition_unit_price']*$product['quantity_on_document'];
-                        $second11 += $product['total_line']['acquisition_unit_price']*($product['total_line']['vat'])/100.0*$product['quantity_on_document'];
-                        $third11 += $product['total_line']['acquisition_unit_price']*($product['total_line']['vat']+100.0)/100.0*$product['quantity_on_document'];
+                        $first11 += $product['total_line']['acquisition_unit_price_on_invoice']*$product['quantity_on_document'];
+                        $second11 += $product['total_line']['acquisition_unit_price_on_invoice']*($product['total_line']['vat'])/100.0*$product['quantity_on_document'];
+                        $third11 += $product['total_line']['acquisition_unit_price_on_invoice']*($product['total_line']['vat']+100.0)/100.0*$product['quantity_on_document'];
                     ?>
                 </tr>
                 <?php endif;?>
