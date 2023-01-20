@@ -307,7 +307,7 @@ class Supplier_model extends CI_Model {
         return $result;
     }
 
-    public function alllinesbystockidfromdatabase($companyid, $table, $stock_id, $currencyrates="") {
+    public function alllinesbystockidfromdatabase($companyid, $table, $stock_id) {
         $this->db->query('use database'.$companyid);
 
         $query =    "SELECT *
@@ -363,7 +363,7 @@ class Supplier_model extends CI_Model {
         return $tlines;
     }
 
-    public function alllinesfromdatabase($companyid, $table, $currencyrates="") {
+    public function alllinesfromdatabase($companyid, $table) {
         $company = $this->home->databyid($companyid, 'company')['data'];
         $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
 
@@ -378,7 +378,7 @@ class Supplier_model extends CI_Model {
 
         foreach ($tlines as $index => $line) {
             $invoice_coin = (($line['invoice_coin']=='€')?"EUR":(($line['invoice_coin']=='£')?"GBP":(($line['invoice_coin']=='$')?"USD":(($line['invoice_coin']=='LEI')?"RON":""))));
-            $tlines[$index]['acquisition_unit_price'] = $this->currencyConverter($invoice_coin, $target_coin, $line['acquisition_unit_price_on_invoice'], $currencyrates);
+            $tlines[$index]['acquisition_unit_price'] = $this->currencyConverterRate($line['acquisition_unit_price_on_invoice'], $line['main_coin_rate'], $line['invoice_coin_rate']);
         }
         return $tlines;
     }
@@ -549,7 +549,7 @@ class Supplier_model extends CI_Model {
         return $this->db->query($query)->result_array();
     }
 
-    public function getdatafromstockid($companyid, $stockid, $item, $currencyrates="") {
+    public function getdatafromstockid($companyid, $stockid, $item) {
         $table = "material_totalline";
         $this->db->query('use database'.$companyid);
 
@@ -561,7 +561,7 @@ class Supplier_model extends CI_Model {
         $value = 0;
 
         foreach ($data_for_totalline as $index => $line) {
-            $value += $this->databylineidfromdatabase($companyid, $table, $line['id'], $item, $currencyrates);
+            $value += $this->databylineidfromdatabase($companyid, $table, $line['id'], $item);
         }
         return $value;
     }
@@ -660,7 +660,7 @@ class Supplier_model extends CI_Model {
         }
     }
 
-    public function databylineidfromdatabase($companyid, $table, $lineid, $item, $currencyrates="") {
+    public function databylineidfromdatabase($companyid, $table, $lineid, $item) {
         $this->db->query('use database'.$companyid);
 
         $query =    "SELECT *
@@ -687,7 +687,7 @@ class Supplier_model extends CI_Model {
         return $data[$item];
     }
 
-    public function getalldatabylineidfromdatabase($companyid, $table, $lineid, $currencyrates="") {
+    public function getalldatabylineidfromdatabase($companyid, $table, $lineid) {
 
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);

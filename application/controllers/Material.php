@@ -29,7 +29,6 @@ class Material extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
-        $currencyrates = $this->session->userdata('currencyRates');
         $data = $this->getData();
         $data['suppliers'] = $this->home->alldata('supplier');
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'material');
@@ -257,7 +256,6 @@ class Material extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
-        $currencyrates = $this->session->userdata('currencyRates');
         $data = $this->getData();
         $data['suppliers'] = $this->home->alldata('supplier');
         $data['categories'] = $this->home->alldatafromdatabase($companyid, 'expense_category');
@@ -327,7 +325,6 @@ class Material extends CI_Controller
     //Get line of product by $codeean
     public function linebycodeean($codeean) {
         $companyid = $this->session->userdata('companyid');
-        $currencyrates = $this->session->userdata('currencyRates');
 
         $data = $this->supplier->linebycodeean($companyid, $codeean);
 
@@ -351,7 +348,6 @@ class Material extends CI_Controller
     //Get line of product by $id
     public function linebyid($id) {
         $companyid = $this->session->userdata('companyid');
-        $currencyrates = $this->session->userdata('currencyRates');
 
         $data = $this->supplier->linebyid($companyid, $id);
 

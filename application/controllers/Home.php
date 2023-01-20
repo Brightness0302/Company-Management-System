@@ -70,8 +70,6 @@ class Home extends CI_Controller
         $this->check_usersession();
         $company = $this->home->databyid($companyid, 'company');
         $coin = $company['data']['Coin'];
-        $target_coin = (($coin=='EURO')?"EUR":(($coin=='POUND')?"GBP":(($coin=='USD')?"USD":(($coin=='LEI')?"RON":"RON"))));
-        $this->session->set_userdata('currencyRates', $this->supplier->GetcurrencyRates($target_coin));
         $this->session->set_userdata('companyid', $companyid);
         $this->session->set_userdata('companyname', $company['data']['name']);
         $backup_date = false;
@@ -96,7 +94,6 @@ class Home extends CI_Controller
     public function dashboard() {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
-        $currencyrates = $this->session->userdata('currencyRates');
         $data = $this->getData();
         $data['client_invoices'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'invoice', 'ispaid', false);
         foreach ($data['client_invoices'] as $key => $invoice) {
@@ -143,8 +140,8 @@ class Home extends CI_Controller
 
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         foreach ($data['stocks'] as $index => $stock) {
-            $data['stocks'][$index]['amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'amount_without_vat', $currencyrates);
-            $data['stocks'][$index]['selling_amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'selling_amount_without_vat', $currencyrates);
+            $data['stocks'][$index]['amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'amount_without_vat');
+            $data['stocks'][$index]['selling_amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'selling_amount_without_vat');
         }
 
         $data['backups'] = $this->get_backups();

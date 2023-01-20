@@ -91,7 +91,6 @@ class Report extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $currencyrates = $this->session->userdata('currencyRates');
         $data = $this->getData();
         // $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'setting1', 'id', '1');
         // $data['setting1'] = $res[0];
@@ -103,7 +102,7 @@ class Report extends CI_Controller
             if ($res['status']=='success') {
                 $data['supplier_invoices'][$index]['supplier'] = $res['data'];
             }
-            $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $invoice['id'], $currencyrates);
+            $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $invoice['id']);
             $data['supplier_invoices'][$index]['attached'] = false;
 
             $data['supplier_invoices'][$index]['acq_subtotal_without_vat'] = $result['acq_subtotal_without_vat'];

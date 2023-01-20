@@ -29,12 +29,11 @@ class Stock extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $company_name = $this->session->userdata('companyname');
-        $currencyrates = $this->session->userdata('currencyRates');
         $data = $this->getData();
 
         foreach ($data['stocks'] as $index => $stock) {
-            $data['stocks'][$index]['amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'amount_without_vat', $currencyrates);
-            $data['stocks'][$index]['selling_amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'selling_amount_without_vat', $currencyrates);
+            $data['stocks'][$index]['amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'amount_without_vat');
+            $data['stocks'][$index]['selling_amount_without_vat'] = $this->supplier->getdatafromstockid($companyid, $stock['id'], 'selling_amount_without_vat');
         }
 
         $session['menu']="Stocks";
@@ -57,7 +56,6 @@ class Stock extends CI_Controller
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
-        $currencyrates = $this->session->userdata('currencyRates');
         $data = $this->getData();
         $data['suppliers'] = $this->home->alldata('supplier');
 
@@ -67,11 +65,11 @@ class Stock extends CI_Controller
         if (isset($_GET['stock_id'])) {
             $stock_id = $_GET['stock_id'];
             $data['stock'] = $this->home->databyidfromdatabase($companyid, 'stock', $stock_id)['data'];
-            $data['products'] = $this->supplier->alllinesbystockidfromdatabase($companyid, 'material_totalline', $stock_id, $currencyrates);
+            $data['products'] = $this->supplier->alllinesbystockidfromdatabase($companyid, 'material_totalline', $stock_id);
             $session['second-submenu']="stock - ".$data['stock']['name'];
         }
         else {
-            $data['products'] = $this->supplier->alllinesfromdatabase($companyid, 'material_totalline', $currencyrates);
+            $data['products'] = $this->supplier->alllinesfromdatabase($companyid, 'material_totalline');
             $session['second-submenu']="stock - All";
         }
         $this->session->set_flashdata('menu', $session);
@@ -110,9 +108,8 @@ class Stock extends CI_Controller
     public function getdatafromproductbylineid() {
         $lineid = $_GET['lineid'];
         $companyid = $this->session->userdata('companyid');
-        $currencyrates = $this->session->userdata('currencyRates');
 
-        $line_data = $this->supplier->getalldatabylineidfromdatabase($companyid, 'material_totalline', $lineid, $currencyrates);
+        $line_data = $this->supplier->getalldatabylineidfromdatabase($companyid, 'material_totalline', $lineid);
 
         $data['price'] = $line_data['selling_unit_price_without_vat'];
         $data['code_ean'] = $line_data['code_ean'];
