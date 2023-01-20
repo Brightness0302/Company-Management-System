@@ -1219,7 +1219,21 @@ class Home_model extends CI_Model {
             'constraint' => 9,
             'default' => '0',
           ),
+          'invoice_coin_rate' => array(
+            'type' => 'float',
+            'constraint' => 9,
+            'default' => '0',
+          ),
           'invoice_coin' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'main_coin_rate' => array(
+            'type' => 'float',
+            'constraint' => 9,
+            'default' => '0',
+          ),
+          'main_coin' => array(
             'type' => 'VARCHAR',
             'constraint' => 30,
           ),
@@ -1267,6 +1281,23 @@ class Home_model extends CI_Model {
           'serialnumber' => array(
             'type' => 'VARCHAR',
             'constraint' => 100,
+          ),
+          'stockid' => array(
+            'type' => 'INT',
+            'constraint' => 9,
+          ),
+          'unit' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'markup' => array(
+            'type' => 'float',
+            'constraint' => 9,
+            'default' => '0',
+          ),
+          'materialid' => array(
+            'type' => 'INT',
+            'constraint' => 9,
           ),
           'order_number' => array(
             'type' => 'VARCHAR',

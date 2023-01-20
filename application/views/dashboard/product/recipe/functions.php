@@ -122,7 +122,6 @@ function refreshproductbystockid(stockid) {
                 if (line['stockid']==stockid) {
                     string += "<option value="+line['id']+">"+line['code_ean']+" - "+line['production_description']+"</option>";
                     if (isfirst == true) {
-                        console.log(line);
                         const max = line['qty'];
                         const amount_str = max + " products on stock";
                         $("#amount_hint").text(amount_str);
@@ -150,7 +149,6 @@ function refreshTotalMark() {
     second_total.text("0");
     third_total.text("0");
     fourth_total.text("0");
-    console.log(first_total);
 
     const table1 = $("#table-body1");
     const table2 = $("#table-body2");
@@ -183,11 +181,10 @@ function SaveItem1() {
         return;
     }
     $.ajax({
-        url: "<?=base_url("material/linebycoin/")?>" + line_id + "?coin=" + coin,
+        url: "<?=base_url("material/linebycodeean/")?>" + line_id,
         method: "POST",
         dataType: 'json',
         success: function(res) {
-            console.log(res);
             if (res == -1) {
                 return;
             }
@@ -198,7 +195,7 @@ function SaveItem1() {
                 "<td class='text-left'>"+res['production_description']+"</td>"+
                 "<td>"+amount+"</td>"+
                 "<td>"+res['selling_unit_price_without_vat']+"</td>"+
-                "<td>"+(res['selling_unit_price_without_vat'] * amount)+"</td>"+
+                "<td>"+(res['selling_unit_price_without_vat'] * amount).toFixed(2)+"</td>"+
                 "<td class='align-middle flex justify-center'>" + "<div id='btn_edit_row' onclick='edit_tr1(this)'>" + "<i class='bi custom-edit-icon p-1' title='Edit'></i>" + "</div>" + "<div id='btn_remove_row' onclick='remove_tr1(this)'>" + "<i class='bi custom-remove-icon p-1' title='Delete'></i>" + "</div>" + "</td>" +
                 "<td hidden>"+res['id']+"</td>"+
                 "</tr>"
@@ -297,11 +294,10 @@ function save_tr1(el) {
     const total_amount = $("#total_amount").val();
 
     $.ajax({
-        url: "<?=base_url("material/linebycoin/")?>" + line_id + "?coin=" + coin,
+        url: "<?=base_url("material/linebycodeean/")?>" + line_id,
         method: "POST",
         dataType: 'json',
         success: function(res) {
-            console.log(res);
             if (res == -1) {
                 return;
             }
@@ -309,8 +305,8 @@ function save_tr1(el) {
             $(etd[0]).text(code_ean);
             $(etd[1]).text(production_description);
             $(etd[2]).text(amount);
-            $(etd[3]).text(res['selling_unit_price_without_vat']);
-            $(etd[4]).text((res['selling_unit_price_without_vat'] * amount));
+            $(etd[3]).text((res['selling_unit_price_without_vat']));
+            $(etd[4]).text((res['selling_unit_price_without_vat'] * amount).toFixed(2));
             $(etd[5]).html("<div id='btn_edit_row' onclick='edit_tr1(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr1(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div>");
             $(etd[6]).text(res['id']);
 

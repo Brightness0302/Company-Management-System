@@ -25,6 +25,7 @@ $(document).ready(function() {
             $(element).text(this.value);
         });
     });
+    $("#main_coin").trigger('change');
     
     $("#invoice_coin").change(function() {
         const els = $(".invoice_coin");
@@ -65,6 +66,7 @@ $(document).ready(function() {
                 const unit = $("#unit");
                 const vat_percent = $("#vat_percent");
                 const mark_up_percent = $("#mark_up_percent");
+                const acq_invoice_price = $("#acq_invoice_price");
 
                 production_description.val(line['production_description']);
                 stockid.val(line['stockid']);
@@ -76,6 +78,8 @@ $(document).ready(function() {
                 serial_number.val(line['serial_number']);
                 vat_percent.val(line['vat']);
                 mark_up_percent.val(line['makeup']);
+                acq_invoice_price.val(line['acquisition_unit_price_on_invoice']);
+                acq_invoice_price.trigger('change');
 
                 refreshSellingMarkforline();
             },
@@ -539,6 +543,11 @@ function AddProduct() {
     const invoice_coin_rate = $("#invoice_coin_rate").val();
     const main_coin_rate = $("#main_coin_rate").val();
     let lines = [];
+
+    if (!invoice_coin_rate || !main_coin_rate) {
+        alert("Please, fill in the gap.");
+        return;
+    }
 
     const table = $("#table-body");
     table.children("tr").each((index, element) => {

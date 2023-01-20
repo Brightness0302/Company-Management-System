@@ -11,7 +11,7 @@ var barChartData = {
                 label: '<?=$recipe['name']?>',
                 borderColor: window.borderColors[(<?=$key?>)%window.borderColors.length],
                 backgroundColor: window.chartColors.transparency,
-                data: chartdata[2022]["<?=$recipe['name']?>"],
+                data: chartdata["<?=date('Y')?>"]["<?=$recipe['name']?>"],
                 type: 'line'
             },
         <?php endforeach;?>

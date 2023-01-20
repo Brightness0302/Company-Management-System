@@ -132,7 +132,7 @@ class Stock extends CI_Controller
         $coin = $_GET['coin'];
         $companyid = $this->session->userdata('companyid');
 
-        $line_data = $this->supplier->getalldatabycoinfromdatabase($companyid, 'material_totalline', $lineid, $coin);
+        $line_data = $this->supplier->getalldatabycoinfromdatabase($companyid, 'material_totalline', $lineid);
 
         $data['price'] = $line_data['selling_unit_price_without_vat'];
         $data['code_ean'] = $line_data['code_ean'];

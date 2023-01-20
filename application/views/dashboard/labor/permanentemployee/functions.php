@@ -14,6 +14,7 @@ $(document).ready(function() {
             $(element).text(this.value);
         });
     });
+    $("#coin").trigger('change');
     refreshAmount();
 });
 

@@ -46,28 +46,6 @@ class Product extends CI_Controller
                 }
             }
             $data['products'][$index]['materials'] = json_encode($materials);
-
-            $companyCoin = (($data['company']['Coin']=='EURO')?"EUR":(($data['company']['Coin']=='POUND')?"GBP":(($data['company']['Coin']=='USD')?"USD":(($data['company']['Coin']=='LEI')?"RON":""))));
-            $recipeCoin = (($product['coin']=='€')?"EUR":(($product['coin']=='£')?"GBP":(($product['coin']=='$')?"USD":(($product['coin']=='LEI')?"RON":""))));
-            $labours = json_decode($product['labours'], true);
-            foreach ($labours as $key => $labour) {
-                $result = $this->product->currencyConverter($recipeCoin, $companyCoin, $labour['hourly'], $currencyrates);
-
-                if ($result != -1) {
-                    $labours[$key]['hourly'] = $result;
-                }
-            }
-            $data['products'][$index]['labours'] = json_encode($labours);
-
-            $auxiliaries = json_decode($product['auxiliaries'], true);
-            foreach ($auxiliaries as $key => $auxiliary) {
-                $result = $this->product->currencyConverter($recipeCoin, $companyCoin, $auxiliary['value'], $currencyrates);
-
-                if ($result != -1) {
-                    $auxiliaries[$key]['value'] = $result;
-                }
-            }
-            $data['products'][$index]['auxiliaries'] = json_encode($auxiliaries);
         }
 
         $session['menu']="Products";
@@ -101,7 +79,7 @@ class Product extends CI_Controller
                 $price = 0;
                 $materials = json_decode($product['materials'], true);
                 foreach ($materials as $index => $material) {
-                    $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id'], $currencyrates);
+                    $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
 
                     if ($result!=-1) {
                         $materials[$index]['code_ean'] = $result['code_ean'];
@@ -357,7 +335,7 @@ class Product extends CI_Controller
 
         $materials = json_decode($data['product']['materials'], true);
         foreach ($materials as $index => $material) {
-            $result = $this->product->getdatabycoinfromdatabase($companyid, 'material_totalline', $material['id'], $data['product']['coin']);
+            $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
         
             $materials[$index]['code_ean'] = $result['code_ean'];
             $materials[$index]['production_description'] = $result['production_description'];
@@ -522,13 +500,13 @@ class Product extends CI_Controller
         echo $result;
     }
     //Get line by code ean on DB(line)
-    public function linebycodeean($codeean) {
-        $companyid = $this->session->userdata('companyid');
-        $data = $this->supplier->linebycodeean($companyid, $codeean);
+    // public function linebycodeean($codeean) {
+    //     $companyid = $this->session->userdata('companyid');
+    //     $data = $this->supplier->linebycodeean($companyid, $codeean);
 
-        header('Content-Type: application/json');
-        echo json_encode($data);
-    }
+    //     header('Content-Type: application/json');
+    //     echo json_encode($data);
+    // }
     //Save session by json for deploying payment for each product
     public function savesessionbyjson() {
         $data['name'] = $this->input->post('name');
@@ -651,7 +629,7 @@ class Product extends CI_Controller
         $price = 0;
         $materials = json_decode($product['materials'], true);
         foreach ($materials as $index => $material) {
-            $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id'], $currencyrates);
+            $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
         
             $materials[$index]['code_ean'] = $result['code_ean'];
             $materials[$index]['production_description'] = $result['production_description'];

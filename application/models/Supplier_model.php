@@ -87,7 +87,8 @@ class Supplier_model extends CI_Model {
             if ($line['stockid'] != 0) {
                 $qty = $line['quantity_received'];
                 $tline_id = 0;
-                if ($line['lineid']) {
+
+                {
                     $lineid = $line['lineid'];
                     $stockid = $line['stockid'];
                     $expenseid = $line['expenseid'];
@@ -98,7 +99,7 @@ class Supplier_model extends CI_Model {
                     $acquisition_unit_price_on_invoice = $line['acquisition_unit_price_on_invoice'];
                     $query =    "SELECT *
                                 FROM `material_totalline`
-                                WHERE `id` = '$lineid' AND `stockid` = '$stockid' AND `expenseid` = '$expenseid' AND `serial_number` = '$serial_number' AND `units` = '$units' AND `vat` = '$vat' AND `makeup` = '$makeup' AND `invoice_coin` = '$invoice_coin' AND `acquisition_unit_price_on_invoice` = '$acquisition_unit_price_on_invoice'";
+                                WHERE `stockid` = '$stockid' AND `expenseid` = '$expenseid' AND `serial_number` = '$serial_number' AND `units` = '$units' AND `vat` = '$vat' AND `makeup` = '$makeup' AND abs(`invoice_coin_rate` - '$invoice_coin_rate') <= 0.00001  AND `invoice_coin` = '$invoice_coin' AND abs(`main_coin_rate` - '$main_coin_rate') <= 0.00001 AND `main_coin` = '$main_coin' AND `acquisition_unit_price_on_invoice` = '$acquisition_unit_price_on_invoice'";
 
                     $data = $this->db->query($query)->result_array();
 
@@ -128,7 +129,10 @@ class Supplier_model extends CI_Model {
                         'vat'=>$line['vat'], 
                         'makeup'=>$line['makeup'],
                         'acquisition_unit_price_on_invoice'=>$line['acquisition_unit_price_on_invoice'], 
+                        'invoice_coin_rate'=>$invoice_coin_rate, 
                         'invoice_coin'=>$invoice_coin, 
+                        'main_coin_rate'=>$main_coin_rate, 
+                        'main_coin'=>$main_coin, 
                         'qty'=>$qty
                     );
                     $this->db->insert('material_totalline', $data_sql);
@@ -188,7 +192,7 @@ class Supplier_model extends CI_Model {
             if ($line['stockid'] != 0) {
                 $qty = $line['quantity_received'];
                 $tline_id = 0;
-                if ($line['lineid']) {
+                {
                     $lineid = $line['lineid'];
                     $stockid = $line['stockid'];
                     $expenseid = $line['expenseid'];
@@ -199,7 +203,7 @@ class Supplier_model extends CI_Model {
                     $acquisition_unit_price_on_invoice = $line['acquisition_unit_price_on_invoice'];
                     $query =    "SELECT *
                                 FROM `material_totalline`
-                                WHERE `id` = '$lineid' AND `stockid` = '$stockid' AND `expenseid` = '$expenseid' AND `serial_number` = '$serial_number' AND `units` = '$units' AND `vat` = '$vat' AND `makeup` = '$makeup' AND `invoice_coin` = '$invoice_coin' AND `acquisition_unit_price_on_invoice` = '$acquisition_unit_price_on_invoice'";
+                                WHERE `stockid` = '$stockid' AND `expenseid` = '$expenseid' AND `serial_number` = '$serial_number' AND `units` = '$units' AND `vat` = '$vat' AND `makeup` = '$makeup' AND abs(`invoice_coin_rate` - '$invoice_coin_rate') <= 0.00001  AND `invoice_coin` = '$invoice_coin' AND abs(`main_coin_rate` - '$main_coin_rate') <= 0.00001 AND `main_coin` = '$main_coin' AND `acquisition_unit_price_on_invoice` = '$acquisition_unit_price_on_invoice'";
 
                     $data = $this->db->query($query)->result_array();
 
@@ -229,7 +233,10 @@ class Supplier_model extends CI_Model {
                         'vat'=>$line['vat'], 
                         'makeup'=>$line['makeup'], 
                         'acquisition_unit_price_on_invoice'=>$line['acquisition_unit_price_on_invoice'], 
+                        'invoice_coin_rate'=>$invoice_coin_rate, 
                         'invoice_coin'=>$invoice_coin, 
+                        'main_coin_rate'=>$main_coin_rate, 
+                        'main_coin'=>$main_coin, 
                         'qty'=>$qty 
                     );
                     $this->db->insert('material_totalline', $data_sql);
@@ -269,7 +276,10 @@ class Supplier_model extends CI_Model {
             'makeup'=>$makeup,
             'acquisition_unit_price_on_invoice'=>$acquisition_unit_price_on_invoice, 
             'invoice_coin'=>$invoice_coin, 
-            'qty'=>1
+            'main_coin'=>$invoice_coin, 
+            'invoice_coin_rate'=>1, 
+            'main_coin_rate'=>1, 
+            'qty'=>1, 
         );
         $this->db->insert('material_totalline', $data_sql);
         $material_id = $this->db->insert_id();
@@ -288,6 +298,9 @@ class Supplier_model extends CI_Model {
             'makeup'=>$makeup,
             'acquisition_unit_price_on_invoice'=>$acquisition_unit_price_on_invoice, 
             'invoice_coin'=>$invoice_coin, 
+            'main_coin'=>$invoice_coin, 
+            'invoice_coin_rate'=>1, 
+            'main_coin_rate'=>1, 
         );
         $this->db->where('id', $id);
         $result = $this->db->update('material_totalline', $data_sql);
@@ -295,11 +308,7 @@ class Supplier_model extends CI_Model {
     }
 
     public function alllinesbystockidfromdatabase($companyid, $table, $stock_id, $currencyrates="") {
-        $company = $this->home->databyid($companyid, 'company')['data'];
-        $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
-
-        $companyid = "database".$companyid;
-        $this->db->query('use '.$companyid);
+        $this->db->query('use database'.$companyid);
 
         $query =    "SELECT *
                     FROM `$table`
@@ -308,8 +317,7 @@ class Supplier_model extends CI_Model {
         $tlines = $this->db->query($query)->result_array();
 
         foreach ($tlines as $index => $line) {
-            $invoice_coin = (($line['invoice_coin']=='€')?"EUR":(($line['invoice_coin']=='£')?"GBP":(($line['invoice_coin']=='$')?"USD":(($line['invoice_coin']=='LEI')?"RON":""))));
-            $tlines[$index]['acquisition_unit_price'] = $this->currencyConverter($invoice_coin, $target_coin, $line['acquisition_unit_price_on_invoice'], $currencyrates);
+            $tlines[$index]['acquisition_unit_price'] = $this->currencyConverterRate($line['acquisition_unit_price_on_invoice'], $line['main_coin_rate'], $line['invoice_coin_rate']);
         }
 
         // $lines = [];
@@ -375,7 +383,7 @@ class Supplier_model extends CI_Model {
         return $tlines;
     }
 
-    public function alllinesbyproductidfromdatabase($companyid, $table, $product_id, $invoice_coin_rate, $main_coin_rate) {
+    public function alllinesbyproductidfromdatabase($companyid, $table, $product_id) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
@@ -400,7 +408,7 @@ class Supplier_model extends CI_Model {
             $lines[$index]['expenseid'] = $tline['expenseid'];
             $lines[$index]['units'] = $tline['units'];
             $lines[$index]['serial_number'] = $tline['serial_number'];
-            $lines[$index]['acquisition_unit_price'] = $tline['acquisition_unit_price_on_invoice'] / $invoice_coin_rate * $main_coin_rate;
+            $lines[$index]['acquisition_unit_price'] = $tline['acquisition_unit_price_on_invoice'] / $tline['invoice_coin_rate'] * $tline['main_coin_rate'];
             $lines[$index]['acquisition_unit_price_on_invoice'] = $tline['acquisition_unit_price_on_invoice'];
             $lines[$index]['vat'] = $tline['vat'];
             $lines[$index]['makeup'] = $tline['makeup'];
@@ -416,10 +424,7 @@ class Supplier_model extends CI_Model {
         return $lines;
     }
 
-    public function getdatabyproductidfromdatabase($companyid, $table, $product_id, $currencyrates="") {
-        $company = $this->home->databyid($companyid, 'company')['data'];
-        $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
-        
+    public function getdatabyproductidfromdatabase($companyid, $table, $product_id) {        
         $this->db->query("use database".$companyid);
 
         $query =    "SELECT *
@@ -447,9 +452,7 @@ class Supplier_model extends CI_Model {
             $tline = $this->db->query($query)->result_array();
             $tline = $tline[0];
 
-            $invoice_coin = (($tline['invoice_coin']=='€')?"EUR":(($tline['invoice_coin']=='£')?"GBP":(($tline['invoice_coin']=='$')?"USD":(($tline['invoice_coin']=='LEI')?"RON":""))));
-
-            $acquisition_unit_price = $this->currencyConverter($invoice_coin, $target_coin, $tline['acquisition_unit_price_on_invoice'], $currencyrates);
+            $acquisition_unit_price = $this->currencyConverterRate($tline['acquisition_unit_price_on_invoice'], $tline['main_coin_rate'], $tline['invoice_coin_rate']);
 
             $res['acq_subtotal_without_vat'] += $acquisition_unit_price * $line['quantity_on_document'];
             $res['acq_subtotal_vat'] += $acquisition_unit_price * $line['quantity_on_document'] * $tline['vat'] / 100.0;
@@ -594,6 +597,19 @@ class Supplier_model extends CI_Model {
         }
     }
 
+    function currencyConverterRate($currency_input, $main_coin_rate, $invoice_coin_rate) {
+        // Try/catch for json_decode operation
+        try {
+            // YOUR APPLICATION CODE HERE, e.g.
+            $currency_output = round(($currency_input / $invoice_coin_rate * $main_coin_rate), 2);
+
+            return $currency_output;
+        }
+        catch(Exception $e) {
+            return 0;
+        }
+    }
+
     function currencyConverterbycoin($currency_from, $currency_to, $currency_input, $currencyrates="") {
         if ($currencyrates=="") {
             // Fetching JSON
@@ -645,10 +661,6 @@ class Supplier_model extends CI_Model {
     }
 
     public function databylineidfromdatabase($companyid, $table, $lineid, $item, $currencyrates="") {
-        $company = $this->home->databyid($companyid, 'company');
-        $company = $company['data'];
-        $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":"RON"))));
-
         $this->db->query('use database'.$companyid);
 
         $query =    "SELECT *
@@ -659,9 +671,8 @@ class Supplier_model extends CI_Model {
         if (count($data)==0)
             return 0;
         $data = $data[0];
-        $invoice_coin = (($data['invoice_coin']=='€')?"EUR":(($data['invoice_coin']=='£')?"GBP":(($data['invoice_coin']=='$')?"USD":(($data['invoice_coin']=='LEI')?"RON":""))));
         
-        $acquisition_unit_price = $this->currencyConverter($invoice_coin, $target_coin, $data['acquisition_unit_price_on_invoice'], $currencyrates);
+        $acquisition_unit_price = $this->currencyConverterRate($data['acquisition_unit_price_on_invoice'], $data['main_coin_rate'], $data['invoice_coin_rate']);
 
         $data['acquisition_vat_value'] = $this->toFixed($acquisition_unit_price * $data['vat'] / 100.0, 2);
         $data['acquisition_unit_price_with_vat'] = $this->toFixed($acquisition_unit_price * ($data['vat'] + 100.0) / 100.0, 2);
@@ -677,9 +688,6 @@ class Supplier_model extends CI_Model {
     }
 
     public function getalldatabylineidfromdatabase($companyid, $table, $lineid, $currencyrates="") {
-        $company = $this->home->databyid($companyid, 'company');
-        $company = $company['data'];
-        $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
 
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
@@ -692,9 +700,8 @@ class Supplier_model extends CI_Model {
         if (count($data)==0)
             return 0;
         $data = $data[0];
-        $invoice_coin = (($data['invoice_coin']=='€')?"EUR":(($data['invoice_coin']=='£')?"GBP":(($data['invoice_coin']=='$')?"USD":(($data['invoice_coin']=='LEI')?"RON":""))));
         
-        $acquisition_unit_price = $this->currencyConverter($invoice_coin, $target_coin, $data['acquisition_unit_price_on_invoice'], $currencyrates);
+        $acquisition_unit_price = $this->currencyConverterRate($data['acquisition_unit_price_on_invoice'], $data['main_coin_rate'], $data['invoice_coin_rate']);
 
         $data['acquisition_vat_value'] = $this->toFixed($acquisition_unit_price * $data['vat'] / 100.0, 2);
         $data['acquisition_unit_price_with_vat'] = $this->toFixed($acquisition_unit_price * ($data['vat'] + 100.0) / 100.0, 2);
@@ -709,9 +716,7 @@ class Supplier_model extends CI_Model {
         return $data;
     }
 
-    public function getalldatabycoinfromdatabase($companyid, $table, $lineid, $coin, $currencyrates="") {
-        $target_coin = (($coin=='€')?"EUR":(($coin=='£')?"GBP":(($coin=='$')?"USD":(($coin=='LEI')?"RON":""))));
-
+    public function getalldatabycoinfromdatabase($companyid, $table, $lineid) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
@@ -723,9 +728,8 @@ class Supplier_model extends CI_Model {
         if (count($data)==0)
             return 0;
         $data = $data[0];
-        $invoice_coin = (($data['invoice_coin']=='€')?"EUR":(($data['invoice_coin']=='£')?"GBP":(($data['invoice_coin']=='$')?"USD":(($data['invoice_coin']=='LEI')?"RON":""))));
         
-        $acquisition_unit_price = $this->currencyConverterbycoin($invoice_coin, $target_coin, $data['acquisition_unit_price_on_invoice']);
+        $acquisition_unit_price = $this->currencyConverterRate($data['acquisition_unit_price_on_invoice'], $data['main_coin_rate'], $data['invoice_coin_rate']);
 
         $data['acquisition_vat_value'] = $this->toFixed($acquisition_unit_price * $data['vat'] / 100.0, 2);
         $data['acquisition_unit_price_with_vat'] = $this->toFixed($acquisition_unit_price * ($data['vat'] + 100.0) / 100.0, 2);
@@ -792,26 +796,24 @@ class Supplier_model extends CI_Model {
         return $res[0];
     }
 
-    public function linebycodeean($companyid, $code_ean, $currencyrates="") {
+    public function linebycodeean($companyid, $code_ean) {
         $company = $this->home->databyid($companyid, 'company');
         $company = $company['data'];
-        $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
         
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
         $query =    "SELECT *
                     FROM `material_totalline`
-                    WHERE `code_ean`='$code_ean'";
+                    WHERE `id`='$code_ean'";
 
         $data = $this->db->query($query)->result_array();
         if (count($data) == 0) {
             return -1;
         }
         $data=$data[0];
-        $invoice_coin = (($data['invoice_coin']=='€')?"EUR":(($data['invoice_coin']=='£')?"GBP":(($data['invoice_coin']=='$')?"USD":(($data['invoice_coin']=='LEI')?"RON":""))));
         
-        $acquisition_unit_price = $this->currencyConverter($invoice_coin, $target_coin, $data['acquisition_unit_price_on_invoice'], $currencyrates);
+        $acquisition_unit_price = $this->currencyConverterRate($data['acquisition_unit_price_on_invoice'], $data['main_coin_rate'], $data['invoice_coin_rate']);
 
         $data['acquisition_vat_value'] = $this->toFixed($acquisition_unit_price * $data['vat'] / 100.0, 2);
         $data['acquisition_unit_price_with_vat'] = $this->toFixed($acquisition_unit_price * ($data['vat'] + 100.0) / 100.0, 2);
@@ -856,13 +858,8 @@ class Supplier_model extends CI_Model {
         return $data;
     }
 
-    public function linebyid($companyid, $id, $currencyrates="") {
-        $company = $this->home->databyid($companyid, 'company');
-        $company = $company['data'];
-        $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
-        
-        $companyid = "database".$companyid;
-        $this->db->query('use '.$companyid);
+    public function linebyid($companyid, $id) {
+        $this->db->query('use database'.$companyid);
 
         $query =    "SELECT *
                     FROM `material_totalline`
@@ -873,9 +870,8 @@ class Supplier_model extends CI_Model {
             return -1;
         }
         $data=$data[0];
-        $invoice_coin = (($data['invoice_coin']=='€')?"EUR":(($data['invoice_coin']=='£')?"GBP":(($data['invoice_coin']=='$')?"USD":(($data['invoice_coin']=='LEI')?"RON":""))));
         
-        $acquisition_unit_price = $this->currencyConverter($invoice_coin, $target_coin, $data['acquisition_unit_price_on_invoice'], $currencyrates);
+        $acquisition_unit_price = $data['acquisition_unit_price_on_invoice'];
 
         $data['acquisition_vat_value'] = $this->toFixed($acquisition_unit_price * $data['vat'] / 100.0, 2);
         $data['acquisition_unit_price_with_vat'] = $this->toFixed($acquisition_unit_price * ($data['vat'] + 100.0) / 100.0, 2);

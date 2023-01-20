@@ -42,8 +42,7 @@
                                     <td>
                                         <div class="m-auto">
                                             <select class="form-select w-full" id="product_coin">
-                                                <option value="€" <?=(($product['coin']=="€")?"selected":"")?>>EURO</option>
-                                                <option value="LEI" <?=(($product['coin']=="LEI")?"selected":"")?>>LEI</option>
+                                                <option value="<?=(($company['Coin']=='EURO')?"€":(($company['Coin']=='POUND')?"£":(($company['Coin']=='USD')?"$":"LEI")))?>"><?=$company['Coin']?></option>
                                             </select>
                                         </div>
                                     </td>

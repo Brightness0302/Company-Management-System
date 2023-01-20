@@ -45,6 +45,8 @@ function AddClient() {
                                 confirmButtonClass: "btn-success",
                                 confirmButtonText: "OK",
                                 cancelButtonText: "No, cancel plx!",
+                                allowOutsideClick: false,
+                                allowEscapeKey: false, 
                                 closeOnConfirm: true,
                                 closeOnCancel: true
                             },
@@ -107,6 +109,8 @@ function EditClient(clientid) {
                             confirmButtonClass: "btn-success",
                             confirmButtonText: "OK",
                             cancelButtonText: "No, cancel plx!",
+                            allowOutsideClick: false,
+                            allowEscapeKey: false, 
                             closeOnConfirm: true,
                             closeOnCancel: true
                         },
@@ -161,6 +165,8 @@ function delClient(clientid) {
                                 confirmButtonClass: "btn-success",
                                 confirmButtonText: "OK",
                                 cancelButtonText: "No, cancel plx!",
+                                allowOutsideClick: false,
+                                allowEscapeKey: false, 
                                 closeOnConfirm: true,
                                 closeOnCancel: true
                             },

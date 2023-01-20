@@ -282,13 +282,8 @@ class Product_model extends CI_Model {
         return $data;
     }
 
-    public function getdatabyproductidfromdatabase($companyid, $table, $tline_id, $currencyrates="") {
-        $company = $this->home->databyid($companyid, 'company');
-        $company = $company['data'];
-        $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
-
-        $companyid = "database".$companyid;
-        $this->db->query('use '.$companyid);
+    public function getdatabyproductidfromdatabase($companyid, $table, $tline_id) {
+        $this->db->query('use database'.$companyid);
 
         $query =    "SELECT *
                     FROM `$table`
@@ -299,9 +294,8 @@ class Product_model extends CI_Model {
             return -1;
         }
         $data=$data[0];
-        $invoice_coin = (($data['invoice_coin']=='€')?"EUR":(($data['invoice_coin']=='£')?"GBP":(($data['invoice_coin']=='$')?"USD":(($data['invoice_coin']=='LEI')?"RON":""))));
         
-        $acquisition_unit_price = $this->currencyConverter($invoice_coin, $target_coin, $data['acquisition_unit_price_on_invoice'], $currencyrates);
+        $acquisition_unit_price = $this->currencyConverterRate($data['acquisition_unit_price_on_invoice'], $data['main_coin_rate'], $data['invoice_coin_rate']);
 
         $data['acquisition_vat_value'] = $this->toFixed($acquisition_unit_price * $data['vat'] / 100.0, 2);
         $data['acquisition_unit_price_with_vat'] = $this->toFixed($acquisition_unit_price * ($data['vat'] + 100.0) / 100.0, 2);
@@ -316,10 +310,7 @@ class Product_model extends CI_Model {
     }
 
     public function getdatabycoinfromdatabase($companyid, $table, $tline_id, $coin) {
-        $target_coin = (($coin=='€')?"EUR":(($coin=='£')?"GBP":(($coin=='$')?"USD":(($coin=='LEI')?"RON":""))));
-
-        $companyid = "database".$companyid;
-        $this->db->query('use '.$companyid);
+        $this->db->query('use database'.$companyid);
 
         $query =    "SELECT *
                     FROM `$table`
@@ -433,6 +424,19 @@ class Product_model extends CI_Model {
             catch(Exception $e) {
                 return 0;
             }
+        }
+    }
+
+    function currencyConverterRate($currency_input, $main_coin_rate, $invoice_coin_rate) {
+        // Try/catch for json_decode operation
+        try {
+            // YOUR APPLICATION CODE HERE, e.g.
+            $currency_output = round(($currency_input / $invoice_coin_rate * $main_coin_rate), 2);
+
+            return $currency_output;
+        }
+        catch(Exception $e) {
+            return 0;
         }
     }
 

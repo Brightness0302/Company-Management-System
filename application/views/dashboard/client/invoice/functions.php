@@ -494,6 +494,8 @@ async function addInvoice() {
                 confirmButtonClass: "btn-success",
                 confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
+                allowOutsideClick: false,
+                allowEscapeKey: false, 
                 closeOnConfirm: true,
                 closeOnCancel: true
             },
@@ -536,6 +538,8 @@ async function editInvoice(invoice_id) {
                 confirmButtonClass: "btn-success",
                 confirmButtonText: "OK",
                 cancelButtonText: "No, cancel plx!",
+                allowOutsideClick: false,
+                allowEscapeKey: false, 
                 closeOnConfirm: true,
                 closeOnCancel: true
             },
@@ -585,6 +589,8 @@ function delInvoice(invoice_id) {
                             confirmButtonClass: "btn-success",
                             confirmButtonText: "OK",
                             cancelButtonText: "No, cancel plx!",
+                            allowOutsideClick: false,
+                            allowEscapeKey: false, 
                             closeOnConfirm: true,
                             closeOnCancel: true
                         },

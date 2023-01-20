@@ -65,8 +65,7 @@
                                       <td>
                                           <div class="m-auto">
                                               <select class="form-select w-full" id="product_coin">
-                                                  <option value="€">EURO</option>
-                                                  <option value="LEI">LEI</option>
+                                                <option value="<?=(($company['Coin']=='EURO')?"€":(($company['Coin']=='POUND')?"£":(($company['Coin']=='USD')?"$":"LEI")))?>"><?=$company['Coin']?></option>
                                               </select>
                                           </div>
                                       </td>
@@ -82,7 +81,7 @@
                                     <td style="border : 1px solid black"><label class="my-2">Value:</label></td>
                                     <td>
                                         <div class="m-auto">
-                                            <input type="text" class="form-control " id="value" value="" title="Choose your color">
+                                            <input type="text" class="form-control " id="value" value="0.0" title="Choose your color">
                                         </div>
                                     </td>
                                     <td class="text-center">
@@ -112,7 +111,7 @@
                                     <td style="border : 1px solid black"><label class="my-2">Amount:</label></td>
                                     <td>
                                         <div class="m-auto">
-                                            <input type="text" class="form-control " id="amount" value="0.0" title="Choose your color">
+                                            <input type="text" class="form-control " id="amount" value="0.0" title="Choose your color" disabled>
                                         </div>
                                     </td>
                                     <td class="text-center">

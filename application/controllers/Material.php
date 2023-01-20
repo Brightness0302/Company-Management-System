@@ -35,7 +35,7 @@ class Material extends CI_Controller
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'material');
 
         foreach ($data['products'] as $index => $product) {
-            $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $product['id'], $currencyrates);
+            $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $product['id']);
             $data['products'][$index]['attached'] = false;
 
             $data['products'][$index]['acq_subtotal_without_vat'] = $result['acq_subtotal_without_vat'];
@@ -109,7 +109,7 @@ class Material extends CI_Controller
         if ($product['status']=="failed")
             return;
         $data['product'] = $product['data'];
-        $data['lines'] = $this->supplier->alllinesbyproductidfromdatabase($companyid, 'material_lines', $product_id, $data['product']['invoice_coin_rate'], $data['product']['main_coin_rate']);
+        $data['lines'] = $this->supplier->alllinesbyproductidfromdatabase($companyid, 'material_lines', $product_id);
 
         $lines = $data['product']['lines'];
         $lines = json_decode($lines, true);
@@ -264,7 +264,7 @@ class Material extends CI_Controller
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'material');
 
         foreach ($data['products'] as $index => $product) {
-            $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $product['id'], $currencyrates);
+            $result = $this->supplier->getdatabyproductidfromdatabase($companyid, 'material_lines', $product['id']);
             $data['products'][$index]['attached'] = false;
 
             $data['products'][$index]['acq_subtotal_without_vat'] = $result['acq_subtotal_without_vat'];
@@ -289,7 +289,6 @@ class Material extends CI_Controller
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
         $this->load->view('dashboard/supplier/payment/head');
-        $this->load->view('dashboard/supplier/payment/shead');
         $this->load->view('dashboard/supplier/payment/body');
         $this->load->view('dashboard/supplier/payment/foot');
         $this->load->view('dashboard/supplier/payment/functions.php');
@@ -330,7 +329,7 @@ class Material extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $currencyrates = $this->session->userdata('currencyRates');
 
-        $data = $this->supplier->linebycodeean($companyid, $codeean, $currencyrates);
+        $data = $this->supplier->linebycodeean($companyid, $codeean);
 
         header('Content-Type: application/json');
         echo json_encode($data);
@@ -354,7 +353,7 @@ class Material extends CI_Controller
         $companyid = $this->session->userdata('companyid');
         $currencyrates = $this->session->userdata('currencyRates');
 
-        $data = $this->supplier->linebyid($companyid, $id, $currencyrates);
+        $data = $this->supplier->linebyid($companyid, $id);
 
         header('Content-Type: application/json');
         echo json_encode($data);
