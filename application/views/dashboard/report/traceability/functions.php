@@ -13,6 +13,9 @@ function viewProductsforNIR(invoice_id, el) {
     const lastaddedindex = $("#viewProductsforNIR").index();
     $("#viewProductsforNIR").remove();
     const etr = $(el).closest('tr');
+    const selectedindex = etr.index();
+    if (lastaddedindex == selectedindex + 1)
+        return;
     const etd = $(etr).find("td");
     const etable = $("#product_body");
     const search = $("#search").val();
