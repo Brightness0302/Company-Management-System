@@ -1,11 +1,11 @@
 <body>
-    <section id="hero" class="align-items-center">
-        <div data-aos="fade-up" data-aos-delay="100">
+    <section id="hero" class="align-items-center" data-aos="fade-up" data-aos-delay="100">
+        <div>
             <a href="<?=base_url('product/index')?>"><button
                     class="backbutton w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-2xl"
                     title="Add New Client">&#8249;</button></a>
         </div>
-        <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
+        <div class="position-relative m-5">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-9 text-center">
                     <h2>Product registration</h2>
@@ -282,7 +282,7 @@
                     <div class="row d-flex justify-content-center align-items-center">
                         <div class="col-sm-8"></div>
                         <div class="col-sm-4">
-                            <table id="total-table" class="table table-bordered table-hover relative text-center" data-aos="fade-up" data-aos-delay="100">
+                            <table id="total-table" class="table table-bordered table-hover relative text-center">
                                 <thead>
                                     <tr>
                                         <th>Name</th>

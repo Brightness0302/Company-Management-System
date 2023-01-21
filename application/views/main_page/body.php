@@ -1,20 +1,20 @@
 <!-- ======= Hero Section ======= -->
 
 <body>
-    <section id="hero" class="align-items-center">
+    <section id="hero" class="align-items-center" data-aos="fade-up" data-aos-delay="100">
         <?php if($user['rank'] == 1):?>
-        <div data-aos="fade-up" data-aos-delay="100">
+        <div>
             <a href="<?=base_url('home/addcompany')?>"><button
                     class="newcompany w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-2xl" for="dialog_state"
                     title="Add New Company">+</button></a>
         </div>
         <?php endif;?>
-        <div data-aos="fade-up" data-aos-delay="100">
+        <div>
             <a href="<?=base_url('home/signview')?>"><button
                     class="backbutton w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-2xl" for="dialog_state"
                     title="goback">&#8249;</button></a>
         </div>
-        <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+        <div class="container position-relative">
             <div class="row justify-content-center">
                 <div class="col-xl-10 col-lg-12 text-center">
                     <p class="container-header">Company Management System</p>
