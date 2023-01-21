@@ -622,6 +622,13 @@ class Client extends CI_Controller
         $invoice_number = $_GET['invoice_number'];
         echo $this->home->isInvoiceNumber($companyid, $invoice_id, $invoice_number);
     }
+
+    public function checkSN() {
+        $companyid = $this->session->userdata('companyid');
+        $code_ean = $this->input->post('code_ean');
+        $serial_number = $this->input->post('serial_number');
+        echo $this->supplier->checkSN($companyid, $code_ean, $serial_number);
+    }
     //If usersession is not exist, goto login page.
     public function check_usersession() {
         if($this->session->userdata('user')) {

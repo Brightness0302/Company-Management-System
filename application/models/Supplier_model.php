@@ -962,4 +962,21 @@ class Supplier_model extends CI_Model {
         $res=$this->db->update('material_lines', $data);
         return $res;
     }
+
+    public function checkSN($companyid, $code_ean, $serial_number) {
+        $this->db->query('use database'.$companyid);
+        
+        $query =    "SELECT *
+                    FROM `material_totalline`
+                    WHERE `serial_number`='$serial_number' AND `isremoved`=false";
+
+        $res = $this->db->query($query)->result_array();
+        if (count($res)>0) {
+            $res = $res[0];
+            if ($code_ean === $res['code_ean'])
+                return true;
+            return false;
+        }
+        return true;
+    }
 }

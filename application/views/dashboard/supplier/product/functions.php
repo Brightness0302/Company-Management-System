@@ -122,6 +122,49 @@ function checkSN(SNs) {
     return false;
 }
 
+function asyncPOST(url, data) {
+    return new Promise(function(resolve, reject) {
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: data, 
+            dataType: "json",
+            beforeSend: function() {
+
+            },
+            success: function(res) {
+                resolve(res);
+            },
+            error: function(err) {
+                reject(err);
+            }
+        });
+    });
+}
+
+async function checkSNforequal(code_ean, SNs) {
+    try {
+        for (var i = 0; i < SNs.length; i++) {
+            const res = await asyncPOST("<?=base_url('client/checkSN')?>", {code_ean: code_ean, serial_number: SNs[i]});
+            if (res != '1')
+                return false;
+
+            const table = document.getElementById("table-body");
+            for (var j = 0, row; row = table.rows[j]; j++) {
+                const tserial_number = $(row.cells[6]).text();
+                console.log(tserial_number);
+                if (tserial_number === SNs[i]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    } catch(e) {
+        console.log(e);
+        return false;
+    }
+}
+
 function refreshSNTable() {
     const quantity_received = $("#quantity_received").val();
     let htmlforSN = "";
@@ -233,7 +276,7 @@ function refreshTotalMark() {
     });
 }
 
-function SaveItem() {
+async function SaveItem() {
     const main_coin = $("#main_coin").val();
     const invoice_coin = $("#invoice_coin").val();
 
@@ -248,7 +291,7 @@ function SaveItem() {
     const expensename = select_expense.options[select_expense.selectedIndex].text;
     const projectname = select_project.options[select_project.selectedIndex].text;
     const code_ean = $("#code_ean").val().split(" - ")[0];
-    const code_ean_id = $("#code_ean").val().split(" - ")[1];
+    const code_ean_id = (($("#code_ean").val().split(" - ").length==2)?$("#code_ean").val().split(" - ")[1]:0);
     const unit = $("#unit").val();
     let SNs = [];
     const invoice_coin_rate = parseFloat($("#invoice_coin_rate").val());
@@ -261,6 +304,15 @@ function SaveItem() {
     const mark_up_percent = $("#mark_up_percent").val();
     let countforSN;
     const typeforSN = $('input[type=radio][name=multi-SN]:checked').val();
+    if (stockid==0 && expenseid==0) {
+        alert("Please, confirm stock, expense, and project again");
+        return;
+    }
+
+    if (mark_up_percent < 0) {
+        alert("Please, input value bigger than 0");
+        return;
+    }
     if (quantity_received > quantity_on_document) {
         alert("Qty_received is bigger than Qty_on_doc now.");
         return;
@@ -278,6 +330,17 @@ function SaveItem() {
     
     if (checkSN(SNs)===false && typeforSN === '1') {
         alert("Please, Fill in the gap for Serial Numbers.");
+        return;
+    }
+
+    if (typeforSN === '0' && SNs[0] === "") {
+        alert("Please, Fill in the gap for Serial Number");
+        return;
+    }
+
+    const res_checkSNforequal = await checkSNforequal(code_ean, SNs);
+    if (res_checkSNforequal===false) {
+        alert("Please, input others for Serial Number");
         return;
     }
 
@@ -393,6 +456,7 @@ function remove_tr(el) {
 }
 
 function edit_tr(el) {
+    $("#section3").hide();
     const etr = $(el).closest('tr');
     const etd = $(etr).find("td");
 
@@ -410,6 +474,9 @@ function edit_tr(el) {
     const quantity_received = $("#quantity_received");
     const mark_up_percent = $("#mark_up_percent");
     let value = 0, value1 = 0;
+    console.log($(etd[28]).text(), (($(etd[28]).text())=="0")?"A":"B");
+
+    const code_ean_value = ((($(etd[28]).text())=="0")?$(etd[0]).text():($(etd[0]).text()+' - '+$(etd[28]).text()));
 
     production_description.val($(etd[4]).text());
     stockid.val($(etd[22]).text());
@@ -418,7 +485,7 @@ function edit_tr(el) {
     expenseid.trigger('change');
     projectid.val($(etd[24]).text());
     projectid.trigger('change');
-    code_ean.val($(etd[0]).text()+' - '+$(etd[28]).text());
+    code_ean.val(code_ean_value);
     code_ean.trigger('change');
     unit.val($(etd[5]).text());
     unit.trigger('change');
@@ -441,7 +508,8 @@ function edit_tr(el) {
     refreshSellingMarkforline();
 }
 
-function save_tr(el) {
+async function save_tr(el) {
+    $("#section3").show();
     const main_coin = $("#main_coin").val();
     const invoice_coin = $("#invoice_coin").val();
 
@@ -470,6 +538,29 @@ function save_tr(el) {
     const quantity_on_document = $("#quantity_on_document").val();
     const mark_up_percent = $("#mark_up_percent").val();
     const quantity_received = $("#quantity_received").val();
+    if (stockid==0 && expenseid==0) {
+        alert("Please, confirm stock, expense, and project again");
+        return;
+    }
+    if (mark_up_percent < 0) {
+        alert("Please, input value bigger than 0");
+        return;
+    }
+
+    if (quantity_received > quantity_on_document) {
+        alert("Qty_received is bigger than Qty_on_doc now.");
+        return;
+    }
+    const res_checkSNforequal = await checkSNforequal(code_ean, {serial_number});
+    if (res_checkSNforequal===false) {
+        alert("Please, input others for Serial Number");
+        return;
+    }
+
+    if (!code_ean || !production_description) {
+        alert("Please, Fill in the gap.");
+        return;
+    }
     $.ajax({
         url: "<?=base_url("material/linebycodeean/")?>" + code_ean_id,
         method: "POST",
@@ -554,8 +645,13 @@ function AddProduct() {
     const main_coin_rate = $("#main_coin_rate").val();
     let lines = [];
 
-    if (!invoice_coin_rate || !main_coin_rate) {
+    if (!invoice_coin_rate || !main_coin_rate || !invoice_number) {
         alert("Please, fill in the gap.");
+        return;
+    }
+
+    if (parseFloat(main_coin_rate)===1.0 && parseFloat(invoice_coin_rate) ===1.0 && main_coin!==invoice_coin) {
+        alert("Main coin rate and Invoice coin rate couldn't be 1");
         return;
     }
 
@@ -661,6 +757,16 @@ function EditProduct(product_id) {
     const invoice_coin_rate = $("#invoice_coin_rate").val();
     const main_coin_rate = $("#main_coin_rate").val();
     let lines = [];
+
+    if (!invoice_coin_rate || !main_coin_rate || !invoice_number) {
+        alert("Please, fill in the gap.");
+        return;
+    }
+
+    if (parseFloat(main_coin_rate)===1.0 && parseFloat(invoice_coin_rate) ===1.0 && main_coin!==invoice_coin) {
+        alert("Main coin rate and Invoice coin rate couldn't be 1");
+        return;
+    }
 
     const table = $("#table-body");
     table.children("tr").each((index, element) => {
