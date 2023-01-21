@@ -261,6 +261,10 @@ function SaveItem() {
     const mark_up_percent = $("#mark_up_percent").val();
     let countforSN;
     const typeforSN = $('input[type=radio][name=multi-SN]:checked').val();
+    if (quantity_received > quantity_on_document) {
+        alert("Qty_received is bigger than Qty_on_doc now.");
+        return;
+    }
     if (typeforSN === '1') {
         SNs = getSN();
         countforSN = SNs.length;

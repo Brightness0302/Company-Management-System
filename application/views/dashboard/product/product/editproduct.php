@@ -230,7 +230,7 @@
                 </div>
             </div>
         </div>
-        <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
+        <div class="position-relative m-5">
             <div class="text-center">
                 <button class="cbutton bg-red" onclick="EditProduct('<?=$product['id']?>')">Save</button> / <a href="<?=base_url('product/productmanagement')?>"><button class="cbutton bg-white">Cancel</button></a>
             </div>

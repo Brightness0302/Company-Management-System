@@ -113,7 +113,7 @@
                 </div>
             </div>
         </div>
-        <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
+        <div class="position-relative m-5">
             <div class="text-center">
                 <button class="cbutton bg-red" onclick="AddOrder()">Save</button> / <a href="<?=base_url('product/internalorder')?>"><button class="cbutton bg-white">Cancel</button></a><button class="cbutton p-2 bg-green rounded-xl mr-2 float-right" onclick="SaveAsPDF()">Save as PDF</button><a id="htmltopdf" href="<?=base_url('product/htmltopdforinternalorder')?>" target="_blank" hidden>Download PDF</a>
             </div>

@@ -431,7 +431,7 @@
                 </div>
             </div>
         </div>
-        <table id="total-table" class="table table-bordered table-hover relative text-center text-xxs" data-aos="fade-up" data-aos-delay="100">
+        <table id="total-table" class="table table-bordered table-hover relative text-center text-xxs">
             <thead>
                 <tr>
                     <th></th>
@@ -461,7 +461,7 @@
                 </tr>
             </tbody>
         </table>
-        <div class="position-relative m-5" data-aos="fade-up" data-aos-delay="100">
+        <div class="position-relative m-5">
             <div class="text-center">
                 <div class="absolute">
                     <label for="file-upload" id="file-text" class="btn btn-outline-secondary" style="color: red; margin: auto;">
