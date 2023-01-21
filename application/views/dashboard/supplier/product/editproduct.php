@@ -421,6 +421,8 @@
                                     <td hidden><?=$line['id']?></td>
                                     <td hidden><?=$line['lineid']?></td>
                                     <td hidden><?=$line['line_id']?></td>
+                                    <td hidden><?=$line['vat']?></td>
+                                    <td hidden><?=$line['makeup']?></td>
                                 </tr>
                             <?php endforeach;?>
                             </tbody>
