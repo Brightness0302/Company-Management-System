@@ -327,6 +327,8 @@ function SaveItem() {
                         "<td hidden>0</td>"+
                         "<td hidden>"+lineid+"</td>"+
                         "<td hidden>"+code_ean_id+"</td>"+
+                        "<td hidden>"+vat_percent+"</td>"+
+                        "<td hidden>"+mark_up_percent+"</td>"+
                         "</tr>"
                     );
 
@@ -370,6 +372,8 @@ function SaveItem() {
                 "<td hidden>0</td>"+
                 "<td hidden>0</td>"+
                 "<td hidden>"+code_ean_id+"</td>"+
+                "<td hidden>"+vat_percent+"</td>"+
+                "<td hidden>"+mark_up_percent+"</td>"+
                 "</tr>"
             );
 
@@ -420,12 +424,12 @@ function edit_tr(el) {
     acq_invoice_price.trigger('change');
     value = $(etd[11]).find("label").text();
     value1 = $(etd[10]).find("label").text();
-    vat_percent.val(parseFloat(value)*100.0/parseFloat(value1));
+    vat_percent.val(($(etd[29]).text()).toFixed(2));
     quantity_on_document.val($(etd[7]).text());
     quantity_received.val($(etd[8]).text());
     value = $(etd[16]).find("label").text();
     value1 = $(etd[10]).find("label").text();
-    mark_up_percent.val(((parseFloat(value)*100.0/parseFloat(value1))-100.0).toFixed(2));
+    mark_up_percent.val(($(etd[30]).text()).toFixed(2));
     mark_up_percent.trigger('change');
 
     $(etd[25]).html("<div id='btn_save_row' onclick='save_tr(this)'><i class='bi bi-save-fill p-1' title='Save'></i></div><div id='btn_cancel_row' onclick='cancel_tr(this)'><i class='bi bi-shield-x p-1' title='Cancel'></i></div>");
@@ -507,6 +511,8 @@ function save_tr(el) {
     $(etd[24]).text(projectid);
     $(etd[25]).html("<div id='btn_edit_row' onclick='edit_tr(this)'><i class='bi custom-edit-icon p-1' title='Edit'></i></div><div id='btn_remove_row' onclick='remove_tr(this)'><i class='bi custom-remove-icon p-1' title='Delete'></i></div>");
     $(etd[28]).text(code_ean_id);
+    $(etd[29]).text(vat_percent);
+    $(etd[30]).text(mark_up_percent);
 
     ClearItem();
     refreshTotalMark();
@@ -564,8 +570,8 @@ function AddProduct() {
             quantity_received:$(etr[8]).text(),
             acquisition_unit_price_on_invoice:$(etr[9]).find("label").text(),
             acquisition_unit_price:$(etr[10]).find("label").text(),
-            vat: parseFloat($(etr[11]).find("label").text())*100.0/parseFloat($(etr[10]).find("label").text()), 
-            makeup: ((parseFloat($(etr[16]).find("label").text())*100.0/parseFloat($(etr[10]).find("label").text()))-100.0),
+            vat: $(etr[29]).text(), 
+            makeup: $(etr[30]).text(),
             lineid:$(etr[27]).text(),
             code_ean_id:$(etr[28]).text(),
         });
@@ -668,8 +674,8 @@ function EditProduct(product_id) {
             quantity_received:$(etr[8]).text(),
             acquisition_unit_price_on_invoice:$(etr[9]).find("label").text(),
             acquisition_unit_price:$(etr[10]).find("label").text(),
-            vat: parseFloat($(etr[11]).find("label").text())*100.0/parseFloat($(etr[10]).find("label").text()), 
-            makeup: ((parseFloat($(etr[16]).find("label").text())*100.0/parseFloat($(etr[10]).find("label").text()))-100.0),
+            vat: $(etr[29]).text(), 
+            makeup: $(etr[30]).text(),
             lineid:$(etr[27]).text(),
             code_ean_id:$(etr[28]).text(),
         });
