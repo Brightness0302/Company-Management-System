@@ -424,12 +424,12 @@ function edit_tr(el) {
     acq_invoice_price.trigger('change');
     value = $(etd[11]).find("label").text();
     value1 = $(etd[10]).find("label").text();
-    vat_percent.val(($(etd[29]).text()).toFixed(2));
+    vat_percent.val(Number($(etd[29]).text()).toFixed(2));
     quantity_on_document.val($(etd[7]).text());
     quantity_received.val($(etd[8]).text());
     value = $(etd[16]).find("label").text();
     value1 = $(etd[10]).find("label").text();
-    mark_up_percent.val(($(etd[30]).text()).toFixed(2));
+    mark_up_percent.val(Number($(etd[30]).text()).toFixed(2));
     mark_up_percent.trigger('change');
 
     $(etd[25]).html("<div id='btn_save_row' onclick='save_tr(this)'><i class='bi bi-save-fill p-1' title='Save'></i></div><div id='btn_cancel_row' onclick='cancel_tr(this)'><i class='bi bi-shield-x p-1' title='Cancel'></i></div>");
