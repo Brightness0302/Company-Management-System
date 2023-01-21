@@ -76,8 +76,8 @@ $(document).ready(function() {
                 unit.val(line['units']);
                 unit.trigger('change');
                 serial_number.val(line['serial_number']);
-                vat_percent.val(line['vat']);
-                mark_up_percent.val(line['makeup']);
+                vat_percent.val(Number(line['vat']).toFixed(2));
+                mark_up_percent.val(Number(line['makeup']).toFixed(2));
                 acq_invoice_price.val(line['acquisition_unit_price_on_invoice']);
                 acq_invoice_price.trigger('change');
 
