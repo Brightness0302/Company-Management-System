@@ -311,19 +311,19 @@ function SaveItem() {
                         "<td>"+serial_number+"</td>"+
                         "<td>"+quantity_on_document+"</td>"+
                         "<td>"+quantity_received+"</td>"+
-                        "<td><label class='m-auto inline-block'>"+acq_invoice_price+"</label><div class='inline-block invoice_coin'>"+invoice_coin+"</div></td>"+
-                        "<td><label class='m-auto inline-block'>"+acquisition_unit_price+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*vat_percent/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*quantity_on_document).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                        "<td><label class='m-auto inline-block'>"+((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                        "<td><label class='m-auto inline-block'>"+((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*vat_percent/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+acq_invoice_price+"</label> <div class='inline-block invoice_coin'>"+invoice_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+acquisition_unit_price+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*vat_percent/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*quantity_on_document).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*vat_percent/100.0/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                        "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
                         "<td hidden>"+stockid+"</td>"+
                         "<td hidden>"+expenseid+"</td>"+
                         "<td hidden>"+projectid+"</td>"+
@@ -356,19 +356,19 @@ function SaveItem() {
                 "<td>"+serial_number+"</td>"+
                 "<td>"+quantity_on_document+"</td>"+
                 "<td>"+quantity_received+"</td>"+
-                "<td><label class='m-auto inline-block'>"+acq_invoice_price+"</label><div class='inline-block invoice_coin'>"+invoice_coin+"</div></td>"+
-                "<td><label class='m-auto inline-block'>"+acquisition_unit_price+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*vat_percent/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*quantity_on_document).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                "<td><label class='m-auto inline-block'>"+((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                "<td><label class='m-auto inline-block'>"+((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*vat_percent/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
-                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</label><div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+acq_invoice_price+"</label> <div class='inline-block invoice_coin'>"+invoice_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+acquisition_unit_price+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*vat_percent/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*quantity_on_document).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+((acquisition_unit_price*quantity_on_document)*(parseFloat(vat_percent)+100.0)/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*vat_percent/100.0/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*vat_percent/100.0/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
+                "<td><label class='m-auto inline-block'>"+(acquisition_unit_price*(parseFloat(mark_up_percent)+100.0)*quantity_on_document*(parseFloat(vat_percent)+100.0)/100.0/100.0).toFixed(2)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div></td>"+
                 "<td hidden>0</td>"+
                 "<td hidden>"+expenseid+"</td>"+
                 "<td hidden>"+projectid+"</td>"+

@@ -398,19 +398,19 @@
                                     <td><?=$line['serial_number']?></td>
                                     <td><?=$line['quantity_on_document']?></td>
                                     <td><?=$line['quantity_received']?></td>
-                                    <td><label class='m-auto inline-block'><?=$line['acquisition_unit_price_on_invoice']?></label><div class='inline-block main_coin'><?=$product['invoice_coin']?></div></td>
-                                    <td><label class='m-auto inline-block'><?=$line['acquisition_unit_price']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
-                                    <td><label class='m-auto inline-block'><?=$line['acquisition_vat_value']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
-                                    <td><label class='m-auto inline-block'><?=$line['acquisition_unit_price_with_vat']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
-                                    <td><label class='m-auto inline-block'><?=$line['amount_without_vat']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
-                                    <td><label class='m-auto inline-block'><?=$line['amount_vat_value']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
-                                    <td><label class='m-auto inline-block'><?=$line['total_amount']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
-                                    <td><label class='m-auto inline-block'><?=$line['selling_unit_price_without_vat']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
-                                    <td><label class='m-auto inline-block'><?=$line['selling_unit_vat_value']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
-                                    <td><label class='m-auto inline-block'><?=$line['selling_unit_price_with_vat']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
-                                    <td><label class='m-auto inline-block'><?=$line['selling_unit_price_without_vat']*$line['quantity_on_document']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div class='inline-block main_coin'></td>
-                                    <td><label class='m-auto inline-block'><?=$line['selling_unit_vat_value']*$line['quantity_on_document']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div class='inline-block main_coin'></td>
-                                    <td><label class='m-auto inline-block'><?=$line['selling_unit_price_with_vat']*$line['quantity_on_document']?></label><div class='inline-block main_coin'><?=$product['main_coin']?></div class='inline-block main_coin'></td>
+                                    <td><label class='m-auto inline-block'><?=$line['acquisition_unit_price_on_invoice']?></label> <div class='inline-block main_coin'><?=$product['invoice_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['acquisition_unit_price']?></label> <div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['acquisition_vat_value']?></label> <div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['acquisition_unit_price_with_vat']?></label> <div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['amount_without_vat']?></label> <div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['amount_vat_value']?></label> <div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['total_amount']?></label> <div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['selling_unit_price_without_vat']?></label> <div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['selling_unit_vat_value']?></label> <div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['selling_unit_price_with_vat']?></label> <div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=$line['selling_unit_price_without_vat']*$line['quantity_on_document']?></label> <div class='inline-block main_coin'><?=$product['main_coin']?></div class='inline-block main_coin'></td>
+                                    <td><label class='m-auto inline-block'><?=$line['selling_unit_vat_value']*$line['quantity_on_document']?></label> <div class='inline-block main_coin'><?=$product['main_coin']?></div class='inline-block main_coin'></td>
+                                    <td><label class='m-auto inline-block'><?=$line['selling_unit_price_with_vat']*$line['quantity_on_document']?></label> <div class='inline-block main_coin'><?=$product['main_coin']?></div class='inline-block main_coin'></td>
                                     <td hidden><?=$line['stockid']?></td>
                                     <td hidden><?=$line['expenseid']?></td>
                                     <td hidden><?=$line['projectid']?></td>
