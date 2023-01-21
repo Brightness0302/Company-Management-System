@@ -398,8 +398,8 @@
                                     <td><?=$line['serial_number']?></td>
                                     <td><?=$line['quantity_on_document']?></td>
                                     <td><?=$line['quantity_received']?></td>
-                                    <td><label class='m-auto inline-block'><?=$line['acquisition_unit_price_on_invoice']?></label> <div class='inline-block main_coin'><?=$product['invoice_coin']?></div></td>
-                                    <td><label class='m-auto inline-block'><?=$line['acquisition_unit_price']?></label> <div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=number_format($line['acquisition_unit_price_on_invoice'], 2, '.', "")?></label> <div class='inline-block main_coin'><?=$product['invoice_coin']?></div></td>
+                                    <td><label class='m-auto inline-block'><?=number_format($line['acquisition_unit_price'], 2, '.', "")?></label> <div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
                                     <td><label class='m-auto inline-block'><?=$line['acquisition_vat_value']?></label> <div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
                                     <td><label class='m-auto inline-block'><?=$line['acquisition_unit_price_with_vat']?></label> <div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
                                     <td><label class='m-auto inline-block'><?=$line['amount_without_vat']?></label> <div class='inline-block main_coin'><?=$product['main_coin']?></div></td>
