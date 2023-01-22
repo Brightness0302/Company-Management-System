@@ -144,6 +144,8 @@ function asyncPOST(url, data) {
 
 async function checkSNforequal(code_ean, SNs) {
     try {
+        if (SNs.length == 1 && SNs[0] == "")
+            return true;
         for (var i = 0; i < SNs.length; i++) {
             const res = await asyncPOST("<?=base_url('client/checkSN')?>", {code_ean: code_ean, serial_number: SNs[i]});
             if (res != '1')
