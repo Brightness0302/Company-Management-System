@@ -581,11 +581,6 @@ async function save_tr(el) {
         return;
     }
 
-    if (Duplicate(SNs)===false && typeforSN === '1') {
-        alert("Duplicate SNs.");
-        return;
-    }
-
     const res_checkSNforequal = await checkSNforequal(code_ean, {serial_number});
     if (res_checkSNforequal===false) {
         alert("SN already exsists in the DB.");
