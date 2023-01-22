@@ -320,7 +320,7 @@ async function SaveItem() {
         alert("Please, input value bigger than 0 for Qty_on_doc");
         return;
     }
-    
+
     if (quantity_received > quantity_on_document) {
         alert("Qty_received is bigger than Qty_on_doc now.");
         return;
@@ -347,8 +347,13 @@ async function SaveItem() {
         return;
     }
 
-    if (!code_ean || !production_description) {
-        alert("Please, Fill in the gap.");
+    if (!code_ean) {
+        alert("Please, Fill in the gap for code ean.");
+        return;
+    }
+
+    if (!production_description) {
+        alert("Please, Fill in the gap for production description.");
         return;
     }
 
@@ -566,10 +571,16 @@ async function save_tr(el) {
         return;
     }
 
-    if (!code_ean || !production_description) {
-        alert("Please, Fill in the gap.");
+    if (!code_ean) {
+        alert("Please, Fill in the gap for code ean.");
         return;
     }
+
+    if (!production_description) {
+        alert("Please, Fill in the gap for production description.");
+        return;
+    }
+    
     $.ajax({
         url: "<?=base_url("material/linebycodeean/")?>" + code_ean_id,
         method: "POST",
