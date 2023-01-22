@@ -311,7 +311,7 @@ async function SaveItem() {
         return;
     }
 
-    if (mark_up_percent < 0) {
+    if (mark_up_percent <= 0 || quantity_on_document <= 0) {
         alert("Please, input value bigger than 0");
         return;
     }
@@ -539,7 +539,7 @@ async function save_tr(el) {
         alert("Please, confirm stock, expense, and project again");
         return;
     }
-    if (mark_up_percent < 0) {
+    if (mark_up_percent <= 0 || quantity_on_document <= 0) {
         alert("Please, input value bigger than 0");
         return;
     }
