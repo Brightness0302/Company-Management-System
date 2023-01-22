@@ -122,6 +122,16 @@ function checkSN(SNs) {
     return false;
 }
 
+function Duplicate(SNs) {
+    for (var i=0; i<SNs.length; i++) {
+        for (var j=i+1; j<SNs.length; j++) {
+            if (SNs[i] == SNs[j])
+                return false;
+        }
+    }
+    return true;
+}
+
 function asyncPOST(url, data) {
     return new Promise(function(resolve, reject) {
         $.ajax({
@@ -341,9 +351,14 @@ async function SaveItem() {
         return;
     }
 
+    if (Duplicate(SNs)===false && typeforSN === '1') {
+        alert("Duplicate SNs.");
+        return;
+    }
+
     const res_checkSNforequal = await checkSNforequal(code_ean, SNs);
     if (res_checkSNforequal===false) {
-        alert("Please, input others for Serial Number");
+        alert("SN already exsists in the DB.");
         return;
     }
 
@@ -565,9 +580,15 @@ async function save_tr(el) {
         alert("Qty_received is bigger than Qty_on_doc now.");
         return;
     }
+
+    if (Duplicate(SNs)===false && typeforSN === '1') {
+        alert("Duplicate SNs.");
+        return;
+    }
+
     const res_checkSNforequal = await checkSNforequal(code_ean, {serial_number});
     if (res_checkSNforequal===false) {
-        alert("Please, input others for Serial Number");
+        alert("SN already exsists in the DB.");
         return;
     }
 
@@ -580,7 +601,7 @@ async function save_tr(el) {
         alert("Please, Fill in the gap for production description.");
         return;
     }
-    
+
     $.ajax({
         url: "<?=base_url("material/linebycodeean/")?>" + code_ean_id,
         method: "POST",
