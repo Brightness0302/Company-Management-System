@@ -318,56 +318,55 @@
                 <button class="cbutton bg-red" onclick="AddProduct()">Save</button> / <a href="<?=base_url('product/index')?>"><button class="cbutton bg-white">Cancel</button></a><button class="cbutton p-2 bg-green rounded-xl mr-2 float-right" onclick="SaveAsPDF()">Save as PDF</button><a id="htmltopdf" href="<?=base_url('product/htmltopdf')?>" target="_blank" hidden>Download PDF</a>
             </div>
         </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="productfromstock" tabindex="-1" role="dialog" aria-labelledby="productfromstock" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 800px;">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Product from stock</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="row m-1">
-                    <div class="col-sm-3">
-                        <div class="w-full m-3 form-control">Stock:</div>
-                        <div class="w-full m-3 form-control">Product:</div>
-                        <div class="w-full m-3 form-control">Amount:</div>
+    </section><!-- End Hero -->
+    <!-- Modal -->
+    <div class="modal fade" id="productfromstock" tabindex="-1" role="dialog" aria-labelledby="productfromstock" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 800px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Product from stock</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row m-1">
+                <div class="col-sm-3">
+                    <div class="w-full m-3 form-control">Stock:</div>
+                    <div class="w-full m-3 form-control">Product:</div>
+                    <div class="w-full m-3 form-control">Amount:</div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="ml-3 m-3">
+                        <select class="form-select w-full" id="stockid">
+                        <?php foreach ($stocks as $index => $stock):?>
+                            <option value="<?=$stock['id']?>">
+                                <?=$stock['name']?>
+                            </option>
+                        <?php endforeach;?>
+                        </select>
                     </div>
-                    <div class="col-sm-9">
-                        <div class="ml-3 m-3">
-                            <select class="form-select w-full" id="stockid">
-                            <?php foreach ($stocks as $index => $stock):?>
-                                <option value="<?=$stock['id']?>">
-                                    <?=$stock['name']?>
-                                </option>
-                            <?php endforeach;?>
-                            </select>
-                        </div>
-                        <div class="ml-3 m-3">
-                            <select class="form-select w-full" id="material_code_ean">
-                            </select>
-                        </div>
-                        <div class="m-3">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <input class="form-control" type="number" name="amount" id="material_amount" value="0" max="99" min="0">
-                                </div>
-                                <div class="col-sm-8">
-                                    <p class="text-center text-red text-base" id="amount_hint">0 products on stock</p>
-                                </div>
+                    <div class="ml-3 m-3">
+                        <select class="form-select w-full" id="material_code_ean">
+                        </select>
+                    </div>
+                    <div class="m-3">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input class="form-control" type="number" name="amount" id="material_amount" value="0" max="99" min="0">
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="text-center text-red text-base" id="amount_hint">0 products on stock</p>
                             </div>
                         </div>
                     </div>
                 </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="save_product" data-dismiss="modal">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
             </div>
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="save_product" data-dismiss="modal">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
         </div>
-    </section><!-- End Hero -->
+      </div>
+    </div>
