@@ -99,7 +99,7 @@ class Supplier_model extends CI_Model {
                     $acquisition_unit_price_on_invoice = $line['acquisition_unit_price_on_invoice'];
                     $query =    "SELECT *
                                 FROM `material_totalline`
-                                WHERE `stockid` = '$stockid' AND `expenseid` = '$expenseid' AND `serial_number` = '$serial_number' AND `units` = '$units' AND `vat` = '$vat' AND `makeup` = '$makeup' AND abs(`invoice_coin_rate` - '$invoice_coin_rate') <= 0.00001  AND `invoice_coin` = '$invoice_coin' AND abs(`main_coin_rate` - '$main_coin_rate') <= 0.00001 AND `main_coin` = '$main_coin' AND `acquisition_unit_price_on_invoice` = '$acquisition_unit_price_on_invoice'";
+                                WHERE `stockid` = '$stockid' AND `expenseid` = '$expenseid' AND `serial_number` = '$serial_number' AND `units` = '$units' AND `vat` = '$vat' AND `makeup` = '$makeup' AND abs(`invoice_coin_rate` - '$invoice_coin_rate') <= 0.00001  AND `invoice_coin` = '$invoice_coin' AND abs(`main_coin_rate` - '$main_coin_rate') <= 0.00001 AND `main_coin` = '$main_coin' AND abs(`acquisition_unit_price_on_invoice` - '$acquisition_unit_price_on_invoice') <= 0.00001";
 
                     $data = $this->db->query($query)->result_array();
 
@@ -203,9 +203,7 @@ class Supplier_model extends CI_Model {
                     $acquisition_unit_price_on_invoice = $line['acquisition_unit_price_on_invoice'];
                     $query =    "SELECT *
                                 FROM `material_totalline`
-                                WHERE `stockid` = '$stockid' AND `expenseid` = '$expenseid' AND `serial_number` = '$serial_number' AND `units` = '$units' AND `vat` = '$vat' AND `makeup` = '$makeup' AND abs(`invoice_coin_rate` - '$invoice_coin_rate') <= 0.00001  AND `invoice_coin` = '$invoice_coin' AND abs(`main_coin_rate` - '$main_coin_rate') <= 0.00001 AND `main_coin` = '$main_coin' AND `acquisition_unit_price_on_invoice` = '$acquisition_unit_price_on_invoice'";
-                    echo $query;
-                    return;
+                                WHERE `stockid` = '$stockid' AND `expenseid` = '$expenseid' AND `serial_number` = '$serial_number' AND `units` = '$units' AND `vat` = '$vat' AND `makeup` = '$makeup' AND abs(`invoice_coin_rate` - '$invoice_coin_rate') <= 0.00001  AND `invoice_coin` = '$invoice_coin' AND abs(`main_coin_rate` - '$main_coin_rate') <= 0.00001 AND `main_coin` = '$main_coin' AND abs(`acquisition_unit_price_on_invoice` - '$acquisition_unit_price_on_invoice') <= 0.00001";
 
                     $data = $this->db->query($query)->result_array();
 
@@ -516,7 +514,7 @@ class Supplier_model extends CI_Model {
 
         $this->db->where('id', $id);
         $res=$this->db->update('material', $data);
-        return $this->savelines($companyid, $id, $main_coin, $invoice_coin, $invoice_coin_rate, $main_coin_rate, $lines);
+        $this->savelines($companyid, $id, $main_coin, $invoice_coin, $invoice_coin_rate, $main_coin_rate, $lines);
         return $res;
     }
     //get date_of_reception, product_number, received_with_document for invoice
