@@ -1,6 +1,6 @@
 <body>
     <section id="hero" class="align-items-center" data-aos="fade-up" data-aos-delay="100">
-        <div>
+        <div class="fixed">
             <a href="<?=base_url('product/internalorder')?>"><button
                     class="backbutton w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-2xl"
                     title="Add New Client">&#8249;</button></a>

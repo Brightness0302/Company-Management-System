@@ -3,13 +3,13 @@
 <body>
     <section id="hero" class="align-items-center" data-aos="fade-up" data-aos-delay="100">
         <?php if($user['rank'] == 1):?>
-        <div>
+        <div class="fixed">
             <a href="<?=base_url('home/addcompany')?>"><button
                     class="newcompany w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-2xl" for="dialog_state"
                     title="Add New Company">+</button></a>
         </div>
         <?php endif;?>
-        <div>
+        <div class="fixed">
             <a href="<?=base_url('home/signview')?>"><button
                     class="backbutton w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-2xl" for="dialog_state"
                     title="goback">&#8249;</button></a>
