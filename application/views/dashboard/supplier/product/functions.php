@@ -333,11 +333,6 @@ async function SaveItem() {
         return;
     }
 
-    if (typeforSN === '0' && SNs[0] === "") {
-        alert("Please, Fill in the gap for Serial Number");
-        return;
-    }
-
     const res_checkSNforequal = await checkSNforequal(code_ean, SNs);
     if (res_checkSNforequal===false) {
         alert("Please, input others for Serial Number");
