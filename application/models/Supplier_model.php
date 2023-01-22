@@ -364,20 +364,17 @@ class Supplier_model extends CI_Model {
     }
 
     public function alllinesfromdatabase($companyid, $table) {
-        $company = $this->home->databyid($companyid, 'company')['data'];
-        $target_coin = (($company['Coin']=='EURO')?"EUR":(($company['Coin']=='POUND')?"GBP":(($company['Coin']=='USD')?"USD":(($company['Coin']=='LEI')?"RON":""))));
-
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
 
         $query =    "SELECT *
                     FROM `$table`
-                    WHERE `isremoved`=false";
+                    INNER JOIN `stock` ON `stockid`=stock.id
+                    WHERE material_totalline.isremoved=false";
 
         $tlines = $this->db->query($query)->result_array();
 
         foreach ($tlines as $index => $line) {
-            $invoice_coin = (($line['invoice_coin']=='€')?"EUR":(($line['invoice_coin']=='£')?"GBP":(($line['invoice_coin']=='$')?"USD":(($line['invoice_coin']=='LEI')?"RON":""))));
             $tlines[$index]['acquisition_unit_price'] = $this->currencyConverterRate($line['acquisition_unit_price_on_invoice'], $line['main_coin_rate'], $line['invoice_coin_rate']);
         }
         return $tlines;

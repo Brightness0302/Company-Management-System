@@ -263,6 +263,7 @@
                                                 <?=$stock['name']?>
                                             </option>
                                         <?php endforeach;?>
+                                            <option value="0">All Stocks</option>
                                         </select>
                                     </div>
                                     <div class="m-3">

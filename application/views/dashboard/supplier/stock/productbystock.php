@@ -1,3 +1,4 @@
+<?php $menu = $this->session->flashdata('menu');?>
 <a class="btn btn-info mb-2" href="javascript:window.history.go(-1);"><i class="bi bi-backspace"></i></a>
 <table id="productbystock" class="table table-bordered table-hover">
     <thead class="text-center">
@@ -6,6 +7,7 @@
             <th>Code EAN</th>
             <th>Description</th>
             <th>SN</th>
+            <?=(($menu['second-submenu']=="stock - *All")?"<th>Stock</th>":"")?>
             <th>Qty</th>
             <th>ACQ price Ex VAT</th>
             <th id="upaquisition">ACQ amount Ex VAT</th>
@@ -34,6 +36,7 @@
             <td class="text-center"><?=$line['code_ean']?></td>
             <td class="text-left"><?=$line['production_description']?></td>
             <td class="text-center"><?=$line['serial_number']?></td>
+            <?=(($menu['second-submenu']=="stock - *All")?'<td>'.$line['name'].'</td>':"")?>
             <td><?=$line['qty']?></td>
             <td><?=number_format($line['acquisition_unit_price'], 2, '.', "")?></td>
             <td><?=number_format(($line['acquisition_unit_price']*floatval($line['qty'])), 2, '.', "")?></td>

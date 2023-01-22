@@ -196,7 +196,8 @@ function refreshproductbystockid(stockid) {
             var string = "";
             var isfirst = true;
             res.forEach((line) => {
-                if (line['stockid']==stockid) {
+                console.log(line['serial_number']!="", line['qty']>0);
+                if ((line['stockid']==stockid || stockid == 0) && ((line['qty']>0 && line['serial_number']!="") || (line['serial_number']==""))) {
                     string += "<option value="+line['id']+">"+line['code_ean']+" - "+line['production_description']+" [ "+line['serial_number']+" ]</option>";
                     if (isfirst == true) {
                         console.log(line);

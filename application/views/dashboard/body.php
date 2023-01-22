@@ -1,6 +1,5 @@
 <!-- ======= Hero Section ======= -->
 <?php $menu = $this->session->flashdata('menu');?>
-<?=$menu['second-submenu']?>
 <body style="font-size: 13px !important;">
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
@@ -226,7 +225,7 @@
                             </li>
                             <li>
                                 <a href="<?=base_url("stock/showproductbystock")?>" style="padding-left: 56px;">
-                                    <i class="bi <?=($menu['second-submenu']=="stock - All")?"bi-circle-fill":"bi-circle"?>"></i><span>All Stocks</span>
+                                    <i class="bi <?=($menu['second-submenu']=="stock - *All")?"bi-circle-fill":"bi-circle"?>"></i><span>All Stocks</span>
                                 </a>
                             </li>
                         </ul>

@@ -70,7 +70,7 @@ class Stock extends CI_Controller
         }
         else {
             $data['products'] = $this->supplier->alllinesfromdatabase($companyid, 'material_totalline');
-            $session['second-submenu']="stock - All";
+            $session['second-submenu']="stock - *All";
         }
         $this->session->set_flashdata('menu', $session);
 
@@ -89,7 +89,13 @@ class Stock extends CI_Controller
         $stock_id = $_GET['stock_id'];
         $companyid = $this->session->userdata('companyid');
         
-        $products = $this->supplier->alldatabystockidfromdatabase($companyid, 'material_totalline', $stock_id);
+        
+        if ($stock_id == 0) {
+            $products = $this->home->alldatafromdatabase($companyid, 'material_totalline');
+        }
+        else {
+            $products = $this->supplier->alldatabystockidfromdatabase($companyid, 'material_totalline', $stock_id);
+        }
         
         //add the header here
         header('Content-Type: application/json');
