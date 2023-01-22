@@ -142,7 +142,7 @@
                             </td>
                             <td>
                                 <div style="flex-direction: column;">
-                                    <p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 15px !important;"><?=(($line['description'])?$line['description']:'No Description')?><?=(($line['SN'])?('(SN: '.$line['SN'].')'):"")?></p>
+                                    <p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 15px !important;"><?=(($line['description'])?$line['description']:'No Description')?><?=(($line['SN']!="")?('(SN: '.$line['SN'].')'):"")?></p>
                                     <?php if($line['discount']):?>
                                         <p style="text-align: center;" class="p-0" class="font-normal">Discount: <?=$line['discount']?> %</p>
                                     <?php endif;?>
