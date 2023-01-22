@@ -686,8 +686,13 @@ function AddProduct() {
     const main_coin_rate = $("#main_coin_rate").val();
     let lines = [];
 
-    if (!invoice_coin_rate || !main_coin_rate || !invoice_number) {
-        alert("Please, fill in the gap.");
+    if (!invoice_coin_rate || !main_coin_rate) {
+        alert("Please, fill in the gap for coin rate");
+        return;
+    }
+
+    if (!invoice_number) {
+        alert("Please, fill in the gap for invoice number");
         return;
     }
 
@@ -799,8 +804,13 @@ function EditProduct(product_id) {
     const main_coin_rate = $("#main_coin_rate").val();
     let lines = [];
 
-    if (!invoice_coin_rate || !main_coin_rate || !invoice_number) {
-        alert("Please, fill in the gap.");
+    if (!invoice_coin_rate || !main_coin_rate) {
+        alert("Please, fill in the gap for coin rate");
+        return;
+    }
+
+    if (!invoice_number) {
+        alert("Please, fill in the gap for invoice number");
         return;
     }
 
