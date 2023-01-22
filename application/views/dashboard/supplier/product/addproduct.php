@@ -264,7 +264,7 @@
                             </div>
                             <div class="col-md-3 text-center">
                                 <table class="table my-2 h-56" style="border: 1px solid gray; text-align: left">
-                                    <tr>
+                                    <tr id="want_to_add_multiple_sn">
                                         <td style="border: 1px solid black"><label class="my-2">Want to add multiple SN: </label></td>
                                         <td>
                                             <div class="m-auto">
@@ -305,7 +305,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="section3" class="row d-flex justify-content-center align-items-center m-2">
+                    <div id="section3" class="row justify-content-center align-items-center m-2">
                         <div class="flex justify-end gap-3">
                             <button class="btn btn-primary" onclick="SaveItem()">Save Item</button>
                             <button class="btn btn-default" onclick="ClearItem()">Clear Item</button>

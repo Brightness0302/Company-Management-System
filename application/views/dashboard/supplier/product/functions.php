@@ -90,12 +90,12 @@ $(document).ready(function() {
     });
     $('input[type=radio][name=multi-SN]').change(function() {
         if (this.value === '1') {
-            $("#SN_input").hide();
-            $("#SN_btn").show();
+            $("#SN_input").fadeOut();
+            $("#SN_btn").fadeIn();
         }
         else if (this.value === '0') {
-            $("#SN_input").show();
-            $("#SN_btn").hide();
+            $("#SN_input").fadeIn();
+            $("#SN_btn").fadeOut();
         }
     });
     $('#quantity_received').change(function() {
@@ -479,7 +479,9 @@ function remove_tr(el) {
 }
 
 function edit_tr(el) {
-    $("#section3").hide();
+    $("#section3").fadeOut();
+    $("#want_to_add_multiple_sn").fadeOut();
+    $('#no_for_multi-SN').trigger('click');
     const etr = $(el).closest('tr');
     const etd = $(etr).find("td");
 
@@ -532,7 +534,9 @@ function edit_tr(el) {
 }
 
 async function save_tr(el) {
-    $("#section3").show();
+    $("#section3").fadeIn();
+    $("#want_to_add_multiple_sn").fadeIn();
+    $('#no_for_multi-SN').trigger('click');
     const main_coin = $("#main_coin").val();
     const invoice_coin = $("#invoice_coin").val();
 
@@ -650,6 +654,9 @@ async function save_tr(el) {
 }
 
 function cancel_tr(el) {
+    $("#section3").fadeIn();
+    $("#want_to_add_multiple_sn").fadeIn();
+    $('#no_for_multi-SN').trigger('click');
     const etr = $(el).closest('tr');
     const etd = $(etr).find("td");
 
