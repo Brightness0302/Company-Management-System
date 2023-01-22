@@ -76,8 +76,12 @@ input:focus {
     right: 0px;
 }
 
-.no_broder{
+.no_border {
     border: 0px;
+}
+
+.border_red {
+    border: 1px red solid;
 }
 
 .text_right{
