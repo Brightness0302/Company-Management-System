@@ -137,45 +137,45 @@
                 <button class="cbutton bg-red" onclick="AddProject()">Save</button> / <a href="<?=$_SERVER['HTTP_REFERER']?>"><button class="cbutton bg-white">Cancel</button></a>
             </div>
         </div>
+    </section><!-- End Hero -->
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 800px;">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Clients</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <table id="table_in_modal" class="table table-bordered table-hover">
-                  <thead>
-                      <tr>
-                        <th>No</th>
-                        <th>C.Name</th>
-                        <th>C.Reference</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                    <?php $index = 0;?>
-                    <?php foreach ($clients as $client):?>
-                    <?php if(!$client['isremoved']):?>
-                    <?php $index++;?>
-                    <tr onclick="clickclient('<?=$client['id']?>', '<?=str_replace("_"," ", $client['name'])?>')" data-dismiss="modal">
-                        <td><?=$index?></td>
-                        <td><?=str_replace("_"," ", $client['name'])?></td>
-                        <td><?=$client['Ref']?></td>
-                    </tr>
-                    <?php endif;?>
-                    <?php endforeach;?>
-                  </tbody>
-                </table>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 800px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Clients</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table id="table_in_modal" class="table table-bordered table-hover">
+              <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>C.Name</th>
+                    <th>C.Reference</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <?php $index = 0;?>
+                <?php foreach ($clients as $client):?>
+                <?php if(!$client['isremoved']):?>
+                <?php $index++;?>
+                <tr onclick="clickclient('<?=$client['id']?>', '<?=str_replace("_"," ", $client['name'])?>')" data-dismiss="modal">
+                    <td><?=$index?></td>
+                    <td><?=str_replace("_"," ", $client['name'])?></td>
+                    <td><?=$client['Ref']?></td>
+                </tr>
+                <?php endif;?>
+                <?php endforeach;?>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
-    </section><!-- End Hero -->
+      </div>
+    </div>
