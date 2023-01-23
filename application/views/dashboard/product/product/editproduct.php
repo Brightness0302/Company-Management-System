@@ -183,7 +183,7 @@
                                         <td style="border : 1px solid black"><label class="my-2">Wi-Fi MAC Address:</label></td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="text" class="form-control" id="wifi_mac" value="<?=$product['wifi-mac_address']?>" title="Choose your color">
+                                                <input type="text" class="form-control" id="wifi_mac" value="<?=$product['wifi-mac_address']?>" placeholder="NA" title="Choose your color">
                                             </div>
                                         </td>
                                     </tr>
