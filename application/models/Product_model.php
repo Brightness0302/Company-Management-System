@@ -138,6 +138,18 @@ class Product_model extends CI_Model {
         return $recipe;
     }
 
+    public function deductionproduct($companyid, $table, $material_id) {
+        $this->db->query('use database'.$companyid);
+
+        $data = array(
+            'qty'=>0, 
+            'isremoved'=>TRUE
+        );
+
+        $this->db->where('id', $material_id);
+        $res=$this->db->update($table, $data);
+    }
+
     public function createProduct($companyid, $production_description, $code_ean, $serial_number, $stockid, $unit, $markup, $product_user, $product_date, $order_number, $lan_mac, $wifi_mac, $plug_standard, $observation) {
         $this->db->query('use database'.$companyid);
 
@@ -220,6 +232,22 @@ class Product_model extends CI_Model {
         $this->db->where('id', $id);
         $res=$this->db->update('product', $data);
         return $res;
+    }
+
+    public function delProduct($companyid, $id) {
+        $this->db->query('use database'.$companyid);
+
+        $query =    "SELECT *
+                    FROM `product`
+                    WHERE `id`='$id' AND `isremoved`=false";
+
+        $data = $this->db->query($query)->result_array();
+        if (count($data) == 0) {
+            return -1;
+        }
+        $data = $data[0];
+        $this->refreshmaterials($companyid, 'product_recipe', $data['product_description']);
+        $this->deductionproduct($companyid, 'material_totalline', $data['materialid']);
     }
 
     public function createOrder($companyid, $order_date, $order_observation, $product_description, $product_qty) {
