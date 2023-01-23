@@ -330,12 +330,13 @@ class Product extends CI_Controller
         $data['product'] = $product['data'];
 
         $materials = json_decode($data['product']['materials'], true);
-        $materials = array_reverse($materials);
+        $del_counts = 0;
         foreach ($materials as $index => $material) {
             $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
 
             if ($result == -1) {
-                array_splice($materials,$index,1);
+                array_splice($materials,$index - $del_counts,1);
+                $del_counts++;
             }
             else {
                 $materials[$index]['code_ean'] = $result['code_ean'];
@@ -343,7 +344,6 @@ class Product extends CI_Controller
                 $materials[$index]['selling_unit_price_without_vat'] = $result['selling_unit_price_without_vat'];
             }
         }
-        $materials = array_reverse($materials);
         $data['product']['materials'] = json_encode($materials);
 
         $session['menu']="Products";
