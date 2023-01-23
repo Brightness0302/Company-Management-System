@@ -4,10 +4,16 @@ $(document).ready(function() {
 
     $("input").change(function() {
         const id = this.id;
+        if (id == "labour_time" || id == "labour_hourly" || id == "production_count" || id =="auxiliary_expense") {
+            if (this.value == "" || isNaN(parseFloat(this.value)))
+                this.value = "0.0";
+        }
+
         if (id == "labour_time" || id == "labour_hourly") {
             refreshLaborTotal();
         }
     });
+
     $("#product_coin").change(function() {
         const els = $(".coin");
         els.each((index, element) => {
@@ -177,7 +183,7 @@ function SaveItem1() {
     const amount = $("#production_count").val();
     const total_amount = $("#total_amount").val();
     if (!code_ean) {
-        alert("Please, fill in the gap.");
+        alert("You should select item on Code EAN.");
         return;
     }
     $.ajax({
@@ -216,8 +222,18 @@ function SaveItem2() {
     const labour_time = $("#labour_time").val();
     const labour_hourly = $("#labour_hourly").val();
     const labour_total = $("#labour_total").val();
-    if (!labour_name || !labour_time || !labour_hourly) {
-        alert("Please, fill in the gap.");
+    if (!labour_name) {
+        alert("Input field for Labour Name is Empty.");
+        return;
+    }
+
+    if (parseFloat(labour_time)<=0) {
+        alert("Labour time should be bigger than 0.");
+        return;
+    }
+
+    if (parseFloat(labour_hourly)<=0) {
+        alert("Labour hourly should be bigger than 0.");
         return;
     }
     $("#table-body2").append(
@@ -240,10 +256,15 @@ function SaveItem3() {
     const auxiliary_title = $("#auxiliary_title").val();
     const auxiliary_observation = $("#auxiliary_observation").val();
     const auxiliary_expense = $("#auxiliary_expense").val();
-    if (!auxiliary_title || !auxiliary_expense) {
-        alert("Please, fill in the gap.");
+    if (!auxiliary_title) {
+        alert("Input field for Expense description is Empty.");
         return;
     }
+    if (parseFloat(auxiliary_expense)<=0) {
+        alert("Expense value should be bigger than 0.");
+        return;
+    }
+
     $("#table-body3").append(
         "<tr>"+
         "<td>"+auxiliary_title+"</td>"+
@@ -292,6 +313,10 @@ function save_tr1(el) {
     const production_description = $("#production_description").val();
     const amount = $("#production_count").val();
     const total_amount = $("#total_amount").val();
+    if (!code_ean) {
+        alert("You should select item on Code EAN");
+        return;
+    }
 
     $.ajax({
         url: "<?=base_url("material/linebycodeean/")?>" + line_id,
@@ -360,6 +385,20 @@ function save_tr2(el) {
     const labour_time = $("#labour_time").val();
     const labour_hourly = $("#labour_hourly").val();
     const labour_total = $("#labour_total").val();
+    if (!labour_name) {
+        alert("Input field for Labour Name is Empty!");
+        return;
+    }
+
+    if (!labour_time) {
+        alert("Labour time should be bigger than 0");
+        return;
+    }
+
+    if (!labour_hourly) {
+        alert("Labour hourly should be bigger than 0");
+        return;
+    }
     
     $(etd[0]).text(labour_name);
     $(etd[1]).text(labour_time);
@@ -473,12 +512,18 @@ function get_formdata() {
         labours: JSON.stringify(labours),
         auxiliaries: JSON.stringify(auxiliaries),
     };
+
+    if (!product_name) {
+        alert("Input field for Product Name is Empty!");
+        return false;
+    }
     return form_data;
 }
 
 function AddProduct() {
     const form_data = get_formdata();
-    console.log(form_data);
+    if (typeof form_data == "boolean" && form_data === false)
+        return;
 
     $.ajax({
         url: "<?=base_url('product/saverecipe')?>",
@@ -510,7 +555,8 @@ function AddProduct() {
 
 function EditProduct(product_id) {
     const form_data = get_formdata();
-    console.log(form_data);
+    if (typeof form_data == "boolean" && form_data === false)
+        return;
 
     $.ajax({
         url: "<?=base_url('product/saverecipe?id=')?>"+product_id,

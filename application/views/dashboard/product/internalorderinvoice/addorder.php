@@ -76,7 +76,7 @@
                                         <td style="border : 1px solid black"><label class="my-2">Product QTY:</label></td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="number" class="form-control" id="product_qty" value="0" title="Choose your color">
+                                                <input type="number" class="form-control" id="product_qty" value="1" title="Choose your color">
                                             </div>
                                         </td>
                                     </tr>

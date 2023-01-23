@@ -1,7 +1,51 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $("select").select2({ width: '100%' });
+
+    $("#markup").change(function() {
+        if (this.value == "" || isNaN(parseFloat(this.value))) {
+            this.value = "0.0";
+        }
+    });
 });
+
+function asyncPOST(url, data) {
+    return new Promise(function(resolve, reject) {
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: data, 
+            dataType: "json",
+            beforeSend: function() {
+
+            },
+            success: function(res) {
+                resolve(res);
+            },
+            error: function(err) {
+                reject(err);
+            }
+        });
+    });
+}
+
+async function checkSNforequal(product_id, SN) {
+    try {
+        if (SN == "")
+            return true;
+        let res = 0;
+        if (product_id === 0)
+            res = await asyncPOST("<?=base_url('product/checkSNforequal')?>", {serial_number: SN});
+        else
+            res = await asyncPOST("<?=base_url('product/checkSNforequal?id=')?>"+product_id, {serial_number: SN});
+        if (res != '1')
+            return false;
+        return true;
+    } catch(e) {
+        console.log(e);
+        return false;
+    }
+}
 
 function get_formdata() {
     let materials = [], labours = [], auxiliaries = [];
@@ -11,7 +55,7 @@ function get_formdata() {
 
     const stockid = $("#stockid").val();
     const unit = $("#unit").val();
-    const markup = $("#markup").val();
+    const markup = (!($("#markup").val())?0:$("#markup").val());
 
     const product_date = $("#product_date").val();
     const order_number = $("#order_number").val();
@@ -37,12 +81,54 @@ function get_formdata() {
         plug_standard: plug_standard, 
         observation: observation
     };
+
+    if (form_data['production_description'] == 0) {
+        alert("You didn't select product description.");
+        return false;
+    }
+
+    if (!form_data['code_ean']) {
+        alert("Input field for Code EAN is empty.");
+        return false;
+    }
+
+    if (!form_data['serial_number']) {
+        alert("Input field for Serial Number is empty.");
+        return false;
+    }
+
+    if (form_data['stockid'] == 0) {
+        alert("You didn't select any stock.");
+        return false;
+    }
+
+    if (parseFloat(form_data['markup']) <= 0.0) {
+        alert("MarkUp should be bigger than 0.");
+        return false;
+    }
+
+    if (!form_data['order_number']) {
+        alert("Input field for Order Number is empty.");
+        return false;
+    }
+
+    if (!form_data['lan_mac']) {
+        alert("Input field for LAN MAC Address is empty.");
+        return false;
+    }
     return form_data;
 }
 
-function AddProduct() {
+async function AddProduct() {
     const form_data = get_formdata();
-    console.log(form_data);
+    if (typeof form_data == "boolean" && form_data === false)
+        return;
+
+    const res_duplicateSN = await checkSNforequal(0, form_data['serial_number']);
+    if (res_duplicateSN == false) {
+        alert("Duplicate SN");
+        return false;
+    }
 
     $.ajax({
         url: "<?=base_url('product/saveproduct')?>",
@@ -72,9 +158,16 @@ function AddProduct() {
     });
 }
 
-function EditProduct(product_id) {
+async function EditProduct(product_id) {
     const form_data = get_formdata();
-    console.log(form_data);
+    if (typeof form_data == "boolean" && form_data === false)
+        return;
+
+    const res_duplicateSN = await checkSNforequal(product_id, form_data['serial_number']);
+    if (res_duplicateSN == false) {
+        alert("Duplicate SN");
+        return false;
+    }
 
     $.ajax({
         url: "<?=base_url('product/saveproduct?id=')?>"+product_id,

@@ -976,4 +976,41 @@ class Supplier_model extends CI_Model {
         }
         return true;
     }
+
+    public function checkSNforequal($companyid, $serial_number) {
+        $this->db->query('use database'.$companyid);
+        
+        $query =    "SELECT *
+                    FROM `material_totalline`
+                    WHERE `serial_number`='$serial_number' AND `isremoved`=false";
+
+        $res = $this->db->query($query)->result_array();
+        if (count($res)>0) {
+            return false;
+        }
+        return true;
+    }
+
+    public function checkSNforequalbyID($companyid, $id, $serial_number) {
+        $this->db->query('use database'.$companyid);
+
+        $query =    "SELECT *
+                    FROM `product`
+                    WHERE `id`='$id' AND `isremoved`=false";
+        $product = $this->db->query($query)->result_array();
+        if (count($product)==0) {
+            return false;
+        }
+        $material_id = $product[0]['materialid'];
+        
+        $query =    "SELECT *
+                    FROM `material_totalline`
+                    WHERE `id`!='$material_id' AND `serial_number`='$serial_number' AND `isremoved`=false";
+
+        $res = $this->db->query($query)->result_array();
+        if (count($res)>0) {
+            return false;
+        }
+        return true;
+    }
 }

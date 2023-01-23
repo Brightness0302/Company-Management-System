@@ -666,6 +666,20 @@ class Product extends CI_Controller
 
         echo $res;
     }
+
+    public function checkSNforequal() {
+        $companyid = $this->session->userdata('companyid');
+        $serial_number = $this->input->post('serial_number');
+        if (!isset($_GET['id'])) {
+            $res = $this->supplier->checkSNforequal($companyid, $serial_number);
+            echo $res;
+            return;
+        }
+
+        $id = $_GET['id'];
+        $res = $this->supplier->checkSNforequalbyID($companyid, $id, $serial_number);
+        echo $res;
+    }
     //If usersession is not exist, goto login page.
     public function check_usersession() {
         if($this->session->userdata('user')) {

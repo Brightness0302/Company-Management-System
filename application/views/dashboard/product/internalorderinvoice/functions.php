@@ -5,9 +5,12 @@ $(document).ready(function() {
     $("input").change(function() {
         const id = this.id;
         if (id == "product_qty") {
+            if (this.value <= 0 || this.value == "")
+                this.value = 1;
             refreshOrderTotal();
         }
     });
+
     $("#stockid").change(function() {
         const stockid = this.value;
         $("#product_amount").val("0");
@@ -91,12 +94,23 @@ function get_formdata() {
         product_price: product_price, 
         total_amount: total_amount
     };
+
+    if (product_description == 0) {
+        alert("You should select any product for Product description field.");
+        return false;
+    }
+
+    if (product_qty<=0) {
+        alert("Product Qty should be bigger than 0.");
+        return false;
+    }
     return form_data;
 }
 
 function AddOrder() {
     const form_data = get_formdata();
-    console.log(form_data); 
+    if (typeof form_data == "boolean" && form_data === false)
+        return;
 
     $.ajax({
         url: "<?=base_url('product/saveorder')?>",
@@ -128,7 +142,8 @@ function AddOrder() {
 
 function EditOrder(order_id) {
     const form_data = get_formdata();
-    console.log(form_data);
+    if (typeof form_data == "boolean" && form_data === false)
+        return;
 
     $.ajax({
         url: "<?=base_url('product/saveorder?id=')?>"+order_id,
