@@ -330,6 +330,7 @@ class Product extends CI_Controller
         $data['product'] = $product['data'];
 
         $materials = json_decode($data['product']['materials'], true);
+        $materials = array_reverse($materials);
         foreach ($materials as $index => $material) {
             $result = $this->product->getdatabyproductidfromdatabase($companyid, 'material_totalline', $material['id']);
 
@@ -342,6 +343,7 @@ class Product extends CI_Controller
                 $materials[$index]['selling_unit_price_without_vat'] = $result['selling_unit_price_without_vat'];
             }
         }
+        $materials = array_reverse($materials);
         $data['product']['materials'] = json_encode($materials);
 
         $session['menu']="Products";
