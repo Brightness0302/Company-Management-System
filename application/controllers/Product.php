@@ -180,12 +180,17 @@ class Product extends CI_Controller
         $data = $this->getData();
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
         $data['recipes'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
+        $del_counts = 0;
         foreach ($data['products'] as $key => $product) {
             $res = $this->home->databyid($product['user'], 'user');
             $data['products'][$key]['userdata'] = $res['data'];
             $res = $this->home->databyidfromdatabase($companyid, 'product_recipe', $product['product_description']);
             if ($res['status']=="success") {
                 $data['products'][$key]['recipe'] = $res['data'];
+            }
+            else {
+                array_splice($data['products'], $key - $del_counts, 1);
+                $del_counts++;
             }
         }
 

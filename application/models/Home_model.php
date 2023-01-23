@@ -199,7 +199,7 @@ class Home_model extends CI_Model {
 
         $query =    "SELECT *
                     FROM `$data`
-                    WHERE `id`='$id'";
+                    WHERE `id`='$id' AND `isremoved`=false";
 
         $res = $this->db->query($query)->result_array();
         $data = [];
