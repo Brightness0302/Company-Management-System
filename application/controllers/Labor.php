@@ -364,7 +364,7 @@ class Labor extends CI_Controller
     public function delassignment($projectid) {
         $companyid = $this->session->userdata('companyid');
 
-        $this->labor->DelAssignment($companyid, $projectid);
+        echo $this->labor->DelAssignment($companyid, $projectid);
     }
     //Show employees
     public function changeemployeetype($employee_type) {

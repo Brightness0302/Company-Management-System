@@ -84,7 +84,7 @@ class Labor_model extends CI_Model {
         $this->db->query('use database'.$companyid);
         
         $this->db->where('project_id', $projectid);
-        $this->db->delete('project_assignment');
+        return $this->db->delete('project_assignment');
     }
 
     public function delPermanentEmployee($companyid, $table, $id) {

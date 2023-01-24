@@ -312,7 +312,6 @@ async function EditProjectAssignment(projectid) {
 }
 
 function delProjectAssignment(projectid) {
-    return;
     swal({
         title: "Employee",
         text: "Del Employee",
@@ -349,7 +348,7 @@ function delProjectAssignment(projectid) {
                     closeOnCancel: true
                 },
                 function() {
-                    window.location.href = "<?=$_SERVER['HTTP_REFERER']?>";
+                    window.location.href = "<?=base_url('labor/projectassignment')?>";
                 });
             },
             error: function(jqXHR, exception) {
