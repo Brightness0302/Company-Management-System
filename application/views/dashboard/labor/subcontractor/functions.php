@@ -2,6 +2,25 @@
 $(document).ready(function() {
     $("input").change(function() {
         const id = this.id;
+        if (id == "salary" || id == "vat") {
+            if (this.value == "" || isNaN(parseFloat(this.value))) {
+                this.value = "0.0";
+            }
+        }
+        if (id == "startdate" || id == "enddate") {
+            const startdate_str = $("#startdate").val();
+            const enddate_str = $("#enddate").val();
+            const startdate = new Date(startdate_str);
+            const enddate = new Date(enddate_str);
+            if (enddate < startdate) {
+                if (id == "startdate") {
+                    this.value = enddate_str;
+                }
+                else if (id == "enddate") {
+                    this.value = startdate_str;
+                }
+            }
+        }
         if (id == "salary" || id == "startdate" || id == "enddate" || id == "vat") {
             refreshAmount();
         }
@@ -48,14 +67,17 @@ function get_formdata() {
         salary: salary, 
         vat: vat, 
     };
+
+    if (!name) {
+        alert("Input field for Sub-Contractor is Empty.");
+        return false;
+    }
     return form_data;
 }
 
 function AddEmployee() {
     const form_data = get_formdata();
-    console.log(form_data);
-
-    if (!form_data.name)
+    if (typeof form_data == "boolean" && form_data === false)
         return;
 
     $.ajax({
@@ -95,7 +117,8 @@ function AddEmployee() {
 
 function EditEmployee(employeeid) {
     const form_data = get_formdata();
-    console.log(form_data);
+    if (typeof form_data == "boolean" && form_data === false)
+        return;
 
     $.ajax({
         url: "<?=base_url('labor/savesubcontractor?id=')?>"+employeeid, 

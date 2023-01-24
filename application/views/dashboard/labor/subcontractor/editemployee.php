@@ -78,7 +78,7 @@
                                     <td style="border : 1px solid black"><label class="my-2">Daily Payment:</label></td>
                                     <td>
                                         <div class="m-auto">
-                                            <input type="number" class="form-control " id="salary" value="<?=$employee['daily_rate']?>" title="Choose your color">
+                                            <input type="text" class="form-control " id="salary" value="<?=$employee['daily_rate']?>" title="Choose your color">
                                         </div>
                                     </td>
                                     <td class="text-center">
