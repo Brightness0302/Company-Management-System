@@ -319,7 +319,7 @@
                                 <?php endforeach;?>
                                 <?php foreach($subcontractors as $employee):?>
                                 <a href="<?=base_url("labor/showworkingdetailsbyemployee?")."type=subcontractors&employee_id=".$employee['id']?>" style="padding-left: 56px;">
-                                    <i class="bi <?=($menu['second-submenu']=="subcontractors - ".$employee['name'])?"bi-circle-fill":"bi-circle"?>"></i><span><?=$employee['name'].' - Sub-Contractor'?></span>
+                                    <i class="bi <?=($menu['second-submenu']=="subcontractors - ".$employee['name'])?"bi-circle-fill":"bi-circle"?>"></i><span><?=$employee['name'].' - Sub Contractor'?></span>
                                 </a>
                                 <?php endforeach;?>
                             </li>
