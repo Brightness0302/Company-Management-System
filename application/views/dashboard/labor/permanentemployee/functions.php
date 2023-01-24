@@ -141,7 +141,7 @@ function EditEmployee(employeeid) {
     });
 }
 
-function delproject(employeeid) {
+function delemployee(employeeid) {
     return;
     swal({
         title: "Employee",
@@ -157,7 +157,7 @@ function delproject(employeeid) {
     },
     function() {
         $.ajax({
-            url: "<?=base_url('labor/delproject/')?>"+employeeid, 
+            url: "<?=base_url('labor/delpermanentemployee/')?>"+employeeid, 
             method: "POST", 
             dataType: 'text', 
             async: true,

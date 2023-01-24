@@ -163,7 +163,7 @@ function EditEmployee(employeeid) {
     });
 }
 
-function delproject(employeeid) {
+function delemployee(employeeid) {
     return;
     swal({
         title: "Employee",
