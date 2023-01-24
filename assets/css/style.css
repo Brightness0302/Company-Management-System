@@ -2250,7 +2250,6 @@ th {
 }
 
 .table-hover tbody tr:hover td {
-    background-color: lightyellow !important;
     --bs-table-accent-bg: none !important;
 }
 

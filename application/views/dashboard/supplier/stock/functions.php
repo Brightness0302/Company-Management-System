@@ -190,21 +190,21 @@ function viewsoldandreceive(tline_id, el) {
                 "<td></td>"+
                 "<td colSpan='100'>"+
                 "<p class='text-center text-lg'>Products received</p>"+
-                "<table class='table table-bordered table-hover'>"+
+                "<table class='table table-bordered table-hover' style='background-color: rgb(147 197 253);'>"+
                 "<thead>"+
                 "<tr><th>No</th><th>Code EAN</th><th>Description</th><th>Qty received</th><th>Qty on document</th><th>Supplier Name</th><th>Invoice Number</th><th>Invoice Date</th></tr>"+
                 "</thead>"+
                 "<tbody>"+supplierinvoice+"</tbody>"+
                 "</table>"+
                 "<p class='text-center text-lg'>Products sold</p>"+
-                "<table class='table table-bordered table-hover'>"+
+                "<table class='table table-bordered table-hover' style='background-color: rgb(134 239 172);'>"+
                 "<thead>"+
                 "<tr><th>No</th><th>Code EAN</th><th>Description</th><th>Qty invoiced</th><th>Qty shipped</th><th>Client Name</th><th>Invoice Number</th><th>Invoice Date</th></tr>"+
                 "</thead>"+
                 "<tbody>"+clientinvoice+"</tbody>"+
                 "</table>"+
                 "<p class='text-center text-lg'>Products internally used</p>"+
-                "<table class='table table-bordered table-hover'>"+
+                "<table class='table table-bordered table-hover' style='background-color: rgb(252 165 165);'>"+
                 "<thead>"+
                 "<tr><th>No</th><th>Description</th><th>Code EAN</th><th>Serial Number</th><th>Date</th><th>Order Number</th><th>LAN MAC</th><th>Wi-Fi MAC</th><th>Plug Standard</th><th>Observation</th><th>Registered User</th></tr>"+
                 "</thead>"+
