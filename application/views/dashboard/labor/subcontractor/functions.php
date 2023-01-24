@@ -200,7 +200,7 @@ function delemployee(employeeid) {
                     closeOnCancel: true
                 },
                 function() {
-                    window.location.href = "<?=$_SERVER['HTTP_REFERER']?>";
+                    window.location.href = "<?=base_url('labor/subcontractor')?>";
                 });
             },
             error: function(jqXHR, exception) {
