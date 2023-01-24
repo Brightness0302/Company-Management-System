@@ -72,6 +72,14 @@ function get_formdata() {
         alert("Input field for Sub-Contractor is Empty.");
         return false;
     }
+    if (salary<=0) {
+        alert("Salary should be bigger than 0.");
+        return false;
+    }
+    if (vat<=0) {
+        alert("VAT should be bigger than 0.");
+        return false;
+    }
     return form_data;
 }
 
