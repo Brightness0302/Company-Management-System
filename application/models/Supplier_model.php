@@ -369,7 +369,7 @@ class Supplier_model extends CI_Model {
 
         $query =    "SELECT *
                     FROM `$table`
-                    INNER JOIN `stock` ON `stockid`=stock.id
+                    INNER JOIN `material_totalline` ON `stockid`=stock.id
                     WHERE material_totalline.isremoved=false";
 
         $tlines = $this->db->query($query)->result_array();

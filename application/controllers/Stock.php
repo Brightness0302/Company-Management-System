@@ -69,7 +69,7 @@ class Stock extends CI_Controller
             $session['second-submenu']="stock - ".$data['stock']['name'];
         }
         else {
-            $data['products'] = $this->supplier->alllinesfromdatabase($companyid, 'material_totalline');
+            $data['products'] = $this->supplier->alllinesfromdatabase($companyid, 'stock');
             $session['second-submenu']="stock - *All";
         }
         $this->session->set_flashdata('menu', $session);
