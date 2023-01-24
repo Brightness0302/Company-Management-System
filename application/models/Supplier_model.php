@@ -945,6 +945,20 @@ class Supplier_model extends CI_Model {
         return $res_invoices;
     }
 
+    public function productbymaterialid($companyid, $tline_id) {
+        $this->db->query('use database'.$companyid);
+
+        $materialid = '"id":"'.$tline_id.'"';
+        $query =    "SELECT *
+                    FROM `product`
+                    JOIN `product_recipe` ON `product`.`product_description`=`product_recipe`.`id`
+                    WHERE `product_recipe`.`materials` LIKE '%$materialid%' AND `product`.`isremoved` = false AND `product_recipe`.`isremoved` = false";
+
+        $res_lines = $this->db->query($query)->result_array();
+
+        return $res_lines;
+    }
+
     public function delProduct($companyid, $table, $product_id) {
         $this->db->query('use database'.$companyid);
 

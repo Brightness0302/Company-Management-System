@@ -146,6 +146,7 @@ function viewsoldandreceive(tline_id, el) {
             // console.log(res);
             let supplierinvoice="";
             let clientinvoice="";
+            let product_material="";
             res['supplier'].forEach((invoice, index) => {
                 supplierinvoice+="<tr>"+
                 "<td>"+(index+1)+"</td>"+
@@ -155,12 +156,10 @@ function viewsoldandreceive(tline_id, el) {
                 "<td>"+invoice['quantity_on_document']+"</td>"+
                 "<td>"+invoice['supplier']['name']+"</td>"+
                 "<td>"+invoice['product']['invoice_number']+"</td>"+
-                "<td>"+invoice['product']['invoice_date']+"</td>"+
+                "<td>"+(invoice['product']['invoice_date'].replace(/\-/g, '/'))+"</td>"+
                 "</tr>";
             });
             res['client'].forEach((invoice, index) => {
-                const date = new Date(invoice['date_of_issue']);
-                console.log(date);
                 clientinvoice+="<tr>"+
                 "<td>"+(index+1)+"</td>"+
                 "<td>"+$(etd[1]).text()+"</td>"+
@@ -168,8 +167,23 @@ function viewsoldandreceive(tline_id, el) {
                 "<td>"+invoice['line']['qty']+"</td>"+
                 "<td>"+invoice['line']['qty']+"</td>"+
                 "<td>"+invoice['client']['name']+"</td>"+
-                "<td>"+date.getFullYear()+"-"+invoice['id']+"</td>"+
-                "<td>"+invoice['date_of_issue']+"</td>"+
+                "<td>"+invoice['input_invoicenumber']+"</td>"+
+                "<td>"+(invoice['date_of_issue'].replace(/\-/g, '/'))+"</td>"+
+                "</tr>";
+            });
+            res['product_material'].forEach((product, index) => {
+                product_material+="<tr>"+
+                "<td>"+(index+1)+"</td>"+
+                "<td>"+product['name']+"</td>"+
+                "<td>"+product['code_ean']+"</td>"+
+                "<td>"+product['serialnumber']+"</td>"+
+                "<td>"+(product['date'].replace(/\-/g, '/'))+"</td>"+
+                "<td>"+product['order_number']+"</td>"+
+                "<td>"+product['lan-mac_address']+"</td>"+
+                "<td>"+(product['wifi-mac_address']?product['wifi-mac_address']:"NA")+"</td>"+
+                "<td>"+product['plug_standard']+"</td>"+
+                "<td>"+product['observation']+"</td>"+
+                "<td>"+product['userdata']['username']+"</td>"+
                 "</tr>";
             });
             etr.after("<tr id='viewsoldandreceive' style='background: cornsilk;'>"+
@@ -188,6 +202,13 @@ function viewsoldandreceive(tline_id, el) {
                 "<tr><th>No</th><th>Code EAN</th><th>Description</th><th>Qty invoiced</th><th>Qty shipped</th><th>Client Name</th><th>Invoice Number</th><th>Invoice Date</th></tr>"+
                 "</thead>"+
                 "<tbody>"+clientinvoice+"</tbody>"+
+                "</table>"+
+                "<p class='text-center text-lg'>Products internally used</p>"+
+                "<table class='table table-bordered table-hover'>"+
+                "<thead>"+
+                "<tr><th>No</th><th>Description</th><th>Code EAN</th><th>Serial Number</th><th>Date</th><th>Order Number</th><th>LAN MAC</th><th>Wi-Fi MAC</th><th>Plug Standard</th><th>Observation</th><th>Registered User</th></tr>"+
+                "</thead>"+
+                "<tbody>"+product_material+"</tbody>"+
                 "</table>"+
                 "</td>"+
                 "</tr>");

@@ -217,8 +217,21 @@ class Stock extends CI_Controller
         $data;
         $supplierinvoice = $this->supplier->supplierinvoicebystockid($companyid, $tline_id);
         $clientinvoice = $this->supplier->clientinvoicebystockid($companyid, $tline_id);
+        $product_material = $this->supplier->productbymaterialid($companyid, $tline_id);
+
+        foreach ($product_material as $index => $product) {
+            $res = $this->home->databyid($product['user'], 'user');
+            if ($res['status'] == "success") {
+                $product_material[$index]['userdata'] = $res['data'];
+            }
+            else {
+                $product_material[$index]['userdata']['username'] = "-";
+                $product_material[$index]['userdata']['rank'] = 0;
+            }
+        }
         $data['supplier'] = $supplierinvoice;
         $data['client'] = $clientinvoice;
+        $data['product_material'] = $product_material;
         header('Content-Type: application/json');
         echo json_encode($data);
     }
