@@ -125,7 +125,7 @@
             </div>
         </div>
     </section><!-- End Hero -->
-    
+
     <!-- Modal -->
     <div class="modal fade" id="PermanentEmployeeModalCenter" tabindex="-1" role="dialog" aria-labelledby="PermanentEmployeeModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 800px;">
@@ -137,7 +137,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <table id="table_in_modal" class="table table-bordered table-hover">
+            <table id="table_in_modal_for_permanent" class="table table-bordered table-hover">
               <thead>
                   <tr>
                     <th>No</th>
@@ -178,7 +178,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <table id="table_in_modal" class="table table-bordered table-hover"><thead>
+            <table id="table_in_modal_for_project" class="table table-bordered table-hover"><thead>
                   <tr>
                     <th>No</th>
                     <th>P.Name</th>
@@ -218,7 +218,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <table id="table_in_modal" class="table table-bordered table-hover">
+            <table id="table_in_modal_for_subcontractor" class="table table-bordered table-hover">
               <thead>
                   <tr>
                     <th>No</th>
