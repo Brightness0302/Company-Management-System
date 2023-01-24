@@ -1,5 +1,6 @@
 <script type="text/javascript">
 console.log('<?=count($expense_products)?>');
+var coinInfo = "<?=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>";
 var barChartData = {
     labels: [
         <?php foreach ($expense_products as $product):?>
@@ -53,11 +54,11 @@ window.onload = function() {
                     label: function(t, d) {
                        if (t.datasetIndex === 0) {
                           var xLabel = d.datasets[t.datasetIndex].label;
-                          var yLabel = t.yLabel + ' €';
+                          var yLabel = t.yLabel + ' ' + coinInfo;
                           return xLabel + ': ' + yLabel;
                        } else if (t.datasetIndex === 1) {
                           var xLabel = d.datasets[t.datasetIndex].label;
-                          var yLabel = t.yLabel >= 1000 ? t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " €" : t.yLabel + " €";
+                          var yLabel = t.yLabel >= 1000 ? t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " " + coinInfo : t.yLabel + " " + coinInfo;
                           return xLabel + ': ' + yLabel;
                        }
                     }
@@ -76,9 +77,9 @@ window.onload = function() {
                         beginAtZero: true,
                         callback: function(value, index, values) {
                             if (parseInt(value) >= 1000) {
-                                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " €";
+                                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " " + coinInfo;
                             } else {
-                                return parseInt(value*10)/10.0 + " €";
+                                return parseInt(value*10)/10.0 + " " + coinInfo;
                             }
                         }
                     }
