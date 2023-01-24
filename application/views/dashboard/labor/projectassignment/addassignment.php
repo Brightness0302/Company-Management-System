@@ -54,7 +54,7 @@
                                     <td style="border : 1px solid black"><label class="my-2">Daily rate:</label></td>
                                     <td>
                                         <div class="m-auto">
-                                            <input type="text" class="form-control " id="daily_rate" value="0" title="Choose your color">
+                                            <input type="text" class="form-control " id="daily_rate" value="0.0" title="Choose your color">
                                         </div>
                                     </td>
                                 </tr>

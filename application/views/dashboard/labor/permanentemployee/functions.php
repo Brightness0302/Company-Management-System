@@ -5,6 +5,9 @@ $(document).ready(function() {
     $("input").change(function() {
         const id = this.id;
         if (id == "salary" || id == "tax") {
+            if (this.value == "" || isNaN(parseFloat(this.value))) {
+                this.value = "0.0";
+            }
             refreshAmount();
         }
     });
@@ -35,6 +38,19 @@ function get_formdata() {
     const salary = $("#salary").val();
     const tax = $("#tax").val();
 
+    if (!name) {
+        alert("Input field for Employee Name is Empty.");
+        return false;
+    }
+    if (salary<=0) {
+        alert("Salary should be bigger than 0.");
+        return false;
+    }
+    if (tax<=0) {
+        alert("Contribution should be bigger than 0.");
+        return false;
+    }
+
     const form_data = {
         name: name, 
         observation: observation, 
@@ -47,9 +63,7 @@ function get_formdata() {
 
 function AddEmployee() {
     const form_data = get_formdata();
-    console.log(form_data);
-
-    if (!form_data.name)
+    if (typeof form_data == "boolean" && form_data === false)
         return;
 
     $.ajax({
@@ -89,7 +103,8 @@ function AddEmployee() {
 
 function EditEmployee(employeeid) {
     const form_data = get_formdata();
-    console.log(form_data);
+    if (typeof form_data == "boolean" && form_data === false)
+        return;
 
     $.ajax({
         url: "<?=base_url('labor/savepermanentemployee?id=')?>"+employeeid, 

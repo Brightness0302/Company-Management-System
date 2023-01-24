@@ -7,7 +7,20 @@ $(document).ready(function() {
             $("#employee_name").attr('data-target', "#PermanentEmployeeModalCenter");
         else if (this.value == "employee_subcontract")
             $("#employee_name").attr('data-target', "#SubContractorModalCenter");
-    });    
+    });
+    $("input").change(function() {
+        const id = this.id;
+        if (id == "daily_rate") {
+            if (this.value == "" || isNaN(parseFloat(this.value))) {
+                this.value = "0.0";
+            }
+        }
+        else if (id == "workingdays") {
+            if (this.value == "" || isNaN(parseInt(this.value))) {
+                this.value = "0";
+            }
+        }
+    });
 });
 
 function GetDailyRate() {
@@ -57,6 +70,14 @@ function SaveItem() {
     const startdate = $("#startdate").val();
     const workingdays = $("#workingdays").val();
     const observation = $("#observation").val();
+    if (!employee_type) {
+        alert("You should select Employee Type");
+        return;
+    }
+    if (!employee_name) {
+        alert("Input field for Employee Name is Empty.");
+        return;
+    }
     $("#table-body").append("<tr>"+
         "<td>"+employee_type+"</td>"+
         "<td>"+employee_name+"</td>"+
@@ -202,14 +223,17 @@ async function get_formdata() {
         projectid: projectid, 
         lines: str_lines, 
     };
+
+    if (!projectid) {
+        alert("You should select project");
+        return false;
+    }
     return form_data;
 }
 
 async function AddProjectAssignment() {
     const form_data = await get_formdata();
-    console.log(form_data);
-
-    if (!form_data.projectid)
+    if (typeof form_data == "boolean" && form_data === false)
         return;
 
     $.ajax({
@@ -250,9 +274,7 @@ async function AddProjectAssignment() {
 
 async function EditProjectAssignment(projectid) {
     const form_data = await get_formdata();
-    console.log(form_data);
-
-    if (!form_data.projectid)
+    if (typeof form_data == "boolean" && form_data === false)
         return;
 
     $.ajax({
