@@ -142,7 +142,6 @@ function EditEmployee(employeeid) {
 }
 
 function delemployee(employeeid) {
-    return;
     swal({
         title: "Employee",
         text: "Del Employee",
