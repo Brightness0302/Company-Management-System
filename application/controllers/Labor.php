@@ -325,15 +325,19 @@ class Labor extends CI_Controller
     public function saveprojectassignment() {
         $companyid = $this->session->userdata('companyid');
         $projectid = $this->input->post('projectid');
-        $project_id = $_GET['id'];
+        
         $lines = $this->input->post('lines');
 
         $lines = json_decode($lines, true);
 
+        if (isset($_GET['id'])) {
+            $project_id = $_GET['id'];
+            $this->labor->DelAssignment($companyid, $project_id);
+        }
+
         // if ($projectid != $project_id) {
         //     $this->labor->DelAssignment($companyid, $project_id);
         // }
-        $this->labor->DelAssignment($companyid, $projectid);
 
         foreach ($lines as $key => $line) {
             $assignment_id = $this->labor->CreateAssignment($companyid, $projectid, $line['employee_type'], $line['employee_id'], $line['startdate'], $line['workingdays'], $line['observation']);
@@ -381,6 +385,10 @@ class Labor extends CI_Controller
     public function getidfromdatabase() {
         $companyid = $this->session->userdata('companyid');
         $database = $this->input->post('database');
+        if ($database == "Permanent Employee")
+            $database = "employee_permanent";
+        else if ($database == "Sub-Contractor")
+            $database = "employee_subcontract";
         $item = $this->input->post('item');
         $value = $this->input->post('value');
         $res = $this->home->alldatabycustomsettingfromdatabase($companyid, $database, $item, $value);

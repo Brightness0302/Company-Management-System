@@ -55,8 +55,9 @@ function clickemployee(employeeid, employeename) {
     GetDailyRate();
 }
 
-function clickproject(projectname) {
+function clickproject(projectid, projectname) {
     $("#projectname").val(projectname);
+    $("#projectid").val(projectid);
 }
 
 function SaveItem() {
@@ -76,6 +77,10 @@ function SaveItem() {
     }
     if (!employee_name) {
         alert("Input field for Employee Name is Empty.");
+        return;
+    }
+    if (workingdays<=0) {
+        alert("Working days should be bigger than 0.");
         return;
     }
     $("#table-body").append("<tr>"+
@@ -100,6 +105,7 @@ function ClearItem() {
 }
 
 function edit_tr(el) {
+    $("#section3").fadeOut();
     const etr = $(el).closest('tr');
     const etd = $(etr).find("td");
 
@@ -108,6 +114,18 @@ function edit_tr(el) {
     const startdate = $("#startdate");
     const workingdays = $("#workingdays");
     const observation = $("#observation");
+    if (!employee_type) {
+        alert("You should select Employee Type");
+        return;
+    }
+    if (!employee_name) {
+        alert("Input field for Employee Name is Empty.");
+        return;
+    }
+    if (workingdays<=0) {
+        alert("Working days should be bigger than 0.");
+        return;
+    }
 
     isemployee.val($(etd[7]).text());
     employee_name.val($(etd[1]).text());
@@ -120,6 +138,7 @@ function edit_tr(el) {
 }
 
 function save_tr(el) {
+    $("#section3").fadeIn();
     const etr = $(el).closest('tr');
     const etd = $(etr).find("td");
 
@@ -146,6 +165,7 @@ function save_tr(el) {
 }
 
 function cancel_tr(el) {
+    $("#section3").fadeIn();
     const etr = $(el).closest('tr');
     const etd = $(etr).find("td");
 
@@ -159,34 +179,14 @@ function remove_tr(el) {
 
 async function get_formdata() {
     const projectname = $("#projectname").val();
-
-    let form_data_temp = {
-        database: 'project', 
-        item: 'name', 
-        value: projectname, 
-    };
-    const projectid = await $.ajax({
-        url: "<?=base_url('labor/getidfromdatabase')?>", 
-        method: "POST", 
-        data: form_data_temp, 
-        dataType: 'text', 
-        async: true, 
-        success: function(res) {
-            console.log("Result:"+res);
-        },
-        error: function(jqXHR, exception) {
-            console.log(jqXHR);
-            console.log(exception);
-            swal("Add Employee", "Server Error", "warning");
-        }
-    });
+    const projectid = $("#projectid").val();
 
     const table = $("#table-body");
     let lines = [];
 
     for (const element of table.children("tr")) {
         const etr = $(element).find("td");
-        form_data_temp = {
+        let form_data_temp = {
             database: $(etr[0]).text(), 
             item: 'name', 
             value: $(etr[1]).text(), 
@@ -244,7 +244,6 @@ async function AddProjectAssignment() {
         async: true, 
         success: function(res) {
             console.log(res);
-            return;
             if (res < 1) {
                 swal("Add Employee", "Failed", "error");
                 return;

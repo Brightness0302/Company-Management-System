@@ -21,6 +21,7 @@
                                   <td style="border : 1px solid black"><label class="my-2">Project:</label></td>
                                   <td>
                                       <input type="text" class="form-control" id="projectname" name="browser" title="Choose your color" data-toggle="modal" data-target="#ProjectModalCenter">
+                                      <input type="text" class="form-control" id="projectid" hidden>
                                   </td>
                               </tr>
                             </table>
@@ -54,7 +55,7 @@
                                     <td style="border : 1px solid black"><label class="my-2">Daily rate:</label></td>
                                     <td>
                                         <div class="m-auto">
-                                            <input type="text" class="form-control " id="daily_rate" value="0.0" title="Choose your color">
+                                            <input type="text" class="form-control " id="daily_rate" value="0.0" title="Choose your color" disabled>
                                         </div>
                                     </td>
                                 </tr>
@@ -93,7 +94,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="row d-flex justify-content-center align-items-center m-2">
+                    <div id="section3" class="row d-flex justify-content-center align-items-center m-2">
                         <div class="flex justify-end gap-3">
                             <button class="btn btn-primary" onclick="SaveItem()">Save Item</button>
                             <button class="btn btn-default" onclick="ClearItem()">Clear Item</button>
@@ -190,7 +191,7 @@
                 <?php foreach ($projects as $project):?>
                 <?php if(!$project['isremoved']):?>
                 <?php $index++;?>
-                <tr onclick="clickproject('<?=$project['name']?>')" data-dismiss="modal">
+                <tr onclick="clickproject('<?=$project['id']?>', '<?=$project['name']?>')" data-dismiss="modal">
                     <td><?=$index?></td>
                     <td><?=str_replace("_"," ", $project['name'])?></td>
                     <td><?=$project['observation']?></td>
