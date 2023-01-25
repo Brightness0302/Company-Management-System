@@ -32,7 +32,6 @@
                 $missing_qty += (($line['qty']<0)?$line['qty']:0);
             ?>
             <td class="text-center"><?=($index)?></td>
-            <!-- <td><?=$result['name']?></td> -->
             <td class="text-center"><?=$line['code_ean']?></td>
             <td class="text-left"><?=$line['production_description']?></td>
             <td class="text-center"><?=$line['serial_number']?></td>
