@@ -8,9 +8,13 @@
                 width: 100%;
                 margin: auto;
             }
-            
+
             .text-left {
                 text-align: left;
+            }
+
+            .ml-3 {
+                margin-left: 30px;
             }
 
             #table1 , #table2 , #table3{
@@ -66,31 +70,31 @@
             <table id="table1">
                 <tbody>
                     <tr>
-                        <th class="text-left">Order No</th>
+                        <th class="text-left ml-3">Order No</th>
                         <td><?=$order['id']?></td>
                     </tr>
                     <tr>
-                        <th class="text-left">Order Date</th>
+                        <th class="text-left ml-3">Order Date</th>
                         <td><?=$order['order_date']?></td>
                     </tr>
                     <tr>
-                        <th class="text-left">Order Observation</th>
+                        <th class="text-left ml-3">Order Observation</th>
                         <td><?=$order['order_observation']?></td>
                     </tr>
                     <tr>
-                        <th class="text-left">Product Description</th>
+                        <th class="text-left ml-3">Product Description</th>
                         <td><?=$order['product_description']?></td>
                     </tr>
                     <tr>
-                        <th class="text-left">Product Quantity</th>
+                        <th class="text-left ml-3">Product Quantity</th>
                         <td><?=$order['product_qty']?></td>
                     </tr>
                     <tr>
-                        <th class="text-left">Product Price</th>
+                        <th class="text-left ml-3">Product Price</th>
                         <td><?=$order['product_price']?></td>
                     </tr>
                     <tr>
-                        <th class="text-left">Total</th>
+                        <th class="text-left ml-3">Total</th>
                         <td><?=$order['total_amount']?></td>
                     </tr>
                 </tbody>
