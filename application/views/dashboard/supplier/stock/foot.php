@@ -22,6 +22,7 @@
 
 <!-- <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> -->
 <script>
+<?php $menu = $this->session->flashdata('menu');?>
 function getFirstLetters(str) {
 	const firstLetters = str
 		.split(' ')
@@ -118,15 +119,9 @@ $(function() {
             text: 'PDF',
             pageSize: 'LEGAL',
             customize: function (doc) {
-                const dataURL = canvas_logo.toDataURL();
-                doc.content.splice( 0, 0, {
-                    margin: [ 0, 0, 0, 12 ],
-                    alignment: 'left',
-                    image: dataURL,
-                } );
                 doc.defaultStyle.fontSize = 8; //2, 3, 4,etc
                 doc.styles.tableHeader.fontSize = 10; //2, 3, 4, etc
-                if (doc.content[2].table.body.length === 0)
+                if (doc.content[1].table.body.length === 0)
                     return;
                 // const length = doc.content[2].table.body[0].length;
                 // let widths = [];
@@ -137,14 +132,27 @@ $(function() {
                 // widths[length-1] = '0%';
                 // widths[length-2] = '0%';
 
-                const rowCount = doc.content[2].table.body.length;
+                const rowCount = doc.content[1].table.body.length;
                 for (var i=1;i<rowCount;i++) {
-                    doc.content[2].table.body[i][0].alignment = 'center';
-                    doc.content[2].table.body[i][1].alignment = 'center';
-                    doc.content[2].table.body[i][3].alignment = 'center';
-                    doc.content[2].table.body[i][4].alignment = 'center';
+                    doc.content[1].table.body[i][0].alignment = 'center';
+                    doc.content[1].table.body[i][1].alignment = 'center';
+                    doc.content[1].table.body[i][2].alignment = 'center';
+                    doc.content[1].table.body[i][3].alignment = 'center';
+                    doc.content[1].table.body[i][4].alignment = 'center';
+                    doc.content[1].table.body[i][5].alignment = 'center';
+                    doc.content[1].table.body[i][6].alignment = 'center';
+                    doc.content[1].table.body[i][7].alignment = 'center';
+                    doc.content[1].table.body[i][8].alignment = 'center';
+                    if ("<?=$menu['second-submenu']?>" == "stock - *All") {
+                        doc.content[1].table.body[i][9].alignment = 'center';
+                    }
                 }
-                doc.content[2].table.widths = ['5%', '12%', '23%', '15%', '5%', '10%', '10%', '10%', '10%', '0%', '0%'];
+                if ("<?=$menu['second-submenu']?>" == "stock - *All") {
+                    doc.content[1].table.widths = ['5%', '12%', '14%', '12%', '12%', '5%', '10%', '10%', '10%', '10%', '0%', '0%'];
+                }
+                else {
+                    doc.content[1].table.widths = ['5%', '12%', '23%', '15%', '5%', '10%', '10%', '10%', '10%', '0%', '0%'];
+                }
             },
             action: function ( e, dt, node, config ) {
                 var ethis = this;

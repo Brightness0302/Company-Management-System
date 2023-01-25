@@ -59,6 +59,9 @@
                 font-size: 14px;
                 font-weight: 400;
             }
+            .text-left {
+                text-align: left;
+            }
         </style>
     </head>
     <body>
@@ -68,6 +71,7 @@
             $materials = json_decode($product['materials'], true);
             $labours = json_decode($product['labours'], true);
             $auxiliaries = json_decode($product['auxiliaries'], true);
+            $coininfo=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")));
         ?>
         <div id="container"> 
             <div style="display: inline-block;">
@@ -83,16 +87,16 @@
             <table id="table1">
                 <thead>
                     <th>Code EAN</th>
-                    <th>Product Description</th>
+                    <th class="text-left">Product Description</th>
                     <th>Amount</th>
-                    <th>Price($)</th>
-                    <th>Sub Total Amount($)</th>
+                    <th>Price(<?=$coininfo?>)</th>
+                    <th>Sub Total Amount(<?=$coininfo?>)</th>
                 </thead>
                 <tbody>
                     <?php foreach($materials as $index=>$material):?>
                     <tr>
                         <td><?=$material['code_ean']?></td>
-                        <td><?=$material['production_description']?></td>
+                        <td class="text-left"><?=$material['production_description']?></td>
                         <td><?=$material['amount']?></td>
                         <td><?=$material['selling_unit_price_without_vat']?></td>
                         <td><?=number_format($material['amount']*$material['selling_unit_price_without_vat'], 2, '.', "")?></td>
@@ -108,8 +112,8 @@
                     <th>Name</th>
                     <th>Observation</th>
                     <th>Time(hr)</th>
-                    <th>Hourly Cost($)</th>
-                    <th>Sub Total Amount($)</th>
+                    <th>Hourly Cost(<?=$coininfo?>)</th>
+                    <th>Sub Total Amount(<?=$coininfo?>)</th>
                 </thead>
                 <tbody>
                     <?php foreach($labours as $index=>$labour):?>
@@ -130,7 +134,7 @@
                 <thead>
                     <th>Expense description</th>
                     <th>Observation</th>
-                    <th>Value</th>
+                    <th>Value(<?=$coininfo?>)</th>
                 </thead>
                 <tbody>
                     <?php foreach($auxiliaries as $index=>$auxiliary):?>
@@ -147,7 +151,7 @@
             <table id="table4">
                 <thead>
                     <th>Expense description</th>
-                    <th>Observation</th>
+                    <th>Value(<?=$coininfo?>)</th>
                 </thead>
                 <tbody>
                     <tr>
