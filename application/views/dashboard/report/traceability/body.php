@@ -1,3 +1,4 @@
+<?php $coininfo=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>
 <div class="flex justify-end">
     <label class="text-lg">Search Filter: &emsp;</label><div class="w-56"><input type="text" id="search" class="form-control" value="" /></div>
 </div>
@@ -28,9 +29,9 @@
             <td><?=$invoice['input_inputreference']?></td>
             <td><?=date("Y/m/d", strtotime($invoice['date_of_issue']))?></td>
             <td><?=date("Y/m/d", strtotime($invoice['due_date']))?></td>
-            <td><?=$invoice['sub_total']?></td>
-            <td><?=$invoice['tax']?></td>
-            <td><?=$invoice['total']?></td>
+            <td><?=$invoice['sub_total'].' '.$coininfo?></td>
+            <td><?=$invoice['tax'].' '.$coininfo?></td>
+            <td><?=$invoice['total'].' '.$coininfo?></td>
             <td class="text-center"><?=$invoice['ispaid']?"<i class='bi custom-paid-icon'></i>":"<i class='bi custom-notpaid-icon'></i>"?></td>
             <td hidden><?=$invoice['material_lines'];?>
             </td>
@@ -73,12 +74,12 @@
             <td><?=$invoice['id']?></td>
             <td><?=date("Y/m/d", strtotime($invoice['date_of_reception']))?></td>
             <td><?=date("Y/m/d", strtotime($invoice['invoice_date']))?></td>
-            <td><?=number_format($invoice['acq_subtotal_without_vat'], 2, '.', "")?></td>
-            <td><?=number_format($invoice['acq_subtotal_vat'], 2, '.', "")?></td>
-            <td><?=number_format($invoice['acq_subtotal_with_vat'], 2, '.', "")?></td>
-            <td><?=number_format($invoice['selling_subtotal_without_vat'], 2, '.', "")?></td>
-            <td><?=number_format($invoice['selling_subtotal_vat'], 2, '.', "")?></td>
-            <td><?=number_format($invoice['selling_subtotal_with_vat'], 2, '.', "")?></td>
+            <td><?=number_format($invoice['acq_subtotal_without_vat'], 2, '.', "").' '.$coininfo?></td>
+            <td><?=number_format($invoice['acq_subtotal_vat'], 2, '.', "").' '.$coininfo?></td>
+            <td><?=number_format($invoice['acq_subtotal_with_vat'], 2, '.', "").' '.$coininfo?></td>
+            <td><?=number_format($invoice['selling_subtotal_without_vat'], 2, '.', "").' '.$coininfo?></td>
+            <td><?=number_format($invoice['selling_subtotal_vat'], 2, '.', "").' '.$coininfo?></td>
+            <td><?=number_format($invoice['selling_subtotal_with_vat'], 2, '.', "").' '.$coininfo?></td>
             <td><?=$invoice['ispaid']?"<i class='bi custom-paid-icon'></i>":"<i class='bi custom-notpaid-icon'></i>"?></td>
             <td class="text-center"><button onclick="viewProductsforNIR('<?=$invoice['id']?>', this)"><i class="bi custom-view-icon"></i></button></td>
             <td hidden><?php

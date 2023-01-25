@@ -8,13 +8,13 @@
                 width: 100%;
             }
 
-            #table1 , #table2 , #table3{
+            #table1 , #table2 , #table3 {
                 text-align: center;
-                border-collapse: collapse;
+                border: 1px solid #ddd;
                 width: 100%;
             }
 
-            #table1 th , #table1 td , #table2 th , #table2 td , #table3 th , #table3 td{
+            #table1 th , #table1 td , #table2 th , #table2 td , #table3 th , #table3 td {
                 border: 1px solid #ddd;
                 padding : 5px;
             }
@@ -27,11 +27,11 @@
                 font-size: 12px;
             }
 
-            table#table2{
+            table #table2{
                 margin-top: 5px;
             }
 
-            table#table3{
+            table #table3{
                 margin-top: 5px;
             }
 
@@ -75,9 +75,9 @@
                     <img style="margin-bottom: 5px; left: 50px; display: inline-block;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="100">
                 </div>
             </div>
-            <div style="height: 30px;"></div>
+            <hr>
             <div>
-                <p style="text-align: center; font-size: 18px; font-weight: 800;">Production recipe for: <?=$product['name']?></p>
+                <p style="text-align: center; font-size: 16px; font-weight: 800;">Production recipe for: <?=$product['name']?></p>
             </div>
             <p>Materials:</p>
             <table id="table1">
@@ -92,7 +92,7 @@
                     <?php foreach($materials as $index=>$material):?>
                     <tr>
                         <td><?=$material['code_ean']?></td>
-                        <td class="text-left"><?=$material['production_description']?></td>
+                        <td><?=$material['production_description']?></td>
                         <td><?=$material['amount']?></td>
                         <td><?=$material['selling_unit_price_without_vat']?></td>
                         <td><?=number_format($material['amount']*$material['selling_unit_price_without_vat'], 2, '.', "")?></td>
@@ -101,7 +101,7 @@
                     <?php endforeach;?>
                 </tbody>
             </table>
-            <div style="height: 30px;"></div>
+            <div style="height: 20px;"></div>
             <p>Labour:</p>
             <table id="table2">
                 <thead>
@@ -124,7 +124,7 @@
                     <?php endforeach;?>
                 </tbody>
             </table>
-            <div style="height: 30px;"></div>
+            <div style="height: 20px;"></div>
             <p>Auxiliary Expenses:</p>
             <table id="table3">
                 <thead>
@@ -143,7 +143,7 @@
                     <?php endforeach;?>
                 </tbody>
             </table>
-            <div style="height: 30px;"></div>
+            <div style="height: 20px;"></div>
             <table id="table4">
                 <thead>
                     <th>Expense description</th>

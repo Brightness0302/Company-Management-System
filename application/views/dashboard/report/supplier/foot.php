@@ -30,6 +30,7 @@ $(function() {
             text: 'PDF',
             pageSize: 'LEGAL',
             customize: function (doc) {
+                console.log(doc);
                 doc.defaultStyle.fontSize = 8; //2, 3, 4,etc
                 doc.styles.tableHeader.fontSize = 10; //2, 3, 4, etc
                 if (doc.content[1].table.body.length === 0)
@@ -37,10 +38,11 @@ $(function() {
                 const length = doc.content[1].table.body[0].length;
                 let widths = [];
                 widths[0] = '5%';
-                for (var i=1;i<length-1;i++) {
-                    widths[i] = (95/(length-2))+'%';
+                for (var i=1;i<length-2;i++) {
+                    widths[i] = (95/(length-3))+'%';
                 }
                 widths[length-1] = '0%';
+                widths[length-2] = '0%';
                 
                 doc.content[1].table.widths = widths;
             },
@@ -70,7 +72,7 @@ $(function() {
                             header: function ( data, columnIdx ) {
                                 if (data === "Actions" || data === "Action" || data === "Pay" || data === "Status" || data === "View")
                                     return "";
-                                return data;
+                                return data.replace("<br>", "");
                             }
                         }
                     };

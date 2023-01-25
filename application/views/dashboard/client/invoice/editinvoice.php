@@ -219,7 +219,6 @@
         </div>
         <!-- Content End -->
 
-
         <!-- Add Line Section Start-->
         <div id="content_add_line">
             <div class="">
@@ -233,7 +232,6 @@
                         <th class="text-center">Action</th>
                     </thead>
                     <tbody id="table_body">
-                        <?php ?>
                         <?php foreach ($lines as $index => $line):?>
                         <tr>
                             <td>
@@ -241,7 +239,7 @@
                             </td>
                             <td class='text-center'>
                                 <input type='text' value="<?=$line['rate']?>" class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_border' name='rate' placeholder='Rate' id='line_rate'>
-                                <?php if($line['discount']!=0):?>
+                                <?php if(str_contains($line['description'], "] - ")):?>
                                 <div class='row'>
                                     <label class='col-sm-6 my-0'>Discount: </label>
                                     <input type='text' value='<?=$line['discount']?>' class='col-sm-4 w-full text-right bg-transparent border-none' name='discount' placeholder='Discount' id='line_discount'>
@@ -254,7 +252,7 @@
                             </td>
                             <td>
                                 <input type='text' value="<?=$line['total']?>" class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_border' name='total' placeholder='€0.00' id='line_total' readOnly>
-                                <?php if($line['discount']!=0):?>
+                                <?php if(str_contains($line['description'], "] - ")):?>
                                 <input type='text' value='<?=number_format($line['total']*$line['discount']/100.0, 2, '.', '')?>' class='w-full text-right bg-transparent border-none' name='discount' placeholder='Discount' id='discount_amount'>
                                 <?php endif;?>
                             </td>
@@ -328,7 +326,7 @@
                                     <div class="m-3">
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <input class="form-control " type="text" name="discount" id="product_discount" />
+                                                <input class="form-control " type="text" name="discount" id="product_discount" value="0" />
                                             </div>
                                             <div class="col-sm-8">
                                                 <p class="text-base">%</p>

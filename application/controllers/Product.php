@@ -562,7 +562,7 @@ class Product extends CI_Controller
         }
         $data['product']['materials'] = json_encode($materials);
 
-        $html = $this->load->view('dashboard/product/product/invoicepreview', $data, true);
+        $html = $this->load->view('dashboard/product/recipe/invoicepreview', $data, true);
 
         $this->pdf->createPDF($html, "InvoicePreview.pdf");
         echo "success";
@@ -606,7 +606,7 @@ class Product extends CI_Controller
         }
         $data['product']['materials'] = json_encode($materials);
 
-        $this->load->view('dashboard/product/product/invoicepreview', $data);
+        $this->load->view('dashboard/product/recipe/invoicepreview', $data);
     }
     //showing html page for deploying pdf
     public function invoicepreviewofinternalorder() {

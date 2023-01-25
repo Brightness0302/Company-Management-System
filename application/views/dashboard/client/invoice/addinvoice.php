@@ -283,7 +283,7 @@
                                     <div class="m-3">
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <input class="form-control " type="text" name="discount" id="product_discount" />
+                                                <input class="form-control " type="text" name="discount" id="product_discount" value="0" />
                                             </div>
                                             <div class="col-sm-8">
                                                 <p class="text-base">%</p>

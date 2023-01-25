@@ -79,7 +79,7 @@
                     <img style="margin-bottom: 5px; left: 50px; display: inline-block;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="100">
                 </div>
             </div>
-            <div style="height: 20px;"></div>
+            <hr>
             <div>
                 <p class="text-supplier-invoice">Supplier Name: <?=$products['supplier']?></p>
                 <p class="text-supplier-invoice">Invoice Name: <?=$products['invoice_number']?></p>

@@ -396,7 +396,7 @@ class Material extends CI_Controller
 
         $html = $this->load->view('dashboard/supplier/product/invoicepreview', $data, true);
 
-        $this->pdf->createPDF($html, "InvoicePreview.pdf");
+        $this->pdf->createPDF($html, "InvoicePreview.pdf", true, 'A4', 'landscape');
         echo "success";
     }
     //showing html page for deploying pdf

@@ -67,7 +67,7 @@ $(function() {
                     config.exportOptions = {
                         format: {
                             header: function ( data, columnIdx ) {
-                                if (data === "Actions" || data === "Action" || data === "Pay")
+                                if (data === "Actions" || data === "Action" || data === "Pay" || data === "View")
                                     return "";
                                 return data;
                             }
