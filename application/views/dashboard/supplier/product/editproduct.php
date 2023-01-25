@@ -316,7 +316,7 @@
                         <?php
                             $total_first=0;$total_second=0;$total_third=0;$total_seventh=0;$total_eighth=0;$total_ninth=0;
                         ?>
-                        <table id="lines" class="table table-bordered table-hover text-center text-xxs">
+                        <table id="lines" class="table table-bordered table-hover text-center text-xxs" id="producttable">
                             <thead>
                                 <tr>
                                     <th>Code EAN</th>
