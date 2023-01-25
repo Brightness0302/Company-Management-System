@@ -58,34 +58,35 @@
                     <img style="margin-bottom: 5px; left: 50px; display: inline-block;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="100">
                 </div>
             </div>
+            <div style="height: 20px;"></div>
             <table id="table1">
                 <tbody>
                     <tr>
-                        <th>Order No</th>
+                        <th class="text-left">Order No</th>
                         <td><?=$order['id']?></td>
                     </tr>
                     <tr>
-                        <th>Order Date</th>
+                        <th class="text-left">Order Date</th>
                         <td><?=$order['order_date']?></td>
                     </tr>
                     <tr>
-                        <th>Order Observation</th>
+                        <th class="text-left">Order Observation</th>
                         <td><?=$order['order_observation']?></td>
                     </tr>
                     <tr>
-                        <th>Product Description</th>
+                        <th class="text-left">Product Description</th>
                         <td><?=$order['product_description']?></td>
                     </tr>
                     <tr>
-                        <th>Product Quantity</th>
+                        <th class="text-left">Product Quantity</th>
                         <td><?=$order['product_qty']?></td>
                     </tr>
                     <tr>
-                        <th>Product Price</th>
+                        <th class="text-left">Product Price</th>
                         <td><?=$order['product_price']?></td>
                     </tr>
                     <tr>
-                        <th>Total</th>
+                        <th class="text-left">Total</th>
                         <td><?=$order['total_amount']?></td>
                     </tr>
                 </tbody>
