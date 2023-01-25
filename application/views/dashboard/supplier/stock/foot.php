@@ -130,6 +130,7 @@ $(function() {
                 }
                 widths[length-1] = '0%';
                 widths[length-2] = '0%';
+                console.log(doc);
                 
                 doc.content[1].table.widths = widths;
             },
