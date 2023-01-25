@@ -55,10 +55,11 @@ make_base();
 
 function make_base()
 {
+    const logo_image = document.getElementById("logo-image");
     var base_image = new Image();
     base_image.crossOrigin = "anonymous";
     base_image.onload = function(){
-        context.drawImage(base_image, 0, 0);
+        context.drawImage(base_image, 0, 0, base_image.width, base_image.height, 0, 0, logo_image.width, logo_image.height);
     }
     base_image.src = '<?=base_url('assets/company/image/'.$company['id']).'.jpg'?>';
 }
