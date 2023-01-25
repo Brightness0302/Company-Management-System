@@ -140,7 +140,7 @@ $(function() {
                 widths[length-2] = '0%';
                 console.log(doc);
                 
-                doc.content[1].table.widths = widths;
+                doc.content[1].table.widths = ['5%', '12%', '23%', '15%', '5%', '10%', '10%', '10%', '10%', '0%', '0%'];
             },
             action: function ( e, dt, node, config ) {
                 var ethis = this;
