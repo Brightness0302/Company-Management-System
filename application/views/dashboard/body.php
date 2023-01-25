@@ -6,7 +6,7 @@
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="<?=base_url('home/dashboard')?>" class="logo d-flex align-items-center justify-center">
-                <img src="<?=base_url('assets/company/image/'.$company['id']).'.jpg'?>" alt="">
+                <img id="logo-image" src="<?=base_url('assets/company/image/'.$company['id']).'.jpg'?>" alt="">
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
