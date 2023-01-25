@@ -126,9 +126,9 @@ $(function() {
                 console.log(doc);
                 doc.defaultStyle.fontSize = 8; //2, 3, 4,etc
                 doc.styles.tableHeader.fontSize = 10; //2, 3, 4, etc
-                if (doc.content[1].table.body.length === 0)
+                if (doc.content[2].table.body.length === 0)
                     return;
-                const length = doc.content[1].table.body[0].length;
+                const length = doc.content[2].table.body[0].length;
                 let widths = [];
                 widths[0] = '5%';
                 for (var i=1;i<length-2;i++) {
@@ -137,14 +137,14 @@ $(function() {
                 widths[length-1] = '0%';
                 widths[length-2] = '0%';
 
-                const rowCount = doc.content[1].table.body.length;
+                const rowCount = doc.content[2].table.body.length;
                 for (var i=1;i<rowCount;i++) {
-                    doc.content[1].table.body[i][0].alignment = 'center';
-                    doc.content[1].table.body[i][1].alignment = 'center';
-                    doc.content[1].table.body[i][3].alignment = 'center';
-                    doc.content[1].table.body[i][4].alignment = 'center';
+                    doc.content[2].table.body[i][0].alignment = 'center';
+                    doc.content[2].table.body[i][1].alignment = 'center';
+                    doc.content[2].table.body[i][3].alignment = 'center';
+                    doc.content[2].table.body[i][4].alignment = 'center';
                 }
-                doc.content[1].table.widths = ['5%', '12%', '23%', '15%', '5%', '10%', '10%', '10%', '10%', '0%', '0%'];
+                doc.content[2].table.widths = ['5%', '12%', '23%', '15%', '5%', '10%', '10%', '10%', '10%', '0%', '0%'];
             },
             action: function ( e, dt, node, config ) {
                 var ethis = this;
