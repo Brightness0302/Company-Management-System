@@ -8,6 +8,10 @@
                 width: 100%;
                 margin: auto;
             }
+            
+            .text-left {
+                text-align: left;
+            }
 
             #table1 , #table2 , #table3{
                 text-align: center;
