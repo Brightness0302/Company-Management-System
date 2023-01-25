@@ -3,12 +3,12 @@
 <table id="productbystock" class="table table-bordered table-hover">
     <thead class="text-center">
         <tr>
-            <th>No</th>
+            <th class="text-center">No</th>
             <th>Code EAN</th>
             <th>Description</th>
-            <th>SN</th>
+            <th class="text-center">SN</th>
             <?=(($menu['second-submenu']=="stock - *All")?"<th>Stock</th>":"")?>
-            <th>Qty</th>
+            <th class="text-center">Qty</th>
             <th>ACQ price Ex VAT</th>
             <th id="upaquisition">ACQ amount Ex VAT</th>
             <th id='upeight'>Selling price Ex VAT</th>
@@ -31,13 +31,13 @@
                 $total_qty += (($line['qty']>0)?$line['qty']:0);
                 $missing_qty += (($line['qty']<0)?$line['qty']:0);
             ?>
-            <td><?=($index)?></td>
+            <td class="text-center"><?=($index)?></td>
             <!-- <td><?=$result['name']?></td> -->
             <td class="text-center"><?=$line['code_ean']?></td>
             <td class="text-left"><?=$line['production_description']?></td>
             <td class="text-center"><?=$line['serial_number']?></td>
             <?=(($menu['second-submenu']=="stock - *All")?'<td>'.$line['name'].'</td>':"")?>
-            <td><?=$line['qty']?></td>
+            <td class="text-center"><?=$line['qty']?></td>
             <td><?=number_format($line['acquisition_unit_price'], 2, '.', "")?></td>
             <td><?=number_format(($line['acquisition_unit_price']*floatval($line['qty'])), 2, '.', "")?></td>
             <td><?=number_format($line['selling_unit_price_without_vat'], 2, '.', "")?></td>
