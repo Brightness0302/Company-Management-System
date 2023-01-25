@@ -48,26 +48,19 @@ function onrefreshtotalmark() {
     $("#selling").html("0.0");
 }
 
-function getBase64Image() {
-    const img = document.getElementById("logo-image");
-    // Create an empty canvas element
-    var canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
+var canvas_logo = document.createElement("canvas");
+context = canvas_logo.getContext('2d');
 
-    // Copy the image contents to the canvas
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0);
+make_base();
 
-    // Get the data-URL formatted image
-    // Firefox supports PNG and JPEG. You could check img.src to
-    // guess the original format, but be aware the using "image/jpg"
-    // will re-encode the image.
-    var dataURL = canvas.toDataURL("image/png");
-
-    return dataURL;
+function make_base()
+{
+    base_image = new Image();
+    base_image.src = '<?=base_url('assets/company/image/'.$company['id']).'.jpg'?>';
+    base_image.onload = function(){
+        context.drawImage(base_image, base_image.width, base_image.height);
+    }
 }
-const dataURL = getBase64Image();
 
 $(function() {
     $("#example1").DataTable({
@@ -139,6 +132,7 @@ $(function() {
             text: 'PDF',
             pageSize: 'LEGAL',
             customize: function (doc) {
+                const dataURL = canvas_logo.toDataURL();
                 doc.content.splice( 0, 0, {
                     margin: [ 0, 0, 0, 12 ],
                     alignment: 'left',
