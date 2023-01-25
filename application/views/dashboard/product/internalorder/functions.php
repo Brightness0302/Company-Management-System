@@ -82,6 +82,16 @@ function get_formdata() {
     const product_price = $("#product_price").val();
     const total_amount = $("#total_amount").val();
 
+    if (!product_description) {
+        alert("You should select product");
+        return false;
+    }
+
+    if (product_qty <= 0) {
+        alert("Input field for Product Qty should be bigger than 0.");
+        return false;
+    }
+
     const form_data = {
         id: order_id, 
         order_date: order_date, 
@@ -96,7 +106,8 @@ function get_formdata() {
 
 function AddOrder() {
     const form_data = get_formdata();
-    console.log(form_data); 
+    if (typeof form_data == "boolean" && form_data === false)
+        return;
 
     $.ajax({
         url: "<?=base_url('product/saveorder')?>",
@@ -128,7 +139,8 @@ function AddOrder() {
 
 function EditOrder(order_id) {
     const form_data = get_formdata();
-    console.log(form_data);
+    if (typeof form_data == "boolean" && form_data === false)
+        return;
 
     $.ajax({
         url: "<?=base_url('product/saveorder?id=')?>"+order_id,
@@ -214,7 +226,8 @@ function delProduct(order_id) {
 
 function SaveAsPDF() {
     const form_data = get_formdata();
-    console.log(form_data);
+    if (typeof form_data == "boolean" && form_data === false)
+        return;
 
     $.ajax({
         url: "<?=base_url('product/savesessionbyjsonofinternalorder')?>",

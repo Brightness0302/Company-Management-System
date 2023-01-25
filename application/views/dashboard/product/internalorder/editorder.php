@@ -89,7 +89,7 @@
                                         <td style="border: 1px solid black"><label class="my-2">Product Price:</label></td>
                                         <td>
                                             <div class="m-auto">
-                                                <input type="text" class="form-control" id="product_price" value="" title="Choose your color">
+                                                <input type="text" class="form-control" id="product_price" value="" title="Choose your color" disabled>
                                             </div>
                                         </td>
                                     </tr>
