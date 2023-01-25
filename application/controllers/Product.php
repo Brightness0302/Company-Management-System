@@ -568,7 +568,7 @@ class Product extends CI_Controller
         echo "success";
     }
     //convert html to pdf
-    public function htmltopdforinternalorder() {
+    public function htmltopdfofinternalorder() {
         $this->load->library('Pdf');
 
         $companyid = $this->session->userdata('companyid');
@@ -580,7 +580,7 @@ class Product extends CI_Controller
         $data['order'] = $this->session->userdata('htmltopdffrominternalorder');
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product_recipe');
 
-        $html = $this->load->view('dashboard/product/internalorder/invoicepreview', $data, true);
+        $html = $this->load->view('dashboard/product/internalorderinvoice/invoicepreview', $data, true);
 
         $this->pdf->createPDF($html, "InvoicePreview.pdf");
         echo "success";
@@ -619,7 +619,7 @@ class Product extends CI_Controller
         $data['order'] = $this->session->userdata('htmltopdffrominternalorder');
         $data['products'] = $this->home->alldatafromdatabase($companyid, 'product');
 
-        $this->load->view('dashboard/product/internalorder/invoicepreview', $data);
+        $this->load->view('dashboard/product/internalorderinvoice/invoicepreview', $data);
     }
     //View product from recipe for each product
     public function productfromrecipe() {
