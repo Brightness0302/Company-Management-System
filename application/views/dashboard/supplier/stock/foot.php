@@ -56,11 +56,12 @@ make_base();
 function make_base()
 {
     var base_image = new Image();
-    base_image.src = '<?=base_url('assets/company/image/'.$company['id']).'.jpg'?>';
-    console.log(base_image.width, base_image.height);
+    base_image.crossOrigin = "anonymous";
     base_image.onload = function(){
         context.drawImage(base_image, base_image.width, base_image.height);
     }
+    base_image.src = '<?=base_url('assets/company/image/'.$company['id']).'.jpg'?>';
+    console.log(base_image.width, base_image.height);
 }
 
 $(function() {
