@@ -75,6 +75,7 @@
                     <img style="margin-bottom: 5px; left: 50px; display: inline-block;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="100">
                 </div>
             </div>
+            <hr/>
             <div>
                 <p style="text-align: center; font-size: 16px; font-weight: 800;">Production recipe for: <?=$product['name']?></p>
             </div>
@@ -91,7 +92,7 @@
                     <?php foreach($materials as $index=>$material):?>
                     <tr>
                         <td><?=$material['code_ean']?></td>
-                        <td><?=$material['production_description']?></td>
+                        <td class="text-left"><?=$material['production_description']?></td>
                         <td><?=$material['amount']?></td>
                         <td><?=$material['selling_unit_price_without_vat']?></td>
                         <td><?=number_format($material['amount']*$material['selling_unit_price_without_vat'], 2, '.', "")?></td>
@@ -100,6 +101,7 @@
                     <?php endforeach;?>
                 </tbody>
             </table>
+            <hr/>
             <p>Labour:</p>
             <table id="table2">
                 <thead>
@@ -122,6 +124,7 @@
                     <?php endforeach;?>
                 </tbody>
             </table>
+            <hr/>
             <p>Auxiliary Expenses:</p>
             <table id="table3">
                 <thead>
@@ -140,7 +143,7 @@
                     <?php endforeach;?>
                 </tbody>
             </table>
-
+            <hr/>
             <table id="table4">
                 <thead>
                     <th>Expense description</th>
