@@ -564,7 +564,7 @@ class Product extends CI_Controller
 
         $html = $this->load->view('dashboard/product/recipe/invoicepreview', $data, true);
 
-        $this->pdf->createPDF($html, "InvoicePreview.pdf");
+        $this->pdf->createPDF($html, "InvoicePreview.pdf", true, 'A4', 'landscape');
         echo "success";
     }
     //convert html to pdf
