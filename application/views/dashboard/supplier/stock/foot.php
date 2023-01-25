@@ -48,25 +48,6 @@ function onrefreshtotalmark() {
     $("#selling").html("0.0");
 }
 
-var canvas_logo = document.createElement("canvas");
-context = canvas_logo.getContext('2d');
-
-make_base();
-
-function make_base()
-{
-    const logo_image = document.getElementById("logo-image");
-    var base_image = new Image();
-    base_image.crossOrigin = "anonymous";
-    base_image.onload = function(){
-        console.log(base_image.width, base_image.height, logo_image.width, logo_image.height);
-        context.canvas.width = logo_image.width - 1;
-        context.canvas.height = logo_image.height - 1;
-        context.drawImage(base_image, 0, 0, base_image.width, base_image.height, 0, 0, logo_image.width - 1, logo_image.height - 1);
-    }
-    base_image.src = '<?=base_url('assets/company/image/'.$company['id']).'.jpg'?>';
-}
-
 $(function() {
     $("#example1").DataTable({
         "responsive": true,
@@ -143,19 +124,18 @@ $(function() {
                     alignment: 'left',
                     image: dataURL,
                 } );
-                console.log(doc);
                 doc.defaultStyle.fontSize = 8; //2, 3, 4,etc
                 doc.styles.tableHeader.fontSize = 10; //2, 3, 4, etc
                 if (doc.content[2].table.body.length === 0)
                     return;
-                const length = doc.content[2].table.body[0].length;
-                let widths = [];
-                widths[0] = '5%';
-                for (var i=1;i<length-2;i++) {
-                    widths[i] = (95/(length-3))+'%';
-                }
-                widths[length-1] = '0%';
-                widths[length-2] = '0%';
+                // const length = doc.content[2].table.body[0].length;
+                // let widths = [];
+                // widths[0] = '5%';
+                // for (var i=1;i<length-2;i++) {
+                //     widths[i] = (95/(length-3))+'%';
+                // }
+                // widths[length-1] = '0%';
+                // widths[length-2] = '0%';
 
                 const rowCount = doc.content[2].table.body.length;
                 for (var i=1;i<rowCount;i++) {
