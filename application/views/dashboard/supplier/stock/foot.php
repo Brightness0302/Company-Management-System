@@ -109,7 +109,7 @@ $(function() {
         }, "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
-    $("#invoicetable").DataTable({
+    $("#productbystock").DataTable({
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
@@ -167,30 +167,9 @@ $(function() {
                     // Call the default csvHtml5 action method to create the CSV file
             }
         }, "print", "colvis"]
-    }).buttons().container().appendTo('#invoicetable_wrapper .col-md-6:eq(0)');
-    $("#productbystock").DataTable({
-        "responsive": true,
-        "lengthChange": false,
-        "autoWidth": false,
-        "pageLength": 100,
-        "buttons": [
-            "copy", "csv", "excel",
-            {
-                extend: 'pdfHtml5',
-                orientation: 'landscape',
-                pageSize: 'LEGAL',
-                title: "<?=isset($stock)?$company['name'].'-'.$stock['name'].'-'.date("Y/m/d"):$company['name']?>",
-                customize: function (doc) {
-                    doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
-                }
-            }, "print", "colvis",
-        ]
     }).buttons().container().appendTo('#productbystock_wrapper .col-md-6:eq(0)');
 
-    let invoicetable = $("#invoicetable").DataTable();
     let productbystock = $("#productbystock").DataTable();
-
-    $("#invoicetable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
 
     $("#productbystock_filter").html("Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
 

@@ -14,7 +14,7 @@
             }
 
             .pl-3 {
-                padding-left: 30px;
+                padding-left: 30px !important;
             }
 
             #table1 , #table2 , #table3{
