@@ -13,7 +13,7 @@
 <table id="invoicetable" class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>No</th>
+            <th class="text-center">No</th>
             <th>Invoice Number</th>
             <th>Client Name</th>
             <th>Reference</th>
@@ -31,7 +31,7 @@
         <?php if(!$invoice['isremoved']):?>
         <?php $index++;?>
         <tr>
-            <td><?=($index)?></td>
+            <td class="text-center"><?=($index)?></td>
             <td><?=date("Y").'-'.$invoice['input_invoicenumber']?><?=$invoice['isremoved']?"[<label class='danger'>deleted</label>]":""?></td>
             <td><?=str_replace("_"," ", $invoice['client']['name'])?></td>
             <td><?=$invoice['input_inputreference']?></td>

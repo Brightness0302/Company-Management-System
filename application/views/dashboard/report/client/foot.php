@@ -82,7 +82,7 @@ $(function() {
 
     let invoicetable = $("#invoicetable").DataTable();
 
-    $("#invoicetable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-m-d', strtotime(date('Y-m-d'). ' - 1 months'))?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='"+"<?=date('Y-m-d', strtotime(date('Y-m-d'). ' + 1 months'))?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
+    $("#invoicetable_filter").html("<div class='row' hidden><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-m-d', strtotime(date('Y-m-d'). ' - 1 months'))?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='"+"<?=date('Y-m-d', strtotime(date('Y-m-d'). ' + 1 months'))?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
 
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {

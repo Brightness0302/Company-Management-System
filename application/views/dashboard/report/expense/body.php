@@ -12,7 +12,7 @@
         <p class="text-lg mb-0">Start:</p><input type="month" id="start" class="form-select" value="<?=date("Y-m", strtotime($setting1['startdate']))?>" min="1900-01" max="2050-12" />
     </div>
     <div class="w-56 m-2">
-        <p class="text-lg mb-0">End:</p><input type="month" id="end" class="form-select" value="<?=date("Y-m")?>" min="1900-01" max="2050-12" />
+        <p class="text-lg mb-0">End:</p><input type="month" id="end" class="form-select" value="<?=date("Y-m", strtotime(date($setting1['startdate']). ' + 1 months'))?>" min="1900-01" max="2050-12" />
     </div>
 </div>
 <div class="m-auto" style="width:80%;">
