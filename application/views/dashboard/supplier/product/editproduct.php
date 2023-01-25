@@ -316,7 +316,7 @@
                         <?php
                             $total_first=0;$total_second=0;$total_third=0;$total_seventh=0;$total_eighth=0;$total_ninth=0;
                         ?>
-                        <table id="lines" class="table table-bordered table-hover text-center text-xxs" id="producttable">
+                        <table class="table table-bordered table-hover text-center text-xxs" id="producttable">
                             <thead>
                                 <tr>
                                     <th>Code EAN</th>
@@ -472,6 +472,7 @@
                 </div>
                 <button class="cbutton bg-red" onclick="EditProduct('<?=$product['id']?>')">Save</button> / <a
                     href="<?=base_url('material/index')?>"><button class="cbutton bg-white">Cancel</button></a>
+                <button class="cbutton p-2 bg-green rounded-xl mr-2 float-right" onclick="SaveAsPDF()">Save as PDF</button><a id="htmltopdf" href="<?=base_url('material/htmltopdf')?>" target="_blank" hidden>Download PDF</a>
             </div>
         </div>
     </section><!-- End Hero -->

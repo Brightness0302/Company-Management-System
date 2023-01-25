@@ -151,10 +151,10 @@ class Material extends CI_Controller
         $this->load->view('header');
         $this->load->view('dashboard/head');
         $this->load->view('dashboard/body', $data);
-        $this->load->view('dashboard/product/product/head');
-        $this->load->view('dashboard/product/product/shead');
+        $this->load->view('dashboard/supplier/product/head');
+        $this->load->view('dashboard/supplier/product/shead');
         $this->load->view('dashboard/supplier/product/editproduct');
-        $this->load->view('dashboard/product/product/foot');
+        $this->load->view('dashboard/supplier/product/foot');
         $this->load->view('dashboard/supplier/product/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
@@ -366,5 +366,49 @@ class Material extends CI_Controller
 
         header('Content-Type: application/json');
         echo json_encode($data);
+    }
+
+    public function savesessionbyjson() {
+        $data['supplier'] = $this->input->post('supplier');
+        $data['observation'] = $this->input->post('observation');
+        $data['invoice_date'] = $this->input->post('invoice_date');
+        $data['invoice_number'] = $this->input->post('invoice_number');
+        $data['main_coin'] = $this->input->post('main_coin');
+        $data['invoice_coin'] = $this->input->post('invoice_coin');
+        $data['invoice_coin_rate'] = $this->input->post('invoice_coin_rate');
+        $data['main_coin_rate'] = $this->input->post('main_coin_rate');
+        $data['lines'] = $this->input->post('lines');
+
+        $this->session->set_userdata("htmltopdf", $data);
+        echo "success";
+    }
+    //convert html to pdf
+    public function htmltopdf() {
+        $this->load->library('Pdf');
+
+        $companyid = $this->session->userdata('companyid');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyid($companyid, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['products'] = $this->session->userdata('htmltopdf');
+
+        $html = $this->load->view('dashboard/supplier/product/invoicepreview', $data, true);
+
+        $this->pdf->createPDF($html, "InvoicePreview.pdf");
+        echo "success";
+    }
+    //showing html page for deploying pdf
+    public function invoicepreview() {
+        $companyid = $this->session->userdata('companyid');
+        $data['user'] = $this->session->userdata('user');
+        $company = $this->home->databyid($companyid, 'company');
+        if ($company['status']=='failed')
+            return;
+        $data['company'] = $company['data'];
+        $data['products'] = $this->session->userdata('htmltopdf');
+
+        $this->load->view('dashboard/supplier/product/invoicepreview', $data);
     }
 };

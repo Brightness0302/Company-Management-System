@@ -816,7 +816,7 @@ function EditProduct(product_id) {
         return;
     }
 
-    if (parseFloat(main_coin_rate)===1.0 && parseFloat(invoice_coin_rate) ===1.0 && main_coin!==invoice_coin) {
+    if (parseFloat(main_coin_rate)===1.0 && parseFloat(invoice_coin_rate) === 1.0 && main_coin!==invoice_coin) {
         alert("Main coin rate and Invoice coin rate couldn't be 1");
         return;
     }
@@ -963,6 +963,70 @@ function delProduct(product_id) {
             });
         } catch (error) {
             swal("Delete Product", "Server Error", "warning");
+        }
+    });
+}
+
+function SaveAsPDF() {
+    const supplier = $( "#supplierid option:selected" ).text();
+    const observation = $("#observation").val();
+    const invoice_date = $("#invoice_date").val();
+    const invoice_number = $("#invoice_number").val();
+    const serial_number = $("#serial_number").val();
+    const main_coin = $("#main_coin").val();
+    const invoice_coin = $("#invoice_coin").val();
+    const invoice_coin_rate = $("#invoice_coin_rate").val();
+    const main_coin_rate = $("#main_coin_rate").val();
+    let lines = [];
+
+    const table = $("#table-body");
+    table.children("tr").each((index, element) => {
+        const etr = $(element).find("td");
+        lines.push({
+            id:$(etr[26]).text(),
+            code_ean:$(etr[0]).text(),
+            stock:$(etr[1]).text(),
+            expense:$(etr[2]).text(),
+            project:$(etr[3]).text(),
+            production_description:$(etr[4]).text(),
+            units:$(etr[5]).text(),
+            serial_number:$(etr[6]).text(),
+            quantity_on_document:$(etr[7]).text(),
+            quantity_received:$(etr[8]).text(),
+            acquisition_unit_price_on_invoice:$(etr[9]).find("label").text(),
+            acquisition_unit_price:$(etr[10]).find("label").text(),
+            vat: $(etr[29]).text(), 
+            makeup: $(etr[30]).text(),
+            lineid:$(etr[27]).text(),
+            code_ean_id:$(etr[28]).text(),
+        });
+    });
+    const str_lines = JSON.stringify(lines);
+
+    const form_data = {
+        supplier: supplier,
+        observation: observation,
+        lines: str_lines,
+        invoice_date: invoice_date,
+        invoice_number: invoice_number,
+        main_coin: main_coin, 
+        invoice_coin: invoice_coin, 
+        invoice_coin_rate: invoice_coin_rate, 
+        main_coin_rate: main_coin_rate, 
+    };
+
+    $.ajax({
+        url: "<?=base_url('material/savesessionbyjson')?>",
+        method: "POST",
+        data: form_data, 
+        dataType: 'text', 
+        success: function(res) {
+            console.log(res);
+            if (res != "success") {
+                alert("error");
+                return;
+            }
+            $("#htmltopdf")[0].click();
         }
     });
 }

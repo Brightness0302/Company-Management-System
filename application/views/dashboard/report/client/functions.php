@@ -139,7 +139,6 @@ function formatDate(date) {
 function refreshPage() {
     console.log('<?=$setting1['startdate']?>');
     $("#startdate").val(formatDate(new Date('<?=$setting1['startdate']?>')));
-    $("#enddate").val(formatDate(new Date()));
 
     const start = $("#start").val();
     const end = $("#end").val();

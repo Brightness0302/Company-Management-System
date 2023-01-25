@@ -59,7 +59,6 @@ $(function() {
                 }, function() {
                     ln1 = $('#input1').val();
                     ln2 = $('#input2').val();
-                    console.log(ln1, ln2);
                     config.orientation = ln1;
                     config.pageSize = 'LEGAL';
                     config.filename = ln2;
@@ -68,7 +67,7 @@ $(function() {
                     config.exportOptions = {
                         format: {
                             header: function ( data, columnIdx ) {
-                                if (data === "Actions" || data === "Action" || data === "Pay")
+                                if (data === "Actions" || data === "Action" || data === "Pay" || data === "Invoice status")
                                     return "";
                                 return data;
                             }
@@ -83,7 +82,7 @@ $(function() {
 
     let invoicetable = $("#invoicetable").DataTable();
 
-    $("#invoicetable_filter").html("<div class='row' hidden><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-m-d', strtotime(date('Y-m-d'). ' - 1 months'))?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Start Date:<input id='enddate' value='"+"<?=date('Y-m-d', strtotime(date('Y-m-d'). ' + 1 months'))?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
+    $("#invoicetable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-m-d', strtotime(date('Y-m-d'). ' - 1 months'))?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='"+"<?=date('Y-m-d', strtotime(date('Y-m-d'). ' + 1 months'))?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
 
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {
@@ -94,10 +93,14 @@ $(function() {
                 startdate.setDate(startdate.getDate() - 1);
                 var enddate = new Date($('#enddate').val());
                 enddate.setDate(enddate.getDate() + 1);
+                var searchvalue = $("#searchtag").val();
+                const condition1 = data[1].toLowerCase().includes(searchvalue.toLowerCase());
+                const condition2 = data[2].toLowerCase().includes(searchvalue.toLowerCase());
+                const condition3 = data[3].toLowerCase().includes(searchvalue.toLowerCase());
                 var date = new Date(data[5] || 0); // use data for the age column
              
                 if (
-                    (date > startdate && date < enddate)
+                    (date > startdate && date < enddate) && (condition1 || condition2 || condition3)
                 ) {
                     return true;
                 }
