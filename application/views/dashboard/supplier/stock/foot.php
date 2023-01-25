@@ -129,7 +129,7 @@ $(function() {
                 for (var i=1;i<length-2;i++) {
                     widths[i] = (95/(length-3))+'%';
                 }
-                const rowCount = doc.content[1].table.body[0].length;
+                const rowCount = doc.content[1].table.body.length;
                 for (var i=1;i<rowCount;i++) {
                     doc.content[1].table.body[i][0].alignment = 'center';
                     doc.content[1].table.body[i][1].alignment = 'center';
