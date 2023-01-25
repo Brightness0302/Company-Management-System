@@ -58,8 +58,7 @@ function make_base()
     var base_image = new Image();
     base_image.crossOrigin = "anonymous";
     base_image.onload = function(){
-        console.log(base_image.width, base_image.height);
-        context.drawImage(base_image, base_image.width, base_image.height);
+        context.drawImage(base_image, 0, 0);
     }
     base_image.src = '<?=base_url('assets/company/image/'.$company['id']).'.jpg'?>';
 }
