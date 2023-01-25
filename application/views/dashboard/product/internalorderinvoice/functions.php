@@ -27,8 +27,6 @@ $(document).ready(function() {
         const stock = document.getElementById('stockid');
         const stockname = stock.options[stock.selectedIndex].text;
 
-        console.log("saveLine");
-
         $.ajax({
             url: "<?=base_url('stock/getdatafromproductbylineid?lineid=')?>" + lineid,
             method: "POST",
@@ -38,7 +36,6 @@ $(document).ready(function() {
                 let code_ean = res['code_ean'];
                 let productname = res['production_description'];
 
-                console.log(lineid, code_ean, productname, amount);
                 $("#code_ean").val(code_ean);
                 $("#production_description").val(productname);
                 $("#production_count").val(amount);
@@ -151,7 +148,6 @@ function EditOrder(order_id) {
         data: form_data, 
         success: function(res) {
             const id = res;
-            console.log(res);
             if (id == -1) {
                 swal("Edit Order", "Failed", "error");
                 return;
@@ -229,7 +225,8 @@ function delProduct(order_id) {
 
 function SaveAsPDF() {
     const form_data = get_formdata();
-    console.log(form_data);
+    if (typeof form_data == "boolean" && form_data === false)
+        return;
 
     $.ajax({
         url: "<?=base_url('product/savesessionbyjsonofinternalorder')?>",
@@ -237,7 +234,6 @@ function SaveAsPDF() {
         data: form_data, 
         dataType: 'text', 
         success: function(res) {
-            console.log(res);
             if (res != "success") {
                 alert("error");
                 return;
@@ -267,7 +263,6 @@ function savebydata(el) {
         data: form_data, 
         dataType: 'text', 
         success: function(res) {
-            console.log(res);
             if (res != "success") {
                 alert("error");
                 return;
