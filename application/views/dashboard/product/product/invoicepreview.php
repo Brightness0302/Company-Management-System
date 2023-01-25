@@ -75,7 +75,7 @@
                     <img style="margin-bottom: 5px; left: 50px; display: inline-block;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="100">
                 </div>
             </div>
-            <hr/>
+            <div style="height: 20px;"></div>
             <div>
                 <p style="text-align: center; font-size: 16px; font-weight: 800;">Production recipe for: <?=$product['name']?></p>
             </div>
@@ -101,7 +101,7 @@
                     <?php endforeach;?>
                 </tbody>
             </table>
-            <hr/>
+            <div style="height: 20px;"></div>
             <p>Labour:</p>
             <table id="table2">
                 <thead>
@@ -124,7 +124,7 @@
                     <?php endforeach;?>
                 </tbody>
             </table>
-            <hr/>
+            <div style="height: 20px;"></div>
             <p>Auxiliary Expenses:</p>
             <table id="table3">
                 <thead>
@@ -143,7 +143,7 @@
                     <?php endforeach;?>
                 </tbody>
             </table>
-            <hr/>
+            <div style="height: 20px;"></div>
             <table id="table4">
                 <thead>
                     <th>Expense description</th>
