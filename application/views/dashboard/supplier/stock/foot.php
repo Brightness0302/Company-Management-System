@@ -55,8 +55,9 @@ make_base();
 
 function make_base()
 {
-    base_image = new Image();
+    var base_image = new Image();
     base_image.src = '<?=base_url('assets/company/image/'.$company['id']).'.jpg'?>';
+    console.log(base_image.width, base_image.height);
     base_image.onload = function(){
         context.drawImage(base_image, base_image.width, base_image.height);
     }
