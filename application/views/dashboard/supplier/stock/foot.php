@@ -125,10 +125,11 @@ $(function() {
                 const length = doc.content[1].table.body[0].length;
                 let widths = [];
                 widths[0] = '5%';
-                for (var i=1;i<length-1;i++) {
-                    widths[i] = (95/(length-2))+'%';
+                for (var i=1;i<length-2;i++) {
+                    widths[i] = (95/(length-3))+'%';
                 }
                 widths[length-1] = '0%';
+                widths[length-2] = '0%';
                 
                 doc.content[1].table.widths = widths;
             },
@@ -156,7 +157,7 @@ $(function() {
                     config.exportOptions = {
                         format: {
                             header: function ( data, columnIdx ) {
-                                if (data === "Actions" || data === "Action" || data === "Pay")
+                                if (data === "Actions" || data === "Action" || data === "Pay" || data === "View")
                                     return "";
                                 return data;
                             }
