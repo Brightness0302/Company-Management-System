@@ -536,7 +536,7 @@ class Home_model extends CI_Model {
         }
     }
     //create invoice information using $id, $companyid, ...
-    public function createInvoice($companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $lines) {
+    public function createInvoice($companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $invoice_coin,  $invoice_coin_rate,  $main_coin_rate, $lines) {
         $client_name = str_replace(" ","",$client_name);
         $client_name = str_replace("\n","", $client_name);
         $client = $this->databyname($client_name, 'client');
@@ -597,6 +597,9 @@ class Home_model extends CI_Model {
             'sub_total'=>$sub_total, 
             'tax'=>$tax, 
             'invoice_discount'=>$invoice_discount, 
+            'invoice_coin'=>$invoice_coin, 
+            'invoice_coin_rate'=>$invoice_coin_rate, 
+            'main_coin_rate'=>$main_coin_rate, 
             'total'=>$total, 
             'lines'=>$lines
         );
@@ -618,7 +621,7 @@ class Home_model extends CI_Model {
         return $projects_id;
     }
     //save invoice information using $id, $companyid, ...
-    public function saveInvoice($id, $companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $lines) {
+    public function saveInvoice($id, $companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $invoice_coin,  $invoice_coin_rate,  $main_coin_rate, $lines) {
         $client_name = str_replace(" ", "", $client_name);
         $client_name = str_replace("\n","", $client_name);
         $client = $this->databyname($client_name, 'client');
@@ -627,7 +630,7 @@ class Home_model extends CI_Model {
         $this->db->query('use database'.$companyid);
 
         $query =    "SELECT *
-                    FROM `invoice`
+                    FROM `$type`
                     WHERE `id` = '$id' AND `isremoved` = false";
 
         $data = $this->db->query($query)->result_array();
@@ -674,6 +677,9 @@ class Home_model extends CI_Model {
             'sub_total'=>$sub_total, 
             'tax'=>$tax, 
             'invoice_discount'=>$invoice_discount, 
+            'invoice_coin'=>$invoice_coin, 
+            'invoice_coin_rate'=>$invoice_coin_rate, 
+            'main_coin_rate'=>$main_coin_rate, 
             'total'=>$total, 
             'lines'=>$lines
         );
@@ -1023,6 +1029,18 @@ class Home_model extends CI_Model {
           'tax' => array(
             'type' => 'VARCHAR',
             'constraint' => 60
+          ),
+          'invoice_coin' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'main_coin_rate' => array(
+            'type' => 'float',
+            'constraint' => 9
+          ),
+          'invoice_coin_rate' => array(
+            'type' => 'float',
+            'constraint' => 9
           ),
           'total' => array(
             'type' => 'VARCHAR',
@@ -1417,6 +1435,18 @@ class Home_model extends CI_Model {
           ),
           'client_id' => array(
             'type' => 'INT',
+            'constraint' => 9
+          ),
+          'invoice_coin' => array(
+            'type' => 'VARCHAR',
+            'constraint' => 30,
+          ),
+          'main_coin_rate' => array(
+            'type' => 'float',
+            'constraint' => 9
+          ),
+          'invoice_coin_rate' => array(
+            'type' => 'float',
             'constraint' => 9
           ),
           'tax' => array(

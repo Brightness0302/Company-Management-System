@@ -114,7 +114,7 @@
                         <strong style="font-size: 20px;">Amount</strong>
                     </div>
                     <div>
-                        <strong style="font-size: 24px;"><?=number_format($invoice['total'], 2, '.', '').' '.$invoice['companycoin']?></strong>
+                        <strong style="font-size: 24px;"><?=number_format($invoice['total'], 2, '.', '').' '.$invoice['invoice_coin']?></strong>
                     </div>
                 </div>
             </div>
@@ -130,9 +130,9 @@
                     <thead>
                         <th class="py-0">No</th>
                         <th class="py-0">Description</th>
-                        <th class="py-0">Rate(<?=$invoice['companycoin']?>)</th>
+                        <th class="py-0">Rate(<?=$invoice['invoice_coin']?>)</th>
                         <th class="py-0">Qty</th>
-                        <th class="py-0">Line Total(<?=$invoice['companycoin']?>)</th>
+                        <th class="py-0">Line Total(<?=$invoice['invoice_coin']?>)</th>
                     </thead>
                     <tbody id="preview_table_body">
                     <?php foreach ($lines as $index => $line):?>
@@ -161,7 +161,7 @@
                                 <div style="flex-direction: column;">
                                     <p style="text-align: justify !important; overflow-wrap: break-word; margin-left: 15px !important;"><?=$line['total']?></p>
                                     <?php if($line['discount']):?>
-                                        <p style="text-align: center;" class="p-0" class="font-normal"><?=number_format($line['total'] * $line['discount'] / 100.0, 2, '.', '')?></p>
+                                        <p style="text-align: center;" class="p-0" class="font-normal"><?=number_format($line['total'] * (100.0 - $line['discount']) / 100.0, 2, '.', '')?></p>
                                     <?php endif;?>
                                 </div>
                             </td>
@@ -179,18 +179,18 @@
                     <p class="text-primary" style="margin: 0px !important; padding: 0px !important;">Total: </p>
                 </div>
                 <div style="display: inline-block;">
-                    <p style="margin: 0px !important; padding: 0px !important; margin-left: 10px !important;"><?=$invoice['sub_total'].' '.$invoice['companycoin']?></p>
-                    <p style="margin: 0px !important; padding: 0px !important; margin-left: 10px !important;"><?=$invoice['invoice_discount'].' '.$invoice['companycoin']?></p>
-                    <p style="margin: 0px !important; padding: 0px !important; margin-left: 10px !important;"><?=$invoice['tax'].' '.$invoice['companycoin']?></p>
-                    <p style="margin: 0px !important; padding: 0px !important; margin-left: 10px !important;"><?=$invoice['total'].' '.$invoice['companycoin']?></p>
+                    <p style="margin: 0px !important; padding: 0px !important; margin-left: 10px !important;"><?=$invoice['sub_total'].' '.$invoice['invoice_coin']?></p>
+                    <p style="margin: 0px !important; padding: 0px !important; margin-left: 10px !important;"><?=$invoice['invoice_discount'].' '.$invoice['invoice_coin']?></p>
+                    <p style="margin: 0px !important; padding: 0px !important; margin-left: 10px !important;"><?=$invoice['tax'].' '.$invoice['invoice_coin']?></p>
+                    <p style="margin: 0px !important; padding: 0px !important; margin-left: 10px !important;"><?=$invoice['total'].' '.$invoice['invoice_coin']?></p>
                 </div>
             </div>
             <!-- Here the text area -->
         </div>
     </div>
     <div style="width: 800px; display: flex; flex-direction: column;" class="text-center">
-        <div style="position: fixed; bottom: 0px; width: 720px; margin-left: 40px; margin-right: 40px;">
-            <table class="table text-bold" style="margin: 0px !important;">
+        <div style="position: fixed; bottom: 0px; width: 720px;">
+            <table class="table text-bold" style="margin-left: 40px; margin-right: 40px; margin-top: 0px; margin-bottom: 0px;">
                 <tbody>
                     <tr>
                         <td style="margin: 0px !important; padding: 0px !important; text-align: left;">
@@ -206,7 +206,7 @@
                             <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;"><?=$company['bankaccount1']?></p>
                         </td>
                     </tr>
-                    <?php if($invoice['isshow_bank2']):?> 
+                    <?php if($invoice['isshow_bank2']=='true'):?> 
                     <tr>
                         <td style="margin: 0px !important; padding: 0px !important; text-align: left;">
                             <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;">Bank details2(<?=$company['observation2']?>):</p>
@@ -219,6 +219,17 @@
                         <td style="margin: 0px !important; padding: 0px !important; text-align: left;">
                             <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;">IBAN2:</p>
                             <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;"><?=$company['bankaccount2']?></p>
+                        </td>
+                    </tr>
+                    <?php endif;?>
+                </tbody>
+            </table>
+            <table class="table text-bold" style="margin-left: 40px; margin-right: 40px; margin-top: 0px; margin-bottom: 0px; border-top: 1px solid black;">
+                <tbody>
+                    <?php if($invoice['main_coin']!=$invoice['invoice_coin']):?>
+                    <tr class="border-top: 1px solid black;">
+                        <td style="margin: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 5px !important; padding-bottom: 5px !important; text-align: left;" rowspan="3">
+                            <p class="font-smaller" style="margin: 0px !important; padding: 0px !important; display: inline-block;">Exchange rate / <?=$invoice['date_of_issue'].' : '.$invoice['main_coin_rate'].' '.$invoice['main_coin'].' = '.$invoice['invoice_coin_rate'].' '.$invoice['invoice_coin']?></p>
                         </td>
                     </tr>
                     <?php endif;?>

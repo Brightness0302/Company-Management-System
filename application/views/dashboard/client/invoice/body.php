@@ -38,9 +38,9 @@
             <td><?=$invoice['input_inputreference']?></td>
             <td><?=date("Y/m/d", strtotime($invoice['date_of_issue']))?></td>
             <td><?=date("Y/m/d", strtotime($invoice['due_date']))?></td>
-            <td><?=$invoice['sub_total']?></td>
-            <td><?=$invoice['tax']?></td>
-            <td><?=$invoice['total']?></td>
+            <td><?=number_format($invoice['sub_total']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "")?></td>
+            <td><?=number_format($invoice['tax']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "")?></td>
+            <td><?=number_format($invoice['total']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "")?></td>
             <td class="text-center"><?=$invoice['ispaid']?"<i class='bi custom-paid-icon'></i>":"<i class='bi custom-notpaid-icon'></i>"?></td>
             <td class="align-middle">
                 <a href="<?=base_url('client/editinvoice/'.$invoice['id'])?>"><i class="bi custom-edit-icon"></i></a>

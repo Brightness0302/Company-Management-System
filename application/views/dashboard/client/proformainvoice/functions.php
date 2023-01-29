@@ -7,15 +7,12 @@ $(document).ready(function() {
         $("input").change(function() {
             const eid = $(this).attr('id');
             if (eid == "line_rate" || eid == "line_qty" || eid == "line_discount") {
-                //Update Line_total value;
-                const etr = $(this).closest('tr');
-                const erate = etr.find("input[id*='line_rate']");
-                const eqty = etr.find("input[id*='line_qty']");
-                const ediscount = etr.find("input[id*='line_discount']");
-                const etotal = etr.find("input[id*='line_total']");
-                const ediscount_amount = etr.find("input[id*='discount_amount']");
-                etotal[0].value = (erate[0].value * eqty[0].value).toFixed(2);
-                ediscount_amount[0].value = (erate[0].value * eqty[0].value * ediscount[0].value / 100.0).toFixed(2);
+                refreshLine(this);
+                //Update total, sub_total;
+                refresh();
+            }
+            if (eid == "invoice_coin_rate" || eid == "main_coin_rate") {
+                refreshTable();
                 //Update total, sub_total;
                 refresh();
             }
@@ -76,15 +73,12 @@ $(document).ready(function() {
                 $("input").change(function() {
                     const eid = $(this).attr('id');
                     if (eid == "line_rate" || eid == "line_qty" || eid == "line_discount") {
-                        //Update Line_total value;
-                        const etr = $(this).closest('tr');
-                        const erate = etr.find("input[id*='line_rate']");
-                        const eqty = etr.find("input[id*='line_qty']");
-                        const ediscount = etr.find("input[id*='line_discount']");
-                        const etotal = etr.find("input[id*='line_total']");
-                        const ediscount_amount = etr.find("input[id*='discount_amount']");
-                        etotal[0].value = (erate[0].value * eqty[0].value).toFixed(2);
-                        ediscount_amount[0].value = (erate[0].value * eqty[0].value * ediscount[0].value / 100.0).toFixed(2);
+                        refreshLine(this);
+                        //Update total, sub_total;
+                        refresh();
+                    }
+                    if (eid == "invoice_coin_rate" || eid == "main_coin_rate") {
+                        refreshTable();
                         //Update total, sub_total;
                         refresh();
                     }
@@ -98,39 +92,87 @@ $(document).ready(function() {
     refreshproductbystockid($("#stockid").val());
 });
 
+function refreshTable() {
+    const invoice_coin_rate = $("#invoice_coin_rate").val();
+    const main_coin_rate = $("#main_coin_rate").val();
+    const table = $("#table_body");
+    table.children("tr").each(async (index, element) => {
+        const etd = $(element).find("td");
+        const line_rate_origin = $(etd[1]).find("#line_rate_origin").val();
+        const line_discount = $(etd[1]).find("#line_discount").val();
+        const line_rate = line_rate_origin / main_coin_rate * invoice_coin_rate;
+        const qty = $(etd[2]).find("#line_qty").val();
+        const line_total = line_rate * qty;
+        const discount_amount = line_discount * line_total / 100.0;
+        if (parseFloat(line_rate_origin) == 0)
+            return;
+        $(etd[1]).find("#line_rate").val((line_rate).toFixed(2));
+        $(etd[3]).find("#line_total").val((line_total).toFixed(2));
+        $(etd[3]).find("#discount_amount").val((discount_amount).toFixed(2));
+    });
+}
+
+function refreshLine(el) {
+    const invoice_coin_rate = $("#invoice_coin_rate").val();
+    const main_coin_rate = $("#main_coin_rate").val();
+    //Update Line_total value;
+    const etr = $(el).closest('tr');
+    const erate = etr.find("input[id*='line_rate']");
+    const erate_origin = etr.find("input[id*='line_rate_origin']");
+    const eqty = etr.find("input[id*='line_qty']");
+    const ediscount = etr.find("input[id*='line_discount']");
+    const etotal = etr.find("input[id*='line_total']");
+    const ediscount_amount = etr.find("input[id*='discount_amount']");
+    console.log(etr);
+    if (ediscount[0].value == "" || isNaN(parseFloat(ediscount[0].value))) {
+        ediscount[0].value = "0.0";
+    }
+    if (parseFloat(erate_origin[0].value) != 0) {
+        erate[0].value = (erate_origin[0].value / main_coin_rate * invoice_coin_rate).toFixed(2);
+    }
+    else {
+        erate[0].value = parseFloat(erate[0].value).toFixed(2);
+    }
+    etotal[0].value = (erate[0].value * eqty[0].value).toFixed(2);
+    ediscount_amount[0].value = (erate[0].value * eqty[0].value * ediscount[0].value / 100.0).toFixed(2);
+}
+
 $("input").change(function() {
     const eid = $(this).attr('id');
     if (eid == "line_rate" || eid == "line_qty" || eid == "line_discount") {
-        //Update Line_total value;
-        const etr = $(this).closest('tr');
-        const erate = etr.find("input[id*='line_rate']");
-        const eqty = etr.find("input[id*='line_qty']");
-        const ediscount = etr.find("input[id*='line_discount']");
-        const etotal = etr.find("input[id*='line_total']");
-        const ediscount_amount = etr.find("input[id*='discount_amount']");
-        etotal[0].value = (erate[0].value * eqty[0].value).toFixed(2);
-        ediscount_amount[0].value = (erate[0].value * eqty[0].value * ediscount[0].value / 100.0).toFixed(2);
+        refreshLine(this);
+        //Update total, sub_total;
+        refresh();
+    }
+    if (eid == "invoice_coin_rate" || eid == "main_coin_rate") {
+        refreshTable();
         //Update total, sub_total;
         refresh();
     }
 });
 
 function appendTable(product_description, product_rate, product_amount, product_discount, serial_number) {
+    const invoice_coin_rate = $("#invoice_coin_rate").val();
+    const main_coin_rate = $("#main_coin_rate").val();
+    const line_total = parseFloat(product_rate * product_amount / main_coin_rate * invoice_coin_rate).toFixed(2);
+    const discount_amount = parseFloat(product_rate * product_amount * product_discount / 100.0 / main_coin_rate * invoice_coin_rate).toFixed(2);
+    const product_rate_basedon_invoice = parseFloat(product_rate / main_coin_rate * invoice_coin_rate).toFixed(2);
     $("#table_body").append(
         "<tr class='border'>" +
         "<td>" +
         "<textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text-left bg-transparent no_border' name='description' cols='200' rows='1'>" + product_description + "</textarea>" +
         "</td>" +
         "<td class='text-center'>" +
-        "<input type='text' value='" + product_rate + "' class='form form-control m_auto w-full p-2 mt-2 text-right bg-transparent no_border' name='rate' placeholder='Rate' id='line_rate'>" +
+        "<input type='text' value='" + product_rate_basedon_invoice + "' class='form form-control m_auto w-full p-2 mt-2 text-right bg-transparent no_border' name='rate' placeholder='Rate' id='line_rate'>" +
+        "<input type='text' value='" + product_rate + "' id='line_rate_origin' hidden>" +
         "<div class='row'><label class='col-sm-6 my-0'>Discount: </label><input type='text' value='" + product_discount + "' class='col-sm-4 w-full text-right bg-transparent border-none' name='discount' placeholder='Discount' id='line_discount'><label class='col-sm-2 my-0'>%</label></div>" +
         "</td>" +
         "<td>" +
         "<input type='number' min=1 class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_border' name='qty' placeholder='Quantity' id='line_qty' value='" + product_amount +"'>" +
         "</td>" +
         "<td>" +
-        "<input type='text' value='" + parseFloat(product_rate*product_amount).toFixed(2) + "' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_border' name='total' placeholder='€0.00' id='line_total' readOnly>" +
-        "<input type='text' value='" + parseFloat(product_rate*product_amount*product_discount/100.0).toFixed(2) + "' class='w-full text-right bg-transparent border-none' name='discount_amount' placeholder='Discount_amount' id='discount_amount' readOnly>" + 
+        "<input type='text' value='" + line_total + "' class='form form-control m_auto w-full p-2 mt-2 text_right bg-transparent no_border' name='total' placeholder='€0.00' id='line_total' readOnly>" +
+        "<input type='text' value='" + discount_amount + "' class='w-full text-right bg-transparent border-none' name='discount_amount' placeholder='Discount_amount' id='discount_amount' readOnly>" + 
         "</td>" +
         "<td class='align-middle text-center'>" +
         "<div class='mt-2 p-2' id='btn_remove_row' onclick='remove_tr(this)'>" +
@@ -331,13 +373,17 @@ function get_formdata() {
     const invoice_discount = $("#discount").html();
     const tax = $("#tax").text();
     const total = $("#total").text();
-    const companycoin = $("#companycoin").val();
+    const main_coin = $("#main_coin").val();
+    const invoice_coin = $("#invoice_coin").val();
+    const invoice_coin_rate = $("#invoice_coin_rate").val();
+    const main_coin_rate = $("#main_coin_rate").val();
     const isshow_bank2 = document.getElementById("isshow_bank2").checked;
     let lines = [];
 
     const table = $("#table_body");
     table.children("tr").each((index, element) => {
         const erate = $(element).find("input[id*='line_rate']");
+        const erate_origin = $(element).find("input[id*='line_rate_origin']");
         const eqty = $(element).find("input[id*='line_qty']");
         const edescription = $(element).find("textarea[id*='line_description']");
         const etax = $(element).find("a[id*='btnaddtax']");
@@ -348,7 +394,7 @@ function get_formdata() {
         if (ediscount.length == 1)
             vdiscount = ediscount[0].value;
 
-        lines.push({rate: erate[0].value, qty: eqty[0].value, discount: vdiscount, SN: eserialnumber[0].value, description: edescription[0].value, total: etotal[0].value});
+        lines.push({rate: erate[0].value, rate_origin: erate_origin[0].value, qty: eqty[0].value, discount: vdiscount, SN: eserialnumber[0].value, description: edescription[0].value, total: etotal[0].value});
     });
 
     const str_lines = JSON.stringify(lines);
@@ -368,7 +414,10 @@ function get_formdata() {
         tax: tax,
         total: total,
         lines: str_lines,
-        companycoin: companycoin
+        main_coin: main_coin, 
+        invoice_coin: invoice_coin, 
+        invoice_coin_rate: invoice_coin_rate, 
+        main_coin_rate: main_coin_rate, 
     };
     return form_data;
 }

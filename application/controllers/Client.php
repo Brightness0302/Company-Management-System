@@ -380,6 +380,7 @@ class Client extends CI_Controller
         $data['clients'] = $this->home->alldata('client');
         $company_name = $this->session->userdata('companyname');
         $data = $this->getData();
+        $data['clients'] = $this->home->alldata('client');
 
         $session['menu']="Clients";
         $session['submenu']="prm";
@@ -463,18 +464,21 @@ class Client extends CI_Controller
         $tax=$this->input->post('tax');
         $invoice_discount=$this->input->post('invoice_discount');
         $total=$this->input->post('total');
+        $invoice_coin=$this->input->post('invoice_coin');
+        $invoice_coin_rate=$this->input->post('invoice_coin_rate');
+        $main_coin_rate=$this->input->post('main_coin_rate');
         $lines=$this->input->post('lines');
 
         $client_name = str_replace(" ","_", $client_name);
 
         if (!isset($_GET['id'])) {
-            $projects_id = $this->home->createInvoice($data['company']['id'], $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $lines);
+            $projects_id = $this->home->createInvoice($data['company']['id'], $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $invoice_coin,  $invoice_coin_rate,  $main_coin_rate, $lines);
             echo $projects_id;
             return;
         }
 
         $id = $_GET['id'];
-        $result = $this->home->saveInvoice($id, $data['company']['id'], $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $lines);
+        $result = $this->home->saveInvoice($id, $data['company']['id'], $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $invoice_coin,  $invoice_coin_rate,  $main_coin_rate, $lines);
         echo $result;
     }
     //Save(Add/Edit) User post(object(name, number, ...)) get(id)
@@ -589,7 +593,10 @@ class Client extends CI_Controller
         $data["invoice_discount"]=$this->input->post('invoice_discount');
         $data["total"]=$this->input->post('total');
         $data["lines"]=$this->input->post('lines');
-        $data["companycoin"]=$this->input->post('companycoin');
+        $data["main_coin"]=$this->input->post('main_coin');
+        $data["invoice_coin"]=$this->input->post('invoice_coin');
+        $data["invoice_coin_rate"]=$this->input->post('invoice_coin_rate');
+        $data["main_coin_rate"]=$this->input->post('main_coin_rate');
 
         $this->session->set_userdata("htmltopdf", $data);
         echo "success";

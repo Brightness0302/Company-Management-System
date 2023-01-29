@@ -316,7 +316,7 @@
                     ?>
                     <hr>
                     <div class="row overflow-x-auto select-none">
-                        <table class="table table-bordered table-hover text-center text-xxs" id="producttable">
+                        <table class="table table-bordered table-hover text-center text-xxs">
                             <thead>
                                 <tr>
                                     <th>Code EAN</th>

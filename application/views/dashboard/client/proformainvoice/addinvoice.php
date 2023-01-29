@@ -102,72 +102,6 @@
                         <p class="d_inline w_75 p-2 text-primary text-center text-lg" onclick="add_vat(this)" id="invoice_vat">Add a VAT</p>
                         <p class="d_inline w_15 p-2"></p>
                     </div>
-
-                    <div class="text-left ml-10">
-                        <div class="flex justify-content-start">
-                            <div>
-                                <p class="d_inline text-center text-lg" >Select Coin: </p>
-                            </div>
-                            <div>
-                                <select class="d_inline form-select" id="companycoin">
-                                    <?php if($company['Coin']!="LEI"):?>
-                                        <option value="<?php if($company['Coin']=="EURO")echo "€";if ($company['Coin']=="POUND")echo "£";if ($company['Coin']=="USD")echo "$";?>">
-                                            <?php 
-                                            if($company['Coin']=="EURO")
-                                                echo "€";
-                                            if ($company['Coin']=="POUND")
-                                                echo "£";
-                                            if ($company['Coin']=="USD")
-                                                echo "$";
-                                            ?>
-                                        </option>
-                                    <?php endif;?>
-                                    <option value="LEI">Lei</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 800px;">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Clients</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <table id="table_in_modal" class="table table-bordered table-hover">
-                              <thead>
-                                  <tr>
-                                    <th>No</th>
-                                    <th>C.Name</th>
-                                    <th>C.Reference</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                <?php $index = 0;?>
-                                <?php foreach ($clients as $client):?>
-                                <?php if(!$client['isremoved']):?>
-                                <?php $index++;?>
-                                <tr onclick="clickclient('<?=str_replace("_"," ", $client['name'])?>', '<?=$client['address']?>', '<?=$client['Ref']?>')" data-dismiss="modal">
-                                    <td><?=$index?></td>
-                                    <td><?=str_replace("_"," ", $client['name'])?></td>
-                                    <td><?=$client['Ref']?></td>
-                                </tr>
-                                <?php endif;?>
-                                <?php endforeach;?>
-                              </tbody>
-                            </table>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                 </div>
 
                 <div class="col-sm-2">
@@ -208,6 +142,64 @@
 
             </div>
             <!-- Add Client Section End -->
+            <hr class="bg-black m-2">
+            <!-- Add Exchange rate section Start-->
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="flex justify-center">
+                        <div>
+                            <p class="text-center text-base font-bold" >Main Coin: </p>
+                        </div>
+                        <div>
+                            <select class="form-select" id="main_coin">
+                                <option value="<?=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>">
+                                    <?=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="flex justify-center">
+                        <div>
+                            <p class="text-center text-base font-bold" >Invoice Coin: </p>
+                        </div>
+                        <div>
+                            <select class="form-select" id="invoice_coin">
+                                <option value="€">€</option>
+                                <option value="$">$</option>
+                                <option value="LEI">LEI</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="flex justify-center">
+                        <div>
+                            <p class="text-center text-base font-bold" >Exchange Rate: </p>
+                        </div>
+                        <div>
+                            <div class="grid grid-cols-2">
+                                <div class="flex">
+                                    <div class="w-20">
+                                        <input type="text" class="form-control" id="invoice_coin_rate" value="1" title="Choose your color" /> 
+                                    </div>
+                                    <div class="m-auto coinsymbol">€</div>
+                                    &emsp;
+                                </div>
+                                <div class="flex">
+                                    <div class="w-20">
+                                        <input type="text" class="form-control" id="main_coin_rate" value="1" title="Choose your color" /> 
+                                    </div>
+                                    <div class="m-auto"><?=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?></div>
+                                    &emsp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add Exchange rate section End-->
         </div>
         <!-- Content End -->
 
@@ -322,5 +314,45 @@
                 <p class="d_inline w_15 p-2" id="total">0.00</p><label class="coinsymbol">€</label>
             </div>
             <!-- Here the text area -->
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 800px;">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Clients</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <table id="table_in_modal" class="table table-bordered table-hover">
+                  <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>C.Name</th>
+                        <th>C.Reference</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <?php $index = 0;?>
+                    <?php foreach ($clients as $client):?>
+                    <?php if(!$client['isremoved']):?>
+                    <?php $index++;?>
+                    <tr onclick="clickclient('<?=str_replace("_"," ", $client['name'])?>', '<?=$client['address']?>', '<?=$client['Ref']?>')" data-dismiss="modal">
+                        <td><?=$index?></td>
+                        <td><?=str_replace("_"," ", $client['name'])?></td>
+                        <td><?=$client['Ref']?></td>
+                    </tr>
+                    <?php endif;?>
+                    <?php endforeach;?>
+                  </tbody>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
         </div>
     </div>

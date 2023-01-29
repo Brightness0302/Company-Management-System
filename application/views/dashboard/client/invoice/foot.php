@@ -166,13 +166,13 @@ $(function() {
         invoicetable.draw();
     });
 
-    $("select[id=companycoin]").on('change', function (){
+    $("select[id=invoice_coin]").on('change', function (){
         const elements = $(".coinsymbol");
         for (var i = elements.length - 1; i >= 0; i--) {
             $(elements[i]).html(this.value);
         }
     });
-    $("select[id=companycoin]").trigger('change');
+    $("select[id=invoice_coin]").trigger('change');
 
     $("#table_in_modal").DataTable({
       "responsive": true, "bFilter": true, "bInfo": false, "pagingType": "simple_numbers", "autoWidth": false,
