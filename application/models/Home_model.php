@@ -1047,8 +1047,7 @@ class Home_model extends CI_Model {
             'constraint' => 40
           ),
           'lines' => array(
-            'type' => 'VARCHAR',
-            'constraint' => 1000
+            'type' => 'LONGTEXT',
           ),
           'sub_total' => array(
             'type' => 'VARCHAR',
@@ -1458,8 +1457,7 @@ class Home_model extends CI_Model {
             'constraint' => 40
           ),
           'lines' => array(
-            'type' => 'VARCHAR',
-            'constraint' => 1000
+            'type' => 'LONGTEXT',
           ),
           'sub_total' => array(
             'type' => 'VARCHAR',
@@ -1683,8 +1681,7 @@ class Home_model extends CI_Model {
           ),
           'detail_date date default current_timestamp',
           'details' => array(
-            'type' => 'VARCHAR',
-            'constraint' => 300,
+            'type' => 'LONGTEXT',
           ),
         );
 

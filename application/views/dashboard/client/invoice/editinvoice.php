@@ -239,6 +239,14 @@
                             <td class='text-center'>
                                 <input type='text' value='<?=$line['rate']?>' class='form form-control m_auto w-full p-2 mt-2 text-right bg-transparent no_border' name='rate' placeholder='Rate' id='line_rate'>
                                 <input type='text' value="<?=$line['rate_origin']?>" placeholder='Rate' id='line_rate_origin' hidden>
+                                <?php
+                                    if (!function_exists('str_contains')) {
+                                        function str_contains(string $haystack, string $needle): bool
+                                        {
+                                            return '' === $needle || false !== strpos($haystack, $needle);
+                                        }
+                                    }
+                                ?>
                                 <?php if(str_contains($line['description'], "] - ")):?>
                                 <div class='row'>
                                     <label class='col-sm-6 my-0'>Discount: </label>
