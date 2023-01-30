@@ -23,19 +23,20 @@
 </style>
 <body >
     <div style="width: 800px; display: flex; flex-direction: column;">
+        <!-- Company Avatar start-->
+        <img style="position: relative; margin-top: 30px; left: 60px;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="100">
+        <!-- Company Avatar end-->
         <!-- Content Start-->
         <div class="container p-2">
             <!-- Company Info Section -->
             <div class="row" style="margin-bottom: -40px; border: 1px gray solid; border-radius: 10px;">
+                <!-- Title Section START -->
                 <div>
-                    <!-- Title Section -->
                     <div class="p-3">
-                        <h2 class="float-left" style="margin-left: 10px;"><?=(($invoice['type']=='invoice')?"Invoice":(($invoice['type']=='Proforma')?"Proforma":"Invoice"))?></h2>
+                        <h3 class="float-left" style="margin-left: 10px;"><?=(($invoice['type']=='invoice')?"Invoice":(($invoice['type']=='Proforma')?"Proforma":"Invoice"))?></h3>
                     </div>
-                    <!-- Company Avatar start-->
-                    <img style="position: absolute; margin-top: 20px; left: 60px;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="100">
-                    <!-- Company Avatar end-->
                 </div>
+                <!-- Title Section END -->
                 <div style="position: relative; left: 300px; top: -50px; margin-bottom: -50px;">
                     <div style="margin-top: 30px; margin-bottom: 10px; margin-left: <?=(($invoice['type']=='invoice')?"0px":(($invoice['type']=='Proforma')?"-30px":"0px"))?>";>
                         <p class="text-lg font-bold"><?=str_replace("_"," ", $company['name'])?></p>
@@ -60,7 +61,7 @@
 
             <!-- Add Client Section Start -->
             <div class="row" style=" margin-bottom: 0px; margin-top: 50px; border: 1px gray solid; border-radius: 10px;">
-                <div class="text-left font-normal" style="width: 240px; min-height: 150px; margin-top: 50px; margin-bottom: 0px; display: inline-block;">
+                <div class="text-left font-normal" style="width: 290px; min-height: 100px; margin-top: 50px; margin-bottom: 0px; display: inline-block;">
                     <div class="py-2">
                         <strong style="margin-left: 30px;">Billed to : </strong>
                         <?php if($invoice['client_name'] != "Add a Client"):?>
@@ -83,7 +84,7 @@
                     </div>
                 </div>
 
-                <div class="font-normal" style="width: 150px; margin-top: 50px; min-height: 150px; display: inline-block;">
+                <div class="font-normal" style="width: 100px; margin-top: 50px; min-height: 100px; display: inline-block;">
                     <div class="col">
                         <div class="row-sm-6 px-0 py-2">
                             <strong>Date of Issue</strong>
@@ -96,10 +97,10 @@
                     </div>
                 </div>
 
-                <div class="font-normal" style="width: 150px; margin-top: 50px; min-height: 150px; display: inline-block;">
+                <div class="font-normal" style="width: 150px; margin-top: 50px; min-height: 100px; display: inline-block;">
                     <div class="col">
                         <div class="row-sm-6 px-0 py-2">
-                            <strong>Invoice Number</strong>
+                            <strong><?=(($invoice['type']=='invoice')?"Invoice Number":(($invoice['type']=='Proforma')?"Proforma Number":"Invoice Number"))?></strong>
                             <p><?=$invoice['input_invoicenumber']?></p>
                         </div>
                         <div class="row-sm-6 px-0 py-2">
@@ -109,7 +110,7 @@
                     </div>
                 </div>
 
-                <div style="width: 150px; margin-top: 50px; min-height: 150px; display: inline-block;">
+                <div style="width: 150px; margin-top: 50px; min-height: 100px; display: inline-block;">
                     <div>
                         <strong style="font-size: 20px;">Amount</strong>
                     </div>
@@ -132,7 +133,7 @@
                         <th class="py-0">Description</th>
                         <th class="py-0">Rate(<?=$invoice['invoice_coin']?>)</th>
                         <th class="py-0">Qty</th>
-                        <th class="py-0">Line Total(<?=$invoice['invoice_coin']?>)</th>
+                        <th class="py-0">Qty Total(<?=$invoice['invoice_coin']?>)</th>
                     </thead>
                     <tbody id="preview_table_body">
                     <?php foreach ($lines as $index => $line):?>
@@ -173,7 +174,7 @@
             <!-- Here the text area-->
             <div style="border-top: 1px solid gray;" class="text_right">
                 <div style="display: inline-block; margin-top: 30px;">
-                    <p class="" style="margin: 0px !important; padding: 0px !important;">Sub total: </p>
+                    <p class="text-primary" style="margin: 0px !important; padding: 0px !important;">Sub total: </p>
                     <p class="text-primary" style="margin: 0px !important; padding: 0px !important;">Total Discount: </p>
                     <p class="text-primary" style="margin: 0px !important; padding: 0px !important;">VAT value: </p>
                     <p class="text-primary" style="margin: 0px !important; padding: 0px !important;">Total: </p>
