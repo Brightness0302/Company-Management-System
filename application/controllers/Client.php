@@ -350,9 +350,9 @@ class Client extends CI_Controller
         $lines = $data['invoice']['lines'];
         $lines=json_decode($lines, true);
         foreach ($lines as $index => $line) {
+            $lines[$index]['serial_number'] = "";
             if (substr($line['description'], 0, strlen($token)) == $token) {
                 $id = substr($line['description'], strlen($token));
-                $lines[$index]['serial_number'] = "";
 
                 $result = $this->home->databyidfromdatabase($data['company']['id'], 'material_totalline', $id);
                 if ($result['status']!="failed") {
