@@ -352,11 +352,13 @@ class Client extends CI_Controller
         foreach ($lines as $index => $line) {
             if (substr($line['description'], 0, strlen($token)) == $token) {
                 $id = substr($line['description'], strlen($token));
+                $lines[$index]['serial_number'] = "";
 
                 $result = $this->home->databyidfromdatabase($data['company']['id'], 'material_totalline', $id);
                 if ($result['status']!="failed") {
                     $res = $result['data'];
                     $lines[$index]['description'] = '['.$res['code_ean'].'] - '.$res['production_description'];
+                    $lines[$index]['serial_number'] = $res['serial_number'];
                 }
             } 
         }
