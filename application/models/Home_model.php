@@ -536,10 +536,10 @@ class Home_model extends CI_Model {
         }
     }
     //create invoice information using $id, $companyid, ...
-    public function createInvoice($companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $invoice_coin,  $invoice_coin_rate,  $main_coin_rate, $lines) {
+    public function createInvoice($companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $client_id, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $invoice_coin,  $invoice_coin_rate,  $main_coin_rate, $lines) {
         $client_name = str_replace(" ","",$client_name);
         $client_name = str_replace("\n","", $client_name);
-        $client = $this->databyname($client_name, 'client');
+        $client = $this->databyid($client_id, 'client');
         if ($client['status'] == "failed")
             return -1;
         $this->db->query('use database'.$companyid);
@@ -621,10 +621,10 @@ class Home_model extends CI_Model {
         return $projects_id;
     }
     //save invoice information using $id, $companyid, ...
-    public function saveInvoice($id, $companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $invoice_coin,  $invoice_coin_rate,  $main_coin_rate, $lines) {
+    public function saveInvoice($id, $companyid, $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $client_id, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $invoice_coin,  $invoice_coin_rate,  $main_coin_rate, $lines) {
         $client_name = str_replace(" ", "", $client_name);
-        $client_name = str_replace("\n","", $client_name);
-        $client = $this->databyname($client_name, 'client');
+        $client_name = str_replace("\n", "", $client_name);
+        $client = $this->databyid($client_id, 'client');
         if ($client['status'] == "failed")
             return -1;
         $this->db->query('use database'.$companyid);

@@ -98,7 +98,7 @@
                         </h5>
                     </div>
 
-                    <div class="text-left ml-10">
+                    <div class="text-left mx-10">
                         <p class="d_inline w_75 p-2 text-primary text-center text-lg" onclick="add_vat(this)" id="invoice_vat">Add a VAT</p>
                         <p class="d_inline w_15 p-2"></p>
                     </div>
@@ -345,7 +345,7 @@
                     <?php foreach ($clients as $client):?>
                     <?php if(!$client['isremoved']):?>
                     <?php $index++;?>
-                    <tr onclick="clickclient('<?=str_replace("_"," ", $client['name'])?>', '<?=$client['address']?>', '<?=$client['Ref']?>')" data-dismiss="modal">
+                    <tr onclick="clickclient('<?=$client['id']?>', '<?=str_replace("_"," ", $client['name'])?>', '<?=$client['address']?>', '<?=$client['Ref']?>', '<?=str_replace(" ", "", $client['VAT'])?>')" data-dismiss="modal">
                         <td><?=$index?></td>
                         <td><?=str_replace("_"," ", $client['name'])?></td>
                         <td><?=$client['Ref']?></td>

@@ -460,6 +460,7 @@ class Client extends CI_Controller
         $input_invoicenumber=$this->input->post('input_invoicenumber');
         $input_inputreference=$this->input->post('input_inputreference');
         $invoice_vat=$this->input->post('invoice_vat');
+        $client_id=$this->input->post('client_id');
         $short_name=$this->input->post('short_name');
         $client_name=$this->input->post('client_name');
         $sub_total=$this->input->post('sub_total');
@@ -474,13 +475,13 @@ class Client extends CI_Controller
         $client_name = str_replace(" ","_", $client_name);
 
         if (!isset($_GET['id'])) {
-            $projects_id = $this->home->createInvoice($data['company']['id'], $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $invoice_coin,  $invoice_coin_rate,  $main_coin_rate, $lines);
+            $projects_id = $this->home->createInvoice($data['company']['id'], $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $client_id, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $invoice_coin,  $invoice_coin_rate,  $main_coin_rate, $lines);
             echo $projects_id;
             return;
         }
 
         $id = $_GET['id'];
-        $result = $this->home->saveInvoice($id, $data['company']['id'], $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $invoice_coin,  $invoice_coin_rate,  $main_coin_rate, $lines);
+        $result = $this->home->saveInvoice($id, $data['company']['id'], $type, $date_of_issue, $due_date, $input_invoicenumber, $input_inputreference, $invoice_vat, $client_id, $short_name, $client_name, $sub_total, $tax, $invoice_discount, $total, $invoice_coin,  $invoice_coin_rate,  $main_coin_rate, $lines);
         echo $result;
     }
     //Save(Add/Edit) User post(object(name, number, ...)) get(id)
@@ -587,9 +588,11 @@ class Client extends CI_Controller
         $data["input_invoicenumber"]=$this->input->post('input_invoicenumber');
         $data["input_inputreference"]=$this->input->post('input_inputreference');
         $data["invoice_vat"]=$this->input->post('invoice_vat');
+        $data["client_id"]=$this->input->post('client_id');
         $data["short_name"]=$this->input->post('short_name');
         $data["client_name"]=$this->input->post('client_name');
         $data["client_address"]=$this->input->post('client_address');
+        $data["client_vat"]=$this->input->post('client_vat');
         $data["sub_total"]=$this->input->post('sub_total');
         $data["tax"]=$this->input->post('tax');
         $data["invoice_discount"]=$this->input->post('invoice_discount');

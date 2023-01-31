@@ -101,9 +101,11 @@
                                 }
                             }
                         ?>
-                        <div class='text-left ml-10'>
+                        <div class='text-left ml-4'>
+                            <input id="client_id" value="<?=$result['id']?>" hidden>
                             <p class='font-bold text-lg' id='client_name'><?=str_replace("_"," ", $result['name'])?></p>
                             <p class='text-base' id='client_address'><?=$result['address'];?></p>
+                            <p class='text-base' id='client_vat'>VAT: <?=((str_replace(" "," ", $result['VAT'])!="")?$result['VAT']:"-------")?></p>
                         </div>
                         <?php else:?>
                         <h5 class="upload_text p-2">
@@ -227,7 +229,7 @@
                         <th class="text-left">Description</th>
                         <th class="text-right">Rate(<label class="coinsymbol">€</label>)</th>
                         <th class="text-right pr-2">Qty</th>
-                        <th class="text-right">Line Total(<label class="coinsymbol">€</label>)</th>
+                        <th class="text-right">Qty Total(<label class="coinsymbol">€</label>)</th>
                         <th class="text-center">Action</th>
                     </thead>
                     <tbody id="table_body">
@@ -404,7 +406,7 @@
                     <?php foreach ($clients as $client):?>
                     <?php if(!$client['isremoved']):?>
                     <?php $index++;?>
-                    <tr onclick="clickclient('<?=str_replace("_"," ", $client['name'])?>', '<?=$client['address']?>', '<?=$client['Ref']?>')" data-dismiss="modal">
+                    <tr onclick="clickclient(`<?=$client['id']?>`, `<?=str_replace("_"," ", $client['name'])?>`, `<?=$client['address']?>`, `<?=$client['Ref']?>`, `<?=str_replace(" ", "", $client['VAT'])?>`)" data-dismiss="modal">
                         <td><?=$index?></td>
                         <td><?=str_replace("_"," ", $client['name'])?></td>
                         <td><?=$client['Ref']?></td>

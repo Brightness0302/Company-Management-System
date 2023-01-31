@@ -412,8 +412,10 @@ function get_formdata() {
     const input_invoicenumber = $("#input_invoicenumber").val();
     const input_inputreference = $("#input_inputreference").val();
     const invoice_vat = $("#invoice_vat").html();
+    const client_id = $("#client_id").val();
     const short_name = $("#client_name").html();
     const client_name = $("#client_name").html();
+    const client_vat = $("#client_vat").html();
     const client_address = $("#client_address").html();
     const sub_total = $("#sub_total").text();
     const invoice_discount = $("#discount").html();
@@ -454,8 +456,10 @@ function get_formdata() {
         invoice_vat: invoice_vat,
         invoice_discount: invoice_discount, 
         short_name: short_name, 
+        client_id: client_id,
         client_name: client_name,
         client_address: client_address,
+        client_vat: client_vat,
         sub_total: sub_total,
         tax: tax,
         total: total,

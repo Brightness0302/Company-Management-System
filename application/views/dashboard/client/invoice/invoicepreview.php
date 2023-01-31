@@ -3,7 +3,6 @@
 <style type="text/css">
     @page {
         margin-top: 30px;
-        margin-bottom: 30px;
     }
     .font-normal {
         font-size: 12px;
@@ -20,9 +19,19 @@
     .text-bold {
         font-weight: bold !important;
     }
+    tr td {
+        padding-top: 0.3rem !important;
+        padding-bottom: 0.3rem !important;
+    }
+    
+    .stickToFooter {
+        position: fixed; 
+        bottom: 0px;
+    }
+    
 </style>
-<body >
-    <div style="width: 800px; display: flex; flex-direction: column;">
+<body style="position: relative;">
+    <div style="width: 800px; display: flex; flex-direction: column; margin-bottom: 50px;">
         <!-- Company Avatar start-->
         <img style="position: relative; margin-top: 30px; left: 60px;" src="<?=base_url('assets/company/image/'.$company['id'].'.jpg')?>" width="100">
         <!-- Company Avatar end-->
@@ -61,15 +70,16 @@
 
             <!-- Add Client Section Start -->
             <div class="row" style=" margin-bottom: 0px; margin-top: 50px; border: 1px gray solid; border-radius: 10px;">
-                <div class="text-left font-normal" style="width: 290px; min-height: 100px; margin-top: 50px; margin-bottom: 0px; display: inline-block;">
+                <div class="text-left font-normal" style="width: 290px; margin-top: 40px; min-height: 100px; margin-bottom: 0px; display: inline-block;">
                     <div class="py-2">
                         <strong style="margin-left: 30px;">Billed to : </strong>
                         <?php if($invoice['client_name'] != "Add a Client"):?>
                         <div class="text-left px-4 ml-2">
-                            <h5>
+                            <h6>
                                 <p><?=str_replace("_"," ", $invoice['client_name'])?></p>
                                 <p><?=$invoice['client_address']?></p>
-                            </h5>
+                                <p><?=$invoice['client_vat']?></p>
+                            </h6>
                         </div>
                         <?php else:?>
                         <div class="text-center">
@@ -79,12 +89,9 @@
                         </div>
                         <?php endif;?>
                     </div>
-                    <div class="text-left ml-10" style="margin-left: 25px;">
-                        <p class="d_inline w_75 p-2 text-primary text-center" id="invoice_vat"><?=$invoice['invoice_vat']=="Add a VAT"?"VAT: ---":$invoice['invoice_vat']?></p>
-                    </div>
                 </div>
 
-                <div class="font-normal" style="width: 100px; margin-top: 50px; min-height: 100px; display: inline-block;">
+                <div class="font-normal" style="width: 100px; margin-top: 40px; min-height: 100px; display: inline-block;">
                     <div class="col">
                         <div class="row-sm-6 px-0 py-2">
                             <strong>Date of Issue</strong>
@@ -97,7 +104,7 @@
                     </div>
                 </div>
 
-                <div class="font-normal" style="width: 150px; margin-top: 50px; min-height: 100px; display: inline-block;">
+                <div class="font-normal" style="width: 150px; margin-top: 40px; min-height: 100px; display: inline-block;">
                     <div class="col">
                         <div class="row-sm-6 px-0 py-2">
                             <strong><?=(($invoice['type']=='invoice')?"Invoice Number":(($invoice['type']=='Proforma')?"Proforma Number":"Invoice Number"))?></strong>
@@ -110,13 +117,17 @@
                     </div>
                 </div>
 
-                <div style="width: 150px; margin-top: 50px; min-height: 100px; display: inline-block;">
+                <div style="width: 150px; margin-top: 40px; min-height: 100px; display: inline-block;">
                     <div>
                         <strong style="font-size: 20px;">Amount</strong>
                     </div>
                     <div>
                         <strong style="font-size: 24px;"><?=number_format($invoice['total'], 2, '.', '').' '.$invoice['invoice_coin']?></strong>
                     </div>
+                </div>
+
+                <div class="text-left" style="margin-left: 20px; margin-top: -20px; margin-bottom: 20px;">
+                    <p class="d_inline w_75 p-2 text-primary text-center" id="invoice_vat"><?=$invoice['invoice_vat']=="Add a VAT"?"VAT: ---":$invoice['invoice_vat']?></p>
                 </div>
             </div>
             <!-- Add Client Section End -->
@@ -190,7 +201,7 @@
         </div>
     </div>
     <div style="width: 800px; display: flex; flex-direction: column;" class="text-center">
-        <div style="position: fixed; bottom: 0px; width: 720px;">
+        <div style="width: 720px;" class="stickToFooter">
             <table class="table text-bold" style="margin-left: 40px; margin-right: 40px; margin-top: 0px; margin-bottom: 0px;">
                 <tbody>
                     <tr>
