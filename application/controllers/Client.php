@@ -351,8 +351,8 @@ class Client extends CI_Controller
         $lines=json_decode($lines, true);
         $del_counts = 0;
         foreach ($lines as $index => $line) {
-            $lines[$index]['serial_number'] = "";
             if (substr($line['description'], 0, strlen($token)) == $token) {
+                $lines[$index]['serial_number'] = "";
                 $id = substr($line['description'], strlen($token));
 
                 $result = $this->home->databyidfromdatabase($data['company']['id'], 'material_totalline', $id);
@@ -364,9 +364,9 @@ class Client extends CI_Controller
                 else {
                     array_splice($lines, $index - $del_counts, 1);
                     $del_counts++;
-                } 
-            } 
-        } 
+                }
+            }
+        }
         $lines=json_encode($lines);
         $data['invoice']['lines'] = $lines;
 
