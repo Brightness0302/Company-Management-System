@@ -640,7 +640,7 @@ class Home_model extends CI_Model {
         $data=$data[0];
         $result = $this->gobacklines($companyid, $data['lines']);
         if ($result == -1)
-            return 0;
+            return -2;
 
         $pattern = "/([\{\}\[\]]+)/";
         $list_lines=json_decode($lines, true);
