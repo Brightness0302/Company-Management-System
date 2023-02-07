@@ -349,6 +349,7 @@ class Client extends CI_Controller
         $token = "This is from stock by productid";
         $lines = $data['invoice']['lines'];
         $lines=json_decode($lines, true);
+        $new_lines = [];
         $del_counts = 0;
         foreach ($lines as $index => $line) {
             if (substr($line['description'], 0, strlen($token)) == $token) {
@@ -360,14 +361,14 @@ class Client extends CI_Controller
                     $res = $result['data'];
                     $lines[$index]['description'] = '['.$res['code_ean'].'] - '.$res['production_description'];
                     $lines[$index]['serial_number'] = $res['serial_number'];
-                }
-                else {
-                    array_splice($lines, $index - $del_counts, 1);
-                    $del_counts++;
+                    array_push($new_lines, $lines[$index]);
                 }
             }
+            else {
+                array_push($new_lines, $lines[$index]);
+            }
         }
-        $lines=json_encode($lines);
+        $lines=json_encode($new_lines);
         $data['invoice']['lines'] = $lines;
 
         $this->load->view('header');
