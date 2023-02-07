@@ -514,7 +514,7 @@ class Supplier_model extends CI_Model {
 
         $this->db->where('id', $id);
         $res=$this->db->update('material', $data);
-        return $this->savelines($companyid, $id, $main_coin, $invoice_coin, $invoice_coin_rate, $main_coin_rate, $lines);
+        $this->savelines($companyid, $id, $main_coin, $invoice_coin, $invoice_coin_rate, $main_coin_rate, $lines);
         return $res;
     }
     //get date_of_reception, product_number, received_with_document for invoice
