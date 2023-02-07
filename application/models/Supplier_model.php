@@ -166,7 +166,7 @@ class Supplier_model extends CI_Model {
             $lineid = $line['line_id'];
             $query =    "SELECT *
                         FROM `material_totalline`
-                        WHERE `id` = '$lineid'";
+                        WHERE `id` = '$lineid' AND `isremoved` = FALSE";
 
             $data = $this->db->query($query)->result_array();
 
