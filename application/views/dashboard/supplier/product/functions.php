@@ -392,7 +392,7 @@ async function SaveItem() {
                         "<td>"+stockname+"</td>"+
                         "<td>"+expensename+"</td>"+
                         "<td>"+projectname+"</td>"+
-                        "<td>"+production_description+"</td>"+
+                        "<td class='text-left'>"+production_description+"</td>"+
                         "<td>"+unit+"</td>"+
                         "<td>"+serial_number+"</td>"+
                         "<td>"+quantity_on_document+"</td>"+
@@ -437,7 +437,7 @@ async function SaveItem() {
                 "<td>"+stockname+"</td>"+
                 "<td>"+expensename+"</td>"+
                 "<td>"+projectname+"</td>"+
-                "<td>"+production_description+"</td>"+
+                "<td class='text-left'>"+production_description+"</td>"+
                 "<td>"+unit+"</td>"+
                 "<td>"+serial_number+"</td>"+
                 "<td>"+quantity_on_document+"</td>"+

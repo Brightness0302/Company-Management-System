@@ -2270,3 +2270,8 @@ th {
 .no_border {
     border: 0px;
 }
+
+label {
+  margin-bottom: 0px !important;
+  font-weight: normal !important;
+}

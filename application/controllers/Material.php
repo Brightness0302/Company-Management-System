@@ -43,6 +43,7 @@ class Material extends CI_Controller
             $data['products'][$index]['selling_subtotal_without_vat'] = $result['selling_subtotal_without_vat'];
             $data['products'][$index]['selling_subtotal_vat'] = $result['selling_subtotal_vat'];
             $data['products'][$index]['selling_subtotal_with_vat'] = $result['selling_subtotal_with_vat'];
+
             $invoicename = $product['id'].".pdf";
             $path = "assets/company/attachment/".$companyname."/supplier/";
             if(file_exists($path.$invoicename)) {

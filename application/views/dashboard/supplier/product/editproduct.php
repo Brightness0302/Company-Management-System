@@ -393,7 +393,7 @@
                                             echo "Not for a project";
                                     ?>
                                     </td>
-                                    <td><?=$line['production_description']?></td>
+                                    <td class="text-left"><?=$line['production_description']?></td>
                                     <td><?=$line['units']?></td>
                                     <td><?=$line['serial_number']?></td>
                                     <td><?=$line['quantity_on_document']?></td>

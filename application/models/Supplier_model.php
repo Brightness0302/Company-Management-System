@@ -435,9 +435,7 @@ class Supplier_model extends CI_Model {
         $res['selling_subtotal_without_vat'] = 0.0;
         $res['selling_subtotal_vat'] = 0.0;
         $res['selling_subtotal_with_vat'] = 0.0;
-        if(count($lines) == 0) {
-            return $res;
-        }
+        
         foreach ($lines as $index => $line) {
             $this->db->query("use database".$companyid);
             
@@ -464,13 +462,15 @@ class Supplier_model extends CI_Model {
         $lines = $product['lines'];
         $lines = json_decode($lines, true);
         foreach ($lines as $key => $line) {
-            if ($line['stockid'] == 0) {
-                $res['acq_subtotal_without_vat'] += $line['acquisition_unit_price'] * $line['quantity_on_document'];
-                $res['acq_subtotal_vat'] += $line['acquisition_unit_price'] * $line['quantity_on_document'] * $line['vat'] / 100.0;
-                $res['acq_subtotal_with_vat'] += $line['acquisition_unit_price'] * $line['quantity_on_document'] * ($line['vat'] + 100.0) / 100.0;
-                $res['selling_subtotal_without_vat'] += ($line['acquisition_unit_price'] * ($line['makeup']+100.0) / 100.0) * $line['quantity_on_document'];
-                $res['selling_subtotal_vat'] += $line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * $line['quantity_on_document'] * $line['vat'] / 100.0 / 100.0;
-                $res['selling_subtotal_with_vat'] += $line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * $line['quantity_on_document'] * ($line['vat'] + 100.0) / 100.0 / 100.0;
+            if ($line['stockid'] == '0') {
+                $acquisition_unit_price = $line['acquisition_unit_price']; 
+                               
+                $res['acq_subtotal_without_vat'] += $acquisition_unit_price * $line['quantity_on_document'];
+                $res['acq_subtotal_vat'] += $acquisition_unit_price * $line['quantity_on_document'] * $line['vat'] / 100.0;
+                $res['acq_subtotal_with_vat'] += $acquisition_unit_price * $line['quantity_on_document'] * ($line['vat'] + 100.0) / 100.0;
+                $res['selling_subtotal_without_vat'] += ($acquisition_unit_price * ($line['makeup']+100.0) / 100.0) * $line['quantity_on_document'];
+                $res['selling_subtotal_vat'] += $acquisition_unit_price * ($line['makeup'] + 100.0) * $line['quantity_on_document'] * $line['vat'] / 100.0 / 100.0;
+                $res['selling_subtotal_with_vat'] += $acquisition_unit_price * ($line['makeup'] + 100.0) * $line['quantity_on_document'] * ($line['vat'] + 100.0) / 100.0 / 100.0;
             }
         }
         return $res;

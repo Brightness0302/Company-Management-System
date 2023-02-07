@@ -1,3 +1,4 @@
+<?php $CoinInfo=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>
 <a class="btn btn-success mb-2" href="<?=base_url('client/addinvoice')?>">Add New</a>
 <table id="invoicetable" class="table table-bordered table-hover">
     <thead>
@@ -38,9 +39,9 @@
             <td><?=$invoice['input_inputreference']?></td>
             <td><?=date("Y/m/d", strtotime($invoice['date_of_issue']))?></td>
             <td><?=date("Y/m/d", strtotime($invoice['due_date']))?></td>
-            <td><?=number_format($invoice['sub_total']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "")?></td>
-            <td><?=number_format($invoice['tax']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "")?></td>
-            <td><?=number_format($invoice['total']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "")?></td>
+            <td><label><?=number_format($invoice['sub_total']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
+            <td><label><?=number_format($invoice['tax']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
+            <td><label><?=number_format($invoice['total']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
             <td class="text-center"><?=$invoice['ispaid']?"<i class='bi custom-paid-icon'></i>":"<i class='bi custom-notpaid-icon'></i>"?></td>
             <td class="align-middle">
                 <a href="<?=base_url('client/editinvoice/'.$invoice['id'])?>"><i class="bi custom-edit-icon"></i></a>
@@ -63,15 +64,18 @@
     <tbody>
         <?php $index=0;$subtotal=0;$vat=0;$total=0;?>
         <?php foreach ($invoices as $invoice):?>
-        <?php if(!$invoice['isremoved']):?>
-        <?php $subtotal+=$invoice['sub_total'];$vat+=$invoice['tax'];$total+=$invoice['total'];?>
-        <?php endif;?>
+            <?php if(!$invoice['isremoved']):?>
+                <?php $subtotal+=$invoice['sub_total']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'];
+                    $vat+=$invoice['tax']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'];
+                    $total+=$invoice['total']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'];
+                ?>
+            <?php endif;?>
         <?php endforeach;?>
         <tr>
             <td id="downtotalmark">Total:</td>
-            <td id="subtotal"><?=$subtotal?></td>
-            <td id="vat"><?=$vat?></td>
-            <td id="total"><?=$total?></td>
+            <td id="subtotal"><label><?=number_format($subtotal, 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
+            <td id="vat"><label><?=number_format($vat, 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
+            <td id="total"><label><?=number_format($total, 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
         </tr>
     </tbody>
 </table>

@@ -113,6 +113,7 @@ $(function() {
     $("#invoicetable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
 
     var subtotal = 0.0, vat = 0.0, total = 0.0;
+    var coinInfo = "<?=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>";
 
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {
@@ -139,9 +140,9 @@ $(function() {
                 subtotal += parseFloat(data[6]);
                 vat += parseFloat(data[7]);
                 total += parseFloat(data[8]);
-                $("#subtotal").html((subtotal).toFixed(2));
-                $("#vat").html((vat).toFixed(2));
-                $("#total").html((total).toFixed(2));
+                $("#subtotal").html("<label>"+(subtotal).toFixed(2)+"</label> "+"<label>"+coinInfo+"</label>");
+                $("#vat").html("<label>"+(vat).toFixed(2)+"</label> "+"<label>"+coinInfo+"</label>");
+                $("#total").html("<label>"+(total).toFixed(2)+"</label> "+"<label>"+coinInfo+"</label>");
                 return true;
             }
             return false;

@@ -1,4 +1,5 @@
 <?php $acq_subtotal_without_vat=0; $acq_subtotal_vat=0; $acq_subtotal_with_vat=0;$selling_subtotal_without_vat=0; $selling_subtotal_vat=0; $selling_subtotal_with_vat=0;?>
+<?php $CoinInfo=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>
 <a class="btn btn-success mb-2" href="<?=base_url('material/addproduct')?>">Add New</a>
 <table id="invoicetable" class="table table-bordered table-hover text-xs">
     <thead class="text-center">
@@ -53,12 +54,12 @@
             <td><?=$product['id']?></td>
             <td><?=date("Y/m/d", strtotime($product['date_of_reception']))?></td>
             <td><?=date("Y/m/d", strtotime($product['invoice_date']))?></td>
-            <td><?=$first?></td>
-            <td><?=$second?></td>
-            <td><?=$third?></td>
-            <td><?=$fourth?></td>
-            <td><?=$fifth?></td>
-            <td><?=$sixth?></td>
+            <td><label><?=$first?></label> <label><?=$CoinInfo?></label></td>
+            <td><label><?=$second?></label> <label><?=$CoinInfo?></label></td>
+            <td><label><?=$third?></label> <label><?=$CoinInfo?></label></td>
+            <td><label><?=$fourth?></label> <label><?=$CoinInfo?></label></td>
+            <td><label><?=$fifth?></label> <label><?=$CoinInfo?></label></td>
+            <td><label><?=$sixth?></label> <label><?=$CoinInfo?></label></td>
             <td><?=$product['ispaid']?"<i class='bi custom-paid-icon'></i>":"<i class='bi custom-notpaid-icon'></i>"?></td>
             <td class="align-middle">
                 <a href="<?=base_url('material/editproduct/'.$product['id'])?>"><i class="bi custom-edit-icon"></i></a>
@@ -87,12 +88,12 @@
     <tbody class="text-center">
         <tr>
             <td id="downtotalmark">Total:</td>
-            <td id="total_first"><?=$acq_subtotal_without_vat?></td>
-            <td id="total_second"><?=$acq_subtotal_vat?></td>
-            <td id="total_third"><?=$acq_subtotal_with_vat?></td>
-            <td id="total_fourth"><?=$selling_subtotal_without_vat?></td>
-            <td id="total_fifth"><?=$selling_subtotal_vat?></td>
-            <td id="total_sixth"><?=$selling_subtotal_with_vat?></td>
+            <td id="total_first"><label><?=$acq_subtotal_without_vat?></label> <label><?=$CoinInfo?></label></td>
+            <td id="total_second"><label><?=$acq_subtotal_vat?></label> <label><?=$CoinInfo?></label></td>
+            <td id="total_third"><label><?=$acq_subtotal_with_vat?></label> <label><?=$CoinInfo?></label></td>
+            <td id="total_fourth"><label><?=$selling_subtotal_without_vat?></label> <label><?=$CoinInfo?></label></td>
+            <td id="total_fifth"><label><?=$selling_subtotal_vat?></label> <label><?=$CoinInfo?></label></td>
+            <td id="total_sixth"><label><?=$selling_subtotal_with_vat?></label> <label><?=$CoinInfo?></label></td>
         </tr>
     </tbody>
 </table>

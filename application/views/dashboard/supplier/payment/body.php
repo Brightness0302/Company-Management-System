@@ -1,4 +1,5 @@
 <?php $total_subtotal=0; $total_vat_amount=0; $total_total_amount=0;?>
+<?php $CoinInfo=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>
 <table id="invoicetable" class="table table-bordered table-hover">
     <thead>
         <tr class="text-sm">
@@ -19,15 +20,15 @@
             <th>Action</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="text-center">
         <?php $index=0;?>
         <?php foreach ($products as $product):?>
         <?php if(!$product['isremoved']):?>
         <?php $index++;?>
         <tr>
             <td><?=($index)?></td>
-            <td><?=$product['invoice_number']?></td>
-            <td>
+            <td class="text-left"><?=$product['invoice_number']?></td>
+            <td class="text-left">
             <?php 
                 $result;
                 foreach ($suppliers as $supplier){
@@ -44,13 +45,13 @@
                 echo $result['isremoved']?"(<span id='boot-icon' class='bi bi-circle-fill' style='font-size: 12px; color: rgb(255, 0, 0);''></span>)":"";
             ?>
             </td>
-            <td><?=$product['observation']?></td>
+            <td class="text-left"><?=$product['observation']?></td>
             <td><?=$product['id']?></td>
             <td><?=date("Y/m/d", strtotime($product['date_of_reception']))?></td>
             <td><?=date("Y/m/d", strtotime($product['invoice_date']))?></td>
-            <td><?=$acq_subtotal_without_vat?></td>
-            <td><?=$acq_subtotal_vat?></td>
-            <td><?=$acq_subtotal_with_vat?></td>
+            <td><?=number_format($acq_subtotal_without_vat, 2, ".", "")?> <?=$CoinInfo?></td>
+            <td><?=number_format($acq_subtotal_vat, 2, ".", "")?> <?=$CoinInfo?></td>
+            <td><?=number_format($acq_subtotal_with_vat, 2, ".", "")?> <?=$CoinInfo?></td>
             <td>
                 <?=$product['ispaid']?date("Y/m/d", strtotime($product['paid_date'])):"-"?>
             </td>

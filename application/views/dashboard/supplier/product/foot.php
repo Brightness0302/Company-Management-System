@@ -20,9 +20,12 @@
 <script src="<?=base_url('assets')?>/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script>
 function onrefreshtotalmark() {
-    $("#subtotal").html("0.0");
-    $("#vat").html("0.0");
-    $("#total").html("0.0");
+    $("#total_first").html("0.0");
+    $("#total_second").html("0.0");
+    $("#total_third").html("0.0");
+    $("#total_fourth").html("0.0");
+    $("#total_fifth").html("0.0");
+    $("#total_sixth").html("0.0");
 }
 
 $(function() {
@@ -91,7 +94,7 @@ $(function() {
 
     $("#invoicetable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
 
-    var subtotal = 0.0, vat = 0.0, total = 0.0;
+    var first = 0.0, second = 0.0, third = 0.0, forth = 0.0, fifth = 0.0, sixth = 0.0;
 
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {
@@ -102,23 +105,33 @@ $(function() {
      
             // Filtering for "myTable".
             var startdate = new Date($('#startdate').val());
-            startdate.setDate(startdate.getDate() - 1);
+            startdate.setDate(startdate.getDate());
             var enddate = new Date($('#enddate').val());
             enddate.setDate(enddate.getDate() + 1);
-            var date = new Date(data[5] || 0); // use data for the age column
-            var name = data[2];
             var searchvalue = $("#searchtag").val();
+
+            const date5 = new Date(data[5] || 0); // use data for the age column
+            const date6 = new Date(data[6] || 0); // use data for the age column
+            const condition1 = ((data[1]).toLowerCase().includes(searchvalue.toLowerCase()));
+            const condition2 = ((data[2]).toLowerCase().includes(searchvalue.toLowerCase()));
+            const condition3 = ((data[3]).toLowerCase().includes(searchvalue.toLowerCase()));
             // console.log(name, reference, searchvalue, startdate, enddate, date);
          
             if (
-                (date > startdate && date < enddate) && (name.toLowerCase().includes(searchvalue.toLowerCase()))
+                ((date5 > startdate && date5 < enddate) || (date6 > startdate && date6 < enddate)) && (condition1 || condition2 || condition3)
             ) {
-                subtotal += parseFloat(data[6]);
-                vat += parseFloat(data[7]);
-                total += parseFloat(data[8]);
-                $("#subtotal").html((subtotal).toFixed(2));
-                $("#vat").html((vat).toFixed(2));
-                $("#total").html((total).toFixed(2));
+                first += parseFloat(data[7]);
+                second += parseFloat(data[8]);
+                third += parseFloat(data[9]);
+                forth += parseFloat(data[10]);
+                fifth += parseFloat(data[11]);
+                sixth += parseFloat(data[12]);
+                $("#first").html((first).toFixed(2));
+                $("#second").html((second).toFixed(2));
+                $("#third").html((third).toFixed(2));
+                $("#first").html((forth).toFixed(2));
+                $("#second").html((fifth).toFixed(2));
+                $("#third").html((sixth).toFixed(2));
                 return true;
             }
             return false;
@@ -130,7 +143,7 @@ $(function() {
     });
 
     invoicetable.on('draw', function (){
-        subtotal = 0.0, vat = 0.0, total = 0.0;
+        first = 0.0, second = 0.0, third = 0.0, forth = 0.0, fifth = 0.0, sixth = 0.0;
     })
 
     $("#searchtag").on('keyup', function (){
