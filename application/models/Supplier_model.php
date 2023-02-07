@@ -99,7 +99,7 @@ class Supplier_model extends CI_Model {
                     $acquisition_unit_price_on_invoice = $line['acquisition_unit_price_on_invoice'];
                     $query =    "SELECT *
                                 FROM `material_totalline`
-                                WHERE `stockid` = '$stockid' AND `expenseid` = '$expenseid' AND `serial_number` = '$serial_number' AND `units` = '$units' AND abs(`vat` - '$vat') <= 0.00001 AND abs(`makeup` - '$makeup') <= 0.00001 AND abs(`invoice_coin_rate` - '$invoice_coin_rate') <= 0.00001  AND `invoice_coin` = '$invoice_coin' AND abs(`main_coin_rate` - '$main_coin_rate') <= 0.00001 AND `main_coin` = '$main_coin' AND abs(`acquisition_unit_price_on_invoice` - '$acquisition_unit_price_on_invoice') <= 0.00001";
+                                WHERE `stockid` = '$stockid' AND `expenseid` = '$expenseid' AND `serial_number` = '$serial_number' AND `units` = '$units' AND abs(`vat` - '$vat') <= 0.001 AND abs(`makeup` - '$makeup') <= 0.001 AND abs(`invoice_coin_rate` - '$invoice_coin_rate') <= 0.001  AND `invoice_coin` = '$invoice_coin' AND abs(`main_coin_rate` - '$main_coin_rate') <= 0.001 AND `main_coin` = '$main_coin' AND abs(`acquisition_unit_price_on_invoice` - '$acquisition_unit_price_on_invoice') <= 0.001";
 
                     $data = $this->db->query($query)->result_array();
 
@@ -203,7 +203,7 @@ class Supplier_model extends CI_Model {
                     $acquisition_unit_price_on_invoice = $line['acquisition_unit_price_on_invoice'];
                     $query =    "SELECT *
                                 FROM `material_totalline`
-                                WHERE `stockid` = '$stockid' AND `expenseid` = '$expenseid' AND `serial_number` = '$serial_number' AND `units` = '$units' AND abs(`vat` - '$vat') <= 0.00001 AND abs(`makeup` - '$makeup') <= 0.00001 AND abs(`invoice_coin_rate` - '$invoice_coin_rate') <= 0.00001  AND `invoice_coin` = '$invoice_coin' AND abs(`main_coin_rate` - '$main_coin_rate') <= 0.00001 AND `main_coin` = '$main_coin' AND abs(`acquisition_unit_price_on_invoice` - '$acquisition_unit_price_on_invoice') <= 0.00001";
+                                WHERE `stockid` = '$stockid' AND `expenseid` = '$expenseid' AND `serial_number` = '$serial_number' AND `units` = '$units' AND abs(`vat` - '$vat') <= 0.001 AND abs(`makeup` - '$makeup') <= 0.001 AND abs(`invoice_coin_rate` - '$invoice_coin_rate') <= 0.001  AND `invoice_coin` = '$invoice_coin' AND abs(`main_coin_rate` - '$main_coin_rate') <= 0.001 AND `main_coin` = '$main_coin' AND abs(`acquisition_unit_price_on_invoice` - '$acquisition_unit_price_on_invoice') <= 0.001";
 
                     return $query;
 
