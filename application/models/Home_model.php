@@ -468,8 +468,7 @@ class Home_model extends CI_Model {
     public function gobacklines($companyid, $lines) {
         $token = "This is from stock by productid";
         $pattern = "/([\{\}\[\]]+)/";
-        $companyid = "database".$companyid;
-        $this->db->query('use '.$companyid);
+        $this->db->query('use database'.$companyid);
         $lines=json_decode($lines, true);
         foreach ($lines as $index => $line) {
             $id = -1;
@@ -484,19 +483,18 @@ class Home_model extends CI_Model {
 
                 $data = $this->db->query($query)->result_array();
 
-                if (count($data)==0)
-                    return -1;
+                if (count($data)!=0) {
+                    $data = $data[0];
 
-                $data = $data[0];
+                    $data['qty'] += intval($line['qty']);
 
-                $data['qty'] += intval($line['qty']);
+                    $data_sql = array(
+                        'qty'=>$data['qty']
+                    );
 
-                $data_sql = array(
-                    'qty'=>$data['qty']
-                );
-
-                $this->db->where('id', $id);
-                $this->db->update('material_totalline', $data_sql);
+                    $this->db->where('id', $id);
+                    $this->db->update('material_totalline', $data_sql);                    
+                }
             } 
         }
     }
@@ -504,8 +502,7 @@ class Home_model extends CI_Model {
     public function deductionlines($companyid, $lines) {
         $token = "This is from stock by productid";
         $pattern = "/([\{\}\[\]]+)/";
-        $companyid = "database".$companyid;
-        $this->db->query('use '.$companyid);
+        $this->db->query('use database'.$companyid);
         $lines=json_decode($lines, true);
         foreach ($lines as $index => $line) {
             $id = -1;
