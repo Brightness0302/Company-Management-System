@@ -115,6 +115,7 @@ $(document).ready(function() {
             }
         });
     });
+    refresh();
     refreshproductbystockid($("#stockid").val());
 });
 
