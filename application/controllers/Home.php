@@ -103,7 +103,7 @@ class Home extends CI_Controller
             }
         }
 
-        $data['supplier_invoices'] = $this->home->alldatafromdatabase($companyid, 'material');
+        $data['supplier_invoices'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'material', 'ispaid', false);
         foreach ($data['supplier_invoices'] as $index => $invoice) {
             $res = $this->home->databyid($invoice['supplierid'], 'supplier');
             if ($res['status']=='success') {
