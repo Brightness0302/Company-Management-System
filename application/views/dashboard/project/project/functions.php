@@ -126,18 +126,24 @@ function refreshChart(year) {
     if (year != -1) {
         $("#startdate").val(formatDate(new Date(year, 0, 1)));
         $("#enddate").val(formatDate(new Date(year, 11, 31)));
+        let clickEvent = new Event('change');
+        document.getElementById("startdate").dispatchEvent(clickEvent);
     }
-    if (year==-1)
+    else {
+        const first = $("#yearpicker option:eq(1)").val();
+        const last = $("#yearpicker option:last").val();
+        $("#startdate").val(formatDate(new Date(last, 0, 1)));
+        $("#enddate").val(formatDate(new Date(first, 11, 31)));
+        let clickEvent = new Event('change');
+        document.getElementById("startdate").dispatchEvent(clickEvent);
         return;
+    }
     <?php foreach (array_reverse($projects) as $index=>$project):?>
         if ("<?=date("Y", strtotime($project['enddate']))?>"!=year) {
             barChartData.labels.splice('<?=count($projects)-$index-1?>', 1);
             barChartData.datasets[0].data.splice('<?=count($projects)-$index-1?>', 1);
         }
     <?php endforeach;?>
-    
-    let clickEvent = new Event('change');
-    document.getElementById("startdate").dispatchEvent(clickEvent);
 
 }
 

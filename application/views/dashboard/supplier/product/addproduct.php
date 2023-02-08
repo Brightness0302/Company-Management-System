@@ -23,7 +23,7 @@
                                         <select class="form-select m-auto" id="supplierid">
                                         <?php foreach ($suppliers as $index => $supplier):?>
                                             <option value="<?=$supplier['id']?>">
-                                                <?=str_replace("_"," ", $supplier['name'])?>
+                                                <?=str_replace("_"," ", $supplier['name']).' - '.$supplier['Ref']?>
                                             </option>
                                         <?php endforeach;?>
                                         </select>
