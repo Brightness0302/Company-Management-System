@@ -449,16 +449,16 @@
                                             <div class="col-md-8">
                                                 <select class="form-select" id="restore_picker" aria-label="Default select example">
                                                     <optgroup id="backups" label="Select a Restore file">
-                                                        <?php $index=0;?>
+                                                        <!-- <?php $index=0;?>
                                                         <?php foreach ($backups as $backup):?>
                                                         <?php $index++;?>
-                                                            <!-- <?php sscanf($backup,"%d_%d_%d_%d_%d_%d.sql", $dat, $mon, $Yea, $hou, $min, $sec);
+                                                            <?php sscanf($backup,"%d_%d_%d_%d_%d_%d.sql", $dat, $mon, $Yea, $hou, $min, $sec);
                                                             $dt = new DateTime($Yea.'-'.$mon.'-'.$dat.' '.$hou.':'.$min.':'.$sec);
                                                             $loc = (new DateTime)->getTimezone();
-                                                            $dt->setTimezone($loc);?> -->
+                                                            $dt->setTimezone($loc);?>
                                                             <option value="<?=$backup?>"><?=$backup?></option>
                                                         <?php endforeach;?>
-                                                            <option id="custom-select" value=""></option>
+                                                            <option id="custom-select" value=""></option> -->
                                                     </optgroup>
                                                 </select>
                                             </div>

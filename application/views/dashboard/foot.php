@@ -40,13 +40,16 @@
 	        method: "POST", 
 	        success: function(res_backups) {
 	        	console.log(res_backups);
+	        	$("#backups").html("");
 	            for (var key in res_backups) {
 				    // skip loop if the property is from prototype
 				    if (!res_backups.hasOwnProperty(key)) continue;
 
 				    var obj = res_backups[key];
 				    console.log(obj);
+				    $("#backups").html($("#backups").html() + `<option value='`+obj+`'>`+obj+`</option>`);
 				}
+				$("#backups").html($("#backups").html() + `<option id='custom-select' value=''></option>`);
 	        },
 	        error: function(res1, res2) {
 	        	console.log("Error");
