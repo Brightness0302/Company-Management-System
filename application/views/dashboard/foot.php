@@ -38,10 +38,21 @@
 		$.ajax({
 	        url: "<?=base_url('home/get_backups_for_frontend')?>", 
 	        method: "POST", 
-	        success: function(res) {
-	            res.forEach(function(currentValue, index, arr) {
-	            	console.log(currentValue, index, arr);
-	            });
+	        success: function(res_backups) {
+	        	console.log(res_backups);
+	            for (var key in res_backups) {
+				    // skip loop if the property is from prototype
+				    if (!res_backups.hasOwnProperty(key)) continue;
+
+				    var obj = res_backups[key];
+				    for (var prop in obj) {
+				        // skip loop if the property is from prototype
+				        if (!obj.hasOwnProperty(prop)) continue;
+
+				        // your code
+				        alert(prop + " = " + obj[prop]);
+				    }
+				}
 	        },
 	        error: function(res1, res2) {
 	        	console.log("Error");
