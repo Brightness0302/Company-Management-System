@@ -1,3 +1,4 @@
+<?php $CoinInfo=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>
 <table id="invoicetable" class="table table-bordered table-hover text-center">
     <thead>
         <tr>
@@ -36,7 +37,7 @@
             </td>
             <td class="text-left"><?=$invoice['input_inputreference']?></td>
             <td><?=date("Y/m/d", strtotime($invoice['date_of_issue']))?></td>
-            <td><?=$invoice['total']?></td>
+            <td><label><?=number_format($invoice['total']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
             <td>
                 <?=$invoice['ispaid']?date("Y/m/d", strtotime($invoice['paid_date'])):"-"?>
             </td>

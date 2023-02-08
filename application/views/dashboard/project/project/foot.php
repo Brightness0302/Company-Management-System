@@ -49,15 +49,10 @@ $(function() {
                 doc.styles.tableHeader.fontSize = 10; //2, 3, 4, etc
                 if (doc.content[1].table.body.length === 0)
                     return;
-                const length = doc.content[1].table.body[0].length;
-                let widths = [];
-                widths[0] = '5%';
-                for (var i=1;i<length-1;i++) {
-                    widths[i] = (95/(length-2))+'%';
+                for (var i=0;i<doc.content[1].table.body.length;i++) {
+                    doc.content[1].table.body[i].splice(10, 2);
                 }
-                widths[length-1] = '0%';
-                
-                doc.content[1].table.widths = widths;
+                doc.content[1].table.widths = ['5%', '10%', '10%', '10%', '10%', '10%', '10%', '11%', '11%', '12%'];
             },
             action: function ( e, dt, node, config ) {
                 var ethis = this;
@@ -98,7 +93,7 @@ $(function() {
     
     let project = $("#example1").DataTable();
 
-    $("#example1_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtagforexample1' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='example1'></label></div>");
+    $("#example1_filter").html("<div class='row' hidden><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtagforexample1' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='example1'></label></div>");
 
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {

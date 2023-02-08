@@ -19,8 +19,9 @@
 <script src="<?=base_url('assets')?>/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="<?=base_url('assets')?>/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script>
+var coinInfo = "<?=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>";
 function onrefreshtotalmark() {
-    $("#total_first").html("0.0");
+    $("#total_first").html("0.0 "+coinInfo);
 }
 
 $(function() {
@@ -37,15 +38,10 @@ $(function() {
                 doc.styles.tableHeader.fontSize = 10; //2, 3, 4, etc
                 if (doc.content[1].table.body.length === 0)
                     return;
-                const length = doc.content[1].table.body[0].length;
-                let widths = [];
-                widths[0] = '5%';
-                for (var i=1;i<length-1;i++) {
-                    widths[i] = (95/(length-2))+'%';
+                for (var i=0;i<doc.content[1].table.body.length;i++) {
+                    doc.content[1].table.body[i].splice(8, 2);
                 }
-                widths[length-1] = '0%';
-                
-                doc.content[1].table.widths = widths;
+                doc.content[1].table.widths = ['5%', '5%', '15%', '15%', '15%', '15%', '15%', '15%'];
             },
             action: function ( e, dt, node, config ) {
                 var ethis = this;
@@ -82,7 +78,7 @@ $(function() {
                     // Call the default csvHtml5 action method to create the CSV file
             }
         }, "print", "colvis"]
-    }).buttons().container().appendTo('#invoicetable_wrapper .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#producttable_wrapper .col-md-6:eq(0)');
 
     let producttable = $("#producttable").DataTable();
 
@@ -117,7 +113,7 @@ $(function() {
                 (date > startdate && date < enddate) && (condition0 || condition1 || condition2 || condition3 || condition4 || condition5 || condition6)
             ) {
                 total_first += parseFloat(data[6]);
-                $("#total_first").html((total_first).toFixed(2));
+                $("#total_first").html("<label>"+(total_first).toFixed(2)+"</label> <label>"+coinInfo+"</label>");
                 return true;
             }
             return false;

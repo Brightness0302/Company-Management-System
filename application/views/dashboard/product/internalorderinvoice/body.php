@@ -1,4 +1,5 @@
 <?php $first=0;?>
+<?php $CoinInfo=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>
 <a class="btn btn-success mb-2" href="<?=base_url('product/addorder')?>">Add New</a>
 <table id="producttable" class="table table-bordered table-hover text-center">
     <thead class="text-center">
@@ -25,8 +26,8 @@
         <td><?=$order['order_date']?></td>
         <td><?=(array_key_exists('product_name', $order))?$order['product_name']:'undefined'?></td>
         <td><?=$order['product_qty']?></td>
-        <td><?=(array_key_exists('price', $order))?$order['price']:'undefined'?></td>
-        <td><?=(array_key_exists('price', $order))?number_format($order['price']*$order['product_qty'], 2, '.', ''):'undefined'?></td>
+        <td><?=(array_key_exists('price', $order))?($order['price']).' '.$CoinInfo:'undefined'?></td>
+        <td><?=(array_key_exists('price', $order))?(number_format($order['price']*$order['product_qty'], 2, '.', '')).' '.$CoinInfo:'undefined'?></td>
         <td><?=$order['order_observation']?></td>
         <td class="align-middle">
             <a href="<?=base_url('product/editorder/'.$order['id'])?>"><i class="bi custom-edit-icon"></i></a>
@@ -49,7 +50,7 @@
     <tbody>
         <tr>
             <td id="downtotalmark">Total:</td>
-            <td id="total_first"><?=$first?></td>
+            <td id="total_first"><label><?=$first?></label> <label><?=$CoinInfo?></label></td>
         </tr>
     </tbody>
 </table>

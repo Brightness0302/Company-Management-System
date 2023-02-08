@@ -43,14 +43,10 @@ $(function() {
                 if (doc.content[1].table.body.length === 0)
                     return;
                 const length = doc.content[1].table.body[0].length;
-                let widths = [];
-                widths[0] = '5%';
-                for (var i=1;i<length-2;i++) {
-                    widths[i] = (95/(length-3))+'%';
+                for (var i=0;i<doc.content[1].table.body.length;i++) {
+                    doc.content[1].table.body[i].splice(13, 3);
                 }
-                widths[length-2] = '0%';
-                widths[length-1] = '0%';
-                doc.content[1].table.widths = widths;
+                doc.content[1].table.widths = ['3%', '6%', '10%', '10%', '5%', '11%', '11%', '7%', '7%', '7%', '7%', '7%', '7%'];
             },
             action: function ( e, dt, node, config ) {
                 var ethis = this;
@@ -77,7 +73,7 @@ $(function() {
                         format: {
                             header: function ( data, columnIdx ) {
                                 data = data.replace("<br>", "");
-                                if (data === "Actions" || data === "Action" || data === "Pay" || data === "View")
+                                if (data === "Actions" || data === "Action" || data === "Pay" || data === "View" || data === "Status")
                                     return "";
                                 return data;
                             },
@@ -95,6 +91,7 @@ $(function() {
     $("#invoicetable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
 
     var first = 0.0, second = 0.0, third = 0.0, forth = 0.0, fifth = 0.0, sixth = 0.0;
+    var coinInfo = "<?=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>";
 
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {
@@ -126,12 +123,12 @@ $(function() {
                 forth += parseFloat(data[10]);
                 fifth += parseFloat(data[11]);
                 sixth += parseFloat(data[12]);
-                $("#first").html((first).toFixed(2));
-                $("#second").html((second).toFixed(2));
-                $("#third").html((third).toFixed(2));
-                $("#first").html((forth).toFixed(2));
-                $("#second").html((fifth).toFixed(2));
-                $("#third").html((sixth).toFixed(2));
+                $("#total_first").html("<label>"+(first).toFixed(2)+"</label> <label>"+coinInfo+"</label>");
+                $("#total_second").html("<label>"+(second).toFixed(2)+"</label> <label>"+coinInfo+"</label>");
+                $("#total_third").html("<label>"+(third).toFixed(2)+"</label> <label>"+coinInfo+"</label>");
+                $("#total_fourth").html("<label>"+(forth).toFixed(2)+"</label> <label>"+coinInfo+"</label>");
+                $("#total_fifth").html("<label>"+(fifth).toFixed(2)+"</label> <label>"+coinInfo+"</label>");
+                $("#total_sixth").html("<label>"+(sixth).toFixed(2)+"</label> <label>"+coinInfo+"</label>");
                 return true;
             }
             return false;

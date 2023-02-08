@@ -1,4 +1,5 @@
 <?php $first=0; $second=0; $third=0; $fourth=0;?>
+<?php $CoinInfo=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>
 <a class="btn btn-success mb-2" href="<?=base_url('product/addrecipe')?>">Add New</a>
 <table id="producttable" class="table table-bordered table-hover text-center">
     <thead>
@@ -15,47 +16,39 @@
     </thead>
     <tbody>
       <?php foreach($products as $index=>$product):?>
+      <?php 
+        $total = 0;
+        $total_material=0;
+        $materials = json_decode($product['materials'], true);
+        foreach ($materials as $key => $material) {
+          $total_material += number_format($material['amount']*$material['selling_unit_price_without_vat'], 2, '.', "");
+        }
+        $total += $total_material;
+        $first += $total_material;
+
+        $total_labour=0;
+        $labours = json_decode($product['labours'], true);
+        foreach ($labours as $key => $labour) {
+          $total_labour += number_format($labour['time']*$labour['hourly'], 2, '.', "");
+        }
+        $total += $total_labour;
+        $second += $total_labour;
+
+        $total_auxiliary=0;
+        $auxiliaries = json_decode($product['auxiliaries'], true);
+        foreach ($auxiliaries as $key => $auxiliary) {
+          $total_auxiliary += number_format($auxiliary['value'], 2, '.', "");
+        }
+        $total += $total_auxiliary;
+        $third += $total_auxiliary;
+      ?>
       <tr>
         <td><?=$product['id']?></td>
         <td class="text-left"><?=$product['name']?></td>
-        <td>
-          <?php 
-            $total = 0;
-            $total_material=0;
-            $materials = json_decode($product['materials'], true);
-            foreach ($materials as $key => $material) {
-              $total_material += number_format($material['amount']*$material['selling_unit_price_without_vat'], 2, '.', "");
-            }
-            $total += $total_material;
-            $first += $total_material;
-            echo $total_material;
-          ?>
-        </td>
-        <td>
-          <?php 
-            $total_labour=0;
-            $labours = json_decode($product['labours'], true);
-            foreach ($labours as $key => $labour) {
-              $total_labour += number_format($labour['time']*$labour['hourly'], 2, '.', "");
-            }
-            $total += $total_labour;
-            $second += $total_labour;
-            echo $total_labour;
-          ?>
-        </td>
-        <td>
-          <?php 
-            $total_auxiliary=0;
-            $auxiliaries = json_decode($product['auxiliaries'], true);
-            foreach ($auxiliaries as $key => $auxiliary) {
-              $total_auxiliary += number_format($auxiliary['value'], 2, '.', "");
-            }
-            $total += $total_auxiliary;
-            $third += $total_auxiliary;
-            echo $total_auxiliary;
-          ?>
-        </td>
-        <td><?=$total?></td>
+        <td><label><?=$total_material?></label> <label><?=$CoinInfo?></label></td>
+        <td><label><?=$total_labour?></label> <label><?=$CoinInfo?></label></td>
+        <td><label><?=$total_auxiliary?></label> <label><?=$CoinInfo?></label></td>
+        <td><label><?=$total?></label> <label><?=$CoinInfo?></label></td>
         <td class="align-middle">
             <a href="<?=base_url('product/editrecipe/'.$product['id'])?>"><i class="bi custom-edit-icon"></i></a>
             <button onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
@@ -80,10 +73,10 @@
     <tbody>
         <tr>
             <td id="downtotalmark">Total:</td>
-            <td id="total_first"><?=$first?></td>
-            <td id="total_second"><?=$second?></td>
-            <td id="total_third"><?=$third?></td>
-            <td id="total_fourth"><?=$first+$second+$third?></td>
+            <td id="total_first"><label><?=$first?></label> <label><?=$CoinInfo?></label></td>
+            <td id="total_second"><label><?=$second?></label> <label><?=$CoinInfo?></label></td>
+            <td id="total_third"><label><?=$third?></label> <label><?=$CoinInfo?></label></td>
+            <td id="total_fourth"><label><?=$first+$second+$third?></label> <label><?=$CoinInfo?></label></td>
         </tr>
     </tbody>
 </table>

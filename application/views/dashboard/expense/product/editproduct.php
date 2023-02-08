@@ -56,10 +56,7 @@
                                     <td style="border : 1px solid black">Coin:</td>
                                     <td>
                                         <select class="form-select" id="invoice_coin">
-                                            <option value="EURO" <?=($product['Coin']=="EURO")?"selected":""?>>€</option>
-                                            <option value="POUND" <?=($product['Coin']=="POUND")?"selected":""?>>£</option>
-                                            <option value="USD" <?=($product['Coin']=="USD")?"selected":""?>>$</option>
-                                            <option value="LEI" <?=($product['Coin']=="LEI")?"selected":""?>>LEI</option>
+                                            <option value="<?=$company['Coin']?>"><?=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?></option>
                                         </select>
                                     </td>
                                 </tr>

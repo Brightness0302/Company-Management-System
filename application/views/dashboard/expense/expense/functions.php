@@ -2,7 +2,6 @@
 
 let chartdata = '<?=$chart?>';
 chartdata = JSON.parse(chartdata);
-console.log(chartdata);
 
 var barChartData = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],

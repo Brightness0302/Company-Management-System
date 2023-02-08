@@ -108,7 +108,25 @@ $(function() {
     });
 });
 
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
 function refreshChart(year) {
+    if (year != -1) {
+        $("#startdate").val(formatDate(new Date(year, 0, 1)));
+        $("#enddate").val(formatDate(new Date(year, 11, 31)));
+    }
     if (year==-1)
         return;
     <?php foreach (array_reverse($projects) as $index=>$project):?>
@@ -117,6 +135,10 @@ function refreshChart(year) {
             barChartData.datasets[0].data.splice('<?=count($projects)-$index-1?>', 1);
         }
     <?php endforeach;?>
+    
+    let clickEvent = new Event('change');
+    document.getElementById("startdate").dispatchEvent(clickEvent);
+
 }
 
 function refreshAmount() {

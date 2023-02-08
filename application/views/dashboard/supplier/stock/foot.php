@@ -37,16 +37,12 @@ function clickclient(client_name, client_address, client_ref) {
 	$("#upload_client").html("<div class='text-left ml-10'><p class='font-bold text-lg' id='client_name'>"+client_name+"</p><p class='text-base' id='client_address'>"+client_address+"</p></div>");
     $("#input_inputreference").val(client_ref);
 }
-
+var coinInfo = "<?=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>";
 function onrefreshtotalmark() {
-    $("#subtotal").html("0.0");
-    $("#vat").html("0.0");
-    $("#total").html("0.0");
-
     $("#total_qty").html("0");
     $("#missing_qty").html("0");
-    $("#aquisition").html("0.0");
-    $("#selling").html("0.0");
+    $("#aquisition").html("0.0 "+coinInfo);
+    $("#selling").html("0.0 "+coinInfo);
 }
 
 $(function() {
@@ -119,39 +115,25 @@ $(function() {
             text: 'PDF',
             pageSize: 'LEGAL',
             customize: function (doc) {
+                doc.defaultStyle.alignment = 'center';
                 doc.defaultStyle.fontSize = 8; //2, 3, 4,etc
                 doc.styles.tableHeader.fontSize = 10; //2, 3, 4, etc
                 if (doc.content[1].table.body.length === 0)
                     return;
-                // const length = doc.content[2].table.body[0].length;
-                // let widths = [];
-                // widths[0] = '5%';
-                // for (var i=1;i<length-2;i++) {
-                //     widths[i] = (95/(length-3))+'%';
-                // }
-                // widths[length-1] = '0%';
-                // widths[length-2] = '0%';
-
                 const rowCount = doc.content[1].table.body.length;
-                for (var i=1;i<rowCount;i++) {
-                    doc.content[1].table.body[i][0].alignment = 'center';
-                    doc.content[1].table.body[i][1].alignment = 'center';
-                    doc.content[1].table.body[i][2].alignment = 'center';
-                    doc.content[1].table.body[i][3].alignment = 'center';
-                    doc.content[1].table.body[i][4].alignment = 'center';
-                    doc.content[1].table.body[i][5].alignment = 'center';
-                    doc.content[1].table.body[i][6].alignment = 'center';
-                    doc.content[1].table.body[i][7].alignment = 'center';
-                    doc.content[1].table.body[i][8].alignment = 'center';
+                for (var i=0;i<rowCount;i++) {
                     if ("<?=$menu['second-submenu']?>" == "stock - *All") {
-                        doc.content[1].table.body[i][9].alignment = 'center';
+                        doc.content[1].table.body[i].splice(10, 2);
+                    }
+                    else {
+                        doc.content[1].table.body[i].splice(9, 2);
                     }
                 }
                 if ("<?=$menu['second-submenu']?>" == "stock - *All") {
-                    doc.content[1].table.widths = ['5%', '12%', '14%', '12%', '12%', '5%', '10%', '10%', '10%', '10%', '0%', '0%'];
+                    doc.content[1].table.widths = ['5%', '12%', '14%', '12%', '12%', '5%', '10%', '10%', '10%', '10%'];
                 }
                 else {
-                    doc.content[1].table.widths = ['5%', '12%', '23%', '15%', '5%', '10%', '10%', '10%', '10%', '0%', '0%'];
+                    doc.content[1].table.widths = ['5%', '12%', '23%', '15%', '5%', '10%', '10%', '10%', '10%'];
                 }
             },
             action: function ( e, dt, node, config ) {
@@ -195,7 +177,6 @@ $(function() {
 
     $("#productbystock_filter").html("Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='productbystock'></label></div>");
 
-    var subtotal = 0.0, vat = 0.0, total = 0.0;
     var total_qty = 0, missing_qty = 0, aquisition = 0.0, selling = 0.0;
 
     $.fn.dataTable.ext.search.push(
@@ -207,7 +188,6 @@ $(function() {
                 let condition1 = (data[1].toLowerCase().includes(searchvalue.toLowerCase()));
                 let condition2 = (data[2].toLowerCase().includes(searchvalue.toLowerCase()));
                 let condition3 = (data[3].toLowerCase().includes(searchvalue.toLowerCase()));
-                console.log(condition1, condition2);
              
                 if (
                     (condition1 || condition2 || condition3)
@@ -218,8 +198,8 @@ $(function() {
                     selling += parseFloat(data[8]);
                     $("#total_qty").html(total_qty);
                     $("#missing_qty").html(missing_qty);
-                    $("#aquisition").html((aquisition).toFixed(2));
-                    $("#selling").html((selling).toFixed(2));
+                    $("#aquisition").html("<label>"+(aquisition).toFixed(2)+"</label> <label>"+coinInfo+"</label>");
+                    $("#selling").html("<label>"+(selling).toFixed(2)+"</label> <label>"+coinInfo+"</label>");
                     return true;
                 }
                 return false;

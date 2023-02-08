@@ -70,9 +70,9 @@
             <td id="downtotalmark" class="text-center">Total:</td>
             <td id="total_qty" class="text-center"><?=$total_qty?></td>
             <td id="missing_qty" class="text-center"><?=$missing_qty?></td>
-            <td id="aquisition" class="text-center"><?=$total_aquisition?></td>
+            <td id="aquisition" class="text-center"><label><?=number_format($total_aquisition, 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
             <td id="eight"></td>
-            <td id="selling" class="text-center"><?=$total_selling?></td>
+            <td id="selling" class="text-center"><label><?=number_format($total_selling, 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
         </tr>
     </tbody>
 </table>

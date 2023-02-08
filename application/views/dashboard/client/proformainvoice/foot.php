@@ -33,7 +33,7 @@ function clickclient(client_name, client_address, client_ref) {
     $("#upload_client").html("<div class='text-left ml-10'><p class='font-bold text-lg' id='client_name'>"+client_name+"</p><p class='text-base' id='client_address'>"+client_address+"</p></div>");
     $("#input_inputreference").val(client_ref);
 }
-
+var coinInfo = "<?=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>";
 function onrefreshtotalmark() {
     $("#subtotal").html("0.0");
     $("#vat").html("0.0");
@@ -62,14 +62,10 @@ $(function() {
                 doc.styles.tableHeader.fontSize = 10; //2, 3, 4, etc
                 if (doc.content[1].table.body.length === 0)
                     return;
-                const length = doc.content[1].table.body[0].length;
-                let widths = [];
-                widths[0] = '5%';
-                for (var i=1;i<length-1;i++) {
-                    widths[i] = (95/(length-2))+'%';
+                for (var i=0;i<doc.content[1].table.body.length;i++) {
+                    doc.content[1].table.body[i].splice(6, 1);
                 }
-                widths[length-1] = '0%';
-                doc.content[1].table.widths = widths;
+                doc.content[1].table.widths = ['10%', '16%', '18%', '18%', '16%', '16%'];
             },
             action: function ( e, dt, node, config ) {
                 var ethis = this;
@@ -107,64 +103,6 @@ $(function() {
             }
         }, "print", "colvis"]
     }).buttons().container().appendTo('#invoicetable_wrapper .col-md-6:eq(0)');
-
-    let invoicetable = $("#invoicetable").DataTable();
-
-    $("#invoicetable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label></div>");
-
-    var subtotal = 0.0, vat = 0.0, total = 0.0;
-
-    $.fn.dataTable.ext.search.push(
-        function( settings, data, dataIndex ) {
-            // Don't filter on anything other than "myTable"
-            if ( settings.nTable.id !== 'invoicetable' ) {
-                return true;
-            }
-     
-            // Filtering for "myTable".
-            var startdate = new Date($('#startdate').val());
-            startdate.setDate(startdate.getDate() - 1);
-            var enddate = new Date($('#enddate').val());
-            enddate.setDate(enddate.getDate() + 1);
-            var date = new Date(data[4] || 0); // use data for the age column
-            var client_name = data[2];
-            var reference = data[3];
-            var observation = data[8];
-            var searchvalue = $("#searchtag").val();
-            // console.log(client_name, reference, searchvalue, startdate, enddate, date);
-         
-            if (
-                (date > startdate && date < enddate) && (client_name.toLowerCase().includes(searchvalue.toLowerCase()) || reference.toLowerCase().includes(searchvalue.toLowerCase()) || observation.toLowerCase().includes(searchvalue.toLowerCase()))
-            ) {
-                subtotal += parseFloat(data[6]);
-                vat += parseFloat(data[7]);
-                total += parseFloat(data[8]);
-                $("#subtotal").html((subtotal).toFixed(2));
-                $("#vat").html((vat).toFixed(2));
-                $("#total").html((total).toFixed(2));
-                return true;
-            }
-            return false;
-        }
-    );
-    $('input[type=search]').on('search', function () {
-        onrefreshtotalmark();
-        invoicetable.draw();
-    });
-
-    invoicetable.on('draw', function (){
-        subtotal = 0.0, vat = 0.0, total = 0.0;
-    })
-
-    $("#searchtag").on('keyup', function (){
-        onrefreshtotalmark();
-        invoicetable.draw();
-    });
-    
-    $("input[type=date]").on('change', function (){
-        onrefreshtotalmark();
-        invoicetable.draw();
-    });
 
     $("select[id=invoice_coin]").on('change', function (){
         const elements = $(".coinsymbol");

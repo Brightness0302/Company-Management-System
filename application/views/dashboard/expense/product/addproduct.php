@@ -56,10 +56,7 @@
                                     <td style="border : 1px solid black">Coin:</td>
                                     <td>
                                         <select class="form-select" id="invoice_coin">
-                                            <option value="EURO">€</option>
-                                            <option value="POUND">£</option>
-                                            <option value="USD">$</option>
-                                            <option value="LEI">LEI</option>
+                                            <option value="<?=$company['Coin']?>"><?=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?></option>
                                         </select>
                                     </td>
                                 </tr>
@@ -76,7 +73,7 @@
                                     <td style="border : 1px solid black">Value without VAT: </td>
                                     <td>
                                         <div class="m-auto">
-                                            <input type="number" class="form-control " id="value_without_vat" value="" title="Choose your color">
+                                            <input type="number" class="form-control " id="value_without_vat" value="0.0" title="Choose your color">
                                         </div>
                                     </td>
                                 </tr>
@@ -84,7 +81,7 @@
                                     <td style="border : 1px solid black">VAT amount:</td>
                                     <td>
                                         <div class="m-auto">
-                                            <input type="text" class="form-control " id="vat_amount" value="" title="Choose your color">
+                                            <input type="text" class="form-control " id="vat_amount" value="0.0" title="Choose your color">
                                         </div>
                                     </td>
                                 </tr>
@@ -95,14 +92,14 @@
                                 <tr>
                                     <td style="border : 1px solid black"> VAT %: </td>
                                     <td>
-                                        <input type="text" class="form-control" id="vat_percent" value="0" title="Choose your color" readOnly>
+                                        <input type="text" class="form-control" id="vat_percent" value="0.0" title="Choose your color" readOnly>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="border : 1px solid black">Total Value:</td>
                                     <td>
                                         <div class="m-auto">
-                                            <input type="text" class="form-control " id="total_amount" value="" title="Choose your color" readOnly>
+                                            <input type="text" class="form-control " id="total_amount" value="0.0" title="Choose your color" readOnly>
                                         </div>
                                     </td>
                                 </tr>

@@ -1,4 +1,5 @@
 <?php $total_subtotal=0; $total_vat_amount=0; $total_total_amount=0;?>
+<?php $CoinInfo=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>
 <table id="invoicetable" class="table table-bordered table-hover">
     <thead class="text-center">
         <tr>
@@ -36,9 +37,9 @@
             </td>
             <td class="text-left"><?=($product['project'])?$product['project']['name']:"Not project"?></td>
             <td><?=$product['date']?></td>
-            <td><?=$product['value_without_vat']?></td>
-            <td><?=$product['vat']?></td>
-            <td><?=$product['total']?></td>
+            <td><label><?=$product['value_without_vat']?></label> <label><?=$CoinInfo?></label></td>
+            <td><label><?=$product['vat']?></label> <label><?=$CoinInfo?></label></td>
+            <td><label><?=$product['total']?></label> <label><?=$CoinInfo?></label></td>
             <td class="text-left"><?=$product['observation']?></td>
             <td class="form-inline flex justify-around">
                 <a href="<?=base_url('expense/editproduct/'.$product['id'])?>"><i class="bi custom-edit-icon"></i></a>
@@ -64,9 +65,9 @@
     <tbody>
         <tr>
             <td id="downtotalmark">Total:</td>
-            <td id="subtotal"><?=$total_subtotal?></td>
-            <td id="vat"><?=$total_vat_amount?></td>
-            <td id="total"><?=$total_total_amount?></td>
+            <td id="subtotal"><label><?=$total_subtotal?></label> <label><?=$CoinInfo?></label></td>
+            <td id="vat"><label><?=$total_vat_amount?></label> <label><?=$CoinInfo?></label></td>
+            <td id="total"><label><?=$total_total_amount?></label> <label><?=$CoinInfo?></label></td>
         </tr>
     </tbody>
 </table>

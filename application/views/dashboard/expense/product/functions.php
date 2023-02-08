@@ -11,9 +11,14 @@ $(document).ready(function() {
     document.getElementById('vat_amount').addEventListener("input", onchange_input, false);
 });
 function onchange_input() {
+    if (this.value == "" || isNaN(parseFloat(this.value))) {
+        this.value = "0.0";
+    }
     const value_without_vat = $("#value_without_vat").val();
     const vat_amount = $("#vat_amount").val();
-    const vat_percent = vat_amount/value_without_vat*100.0;
+    let vat_percent=0;
+    if (value_without_vat!=0)
+        vat_percent = vat_amount/value_without_vat*100.0;
     
     $("#vat_percent").val(parseInt(vat_percent));
     $("#total_amount").val((parseFloat(value_without_vat)+parseFloat(vat_amount)).toFixed(2));
@@ -36,7 +41,7 @@ function ClearItem() {
     const mark_up_percent = $("#mark_up_percent").val("0");
 }
 
-function AddProduct() {
+function get_formdata() {
     const observation = $("#observation").val();
     const categoryid = $("#categoryid").val();
     const projectid = $("#projectid").val();
@@ -58,7 +63,22 @@ function AddProduct() {
         vat_amount: vat_amount,
         total_amount: total_amount
     };
-    console.log(form_data);
+
+    if (value_without_vat < vat_amount) {
+        alert("Value_without_vat should be bigger than vat_amount.");
+        return false;
+    }
+    if (value_without_vat == 0) {
+        alert("Value_without_vat should be bigger than ZERO.");
+        return false;
+    }
+    return form_data;
+}
+
+function AddProduct() {
+    const form_data = get_formdata();
+    if (typeof form_data == "boolean" && form_data === false)
+        return;
 
     $.ajax({
         url: "<?=base_url('expense/saveproduct')?>",
@@ -118,28 +138,9 @@ function AddProduct() {
 }
 
 function EditProduct(product_id) {
-    const observation = $("#observation").val();
-    const categoryid = $("#categoryid").val();
-    const projectid = $("#projectid").val();
-    const expense_date = $("#expense_date").val();
-    const invoice_coin = $("#invoice_coin").val();
-    const vat_percent = $("#vat_percent").val();
-    const value_without_vat = $("#value_without_vat").val();
-    const vat_amount = $("#vat_amount").val();
-    const total_amount = $("#total_amount").val();
-
-    const form_data = {
-        observation: observation,
-        categoryid: categoryid,
-        projectid: projectid,
-        expense_date: expense_date,
-        invoice_coin: invoice_coin,
-        vat_percent: vat_percent,
-        value_without_vat: value_without_vat,
-        vat_amount: vat_amount,
-        total_amount: total_amount
-    };
-    console.log(form_data);
+    const form_data = get_formdata();
+    if (typeof form_data == "boolean" && form_data === false)
+        return;
 
     $.ajax({
         url: "<?=base_url('expense/saveproduct?id=')?>"+product_id,

@@ -1,3 +1,4 @@
+<?php $CoinInfo=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>
 <a class="btn btn-success mb-2" href="<?=base_url('client/addproforma')?>">Add New</a>
 <table id="invoicetable" class="table table-bordered table-hover text-center">
     <thead>
@@ -33,7 +34,7 @@
             </td>
             <td class="text-left"><?=$invoice['input_inputreference']?></td>
             <td><?=date("Y/m/d", strtotime($invoice['date_of_issue']))?></td>
-            <td><?=$invoice['total']?></td>
+            <td><label><?=$invoice['total']?></label> <label><?=$CoinInfo?></label></td>
             <td class="align-middle">
                 <a href="<?=base_url('client/editproforma/'.$invoice['id'])?>"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delInvoice('<?=$invoice['id']?>')" <?=$invoice['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>

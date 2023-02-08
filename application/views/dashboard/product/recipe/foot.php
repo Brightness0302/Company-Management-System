@@ -40,15 +40,10 @@ $(function() {
                 doc.styles.tableHeader.fontSize = 10; //2, 3, 4, etc
                 if (doc.content[1].table.body.length === 0)
                     return;
-                const length = doc.content[1].table.body[0].length;
-                let widths = [];
-                widths[0] = '5%';
-                for (var i=1;i<length-1;i++) {
-                    widths[i] = (95/(length-2))+'%';
+                for (var i=0;i<doc.content[1].table.body.length;i++) {
+                    doc.content[1].table.body[i].splice(6, 2);
                 }
-                widths[length-1] = '0%';
-                
-                doc.content[1].table.widths = widths;
+                doc.content[1].table.widths = ['5%', '18%', '18%', '18%', '18%', '18%'];
             },
             action: function ( e, dt, node, config ) {
                 var ethis = this;
@@ -85,7 +80,7 @@ $(function() {
                     // Call the default csvHtml5 action method to create the CSV file
             }
         }, "print", "colvis"]
-    }).buttons().container().appendTo('#invoicetable_wrapper .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#producttable_wrapper .col-md-6:eq(0)');
 
     let producttable = $("#producttable").DataTable();
 

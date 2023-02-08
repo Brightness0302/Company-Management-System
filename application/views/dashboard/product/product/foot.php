@@ -20,9 +20,6 @@
 <script src="<?=base_url('assets')?>/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script>
 function onrefreshtotalmark() {
-    $("#subtotal").html("0.0");
-    $("#vat").html("0.0");
-    $("#total").html("0.0");
 }
 
 $(function() {
@@ -39,15 +36,10 @@ $(function() {
                 doc.styles.tableHeader.fontSize = 10; //2, 3, 4, etc
                 if (doc.content[1].table.body.length === 0)
                     return;
-                const length = doc.content[1].table.body[0].length;
-                let widths = [];
-                widths[0] = '5%';
-                for (var i=1;i<length-1;i++) {
-                    widths[i] = (95/(length-2))+'%';
+                for (var i=0;i<doc.content[1].table.body.length;i++) {
+                    doc.content[1].table.body[i].splice(10, 2);
                 }
-                widths[length-1] = '0%';
-                
-                doc.content[1].table.widths = widths;
+                doc.content[1].table.widths = ['5%', '10%', '10%', '10%', '10%', '10%', '10%', '11%', '11%', '12%'];
             },
             action: function ( e, dt, node, config ) {
                 var ethis = this;
@@ -84,13 +76,11 @@ $(function() {
                     // Call the default csvHtml5 action method to create the CSV file
             }
         }, "print", "colvis"]
-    }).buttons().container().appendTo('#invoicetable_wrapper .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#producttable_wrapper .col-md-6:eq(0)');
 
     let producttable = $("#producttable").DataTable();
 
     $("#producttable_filter").html("<div class='row'><label class='col-sm-4'>Start Date:<input id='startdate' value='"+"<?=date('Y-01-01')?>"+"' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='producttable'></label><label class='col-sm-4'>End Date:<input id='enddate' value='<?=date('Y-12-t')?>' type='date' class='w-28 form-control form-control-sm' placeholder='' aria-controls='invoicetable'></label><label class='col-sm-4'>Search:<input id='searchtag' type='search' class='w-28 form-control form-control-sm' placeholder='' aria-controls='producttable'></label></div>");
-
-    var subtotal = 0.0, vat = 0.0, total = 0.0;
 
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {
@@ -104,7 +94,7 @@ $(function() {
             startdate.setDate(startdate.getDate() - 1);
             var enddate = new Date($('#enddate').val());
             enddate.setDate(enddate.getDate() + 1);
-            var date = new Date(data[3] || 0); // use data for the age column
+            var date = new Date(data[4] || 0); // use data for the age column
             var name = data[2];
             var searchvalue = $("#searchtag").val();
             var condition0 = (data[0].toLowerCase().includes(searchvalue.toLowerCase()));
@@ -116,7 +106,6 @@ $(function() {
             var condition6 = (data[7].toLowerCase().includes(searchvalue.toLowerCase()));
             var condition7 = (data[8].toLowerCase().includes(searchvalue.toLowerCase()));
             var condition8 = (data[10].toLowerCase().includes(searchvalue.toLowerCase()));
-            console.log(condition0, condition1, condition2, condition3, condition4, condition5, condition6, condition7, condition8);
          
             if (
                 (date > startdate && date < enddate) && (condition0 || condition1 || condition2 || condition3 || condition4 || condition5 || condition6 || condition7 || condition8)
@@ -131,7 +120,7 @@ $(function() {
     });
 
     producttable.on('draw', function (){
-        subtotal = 0.0, vat = 0.0, total = 0.0;
+        // subtotal = 0.0, vat = 0.0, total = 0.0;
     })
 
     $("#searchtag").on('keyup', function (){

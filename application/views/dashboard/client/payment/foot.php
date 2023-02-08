@@ -42,18 +42,14 @@ $(function() {
             text: 'PDF',
             pageSize: 'LEGAL',
             customize: function (doc) {
-                doc.defaultStyle.fontSize = 10; //2, 3, 4,etc
+                doc.defaultStyle.fontSize = 8; //2, 3, 4,etc
                 doc.styles.tableHeader.fontSize = 10; //2, 3, 4, etc
                 if (doc.content[1].table.body.length === 0)
                     return;
-                const length = doc.content[1].table.body.length;
-                let widths = [];
-                widths[0] = '5%';
-                for (var i=1;i<length;i++) {
-                    widths[i] = (95/(length-1))+'%';
+                for (var i=0;i<doc.content[1].table.body.length;i++) {
+                    doc.content[1].table.body[i].splice(9, 2);
                 }
-                widths[length] = '0%';
-                doc.content[1].table.widths = widths;
+                doc.content[1].table.widths = ['10%', '11%', '11%', '11%', '11%', '11%', '11%', '11%', '11%'];
             },
             action: function ( e, dt, node, config ) {
                 var ethis = this;
