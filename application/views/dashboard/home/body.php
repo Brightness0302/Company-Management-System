@@ -1,3 +1,4 @@
+<?php $CoinInfo=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>
 <div class="w-full p-2">
   <div class="row">
     <div class="col-md-6">
@@ -41,7 +42,7 @@
                     </td>
                     <td><?=$invoice['input_inputreference']?></td>
                     <td><?=date("Y/m/d", strtotime($invoice['date_of_issue']))?></td>
-                    <td><?=$invoice['total']?></td>
+                    <td><label><?=number_format($invoice['total']/$invoice['invoice_coin_rate']*$invoice['main_coin_rate'], 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
                 </tr>
                 <?php endif;?>
                 <?php endforeach;?>
@@ -92,7 +93,7 @@
                       </td>
                       <td class="text-left"><?=$invoice['observation']?></td>
                       <td><?=date("Y/m/d", strtotime($invoice['date_of_reception']))?></td>
-                      <td><?=number_format($invoice['selling_subtotal_with_vat'], 2, '.', "")?></td>
+                      <td><label><?=number_format($invoice['selling_subtotal_with_vat'], 2, '.', "")?></label> <label><?=$CoinInfo?></label></td>
                   </tr>
                   <?php endif;?>
                   <?php endforeach;?>
@@ -231,8 +232,8 @@
                 <tr>
                     <td><?=($index)?></td>
                     <td class="text-left"><?=$stock['name']?></td>
-                    <td><?=$stock['amount_without_vat']?></td>
-                    <td><?=$stock['selling_amount_without_vat']?></td>
+                    <td><label><?=$stock['amount_without_vat']?></label> <label><?=$CoinInfo?></label></td>
+                    <td><label><?=$stock['selling_amount_without_vat']?></label> <label><?=$CoinInfo?></label></td>
                 </tr>
                 <?php endif;?>
                 <?php endforeach;?>

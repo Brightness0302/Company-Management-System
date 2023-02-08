@@ -67,6 +67,9 @@ class Report extends CI_Controller
             if ($res['status']=='success') {
                 $data['client_invoices'][$key]['project'] = $res['data'];
             }
+            $data['client_invoices'][$key]['sub_total'] = $invoice['sub_total']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'];
+            $data['client_invoices'][$key]['tax'] = $invoice['tax']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'];
+            $data['client_invoices'][$key]['total'] = $invoice['total']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'];
         }
         $data['stocks'] = $this->home->alldatafromdatabase($companyid, 'stock');
         $data['expenses'] = $this->home->alldatafromdatabase($companyid, 'expense_category');

@@ -3,13 +3,13 @@
     <label class="text-lg">Search Filter: &emsp;</label><div class="w-56"><input type="text" id="search" class="form-control" value="" /></div>
 </div>
 <p class="text-lg mb-0"><b><u>Client Invoices:</u></b></p>
-<table id="clientinvoices" class="table table-bordered table-hover">
+<table id="clientinvoices" class="table table-bordered table-hover text-center">
     <thead>
         <tr>
             <th>No</th>
-            <th>Invoice Number</th>
-            <th>Client Name</th>
-            <th>Reference</th>
+            <th class="text-left">Invoice Number</th>
+            <th class="text-left">Client Name</th>
+            <th class="text-left">Reference</th>
             <th>Issued Date</th>
             <th>Due Date</th>
             <th id="upsubtotal">Sub Total</th>
@@ -24,14 +24,14 @@
         <?php if(!$invoice['isremoved']):?>
         <tr>
             <td><?=(++$index)?></td>
-            <td><?=date("Y").'-'.$invoice['input_invoicenumber']?><?=$invoice['isremoved']?"[<label class='danger'>deleted</label>]":""?></td>
-            <td><?=str_replace("_"," ", $invoice['client']['name'])?></td>
-            <td><?=$invoice['input_inputreference']?></td>
+            <td class="text-left"><?=date("Y").'-'.$invoice['input_invoicenumber']?><?=$invoice['isremoved']?"[<label class='danger'>deleted</label>]":""?></td>
+            <td class="text-left"><?=str_replace("_"," ", $invoice['client']['name'])?></td>
+            <td class="text-left"><?=$invoice['input_inputreference']?></td>
             <td><?=date("Y/m/d", strtotime($invoice['date_of_issue']))?></td>
             <td><?=date("Y/m/d", strtotime($invoice['due_date']))?></td>
-            <td><?=$invoice['sub_total'].' '.$coininfo?></td>
-            <td><?=$invoice['tax'].' '.$coininfo?></td>
-            <td><?=$invoice['total'].' '.$coininfo?></td>
+            <td><?=number_format($invoice['sub_total']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "").' '.$coininfo?></td>
+            <td><?=number_format($invoice['tax']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "").' '.$coininfo?></td>
+            <td><?=number_format($invoice['total']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "").' '.$coininfo?></td>
             <td class="text-center"><?=$invoice['ispaid']?"<i class='bi custom-paid-icon'></i>":"<i class='bi custom-notpaid-icon'></i>"?></td>
             <td hidden><?=$invoice['material_lines'];?>
             </td>

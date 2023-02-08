@@ -1,3 +1,4 @@
+<?php $CoinInfo=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>
 <div class="flex justify-end">
     <div class="w-56 m-2">
         <p class="text-lg mb-0">Start:</p><input type="month" id="start" class="form-select" value="<?=date("Y-m", strtotime($setting1['startdate']))?>" min="1900-01" max="2050-12" />
@@ -43,12 +44,12 @@
             <td><?=$invoice['id']?></td>
             <td><?=date("Y/m/d", strtotime($invoice['date_of_reception']))?></td>
             <td><?=date("Y/m/d", strtotime($invoice['invoice_date']))?></td>
-            <td><?=number_format($invoice['acq_subtotal_without_vat'], 2, '.', "")?></td>
-            <td><?=number_format($invoice['acq_subtotal_vat'], 2, '.', "")?></td>
-            <td><?=number_format($invoice['acq_subtotal_with_vat'], 2, '.', "")?></td>
-            <td><?=number_format($invoice['selling_subtotal_without_vat'], 2, '.', "")?></td>
-            <td><?=number_format($invoice['selling_subtotal_vat'], 2, '.', "")?></td>
-            <td><?=number_format($invoice['selling_subtotal_with_vat'], 2, '.', "")?></td>
+            <td><label><?=number_format($invoice['acq_subtotal_without_vat'], 2, '.', "")?></label>  <label><?=$CoinInfo?></label></td>
+            <td><label><?=number_format($invoice['acq_subtotal_vat'], 2, '.', "")?></label>  <label><?=$CoinInfo?></label></td>
+            <td><label><?=number_format($invoice['acq_subtotal_with_vat'], 2, '.', "")?></label>  <label><?=$CoinInfo?></label></td>
+            <td><label><?=number_format($invoice['selling_subtotal_without_vat'], 2, '.', "")?></label>  <label><?=$CoinInfo?></label></td>
+            <td><label><?=number_format($invoice['selling_subtotal_vat'], 2, '.', "")?></label>  <label><?=$CoinInfo?></label></td>
+            <td><label><?=number_format($invoice['selling_subtotal_with_vat'], 2, '.', "")?></label>  <label><?=$CoinInfo?></label></td>
             <td><?=$invoice['ispaid']?"<i class='bi custom-paid-icon'></i>":"<i class='bi custom-notpaid-icon'></i>"?></td>
             <td>
                 <a href="<?=$invoice['attached']?base_url('assets/company/attachment/'.$company['name'].'/supplier/'.$invoice['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$invoice['attached']?"":'pointer-events: none'?>"><i class="bi custom-view-icon"></i></a>

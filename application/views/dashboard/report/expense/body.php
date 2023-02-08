@@ -1,3 +1,4 @@
+<?php $CoinInfo=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>
 <div class="flex justify-end">
     <div class="w-56 m-2">
         <p class="text-lg mb-0">Category:</p>
@@ -41,9 +42,9 @@
             <td class="text-left"><?=$product['category']['name']?></td>
             <td class="text-left"><?=array_key_exists('project', $product)?$product['project']['name']:"Not Product"?></td>
             <td><?=date("Y/m/d", strtotime($product['date']))?></td>
-            <td><?=$product['value_without_vat']?></td>
-            <td><?=$product['vat']?></td>
-            <td><?=$product['total']?></td>
+            <td><label><?=$product['value_without_vat']?></label> <label><?=$CoinInfo?></label></td>
+            <td><label><?=$product['vat']?></label> <label><?=$CoinInfo?></label></td>
+            <td><label><?=$product['total']?></label> <label><?=$CoinInfo?></label></td>
             <td class="text-left"><?=$product['observation']?></td>
             <td class="text-center">
                 <a href="<?=$product['attached']?base_url('assets/company/attachment/'.$company['name'].'/expense/'.$product['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$product['attached']?"":'pointer-events: none'?>"><i class="bi custom-view-icon"></i></a>

@@ -493,7 +493,7 @@ class Home_model extends CI_Model {
                     );
 
                     $this->db->where('id', $id);
-                    $this->db->update('material_totalline', $data_sql);                    
+                    $this->db->update('material_totalline', $data_sql);
                 }
             } 
         }
