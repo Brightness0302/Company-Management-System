@@ -454,6 +454,23 @@ class Home extends CI_Controller
         }
         return $files;
     }
+    //return data by id
+    public function get_backups_for_frontend() {
+        $companyid = $this->session->userdata('companyid');
+        $companyname = $this->session->userdata('companyname');
+        $path = "/var/www/html/crm/assets/company/backups/".$companyname;
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+        $files = [];
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            // echo 'This is a server using Windows!';
+        } else {
+            $files = array_diff(scandir($path), array('.', '..'));
+        }
+        header('Content-Type: application/json');
+        echo json_encode($files);
+    }
     //backup function for mysql database
     public function backup_schedule() {
         $count = $this->home->productfromsetting('company');
