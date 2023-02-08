@@ -36,7 +36,7 @@
 
 	function getbackups() {
 		$.ajax({
-	        url: "<?=base_url('home/get_backups/')?>", 
+	        url: "<?=base_url('home/get_backups')?>", 
 	        method: "POST", 
 	        success: function(res) {
 	            console.log(res);
