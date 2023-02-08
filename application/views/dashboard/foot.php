@@ -39,7 +39,9 @@
 	        url: "<?=base_url('home/get_backups_for_frontend')?>", 
 	        method: "POST", 
 	        success: function(res) {
-	            console.log(res);
+	            res.forEach(function(currentValue, index, arr) {
+	            	console.log(currentValue, index, arr);
+	            });
 	        },
 	        error: function(res1, res2) {
 	        	console.log("Error");
