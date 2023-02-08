@@ -1,3 +1,4 @@
+<?php $CoinInfo=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>
 <a class="btn btn-success mb-2" href="<?=base_url('stock/addstock')?>">Add New</a>
 <div style="width: 1120px; height: 560px; margin: auto;">
     <canvas id="canvas" style="display: block; box-sizing: border-box; height: 560px; width: 1120px;" width="1120" height="560"></canvas>
@@ -108,8 +109,8 @@ window.onload = function() {
             <td><?=($index)?></td>
             <td><a class="text-black" href="<?=base_url("stock/showproductbystock?stock_id=").$stock['id']?>"><?=$stock['code']?></a></td>
             <td class="text-left"><a class="text-black" href="<?=base_url("stock/showproductbystock?stock_id=").$stock['id']?>"><?=$stock['name']?></a></td>
-            <td><?=$stock['amount_without_vat']?></td>
-            <td><?=$stock['selling_amount_without_vat']?></td>
+            <td><label><?=number_format($stock['amount_without_vat'], 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
+            <td><label><?=number_format($stock['selling_amount_without_vat'], 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
             <td class="align-middle">
                 <a href="<?=base_url('stock/editstock/'.$stock['id'])?>"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delStock('<?=$stock['id']?>')" <?=$stock['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
