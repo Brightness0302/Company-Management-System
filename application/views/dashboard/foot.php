@@ -34,8 +34,21 @@
 	    base_image.src = '<?=base_url('assets/company/image/'.$company['id']).'.jpg'?>';
 	}
 
+	function getbackups() {
+		$.ajax({
+	        url: "<?=base_url('home/get_backups/')?>", 
+	        method: "POST", 
+	        success: function(res) {
+	            console.log(res);
+	        },
+	        error: function(res1, res2) {
+	        	console.log("Error");
+	        	console.log(res1, res2);
+	        }
+	    });
+	}
+
 	function backup_now() {
-		console.log("backup_now");
 		$.ajax({
 	        url: "<?=base_url('home/setbackup/').$company['id'].'/'.$company['name']?>", 
 	        method: "POST", 

@@ -26,7 +26,7 @@
 
                 <li class="nav-item dropdown">
                     <button type="button" class="nav-link nav-icon border-0" data-bs-toggle="modal"
-                        data-bs-target="#ExtralargeModal">
+                        data-bs-target="#ExtralargeModal" onclick="getbackups()">
                         <i class="ri-settings-3-line"></i>
                     </button><!-- End Setting Icon -->
                     <!--  -->
@@ -448,7 +448,7 @@
                                         <div class="row g-3">
                                             <div class="col-md-8">
                                                 <select class="form-select" id="restore_picker" aria-label="Default select example">
-                                                    <optgroup label="Select a Restore file">
+                                                    <optgroup id="backups" label="Select a Restore file">
                                                         <?php $index=0;?>
                                                         <?php foreach ($backups as $backup):?>
                                                         <?php $index++;?>
