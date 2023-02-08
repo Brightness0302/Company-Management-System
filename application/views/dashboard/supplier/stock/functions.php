@@ -150,40 +150,40 @@ function viewsoldandreceive(tline_id, el) {
             res['supplier'].forEach((invoice, index) => {
                 supplierinvoice+="<tr>"+
                 "<td>"+(index+1)+"</td>"+
-                "<td>"+$(etd[1]).text()+"</td>"+
-                "<td>"+$(etd[2]).text()+"</td>"+
+                "<td class='text-left'>"+$(etd[1]).text()+"</td>"+
+                "<td class='text-left'>"+$(etd[2]).text()+"</td>"+
                 "<td>"+invoice['quantity_received']+"</td>"+
                 "<td>"+invoice['quantity_on_document']+"</td>"+
-                "<td>"+invoice['supplier']['name']+"</td>"+
-                "<td>"+invoice['product']['invoice_number']+"</td>"+
+                "<td class='text-left'>"+invoice['supplier']['name']+"</td>"+
+                "<td class='text-left'>"+invoice['product']['invoice_number']+"</td>"+
                 "<td>"+(invoice['product']['invoice_date'].replace(/\-/g, '/'))+"</td>"+
                 "</tr>";
             });
             res['client'].forEach((invoice, index) => {
                 clientinvoice+="<tr>"+
                 "<td>"+(index+1)+"</td>"+
-                "<td>"+$(etd[1]).text()+"</td>"+
-                "<td>"+$(etd[2]).text()+"</td>"+
+                "<td class='text-left'>"+$(etd[1]).text()+"</td>"+
+                "<td class='text-left'>"+$(etd[2]).text()+"</td>"+
                 "<td>"+invoice['line']['qty']+"</td>"+
                 "<td>"+invoice['line']['qty']+"</td>"+
-                "<td>"+invoice['client']['name']+"</td>"+
-                "<td>"+invoice['input_invoicenumber']+"</td>"+
+                "<td class='text-left'>"+invoice['client']['name']+"</td>"+
+                "<td class='text-left'>"+invoice['input_invoicenumber']+"</td>"+
                 "<td>"+(invoice['date_of_issue'].replace(/\-/g, '/'))+"</td>"+
                 "</tr>";
             });
             res['product_material'].forEach((product, index) => {
                 product_material+="<tr>"+
                 "<td>"+(index+1)+"</td>"+
-                "<td>"+product['name']+"</td>"+
-                "<td>"+product['code_ean']+"</td>"+
-                "<td>"+product['serialnumber']+"</td>"+
+                "<td class='text-left'>"+product['code_ean']+"</td>"+
+                "<td class='text-left'>"+product['name']+"</td>"+
+                "<td class='text-left'>"+product['serialnumber']+"</td>"+
                 "<td>"+(product['date'].replace(/\-/g, '/'))+"</td>"+
-                "<td>"+product['order_number']+"</td>"+
-                "<td>"+product['lan-mac_address']+"</td>"+
-                "<td>"+(product['wifi-mac_address']?product['wifi-mac_address']:"NA")+"</td>"+
-                "<td>"+product['plug_standard']+"</td>"+
-                "<td>"+product['observation']+"</td>"+
-                "<td>"+product['userdata']['username']+"</td>"+
+                "<td class='text-left'>"+product['order_number']+"</td>"+
+                "<td class='text-left'>"+product['lan-mac_address']+"</td>"+
+                "<td class='text-left'>"+(product['wifi-mac_address']?product['wifi-mac_address']:"NA")+"</td>"+
+                "<td class='text-left'>"+product['plug_standard']+"</td>"+
+                "<td class='text-left'>"+product['observation']+"</td>"+
+                "<td class='text-left'>"+product['userdata']['username']+"</td>"+
                 "</tr>";
             });
             etr.after("<tr id='viewsoldandreceive' style='background: cornsilk;'>"+
@@ -192,21 +192,21 @@ function viewsoldandreceive(tline_id, el) {
                 "<p class='text-center text-lg'>Products received</p>"+
                 "<table class='table table-bordered table-hover' style='background-color: rgb(147 197 253);'>"+
                 "<thead>"+
-                "<tr><th>No</th><th>Code EAN</th><th>Description</th><th>Qty received</th><th>Qty on document</th><th>Supplier Name</th><th>Invoice Number</th><th>Invoice Date</th></tr>"+
+                "<tr><th>No</th><th class='text-left'>Code EAN</th><th class='text-left'>Description</th><th>Qty received</th><th>Qty on document</th><th class='text-left'>Supplier Name</th><th class='text-left'>Invoice Number</th><th>Invoice Date</th></tr>"+
                 "</thead>"+
                 "<tbody>"+supplierinvoice+"</tbody>"+
                 "</table>"+
                 "<p class='text-center text-lg'>Products sold</p>"+
                 "<table class='table table-bordered table-hover' style='background-color: rgb(134 239 172);'>"+
                 "<thead>"+
-                "<tr><th>No</th><th>Code EAN</th><th>Description</th><th>Qty invoiced</th><th>Qty shipped</th><th>Client Name</th><th>Invoice Number</th><th>Invoice Date</th></tr>"+
+                "<tr><th>No</th><th class='text-left'>Code EAN</th><th class='text-left'>Description</th><th>Qty invoiced</th><th>Qty shipped</th><th class='text-left'>Client Name</th><th class='text-left'>Invoice Number</th><th>Invoice Date</th></tr>"+
                 "</thead>"+
                 "<tbody>"+clientinvoice+"</tbody>"+
                 "</table>"+
                 "<p class='text-center text-lg'>Products internally used</p>"+
                 "<table class='table table-bordered table-hover' style='background-color: rgb(252 165 165);'>"+
                 "<thead>"+
-                "<tr><th>No</th><th>Description</th><th>Code EAN</th><th>Serial Number</th><th>Date</th><th>Order Number</th><th>LAN MAC</th><th>Wi-Fi MAC</th><th>Plug Standard</th><th>Observation</th><th>Registered User</th></tr>"+
+                "<tr><th>No</th><th class='text-left'>Code EAN</th><th class='text-left'>Description</th><th class='text-left'>Serial Number</th><th>Date</th><th class='text-left'>Order Number</th><th class='text-left'>LAN MAC</th><th class='text-left'>Wi-Fi MAC</th><th class='text-left'>Plug Standard</th><th class='text-left'>Observation</th><th class='text-left'>Registered User</th></tr>"+
                 "</thead>"+
                 "<tbody>"+product_material+"</tbody>"+
                 "</table>"+
