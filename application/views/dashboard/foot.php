@@ -45,13 +45,7 @@
 				    if (!res_backups.hasOwnProperty(key)) continue;
 
 				    var obj = res_backups[key];
-				    for (var prop in obj) {
-				        // skip loop if the property is from prototype
-				        if (!obj.hasOwnProperty(prop)) continue;
-
-				        // your code
-				        alert(prop + " = " + obj[prop]);
-				    }
+				    console.log(obj);
 				}
 	        },
 	        error: function(res1, res2) {
