@@ -321,7 +321,7 @@ async function SaveItem() {
         return;
     }
     
-    if (mark_up_percent <= 0) {
+    if (mark_up_percent < 0) {
         alert("Please, input value bigger than 0 for mark up percent");
         return;
     }
@@ -362,10 +362,10 @@ async function SaveItem() {
         return;
     }
 
-    if (!code_ean) {
-        alert("Please, Fill in the gap for code ean.");
-        return;
-    }
+    // if (!code_ean) {
+    //     alert("Please, Fill in the gap for code ean.");
+    //     return;
+    // }
 
     if (!production_description) {
         alert("Please, Fill in the gap for production description.");
@@ -570,7 +570,7 @@ async function save_tr(el) {
         return;
     }
 
-    if (mark_up_percent <= 0) {
+    if (mark_up_percent < 0) {
         alert("Please, input value bigger than 0 for mark up percent");
         return;
     }
@@ -591,10 +591,10 @@ async function save_tr(el) {
         return;
     }
 
-    if (!code_ean) {
-        alert("Please, Fill in the gap for code ean.");
-        return;
-    }
+    // if (!code_ean) {
+    //     alert("Please, Fill in the gap for code ean.");
+    //     return;
+    // }
 
     if (!production_description) {
         alert("Please, Fill in the gap for production description.");
