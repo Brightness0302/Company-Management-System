@@ -8,7 +8,7 @@
         <div class="position-relative m-5">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-9 text-center">
-                    <h2>Add New Project</h2>
+                    <h2>Edit Project</h2>
                 </div>
             </div>
 

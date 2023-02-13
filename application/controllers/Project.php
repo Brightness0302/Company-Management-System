@@ -63,6 +63,9 @@ class Project extends CI_Controller
         $data['project'] = $this->project->productfromsetting($companyid, 'project');
         $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
 
+        $data['setting1'] = $this->home->getEarliestdate($companyid, 'project', 'enddate');
+        $data['setting2'] = $this->home->getLatestdate($companyid, 'project', 'enddate');
+
         $session['menu']="Projects";
         $session['submenu']="pj_pm";
         $session['second-submenu']="Add New Project";
@@ -90,6 +93,10 @@ class Project extends CI_Controller
         $data['project'] = $project['data'];
         $data['project']['client'] = $this->home->databyid($data['project']['client'], 'client')['data'];
         $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
+        
+        $data['setting1'] = $this->home->getEarliestdate($companyid, 'project', 'enddate');
+        $data['setting2'] = $this->home->getLatestdate($companyid, 'project', 'enddate');
+
         $data['clients'] = $this->home->alldata('client');
         $data['invoices'] = $this->home->alldatafromdatabase($data['company']['id'], "invoice");
 

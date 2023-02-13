@@ -564,8 +564,9 @@ class Home_model extends CI_Model {
         $list_lines=json_decode($lines, true);
         foreach ($list_lines as $index => $line) {
             if (strpos($line['description'], "] - ")) {
-                $list = preg_split($pattern, $line['description'], -1, PREG_SPLIT_NO_EMPTY);
-                $code_ean = $list[0];
+                // $list = preg_split($pattern, $line['description'], -1, PREG_SPLIT_NO_EMPTY);
+                $list = explode('] - ', $line['description']);
+                $code_ean = substr($list[0], 1);
                 $productname = $list[1];
                 $qty = $line['qty'];
 
@@ -662,8 +663,9 @@ class Home_model extends CI_Model {
         $list_lines=json_decode($lines, true);
         foreach ($list_lines as $index => $line) {
             if (strpos($line['description'], '] - ')) {
-                $list = preg_split($pattern, $line['description'], -1, PREG_SPLIT_NO_EMPTY);
-                $code_ean = $list[0];
+                // $list = preg_split($pattern, $line['description'], -1, PREG_SPLIT_NO_EMPTY);
+                $list = explode('] - ', $line['description']);
+                $code_ean = substr($list[0], 1);
                 $productname = $list[1];
                 $qty = $line['qty'];
 
