@@ -123,7 +123,6 @@ function formatDate(date) {
 }
 
 function refreshChart(year) {
-    console.log(year);
     if (year != -1) {
         $("#startdate").val(formatDate(new Date(year, 0, 1)));
         $("#enddate").val(formatDate(new Date(year, 11, 31)));
@@ -133,6 +132,7 @@ function refreshChart(year) {
     else {
         const first = $("#yearpicker option:eq(1)").val();
         const last = $("#yearpicker option:last").val();
+        console.log(first, last);
         $("#startdate").val(formatDate(new Date(last, 0, 1)));
         $("#enddate").val(formatDate(new Date(first, 11, 31)));
         let clickEvent = new Event('change');
