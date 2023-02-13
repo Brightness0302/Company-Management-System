@@ -31,6 +31,8 @@ class Project extends CI_Controller
         $data = $this->getData();
         $data['clients'] = $this->home->alldata('client');
         $data['projects'] = $this->home->alldatafromdatabase($companyid, 'project');
+        $data['setting1'] = $this->home->getEarliestdate($companyid, 'project', 'enddate');
+        $data['setting2'] = $this->home->getLatestdate($companyid, 'project', 'enddate');
 
         foreach ($data['projects'] as $key => $project) {
             $res = $this->home->databyid($project['client'], 'client');

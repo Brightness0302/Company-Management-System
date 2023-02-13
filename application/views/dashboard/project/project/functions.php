@@ -1,4 +1,6 @@
 <script type="text/javascript">
+const firstYear = "<?=date('Y', strtotime($setting1['startdate']))?>";
+const lastYear = "<?=date('Y', strtotime($setting2['enddate']))?>";
 var coinInfo = "<?=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>";
 var barChartData = {
     labels: [
@@ -85,9 +87,9 @@ $(document).ready(function() {
 });
 
 $(function() {
-    var startYear = 2019;
+    var startYear = firstYear;
     $('#yearpicker').append($('<option />').val(-1).html("All Data"));
-    for (i = (new Date().getFullYear()); i > startYear; i--) {
+    for (i = (new Date().getFullYear()); i >= startYear; i--) {
         $('#yearpicker').append($('<option />').val(i).html(i));
     }
     $("#yearpicker").change(function() {
@@ -130,11 +132,8 @@ function refreshChart(year) {
         document.getElementById("startdate").dispatchEvent(clickEvent);
     }
     else {
-        const first = $("#yearpicker option:eq(1)").val();
-        const last = $("#yearpicker option:last").val();
-        console.log($("#yearpicker option:eq(1)").val());
-        $("#startdate").val(formatDate(new Date(last, 0, 1)));
-        $("#enddate").val(formatDate(new Date(first, 11, 31)));
+        $("#startdate").val(formatDate(new Date(firstYear, 0, 1)));
+        $("#enddate").val(formatDate(new Date(lastYear, 11, 31)));
         let clickEvent = new Event('change');
         document.getElementById("startdate").dispatchEvent(clickEvent);
         return;
