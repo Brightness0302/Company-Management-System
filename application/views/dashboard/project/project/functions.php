@@ -132,7 +132,7 @@ function refreshChart(year) {
     else {
         const first = $("#yearpicker option:eq(1)").val();
         const last = $("#yearpicker option:last").val();
-        console.log(first, last);
+        console.log(first, last, $("#yearpicker"));
         $("#startdate").val(formatDate(new Date(last, 0, 1)));
         $("#enddate").val(formatDate(new Date(first, 11, 31)));
         let clickEvent = new Event('change');
