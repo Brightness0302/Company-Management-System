@@ -176,14 +176,37 @@ function get_formdata() {
         value: value,
         vat: vat
     };
+
+    if (project_name == '') {
+        alert("The field for Project Name is EMPTY.");
+        return false;
+    }
+    if (client_id == '') {
+        alert("You should select client for project.");
+        return false;
+    }
+    if (startdate == '') {
+        alert("You should pick a start date.");
+        return false;
+    }
+    if (enddate == '') {
+        alert("You should pick a end date.");
+        return false;
+    }
+    if (value <= 0) {
+        alert("Value should be bigger than ZERO");
+        return false;
+    }
+    if (vat <= 0) {
+        alert("VAT should be bigger than ZERO");
+        return false;
+    }
     return form_data;
 }
 
 function AddProject() {
     const form_data = get_formdata();
-    console.log(form_data);
-
-    if (!form_data.client_id)
+    if (typeof form_data == "boolean" && form_data === false)
         return;
 
     $.ajax({
@@ -223,7 +246,8 @@ function AddProject() {
 
 function EditProject(projectid) {
     const form_data = get_formdata();
-    console.log(form_data);
+    if (typeof form_data == "boolean" && form_data === false)
+        return;
 
     $.ajax({
         url: "<?=base_url('project/saveproject?id=')?>"+projectid, 

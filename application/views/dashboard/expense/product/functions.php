@@ -64,7 +64,7 @@ function get_formdata() {
         total_amount: total_amount
     };
 
-    if (value_without_vat < vat_amount) {
+    if ((value_without_vat - vat_amount) < 0) {
         alert("Value_without_vat should be bigger than vat_amount.");
         return false;
     }
@@ -239,7 +239,7 @@ function delProduct(product_id) {
                             closeOnCancel: true
                         },
                         function() {
-                            window.location.href = "<?=$_SERVER['HTTP_REFERER']?>";
+                            window.location.href = "<?=base_url('expense/product')?>";
                         });
                 },
                 error: function(jqXHR, exception) {

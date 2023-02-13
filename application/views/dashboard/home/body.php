@@ -109,7 +109,7 @@
       <!-- Projects -->
       <div class="card card-success">
         <div class="card-header">
-          <h3 class="card-title p-1 text-black">Projects completed 2022</h3>
+          <h3 class="card-title p-1 text-black">Projects completed <?=date("Y")?></h3>
 
           <div class="card-tools p-1">
             <button type="button" class="border-none btn btn-tool m-auto" data-card-widget="collapse"><i class="fas fa-minus"></i>
