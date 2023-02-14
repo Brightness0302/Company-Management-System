@@ -42,7 +42,7 @@
             <td><label><?=number_format(($line['acquisition_unit_price']*floatval($line['qty'])), 2, '.', "")?></label> <label><?=$CoinInfo?></label></td>
             <td><label><?=number_format($line['selling_unit_price_without_vat'], 2, '.', "")?></label> <label><?=$CoinInfo?></label></td>
             <td><label><?=number_format((floatval($line['selling_unit_price_with_vat']*$line['qty'])), 2, '.', "")?></label> <label><?=$CoinInfo?></label></td>
-            <<!-- td class="text-center">
+            <!-- td class="text-center">
                 <button onclick="delProduct('<?=$line['id']?>')"><i class="bi custom-remove-icon"></i></button>
             </td> -->
             <td class="text-center">
