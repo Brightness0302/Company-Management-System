@@ -377,6 +377,25 @@ class Supplier_model extends CI_Model {
         foreach ($tlines as $index => $line) {
             $tlines[$index]['acquisition_unit_price'] = $this->currencyConverterRate($line['acquisition_unit_price_on_invoice'], $line['main_coin_rate'], $line['invoice_coin_rate']);
         }
+
+        $token = '"expenseid":"'.$expense_id.'"';
+        $query =    "SELECT *
+                    FROM `material`
+                    WHERE `lines` LIKE '%$token%' AND `isremoved`=false";
+
+        $tmaterials = $this->db->query($query)->result_array();
+
+        foreach ($tmaterials as $index => $material) {
+            $lines = json_decode($material['lines'], true);
+            foreach ($lines as $index1 => $line) {
+                if ($line['stockid']==0) {
+                    $line['acquisition_unit_price'] = $this->currencyConverterRate($line['acquisition_unit_price_on_invoice'], $material['main_coin_rate'], $material['invoice_coin_rate']);
+                    $line['isremoved'] = false;
+                    $line['qty'] = $line['quantity_received'];
+                    array_push($tlines, $line);
+                }
+            }
+        }
         return $tlines;
     }
 
