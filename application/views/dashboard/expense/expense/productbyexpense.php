@@ -15,7 +15,7 @@
             <th id='upeight'>Selling price Ex VAT</th>
             <th id="upselling">Selling amount Ex VAT</th>
             <!-- <th>Action</th> -->
-            <th>View</th>
+            <!-- <th>View</th> -->
         </tr>
     </thead>
     <tbody class="text-center" id="product_body">
@@ -45,9 +45,9 @@
             <!-- td class="text-center">
                 <button onclick="delProduct('<?=$line['id']?>')"><i class="bi custom-remove-icon"></i></button>
             </td> -->
-            <td class="text-center">
+            <!-- <td class="text-center">
                 <button onclick="viewsoldandreceive('<?=$line['id']?>', this)"><i class="bi custom-view-icon"></i></button>
-            </td>
+            </td> -->
         </tr>
         <?php endif;?>
         <?php endforeach;?>
