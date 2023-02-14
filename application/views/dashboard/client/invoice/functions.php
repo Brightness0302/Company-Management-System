@@ -3,7 +3,7 @@ $(document).ready(function() {
     $("select").select2({ width: '100%' });
 
     $("#btn_add_line").click(function() {
-        appendTable("", 0, 1, 0, "");
+        appendTable("", 0, 1, 0, "", false);
         $("input").change(function() {
             const eid = $(this).attr('id');
             if (eid == "line_rate" || eid == "line_qty" || eid == "line_discount") {
@@ -95,7 +95,7 @@ $(document).ready(function() {
                 console.log(lineid, code_ean, productname, amount, serial_number);
                 const product_description = "[" + code_ean + "] - " + productname;
 
-                appendTable(product_description, parseFloat(price), amount, discount, serial_number);
+                appendTable(product_description, parseFloat(price), amount, discount, serial_number, true);
                 $("input").change(function() {
                     const eid = $(this).attr('id');
                     if (eid == "line_rate" || eid == "line_qty" || eid == "line_discount") {
@@ -197,7 +197,7 @@ function refreshLine(el) {
     ediscount_amount[0].value = (erate[0].value * eqty[0].value * ediscount[0].value / 100.0).toFixed(2);
 }
 
-function appendTable(product_description, product_rate, product_amount, product_discount, serial_number) {
+function appendTable(product_description, product_rate, product_amount, product_discount, serial_number, ismaterial) {
     const invoice_coin_rate = $("#invoice_coin_rate").val();
     const main_coin_rate = $("#main_coin_rate").val();
     const line_total = parseFloat(product_rate * product_amount / main_coin_rate * invoice_coin_rate).toFixed(2);
@@ -206,7 +206,7 @@ function appendTable(product_description, product_rate, product_amount, product_
     $("#table_body").append(
         "<tr class='border'>" +
         "<td>" +
-        "<textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text-left bg-transparent no_border' name='description' cols='200' rows='1'>" + product_description + "</textarea>" +
+        "<textarea placeholder='Description' id='line_description' class='form form-control w-full p-2 mt-2 text-left bg-transparent no_border' name='description' cols='200' rows='1' " + ((ismaterial==true)?'disabled':'') +">" + product_description + "</textarea>" +
         "</td>" +
         "<td class='text-center'>" +
         "<input type='text' value='" + product_rate_basedon_invoice + "' class='form form-control m_auto w-full p-2 mt-2 text-right bg-transparent no_border' name='rate' placeholder='Rate' id='line_rate'>" +

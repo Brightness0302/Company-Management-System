@@ -192,10 +192,11 @@
                                                 </datalist>
                                             </div>
                                         </td>
+                                        <td><button class="btn btn-default" onclick="Random_CODEEAN()"><i class="fa fa-random"></i></button></td>
                                     </tr>
                                     <tr id="SN_input">
                                         <td style="border : 1px solid black"><label class="my-2 text-xs">Serial Number:</label></td>
-                                        <td>
+                                        <td colspan="2">
                                             <div class="m-auto">
                                                 <input type="text" class="form-control" id="serial_number" value="" title="Choose your color">
                                             </div>
@@ -203,7 +204,7 @@
                                     </tr>
                                     <tr>
                                         <td style="border : 1px solid black"><label class="my-2 text-xs">Acq invoice price:</label></td>
-                                        <td>
+                                        <td colspan="2">
                                             <div class="flex">
                                                 <input type="number" class="form-control " id="acq_invoice_price" value="0" title="Choose your color">
                                                 &emsp;
@@ -213,7 +214,7 @@
                                     </tr>
                                     <tr>
                                         <td style="border : 1px solid black"><label class="my-2 text-xs">Acq unit price:</label></td>
-                                        <td>
+                                        <td colspan="2">
                                             <div class="flex">
                                                 <input type="number" class="form-control " id="acquisition_unit_price" value="0" title="Choose your color" disabled>
                                                 &emsp;

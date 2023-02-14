@@ -647,6 +647,12 @@ class Client extends CI_Controller
         $serial_number = $this->input->post('serial_number');
         echo $this->supplier->checkSN($companyid, $code_ean, $serial_number);
     }
+
+    public function checkCODEEAN() {
+        $companyid = $this->session->userdata('companyid');
+        $code_ean = $this->input->post('code_ean');
+        echo $this->supplier->checkCODEEAN($companyid, $code_ean);
+    }
     //If usersession is not exist, goto login page.
     public function check_usersession() {
         if($this->session->userdata('user')) {

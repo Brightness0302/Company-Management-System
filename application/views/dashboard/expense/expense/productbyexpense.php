@@ -1,52 +1,52 @@
-<?php $total_subtotal=0; $total_vat_amount=0; $total_total_amount=0;?>
+<?php $menu = $this->session->flashdata('menu');?>
 <?php $CoinInfo=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>
-<table id="invoicetable" class="table table-bordered table-hover">
+<a class="btn btn-info mb-2" href="javascript:window.history.go(-1);"><i class="bi bi-backspace"></i></a>
+<table id="productbystock" class="table table-bordered table-hover">
     <thead class="text-center">
         <tr>
-            <th>No</th>
-            <th class="text-left">Category</th>
-            <th class="text-left">Project</th>
-            <th>Date</th>
-            <th id="upsubtotal">Value Ex VAT</th>
-            <th id="upvat">VAT</th>
-            <th id="uptotal">Total cost</th>
-            <th class="text-left">Observation</th>
-            <th>Action</th>
+            <th class="text-center">No</th>
+            <th>Code EAN</th>
+            <th>Description</th>
+            <th class="text-center">SN</th>
+            <?=(($menu['second-submenu']=="stock - *All")?"<th>Stock</th>":"")?>
+            <th class="text-center">Qty</th>
+            <th>ACQ price Ex VAT</th>
+            <th id="upaquisition">ACQ amount Ex VAT</th>
+            <th id='upeight'>Selling price Ex VAT</th>
+            <th id="upselling">Selling amount Ex VAT</th>
+            <!-- <th>Action</th> -->
             <th>View</th>
         </tr>
     </thead>
-    <tbody class="text-center">
-        <?php $index=0;$total_subtotal=0;$total_vat_amount=0;$total_total_amount=0;?>
-        <?php foreach ($products as $product):?>
-        <?php if(!$product['isremoved']):?>
-        <?php $index++;
-            $total_subtotal+=$product['value_without_vat'];$total_vat_amount+=$product['vat'];$total_total_amount+=$product['total'];
-        ?>
+    <tbody class="text-center" id="product_body">
+        <?php $index=0; $total_aquisition=0; $total_selling=0; $total_qty=0; $missing_qty=0; ?>
+        <?php foreach ($products as $line):?>
+        <?php if(!$line['isremoved']):?>
+        <?php $index++;?>
         <tr>
-            <td><?=($index)?></td>
-            <td class="text-left">
             <?php 
-                $result;
-                foreach ($expenses as $key => $expense) {
-                    if ($expense['id']==$product['categoryid']) {
-                        $result=$expense;
-                    }
-                }
-                echo $result['name'];
+                $line['selling_unit_price_without_vat'] = floatval($line['acquisition_unit_price']*($line['makeup']+100.0)/100.0);
+                $line['selling_unit_price_with_vat'] = floatval($line['selling_unit_price_without_vat']*($line['vat']+100.0)/100.0);
+                $total_aquisition += floatval($line['acquisition_unit_price']*$line['qty']);
+                $total_selling += floatval($line['selling_unit_price_with_vat'])*floatval($line['qty']);
+                $total_qty += (($line['qty']>0)?$line['qty']:0);
+                $missing_qty += (($line['qty']<0)?$line['qty']:0);
             ?>
-            </td>
-            <td class="text-left"><?=($product['project'])?$product['project']['name']:"Not project"?></td>
-            <td><?=$product['date']?></td>
-            <td><label><?=$product['value_without_vat']?></label> <label><?=$CoinInfo?></label></td>
-            <td><label><?=$product['vat']?></label> <label><?=$CoinInfo?></label></td>
-            <td><label><?=$product['total']?></label> <label><?=$CoinInfo?></label></td>
-            <td class="text-left"><?=$product['observation']?></td>
-            <td class="form-inline flex justify-around">
-                <a href="<?=base_url('expense/editproduct/'.$product['id'])?>"><i class="bi custom-edit-icon"></i></a>
-                <button onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
-            </td>
-            <td>
-                <a href="<?=$product['attached']?base_url('assets/company/attachment/'.$company['name'].'/expense/'.$product['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$product['attached']?"":'pointer-events: none'?>"><i class="bi custom-view-icon"></i></a>
+            <td class="text-center"><?=($index)?></td>
+            <td class="text-center"><?=$line['code_ean']?></td>
+            <td class="text-left"><?=$line['production_description']?></td>
+            <td class="text-center"><?=$line['serial_number']?></td>
+            <?=(($menu['second-submenu']=="stock - *All")?'<td>'.$line['name'].'</td>':"")?>
+            <td class="text-center"><?=$line['qty']?></td>
+            <td><label><?=number_format($line['acquisition_unit_price'], 2, '.', "")?></label> <label><?=$CoinInfo?></label></td>
+            <td><label><?=number_format(($line['acquisition_unit_price']*floatval($line['qty'])), 2, '.', "")?></label> <label><?=$CoinInfo?></label></td>
+            <td><label><?=number_format($line['selling_unit_price_without_vat'], 2, '.', "")?></label> <label><?=$CoinInfo?></label></td>
+            <td><label><?=number_format((floatval($line['selling_unit_price_with_vat']*$line['qty'])), 2, '.', "")?></label> <label><?=$CoinInfo?></label></td>
+            <<!-- td class="text-center">
+                <button onclick="delProduct('<?=$line['id']?>')"><i class="bi custom-remove-icon"></i></button>
+            </td> -->
+            <td class="text-center">
+                <button onclick="viewsoldandreceive('<?=$line['id']?>', this)"><i class="bi custom-view-icon"></i></button>
             </td>
         </tr>
         <?php endif;?>
@@ -57,17 +57,22 @@
     <thead>
         <tr>
             <th></th>
-            <th>Sub Total</th>
-            <th>VAT Amount</th>
-            <th>Total Amount</th>
+            <th>Total Qty</th>
+            <th>Missing Qty</th>
+            <th>ACQ amount Ex VAT</th>
+            <th></th>
+            <th>Selling amount Ex VAT</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td id="downtotalmark">Total:</td>
-            <td id="subtotal"><label><?=$total_subtotal?></label> <label><?=$CoinInfo?></label></td>
-            <td id="vat"><label><?=$total_vat_amount?></label> <label><?=$CoinInfo?></label></td>
-            <td id="total"><label><?=$total_total_amount?></label> <label><?=$CoinInfo?></label></td>
+            <?php $total_selling=number_format($total_selling, 2, '.', "")?>
+            <td id="downtotalmark" class="text-center">Total:</td>
+            <td id="total_qty" class="text-center"><?=$total_qty?></td>
+            <td id="missing_qty" class="text-center"><?=$missing_qty?></td>
+            <td id="aquisition" class="text-center"><label><?=number_format($total_aquisition, 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
+            <td id="eight"></td>
+            <td id="selling" class="text-center"><label><?=number_format($total_selling, 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
         </tr>
     </tbody>
 </table>
@@ -82,19 +87,19 @@
     }
 
     function refreshbrowser() {
-      const first_row_1 =  getOffset(upsubtotal);
-      const first_row_2 = getOffset(upvat);
-      const first_row_3 = getOffset(uptotal);
+      const first_row_1 =  getOffset(upaquisition);
+      const first_row_2 = getOffset(upeight);
+      const first_row_3 = getOffset(upselling);
 
       console.log(first_row_1.left);
 
-      document.getElementById("total-table").style.left = parseFloat(first_row_1.left - 100)+"px";
+      document.getElementById("total-table").style.left = parseFloat(first_row_1.left - 250)+"px";
 
-      document.getElementById("total-table").style.width = parseFloat(100+first_row_1.width+first_row_2.width+first_row_3.width) + "px";
-      document.getElementById("downtotalmark").style.width = 100+"px";
-      document.getElementById("subtotal").style.width  = first_row_1.width + "px";
-      document.getElementById("vat").style.width  = first_row_2.width + "px";
-      document.getElementById("total").style.width  = first_row_3.width + "px";
+      document.getElementById("total-table").style.width = parseFloat(250+first_row_1.width+first_row_2.width+first_row_3.width) + "px";
+      // document.getElementById("downtotalmark").style.width = 250+"px";
+      document.getElementById("aquisition").style.width  = first_row_1.width + "px";
+      document.getElementById("eight").style.width  = first_row_2.width + "px";
+      document.getElementById("selling").style.width  = first_row_3.width + "px";
     }
 
     refreshbrowser();

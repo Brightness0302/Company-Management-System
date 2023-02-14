@@ -103,6 +103,22 @@ $(document).ready(function() {
     });
 });
 
+function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min) ) + min;
+}
+
+async function Random_CODEEAN() {
+    let isEqual = false;
+    let random;
+    let min = 100000, max = 9999999;
+    while(!isEqual) {
+        random = getRndInteger(min, max);
+        isEqual = await checkCODEEANforequal(random);
+    }
+    console.log(random);
+    $("#code_ean").val(random);
+}
+
 function getSN() {
     const quantity_received = $("#quantity_received").val();
     const SN_array = [];
@@ -152,6 +168,28 @@ function asyncPOST(url, data) {
     });
 }
 
+async function checkCODEEANforequal(code_ean) {
+    try {
+        if (!code_ean)
+            return false;
+        const res = await asyncPOST("<?=base_url('client/checkCODEEAN')?>", {code_ean: code_ean});
+        if (res != '1')
+            return false;
+
+        const table = document.getElementById("table-body");
+        for (var j = 0, row; row = table.rows[j]; j++) {
+            const tcode_ean = $(row.cells[0]).text();
+            if (tcode_ean === code_ean) {
+                return false;
+            }
+        }
+        return true;
+    } catch(e) {
+        console.log(e);
+        return false;
+    }
+}
+
 async function checkSNforequal(code_ean, SNs) {
     try {
         if (SNs.length == 1 && SNs[0] == "")
@@ -164,7 +202,6 @@ async function checkSNforequal(code_ean, SNs) {
             const table = document.getElementById("table-body");
             for (var j = 0, row; row = table.rows[j]; j++) {
                 const tserial_number = $(row.cells[6]).text();
-                console.log(tserial_number);
                 if (tserial_number === SNs[i]) {
                     return false;
                 }
@@ -362,10 +399,10 @@ async function SaveItem() {
         return;
     }
 
-    // if (!code_ean) {
-    //     alert("Please, Fill in the gap for code ean.");
-    //     return;
-    // }
+    if (!code_ean) {
+        alert("Please, Fill in the gap for code ean.");
+        return;
+    }
 
     if (!production_description) {
         alert("Please, Fill in the gap for production description.");
@@ -591,10 +628,10 @@ async function save_tr(el) {
         return;
     }
 
-    // if (!code_ean) {
-    //     alert("Please, Fill in the gap for code ean.");
-    //     return;
-    // }
+    if (!code_ean) {
+        alert("Please, Fill in the gap for code ean.");
+        return;
+    }
 
     if (!production_description) {
         alert("Please, Fill in the gap for production description.");

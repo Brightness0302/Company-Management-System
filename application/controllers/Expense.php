@@ -330,36 +330,68 @@ class Expense extends CI_Controller
     }
     //View expenses by expense category, (expense_id: number)
     public function showproductbyexpenseid() {
+        // $this->check_usersession();
+        // $companyid = $this->session->userdata('companyid');
+        // $companyname = $this->session->userdata('companyname');
+        // $data = $this->getData();
+
+        // $expense_id = $_GET['expense_id'];
+        // $res = $this->home->databyidfromdatabase($companyid, 'expense_category', $expense_id);
+        // if ($res['status']=="failed")
+        //     return;
+        // $data['expense'] = $res['data'];
+        // $data['products'] = $this->expense->alldatabyexpenseidfromdatabase($companyid, 'expense_product', $expense_id);
+
+        // foreach ($data['products'] as $index => $product) {
+        //     $data['products'][$index]['attached'] = false;
+        //     $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'project', 'id', $product['projectid']);
+        //     $data['products'][$index]['project'] = [];
+        //     if (count($res)>0) {
+        //         $data['products'][$index]['project'] = $res[0];
+        //     }
+
+        //     $invoicename = $product['id'].".pdf";
+        //     $path = "assets/company/attachment/".$companyname."/expense/";
+        //     if(file_exists($path.$invoicename)) {
+        //         $data['products'][$index]['attached'] = true;
+        //     }
+        // }
+
+        // $session['menu']="Expenses";
+        // $session['submenu']="pmbyid";
+        // $session['second-submenu']="expense - ".$data['expense']['name'];
+        // $this->session->set_flashdata('menu', $session);
+
+        // $this->load->view('header');
+        // $this->load->view('dashboard/head');
+        // $this->load->view('dashboard/body', $data);
+        // $this->load->view('dashboard/expense/expense/head');
+        // $this->load->view('dashboard/expense/expense/productbyexpense');
+        // $this->load->view('dashboard/expense/expense/foot');
+        // $this->load->view('dashboard/expense/expense/functions.php');
+        // $this->load->view('dashboard/foot');
+        // $this->load->view('footer');
+
+
         $this->check_usersession();
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
         $data = $this->getData();
-
-        $expense_id = $_GET['expense_id'];
-        $res = $this->home->databyidfromdatabase($companyid, 'expense_category', $expense_id);
-        if ($res['status']=="failed")
-            return;
-        $data['expense'] = $res['data'];
-        $data['products'] = $this->expense->alldatabyexpenseidfromdatabase($companyid, 'expense_product', $expense_id);
-
-        foreach ($data['products'] as $index => $product) {
-            $data['products'][$index]['attached'] = false;
-            $res = $this->home->alldatabycustomsettingfromdatabase($companyid, 'project', 'id', $product['projectid']);
-            $data['products'][$index]['project'] = [];
-            if (count($res)>0) {
-                $data['products'][$index]['project'] = $res[0];
-            }
-
-            $invoicename = $product['id'].".pdf";
-            $path = "assets/company/attachment/".$companyname."/expense/";
-            if(file_exists($path.$invoicename)) {
-                $data['products'][$index]['attached'] = true;
-            }
-        }
+        $data['suppliers'] = $this->home->alldata('supplier');
 
         $session['menu']="Expenses";
         $session['submenu']="pmbyid";
-        $session['second-submenu']="expense - ".$data['expense']['name'];
+
+        if (isset($_GET['expense_id'])) {
+            $expense_id = $_GET['expense_id'];
+            $data['expense'] = $this->home->databyidfromdatabase($companyid, 'expense_category', $expense_id)['data'];
+            $data['products'] = $this->supplier->alllinesbystockidfromdatabase($companyid, 'material_totalline', $expense_id);
+            $session['second-submenu']="expense - ".$data['expense']['name'];
+        }
+        else {
+            $data['products'] = $this->supplier->alllinesfromdatabase($companyid, 'expense');
+            $session['second-submenu']="expense - *All";
+        }
         $this->session->set_flashdata('menu', $session);
 
         $this->load->view('header');

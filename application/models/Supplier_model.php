@@ -365,6 +365,21 @@ class Supplier_model extends CI_Model {
         return $tlines;
     }
 
+    public function alllinesbyexpenseidfromdatabase($companyid, $table, $expense_id) {
+        $this->db->query('use database'.$companyid);
+
+        $query =    "SELECT *
+                    FROM `$table`
+                    WHERE `stockid`='$expense_id' AND `isremoved`=false";
+
+        $tlines = $this->db->query($query)->result_array();
+
+        foreach ($tlines as $index => $line) {
+            $tlines[$index]['acquisition_unit_price'] = $this->currencyConverterRate($line['acquisition_unit_price_on_invoice'], $line['main_coin_rate'], $line['invoice_coin_rate']);
+        }
+        return $tlines;
+    }
+
     public function alllinesfromdatabase($companyid, $table) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);
@@ -988,6 +1003,20 @@ class Supplier_model extends CI_Model {
             $res = $res[0];
             if ($code_ean === $res['code_ean'])
                 return true;
+            return false;
+        }
+        return true;
+    }
+
+    public function checkCODEEAN($companyid, $code_ean) {
+        $this->db->query('use database'.$companyid);
+        
+        $query =    "SELECT *
+                    FROM `material_totalline`
+                    WHERE `code_ean`='$code_ean' AND `isremoved`=false";
+
+        $res = $this->db->query($query)->result_array();
+        if (count($res)>0) {
             return false;
         }
         return true;
