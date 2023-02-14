@@ -11,6 +11,7 @@ class Stock extends CI_Controller
     public function getData() {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
+        $data['isShow'] = $this->session->userdata('isShow');
         $data['user'] = $this->session->userdata('user');
         $data['backup'] = $this->session->userdata('backup');
         $data['modules'] = $this->home->alldata('module');

@@ -370,7 +370,7 @@ class Supplier_model extends CI_Model {
 
         $query =    "SELECT *
                     FROM `$table`
-                    WHERE `stockid`='$expense_id' AND `isremoved`=false";
+                    WHERE `expenseid`='$expense_id' AND `isremoved`=false";
 
         $tlines = $this->db->query($query)->result_array();
 

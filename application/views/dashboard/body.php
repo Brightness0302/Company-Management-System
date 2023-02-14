@@ -1,6 +1,7 @@
 <!-- ======= Hero Section ======= -->
 <?php $menu = $this->session->flashdata('menu');?>
-<body style="font-size: 13px !important;">
+<?=$isShow?>
+<body style="font-size: 13px !important;" class="<?=(($isShow=="true")?"toggle-sidebar":"")?>">
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -8,7 +9,7 @@
             <a href="<?=base_url('home/dashboard')?>" class="logo d-flex align-items-center justify-center">
                 <img id="logo-image" src="<?=base_url('assets/company/image/'.$company['id']).'.jpg'?>" alt="">
             </a>
-            <i class="bi bi-list toggle-sidebar-btn"></i>
+            <i class="bi bi-list toggle-sidebar-btn" onclick="setSidebar()"></i>
         </div><!-- End Logo -->
 
         <div class="logo-span">

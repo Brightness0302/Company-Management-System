@@ -11,6 +11,7 @@ class Home extends CI_Controller
     public function getData() {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
+        $data['isShow'] = $this->session->userdata('isShow');
         $data['user'] = $this->session->userdata('user');
         $data['backup'] = $this->session->userdata('backup');
         $data['modules'] = $this->home->alldata('module');
@@ -72,6 +73,7 @@ class Home extends CI_Controller
         $coin = $company['data']['Coin'];
         $this->session->set_userdata('companyid', $companyid);
         $this->session->set_userdata('companyname', $company['data']['name']);
+        $this->session->set_userdata('isShow', true);
         $backup_date = false;
         $period = 1;
 
@@ -553,6 +555,11 @@ class Home extends CI_Controller
         $companyname = $this->session->userdata('companyname');
         $file = 'assets/company/backups/'.$companyname.'/'.$filename;
         force_download($file, NULL);
+    }
+
+    public function setsidebar() {
+        $isShow=$this->input->post('isShow');
+        $this->session->set_userdata('isShow', $isShow);
     }
     //If usersession is not exist, goto login page.
     public function check_usersession() {

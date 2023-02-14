@@ -156,6 +156,27 @@
 	        }
 	    });
 	}
+
+	function setSidebar() {
+		const isShow = !($("body")[0].className.includes("toggle-sidebar"));
+		const form_data = {
+	        isShow: isShow,
+	    };
+	    console.log($("body")[0].className, isShow);
+		$.ajax({
+			url: "<?=base_url('home/setsidebar/')?>", 
+	        method: "POST",
+	        data: form_data, 
+	        success: function(res) {
+	        	console.log(res);
+	        }, 
+	        error: function(res1, res2) {
+	        	console.log("Error");
+	        	console.log(res1, res2);
+	        }
+		})
+	}
+
 	function save_setting() {
 		console.log("save_setting");
 		const period = $("#backup_period").val();

@@ -11,6 +11,7 @@ class Expense extends CI_Controller
     public function getData() {
         $companyid = $this->session->userdata('companyid');
         $companyname = $this->session->userdata('companyname');
+        $data['isShow'] = $this->session->userdata('isShow');
         $data['user'] = $this->session->userdata('user');
         $data['backup'] = $this->session->userdata('backup');
         $data['modules'] = $this->home->alldata('module');
@@ -69,6 +70,7 @@ class Expense extends CI_Controller
         $this->load->view('dashboard/expense/expense/head');
         $this->load->view('dashboard/expense/expense/body');
         $this->load->view('dashboard/expense/expense/foot');
+        $this->load->view('dashboard/expense/expense/function_chart.php');
         $this->load->view('dashboard/expense/expense/functions.php');
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
@@ -385,7 +387,7 @@ class Expense extends CI_Controller
         if (isset($_GET['expense_id'])) {
             $expense_id = $_GET['expense_id'];
             $data['expense'] = $this->home->databyidfromdatabase($companyid, 'expense_category', $expense_id)['data'];
-            $data['products'] = $this->supplier->alllinesbystockidfromdatabase($companyid, 'material_totalline', $expense_id);
+            $data['products'] = $this->supplier->alllinesbyexpenseidfromdatabase($companyid, 'material_totalline', $expense_id);
             $session['second-submenu']="expense - ".$data['expense']['name'];
         }
         else {
