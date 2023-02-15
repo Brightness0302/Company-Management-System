@@ -418,6 +418,7 @@ class Supplier_model extends CI_Model {
                 if ($line['stockid']==0) {
                     $line['date'] = $invoice_date;
                     $line['observation'] = $observation;
+                    $line['production_description'] = $line['production_description'];
                     $line['acquisition_unit_price'] = $this->currencyConverterRate($line['acquisition_unit_price_on_invoice'], $material['main_coin_rate'], $material['invoice_coin_rate']);
                     $line['value_without_vat'] = $line['acquisition_unit_price'] * $line['quantity_received'];
                     $line['vat'] = ($line['acquisition_unit_price'] * $line['quantity_received'] * $line['vat'])/100.0;

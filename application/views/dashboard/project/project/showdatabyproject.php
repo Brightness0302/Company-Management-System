@@ -251,7 +251,8 @@ window.onload = function() {
                 <tr>
                     <th>No</th>
                     <th class="text-left">Category</th>
-                    <th>Project</th>
+                    <th class="text-left">Description</th>
+                    <!-- <th>Project</th> -->
                     <th>Date</th>
                     <th id="first21">Value Ex VAT</th>
                     <th id="second21">VAT</th>
@@ -283,7 +284,8 @@ window.onload = function() {
                         }
                     ?>
                     </td>
-                    <td><?=$product['projectid']?></td>
+                    <td class="text-left"><?=$product['production_description']?></td>
+                    <!-- <td><?=$product['projectid']?></td> -->
                     <td><?=date("Y/m/d", strtotime($product['date']))?></td>
                     <td><?=$product['value_without_vat']?></td>
                     <td><?=$product['vat']?></td>
