@@ -73,7 +73,7 @@ class Home extends CI_Controller
         $coin = $company['data']['Coin'];
         $this->session->set_userdata('companyid', $companyid);
         $this->session->set_userdata('companyname', $company['data']['name']);
-        $this->session->set_userdata('isShow', true);
+        $this->session->set_userdata('isShow', false);
         $backup_date = false;
         $period = 1;
 

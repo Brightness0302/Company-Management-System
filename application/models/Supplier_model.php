@@ -399,6 +399,38 @@ class Supplier_model extends CI_Model {
         return $tlines;
     }
 
+    public function alltransfercostsbyprojectidfromdatabase($companyid, $table, $project_id) {
+        $this->db->query('use database'.$companyid);
+
+        $token = '"projectid":"'.$project_id.'"';
+        $query =    "SELECT *
+                    FROM `material`
+                    WHERE `lines` LIKE '%$token%' AND `isremoved`=false";
+
+        $tmaterials = $this->db->query($query)->result_array();
+        $tlines = [];
+
+        foreach ($tmaterials as $index => $material) {
+            $lines = json_decode($material['lines'], true);
+            $invoice_date = $material['invoice_date'];
+            $observation = $material['observation'];
+            foreach ($lines as $index1 => $line) {
+                if ($line['stockid']==0) {
+                    $line['date'] = $invoice_date;
+                    $line['observation'] = $observation;
+                    $line['acquisition_unit_price'] = $this->currencyConverterRate($line['acquisition_unit_price_on_invoice'], $material['main_coin_rate'], $material['invoice_coin_rate']);
+                    $line['value_without_vat'] = $line['acquisition_unit_price'] * $line['quantity_received'];
+                    $line['vat'] = ($line['acquisition_unit_price'] * $line['quantity_received'] * $line['vat'])/100.0;
+                    $line['total'] = number_format(($line['acquisition_unit_price'] * $line['quantity_received'] * ($line['vat'] + 100.0))/100.0, 2, ".", "");
+                    $line['isremoved'] = false;
+                    $line['qty'] = $line['quantity_received'];
+                    array_push($tlines, $line);
+                }
+            }
+        }
+        return $tlines;
+    }
+
     public function alllinesfromdatabase($companyid, $table) {
         $companyid = "database".$companyid;
         $this->db->query('use '.$companyid);

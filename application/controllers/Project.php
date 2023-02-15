@@ -176,17 +176,18 @@ class Project extends CI_Controller
             $data['supplier_products'][$key]['stock'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'stock', 'id', $product['stockid']);
         }
 
-        $data['expense_products'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'expense_product', 'projectid', $id);
+        // $data['expense_products'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'expense_product', 'projectid', $id);
 
-        foreach ($data['expense_products'] as $index => $product) {
-            $data['expense_products'][$index]['category'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'expense_category', 'id', $product['categoryid']);
-            $data['expense_products'][$index]['attached'] = false;
-            $invoicename = $product['id'].".pdf";
-            $path = "assets/company/attachment/".$company_name."/expense/";
-            if(file_exists($path.$invoicename)) {
-                $data['expense_products'][$index]['attached'] = true;
-            }
-        }
+        // foreach ($data['expense_products'] as $index => $product) {
+        //     $data['expense_products'][$index]['category'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'expense_category', 'id', $product['categoryid']);
+        //     $data['expense_products'][$index]['attached'] = false;
+        //     $invoicename = $product['id'].".pdf";
+        //     $path = "assets/company/attachment/".$company_name."/expense/";
+        //     if(file_exists($path.$invoicename)) {
+        //         $data['expense_products'][$index]['attached'] = true;
+        //     }
+        // }
+        $data['expense_products'] = $this->supplier->alltransfercostsbyprojectidfromdatabase($companyid, 'material', $id);
 
         $data['assignments'] = $this->home->alldatabycustomsettingfromdatabase($companyid, 'project_assignment', 'project_id', $id);
 

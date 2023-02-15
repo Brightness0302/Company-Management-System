@@ -6,7 +6,7 @@
 
 <?php $expense_total=0; foreach ($expense_products as $product):?>
 <?php if(!$product['isremoved']):?>
-    <?php $expense_total+=$product['value_without_vat'];?>
+    <?php $expense_total+=$product['total'];?>
 <?php endif;?>
 <?php endforeach;?>
 
@@ -91,6 +91,7 @@
 </div>
 <!-- chart script -->
 <script>
+var coinInfo = "<?=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>";
 var barChartData = {
     labels: [
         "", "", "Total Value", "", ""
@@ -143,11 +144,11 @@ window.onload = function() {
                     label: function(t, d) {
                        if (t.datasetIndex === 0) {
                           var xLabel = d.datasets[t.datasetIndex].label;
-                          var yLabel = t.yLabel + ' €';
+                          var yLabel = t.yLabel + ' ' + coinInfo;
                           return xLabel + ': ' + yLabel;
                        } else {
                           var xLabel = d.datasets[t.datasetIndex].label;
-                          var yLabel = t.yLabel >= 1000 ? t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " €" : t.yLabel + " €";
+                          var yLabel = t.yLabel >= 1000 ? t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " " + coinInfo : t.yLabel + " " + coinInfo;
                           return xLabel + ': ' + yLabel;
                        }
                     }
@@ -164,9 +165,9 @@ window.onload = function() {
                         beginAtZero: true,
                         callback: function(value, index, values) {
                             if (parseInt(value) >= 1000) {
-                                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " €";
+                                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " " + coinInfo;
                             } else {
-                                return parseInt(value*10)/10.0 + " €";
+                                return parseInt(value*10)/10.0 + " " + coinInfo;
                             }
                         }
                     }
@@ -257,7 +258,7 @@ window.onload = function() {
                     <th id="third21">Total cost</th>
                     <th class="text-left">Observation</th>
                     <!-- <th>Invoice status</th> -->
-                    <th>View</th>
+                    <!-- <th>View</th> -->
                 </tr>
             </thead>
             <tbody class="text-center">
@@ -270,7 +271,7 @@ window.onload = function() {
                     <?php 
                         $result="";
                         foreach ($expenses as $key => $expense) {
-                            if ($expense['id']==$product['categoryid']) {
+                            if ($expense['id']==$product['expenseid']) {
                                 $result=$expense;
                             }
                         }
@@ -288,9 +289,9 @@ window.onload = function() {
                     <td><?=$product['vat']?></td>
                     <td><?=$product['total']?></td>
                     <td class="text-left"><?=$product['observation']?></td>
-                    <td class="text-center">
+                    <!-- <td class="text-center">
                         <a href="<?=$product['attached']?base_url('assets/company/attachment/'.$company['name'].'/expense/'.$product['id'].'.pdf'):'javascript:;'?>" target="_blank" style="<?=$product['attached']?"":'pointer-events: none'?>"><i class="bi custom-view-icon"></i></a>
-                    </td>
+                    </td> -->
                     <?php
                         $first21 += $product['value_without_vat'];
                         $second21 += $product['vat'];

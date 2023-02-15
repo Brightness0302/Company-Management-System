@@ -399,7 +399,7 @@ async function SaveItem() {
         return;
     }
 
-    if (!code_ean) {
+    if (!code_ean && !stockid) {
         alert("Please, Fill in the gap for code ean.");
         return;
     }
@@ -628,7 +628,7 @@ async function save_tr(el) {
         return;
     }
 
-    if (!code_ean) {
+    if (!code_ean && !stockid) {
         alert("Please, Fill in the gap for code ean.");
         return;
     }
