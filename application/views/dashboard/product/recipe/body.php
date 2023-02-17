@@ -50,8 +50,9 @@
         <td><label><?=$total_auxiliary?></label> <label><?=$CoinInfo?></label></td>
         <td><label><?=$total?></label> <label><?=$CoinInfo?></label></td>
         <td class="align-middle">
-            <a href="<?=base_url('product/editrecipe/'.$product['id'])?>"><i class="bi custom-edit-icon"></i></a>
-            <button onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
+            <a href="<?=base_url('product/editrecipe/'.$product['id'])?>" title="Edit"><i class="bi custom-edit-icon"></i></a>
+            <button onclick="cloneProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?> title="Duplicate"><i class="bi custom-clone-icon"></i></button>
+            <button onclick="delProduct('<?=$product['id']?>')" <?=$product['isremoved']?"disabled":""?> title="Remove"><i class="bi custom-remove-icon"></i></button>
         </td>
         <td class="text-center">
             <button onclick="savebydata('<?=$product['id']?>')"><i class="bi custom-view-icon"></i></button><a id="htmltopdf" href="<?=base_url('product/htmltopdf')?>" target="_blank" hidden>Download PDF</a>

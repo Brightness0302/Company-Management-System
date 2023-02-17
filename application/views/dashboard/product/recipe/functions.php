@@ -640,6 +640,59 @@ function delProduct(product_id) {
     });
 }
 
+function cloneProduct(product_id) {
+    swal({
+        title: "Are you sure?",
+        text: "Duplicate Recipe",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-warning",
+        cancelButtonText: "No, cancel plx!",
+        confirmButtonText: "Yes, I do",
+        closeOnConfirm: true,
+        closeOnCancel: true
+    },
+    function(isconfirm) {
+        if (!isconfirm) {
+            alert(false);
+            return;
+        }
+        try {
+            $.ajax({
+                url: "<?=base_url('product/clonerecipe/')?>" + product_id,
+                method: "POST",
+                dataType: 'text',
+                async: true,
+                success: function(res) {
+                    if (res <= 0) {
+                        swal("Duplicate Recipe", "Failed", "error");
+                        return;
+                    }
+                    swal({
+                            title: "Duplicate Recipe",
+                            text: "Recipe Success",
+                            type: "success",
+                            showCancelButton: false,
+                            confirmButtonClass: "btn-success",
+                            confirmButtonText: "OK",
+                            cancelButtonText: "No, cancel plx!",
+                            closeOnConfirm: true,
+                            closeOnCancel: true
+                        },
+                        function() {
+                            window.location.href = "<?=base_url('product/index')?>";
+                        });
+                },
+                error: function(jqXHR, exception) {
+                    swal("Duplicate Recipe", "Server Error", "warning");
+                }
+            });
+        } catch (error) {
+            swal("Duplicate Recipe", "Server Error", "warning");
+        }
+    });
+}
+
 function SaveAsPDF() {
     const form_data = get_formdata();
 

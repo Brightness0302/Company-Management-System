@@ -420,6 +420,12 @@ class Product extends CI_Controller
         $this->load->view('dashboard/foot');
         $this->load->view('footer');
     }
+    //Duplicate Supplier param(supplier_name)
+    public function clonerecipe($product_id) {
+        $companyid = $this->session->userdata('companyid');
+        $result = $this->product->cloneRecipe($companyid, $product_id, 'product_recipe');
+        echo $result;
+    }
     //Delete Supplier param(supplier_name)
     public function delrecipe($product_id) {
         $companyid = $this->session->userdata('companyid');

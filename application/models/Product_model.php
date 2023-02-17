@@ -38,6 +38,34 @@ class Product_model extends CI_Model {
         return $res;
     }
 
+    public function cloneRecipe($companyid, $productid, $table) {
+        $this->db->query('use database'.$companyid);
+
+        $old_recipe = $this->home->databyidfromdatabase($companyid, $table, $productid);
+        if ($old_recipe['status'] == "failed") {
+            return 0;
+        }
+        $old_recipe = $old_recipe['data'];
+        
+        $name = $old_recipe['name'];
+        $coin = $old_recipe['coin'];
+        $materials = $old_recipe['materials'];
+        $labours = $old_recipe['labours'];
+        $auxiliaries = $old_recipe['auxiliaries'];
+
+        $data = array(
+            'name'=>$name, 
+            'coin'=>$coin, 
+            'materials'=>$materials, 
+            'labours'=>$labours, 
+            'auxiliaries'=>$auxiliaries, 
+        );
+
+        $this->db->insert($table, $data);
+        $new_productid = $this->db->insert_id();
+        return $new_productid;
+    }
+
     function deductionmaterials($companyid, $table, $recipe_id) {
         $this->db->query('use database'.$companyid);
 

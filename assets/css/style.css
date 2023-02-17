@@ -2113,6 +2113,16 @@ section {
   cursor: pointer;
 }
 
+.custom-clone-icon {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("../image/tools/Duplicate.png");
+  cursor: pointer;
+}
+
 .custom-remove-icon {
   display: inline-block;
   height: 20px;
