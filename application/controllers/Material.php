@@ -127,14 +127,14 @@ class Material extends CI_Controller
                 $line['acquisition_unit_price'] = $line['acquisition_unit_price'];
                 $line['vat'] = $line['vat'];
                 $line['makeup'] = $line['makeup'];
-                $line['acquisition_vat_value'] = number_format($line['acquisition_unit_price'] * $line['vat'] / 100.0, 2, '.', "");
-                $line['acquisition_unit_price_with_vat'] = number_format($line['acquisition_unit_price'] * ($line['vat'] + 100.0) / 100.0, 2, '.', "");
-                $line['amount_without_vat'] = number_format($line['acquisition_unit_price'] * $line['quantity_on_document'], 2, '.', "");
-                $line['amount_vat_value'] = number_format($line['acquisition_unit_price'] * $line['quantity_on_document'] * $line['vat'] / 100.0, 2, '.', "");
-                $line['total_amount'] = number_format($line['acquisition_unit_price'] * $line['quantity_on_document'] * ($line['vat'] + 100.0) / 100.0, 2, '.', "");
-                $line['selling_unit_price_without_vat'] = number_format($line['acquisition_unit_price'] * ($line['makeup']+100.0) / 100.0, 2, '.', "");
-                $line['selling_unit_vat_value'] = number_format($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * $line['vat'] / 100.0 / 100.0, 2, '.', "");
-                $line['selling_unit_price_with_vat'] = number_format($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * ($line['vat'] + 100.0) / 100.0 / 100.0, 2, '.', "");
+                $line['acquisition_vat_value'] = number_format($line['acquisition_unit_price'] * $line['vat'] / 100.0, 4, '.', "");
+                $line['acquisition_unit_price_with_vat'] = number_format($line['acquisition_unit_price'] * ($line['vat'] + 100.0) / 100.0, 4, '.', "");
+                $line['amount_without_vat'] = number_format($line['acquisition_unit_price'] * $line['quantity_on_document'], 4, '.', "");
+                $line['amount_vat_value'] = number_format($line['acquisition_unit_price'] * $line['quantity_on_document'] * $line['vat'] / 100.0, 4, '.', "");
+                $line['total_amount'] = number_format($line['acquisition_unit_price'] * $line['quantity_on_document'] * ($line['vat'] + 100.0) / 100.0, 4, '.', "");
+                $line['selling_unit_price_without_vat'] = number_format($line['acquisition_unit_price'] * ($line['makeup']+100.0) / 100.0, 4, '.', "");
+                $line['selling_unit_vat_value'] = number_format($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * $line['vat'] / 100.0 / 100.0, 4, '.', "");
+                $line['selling_unit_price_with_vat'] = number_format($line['acquisition_unit_price'] * ($line['makeup'] + 100.0) * ($line['vat'] + 100.0) / 100.0 / 100.0, 4, '.', "");
                 array_push($data['lines'], $line);
             }
         }
