@@ -37,13 +37,13 @@
                 ?>
             </td>
             <td><?=$invoice['input_inputreference']?></td>
-            <td><?=date("Y/m/d", strtotime($invoice['date_of_issue']))?></td>
-            <td><?=date("Y/m/d", strtotime($invoice['due_date']))?></td>
-            <td><label><?=number_format($invoice['sub_total']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
-            <td><label><?=number_format($invoice['tax']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
-            <td><label><?=number_format($invoice['total']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
+            <td class="text-center"><?=date("Y/m/d", strtotime($invoice['date_of_issue']))?></td>
+            <td class="text-center"><?=date("Y/m/d", strtotime($invoice['due_date']))?></td>
+            <td class="text-center"><label><?=number_format($invoice['sub_total']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
+            <td class="text-center"><label><?=number_format($invoice['tax']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
+            <td class="text-center"><label><?=number_format($invoice['total']*$invoice['main_coin_rate']/$invoice['invoice_coin_rate'], 2, ".", "")?></label> <label><?=$CoinInfo?></label></td>
             <td class="text-center"><?=$invoice['ispaid']?"<i class='bi custom-paid-icon'></i>":"<i class='bi custom-notpaid-icon'></i>"?></td>
-            <td class="align-middle">
+            <td class="align-middle" style="text-align: center;">
                 <a href="<?=base_url('client/editinvoice/'.$invoice['id'])?>"><i class="bi custom-edit-icon"></i></a>
                 <button onclick="delInvoice('<?=$invoice['id']?>')" <?=$invoice['isremoved']?"disabled":""?>><i class="bi custom-remove-icon"></i></button>
             </td>
