@@ -450,15 +450,15 @@
             <tbody>
                 <tr>
                     <td id="downtotalmark">Total:</td>
-                    <td id="total_first"><?=$total_first?></td>
-                    <td id="total_second"><?=$total_second?></td>
-                    <td id="total_third"><?=$total_third?></td>
+                    <td id="total_first"><?=number_format($total_first, 4, ".", "")?></td>
+                    <td id="total_second"><?=number_format($total_second, 4, ".", "")?></td>
+                    <td id="total_third"><?=number_format($total_third, 4, ".", "")?></td>
                     <td id="total_forth"></td>
                     <td id="total_fifth"></td>
                     <td id="total_sixth"></td>
-                    <td id="total_seventh"><?=$total_seventh?></td>
-                    <td id="total_eighth"><?=$total_eighth?></td>
-                    <td id="total_ninth"><?=$total_ninth?></td>
+                    <td id="total_seventh"><?=number_format($total_seventh, 4, ".", "")?></td>
+                    <td id="total_eighth"><?=number_format($total_eighth, 4, ".", "")?></td>
+                    <td id="total_ninth"><?=number_format($total_ninth, 4, ".", "")?></td>
                 </tr>
             </tbody>
         </table>
