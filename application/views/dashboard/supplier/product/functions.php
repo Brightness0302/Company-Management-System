@@ -678,7 +678,7 @@ async function save_tr(el) {
     $(etd[8]).text(quantity_received);
     $(etd[9]).html("<label class='m-auto inline-block'>"+acq_invoice_price+"</label> <div class='inline-block invoice_coin'>"+invoice_coin+"</div>");
     $(etd[10]).html("<label class='m-auto inline-block'>"+acquisition_unit_price+"</label> <div class='inline-block main_coin'>"+main_coin+"</div>");
-    $(etd[11]).html("<label class='m-auto inline-block'>"+((acquisition_unit_price*vat_percent/100.0)0.001)+"</label> <div class='inline-block main_coin'>"+main_coin+"</div>");
+    $(etd[11]).html("<label class='m-auto inline-block'>"+((acquisition_unit_price*vat_percent/100.0).toFixed(2))+"</label> <div class='inline-block main_coin'>"+main_coin+"</div>");
     $(etd[12]).html("<label class='m-auto inline-block'>"+((acquisition_unit_price*(parseFloat(vat_percent)+100.0)/100.0).toFixed(4))+"</label> <div class='inline-block main_coin'>"+main_coin+"</div>");
     $(etd[13]).html("<label class='m-auto inline-block'>"+((acquisition_unit_price*quantity_on_document).toFixed(4))+"</label> <div class='inline-block main_coin'>"+main_coin+"</div>");
     $(etd[14]).html("<label class='m-auto inline-block'>"+(((acquisition_unit_price*quantity_on_document)*vat_percent/100.0).toFixed(4))+"</label> <div class='inline-block main_coin'>"+main_coin+"</div>");
