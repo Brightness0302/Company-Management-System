@@ -585,25 +585,23 @@ class Home_model extends CI_Model {
             }
         }
         $lines=json_encode($list_lines);
+        // $query =    "SELECT *
+        //             FROM `setting`
+        //             WHERE `id` = '1'";
 
-        $query =    "SELECT *
-                    FROM `setting`
-                    WHERE `id` = '1'";
+        // $data = $this->db->query($query)->result_array();
+        // $data = $data[0];
+        // $input_invoicenumber = intval($data['invoiceid'])+1;
+        // $thisyear = date("Y");
+        // if ($thisyear != $data['invoiceyear']) {
+        //     $data_sql = array(
+        //         'invoiceid'=>0, 
+        //         'invoiceyear'=>date("Y")
+        //     );
 
-        $data = $this->db->query($query)->result_array();
-        $data = $data[0];
-        $input_invoicenumber = intval($data['invoiceid'])+1;
-        $thisyear = date("Y");
-        if ($thisyear != $data['invoiceyear']) {
-            $data_sql = array(
-                'invoiceid'=>0, 
-                'invoiceyear'=>date("Y")
-            );
-
-            $this->db->where('id', 1);
-            $this->db->update('setting', $data_sql);
-        }
-
+        //     $this->db->where('id', 1);
+        //     $this->db->update('setting', $data_sql);
+        // }
         $data_sql = array(
             'date_of_issue'=>$date_of_issue, 
             'due_date'=>$due_date, 
