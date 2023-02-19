@@ -38,7 +38,7 @@
                         $result = $supplier;
                     }
                 }
-                $first=number_format($product['acq_subtotal_without_vat'], 2, '.', ""); $second=number_format($product['acq_subtotal_vat'], 2, '.', ""); $third=number_format($product['acq_subtotal_with_vat'], 2, '.', ""); $fourth=number_format($product['selling_subtotal_without_vat'], 2, '.', ""); $fifth=number_format($product['selling_subtotal_vat'], 2, '.', ""); $sixth=number_format($product['selling_subtotal_with_vat'], 2, '.', "");
+                $first=number_format($product['acq_subtotal_without_vat'], 4, '.', ""); $second=number_format($product['acq_subtotal_vat'], 4, '.', ""); $third=number_format($product['acq_subtotal_with_vat'], 4, '.', ""); $fourth=number_format($product['selling_subtotal_without_vat'], 4, '.', ""); $fifth=number_format($product['selling_subtotal_vat'], 4, '.', ""); $sixth=number_format($product['selling_subtotal_with_vat'], 4, '.', "");
 
                 $acq_subtotal_without_vat+=$first;
                 $acq_subtotal_vat+=$second;
