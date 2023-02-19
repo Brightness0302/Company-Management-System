@@ -422,7 +422,7 @@ class Supplier_model extends CI_Model {
                     $line['acquisition_unit_price'] = $this->currencyConverterRate($line['acquisition_unit_price_on_invoice'], $material['main_coin_rate'], $material['invoice_coin_rate']);
                     $line['value_without_vat'] = $line['acquisition_unit_price'] * $line['quantity_received'];
                     $line['vat'] = ($line['acquisition_unit_price'] * $line['quantity_received'] * $line['vat'])/100.0;
-                    $line['total'] = number_format(($line['acquisition_unit_price'] * $line['quantity_received'] * ($line['vat'] + 100.0))/100.0, 2, ".", "");
+                    $line['total'] = number_format(($line['acquisition_unit_price'] * $line['quantity_received'] * ($line['vat'] + 100.0))/100.0, 4, ".", "");
                     $line['isremoved'] = false;
                     $line['qty'] = $line['quantity_received'];
                     array_push($tlines, $line);
