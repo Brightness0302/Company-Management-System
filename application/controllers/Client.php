@@ -549,11 +549,10 @@ class Client extends CI_Controller
         $this->load->library('Pdf');
 
         $company_name = $this->session->userdata('companyname');
-        $data['user'] = $this->session->userdata('user');
+        $data = $this->getData();
         $company = $this->home->databyname($company_name, 'company');
         if ($company['status']=='failed')
             return;
-        $data['company'] = $company['data'];
         $data['clients'] = $this->home->alldata('client');
         $data['invoice'] = $this->session->userdata('htmltopdf');
 

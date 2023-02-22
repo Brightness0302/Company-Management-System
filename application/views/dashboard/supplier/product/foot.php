@@ -123,12 +123,12 @@ $(function() {
                 forth += parseFloat(data[10]);
                 fifth += parseFloat(data[11]);
                 sixth += parseFloat(data[12]);
-                $("#total_first").html("<label>"+(first).tofixed(4)+"</label> <label>"+coinInfo+"</label>");
-                $("#total_second").html("<label>"+(second).tofixed(4)+"</label> <label>"+coinInfo+"</label>");
-                $("#total_third").html("<label>"+(third).tofixed(4)+"</label> <label>"+coinInfo+"</label>");
-                $("#total_fourth").html("<label>"+(forth).tofixed(4)+"</label> <label>"+coinInfo+"</label>");
-                $("#total_fifth").html("<label>"+(fifth).tofixed(4)+"</label> <label>"+coinInfo+"</label>");
-                $("#total_sixth").html("<label>"+(sixth).tofixed(4)+"</label> <label>"+coinInfo+"</label>");
+                $("#total_first").html("<label>"+(first).toFixed(4)+"</label> <label>"+coinInfo+"</label>");
+                $("#total_second").html("<label>"+(second).toFixed(4)+"</label> <label>"+coinInfo+"</label>");
+                $("#total_third").html("<label>"+(third).toFixed(4)+"</label> <label>"+coinInfo+"</label>");
+                $("#total_fourth").html("<label>"+(forth).toFixed(4)+"</label> <label>"+coinInfo+"</label>");
+                $("#total_fifth").html("<label>"+(fifth).toFixed(4)+"</label> <label>"+coinInfo+"</label>");
+                $("#total_sixth").html("<label>"+(sixth).toFixed(4)+"</label> <label>"+coinInfo+"</label>");
                 return true;
             }
             return false;

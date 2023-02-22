@@ -1,3 +1,4 @@
+<?php $CoinInfo=(($company['Coin']=="EURO")?"€":(($company['Coin']=="POUND")?"£":(($company['Coin']=="USD")?"$":"LEI")))?>
 <html>
     <head>
         <title>
@@ -20,11 +21,13 @@
             }
 
             th {
-                font-size: 12px;
+                font-family: Arial;
+                font-size: 10px;
             }
 
             td {
-                font-size: 10px;
+                font-family: Arial;
+                font-size: 8px;
             }
 
             table#table2{
@@ -55,19 +58,22 @@
             }
             p{
                 margin: 5px;
-                font-size: 14px;
+                font-size: 12px;
                 font-weight: 400;
+                font-family: Arial;
             }
             .div-space {
                 height: 20px;
             }
             .text-supplier-invoice {
+                font-family: Arial;
                 text-align: left;
-                font-size: 18px;
+                font-size: 14px;
                 font-weight: 600;
             }
             .table-title {
-                font-size: 16px;
+                font-family: Arial;
+                font-size: 12px;
             }
         </style>
     </head>
@@ -100,6 +106,10 @@
                     <th>Qty on doc</th>
                     <th>Qty received</th>
                     <th>Acq invoice price</th>
+                    <th>Selling unit price with VAT</th>
+                    <th>Selling amount Ex VAT</th>
+                    <th>VAT: Selling amount</th>
+                    <th>Selling amount with VAT</th>
                     <th>VAT %</th>
                     <th>MarkUp %</th>
                 </thead>
@@ -118,6 +128,10 @@
                         <td><?=$line['quantity_on_document']?></td>
                         <td><?=$line['quantity_received']?></td>
                         <td><?=$line['acquisition_unit_price']?></td>
+                        <td><?=number_format(($line['acquisition_unit_price']*($line['makeup']+100.0)*($line['vat']+100.0)/100.0/100.0), 4, ".", "").' '.$CoinInfo?></td>
+                        <td><?=number_format(($line['acquisition_unit_price']*($line['makeup']+100.0)*$line['quantity_on_document']/100.0), 4, ".", "").' '.$CoinInfo?></td>
+                        <td><?=number_format(($line['acquisition_unit_price']*($line['makeup']+100.0)*$line['quantity_on_document']*$line['vat']/100.0/100.0), 4, ".", "").' '.$CoinInfo?></td>
+                        <td><?=number_format(($line['acquisition_unit_price']*($line['makeup']+100.0)*$line['quantity_on_document']*($line['vat']+100.0)/100.0/100.0), 4, ".", "").' '.$CoinInfo?></td>
                         <td><?=$line['vat']?></td>
                         <td><?=$line['makeup']?></td>
                     </tr>

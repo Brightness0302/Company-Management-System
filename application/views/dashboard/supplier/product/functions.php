@@ -522,7 +522,7 @@ function remove_tr(el) {
 }
 
 function edit_tr(el) {
-    $("#section3").fadeOut();
+    $("#section3").animate({opacity: 0}, 200);
     $("#want_to_add_multiple_sn").fadeOut();
     $('#no_for_multi-SN').trigger('click');
     const etr = $(el).closest('tr');
@@ -577,7 +577,7 @@ function edit_tr(el) {
 }
 
 async function save_tr(el) {
-    $("#section3").fadeIn();
+    $("#section3").animate({opacity: 1}, 200);
     $("#want_to_add_multiple_sn").fadeIn();
     $('#no_for_multi-SN').trigger('click');
     const main_coin = $("#main_coin").val();
@@ -702,7 +702,7 @@ async function save_tr(el) {
 }
 
 function cancel_tr(el) {
-    $("#section3").fadeIn();
+    $("#section3").animate({opacity: 1}, 200);
     $("#want_to_add_multiple_sn").fadeIn();
     $('#no_for_multi-SN').trigger('click');
     const etr = $(el).closest('tr');
