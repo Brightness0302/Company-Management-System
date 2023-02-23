@@ -105,7 +105,12 @@
                     <th>Serial Number</th>
                     <th>Qty on doc</th>
                     <th>Qty received</th>
-                    <th>Acq invoice price</th>
+                    <th>Acq unit price Ex VAT</th>
+                    <th>VAT: Acq/unit</th>
+                    <th>Acq unit price with VAT</th>
+                    <th>Acq amount Ex VAT</th>
+                    <th>Acq amount VAT</th>
+                    <th>Acq total amount</th>
                     <th>Selling unit price with VAT</th>
                     <th>Selling amount Ex VAT</th>
                     <th>VAT: Selling amount</th>
@@ -122,12 +127,17 @@
                         <td><?=$line['stock']?></td>
                         <td><?=$line['expense']?></td>
                         <td><?=$line['project']?></td>
-                        <td><?=$line['production_description']?></td>
+                        <td style="text-align: left;"><?=$line['production_description']?></td>
                         <td><?=$line['units']?></td>
                         <td><?=$line['serial_number']?></td>
                         <td><?=$line['quantity_on_document']?></td>
                         <td><?=$line['quantity_received']?></td>
-                        <td><?=$line['acquisition_unit_price']?></td>
+                        <td><?=number_format($line['acquisition_unit_price'])?></td>
+                        <td><?=number_format($line['acquisition_unit_price']*$line['vat']/100.0, 4, ".", "")?></td>
+                        <td><?=number_format($line['acquisition_unit_price']*($line['vat']+100.0)/100.0, 4, ".", "")?></td>
+                        <td><?=number_format($line['acquisition_unit_price']*$line['quantity_on_document'], 4, ".", "")?></td>
+                        <td><?=number_format($line['acquisition_unit_price']*$line['quantity_on_document']*$line['vat']/100.0, 4, ".", "")?></td>
+                        <td><?=number_format($line['acquisition_unit_price']*$line['quantity_on_document']*($line['vat']+100.0)/100.0, 4, ".", "")?></td>
                         <td><?=number_format(($line['acquisition_unit_price']*($line['makeup']+100.0)*($line['vat']+100.0)/100.0/100.0), 4, ".", "").' '.$CoinInfo?></td>
                         <td><?=number_format(($line['acquisition_unit_price']*($line['makeup']+100.0)*$line['quantity_on_document']/100.0), 4, ".", "").' '.$CoinInfo?></td>
                         <td><?=number_format(($line['acquisition_unit_price']*($line['makeup']+100.0)*$line['quantity_on_document']*$line['vat']/100.0/100.0), 4, ".", "").' '.$CoinInfo?></td>
